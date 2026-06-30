@@ -1,5 +1,7 @@
-import { Activity, Facebook, Instagram, AtSign, MapPin, Phone } from "lucide-react";
+import { Facebook, Instagram, AtSign, MapPin, Phone } from "lucide-react";
 import { NAV_LINKS, WHATSAPP_URL, PHONE_DISPLAY, PHONE_TEL } from "./constants";
+import logoAsset from "@/assets/painfix-logo.png.asset.json";
+
 
 const socials = [
   { icon: Facebook, label: "Facebook", href: "https://facebook.com/painfixphysiotherapy" },
