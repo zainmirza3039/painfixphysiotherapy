@@ -1,12 +1,12 @@
 import { Facebook, Instagram, AtSign, MapPin, Phone } from "lucide-react";
-import { NAV_LINKS, WHATSAPP_URL, PHONE_DISPLAY, PHONE_TEL } from "./constants";
+import { NAV_LINKS, WHATSAPP_URL, PHONE_DISPLAY, PHONE_TEL, SOCIAL_LINKS, CLINIC_ADDRESS, MAP_PLACE_URL } from "./constants";
 import logoAsset from "@/assets/painfix-logo.png.asset.json";
 
 
 const socials = [
-  { icon: Facebook, label: "Facebook", href: "https://facebook.com/painfixphysiotherapy" },
-  { icon: Instagram, label: "Instagram", href: "https://instagram.com/painfixphysiotherapy" },
-  { icon: AtSign, label: "TikTok", href: "https://tiktok.com/@painfixphysiotherapy" },
+  { icon: Facebook, label: "Facebook", ...SOCIAL_LINKS.facebook },
+  { icon: Instagram, label: "Instagram", ...SOCIAL_LINKS.instagram },
+  { icon: AtSign, label: "TikTok", ...SOCIAL_LINKS.tiktok },
 ];
 
 export function Footer() {
@@ -40,10 +40,10 @@ export function Footer() {
               {socials.map((s) => (
                 <a
                   key={s.label}
-                  href={s.href}
+                  href={s.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  aria-label={s.label}
+                  aria-label={`${s.label}: ${s.username}`}
                   className="grid h-10 w-10 place-items-center rounded-xl bg-background/10 transition-colors hover:bg-secondary"
                 >
                   <s.icon className="h-4 w-4" />
@@ -68,9 +68,16 @@ export function Footer() {
           <div>
             <h3 className="font-heading text-sm font-bold uppercase tracking-wider text-background/90">Get in Touch</h3>
             <ul className="mt-4 space-y-3 text-sm text-background/70">
-              <li className="flex items-start gap-2.5">
-                <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-secondary" />
-                <span>Usman Raja Market, Shalimar Colony, Multan</span>
+              <li>
+                <a
+                  href={MAP_PLACE_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-start gap-2.5 transition-colors hover:text-secondary"
+                >
+                  <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-secondary" />
+                  <span>{CLINIC_ADDRESS}</span>
+                </a>
               </li>
               <li>
                 <a href={PHONE_TEL} className="flex items-center gap-2.5 transition-colors hover:text-secondary">

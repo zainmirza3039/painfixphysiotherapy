@@ -6,12 +6,16 @@ import {
   PHONE_DISPLAY,
   PHONE_TEL,
   CLINIC_NAME,
+  CLINIC_ADDRESS_LINES,
+  MAP_PLACE_URL,
+  MAP_DIRECTIONS_URL,
+  SOCIAL_LINKS,
 } from "./constants";
 
 const socials = [
-  { icon: Facebook, label: "Facebook", href: "https://facebook.com/painfixphysiotherapy" },
-  { icon: Instagram, label: "Instagram", href: "https://instagram.com/painfixphysiotherapy" },
-  { icon: AtSign, label: "TikTok", href: "https://tiktok.com/@painfixphysiotherapy" },
+  { icon: Facebook, label: "Facebook", ...SOCIAL_LINKS.facebook },
+  { icon: Instagram, label: "Instagram", ...SOCIAL_LINKS.instagram },
+  { icon: AtSign, label: "TikTok", ...SOCIAL_LINKS.tiktok },
 ];
 
 export function Contact() {
@@ -26,7 +30,12 @@ export function Contact() {
 
         <div className="mt-12 grid gap-6 lg:grid-cols-2">
           <Reveal anim="left" className="space-y-4">
-            <div className="rounded-[1.75rem] border border-border bg-card p-7 shadow-soft">
+            <a
+              href={MAP_PLACE_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover-lift block rounded-[1.75rem] border border-border bg-card p-7 shadow-soft"
+            >
               <div className="flex items-start gap-4">
                 <span className="grid h-11 w-11 shrink-0 place-items-center rounded-2xl bg-secondary/12 text-secondary">
                   <MapPin className="h-5 w-5" />
@@ -34,13 +43,17 @@ export function Contact() {
                 <div>
                   <h3 className="font-heading font-bold text-foreground">Address</h3>
                   <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
-                    Usman Raja Market, Near Khair Ul Maarif School,
-                    <br />
-                    Shalimar Colony, Multan
+                    {CLINIC_ADDRESS_LINES.map((line, i) => (
+                      <span key={i}>
+                        {line}
+                        {i < CLINIC_ADDRESS_LINES.length - 1 && <br />}
+                      </span>
+                    ))}
                   </p>
                 </div>
               </div>
-            </div>
+            </a>
+
 
             <div className="grid gap-4 sm:grid-cols-2">
               <a
@@ -69,22 +82,28 @@ export function Contact() {
 
             <div className="rounded-[1.75rem] border border-border bg-card p-7 shadow-soft">
               <h3 className="font-heading font-bold text-foreground">Follow Us</h3>
-              <p className="mt-1 text-sm text-muted-foreground">@painfixphysiotherapy</p>
-              <div className="mt-4 flex gap-3">
+              <div className="mt-4 space-y-3">
                 {socials.map((s) => (
                   <a
                     key={s.label}
-                    href={s.href}
+                    href={s.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    aria-label={s.label}
-                    className="grid h-11 w-11 place-items-center rounded-2xl bg-primary text-primary-foreground transition-transform hover:scale-110"
+                    aria-label={`${s.label}: ${s.username}`}
+                    className="hover-lift flex items-center gap-3"
                   >
-                    <s.icon className="h-5 w-5" />
+                    <span className="grid h-11 w-11 shrink-0 place-items-center rounded-2xl bg-primary text-primary-foreground transition-transform hover:scale-110">
+                      <s.icon className="h-5 w-5" />
+                    </span>
+                    <span className="min-w-0">
+                      <span className="block text-sm font-semibold text-foreground">{s.label}</span>
+                      <span className="block truncate text-sm text-muted-foreground">{s.username}</span>
+                    </span>
                   </a>
                 ))}
               </div>
             </div>
+
           </Reveal>
 
           <Reveal anim="right">
@@ -100,7 +119,7 @@ export function Contact() {
                 className="block h-[320px] w-full border-0 md:h-[450px]"
               />
               <a
-                href="https://www.google.com/maps/place/PainFix+Physiotherapy+Clinic/@30.2394736,71.4830637,17z"
+                href={MAP_DIRECTIONS_URL}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="hover-lift flex items-center justify-center gap-2 bg-primary px-6 py-4 font-heading font-semibold text-primary-foreground transition-colors hover:bg-primary/90"

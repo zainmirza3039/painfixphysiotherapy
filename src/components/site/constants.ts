@@ -5,17 +5,34 @@ export const PHONE_TEL = "tel:+923143039582";
 // Exact clinic location on Google Maps
 export const CLINIC_NAME = "PainFix Physiotherapy Clinic";
 export const CLINIC_ADDRESS =
-  "Usman Raja Market, Near Khair Ul Maarif School, Shalimar Colony, Multan, Pakistan";
-const CLINIC_QUERY =
-  "PainFix Physiotherapy Clinic, Usman Raja Market, Shalimar Colony, Multan, Pakistan";
-// Embedded map pointing directly to the clinic by name + address
-export const MAP_EMBED_URL = `https://www.google.com/maps?q=${encodeURIComponent(
-  CLINIC_QUERY,
-)}&output=embed`;
-// Opens Google Maps with directions to the clinic
-export const MAP_DIRECTIONS_URL = `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(
-  CLINIC_QUERY,
-)}`;
+  "Usman Raja Market, Near Khair Ul Maarif School, Shalimar Colony, Multan, Punjab, Pakistan";
+// Multi-line address lines for display
+export const CLINIC_ADDRESS_LINES = [
+  "Usman Raja Market,",
+  "Near Khair Ul Maarif School,",
+  "Shalimar Colony,",
+  "Multan, Punjab, Pakistan",
+];
+// Exact Google Maps location of the clinic (used for map link + directions)
+export const MAP_PLACE_URL =
+  "https://www.google.com/maps/place/PainFix+Physiotherapy+Clinic/@30.239469,71.4856386,17z";
+export const MAP_DIRECTIONS_URL = MAP_PLACE_URL;
+
+// Social media profiles
+export const SOCIAL_LINKS = {
+  facebook: {
+    url: "https://facebook.com/painfixphysiotherapy1",
+    username: "painfixphysiotherapy1",
+  },
+  instagram: {
+    url: "https://instagram.com/painfixphysiotherapy_",
+    username: "painfixphysiotherapy_",
+  },
+  tiktok: {
+    url: "https://tiktok.com/@painfixphysiotherapy",
+    username: "@painfixphysiotherapy",
+  },
+};
 
 export const NAV_LINKS = [
   { label: "Home", href: "#home" },
