@@ -16,9 +16,17 @@ export function Footer() {
         <div className="grid gap-10 lg:grid-cols-4">
           <div className="lg:col-span-2">
             <div className="flex items-center gap-2.5">
-              <span className="grid h-10 w-10 place-items-center rounded-xl bg-secondary text-secondary-foreground">
-                <Activity className="h-5 w-5" />
+              <span className="grid h-11 w-11 place-items-center overflow-hidden rounded-xl bg-background p-0.5">
+                <img
+                  src={logoAsset.url}
+                  alt="PainFix Physiotherapy Clinic logo"
+                  width={44}
+                  height={44}
+                  loading="lazy"
+                  className="h-full w-full object-contain"
+                />
               </span>
+
               <div className="leading-tight">
                 <div className="font-heading text-lg font-bold">PainFix</div>
                 <div className="text-xs text-background/60">Physiotherapy Clinic</div>
