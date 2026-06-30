@@ -6,12 +6,16 @@ import {
   PHONE_DISPLAY,
   PHONE_TEL,
   CLINIC_NAME,
+  CLINIC_ADDRESS_LINES,
+  MAP_PLACE_URL,
+  MAP_DIRECTIONS_URL,
+  SOCIAL_LINKS,
 } from "./constants";
 
 const socials = [
-  { icon: Facebook, label: "Facebook", href: "https://facebook.com/painfixphysiotherapy" },
-  { icon: Instagram, label: "Instagram", href: "https://instagram.com/painfixphysiotherapy" },
-  { icon: AtSign, label: "TikTok", href: "https://tiktok.com/@painfixphysiotherapy" },
+  { icon: Facebook, label: "Facebook", ...SOCIAL_LINKS.facebook },
+  { icon: Instagram, label: "Instagram", ...SOCIAL_LINKS.instagram },
+  { icon: AtSign, label: "TikTok", ...SOCIAL_LINKS.tiktok },
 ];
 
 export function Contact() {
