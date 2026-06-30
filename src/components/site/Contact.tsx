@@ -1,7 +1,14 @@
-import { MapPin, Phone, MessageCircle, Facebook, Instagram, AtSign } from "lucide-react";
+import { MapPin, Phone, MessageCircle, Facebook, Instagram, AtSign, Navigation } from "lucide-react";
 import { Reveal } from "./Reveal";
 import { SectionHeading } from "./SectionHeading";
-import { WHATSAPP_URL, PHONE_DISPLAY, PHONE_TEL } from "./constants";
+import {
+  WHATSAPP_URL,
+  PHONE_DISPLAY,
+  PHONE_TEL,
+  MAP_EMBED_URL,
+  MAP_DIRECTIONS_URL,
+  CLINIC_NAME,
+} from "./constants";
 
 const socials = [
   { icon: Facebook, label: "Facebook", href: "https://facebook.com/painfixphysiotherapy" },
