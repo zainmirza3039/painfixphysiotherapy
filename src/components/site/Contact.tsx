@@ -88,17 +88,19 @@ export function Contact() {
           </Reveal>
 
           <Reveal anim="right">
-            <div className="flex h-full flex-col overflow-hidden rounded-[1.75rem] border border-border shadow-soft">
+            <div className="overflow-hidden rounded-[20px] border border-border shadow-soft">
               <iframe
-                title={`${CLINIC_NAME} location on Google Maps`}
-                src={MAP_EMBED_URL}
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3448.330882772591!2d71.4830637!3d30.2394736!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x393ceb007f8c2985%3A0x77b8484bc13b3cce!2sPainFix%20Physiotherapy%20Clinic!5e0!3m2!1sen!2spk!4v1719816000000!5m2!1sen!2spk"
+                width="100%"
+                height="450"
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
                 allowFullScreen
-                className="min-h-[360px] w-full flex-1"
+                title={`${CLINIC_NAME} location on Google Maps`}
+                className="block h-[320px] w-full border-0 md:h-[450px]"
               />
               <a
-                href={MAP_DIRECTIONS_URL}
+                href="https://www.google.com/maps/dir/?api=1&destination=30.2394736,71.4830637"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="hover-lift flex items-center justify-center gap-2 bg-primary px-6 py-4 font-heading font-semibold text-primary-foreground transition-colors hover:bg-primary/90"
