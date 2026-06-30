@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
-import { Activity, Menu, X, MessageCircle } from "lucide-react";
+import { Menu, X, MessageCircle } from "lucide-react";
 import { NAV_LINKS, WHATSAPP_URL } from "./constants";
+import logoAsset from "@/assets/painfix-logo.png.asset.json";
+
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -21,15 +23,22 @@ export function Navbar() {
     >
       <nav className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
         <a href="#home" className="flex min-w-0 items-center gap-2.5" aria-label="PainFix Physiotherapy Clinic home">
-          <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-primary text-primary-foreground shadow-soft">
-            <Activity className="h-5 w-5" />
+          <span className="grid h-11 w-11 shrink-0 place-items-center overflow-hidden rounded-xl bg-background shadow-soft ring-1 ring-border">
+            <img
+              src={logoAsset.url}
+              alt="PainFix Physiotherapy Clinic logo"
+              width={44}
+              height={44}
+              className="h-full w-full object-contain p-0.5"
+            />
           </span>
           <span className="flex min-w-0 flex-col leading-tight">
-            <span className="truncate font-heading text-base font-700 text-foreground sm:text-lg" style={{ fontWeight: 700 }}>
+            <span className="truncate font-heading text-base font-bold text-foreground sm:text-lg">
               PainFix
             </span>
             <span className="truncate text-[11px] font-medium text-muted-foreground">Physiotherapy Clinic</span>
           </span>
+
         </a>
 
         <div className="hidden items-center gap-1 xl:flex">

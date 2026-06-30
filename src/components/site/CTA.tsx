@@ -7,9 +7,10 @@ export function CTA() {
     <section className="py-16 sm:py-24">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <Reveal anim="up">
-          <div className="relative overflow-hidden rounded-[2.5rem] bg-primary px-6 py-14 text-center shadow-card sm:px-12 sm:py-20">
-            <div className="pointer-events-none absolute -top-16 -right-10 h-64 w-64 rounded-full bg-secondary/30 blur-3xl" />
-            <div className="pointer-events-none absolute -bottom-20 -left-10 h-64 w-64 rounded-full bg-secondary/20 blur-3xl" />
+          <div className="relative overflow-hidden rounded-[2.5rem] bg-gradient-to-br from-primary via-primary to-secondary px-6 py-14 text-center shadow-card sm:px-12 sm:py-20">
+            <div className="pointer-events-none absolute -top-16 -right-10 h-64 w-64 rounded-full bg-secondary-glow/40 blur-3xl" />
+            <div className="pointer-events-none absolute -bottom-20 -left-10 h-64 w-64 rounded-full bg-primary-glow/30 blur-3xl" />
+
             <h2 className="relative font-heading text-3xl font-extrabold leading-tight text-primary-foreground sm:text-4xl">
               Ready to Begin Your Recovery?
             </h2>

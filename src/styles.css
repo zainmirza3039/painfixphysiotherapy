@@ -20,8 +20,11 @@
   --color-popover-foreground: var(--popover-foreground);
   --color-primary: var(--primary);
   --color-primary-foreground: var(--primary-foreground);
+  --color-primary-glow: var(--primary-glow);
   --color-secondary: var(--secondary);
   --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary-glow: var(--secondary-glow);
+
   --color-muted: var(--muted);
   --color-muted-foreground: var(--muted-foreground);
   --color-accent: var(--accent);
@@ -36,8 +39,8 @@
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
   --font-heading: "Poppins", ui-sans-serif, system-ui, sans-serif;
 
-  --shadow-soft: 0 4px 20px -6px color-mix(in oklab, var(--primary) 14%, transparent);
-  --shadow-card: 0 12px 40px -12px color-mix(in oklab, var(--primary) 22%, transparent);
+  --shadow-soft: 0 4px 20px -6px color-mix(in oklab, var(--primary) 16%, transparent);
+  --shadow-card: 0 12px 40px -12px color-mix(in oklab, var(--primary) 24%, transparent);
   --shadow-glow: 0 20px 60px -16px color-mix(in oklab, var(--secondary) 40%, transparent);
 }
 
@@ -46,35 +49,46 @@
 
   --background: oklch(1 0 0);
   --foreground: oklch(0.27 0.04 257);
-  --surface: oklch(0.984 0.003 247.86);
+  --surface: oklch(0.985 0.004 247.86);
 
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.27 0.04 257);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.27 0.04 257);
 
-  --primary: oklch(0.41 0.1 250);
+  /* Logo blue #0058A0 */
+  --primary: oklch(0.458 0.136 251.9);
   --primary-foreground: oklch(0.99 0 0);
+  /* Lighter logo blue #0070C8 for gradients/glow */
+  --primary-glow: oklch(0.541 0.16 251.7);
 
-  --secondary: oklch(0.72 0.13 184);
+  /* Logo green #019F61 */
+  --secondary: oklch(0.618 0.146 157.2);
   --secondary-foreground: oklch(0.99 0 0);
+  /* Lighter logo green #02C078 for gradients/glow */
+  --secondary-glow: oklch(0.711 0.167 157.8);
 
   --muted: oklch(0.968 0.007 247.9);
-  --muted-foreground: oklch(0.52 0.03 257);
+  --muted-foreground: oklch(0.5 0.03 257);
 
-  --accent: oklch(0.95 0.04 184);
-  --accent-foreground: oklch(0.41 0.1 250);
+  /* Soft green-tinted accent derived from logo green */
+  --accent: oklch(0.95 0.035 157);
+  --accent-foreground: oklch(0.458 0.136 251.9);
 
   --destructive: oklch(0.577 0.245 27.325);
   --destructive-foreground: oklch(0.99 0 0);
 
   --border: oklch(0.922 0.01 247);
   --input: oklch(0.922 0.01 247);
-  --ring: oklch(0.72 0.13 184);
+  --ring: oklch(0.618 0.146 157.2);
 
-  --gradient-hero: linear-gradient(135deg, oklch(0.41 0.1 250), oklch(0.55 0.12 215));
-  --gradient-teal: linear-gradient(135deg, oklch(0.72 0.13 184), oklch(0.66 0.13 200));
+  /* Gradients built only from logo blue + green */
+  --gradient-hero: linear-gradient(135deg, oklch(0.458 0.136 251.9), oklch(0.618 0.146 157.2));
+  --gradient-blue: linear-gradient(135deg, oklch(0.458 0.136 251.9), oklch(0.541 0.16 251.7));
+  --gradient-teal: linear-gradient(135deg, oklch(0.618 0.146 157.2), oklch(0.711 0.167 157.8));
+  --gradient-brand-soft: linear-gradient(135deg, oklch(0.95 0.03 251.9), oklch(0.95 0.035 157));
 }
+
 
 .dark {
   --background: oklch(0.21 0.04 257);
@@ -84,18 +98,22 @@
   --card-foreground: oklch(0.98 0.003 247);
   --popover: oklch(0.26 0.04 257);
   --popover-foreground: oklch(0.98 0.003 247);
-  --primary: oklch(0.72 0.13 184);
-  --primary-foreground: oklch(0.21 0.04 257);
-  --secondary: oklch(0.72 0.13 184);
+  /* Brighter logo blue for dark surfaces */
+  --primary: oklch(0.62 0.15 251.7);
+  --primary-foreground: oklch(0.99 0 0);
+  --primary-glow: oklch(0.7 0.15 251.7);
+  --secondary: oklch(0.711 0.167 157.8);
   --secondary-foreground: oklch(0.21 0.04 257);
+  --secondary-glow: oklch(0.78 0.16 157.8);
   --muted: oklch(0.3 0.04 257);
   --muted-foreground: oklch(0.7 0.03 257);
-  --accent: oklch(0.3 0.04 257);
+  --accent: oklch(0.32 0.05 157);
   --accent-foreground: oklch(0.98 0.003 247);
   --border: oklch(1 0 0 / 10%);
   --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.72 0.13 184);
+  --ring: oklch(0.711 0.167 157.8);
 }
+
 
 @layer base {
   * {
