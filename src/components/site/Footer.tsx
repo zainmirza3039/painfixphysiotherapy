@@ -68,9 +68,16 @@ export function Footer() {
           <div>
             <h3 className="font-heading text-sm font-bold uppercase tracking-wider text-background/90">Get in Touch</h3>
             <ul className="mt-4 space-y-3 text-sm text-background/70">
-              <li className="flex items-start gap-2.5">
-                <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-secondary" />
-                <span>Usman Raja Market, Shalimar Colony, Multan</span>
+              <li>
+                <a
+                  href={MAP_PLACE_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-start gap-2.5 transition-colors hover:text-secondary"
+                >
+                  <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-secondary" />
+                  <span>{CLINIC_ADDRESS}</span>
+                </a>
               </li>
               <li>
                 <a href={PHONE_TEL} className="flex items-center gap-2.5 transition-colors hover:text-secondary">
