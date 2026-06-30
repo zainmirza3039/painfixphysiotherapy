@@ -5,8 +5,6 @@ import {
   WHATSAPP_URL,
   PHONE_DISPLAY,
   PHONE_TEL,
-  MAP_EMBED_URL,
-  MAP_DIRECTIONS_URL,
   CLINIC_NAME,
 } from "./constants";
 
