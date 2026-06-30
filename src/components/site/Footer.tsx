@@ -40,10 +40,10 @@ export function Footer() {
               {socials.map((s) => (
                 <a
                   key={s.label}
-                  href={s.href}
+                  href={s.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  aria-label={s.label}
+                  aria-label={`${s.label}: ${s.username}`}
                   className="grid h-10 w-10 place-items-center rounded-xl bg-background/10 transition-colors hover:bg-secondary"
                 >
                   <s.icon className="h-4 w-4" />
