@@ -77,19 +77,45 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
-      { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      { name: "theme-color", content: "#0F4C81" },
+      { name: "author", content: "PainFix Physiotherapy Clinic" },
       { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary" },
-      { name: "twitter:site", content: "@Lovable" },
+      { property: "og:site_name", content: "PainFix Physiotherapy Clinic" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
     links: [
+      { rel: "stylesheet", href: appCss },
+      { rel: "preconnect", href: "https://fonts.googleapis.com" },
+      { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {
         rel: "stylesheet",
-        href: appCss,
+        href: "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@500;600;700;800&display=swap",
+      },
+    ],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Physiotherapy",
+          name: "PainFix Physiotherapy Clinic",
+          description:
+            "Evidence-based physiotherapy and rehabilitation in Multan, Pakistan. Personalized treatment plans for pain relief, injury recovery, and restored movement.",
+          telephone: "+92-314-3039582",
+          address: {
+            "@type": "PostalAddress",
+            streetAddress: "Usman Raja Market, Near Khair Ul Maarif School, Shalimar Colony",
+            addressLocality: "Multan",
+            addressCountry: "PK",
+          },
+          medicalSpecialty: "Physiotherapy",
+          priceRange: "$$",
+          sameAs: [
+            "https://facebook.com/painfixphysiotherapy",
+            "https://instagram.com/painfixphysiotherapy",
+            "https://tiktok.com/@painfixphysiotherapy",
+          ],
+        }),
       },
     ],
   }),
