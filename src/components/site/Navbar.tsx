@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
-import { Activity, Menu, X, MessageCircle } from "lucide-react";
+import { Menu, X, MessageCircle } from "lucide-react";
 import { NAV_LINKS, WHATSAPP_URL } from "./constants";
+import logoAsset from "@/assets/painfix-logo.png.asset.json";
+
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
