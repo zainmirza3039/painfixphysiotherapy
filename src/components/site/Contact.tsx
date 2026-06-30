@@ -82,22 +82,28 @@ export function Contact() {
 
             <div className="rounded-[1.75rem] border border-border bg-card p-7 shadow-soft">
               <h3 className="font-heading font-bold text-foreground">Follow Us</h3>
-              <p className="mt-1 text-sm text-muted-foreground">@painfixphysiotherapy</p>
-              <div className="mt-4 flex gap-3">
+              <div className="mt-4 space-y-3">
                 {socials.map((s) => (
                   <a
                     key={s.label}
-                    href={s.href}
+                    href={s.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    aria-label={s.label}
-                    className="grid h-11 w-11 place-items-center rounded-2xl bg-primary text-primary-foreground transition-transform hover:scale-110"
+                    aria-label={`${s.label}: ${s.username}`}
+                    className="hover-lift flex items-center gap-3"
                   >
-                    <s.icon className="h-5 w-5" />
+                    <span className="grid h-11 w-11 shrink-0 place-items-center rounded-2xl bg-primary text-primary-foreground transition-transform hover:scale-110">
+                      <s.icon className="h-5 w-5" />
+                    </span>
+                    <span className="min-w-0">
+                      <span className="block text-sm font-semibold text-foreground">{s.label}</span>
+                      <span className="block truncate text-sm text-muted-foreground">{s.username}</span>
+                    </span>
                   </a>
                 ))}
               </div>
             </div>
+
           </Reveal>
 
           <Reveal anim="right">
