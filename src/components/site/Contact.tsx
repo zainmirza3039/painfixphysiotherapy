@@ -30,7 +30,12 @@ export function Contact() {
 
         <div className="mt-12 grid gap-6 lg:grid-cols-2">
           <Reveal anim="left" className="space-y-4">
-            <div className="rounded-[1.75rem] border border-border bg-card p-7 shadow-soft">
+            <a
+              href={MAP_PLACE_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover-lift block rounded-[1.75rem] border border-border bg-card p-7 shadow-soft"
+            >
               <div className="flex items-start gap-4">
                 <span className="grid h-11 w-11 shrink-0 place-items-center rounded-2xl bg-secondary/12 text-secondary">
                   <MapPin className="h-5 w-5" />
@@ -38,13 +43,17 @@ export function Contact() {
                 <div>
                   <h3 className="font-heading font-bold text-foreground">Address</h3>
                   <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
-                    Usman Raja Market, Near Khair Ul Maarif School,
-                    <br />
-                    Shalimar Colony, Multan
+                    {CLINIC_ADDRESS_LINES.map((line, i) => (
+                      <span key={i}>
+                        {line}
+                        {i < CLINIC_ADDRESS_LINES.length - 1 && <br />}
+                      </span>
+                    ))}
                   </p>
                 </div>
               </div>
-            </div>
+            </a>
+
 
             <div className="grid gap-4 sm:grid-cols-2">
               <a
