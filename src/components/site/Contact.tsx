@@ -1,7 +1,14 @@
-import { MapPin, Phone, MessageCircle, Facebook, Instagram, AtSign } from "lucide-react";
+import { MapPin, Phone, MessageCircle, Facebook, Instagram, AtSign, Navigation } from "lucide-react";
 import { Reveal } from "./Reveal";
 import { SectionHeading } from "./SectionHeading";
-import { WHATSAPP_URL, PHONE_DISPLAY, PHONE_TEL } from "./constants";
+import {
+  WHATSAPP_URL,
+  PHONE_DISPLAY,
+  PHONE_TEL,
+  MAP_EMBED_URL,
+  MAP_DIRECTIONS_URL,
+  CLINIC_NAME,
+} from "./constants";
 
 const socials = [
   { icon: Facebook, label: "Facebook", href: "https://facebook.com/painfixphysiotherapy" },
@@ -83,16 +90,27 @@ export function Contact() {
           </Reveal>
 
           <Reveal anim="right">
-            <div className="h-full overflow-hidden rounded-[1.75rem] border border-border shadow-soft">
+            <div className="flex h-full flex-col overflow-hidden rounded-[1.75rem] border border-border shadow-soft">
               <iframe
-                title="PainFix Physiotherapy Clinic location on Google Maps"
-                src="https://www.google.com/maps?q=Shalimar%20Colony%2C%20Multan%2C%20Pakistan&output=embed"
+                title={`${CLINIC_NAME} location on Google Maps`}
+                src={MAP_EMBED_URL}
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
-                className="h-full min-h-[360px] w-full"
+                allowFullScreen
+                className="min-h-[360px] w-full flex-1"
               />
+              <a
+                href={MAP_DIRECTIONS_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover-lift flex items-center justify-center gap-2 bg-primary px-6 py-4 font-heading font-semibold text-primary-foreground transition-colors hover:bg-primary/90"
+              >
+                <Navigation className="h-5 w-5" />
+                Get Directions
+              </a>
             </div>
           </Reveal>
+
         </div>
       </div>
     </section>
