@@ -100,7 +100,7 @@ export function Contact() {
                 className="block h-[320px] w-full border-0 md:h-[450px]"
               />
               <a
-                href="https://www.google.com/maps/dir/?api=1&destination=30.2394736,71.4830637"
+                href="https://www.google.com/maps/place/PainFix+Physiotherapy+Clinic/@30.2394736,71.4830637,17z"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="hover-lift flex items-center justify-center gap-2 bg-primary px-6 py-4 font-heading font-semibold text-primary-foreground transition-colors hover:bg-primary/90"
