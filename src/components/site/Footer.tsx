@@ -1,12 +1,12 @@
 import { Facebook, Instagram, AtSign, MapPin, Phone } from "lucide-react";
-import { NAV_LINKS, WHATSAPP_URL, PHONE_DISPLAY, PHONE_TEL } from "./constants";
+import { NAV_LINKS, WHATSAPP_URL, PHONE_DISPLAY, PHONE_TEL, SOCIAL_LINKS, CLINIC_ADDRESS, MAP_PLACE_URL } from "./constants";
 import logoAsset from "@/assets/painfix-logo.png.asset.json";
 
 
 const socials = [
-  { icon: Facebook, label: "Facebook", href: "https://facebook.com/painfixphysiotherapy" },
-  { icon: Instagram, label: "Instagram", href: "https://instagram.com/painfixphysiotherapy" },
-  { icon: AtSign, label: "TikTok", href: "https://tiktok.com/@painfixphysiotherapy" },
+  { icon: Facebook, label: "Facebook", ...SOCIAL_LINKS.facebook },
+  { icon: Instagram, label: "Instagram", ...SOCIAL_LINKS.instagram },
+  { icon: AtSign, label: "TikTok", ...SOCIAL_LINKS.tiktok },
 ];
 
 export function Footer() {
