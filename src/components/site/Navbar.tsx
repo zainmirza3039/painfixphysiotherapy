@@ -87,15 +87,16 @@ export function Navbar() {
                 {l.label}
               </a>
             ))}
-            <a
-              href={WHATSAPP_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={() => setOpen(false)}
+            <button
+              type="button"
+              onClick={() => {
+                setOpen(false);
+                openCalendlyPopup();
+              }}
               className="mt-2 inline-flex items-center justify-center gap-2 rounded-xl bg-secondary px-4 py-3 text-sm font-semibold text-secondary-foreground"
             >
               <MessageCircle className="h-4 w-4" /> Book Appointment
-            </a>
+            </button>
           </div>
         </div>
       )}
