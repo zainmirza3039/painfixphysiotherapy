@@ -54,9 +54,16 @@ export function Navbar() {
               {l.label}
             </a>
           ))}
+          <Link
+            to="/home-visit"
+            className="inline-flex items-center gap-1.5 rounded-full px-3 py-2 text-sm font-medium text-foreground/80 transition-colors hover:bg-accent hover:text-primary"
+          >
+            <Home className="h-4 w-4" /> Home Visit
+          </Link>
         </div>
 
         <div className="flex items-center gap-2">
+          <LanguageToggle className="hidden sm:inline-flex" />
           <button
             type="button"
             onClick={() => openCalendlyPopup()}
