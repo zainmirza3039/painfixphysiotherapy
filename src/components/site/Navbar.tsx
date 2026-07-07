@@ -55,14 +55,13 @@ export function Navbar() {
         </div>
 
         <div className="flex items-center gap-2">
-          <a
-            href={WHATSAPP_URL}
-            target="_blank"
-            rel="noopener noreferrer"
+          <button
+            type="button"
+            onClick={() => openCalendlyPopup()}
             className="ripple hidden items-center gap-2 rounded-full bg-secondary px-5 py-2.5 text-sm font-semibold text-secondary-foreground shadow-soft transition-transform hover:scale-105 sm:inline-flex"
           >
             Book Appointment
-          </a>
+          </button>
           <button
             type="button"
             aria-label="Toggle menu"
