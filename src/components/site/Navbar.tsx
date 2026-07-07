@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Menu, X, MessageCircle } from "lucide-react";
-import { NAV_LINKS, WHATSAPP_URL } from "./constants";
+import { NAV_LINKS } from "./constants";
+import { openCalendlyPopup } from "./calendly";
 import logoAsset from "@/assets/painfix-logo.png.asset.json";
 
 
@@ -54,14 +55,13 @@ export function Navbar() {
         </div>
 
         <div className="flex items-center gap-2">
-          <a
-            href={WHATSAPP_URL}
-            target="_blank"
-            rel="noopener noreferrer"
+          <button
+            type="button"
+            onClick={() => openCalendlyPopup()}
             className="ripple hidden items-center gap-2 rounded-full bg-secondary px-5 py-2.5 text-sm font-semibold text-secondary-foreground shadow-soft transition-transform hover:scale-105 sm:inline-flex"
           >
             Book Appointment
-          </a>
+          </button>
           <button
             type="button"
             aria-label="Toggle menu"
@@ -87,15 +87,16 @@ export function Navbar() {
                 {l.label}
               </a>
             ))}
-            <a
-              href={WHATSAPP_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={() => setOpen(false)}
+            <button
+              type="button"
+              onClick={() => {
+                setOpen(false);
+                openCalendlyPopup();
+              }}
               className="mt-2 inline-flex items-center justify-center gap-2 rounded-xl bg-secondary px-4 py-3 text-sm font-semibold text-secondary-foreground"
             >
               <MessageCircle className="h-4 w-4" /> Book Appointment
-            </a>
+            </button>
           </div>
         </div>
       )}

@@ -2,6 +2,10 @@ export const WHATSAPP_URL = "https://wa.me/923143039582";
 export const PHONE_DISPLAY = "0314-3039582";
 export const PHONE_TEL = "tel:+923143039582";
 
+// Calendly scheduling link — swap this for your real Calendly event URL.
+// e.g. "https://calendly.com/painfixphysiotherapy/consultation"
+export const CALENDLY_URL = "https://calendly.com/painfixphysiotherapy/consultation";
+
 // Exact clinic location on Google Maps
 export const CLINIC_NAME = "PainFix Physiotherapy Clinic";
 export const CLINIC_ADDRESS =
