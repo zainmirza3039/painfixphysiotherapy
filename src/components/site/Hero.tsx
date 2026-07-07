@@ -33,14 +33,13 @@ export function Hero() {
             overcome pain, recover from injuries, and restore movement through personalized treatment plans.
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
-            <a
-              href={WHATSAPP_URL}
-              target="_blank"
-              rel="noopener noreferrer"
+            <button
+              type="button"
+              onClick={() => openCalendlyPopup()}
               className="ripple inline-flex items-center gap-2 rounded-2xl bg-primary px-6 py-3.5 text-sm font-semibold text-primary-foreground shadow-card transition-transform hover:scale-[1.03]"
             >
               <Calendar className="h-4 w-4" /> Book Appointment
-            </a>
+            </button>
             <a
               href={WHATSAPP_URL}
               target="_blank"
