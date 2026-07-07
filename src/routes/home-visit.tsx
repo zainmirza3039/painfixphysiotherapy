@@ -129,7 +129,7 @@ function HomeVisitPage() {
             </Reveal>
             <div className="mt-8 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
               {t.homePhysio.suitable.map((item, i) => (
-                <Reveal anim="up" key={item} style={{ transitionDelay: `${i * 40}ms` }}>
+                <Reveal anim="up" key={item}>
                   <div className="hover-lift flex items-center gap-3 rounded-2xl border border-border bg-card p-4 shadow-soft">
                     <CheckCircle2 className="h-5 w-5 shrink-0 text-secondary" />
                     <span className="text-sm font-medium text-foreground">{item}</span>
@@ -153,7 +153,7 @@ function HomeVisitPage() {
               {hv.how.steps.map((step, i) => {
                 const Icon = stepIcons[i] ?? ClipboardList;
                 return (
-                  <Reveal anim="up" key={step.title} style={{ transitionDelay: `${i * 60}ms` }}>
+                  <Reveal anim="up" key={step.title}>
                     <div className="hover-lift relative h-full rounded-[1.75rem] border border-border bg-card p-6 shadow-soft">
                       <span className="absolute end-5 top-5 font-heading text-4xl font-extrabold text-primary/10">
                         {i + 1}
@@ -219,7 +219,7 @@ function HomeVisitPage() {
             </Reveal>
             <div className="mt-10 grid gap-4 sm:grid-cols-2">
               {hv.pricing.items.map((item, i) => (
-                <Reveal anim="up" key={item} style={{ transitionDelay: `${i * 50}ms` }}>
+                <Reveal anim="up" key={item}>
                   <div className="hover-lift flex items-center justify-between gap-4 rounded-2xl border border-border bg-card p-5 shadow-soft">
                     <span className="font-medium text-foreground">{item}</span>
                     <span className="rounded-full bg-accent px-3 py-1 text-xs font-semibold text-accent-foreground">
