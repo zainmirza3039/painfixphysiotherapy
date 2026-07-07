@@ -2,6 +2,7 @@ import { MapPin, Phone, MessageCircle, Facebook, Instagram, AtSign, Navigation, 
 import { Reveal } from "./Reveal";
 import { SectionHeading } from "./SectionHeading";
 import { CalendlyInline } from "./CalendlyInline";
+import { ContactForm } from "./ContactForm";
 import {
   WHATSAPP_URL,
   PHONE_DISPLAY,
