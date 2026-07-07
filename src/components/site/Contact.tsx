@@ -1,6 +1,7 @@
-import { MapPin, Phone, MessageCircle, Facebook, Instagram, AtSign, Navigation } from "lucide-react";
+import { MapPin, Phone, MessageCircle, Facebook, Instagram, AtSign, Navigation, CalendarClock } from "lucide-react";
 import { Reveal } from "./Reveal";
 import { SectionHeading } from "./SectionHeading";
+import { CalendlyInline } from "./CalendlyInline";
 import {
   WHATSAPP_URL,
   PHONE_DISPLAY,
