@@ -2,6 +2,7 @@ import { MapPin, Phone, MessageCircle, Facebook, Instagram, AtSign, Navigation, 
 import { Reveal } from "./Reveal";
 import { SectionHeading } from "./SectionHeading";
 import { CalendlyInline } from "./CalendlyInline";
+import { ContactForm } from "./ContactForm";
 import {
   WHATSAPP_URL,
   PHONE_DISPLAY,
@@ -133,22 +134,34 @@ export function Contact() {
 
         </div>
 
-        <Reveal anim="up" className="mt-6">
-          <div id="book" className="rounded-[1.75rem] border border-border bg-card p-5 shadow-soft sm:p-7">
-            <div className="mb-5 flex items-start gap-4">
-              <span className="grid h-11 w-11 shrink-0 place-items-center rounded-2xl bg-primary/12 text-primary">
-                <CalendarClock className="h-5 w-5" />
-              </span>
-              <div>
-                <h3 className="font-heading text-xl font-bold text-foreground">Book Your Appointment</h3>
-                <p className="mt-1 text-sm text-muted-foreground">
-                  Pick a time that works for you and schedule instantly — no calls needed.
-                </p>
+        <div className="mt-6 grid gap-6 lg:grid-cols-2">
+          <Reveal anim="left">
+            <div className="rounded-[1.75rem] border border-border bg-card p-5 shadow-soft sm:p-7">
+              <h3 className="font-heading text-xl font-bold text-foreground">Send us a message</h3>
+              <p className="mt-1 text-sm text-muted-foreground">We'll get back to you as soon as possible.</p>
+              <div className="mt-5">
+                <ContactForm />
               </div>
             </div>
-            <CalendlyInline />
-          </div>
-        </Reveal>
+          </Reveal>
+
+          <Reveal anim="right">
+            <div id="book" className="rounded-[1.75rem] border border-border bg-card p-5 shadow-soft sm:p-7">
+              <div className="mb-5 flex items-start gap-4">
+                <span className="grid h-11 w-11 shrink-0 place-items-center rounded-2xl bg-primary/12 text-primary">
+                  <CalendarClock className="h-5 w-5" />
+                </span>
+                <div>
+                  <h3 className="font-heading text-xl font-bold text-foreground">Book Your Appointment</h3>
+                  <p className="mt-1 text-sm text-muted-foreground">
+                    Pick a time that works for you and schedule instantly — no calls needed.
+                  </p>
+                </div>
+              </div>
+              <CalendlyInline />
+            </div>
+          </Reveal>
+        </div>
       </div>
     </section>
   );

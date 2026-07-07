@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
-import { Menu, X, MessageCircle } from "lucide-react";
+import { Menu, X, MessageCircle, Home } from "lucide-react";
+import { Link } from "@tanstack/react-router";
 import { NAV_LINKS } from "./constants";
 import { openCalendlyPopup } from "./calendly";
+import { LanguageToggle } from "./LanguageToggle";
 import logoAsset from "@/assets/painfix-logo.png.asset.json";
 
 
@@ -52,9 +54,16 @@ export function Navbar() {
               {l.label}
             </a>
           ))}
+          <Link
+            to="/home-visit"
+            className="inline-flex items-center gap-1.5 rounded-full px-3 py-2 text-sm font-medium text-foreground/80 transition-colors hover:bg-accent hover:text-primary"
+          >
+            <Home className="h-4 w-4" /> Home Visit
+          </Link>
         </div>
 
         <div className="flex items-center gap-2">
+          <LanguageToggle className="hidden sm:inline-flex" />
           <button
             type="button"
             onClick={() => openCalendlyPopup()}
@@ -87,6 +96,16 @@ export function Navbar() {
                 {l.label}
               </a>
             ))}
+            <Link
+              to="/home-visit"
+              onClick={() => setOpen(false)}
+              className="inline-flex items-center gap-2 rounded-xl px-4 py-3 text-sm font-medium text-foreground/85 transition-colors hover:bg-accent hover:text-primary"
+            >
+              <Home className="h-4 w-4" /> Home Visit
+            </Link>
+            <div className="px-1 pt-1">
+              <LanguageToggle className="w-full justify-center" />
+            </div>
             <button
               type="button"
               onClick={() => {
