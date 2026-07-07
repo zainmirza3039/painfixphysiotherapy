@@ -2,6 +2,7 @@ import { Calendar, MessageCircle, ShieldCheck, HeartPulse, Stethoscope } from "l
 import heroImg from "@/assets/hero.jpg";
 import { Reveal } from "./Reveal";
 import { WHATSAPP_URL } from "./constants";
+import { openCalendlyPopup } from "./calendly";
 
 const floatingCards = [
   { icon: ShieldCheck, label: "Evidence-Based Care", pos: "left-2 top-8 sm:-left-6", anim: "left" as const },
