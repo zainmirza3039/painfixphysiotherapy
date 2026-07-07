@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Menu, X, MessageCircle } from "lucide-react";
 import { NAV_LINKS, WHATSAPP_URL } from "./constants";
+import { openCalendlyPopup } from "./calendly";
 import logoAsset from "@/assets/painfix-logo.png.asset.json";
 
 
