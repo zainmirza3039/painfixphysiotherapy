@@ -14,7 +14,78 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      contact_submissions: {
+        Row: {
+          created_at: string
+          email: string | null
+          id: string
+          message: string
+          name: string
+          phone: string | null
+        }
+        Insert: {
+          created_at?: string
+          email?: string | null
+          id?: string
+          message: string
+          name: string
+          phone?: string | null
+        }
+        Update: {
+          created_at?: string
+          email?: string | null
+          id?: string
+          message?: string
+          name?: string
+          phone?: string | null
+        }
+        Relationships: []
+      }
+      home_visit_requests: {
+        Row: {
+          address: string
+          created_at: string
+          full_name: string
+          id: string
+          maps_location: string | null
+          medical_condition: string | null
+          notes: string | null
+          patient_age: number | null
+          phone: string
+          preferred_date: string | null
+          preferred_time: string | null
+          report_url: string | null
+        }
+        Insert: {
+          address: string
+          created_at?: string
+          full_name: string
+          id?: string
+          maps_location?: string | null
+          medical_condition?: string | null
+          notes?: string | null
+          patient_age?: number | null
+          phone: string
+          preferred_date?: string | null
+          preferred_time?: string | null
+          report_url?: string | null
+        }
+        Update: {
+          address?: string
+          created_at?: string
+          full_name?: string
+          id?: string
+          maps_location?: string | null
+          medical_condition?: string | null
+          notes?: string | null
+          patient_age?: number | null
+          phone?: string
+          preferred_date?: string | null
+          preferred_time?: string | null
+          report_url?: string | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
