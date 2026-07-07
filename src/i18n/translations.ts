@@ -162,7 +162,7 @@ export const en = {
     contact: "Contact",
     rights: "All rights reserved.",
   },
-} as const;
+};
 
 export type Dict = typeof en;
 
