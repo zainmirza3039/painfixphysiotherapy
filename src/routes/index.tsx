@@ -46,6 +46,7 @@ function Index() {
         <WhyChooseUs />
         <Services />
         <Conditions />
+        <HomePhysio />
         <About />
         <Process />
         <Testimonials />
