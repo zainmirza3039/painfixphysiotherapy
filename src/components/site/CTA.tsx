@@ -1,6 +1,7 @@
 import { Calendar, MessageCircle } from "lucide-react";
 import { Reveal } from "./Reveal";
 import { WHATSAPP_URL } from "./constants";
+import { openCalendlyPopup } from "./calendly";
 
 export function CTA() {
   return (
