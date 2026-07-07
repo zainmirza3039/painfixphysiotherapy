@@ -132,6 +132,23 @@ export function Contact() {
           </Reveal>
 
         </div>
+
+        <Reveal anim="up" className="mt-6">
+          <div id="book" className="rounded-[1.75rem] border border-border bg-card p-5 shadow-soft sm:p-7">
+            <div className="mb-5 flex items-start gap-4">
+              <span className="grid h-11 w-11 shrink-0 place-items-center rounded-2xl bg-primary/12 text-primary">
+                <CalendarClock className="h-5 w-5" />
+              </span>
+              <div>
+                <h3 className="font-heading text-xl font-bold text-foreground">Book Your Appointment</h3>
+                <p className="mt-1 text-sm text-muted-foreground">
+                  Pick a time that works for you and schedule instantly — no calls needed.
+                </p>
+              </div>
+            </div>
+            <CalendlyInline />
+          </div>
+        </Reveal>
       </div>
     </section>
   );
