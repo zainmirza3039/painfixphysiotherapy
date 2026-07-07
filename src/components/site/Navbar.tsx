@@ -96,6 +96,16 @@ export function Navbar() {
                 {l.label}
               </a>
             ))}
+            <Link
+              to="/home-visit"
+              onClick={() => setOpen(false)}
+              className="inline-flex items-center gap-2 rounded-xl px-4 py-3 text-sm font-medium text-foreground/85 transition-colors hover:bg-accent hover:text-primary"
+            >
+              <Home className="h-4 w-4" /> Home Visit
+            </Link>
+            <div className="px-1 pt-1">
+              <LanguageToggle className="w-full justify-center" />
+            </div>
             <button
               type="button"
               onClick={() => {
