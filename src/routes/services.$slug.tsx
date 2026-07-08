@@ -186,5 +186,3 @@ function ServiceDetail() {
     </PageLayout>
   );
 }
-
-export const _services = services;
