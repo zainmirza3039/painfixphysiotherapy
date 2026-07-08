@@ -11,7 +11,7 @@ const TITLE = "Physiotherapy Services in Multan | PainFix Physiotherapy Clinic";
 const DESCRIPTION =
   "Explore our full range of physiotherapy services in Multan — manual therapy, exercise therapy, electrotherapy, sports rehab, home physiotherapy and more.";
 
-export const Route = createFileRoute("/services")({
+export const Route = createFileRoute("/services/")({
   head: () => ({
     meta: pageMeta({ title: TITLE, description: DESCRIPTION, path: "/services" }),
     links: canonical("/services"),
