@@ -14,6 +14,7 @@ import { Route as HomeVisitRouteImport } from './routes/home-visit'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ServicesIndexRouteImport } from './routes/services.index'
 import { Route as ServicesSlugRouteImport } from './routes/services.$slug'
+import { Route as ConditionsSlugRouteImport } from './routes/conditions.$slug'
 
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
@@ -40,11 +41,17 @@ const ServicesSlugRoute = ServicesSlugRouteImport.update({
   path: '/services/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ConditionsSlugRoute = ConditionsSlugRouteImport.update({
+  id: '/conditions/$slug',
+  path: '/conditions/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/home-visit': typeof HomeVisitRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/conditions/$slug': typeof ConditionsSlugRoute
   '/services/$slug': typeof ServicesSlugRoute
   '/services/': typeof ServicesIndexRoute
 }
@@ -52,6 +59,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/home-visit': typeof HomeVisitRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/conditions/$slug': typeof ConditionsSlugRoute
   '/services/$slug': typeof ServicesSlugRoute
   '/services': typeof ServicesIndexRoute
 }
@@ -60,6 +68,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/home-visit': typeof HomeVisitRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/conditions/$slug': typeof ConditionsSlugRoute
   '/services/$slug': typeof ServicesSlugRoute
   '/services/': typeof ServicesIndexRoute
 }
@@ -69,15 +78,23 @@ export interface FileRouteTypes {
     | '/'
     | '/home-visit'
     | '/sitemap.xml'
+    | '/conditions/$slug'
     | '/services/$slug'
     | '/services/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/home-visit' | '/sitemap.xml' | '/services/$slug' | '/services'
+  to:
+    | '/'
+    | '/home-visit'
+    | '/sitemap.xml'
+    | '/conditions/$slug'
+    | '/services/$slug'
+    | '/services'
   id:
     | '__root__'
     | '/'
     | '/home-visit'
     | '/sitemap.xml'
+    | '/conditions/$slug'
     | '/services/$slug'
     | '/services/'
   fileRoutesById: FileRoutesById
@@ -86,6 +103,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   HomeVisitRoute: typeof HomeVisitRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
+  ConditionsSlugRoute: typeof ConditionsSlugRoute
   ServicesSlugRoute: typeof ServicesSlugRoute
   ServicesIndexRoute: typeof ServicesIndexRoute
 }
@@ -127,6 +145,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ServicesSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/conditions/$slug': {
+      id: '/conditions/$slug'
+      path: '/conditions/$slug'
+      fullPath: '/conditions/$slug'
+      preLoaderRoute: typeof ConditionsSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -134,6 +159,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   HomeVisitRoute: HomeVisitRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
+  ConditionsSlugRoute: ConditionsSlugRoute,
   ServicesSlugRoute: ServicesSlugRoute,
   ServicesIndexRoute: ServicesIndexRoute,
 }
