@@ -1,4 +1,3 @@
-import { Link } from "@tanstack/react-router";
 import { ChevronRight, Home } from "lucide-react";
 import type { Crumb } from "@/lib/seo";
 
@@ -17,9 +16,9 @@ export function Breadcrumbs({ items }: { items: Crumb[] }) {
                 </span>
               ) : (
                 <>
-                  <Link to={item.path} className="transition-colors hover:text-primary">
+                  <a href={item.path} className="transition-colors hover:text-primary">
                     {item.label}
-                  </Link>
+                  </a>
                   <ChevronRight className="h-3.5 w-3.5 rtl:rotate-180" aria-hidden="true" />
                 </>
               )}
