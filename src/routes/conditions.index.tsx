@@ -11,7 +11,7 @@ const TITLE = "Conditions We Treat in Multan | PainFix Physiotherapy Clinic";
 const DESCRIPTION =
   "From back pain and sciatica to sports injuries and stroke rehabilitation — explore the conditions we treat with evidence-based physiotherapy in Multan.";
 
-export const Route = createFileRoute("/conditions")({
+export const Route = createFileRoute("/conditions/")({
   head: () => ({
     meta: pageMeta({ title: TITLE, description: DESCRIPTION, path: "/conditions" }),
     links: canonical("/conditions"),
