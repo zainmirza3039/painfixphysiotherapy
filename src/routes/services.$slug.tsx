@@ -64,7 +64,7 @@ function ServiceNotFound() {
 }
 
 function ServiceDetail() {
-  const service = Route.useLoaderData();
+  const service: Service = Route.useLoaderData();
   const Icon = service.icon;
 
   return (
