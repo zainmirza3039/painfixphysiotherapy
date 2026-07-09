@@ -81,6 +81,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { name: "theme-color", content: "#0F4C81" },
       { name: "author", content: "PainFix Physiotherapy Clinic" },
+      { name: "google-site-verification", content: "3bV8F81i2VTJdIbqGuC217jQ4AaSTxmLIKHuNJzc16U" },
       { property: "og:type", content: "website" },
       { property: "og:site_name", content: "PainFix Physiotherapy Clinic" },
       { name: "twitter:card", content: "summary_large_image" },
