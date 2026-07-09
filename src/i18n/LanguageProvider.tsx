@@ -26,6 +26,15 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     document.documentElement.lang = lang;
     document.documentElement.dir = dir;
+    // Load the heavy Urdu webfont only when Urdu is actually selected.
+    if (lang === "ur" && !document.getElementById("urdu-font")) {
+      const link = document.createElement("link");
+      link.id = "urdu-font";
+      link.rel = "stylesheet";
+      link.href =
+        "https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;500;600;700&display=swap";
+      document.head.appendChild(link);
+    }
   }, [lang, dir]);
 
   const setLang = (next: Lang) => {
