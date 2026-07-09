@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { HeartPulse, Home, CheckCircle2, ArrowRight } from "lucide-react";
-import homeVisitImg from "@/assets/home-visit.jpg";
+import homeVisitImg from "@/assets/home-visit.webp";
 import { Reveal } from "./Reveal";
 import { useI18n } from "@/i18n/LanguageProvider";
 

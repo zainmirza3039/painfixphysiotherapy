@@ -15,7 +15,7 @@ import {
   Minus,
 } from "lucide-react";
 import { useState } from "react";
-import homeVisitImg from "@/assets/home-visit.jpg";
+import homeVisitImg from "@/assets/home-visit.webp";
 import { Navbar } from "@/components/site/Navbar";
 import { Footer } from "@/components/site/Footer";
 import { WhatsAppFab } from "@/components/site/WhatsAppFab";

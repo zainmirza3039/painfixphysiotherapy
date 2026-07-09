@@ -1,7 +1,6 @@
 import { useState, type FormEvent } from "react";
 import { Loader2, Send, Upload } from "lucide-react";
 import { toast } from "sonner";
-import { supabase } from "@/integrations/supabase/client";
 import { useI18n } from "@/i18n/LanguageProvider";
 
 const initial = {
@@ -34,6 +33,7 @@ export function HomeVisitForm() {
     }
     setSubmitting(true);
     try {
+      const { supabase } = await import("@/integrations/supabase/client");
       let report_url: string | null = null;
 
       if (file) {

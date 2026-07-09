@@ -1,7 +1,7 @@
-import clinicImg from "@/assets/gallery-clinic.jpg";
-import treatmentImg from "@/assets/gallery-treatment.jpg";
-import equipmentImg from "@/assets/gallery-equipment.jpg";
-import patientsImg from "@/assets/gallery-patients.jpg";
+import clinicImg from "@/assets/gallery-clinic.webp";
+import treatmentImg from "@/assets/gallery-treatment.webp";
+import equipmentImg from "@/assets/gallery-equipment.webp";
+import patientsImg from "@/assets/gallery-patients.webp";
 import { Reveal } from "./Reveal";
 import { SectionHeading } from "./SectionHeading";
 

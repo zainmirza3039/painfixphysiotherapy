@@ -1,5 +1,5 @@
 import { Calendar, MessageCircle, ShieldCheck, HeartPulse, Stethoscope } from "lucide-react";
-import heroImg from "@/assets/hero.jpg";
+import heroImg from "@/assets/hero.webp";
 import { Reveal } from "./Reveal";
 import { WHATSAPP_URL } from "./constants";
 import { openCalendlyPopup } from "./calendly";
@@ -57,8 +57,8 @@ export function Hero() {
               <img
                 src={heroImg}
                 alt="Professional physiotherapist treating a patient at PainFix Physiotherapy Clinic"
-                width={1280}
-                height={1280}
+                width={1100}
+                height={1100}
                 className="h-full w-full object-cover"
                 fetchPriority="high"
               />
