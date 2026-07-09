@@ -1,5 +1,5 @@
 import { Calendar, MessageCircle, ShieldCheck, HeartPulse, Stethoscope } from "lucide-react";
-import heroImg from "@/assets/hero.jpg";
+import heroImg from "@/assets/hero.webp";
 import { Reveal } from "./Reveal";
 import { WHATSAPP_URL } from "./constants";
 import { openCalendlyPopup } from "./calendly";

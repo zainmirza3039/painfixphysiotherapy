@@ -1,5 +1,5 @@
 import { CheckCircle2 } from "lucide-react";
-import clinicImg from "@/assets/gallery-clinic.jpg";
+import clinicImg from "@/assets/gallery-clinic.webp";
 import { Reveal } from "./Reveal";
 
 const points = [
