@@ -33,6 +33,7 @@ export function HomeVisitForm() {
     }
     setSubmitting(true);
     try {
+      const { supabase } = await import("@/integrations/supabase/client");
       let report_url: string | null = null;
 
       if (file) {
