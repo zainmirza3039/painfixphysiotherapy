@@ -57,8 +57,8 @@ export function Hero() {
               <img
                 src={heroImg}
                 alt="Professional physiotherapist treating a patient at PainFix Physiotherapy Clinic"
-                width={1280}
-                height={1280}
+                width={1100}
+                height={1100}
                 className="h-full w-full object-cover"
                 fetchPriority="high"
               />
