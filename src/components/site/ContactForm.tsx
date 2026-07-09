@@ -1,7 +1,6 @@
 import { useState, type FormEvent } from "react";
 import { Loader2, Send } from "lucide-react";
 import { toast } from "sonner";
-import { supabase } from "@/integrations/supabase/client";
 import { useI18n } from "@/i18n/LanguageProvider";
 
 export function ContactForm() {
@@ -18,6 +17,7 @@ export function ContactForm() {
     }
     setSubmitting(true);
     try {
+      const { supabase } = await import("@/integrations/supabase/client");
       const { error } = await supabase.from("contact_submissions").insert({
         name: values.name.trim(),
         email: values.email.trim() || null,
