@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Menu, X, MessageCircle, Home } from "lucide-react";
+import { Menu, X, MessageCircle, Home, BookOpen } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 import { NAV_LINKS } from "./constants";
 import { openCalendlyPopup } from "./calendly";
@@ -60,6 +60,12 @@ export function Navbar() {
           >
             <Home className="h-4 w-4" /> Home Visit
           </Link>
+          <Link
+            to="/blog"
+            className="inline-flex items-center gap-1.5 rounded-full px-3 py-2 text-sm font-medium text-foreground/80 transition-colors hover:bg-accent hover:text-primary"
+          >
+            <BookOpen className="h-4 w-4" /> Blog
+          </Link>
         </div>
 
         <div className="flex items-center gap-2">
@@ -102,6 +108,13 @@ export function Navbar() {
               className="inline-flex items-center gap-2 rounded-xl px-4 py-3 text-sm font-medium text-foreground/85 transition-colors hover:bg-accent hover:text-primary"
             >
               <Home className="h-4 w-4" /> Home Visit
+            </Link>
+            <Link
+              to="/blog"
+              onClick={() => setOpen(false)}
+              className="inline-flex items-center gap-2 rounded-xl px-4 py-3 text-sm font-medium text-foreground/85 transition-colors hover:bg-accent hover:text-primary"
+            >
+              <BookOpen className="h-4 w-4" /> Blog
             </Link>
             <div className="px-1 pt-1">
               <LanguageToggle className="w-full justify-center" />

@@ -34,3 +34,9 @@ export const trustPoints = [
   { title: "Home Visits Available", description: "Professional physiotherapy delivered in the comfort of your home." },
   { title: "Experienced Physiotherapists", description: "Qualified, caring clinicians committed to your long-term recovery." },
 ];
+
+export const teamMap = Object.fromEntries(team.map((m) => [m.initials, m]));
+
+export function getTeamMember(key: string): TeamMember | undefined {
+  return teamMap[key];
+}
