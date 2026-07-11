@@ -277,6 +277,8 @@ function ServiceDetail() {
 
       <PageCTA />
       <RelatedServices slugs={service.related} />
+      <RelatedConditions slugs={relatedConditionSlugs} />
+      <RelatedArticles posts={relatedPosts} />
     </PageLayout>
   );
 }
