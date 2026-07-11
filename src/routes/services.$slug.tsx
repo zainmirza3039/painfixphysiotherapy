@@ -78,6 +78,11 @@ function ServiceDetail() {
   const { slug } = Route.useLoaderData();
   const service = getService(slug) as Service;
   const Icon = service.icon;
+  const image = serviceImages[service.slug];
+  const imageAlt = serviceImageAlt[service.slug] ?? serviceImageAltFallback(service.title);
+  const benefitAudience = whoCanBenefit[service.slug] ?? [];
+  const relatedConditionSlugs = relatedConditionsForService(service.slug);
+  const relatedPosts = relatedArticlesForService(service.slug);
 
   return (
     <PageLayout>
