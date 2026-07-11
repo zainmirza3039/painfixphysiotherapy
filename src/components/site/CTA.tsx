@@ -2,6 +2,7 @@ import { Calendar, MessageCircle } from "lucide-react";
 import { Reveal } from "./Reveal";
 import { WHATSAPP_URL } from "./constants";
 import { openCalendlyPopup } from "./calendly";
+import { GoogleReviewButton } from "./GoogleReviewButton";
 
 export function CTA() {
   return (
