@@ -3,7 +3,9 @@ import { Menu, X, MessageCircle, Home, BookOpen } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 import { NAV_LINKS } from "./constants";
 import { openCalendlyPopup } from "./calendly";
-import { LanguageToggle } from "./LanguageToggle";
+// NOTE: LanguageToggle intentionally not rendered in the public header.
+// The i18n architecture (LanguageProvider, translations, LanguageToggle) is kept
+// so an Urdu switch can be re-enabled once a complete Urdu version is ready.
 import { ThemeToggle } from "./ThemeToggle";
 import { SiteSearch } from "./SiteSearch";
 import logoAsset from "@/assets/painfix-logo-96.webp.asset.json";
