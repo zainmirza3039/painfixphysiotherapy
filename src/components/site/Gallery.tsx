@@ -107,7 +107,7 @@ export function Gallery() {
                   alt={p.alt}
                   width={p.w}
                   height={p.h}
-                  loading={i === 0 ? "eager" : "lazy"}
+                  loading="lazy"
                   decoding="async"
                   className={`h-full w-full object-cover transition-transform duration-500 group-hover:scale-110 ${p.pos ?? ""}`}
                 />
