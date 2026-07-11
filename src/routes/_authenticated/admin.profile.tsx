@@ -298,6 +298,161 @@ function ProfilePage() {
             />
           </div>
 
+          <div className="space-y-1.5">
+            <Label>Certifications</Label>
+            <Textarea
+              rows={3}
+              value={form.certifications}
+              onChange={(e) => setForm((f) => ({ ...f, certifications: e.target.value }))}
+              placeholder="Certified Strength & Conditioning, Dry Needling, etc."
+            />
+          </div>
+
+          <div className="space-y-1.5">
+            <Label>Clinical interests</Label>
+            <Input
+              value={form.clinical_interests}
+              onChange={(e) => setForm((f) => ({ ...f, clinical_interests: e.target.value }))}
+              placeholder="Strength training, Return to sport, Chronic pain"
+            />
+            <p className="text-xs text-muted-foreground">Separate with commas.</p>
+          </div>
+
+          <div className="space-y-1.5">
+            <Label>Consultation availability</Label>
+            <Textarea
+              rows={2}
+              value={form.availability}
+              onChange={(e) => setForm((f) => ({ ...f, availability: e.target.value }))}
+              placeholder="Mon–Sat, 10am–7pm. Online sessions on request."
+            />
+          </div>
+
+          {/* FAQs */}
+          <div className="space-y-3 rounded-2xl border border-border bg-card p-4 shadow-soft">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="font-medium text-foreground">FAQs</p>
+                <p className="text-sm text-muted-foreground">
+                  Questions and answers shown on your public profile.
+                </p>
+              </div>
+              <Button
+                type="button"
+                variant="outline"
+                size="sm"
+                onClick={() => setFaqs((prev) => [...prev, { q: "", a: "" }])}
+              >
+                Add FAQ
+              </Button>
+            </div>
+            {faqs.map((faq, i) => (
+              <div key={i} className="space-y-2 rounded-xl border border-border bg-surface p-3">
+                <div className="flex items-center gap-2">
+                  <Input
+                    value={faq.q}
+                    onChange={(e) =>
+                      setFaqs((prev) =>
+                        prev.map((f, idx) => (idx === i ? { ...f, q: e.target.value } : f)),
+                      )
+                    }
+                    placeholder="Question"
+                  />
+                  <Button
+                    type="button"
+                    variant="ghost"
+                    size="sm"
+                    className="text-rose-600"
+                    onClick={() => setFaqs((prev) => prev.filter((_, idx) => idx !== i))}
+                  >
+                    Remove
+                  </Button>
+                </div>
+                <Textarea
+                  rows={2}
+                  value={faq.a}
+                  onChange={(e) =>
+                    setFaqs((prev) =>
+                      prev.map((f, idx) => (idx === i ? { ...f, a: e.target.value } : f)),
+                    )
+                  }
+                  placeholder="Answer"
+                />
+              </div>
+            ))}
+            {faqs.length === 0 && (
+              <p className="text-sm text-muted-foreground">No FAQs added yet.</p>
+            )}
+          </div>
+
+          {/* Gallery */}
+          <div className="space-y-3 rounded-2xl border border-border bg-card p-4 shadow-soft">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="font-medium text-foreground">Gallery images</p>
+                <p className="text-sm text-muted-foreground">
+                  Image URLs (upload in Media Library, then paste the URL here).
+                </p>
+              </div>
+              <Button
+                type="button"
+                variant="outline"
+                size="sm"
+                onClick={() => setGallery((prev) => [...prev, { url: "", caption: "" }])}
+              >
+                Add image
+              </Button>
+            </div>
+            {gallery.map((item, i) => (
+              <div
+                key={i}
+                className="flex flex-col gap-2 rounded-xl border border-border bg-surface p-3 sm:flex-row sm:items-center"
+              >
+                {item.url ? (
+                  <img
+                    src={item.url}
+                    alt={item.caption || "Gallery item"}
+                    className="h-14 w-14 shrink-0 rounded-lg object-cover"
+                  />
+                ) : (
+                  <span className="grid h-14 w-14 shrink-0 place-items-center rounded-lg bg-muted text-muted-foreground">
+                    <UserCircle className="h-6 w-6" />
+                  </span>
+                )}
+                <Input
+                  value={item.url}
+                  onChange={(e) =>
+                    setGallery((prev) =>
+                      prev.map((g, idx) => (idx === i ? { ...g, url: e.target.value } : g)),
+                    )
+                  }
+                  placeholder="https://…"
+                />
+                <Input
+                  value={item.caption}
+                  onChange={(e) =>
+                    setGallery((prev) =>
+                      prev.map((g, idx) => (idx === i ? { ...g, caption: e.target.value } : g)),
+                    )
+                  }
+                  placeholder="Caption (optional)"
+                />
+                <Button
+                  type="button"
+                  variant="ghost"
+                  size="sm"
+                  className="text-rose-600"
+                  onClick={() => setGallery((prev) => prev.filter((_, idx) => idx !== i))}
+                >
+                  Remove
+                </Button>
+              </div>
+            ))}
+            {gallery.length === 0 && (
+              <p className="text-sm text-muted-foreground">No gallery images added yet.</p>
+            )}
+          </div>
+
           <div className="grid gap-4 sm:grid-cols-2">
             <div className="space-y-1.5">
               <Label>Public phone</Label>
