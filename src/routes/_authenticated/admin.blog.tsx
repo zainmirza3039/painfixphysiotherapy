@@ -184,8 +184,12 @@ function BlogPage() {
   return (
     <div>
       <AdminPageHeader
-        title="Blog CMS"
-        description="Create, edit and publish blog articles."
+        title={isAdmin ? "Blog CMS" : "My Articles"}
+        description={
+          isAdmin
+            ? "Create, edit and publish blog articles."
+            : "Create, edit and publish your own articles."
+        }
         actions={
           <Button size="sm" onClick={openNew}>
             <Plus className="mr-2 h-4 w-4" /> New post
