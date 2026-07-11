@@ -1,9 +1,8 @@
 import type { ReactNode } from "react";
-import { Calendar, MessageCircle } from "lucide-react";
+import { MessageCircle, Phone } from "lucide-react";
 import { Breadcrumbs } from "./Breadcrumbs";
 import { Reveal } from "./Reveal";
-import { WHATSAPP_URL } from "./constants";
-import { openCalendlyPopup } from "./calendly";
+import { WHATSAPP_CONSULT_URL, PHONE_TEL } from "./constants";
 import type { Crumb } from "@/lib/seo";
 
 interface PageHeroProps {
@@ -45,20 +44,19 @@ export function PageHero({ eyebrow, title, subtitle, crumbs, icon, showActions =
           )}
           {showActions && (
             <div className="mt-8 flex flex-wrap justify-center gap-3">
-              <button
-                type="button"
-                onClick={() => openCalendlyPopup()}
-                className="ripple inline-flex items-center gap-2 rounded-2xl bg-primary px-6 py-3.5 text-sm font-semibold text-primary-foreground shadow-card transition-transform hover:scale-[1.03]"
-              >
-                <Calendar className="h-4 w-4" /> Book Appointment
-              </button>
               <a
-                href={WHATSAPP_URL}
+                href={WHATSAPP_CONSULT_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 rounded-2xl border border-secondary bg-background px-6 py-3.5 text-sm font-semibold text-secondary transition-colors hover:bg-secondary hover:text-secondary-foreground"
+                className="ripple inline-flex items-center gap-2 rounded-2xl bg-secondary px-6 py-3.5 text-sm font-semibold text-secondary-foreground shadow-card transition-transform hover:scale-[1.03]"
               >
-                <MessageCircle className="h-4 w-4" /> WhatsApp Now
+                <MessageCircle className="h-4 w-4" /> WhatsApp Consultation
+              </a>
+              <a
+                href={PHONE_TEL}
+                className="inline-flex items-center gap-2 rounded-2xl border border-primary bg-background px-6 py-3.5 text-sm font-semibold text-primary transition-colors hover:bg-primary hover:text-primary-foreground"
+              >
+                <Phone className="h-4 w-4" /> Call Now
               </a>
             </div>
           )}

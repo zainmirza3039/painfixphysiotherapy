@@ -26,7 +26,7 @@ export const homeFaqs = [
   },
   {
     q: "How do I book an appointment?",
-    a: "Simply tap any 'Book Appointment' or 'WhatsApp Now' button, or call us at 0314-3039582. We'll confirm a time that works for you.",
+    a: "The easiest way is to tap any 'WhatsApp Consultation' button and message us — we'll answer your questions and confirm a time. You can also call us at 0314-3039582 or use the 'Book Appointment' option on the homepage or contact page.",
   },
 ];
 

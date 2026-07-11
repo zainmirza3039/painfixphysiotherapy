@@ -3,6 +3,11 @@ export const SITE_URL = "https://painfixphysiotherapy.lovable.app";
 export const WHATSAPP_URL = "https://wa.me/923143039582";
 export const PHONE_DISPLAY = "0314-3039582";
 export const PHONE_TEL = "tel:+923143039582";
+
+// Primary CTA: WhatsApp consultation link with a friendly prefilled message.
+export const WHATSAPP_CONSULT_URL = `${WHATSAPP_URL}?text=${encodeURIComponent(
+  "Hi PainFix Physiotherapy, I'd like a consultation. Can you help me with my condition?",
+)}`;
 export const EMAIL = "painfixphysiotherapy@gmail.com";
 export const EMAIL_HREF = "mailto:painfixphysiotherapy@gmail.com";
 
