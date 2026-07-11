@@ -22,7 +22,6 @@ import { Dialog, DialogContent, DialogTitle, DialogDescription } from "@/compone
 import {
   buildSearchIndex,
   searchItems,
-  CATEGORY_ORDER,
   type SearchItem,
   type SearchCategory,
 } from "@/lib/searchIndex";
