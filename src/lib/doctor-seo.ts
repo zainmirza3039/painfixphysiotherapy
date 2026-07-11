@@ -17,7 +17,7 @@ export function doctorProfileHead(doc: TeamMember) {
       description: doc.profile.metaDescription,
       path,
       type: "article",
-      image: doc.photo,
+      image: `${SITE_URL}${doc.photo}`,
     }),
     links: canonical(path),
     scripts: [
