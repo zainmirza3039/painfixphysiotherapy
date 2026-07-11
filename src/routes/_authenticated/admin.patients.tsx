@@ -279,13 +279,14 @@ function PatientsPage() {
                     </TableCell>
                     <TableCell className="text-right">
                       <div className="flex justify-end gap-1">
-                        <Button variant="ghost" size="icon" onClick={() => openEdit(p)}>
+                        <Button variant="ghost" size="icon" aria-label="Edit patient" onClick={() => openEdit(p)}>
                           <Pencil className="h-4 w-4" />
                         </Button>
                         {isAdmin && (
                           <Button
                             variant="ghost"
                             size="icon"
+                            aria-label="Delete patient"
                             className="text-rose-600 hover:text-rose-700"
                             onClick={() => setDeleteId(p.id)}
                           >

@@ -234,14 +234,14 @@ function BlogPage() {
                     <TableCell className="text-right">
                       <div className="flex justify-end gap-1">
                         {p.status === "published" && (
-                          <Button asChild variant="ghost" size="icon">
+                          <Button asChild variant="ghost" size="icon" aria-label="View published post">
                             <a href={`/blog/${p.slug}`} target="_blank" rel="noreferrer"><Eye className="h-4 w-4" /></a>
                           </Button>
                         )}
-                        <Button variant="ghost" size="icon" onClick={() => openEdit(p)}>
+                        <Button variant="ghost" size="icon" aria-label="Edit post" onClick={() => openEdit(p)}>
                           <Pencil className="h-4 w-4" />
                         </Button>
-                        <Button variant="ghost" size="icon" className="text-rose-600" onClick={() => setDeleteId(p.id)}>
+                        <Button variant="ghost" size="icon" aria-label="Delete post" className="text-rose-600" onClick={() => setDeleteId(p.id)}>
                           <Trash2 className="h-4 w-4" />
                         </Button>
                       </div>

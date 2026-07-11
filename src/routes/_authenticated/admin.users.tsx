@@ -168,6 +168,7 @@ function UsersPage() {
                         <Button
                           variant="ghost"
                           size="icon"
+                          aria-label="Delete user"
                           className="text-rose-600"
                           disabled={isSelf}
                           onClick={() => setDeleteId(u.id)}

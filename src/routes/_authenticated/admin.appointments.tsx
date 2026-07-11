@@ -264,7 +264,7 @@ function AppointmentsPage() {
                       </Select>
                     </TableCell>
                     <TableCell className="text-right">
-                      <Button variant="ghost" size="icon" onClick={() => openEdit(a)}>
+                      <Button variant="ghost" size="icon" aria-label="Edit appointment" onClick={() => openEdit(a)}>
                         <Pencil className="h-4 w-4" />
                       </Button>
                     </TableCell>

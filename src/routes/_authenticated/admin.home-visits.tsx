@@ -218,11 +218,11 @@ function HomeVisitsPage() {
                     </TableCell>
                     <TableCell className="text-right">
                       <div className="flex justify-end gap-1">
-                        <Button variant="ghost" size="icon" onClick={() => setSelected(v)}>
+                        <Button variant="ghost" size="icon" aria-label="View home visit" onClick={() => setSelected(v)}>
                           <Eye className="h-4 w-4" />
                         </Button>
                         {isAdmin && (
-                          <Button variant="ghost" size="icon" className="text-rose-600" onClick={() => setDeleteId(v.id)}>
+                          <Button variant="ghost" size="icon" aria-label="Delete home visit" className="text-rose-600" onClick={() => setDeleteId(v.id)}>
                             <Trash2 className="h-4 w-4" />
                           </Button>
                         )}
