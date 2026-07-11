@@ -110,6 +110,21 @@ export function Footer() {
                 </Link>
               </li>
               <li>
+                <Link to="/fitness" className="text-background/70 transition-colors hover:text-secondary">
+                  Fitness Platform
+                </Link>
+              </li>
+              <li>
+                <Link to="/health-calculators" className="text-background/70 transition-colors hover:text-secondary">
+                  Health Calculators
+                </Link>
+              </li>
+              <li>
+                <Link to="/membership" className="text-background/70 transition-colors hover:text-secondary">
+                  Membership
+                </Link>
+              </li>
+              <li>
                 <Link to="/services" className="inline-flex items-center gap-1 font-semibold text-secondary">
                   All Services <ArrowRight className="h-3.5 w-3.5" />
                 </Link>
