@@ -62,6 +62,7 @@ function Index() {
         <About />
         <MeetDoctors />
         <Process />
+        <ConsultationFees />
         <GoogleReviews />
         <Gallery />
         <FAQ />
