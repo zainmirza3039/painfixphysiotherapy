@@ -20,6 +20,7 @@ export function HomeVisitForm() {
   const f = t.homeVisit.form;
   const [values, setValues] = useState(initial);
   const [file, setFile] = useState<File | null>(null);
+  const [company, setCompany] = useState(""); // honeypot — real users leave this empty
   const [submitting, setSubmitting] = useState(false);
 
   const set = (key: keyof typeof initial, val: string) =>
@@ -27,6 +28,8 @@ export function HomeVisitForm() {
 
   const onSubmit = async (e: FormEvent) => {
     e.preventDefault();
+    // Silently drop bot submissions that fill the hidden honeypot field.
+    if (company) return;
     if (!values.full_name.trim() || !values.phone.trim() || !values.address.trim()) {
       toast.error(f.required);
       return;
