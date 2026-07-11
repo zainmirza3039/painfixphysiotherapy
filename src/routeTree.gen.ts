@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as TermsRouteImport } from './routes/terms'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as HomeVisitRouteImport } from './routes/home-visit'
@@ -21,6 +22,11 @@ import { Route as ConditionsSlugRouteImport } from './routes/conditions.$slug'
 import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
 import { Route as BlogCategoryCategoryRouteImport } from './routes/blog.category.$category'
 
+const TermsRoute = TermsRouteImport.update({
+  id: '/terms',
+  path: '/terms',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
   path: '/sitemap.xml',
@@ -82,6 +88,7 @@ export interface FileRoutesByFullPath {
   '/home-visit': typeof HomeVisitRoute
   '/privacy': typeof PrivacyRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/terms': typeof TermsRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/conditions/$slug': typeof ConditionsSlugRoute
   '/services/$slug': typeof ServicesSlugRoute
@@ -95,6 +102,7 @@ export interface FileRoutesByTo {
   '/home-visit': typeof HomeVisitRoute
   '/privacy': typeof PrivacyRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/terms': typeof TermsRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/conditions/$slug': typeof ConditionsSlugRoute
   '/services/$slug': typeof ServicesSlugRoute
@@ -109,6 +117,7 @@ export interface FileRoutesById {
   '/home-visit': typeof HomeVisitRoute
   '/privacy': typeof PrivacyRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/terms': typeof TermsRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/conditions/$slug': typeof ConditionsSlugRoute
   '/services/$slug': typeof ServicesSlugRoute
@@ -124,6 +133,7 @@ export interface FileRouteTypes {
     | '/home-visit'
     | '/privacy'
     | '/sitemap.xml'
+    | '/terms'
     | '/blog/$slug'
     | '/conditions/$slug'
     | '/services/$slug'
@@ -137,6 +147,7 @@ export interface FileRouteTypes {
     | '/home-visit'
     | '/privacy'
     | '/sitemap.xml'
+    | '/terms'
     | '/blog/$slug'
     | '/conditions/$slug'
     | '/services/$slug'
@@ -150,6 +161,7 @@ export interface FileRouteTypes {
     | '/home-visit'
     | '/privacy'
     | '/sitemap.xml'
+    | '/terms'
     | '/blog/$slug'
     | '/conditions/$slug'
     | '/services/$slug'
@@ -164,6 +176,7 @@ export interface RootRouteChildren {
   HomeVisitRoute: typeof HomeVisitRoute
   PrivacyRoute: typeof PrivacyRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
+  TermsRoute: typeof TermsRoute
   BlogSlugRoute: typeof BlogSlugRoute
   ConditionsSlugRoute: typeof ConditionsSlugRoute
   ServicesSlugRoute: typeof ServicesSlugRoute
@@ -175,6 +188,13 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/terms': {
+      id: '/terms'
+      path: '/terms'
+      fullPath: '/terms'
+      preLoaderRoute: typeof TermsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/sitemap.xml': {
       id: '/sitemap.xml'
       path: '/sitemap.xml'
@@ -260,6 +280,7 @@ const rootRouteChildren: RootRouteChildren = {
   HomeVisitRoute: HomeVisitRoute,
   PrivacyRoute: PrivacyRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
+  TermsRoute: TermsRoute,
   BlogSlugRoute: BlogSlugRoute,
   ConditionsSlugRoute: ConditionsSlugRoute,
   ServicesSlugRoute: ServicesSlugRoute,

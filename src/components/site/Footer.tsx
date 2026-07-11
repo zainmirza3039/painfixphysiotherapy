@@ -100,9 +100,14 @@ export function Footer() {
 
         <div className="mt-12 flex flex-col items-center justify-between gap-3 border-t border-background/15 pt-6 text-sm text-background/60 sm:flex-row">
           <p>© {new Date().getFullYear()} PainFix Physiotherapy Clinic. All rights reserved.</p>
-          <a href="#home" className="transition-colors hover:text-secondary">
-            Privacy Policy
-          </a>
+          <nav className="flex items-center gap-5">
+            <Link to="/privacy" className="transition-colors hover:text-secondary">
+              Privacy Policy
+            </Link>
+            <Link to="/terms" className="transition-colors hover:text-secondary">
+              Terms of Service
+            </Link>
+          </nav>
         </div>
       </div>
     </footer>
