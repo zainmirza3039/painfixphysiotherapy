@@ -13,7 +13,10 @@ import { Route as TermsRouteImport } from './routes/terms'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as PrivacyRouteImport } from './routes/privacy'
+import { Route as PhysiotherapyClinicInMultanRouteImport } from './routes/physiotherapy-clinic-in-multan'
+import { Route as PhysiotherapistInMultanRouteImport } from './routes/physiotherapist-in-multan'
 import { Route as HomeVisitRouteImport } from './routes/home-visit'
+import { Route as BestPhysiotherapistInMultanRouteImport } from './routes/best-physiotherapist-in-multan'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as IndexRouteImport } from './routes/index'
@@ -56,11 +59,28 @@ const PrivacyRoute = PrivacyRouteImport.update({
   path: '/privacy',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PhysiotherapyClinicInMultanRoute =
+  PhysiotherapyClinicInMultanRouteImport.update({
+    id: '/physiotherapy-clinic-in-multan',
+    path: '/physiotherapy-clinic-in-multan',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const PhysiotherapistInMultanRoute = PhysiotherapistInMultanRouteImport.update({
+  id: '/physiotherapist-in-multan',
+  path: '/physiotherapist-in-multan',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const HomeVisitRoute = HomeVisitRouteImport.update({
   id: '/home-visit',
   path: '/home-visit',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BestPhysiotherapistInMultanRoute =
+  BestPhysiotherapistInMultanRouteImport.update({
+    id: '/best-physiotherapist-in-multan',
+    path: '/best-physiotherapist-in-multan',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const AuthRoute = AuthRouteImport.update({
   id: '/auth',
   path: '/auth',
@@ -175,7 +195,10 @@ const AuthenticatedAdminAppointmentsRoute =
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
+  '/best-physiotherapist-in-multan': typeof BestPhysiotherapistInMultanRoute
   '/home-visit': typeof HomeVisitRoute
+  '/physiotherapist-in-multan': typeof PhysiotherapistInMultanRoute
+  '/physiotherapy-clinic-in-multan': typeof PhysiotherapyClinicInMultanRoute
   '/privacy': typeof PrivacyRoute
   '/reset-password': typeof ResetPasswordRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
@@ -202,7 +225,10 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
+  '/best-physiotherapist-in-multan': typeof BestPhysiotherapistInMultanRoute
   '/home-visit': typeof HomeVisitRoute
+  '/physiotherapist-in-multan': typeof PhysiotherapistInMultanRoute
+  '/physiotherapy-clinic-in-multan': typeof PhysiotherapyClinicInMultanRoute
   '/privacy': typeof PrivacyRoute
   '/reset-password': typeof ResetPasswordRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
@@ -230,7 +256,10 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/auth': typeof AuthRoute
+  '/best-physiotherapist-in-multan': typeof BestPhysiotherapistInMultanRoute
   '/home-visit': typeof HomeVisitRoute
+  '/physiotherapist-in-multan': typeof PhysiotherapistInMultanRoute
+  '/physiotherapy-clinic-in-multan': typeof PhysiotherapyClinicInMultanRoute
   '/privacy': typeof PrivacyRoute
   '/reset-password': typeof ResetPasswordRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
@@ -259,7 +288,10 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/auth'
+    | '/best-physiotherapist-in-multan'
     | '/home-visit'
+    | '/physiotherapist-in-multan'
+    | '/physiotherapy-clinic-in-multan'
     | '/privacy'
     | '/reset-password'
     | '/sitemap.xml'
@@ -286,7 +318,10 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/auth'
+    | '/best-physiotherapist-in-multan'
     | '/home-visit'
+    | '/physiotherapist-in-multan'
+    | '/physiotherapy-clinic-in-multan'
     | '/privacy'
     | '/reset-password'
     | '/sitemap.xml'
@@ -313,7 +348,10 @@ export interface FileRouteTypes {
     | '/'
     | '/_authenticated'
     | '/auth'
+    | '/best-physiotherapist-in-multan'
     | '/home-visit'
+    | '/physiotherapist-in-multan'
+    | '/physiotherapy-clinic-in-multan'
     | '/privacy'
     | '/reset-password'
     | '/sitemap.xml'
@@ -342,7 +380,10 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
   AuthRoute: typeof AuthRoute
+  BestPhysiotherapistInMultanRoute: typeof BestPhysiotherapistInMultanRoute
   HomeVisitRoute: typeof HomeVisitRoute
+  PhysiotherapistInMultanRoute: typeof PhysiotherapistInMultanRoute
+  PhysiotherapyClinicInMultanRoute: typeof PhysiotherapyClinicInMultanRoute
   PrivacyRoute: typeof PrivacyRoute
   ResetPasswordRoute: typeof ResetPasswordRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
@@ -386,11 +427,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PrivacyRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/physiotherapy-clinic-in-multan': {
+      id: '/physiotherapy-clinic-in-multan'
+      path: '/physiotherapy-clinic-in-multan'
+      fullPath: '/physiotherapy-clinic-in-multan'
+      preLoaderRoute: typeof PhysiotherapyClinicInMultanRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/physiotherapist-in-multan': {
+      id: '/physiotherapist-in-multan'
+      path: '/physiotherapist-in-multan'
+      fullPath: '/physiotherapist-in-multan'
+      preLoaderRoute: typeof PhysiotherapistInMultanRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/home-visit': {
       id: '/home-visit'
       path: '/home-visit'
       fullPath: '/home-visit'
       preLoaderRoute: typeof HomeVisitRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/best-physiotherapist-in-multan': {
+      id: '/best-physiotherapist-in-multan'
+      path: '/best-physiotherapist-in-multan'
+      fullPath: '/best-physiotherapist-in-multan'
+      preLoaderRoute: typeof BestPhysiotherapistInMultanRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/auth': {
@@ -587,7 +649,10 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
   AuthRoute: AuthRoute,
+  BestPhysiotherapistInMultanRoute: BestPhysiotherapistInMultanRoute,
   HomeVisitRoute: HomeVisitRoute,
+  PhysiotherapistInMultanRoute: PhysiotherapistInMultanRoute,
+  PhysiotherapyClinicInMultanRoute: PhysiotherapyClinicInMultanRoute,
   PrivacyRoute: PrivacyRoute,
   ResetPasswordRoute: ResetPasswordRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
@@ -603,3 +668,13 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
