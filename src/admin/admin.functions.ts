@@ -1,13 +1,15 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
+import { APP_ROLES } from "@/admin/roles";
 
 async function assertAdmin(context: { supabase: any; userId: string }) {
-  const { data, error } = await context.supabase.rpc("has_role", {
-    _user_id: context.userId,
-    _role: "admin",
-  });
-  if (error || !data) throw new Error("Forbidden: admin access required");
+  // Admin OR super_admin may manage the team.
+  const [{ data: isAdmin }, { data: isSuper }] = await Promise.all([
+    context.supabase.rpc("has_role", { _user_id: context.userId, _role: "admin" }),
+    context.supabase.rpc("has_role", { _user_id: context.userId, _role: "super_admin" }),
+  ]);
+  if (!isAdmin && !isSuper) throw new Error("Forbidden: admin access required");
 }
 
 export interface AdminUserRow {
@@ -49,12 +51,12 @@ export const listAdminUsers = createServerFn({ method: "GET" })
 
 export const createStaffUser = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((input: { email: string; password: string; role: "admin" | "staff" }) =>
+  .inputValidator((input: { email: string; password: string; role: string }) =>
     z
       .object({
         email: z.string().trim().email().max(320),
         password: z.string().min(8).max(128),
-        role: z.enum(["admin", "staff"]),
+        role: z.enum(APP_ROLES),
       })
       .parse(input),
   )
@@ -79,11 +81,11 @@ export const createStaffUser = createServerFn({ method: "POST" })
 
 export const setUserRole = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((input: { userId: string; role: "admin" | "staff"; enabled: boolean }) =>
+  .inputValidator((input: { userId: string; role: string; enabled: boolean }) =>
     z
       .object({
         userId: z.string().uuid(),
-        role: z.enum(["admin", "staff"]),
+        role: z.enum(APP_ROLES),
         enabled: z.boolean(),
       })
       .parse(input),

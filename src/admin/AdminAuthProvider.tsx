@@ -8,15 +8,31 @@ import {
 } from "react";
 import type { User } from "@supabase/supabase-js";
 import { supabase } from "@/integrations/supabase/client";
-
-export type AppRole = "admin" | "staff";
+import {
+  ADMIN_ROLES,
+  CONTENT_ROLES,
+  PANEL_ROLES,
+  PROFESSIONAL_ROLES,
+  type AppRole,
+} from "@/admin/roles";
 
 interface AdminAuthValue {
   user: User | null;
   roles: AppRole[];
+  /** admin OR super_admin */
   isAdmin: boolean;
-  isStaff: boolean; // admin OR staff
+  isSuperAdmin: boolean;
+  /** admin/super_admin OR staff — clinical data access */
+  isStaff: boolean;
+  /** a clinical / wellness professional (physio, dietitian, fitness) */
+  isProfessional: boolean;
+  /** allowed to author & manage their own blog content */
+  canEditContent: boolean;
+  /** allowed into the admin/portal area at all */
+  canAccessPanel: boolean;
   loading: boolean;
+  hasRole: (role: AppRole) => boolean;
+  hasAnyRole: (roles: AppRole[]) => boolean;
   refresh: () => Promise<void>;
 }
 
@@ -63,12 +79,32 @@ export function AdminAuthProvider({ children }: { children: ReactNode }) {
     void load();
   }, [load]);
 
-  const isAdmin = roles.includes("admin");
-  const isStaff = isAdmin || roles.includes("staff");
+  const hasRole = (role: AppRole) => roles.includes(role);
+  const hasAnyRole = (list: AppRole[]) => list.some((r) => roles.includes(r));
+
+  const isAdmin = hasAnyRole(ADMIN_ROLES);
+  const isSuperAdmin = hasRole("super_admin");
+  const isStaff = isAdmin || hasRole("staff");
+  const isProfessional = hasAnyRole(PROFESSIONAL_ROLES);
+  const canEditContent = hasAnyRole(CONTENT_ROLES);
+  const canAccessPanel = hasAnyRole(PANEL_ROLES);
 
   return (
     <AdminAuthContext.Provider
-      value={{ user, roles, isAdmin, isStaff, loading, refresh: load }}
+      value={{
+        user,
+        roles,
+        isAdmin,
+        isSuperAdmin,
+        isStaff,
+        isProfessional,
+        canEditContent,
+        canAccessPanel,
+        loading,
+        hasRole,
+        hasAnyRole,
+        refresh: load,
+      }}
     >
       {children}
     </AdminAuthContext.Provider>

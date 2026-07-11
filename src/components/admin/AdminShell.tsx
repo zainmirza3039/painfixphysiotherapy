@@ -71,7 +71,7 @@ function useDarkMode() {
 }
 
 export function AdminShell({ children }: { children: ReactNode }) {
-  const { user, isAdmin, isStaff, roles, loading } = useAdminAuth();
+  const { user, isAdmin, isStaff, loading } = useAdminAuth();
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   const { dark, toggle } = useDarkMode();
@@ -196,7 +196,7 @@ export function AdminShell({ children }: { children: ReactNode }) {
               </SheetContent>
             </Sheet>
             <span className="text-sm font-medium text-muted-foreground">
-              {roles.includes("admin") ? "Administrator panel" : "Staff panel"}
+              {isAdmin ? "Administrator panel" : "Staff panel"}
             </span>
           </div>
           <div className="flex items-center gap-2">
