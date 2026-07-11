@@ -67,7 +67,6 @@ function Index() {
         <MeetDoctors />
         <Process />
         <PhysioFitness />
-        <HomeBmi />
         <GoogleReviews />
         <Gallery />
         <FAQ />
