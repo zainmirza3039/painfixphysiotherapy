@@ -696,8 +696,16 @@ export function Navbar() {
                       className="block rounded-lg px-3 py-3 text-sm font-medium text-foreground/80 hover:bg-accent hover:text-primary"
                     />
                   ))}
+                  <Link
+                    to="/services"
+                    onClick={closeMobile}
+                    className="mt-0.5 block rounded-lg px-3 py-3 text-sm font-semibold text-primary hover:bg-accent"
+                  >
+                    View All Services
+                  </Link>
                 </div>
               )}
+
 
               {/* Conditions accordion */}
               <button
