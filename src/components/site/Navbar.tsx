@@ -121,6 +121,13 @@ export function Navbar() {
               <Home className="h-4 w-4" /> Home Visit
             </Link>
             <Link
+              to="/fitness-rehabilitation"
+              onClick={() => setOpen(false)}
+              className="inline-flex items-center gap-2 rounded-xl px-4 py-3 text-sm font-medium text-foreground/85 transition-colors hover:bg-accent hover:text-primary"
+            >
+              <Dumbbell className="h-4 w-4" /> Fitness
+            </Link>
+            <Link
               to="/blog"
               onClick={() => setOpen(false)}
               className="inline-flex items-center gap-2 rounded-xl px-4 py-3 text-sm font-medium text-foreground/85 transition-colors hover:bg-accent hover:text-primary"
