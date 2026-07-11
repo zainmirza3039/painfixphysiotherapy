@@ -864,15 +864,15 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: "stroke-rehabilitation-guide",
-    title: "Stroke Rehabilitation: A Complete Guide",
-    seoTitle: "Stroke Rehabilitation Guide | Physiotherapy — PainFix Multan",
+    title: "Stroke Rehabilitation: A Complete Guide | Falij Ka Ilaj",
+    seoTitle: "Stroke Rehabilitation | Falij Ka Ilaj — PainFix Multan",
     metaDescription:
-      "A complete guide to stroke rehabilitation. Learn how physiotherapy restores movement, strength and independence after a stroke, and why early rehab matters.",
+      "A complete guide to stroke rehabilitation (falij ka ilaj). Learn how physiotherapy in Multan restores movement, strength and independence after a stroke, and why early rehab matters.",
     category: "stroke-rehabilitation",
-    tags: ["stroke", "neuro rehab", "recovery", "independence"],
-    excerpt: "Recovery after a stroke is possible with the right rehabilitation. Here's how physiotherapy rebuilds movement and independence.",
+    tags: ["stroke", "falij", "falij ka ilaj", "neuro rehab", "recovery"],
+    excerpt: "Recovery after a stroke (falij) is possible with the right rehabilitation. Here's how physiotherapy rebuilds movement and independence.",
     quickAnswer:
-      "Stroke rehabilitation uses physiotherapy to restore movement, strength, balance and independence after a stroke. It works by harnessing neuroplasticity — the brain's ability to rewire — through repetitive, task-specific practice. Rehabilitation should start early and continue consistently; meaningful gains are possible for months and years after a stroke.",
+      "Stroke rehabilitation (falij ka ilaj) uses physiotherapy to restore movement, strength, balance and independence after a stroke. It works by harnessing neuroplasticity — the brain's ability to rewire — through repetitive, task-specific practice. Rehabilitation should start early and continue consistently; meaningful gains are possible for months and years after a stroke.",
     date: "2026-05-27",
     updated: "2026-06-24",
     authorKey: "JD",
