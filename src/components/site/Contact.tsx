@@ -3,6 +3,7 @@ import { Reveal } from "./Reveal";
 import { SectionHeading } from "./SectionHeading";
 import { CalendlyInline } from "./CalendlyInline";
 import { ContactForm } from "./ContactForm";
+import { GoogleReviewButton, GoogleG } from "./GoogleReviewButton";
 import {
   WHATSAPP_URL,
   PHONE_DISPLAY,
