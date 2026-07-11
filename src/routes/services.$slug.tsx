@@ -1,5 +1,5 @@
 import { createFileRoute, notFound, Link } from "@tanstack/react-router";
-import { CheckCircle2, Sparkles, ClipboardList, Wrench } from "lucide-react";
+import { CheckCircle2, Sparkles, ClipboardList, Wrench, BookOpen, ShieldAlert } from "lucide-react";
 import { getService, type Service } from "@/data/services";
 import { PageLayout } from "@/components/site/PageLayout";
 import { PageHero } from "@/components/site/PageHero";
