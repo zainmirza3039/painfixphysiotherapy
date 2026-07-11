@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { dietMainPage, dietSubPages, DIET_NUTRITION_ENABLED } from "@/data/wellness";
+import { dietMainPage, DIET_NUTRITION_ENABLED } from "@/data/wellness";
 import { WellnessTopicPage } from "@/components/site/WellnessTopicPage";
 import { pageMeta, canonical, breadcrumbLd, faqLd } from "@/lib/seo";
 import { SITE_URL } from "@/components/site/constants";
