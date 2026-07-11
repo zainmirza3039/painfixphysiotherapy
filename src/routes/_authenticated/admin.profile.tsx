@@ -95,10 +95,15 @@ function ProfilePage() {
         years_experience:
           profile.years_experience != null ? String(profile.years_experience) : "",
         qualifications: profile.qualifications ?? "",
+        certifications: profile.certifications ?? "",
+        clinical_interests: (profile.clinical_interests ?? []).join(", "),
+        availability: profile.availability ?? "",
         phone: profile.phone ?? "",
         public_email: profile.public_email ?? "",
         is_published: profile.is_published ?? false,
       });
+      setFaqs(asFaqs(profile.faqs));
+      setGallery(asGallery(profile.gallery));
     }
   }, [profile]);
 
