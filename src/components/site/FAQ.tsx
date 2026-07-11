@@ -3,7 +3,7 @@ import { Plus } from "lucide-react";
 import { Reveal } from "./Reveal";
 import { SectionHeading } from "./SectionHeading";
 
-const faqs = [
+export const homeFaqs = [
   {
     q: "Do I need a doctor's referral to book an appointment?",
     a: "No referral is required. You can book a physiotherapy assessment directly with us and we'll take care of the rest.",
