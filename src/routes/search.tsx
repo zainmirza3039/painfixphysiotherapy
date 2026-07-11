@@ -102,7 +102,7 @@ function SearchPage() {
   }, [allResults, cat, sort]);
 
   function submit(term: string) {
-    navigate({ search: (prev) => ({ ...prev, q: term.trim(), cat: "all" }) });
+    navigate({ search: (prev: SearchParams) => ({ ...prev, q: term.trim(), cat: "all" }) });
   }
 
   const hasQuery = q.trim() !== "";
@@ -226,14 +226,14 @@ function SearchPage() {
                   <FilterChip
                     label={`All (${allResults.length})`}
                     active={cat === "all"}
-                    onClick={() => navigate({ search: (p) => ({ ...p, cat: "all" }) })}
+                    onClick={() => navigate({ search: (p: SearchParams) => ({ ...p, cat: "all" }) })}
                   />
                   {activeCategories.map((c) => (
                     <FilterChip
                       key={c}
                       label={`${c} (${counts.get(c)})`}
                       active={cat === c}
-                      onClick={() => navigate({ search: (p) => ({ ...p, cat: c }) })}
+                      onClick={() => navigate({ search: (p: SearchParams) => ({ ...p, cat: c }) })}
                     />
                   ))}
                 </div>
@@ -241,7 +241,7 @@ function SearchPage() {
                   Sort
                   <select
                     value={sort}
-                    onChange={(e) => navigate({ search: (p) => ({ ...p, sort: e.target.value }) })}
+                    onChange={(e) => navigate({ search: (p: SearchParams) => ({ ...p, sort: e.target.value }) })}
                     className="rounded-lg border border-border bg-card px-3 py-1.5 text-sm text-foreground outline-none focus:border-primary"
                   >
                     <option value="relevance">Relevance</option>
