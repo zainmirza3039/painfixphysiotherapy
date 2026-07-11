@@ -54,7 +54,7 @@ export function MeetDoctors() {
                     ))}
                   </ul>
 
-                  <div className="mt-auto flex flex-wrap items-center gap-3 pt-6">>
+                  <div className="mt-auto flex flex-wrap items-center gap-3 pt-6">
                     <button
                       type="button"
                       onClick={() => openCalendlyPopup()}
