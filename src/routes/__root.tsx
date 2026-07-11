@@ -114,10 +114,11 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         children: JSON.stringify({
           "@context": "https://schema.org",
           "@type": "Physiotherapy",
+          "@id": SITE_URL + "/#clinic",
           name: "PainFix Physiotherapy Clinic",
-          logo: "/__l5e/assets-v1/75948e0c-8e21-469d-84f9-a156e5280404/painfix-logo.png",
-          image: "/__l5e/assets-v1/75948e0c-8e21-469d-84f9-a156e5280404/painfix-logo.png",
-
+          url: SITE_URL,
+          logo: LOGO_URL,
+          image: LOGO_URL,
           description:
             "Evidence-based physiotherapy and rehabilitation in Multan, Pakistan. Personalized treatment plans for pain relief, injury recovery, and restored movement.",
           telephone: "+92-314-3039582",
@@ -128,6 +129,19 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
             addressRegion: "Punjab",
             addressCountry: "PK",
           },
+          geo: {
+            "@type": "GeoCoordinates",
+            latitude: 30.239469,
+            longitude: 71.4856386,
+          },
+          openingHoursSpecification: [
+            {
+              "@type": "OpeningHoursSpecification",
+              dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+              opens: "09:00",
+              closes: "21:00",
+            },
+          ],
           medicalSpecialty: "Physiotherapy",
           priceRange: "$$",
           sameAs: [
