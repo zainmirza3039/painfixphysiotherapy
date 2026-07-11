@@ -19,6 +19,7 @@ import { Route as PhysiotherapistInMultanRouteImport } from './routes/physiother
 import { Route as MembershipRouteImport } from './routes/membership'
 import { Route as HomeVisitRouteImport } from './routes/home-visit'
 import { Route as HealthCalculatorsRouteImport } from './routes/health-calculators'
+import { Route as FitnessResourcesRouteImport } from './routes/fitness-resources'
 import { Route as FitnessRehabilitationRouteImport } from './routes/fitness-rehabilitation'
 import { Route as FitnessAssessmentRouteImport } from './routes/fitness-assessment'
 import { Route as DrZainUlAbideenPtMultanRouteImport } from './routes/dr-zain-ul-abideen-pt-multan'
@@ -100,6 +101,11 @@ const HomeVisitRoute = HomeVisitRouteImport.update({
 const HealthCalculatorsRoute = HealthCalculatorsRouteImport.update({
   id: '/health-calculators',
   path: '/health-calculators',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FitnessResourcesRoute = FitnessResourcesRouteImport.update({
+  id: '/fitness-resources',
+  path: '/fitness-resources',
   getParentRoute: () => rootRouteImport,
 } as any)
 const FitnessRehabilitationRoute = FitnessRehabilitationRouteImport.update({
@@ -273,6 +279,7 @@ export interface FileRoutesByFullPath {
   '/dr-zain-ul-abideen-pt-multan': typeof DrZainUlAbideenPtMultanRoute
   '/fitness-assessment': typeof FitnessAssessmentRoute
   '/fitness-rehabilitation': typeof FitnessRehabilitationRoute
+  '/fitness-resources': typeof FitnessResourcesRoute
   '/health-calculators': typeof HealthCalculatorsRoute
   '/home-visit': typeof HomeVisitRoute
   '/membership': typeof MembershipRoute
@@ -315,6 +322,7 @@ export interface FileRoutesByTo {
   '/dr-zain-ul-abideen-pt-multan': typeof DrZainUlAbideenPtMultanRoute
   '/fitness-assessment': typeof FitnessAssessmentRoute
   '/fitness-rehabilitation': typeof FitnessRehabilitationRoute
+  '/fitness-resources': typeof FitnessResourcesRoute
   '/health-calculators': typeof HealthCalculatorsRoute
   '/home-visit': typeof HomeVisitRoute
   '/membership': typeof MembershipRoute
@@ -358,6 +366,7 @@ export interface FileRoutesById {
   '/dr-zain-ul-abideen-pt-multan': typeof DrZainUlAbideenPtMultanRoute
   '/fitness-assessment': typeof FitnessAssessmentRoute
   '/fitness-rehabilitation': typeof FitnessRehabilitationRoute
+  '/fitness-resources': typeof FitnessResourcesRoute
   '/health-calculators': typeof HealthCalculatorsRoute
   '/home-visit': typeof HomeVisitRoute
   '/membership': typeof MembershipRoute
@@ -402,6 +411,7 @@ export interface FileRouteTypes {
     | '/dr-zain-ul-abideen-pt-multan'
     | '/fitness-assessment'
     | '/fitness-rehabilitation'
+    | '/fitness-resources'
     | '/health-calculators'
     | '/home-visit'
     | '/membership'
@@ -444,6 +454,7 @@ export interface FileRouteTypes {
     | '/dr-zain-ul-abideen-pt-multan'
     | '/fitness-assessment'
     | '/fitness-rehabilitation'
+    | '/fitness-resources'
     | '/health-calculators'
     | '/home-visit'
     | '/membership'
@@ -486,6 +497,7 @@ export interface FileRouteTypes {
     | '/dr-zain-ul-abideen-pt-multan'
     | '/fitness-assessment'
     | '/fitness-rehabilitation'
+    | '/fitness-resources'
     | '/health-calculators'
     | '/home-visit'
     | '/membership'
@@ -530,6 +542,7 @@ export interface RootRouteChildren {
   DrZainUlAbideenPtMultanRoute: typeof DrZainUlAbideenPtMultanRoute
   FitnessAssessmentRoute: typeof FitnessAssessmentRoute
   FitnessRehabilitationRoute: typeof FitnessRehabilitationRoute
+  FitnessResourcesRoute: typeof FitnessResourcesRoute
   HealthCalculatorsRoute: typeof HealthCalculatorsRoute
   HomeVisitRoute: typeof HomeVisitRoute
   MembershipRoute: typeof MembershipRoute
@@ -623,6 +636,13 @@ declare module '@tanstack/react-router' {
       path: '/health-calculators'
       fullPath: '/health-calculators'
       preLoaderRoute: typeof HealthCalculatorsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/fitness-resources': {
+      id: '/fitness-resources'
+      path: '/fitness-resources'
+      fullPath: '/fitness-resources'
+      preLoaderRoute: typeof FitnessResourcesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/fitness-rehabilitation': {
@@ -896,6 +916,7 @@ const rootRouteChildren: RootRouteChildren = {
   DrZainUlAbideenPtMultanRoute: DrZainUlAbideenPtMultanRoute,
   FitnessAssessmentRoute: FitnessAssessmentRoute,
   FitnessRehabilitationRoute: FitnessRehabilitationRoute,
+  FitnessResourcesRoute: FitnessResourcesRoute,
   HealthCalculatorsRoute: HealthCalculatorsRoute,
   HomeVisitRoute: HomeVisitRoute,
   MembershipRoute: MembershipRoute,
