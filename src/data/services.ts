@@ -31,8 +31,14 @@ export interface Service {
   metaTitle: string;
   metaDescription: string;
   overview: string[];
+  /** Optional label override for the "Conditions Treated" panel (e.g. "Indications"). */
+  conditionsLabel?: string;
   conditionsTreated: string[];
   benefits: string[];
+  /** Optional evidence / current clinical understanding section. */
+  evidence?: string[];
+  /** Optional safety section listing when the therapy should be avoided. */
+  contraindications?: string[];
   process: ProcessStep[];
   equipment?: string[];
   faqs: Faq[];
