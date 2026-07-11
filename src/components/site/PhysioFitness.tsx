@@ -2,8 +2,8 @@ import { Dumbbell, Activity, ShieldPlus, HeartPulse, Zap, MessageCircle, ArrowRi
 import { Link } from "@tanstack/react-router";
 import { SectionHeading } from "./SectionHeading";
 import { Reveal } from "./Reveal";
-import { BmiCalculator } from "./BmiCalculator";
 import { WHATSAPP_CONSULT_URL } from "./constants";
+
 
 const PILLARS = [
   { icon: Dumbbell, title: "Strength", text: "Progressive strengthening to rebuild power, stability and confidence." },
