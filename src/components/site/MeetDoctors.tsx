@@ -18,7 +18,7 @@ export function MeetDoctors() {
         <div className="mt-12 grid gap-6 sm:gap-8 lg:grid-cols-2">
           {team.map((doc, i) => (
             <Reveal key={doc.initials} anim="up" delay={i * 100}>
-              <article className="group grid h-full gap-0 overflow-hidden rounded-[2rem] border border-border bg-card shadow-soft transition-shadow hover:shadow-card sm:grid-cols-[minmax(0,42%)_1fr]">
+              <article className="group relative grid h-full cursor-pointer gap-0 overflow-hidden rounded-[2rem] border border-border bg-card shadow-soft transition-shadow hover:border-primary/40 hover:shadow-card focus-within:ring-2 focus-within:ring-primary/50 sm:grid-cols-[minmax(0,42%)_1fr]">
                 <div className="relative overflow-hidden bg-accent/40">
                   <img
                     src={doc.photo}
@@ -61,14 +61,14 @@ export function MeetDoctors() {
                       target="_blank"
                       rel="noopener noreferrer"
                       aria-label={`Chat with ${doc.name} on WhatsApp (${doc.phoneDisplay})`}
-                      className="ripple inline-flex items-center gap-2 rounded-2xl bg-secondary px-5 py-3 text-sm font-semibold text-secondary-foreground shadow-card transition-transform hover:scale-[1.03]"
+                      className="ripple relative z-10 inline-flex items-center gap-2 rounded-2xl bg-secondary px-5 py-3 text-sm font-semibold text-secondary-foreground shadow-card transition-transform hover:scale-[1.03]"
                     >
                       <MessageCircle className="h-4 w-4" /> WhatsApp Consultation
                     </a>
                     <a
                       href={`/${doc.slug}`}
                       aria-label={`View full profile of ${doc.fullName}, physiotherapist in Multan`}
-                      className="inline-flex items-center gap-2 rounded-2xl border border-primary px-5 py-3 text-sm font-semibold text-primary transition-colors hover:bg-primary hover:text-primary-foreground"
+                      className="inline-flex items-center gap-2 rounded-2xl border border-primary px-5 py-3 text-sm font-semibold text-primary transition-colors after:absolute after:inset-0 after:rounded-[2rem] after:content-[''] hover:bg-primary hover:text-primary-foreground focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
                     >
                       View Profile <ArrowRight className="h-4 w-4" />
                     </a>
@@ -77,7 +77,7 @@ export function MeetDoctors() {
                       target="_blank"
                       rel="noopener noreferrer"
                       aria-label={`${doc.name} on LinkedIn — PainFix Physiotherapy Clinic`}
-                      className="inline-flex h-11 w-11 items-center justify-center rounded-2xl border border-border text-primary transition-colors hover:bg-primary hover:text-primary-foreground"
+                      className="relative z-10 inline-flex h-11 w-11 items-center justify-center rounded-2xl border border-border text-primary transition-colors hover:bg-primary hover:text-primary-foreground"
                     >
                       <Linkedin className="h-5 w-5" />
                     </a>
