@@ -117,9 +117,9 @@ export function Footer() {
                   href={WHATSAPP_URL}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex rounded-full bg-secondary px-4 py-2 font-semibold text-secondary-foreground transition-transform hover:scale-105"
+                  className="inline-flex items-center gap-2 rounded-full bg-secondary px-4 py-2 font-semibold text-secondary-foreground transition-transform hover:scale-105"
                 >
-                  Book Appointment
+                  <MessageCircle className="h-4 w-4" /> WhatsApp Consultation
                 </a>
               </li>
               <li>
