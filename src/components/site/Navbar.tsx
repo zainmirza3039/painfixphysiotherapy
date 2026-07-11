@@ -75,7 +75,6 @@ export function Navbar() {
         <div className="flex items-center gap-2">
           <SiteSearch />
           <ThemeToggle />
-          <LanguageToggle className="hidden sm:inline-flex" />
           <button
             type="button"
             onClick={() => openCalendlyPopup()}
