@@ -8,7 +8,7 @@ import { PageCTA } from "@/components/site/PageCTA";
 import { Reveal } from "@/components/site/Reveal";
 import { pageMeta, canonical, breadcrumbLd } from "@/lib/seo";
 
-const TITLE = "Physiotherapy Services in Multan | PainFix Physiotherapy Clinic";
+const TITLE = "Physiotherapy Services in Multan | PainFix Clinic";
 const DESCRIPTION =
   "Explore our full range of physiotherapy services in Multan — manual therapy, exercise therapy, electrotherapy, sports rehab, home physiotherapy and more.";
 

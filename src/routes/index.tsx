@@ -20,9 +20,9 @@ import { Contact } from "@/components/site/Contact";
 import { Footer } from "@/components/site/Footer";
 import { WhatsAppFab } from "@/components/site/WhatsAppFab";
 
-const TITLE = "PainFix Physiotherapy Clinic — Multan | Move Better, Recover Faster";
+const TITLE = "PainFix Physiotherapy Multan | Move Better, Recover Faster";
 const DESCRIPTION =
-  "Evidence-based physiotherapy and rehabilitation in Multan, Pakistan. Personalized treatment plans for back pain, sports injuries, and lasting recovery. Book your appointment today.";
+  "Evidence-based physiotherapy in Multan. Personalized treatment for back pain, sports injuries, and lasting recovery. Book your appointment today.";
 
 export const Route = createFileRoute("/")({
   head: () => ({

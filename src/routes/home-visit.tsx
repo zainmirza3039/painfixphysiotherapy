@@ -26,7 +26,7 @@ import { WHATSAPP_URL, PHONE_TEL, PHONE_DISPLAY, SITE_URL } from "@/components/s
 
 const TITLE = "Book a Home Visit — Home Physiotherapy in Multan | PainFix";
 const DESCRIPTION =
-  "Premium home physiotherapy in Multan. Licensed physiotherapists provide personalized assessment, treatment and rehabilitation at your home. Request a home visit today.";
+  "Premium home physiotherapy in Multan. Licensed physiotherapists deliver assessment, treatment and rehabilitation at your home. Request a visit today.";
 
 export const Route = createFileRoute("/home-visit")({
   head: () => ({
