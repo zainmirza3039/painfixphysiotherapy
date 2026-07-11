@@ -27,15 +27,45 @@ const empty = {
   specialties: "",
   years_experience: "",
   qualifications: "",
+  certifications: "",
+  clinical_interests: "",
+  availability: "",
   phone: "",
   public_email: "",
   is_published: false,
 };
 
+interface Faq {
+  q: string;
+  a: string;
+}
+interface GalleryItem {
+  url: string;
+  caption: string;
+}
+
+function asFaqs(value: unknown): Faq[] {
+  if (!Array.isArray(value)) return [];
+  return value
+    .map((v) => ({ q: String((v as Faq)?.q ?? ""), a: String((v as Faq)?.a ?? "") }))
+    .filter((f) => f.q || f.a);
+}
+function asGallery(value: unknown): GalleryItem[] {
+  if (!Array.isArray(value)) return [];
+  return value
+    .map((v) => ({
+      url: String((v as GalleryItem)?.url ?? ""),
+      caption: String((v as GalleryItem)?.caption ?? ""),
+    }))
+    .filter((g) => g.url);
+}
+
 function ProfilePage() {
   const qc = useQueryClient();
   const { user } = useAdminAuth();
   const [form, setForm] = useState({ ...empty });
+  const [faqs, setFaqs] = useState<Faq[]>([]);
+  const [gallery, setGallery] = useState<GalleryItem[]>([]);
   const [slugTouched, setSlugTouched] = useState(false);
 
   const { data: profile, isLoading } = useQuery({
