@@ -9,6 +9,10 @@ export interface TeamMember {
   specialties: string[];
   initials: string;
   photo: string;
+  /** Display phone number for this clinician. */
+  phoneDisplay: string;
+  /** Digits-only international number used for wa.me WhatsApp links. */
+  whatsapp: string;
 }
 
 export const team: TeamMember[] = [
@@ -26,6 +30,8 @@ export const team: TeamMember[] = [
     ],
     initials: "ZA",
     photo: drZainImg,
+    phoneDisplay: "0314-3039582",
+    whatsapp: "923143039582",
   },
   {
     name: "Dr. Jalal Ud Din",
@@ -40,6 +46,8 @@ export const team: TeamMember[] = [
     ],
     initials: "JD",
     photo: drJalalImg,
+    phoneDisplay: "0317-0356265",
+    whatsapp: "923170356265",
   },
 ];
 
