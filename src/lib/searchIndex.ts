@@ -191,22 +191,17 @@ export async function buildSearchIndex(): Promise<SearchItem[]> {
 
   // Diet & Nutrition — only indexed when the section is publicly enabled.
   if (DIET_NUTRITION_ENABLED) {
-    try {
-      const { dietPages } = await import("@/data/wellness");
-      if (Array.isArray(dietPages)) {
-        for (const d of dietPages) {
-          items.push({
-            id: `diet-${d.slug}`,
-            title: d.title,
-            subtitle: d.heroSubtitle,
-            category: "Diet",
-            href: `/diet-nutrition/${d.slug}`,
-            keywords: [d.quickSummary, d.metaDescription, "diet nutrition meal plan"].join(" "),
-          });
-        }
-      }
-    } catch {
-      /* diet data optional */
+    const { dietMainPage, dietSubPages } = await import("@/data/wellness");
+    for (const d of [dietMainPage, ...dietSubPages]) {
+      const isMain = d.slug === dietMainPage.slug;
+      items.push({
+        id: `diet-${d.slug}`,
+        title: d.title,
+        subtitle: d.heroSubtitle,
+        category: "Diet",
+        href: isMain ? "/diet-nutrition" : `/diet-nutrition/${d.slug}`,
+        keywords: [d.quickSummary, d.metaDescription, "diet nutrition meal plan"].join(" "),
+      });
     }
   }
 
