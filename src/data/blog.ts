@@ -137,16 +137,16 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: "back-pain-treatment-in-multan",
-    title: "Back Pain Treatment in Multan: A Complete Physiotherapy Guide",
-    seoTitle: "Back Pain Treatment in Multan | Physiotherapy Guide — PainFix",
+    title: "Back Pain Treatment in Multan | Kamar Dard Ka Ilaj",
+    seoTitle: "Back Pain Treatment in Multan | Kamar Dard Ka Ilaj — PainFix",
     metaDescription:
-      "Effective back pain treatment in Multan. Learn the causes, when to worry, and how evidence-based physiotherapy relieves back pain and prevents it returning.",
+      "Effective back pain treatment in Multan (kamar dard ka ilaj). Learn the causes, when to worry, and how evidence-based physiotherapy relieves back pain and prevents it returning.",
     category: "back-pain",
-    tags: ["back pain", "Multan", "lower back", "physiotherapy"],
+    tags: ["back pain", "kamar dard", "kamar dard ka ilaj", "Multan", "lower back", "physiotherapy"],
     excerpt:
-      "Most back pain responds extremely well to physiotherapy. Here's how we assess, treat and prevent back pain at our Multan clinic.",
+      "Most back pain (kamar dard) responds extremely well to physiotherapy. Here's how we assess, treat and prevent back pain at our Multan clinic.",
     quickAnswer:
-      "Back pain treatment in Multan starts with a detailed physiotherapy assessment to find the cause, followed by manual therapy to relieve pain, targeted core and back strengthening, and posture correction. Most back pain improves within a few weeks of consistent, evidence-based physiotherapy — usually without surgery or long-term medication.",
+      "Back pain treatment in Multan (kamar dard ka ilaj) starts with a detailed physiotherapy assessment to find the cause, followed by manual therapy to relieve pain, targeted core and back strengthening, and posture correction. Most back pain improves within a few weeks of consistent, evidence-based physiotherapy — usually without surgery or long-term medication.",
     date: "2026-06-28",
     updated: "2026-07-09",
     authorKey: "ZA",
