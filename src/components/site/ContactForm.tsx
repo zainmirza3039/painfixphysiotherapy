@@ -1,7 +1,8 @@
 import { useState, type FormEvent } from "react";
-import { Loader2, Send } from "lucide-react";
+import { Loader2, Send, CheckCircle2 } from "lucide-react";
 import { toast } from "sonner";
 import { useI18n } from "@/i18n/LanguageProvider";
+import { GoogleReviewButton } from "./GoogleReviewButton";
 
 export function ContactForm() {
   const { t } = useI18n();
@@ -9,6 +10,7 @@ export function ContactForm() {
   const [values, setValues] = useState({ name: "", email: "", phone: "", message: "" });
   const [company, setCompany] = useState(""); // honeypot — real users leave this empty
   const [submitting, setSubmitting] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
 
   const onSubmit = async (e: FormEvent) => {
     e.preventDefault();
