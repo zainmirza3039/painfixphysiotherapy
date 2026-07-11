@@ -42,6 +42,56 @@ import logoAsset from "@/assets/painfix-logo-96.webp.asset.json";
 type ServicesMenuItem = (typeof SERVICES_MENU)[number];
 type ConditionsMenuItem = (typeof CONDITIONS_MENU)[number];
 
+/* Small professional icon per core service (keyed by label). */
+const SERVICE_ICONS: Record<string, LucideIcon> = {
+  Physiotherapy: Stethoscope,
+  "Manual Therapy": Hand,
+  "Exercise Therapy": Dumbbell,
+  "Home Physiotherapy": HomeIcon,
+  "Hijama Therapy": Droplets,
+  "Diet & Nutrition": Salad,
+  "Personalised Fitness & Rehabilitation": HeartPulse,
+};
+
+/* Featured column of the Services mega menu — booking-focused shortcuts. */
+type FeaturedItem = {
+  label: string;
+  desc: string;
+  icon: LucideIcon;
+  href?: string;
+  external?: boolean;
+  to?: string;
+};
+const FEATURED_SERVICES: FeaturedItem[] = [
+  {
+    label: "Book Consultation",
+    desc: "Chat with us on WhatsApp",
+    icon: MessageCircle,
+    href: WHATSAPP_CONSULT_URL,
+    external: true,
+  },
+  {
+    label: "Home Visits",
+    desc: "Expert physiotherapy at home",
+    icon: HomeIcon,
+    to: "/home-visit",
+  },
+  {
+    label: "Video Consultation",
+    desc: "Online session via Calendly",
+    icon: Video,
+    href: CALENDLY_URL,
+    external: true,
+  },
+  {
+    label: "View All Services",
+    desc: "Browse the full range",
+    icon: LayoutGrid,
+    to: "/services",
+  },
+];
+
+
 /**
  * Lightweight, UI-only auth affordance for the public header.
  * Reads the cached session (no network) and stays fresh via onAuthStateChange.
