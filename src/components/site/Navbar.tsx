@@ -4,6 +4,7 @@ import { Link } from "@tanstack/react-router";
 import { NAV_LINKS } from "./constants";
 import { openCalendlyPopup } from "./calendly";
 import { LanguageToggle } from "./LanguageToggle";
+import { ThemeToggle } from "./ThemeToggle";
 import logoAsset from "@/assets/painfix-logo.png.asset.json";
 
 
