@@ -51,6 +51,12 @@ function DashboardPage() {
   const newVisits = (data?.visits ?? []).filter((v) => (v.status ?? "new") === "new");
   const unreadMessages = (data?.messages ?? []).filter((m) => (m.status ?? "new") === "new");
 
+  // Professionals / content editors without clinical access land on their own workspace.
+  if (!loading && !isStaff) {
+    if (isProfessional) return <Navigate to="/admin/profile" replace />;
+    if (canEditContent) return <Navigate to="/admin/blog" replace />;
+  }
+
   return (
     <div>
       <AdminPageHeader
