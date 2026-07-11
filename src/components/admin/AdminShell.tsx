@@ -212,7 +212,7 @@ export function AdminShell({ children }: { children: ReactNode }) {
               </SheetContent>
             </Sheet>
             <span className="text-sm font-medium text-muted-foreground">
-              {isAdmin ? "Administrator panel" : "Staff panel"}
+              {panelLabel} panel
             </span>
           </div>
           <div className="flex items-center gap-2">
