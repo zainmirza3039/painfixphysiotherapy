@@ -13,6 +13,10 @@ import { Toaster } from "sonner";
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { LanguageProvider } from "@/i18n/LanguageProvider";
+import { SITE_URL } from "@/components/site/constants";
+
+const LOGO_URL =
+  SITE_URL + "/__l5e/assets-v1/75948e0c-8e21-469d-84f9-a156e5280404/painfix-logo.png";
 
 function NotFoundComponent() {
   return (
@@ -85,14 +89,12 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { property: "og:type", content: "website" },
       { property: "og:site_name", content: "PainFix Physiotherapy Clinic" },
       { name: "twitter:card", content: "summary_large_image" },
-      { title: "PAINFIX PHYSIOTHERAPY" },
-      { property: "og:title", content: "PAINFIX PHYSIOTHERAPY" },
-      { name: "twitter:title", content: "PAINFIX PHYSIOTHERAPY" },
+      { title: "PainFix Physiotherapy Clinic — Multan" },
+      { property: "og:title", content: "PainFix Physiotherapy Clinic — Multan" },
+      { name: "twitter:title", content: "PainFix Physiotherapy Clinic — Multan" },
       { name: "description", content: "PainFix Physiotherapy Clinic in Multan, Pakistan — evidence-based physiotherapy and rehabilitation for lasting pain relief, injury recovery, and restored movement." },
       { property: "og:description", content: "PainFix Physiotherapy Clinic in Multan, Pakistan — evidence-based physiotherapy and rehabilitation for lasting pain relief, injury recovery, and restored movement." },
       { name: "twitter:description", content: "PainFix Physiotherapy Clinic in Multan, Pakistan — evidence-based physiotherapy and rehabilitation for lasting pain relief, injury recovery, and restored movement." },
-      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/ff27b9c6-baba-4cbf-832a-78b288542943/id-preview-f229848a--83e6e489-3179-4efe-bff2-ce1a9fc022c8.lovable.app-1782856644173.png" },
-      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/ff27b9c6-baba-4cbf-832a-78b288542943/id-preview-f229848a--83e6e489-3179-4efe-bff2-ce1a9fc022c8.lovable.app-1782856644173.png" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
@@ -112,10 +114,11 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         children: JSON.stringify({
           "@context": "https://schema.org",
           "@type": "Physiotherapy",
+          "@id": SITE_URL + "/#clinic",
           name: "PainFix Physiotherapy Clinic",
-          logo: "/__l5e/assets-v1/75948e0c-8e21-469d-84f9-a156e5280404/painfix-logo.png",
-          image: "/__l5e/assets-v1/75948e0c-8e21-469d-84f9-a156e5280404/painfix-logo.png",
-
+          url: SITE_URL,
+          logo: LOGO_URL,
+          image: LOGO_URL,
           description:
             "Evidence-based physiotherapy and rehabilitation in Multan, Pakistan. Personalized treatment plans for pain relief, injury recovery, and restored movement.",
           telephone: "+92-314-3039582",
@@ -126,6 +129,19 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
             addressRegion: "Punjab",
             addressCountry: "PK",
           },
+          geo: {
+            "@type": "GeoCoordinates",
+            latitude: 30.239469,
+            longitude: 71.4856386,
+          },
+          openingHoursSpecification: [
+            {
+              "@type": "OpeningHoursSpecification",
+              dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+              opens: "09:00",
+              closes: "21:00",
+            },
+          ],
           medicalSpecialty: "Physiotherapy",
           priceRange: "$$",
           sameAs: [

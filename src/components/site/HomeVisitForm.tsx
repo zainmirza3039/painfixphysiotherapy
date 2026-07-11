@@ -20,6 +20,7 @@ export function HomeVisitForm() {
   const f = t.homeVisit.form;
   const [values, setValues] = useState(initial);
   const [file, setFile] = useState<File | null>(null);
+  const [company, setCompany] = useState(""); // honeypot — real users leave this empty
   const [submitting, setSubmitting] = useState(false);
 
   const set = (key: keyof typeof initial, val: string) =>
@@ -27,6 +28,8 @@ export function HomeVisitForm() {
 
   const onSubmit = async (e: FormEvent) => {
     e.preventDefault();
+    // Silently drop bot submissions that fill the hidden honeypot field.
+    if (company) return;
     if (!values.full_name.trim() || !values.phone.trim() || !values.address.trim()) {
       toast.error(f.required);
       return;
@@ -82,6 +85,18 @@ export function HomeVisitForm() {
 
   return (
     <form onSubmit={onSubmit} className="grid gap-4 sm:grid-cols-2">
+      {/* Honeypot: visually hidden, ignored by humans, filled by bots */}
+      <div aria-hidden className="absolute left-[-9999px] top-[-9999px] h-0 w-0 overflow-hidden" tabIndex={-1}>
+        <label htmlFor="hv-company">Company</label>
+        <input
+          id="hv-company"
+          type="text"
+          tabIndex={-1}
+          autoComplete="off"
+          value={company}
+          onChange={(e) => setCompany(e.target.value)}
+        />
+      </div>
       <div className="sm:col-span-1">
         <label className={labelCls} htmlFor="full_name">
           {f.fullName} *
