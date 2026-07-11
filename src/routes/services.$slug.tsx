@@ -151,6 +151,45 @@ function ServiceDetail() {
         </div>
       </section>
 
+      {/* Evidence & Safety */}
+      {((service.evidence && service.evidence.length > 0) ||
+        (service.contraindications && service.contraindications.length > 0)) && (
+        <section className="bg-surface py-14 sm:py-20">
+          <div className="mx-auto grid max-w-7xl gap-10 px-4 sm:px-6 lg:grid-cols-2 lg:px-8">
+            {service.evidence && service.evidence.length > 0 && (
+              <Reveal anim="left">
+                <div className="h-full rounded-[1.75rem] border border-border bg-card p-8 shadow-soft">
+                  <h2 className="flex items-center gap-2 font-heading text-xl font-bold text-foreground">
+                    <BookOpen className="h-5 w-5 text-primary" /> Evidence &amp; Our Approach
+                  </h2>
+                  <div className="mt-5 space-y-4">
+                    {service.evidence.map((p) => (
+                      <p key={p} className="text-sm leading-relaxed text-muted-foreground">{p}</p>
+                    ))}
+                  </div>
+                </div>
+              </Reveal>
+            )}
+            {service.contraindications && service.contraindications.length > 0 && (
+              <Reveal anim="right">
+                <div className="h-full rounded-[1.75rem] border border-border bg-card p-8 shadow-soft">
+                  <h2 className="flex items-center gap-2 font-heading text-xl font-bold text-foreground">
+                    <ShieldAlert className="h-5 w-5 text-secondary" /> When to Avoid / Tell Us
+                  </h2>
+                  <ul className="mt-5 space-y-3">
+                    {service.contraindications.map((c) => (
+                      <li key={c} className="flex items-start gap-3 text-sm text-foreground">
+                        <ShieldAlert className="mt-0.5 h-5 w-5 shrink-0 text-secondary" /> {c}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </Reveal>
+            )}
+          </div>
+        </section>
+      )}
+
       {/* Equipment */}
       {service.equipment && service.equipment.length > 0 && (
         <section className="bg-surface py-14 sm:py-20">
