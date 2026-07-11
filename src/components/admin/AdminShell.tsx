@@ -71,7 +71,7 @@ function useDarkMode() {
 }
 
 export function AdminShell({ children }: { children: ReactNode }) {
-  const { user, isAdmin, isStaff, roles, loading } = useAdminAuth();
+  const { user, isAdmin, isStaff, loading } = useAdminAuth();
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   const { dark, toggle } = useDarkMode();
