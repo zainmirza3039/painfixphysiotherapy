@@ -1381,15 +1381,15 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: "best-exercises-for-lower-back-pain",
-    title: "Best Exercises for Lower Back Pain",
-    seoTitle: "Best Exercises for Lower Back Pain | Physiotherapy — PainFix",
+    title: "Best Exercises for Lower Back Pain | Kamar Dard Ki Exercises",
+    seoTitle: "Lower Back Pain Exercises | Kamar Dard Ki Exercises — PainFix",
     metaDescription:
-      "Ease lower back pain with these physiotherapist-approved exercises. Safe, effective movements to relieve pain, build core strength and prevent recurrence.",
+      "Ease lower back pain (kamar dard) with these physiotherapist-approved exercises. Safe, effective movements to relieve pain, build core strength and prevent recurrence.",
     category: "exercise-therapy",
-    tags: ["lower back pain", "exercises", "core", "stretches"],
-    excerpt: "The right exercises are one of the most powerful treatments for lower back pain. Here are the ones we recommend.",
+    tags: ["lower back pain", "kamar dard", "exercises", "core", "stretches"],
+    excerpt: "The right exercises are one of the most powerful treatments for lower back pain (kamar dard). Here are the ones we recommend.",
     quickAnswer:
-      "The best exercises for lower back pain include the pelvic tilt, bird-dog, glute bridge, knee-to-chest stretch and cat-cow. Done regularly and pain-free, they relieve stiffness, strengthen the core and improve mobility. Combine gentle mobility work with progressive strengthening for lasting relief and fewer flare-ups.",
+      "The best exercises for lower back pain (kamar dard ki exercises) include the pelvic tilt, bird-dog, glute bridge, knee-to-chest stretch and cat-cow. Done regularly and pain-free, they relieve stiffness, strengthen the core and improve mobility. Combine gentle mobility work with progressive strengthening for lasting relief and fewer flare-ups.",
     date: "2026-05-02",
     updated: "2026-06-08",
     authorKey: "ZA",
