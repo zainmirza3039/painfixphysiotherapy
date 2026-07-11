@@ -212,10 +212,12 @@ function ConditionLink({
   item,
   onNavigate,
   className,
+  withIcon = false,
 }: {
   item: ConditionsMenuItem;
   onNavigate: () => void;
   className: string;
+  withIcon?: boolean;
 }) {
   return (
     <Link
@@ -225,10 +227,14 @@ function ConditionLink({
       onClick={onNavigate}
       className={className}
     >
-      {item.label}
+      {withIcon && (
+        <Activity className="h-4 w-4 shrink-0 text-primary/70 transition-colors group-hover:text-primary" />
+      )}
+      <span className="min-w-0">{item.label}</span>
     </Link>
   );
 }
+
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
