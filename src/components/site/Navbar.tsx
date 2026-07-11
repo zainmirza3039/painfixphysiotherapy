@@ -136,32 +136,32 @@ export function Navbar() {
             <a
               key={l.href}
               href={l.href}
-              className="rounded-full px-3 py-2 text-sm font-medium text-foreground/80 transition-colors hover:bg-accent hover:text-primary"
+              className="rounded-full px-2.5 py-2 text-sm font-medium text-foreground/80 transition-colors hover:bg-accent hover:text-primary"
             >
               {l.label}
             </a>
           ))}
           <Link
             to="/home-visit"
-            className="inline-flex items-center gap-1.5 rounded-full px-3 py-2 text-sm font-medium text-foreground/80 transition-colors hover:bg-accent hover:text-primary"
+            className="rounded-full px-2.5 py-2 text-sm font-medium text-foreground/80 transition-colors hover:bg-accent hover:text-primary"
           >
-            <Home className="h-4 w-4" /> Home Visit
+            Home Visit
           </Link>
           <Link
             to="/fitness-rehabilitation"
-            className="inline-flex items-center gap-1.5 rounded-full px-3 py-2 text-sm font-medium text-foreground/80 transition-colors hover:bg-accent hover:text-primary"
+            className="rounded-full px-2.5 py-2 text-sm font-medium text-foreground/80 transition-colors hover:bg-accent hover:text-primary"
           >
-            <Dumbbell className="h-4 w-4" /> Fitness
+            Fitness
           </Link>
           <Link
             to="/blog"
-            className="inline-flex items-center gap-1.5 rounded-full px-3 py-2 text-sm font-medium text-foreground/80 transition-colors hover:bg-accent hover:text-primary"
+            className="rounded-full px-2.5 py-2 text-sm font-medium text-foreground/80 transition-colors hover:bg-accent hover:text-primary"
           >
-            <BookOpen className="h-4 w-4" /> Blog
+            Blog
           </Link>
         </div>
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-1.5">
           <SiteSearch />
           <ThemeToggle />
 
@@ -173,7 +173,7 @@ export function Navbar() {
                 onClick={() => setAccountOpen((v) => !v)}
                 aria-haspopup="menu"
                 aria-expanded={accountOpen}
-                className="inline-flex items-center gap-1.5 rounded-full border border-border bg-background px-3 py-2 text-sm font-medium text-foreground/85 transition-colors hover:bg-accent hover:text-primary"
+                className="inline-flex items-center gap-1 rounded-full border border-border bg-background px-3 py-2 text-sm font-medium text-foreground/85 transition-colors hover:bg-accent hover:text-primary"
               >
                 <User className="h-4 w-4" /> Account
                 <ChevronDown className={`h-3.5 w-3.5 transition-transform ${accountOpen ? "rotate-180" : ""}`} />
@@ -211,21 +211,22 @@ export function Navbar() {
               )}
             </div>
           ) : (
-            <div className="hidden items-center gap-2 xl:flex">
+            <div className="hidden items-center gap-1 xl:flex">
               <Link
                 to="/auth"
-                className="inline-flex items-center gap-1.5 rounded-full px-3 py-2 text-sm font-medium text-foreground/80 transition-colors hover:bg-accent hover:text-primary"
+                className="rounded-full px-2.5 py-2 text-sm font-medium text-foreground/80 transition-colors hover:bg-accent hover:text-primary"
               >
-                <LogIn className="h-4 w-4" /> Sign In
+                Sign In
               </Link>
               <Link
                 to="/auth"
-                className="inline-flex items-center gap-1.5 rounded-full border border-primary px-4 py-2 text-sm font-semibold text-primary transition-colors hover:bg-primary hover:text-primary-foreground"
+                className="rounded-full border border-primary px-3 py-2 text-sm font-semibold text-primary transition-colors hover:bg-primary hover:text-primary-foreground"
               >
-                <UserPlus className="h-4 w-4" /> Sign Up
+                Sign Up
               </Link>
             </div>
           )}
+
 
           <button
             type="button"
