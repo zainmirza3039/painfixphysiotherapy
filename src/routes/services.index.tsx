@@ -1,12 +1,14 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, MessageCircle } from "lucide-react";
 import { services } from "@/data/services";
+import { wellnessCards } from "@/data/wellnessCards";
 import { WHATSAPP_CONSULT_URL } from "@/components/site/constants";
 import { PageLayout } from "@/components/site/PageLayout";
 import { PageHero } from "@/components/site/PageHero";
 import { PageCTA } from "@/components/site/PageCTA";
 import { Reveal } from "@/components/site/Reveal";
 import { pageMeta, canonical, breadcrumbLd } from "@/lib/seo";
+
 
 const TITLE = "Physiotherapy Services in Multan | PainFix Clinic";
 const DESCRIPTION =
