@@ -23,7 +23,7 @@ import {
 export function LocalLandingPage({ page }: { page: LocalPage }) {
   const services = page.serviceSlugs.map((s) => serviceMap[s]).filter(Boolean);
   const conditions = page.conditionSlugs.map((c) => conditionMap[c]).filter(Boolean);
-  const blogs = page.blogSlugs.map((b) => blogPostMap[b]).filter(Boolean);
+  const blogs = page.blogSlugs.map((b) => blogMap[b]).filter(Boolean);
 
   return (
     <PageLayout>
