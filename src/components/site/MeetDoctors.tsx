@@ -4,6 +4,7 @@ import { Reveal } from "./Reveal";
 import { SectionHeading } from "./SectionHeading";
 import { openCalendlyPopup } from "./calendly";
 import { SOCIAL_LINKS } from "./constants";
+import { GoogleReviewButton } from "./GoogleReviewButton";
 
 export function MeetDoctors() {
   return (
