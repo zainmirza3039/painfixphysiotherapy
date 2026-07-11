@@ -18,7 +18,7 @@ export const team: TeamMember[] = [
   },
   {
     name: "Dr. Jalal Ud Din",
-    role: "Consultant Physiotherapist",
+    role: "Clinical Physiotherapist",
     credentials: "DPT (Doctor of Physical Therapy)",
     bio: "Dr. Jalal Ud Din specialises in rehabilitation and recovery, designing individualized treatment plans that target the root cause of each patient's condition for long-term results.",
     specialties: ["Post-Surgical Rehab", "Neuro Rehabilitation", "Exercise Therapy"],
