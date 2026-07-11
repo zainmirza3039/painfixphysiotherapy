@@ -11,13 +11,27 @@ import {
   CalendarCheck,
   LogOut,
   ChevronDown,
+  Stethoscope,
+  Hand,
+  Dumbbell,
+  Home as HomeIcon,
+  Droplets,
+  Salad,
+  HeartPulse,
+  Video,
+  LayoutGrid,
+  ArrowRight,
+  Activity,
+  type LucideIcon,
 } from "lucide-react";
 import { Link, useNavigate } from "@tanstack/react-router";
 import {
   SERVICES_MENU,
   CONDITIONS_MENU,
   WHATSAPP_CONSULT_URL,
+  CALENDLY_URL,
 } from "./constants";
+
 // NOTE: LanguageToggle intentionally not rendered in the public header.
 // The i18n architecture (LanguageProvider, translations, LanguageToggle) is kept
 // so an Urdu switch can be re-enabled once a complete Urdu version is ready.
