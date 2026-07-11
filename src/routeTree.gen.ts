@@ -16,6 +16,7 @@ import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as PhysiotherapyClinicInMultanRouteImport } from './routes/physiotherapy-clinic-in-multan'
 import { Route as PhysiotherapistInMultanRouteImport } from './routes/physiotherapist-in-multan'
 import { Route as HomeVisitRouteImport } from './routes/home-visit'
+import { Route as FitnessRehabilitationRouteImport } from './routes/fitness-rehabilitation'
 import { Route as DrZainUlAbideenPtMultanRouteImport } from './routes/dr-zain-ul-abideen-pt-multan'
 import { Route as DrJalalUdDinPtMultanRouteImport } from './routes/dr-jalal-ud-din-pt-multan'
 import { Route as BestPhysiotherapistInMultanRouteImport } from './routes/best-physiotherapist-in-multan'
@@ -23,9 +24,11 @@ import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ServicesIndexRouteImport } from './routes/services.index'
+import { Route as DietNutritionIndexRouteImport } from './routes/diet-nutrition.index'
 import { Route as ConditionsIndexRouteImport } from './routes/conditions.index'
 import { Route as BlogIndexRouteImport } from './routes/blog.index'
 import { Route as ServicesSlugRouteImport } from './routes/services.$slug'
+import { Route as DietNutritionSlugRouteImport } from './routes/diet-nutrition.$slug'
 import { Route as ConditionsSlugRouteImport } from './routes/conditions.$slug'
 import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
 import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
@@ -77,6 +80,11 @@ const HomeVisitRoute = HomeVisitRouteImport.update({
   path: '/home-visit',
   getParentRoute: () => rootRouteImport,
 } as any)
+const FitnessRehabilitationRoute = FitnessRehabilitationRouteImport.update({
+  id: '/fitness-rehabilitation',
+  path: '/fitness-rehabilitation',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const DrZainUlAbideenPtMultanRoute = DrZainUlAbideenPtMultanRouteImport.update({
   id: '/dr-zain-ul-abideen-pt-multan',
   path: '/dr-zain-ul-abideen-pt-multan',
@@ -112,6 +120,11 @@ const ServicesIndexRoute = ServicesIndexRouteImport.update({
   path: '/services/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DietNutritionIndexRoute = DietNutritionIndexRouteImport.update({
+  id: '/diet-nutrition/',
+  path: '/diet-nutrition/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ConditionsIndexRoute = ConditionsIndexRouteImport.update({
   id: '/conditions/',
   path: '/conditions/',
@@ -125,6 +138,11 @@ const BlogIndexRoute = BlogIndexRouteImport.update({
 const ServicesSlugRoute = ServicesSlugRouteImport.update({
   id: '/services/$slug',
   path: '/services/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DietNutritionSlugRoute = DietNutritionSlugRouteImport.update({
+  id: '/diet-nutrition/$slug',
+  path: '/diet-nutrition/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ConditionsSlugRoute = ConditionsSlugRouteImport.update({
@@ -210,6 +228,7 @@ export interface FileRoutesByFullPath {
   '/best-physiotherapist-in-multan': typeof BestPhysiotherapistInMultanRoute
   '/dr-jalal-ud-din-pt-multan': typeof DrJalalUdDinPtMultanRoute
   '/dr-zain-ul-abideen-pt-multan': typeof DrZainUlAbideenPtMultanRoute
+  '/fitness-rehabilitation': typeof FitnessRehabilitationRoute
   '/home-visit': typeof HomeVisitRoute
   '/physiotherapist-in-multan': typeof PhysiotherapistInMultanRoute
   '/physiotherapy-clinic-in-multan': typeof PhysiotherapyClinicInMultanRoute
@@ -220,9 +239,11 @@ export interface FileRoutesByFullPath {
   '/admin': typeof AuthenticatedAdminRouteWithChildren
   '/blog/$slug': typeof BlogSlugRoute
   '/conditions/$slug': typeof ConditionsSlugRoute
+  '/diet-nutrition/$slug': typeof DietNutritionSlugRoute
   '/services/$slug': typeof ServicesSlugRoute
   '/blog/': typeof BlogIndexRoute
   '/conditions/': typeof ConditionsIndexRoute
+  '/diet-nutrition/': typeof DietNutritionIndexRoute
   '/services/': typeof ServicesIndexRoute
   '/admin/appointments': typeof AuthenticatedAdminAppointmentsRoute
   '/admin/blog': typeof AuthenticatedAdminBlogRoute
@@ -242,6 +263,7 @@ export interface FileRoutesByTo {
   '/best-physiotherapist-in-multan': typeof BestPhysiotherapistInMultanRoute
   '/dr-jalal-ud-din-pt-multan': typeof DrJalalUdDinPtMultanRoute
   '/dr-zain-ul-abideen-pt-multan': typeof DrZainUlAbideenPtMultanRoute
+  '/fitness-rehabilitation': typeof FitnessRehabilitationRoute
   '/home-visit': typeof HomeVisitRoute
   '/physiotherapist-in-multan': typeof PhysiotherapistInMultanRoute
   '/physiotherapy-clinic-in-multan': typeof PhysiotherapyClinicInMultanRoute
@@ -251,9 +273,11 @@ export interface FileRoutesByTo {
   '/terms': typeof TermsRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/conditions/$slug': typeof ConditionsSlugRoute
+  '/diet-nutrition/$slug': typeof DietNutritionSlugRoute
   '/services/$slug': typeof ServicesSlugRoute
   '/blog': typeof BlogIndexRoute
   '/conditions': typeof ConditionsIndexRoute
+  '/diet-nutrition': typeof DietNutritionIndexRoute
   '/services': typeof ServicesIndexRoute
   '/admin/appointments': typeof AuthenticatedAdminAppointmentsRoute
   '/admin/blog': typeof AuthenticatedAdminBlogRoute
@@ -275,6 +299,7 @@ export interface FileRoutesById {
   '/best-physiotherapist-in-multan': typeof BestPhysiotherapistInMultanRoute
   '/dr-jalal-ud-din-pt-multan': typeof DrJalalUdDinPtMultanRoute
   '/dr-zain-ul-abideen-pt-multan': typeof DrZainUlAbideenPtMultanRoute
+  '/fitness-rehabilitation': typeof FitnessRehabilitationRoute
   '/home-visit': typeof HomeVisitRoute
   '/physiotherapist-in-multan': typeof PhysiotherapistInMultanRoute
   '/physiotherapy-clinic-in-multan': typeof PhysiotherapyClinicInMultanRoute
@@ -285,9 +310,11 @@ export interface FileRoutesById {
   '/_authenticated/admin': typeof AuthenticatedAdminRouteWithChildren
   '/blog/$slug': typeof BlogSlugRoute
   '/conditions/$slug': typeof ConditionsSlugRoute
+  '/diet-nutrition/$slug': typeof DietNutritionSlugRoute
   '/services/$slug': typeof ServicesSlugRoute
   '/blog/': typeof BlogIndexRoute
   '/conditions/': typeof ConditionsIndexRoute
+  '/diet-nutrition/': typeof DietNutritionIndexRoute
   '/services/': typeof ServicesIndexRoute
   '/_authenticated/admin/appointments': typeof AuthenticatedAdminAppointmentsRoute
   '/_authenticated/admin/blog': typeof AuthenticatedAdminBlogRoute
@@ -309,6 +336,7 @@ export interface FileRouteTypes {
     | '/best-physiotherapist-in-multan'
     | '/dr-jalal-ud-din-pt-multan'
     | '/dr-zain-ul-abideen-pt-multan'
+    | '/fitness-rehabilitation'
     | '/home-visit'
     | '/physiotherapist-in-multan'
     | '/physiotherapy-clinic-in-multan'
@@ -319,9 +347,11 @@ export interface FileRouteTypes {
     | '/admin'
     | '/blog/$slug'
     | '/conditions/$slug'
+    | '/diet-nutrition/$slug'
     | '/services/$slug'
     | '/blog/'
     | '/conditions/'
+    | '/diet-nutrition/'
     | '/services/'
     | '/admin/appointments'
     | '/admin/blog'
@@ -341,6 +371,7 @@ export interface FileRouteTypes {
     | '/best-physiotherapist-in-multan'
     | '/dr-jalal-ud-din-pt-multan'
     | '/dr-zain-ul-abideen-pt-multan'
+    | '/fitness-rehabilitation'
     | '/home-visit'
     | '/physiotherapist-in-multan'
     | '/physiotherapy-clinic-in-multan'
@@ -350,9 +381,11 @@ export interface FileRouteTypes {
     | '/terms'
     | '/blog/$slug'
     | '/conditions/$slug'
+    | '/diet-nutrition/$slug'
     | '/services/$slug'
     | '/blog'
     | '/conditions'
+    | '/diet-nutrition'
     | '/services'
     | '/admin/appointments'
     | '/admin/blog'
@@ -373,6 +406,7 @@ export interface FileRouteTypes {
     | '/best-physiotherapist-in-multan'
     | '/dr-jalal-ud-din-pt-multan'
     | '/dr-zain-ul-abideen-pt-multan'
+    | '/fitness-rehabilitation'
     | '/home-visit'
     | '/physiotherapist-in-multan'
     | '/physiotherapy-clinic-in-multan'
@@ -383,9 +417,11 @@ export interface FileRouteTypes {
     | '/_authenticated/admin'
     | '/blog/$slug'
     | '/conditions/$slug'
+    | '/diet-nutrition/$slug'
     | '/services/$slug'
     | '/blog/'
     | '/conditions/'
+    | '/diet-nutrition/'
     | '/services/'
     | '/_authenticated/admin/appointments'
     | '/_authenticated/admin/blog'
@@ -407,6 +443,7 @@ export interface RootRouteChildren {
   BestPhysiotherapistInMultanRoute: typeof BestPhysiotherapistInMultanRoute
   DrJalalUdDinPtMultanRoute: typeof DrJalalUdDinPtMultanRoute
   DrZainUlAbideenPtMultanRoute: typeof DrZainUlAbideenPtMultanRoute
+  FitnessRehabilitationRoute: typeof FitnessRehabilitationRoute
   HomeVisitRoute: typeof HomeVisitRoute
   PhysiotherapistInMultanRoute: typeof PhysiotherapistInMultanRoute
   PhysiotherapyClinicInMultanRoute: typeof PhysiotherapyClinicInMultanRoute
@@ -416,9 +453,11 @@ export interface RootRouteChildren {
   TermsRoute: typeof TermsRoute
   BlogSlugRoute: typeof BlogSlugRoute
   ConditionsSlugRoute: typeof ConditionsSlugRoute
+  DietNutritionSlugRoute: typeof DietNutritionSlugRoute
   ServicesSlugRoute: typeof ServicesSlugRoute
   BlogIndexRoute: typeof BlogIndexRoute
   ConditionsIndexRoute: typeof ConditionsIndexRoute
+  DietNutritionIndexRoute: typeof DietNutritionIndexRoute
   ServicesIndexRoute: typeof ServicesIndexRoute
   BlogCategoryCategoryRoute: typeof BlogCategoryCategoryRoute
 }
@@ -474,6 +513,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof HomeVisitRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/fitness-rehabilitation': {
+      id: '/fitness-rehabilitation'
+      path: '/fitness-rehabilitation'
+      fullPath: '/fitness-rehabilitation'
+      preLoaderRoute: typeof FitnessRehabilitationRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/dr-zain-ul-abideen-pt-multan': {
       id: '/dr-zain-ul-abideen-pt-multan'
       path: '/dr-zain-ul-abideen-pt-multan'
@@ -523,6 +569,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ServicesIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/diet-nutrition/': {
+      id: '/diet-nutrition/'
+      path: '/diet-nutrition'
+      fullPath: '/diet-nutrition/'
+      preLoaderRoute: typeof DietNutritionIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/conditions/': {
       id: '/conditions/'
       path: '/conditions'
@@ -542,6 +595,13 @@ declare module '@tanstack/react-router' {
       path: '/services/$slug'
       fullPath: '/services/$slug'
       preLoaderRoute: typeof ServicesSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/diet-nutrition/$slug': {
+      id: '/diet-nutrition/$slug'
+      path: '/diet-nutrition/$slug'
+      fullPath: '/diet-nutrition/$slug'
+      preLoaderRoute: typeof DietNutritionSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/conditions/$slug': {
@@ -692,6 +752,7 @@ const rootRouteChildren: RootRouteChildren = {
   BestPhysiotherapistInMultanRoute: BestPhysiotherapistInMultanRoute,
   DrJalalUdDinPtMultanRoute: DrJalalUdDinPtMultanRoute,
   DrZainUlAbideenPtMultanRoute: DrZainUlAbideenPtMultanRoute,
+  FitnessRehabilitationRoute: FitnessRehabilitationRoute,
   HomeVisitRoute: HomeVisitRoute,
   PhysiotherapistInMultanRoute: PhysiotherapistInMultanRoute,
   PhysiotherapyClinicInMultanRoute: PhysiotherapyClinicInMultanRoute,
@@ -701,22 +762,14 @@ const rootRouteChildren: RootRouteChildren = {
   TermsRoute: TermsRoute,
   BlogSlugRoute: BlogSlugRoute,
   ConditionsSlugRoute: ConditionsSlugRoute,
+  DietNutritionSlugRoute: DietNutritionSlugRoute,
   ServicesSlugRoute: ServicesSlugRoute,
   BlogIndexRoute: BlogIndexRoute,
   ConditionsIndexRoute: ConditionsIndexRoute,
+  DietNutritionIndexRoute: DietNutritionIndexRoute,
   ServicesIndexRoute: ServicesIndexRoute,
   BlogCategoryCategoryRoute: BlogCategoryCategoryRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
