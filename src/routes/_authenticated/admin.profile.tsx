@@ -112,16 +112,8 @@ function ProfilePage() {
       <AdminPageHeader
         title="My Profile"
         description="Manage the public profile shown on the PainFix website."
-        actions={
-          form.is_published && publicSlug ? (
-            <Button asChild variant="outline" size="sm">
-              <a href={`/team/${publicSlug}`} target="_blank" rel="noreferrer">
-                <ExternalLink className="mr-2 h-4 w-4" /> View public profile
-              </a>
-            </Button>
-          ) : undefined
-        }
       />
+
 
       {isLoading ? (
         <div className="space-y-3">
