@@ -124,6 +124,14 @@ function ProfilePage() {
           .filter(Boolean),
         years_experience: years ? Number(years) : null,
         qualifications: form.qualifications.trim() || null,
+        certifications: form.certifications.trim() || null,
+        clinical_interests: form.clinical_interests
+          .split(",")
+          .map((s) => s.trim())
+          .filter(Boolean),
+        availability: form.availability.trim() || null,
+        faqs: faqs.filter((f) => f.q.trim() || f.a.trim()),
+        gallery: gallery.filter((g) => g.url.trim()),
         phone: form.phone.trim() || null,
         public_email: form.public_email.trim() || null,
         is_published: form.is_published,
