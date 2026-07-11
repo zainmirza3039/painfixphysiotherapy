@@ -30,6 +30,7 @@ export const Route = createFileRoute("/_authenticated/admin/media")({
 
 interface MediaFile {
   name: string;
+  label: string;
   size: number;
   url: string;
   isImage: boolean;
