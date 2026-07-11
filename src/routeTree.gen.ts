@@ -50,6 +50,7 @@ import { Route as AuthenticatedAdminMessagesRouteImport } from './routes/_authen
 import { Route as AuthenticatedAdminMediaRouteImport } from './routes/_authenticated/admin.media'
 import { Route as AuthenticatedAdminHomeVisitsRouteImport } from './routes/_authenticated/admin.home-visits'
 import { Route as AuthenticatedAdminFitnessContentRouteImport } from './routes/_authenticated/admin.fitness-content'
+import { Route as AuthenticatedAdminCalculatorsRouteImport } from './routes/_authenticated/admin.calculators'
 import { Route as AuthenticatedAdminBlogRouteImport } from './routes/_authenticated/admin.blog'
 import { Route as AuthenticatedAdminAppointmentsRouteImport } from './routes/_authenticated/admin.appointments'
 
@@ -266,6 +267,12 @@ const AuthenticatedAdminFitnessContentRoute =
     path: '/fitness-content',
     getParentRoute: () => AuthenticatedAdminRoute,
   } as any)
+const AuthenticatedAdminCalculatorsRoute =
+  AuthenticatedAdminCalculatorsRouteImport.update({
+    id: '/calculators',
+    path: '/calculators',
+    getParentRoute: () => AuthenticatedAdminRoute,
+  } as any)
 const AuthenticatedAdminBlogRoute = AuthenticatedAdminBlogRouteImport.update({
   id: '/blog',
   path: '/blog',
@@ -310,6 +317,7 @@ export interface FileRoutesByFullPath {
   '/services/': typeof ServicesIndexRoute
   '/admin/appointments': typeof AuthenticatedAdminAppointmentsRoute
   '/admin/blog': typeof AuthenticatedAdminBlogRoute
+  '/admin/calculators': typeof AuthenticatedAdminCalculatorsRoute
   '/admin/fitness-content': typeof AuthenticatedAdminFitnessContentRoute
   '/admin/home-visits': typeof AuthenticatedAdminHomeVisitsRoute
   '/admin/media': typeof AuthenticatedAdminMediaRoute
@@ -353,6 +361,7 @@ export interface FileRoutesByTo {
   '/services': typeof ServicesIndexRoute
   '/admin/appointments': typeof AuthenticatedAdminAppointmentsRoute
   '/admin/blog': typeof AuthenticatedAdminBlogRoute
+  '/admin/calculators': typeof AuthenticatedAdminCalculatorsRoute
   '/admin/fitness-content': typeof AuthenticatedAdminFitnessContentRoute
   '/admin/home-visits': typeof AuthenticatedAdminHomeVisitsRoute
   '/admin/media': typeof AuthenticatedAdminMediaRoute
@@ -399,6 +408,7 @@ export interface FileRoutesById {
   '/services/': typeof ServicesIndexRoute
   '/_authenticated/admin/appointments': typeof AuthenticatedAdminAppointmentsRoute
   '/_authenticated/admin/blog': typeof AuthenticatedAdminBlogRoute
+  '/_authenticated/admin/calculators': typeof AuthenticatedAdminCalculatorsRoute
   '/_authenticated/admin/fitness-content': typeof AuthenticatedAdminFitnessContentRoute
   '/_authenticated/admin/home-visits': typeof AuthenticatedAdminHomeVisitsRoute
   '/_authenticated/admin/media': typeof AuthenticatedAdminMediaRoute
@@ -445,6 +455,7 @@ export interface FileRouteTypes {
     | '/services/'
     | '/admin/appointments'
     | '/admin/blog'
+    | '/admin/calculators'
     | '/admin/fitness-content'
     | '/admin/home-visits'
     | '/admin/media'
@@ -488,6 +499,7 @@ export interface FileRouteTypes {
     | '/services'
     | '/admin/appointments'
     | '/admin/blog'
+    | '/admin/calculators'
     | '/admin/fitness-content'
     | '/admin/home-visits'
     | '/admin/media'
@@ -533,6 +545,7 @@ export interface FileRouteTypes {
     | '/services/'
     | '/_authenticated/admin/appointments'
     | '/_authenticated/admin/blog'
+    | '/_authenticated/admin/calculators'
     | '/_authenticated/admin/fitness-content'
     | '/_authenticated/admin/home-visits'
     | '/_authenticated/admin/media'
@@ -868,6 +881,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminFitnessContentRouteImport
       parentRoute: typeof AuthenticatedAdminRoute
     }
+    '/_authenticated/admin/calculators': {
+      id: '/_authenticated/admin/calculators'
+      path: '/calculators'
+      fullPath: '/admin/calculators'
+      preLoaderRoute: typeof AuthenticatedAdminCalculatorsRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
     '/_authenticated/admin/blog': {
       id: '/_authenticated/admin/blog'
       path: '/blog'
@@ -888,6 +908,7 @@ declare module '@tanstack/react-router' {
 interface AuthenticatedAdminRouteChildren {
   AuthenticatedAdminAppointmentsRoute: typeof AuthenticatedAdminAppointmentsRoute
   AuthenticatedAdminBlogRoute: typeof AuthenticatedAdminBlogRoute
+  AuthenticatedAdminCalculatorsRoute: typeof AuthenticatedAdminCalculatorsRoute
   AuthenticatedAdminFitnessContentRoute: typeof AuthenticatedAdminFitnessContentRoute
   AuthenticatedAdminHomeVisitsRoute: typeof AuthenticatedAdminHomeVisitsRoute
   AuthenticatedAdminMediaRoute: typeof AuthenticatedAdminMediaRoute
@@ -903,6 +924,7 @@ interface AuthenticatedAdminRouteChildren {
 const AuthenticatedAdminRouteChildren: AuthenticatedAdminRouteChildren = {
   AuthenticatedAdminAppointmentsRoute: AuthenticatedAdminAppointmentsRoute,
   AuthenticatedAdminBlogRoute: AuthenticatedAdminBlogRoute,
+  AuthenticatedAdminCalculatorsRoute: AuthenticatedAdminCalculatorsRoute,
   AuthenticatedAdminFitnessContentRoute: AuthenticatedAdminFitnessContentRoute,
   AuthenticatedAdminHomeVisitsRoute: AuthenticatedAdminHomeVisitsRoute,
   AuthenticatedAdminMediaRoute: AuthenticatedAdminMediaRoute,
