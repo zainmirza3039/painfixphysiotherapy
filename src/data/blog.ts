@@ -220,15 +220,15 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: "causes-of-back-pain",
-    title: "Causes of Back Pain Explained",
-    seoTitle: "Causes of Back Pain Explained | Physiotherapy — PainFix Multan",
+    title: "Causes of Back Pain Explained | Kamar Dard Ki Wajuhat",
+    seoTitle: "Causes of Back Pain | Kamar Dard Ki Wajuhat — PainFix Multan",
     metaDescription:
-      "What causes back pain? Understand the most common causes — from muscle strain and posture to disc problems — and how physiotherapy treats each one.",
+      "What causes back pain (kamar dard ki wajuhat)? Understand the most common causes — from muscle strain and posture to disc problems — and how physiotherapy in Multan treats each one.",
     category: "back-pain",
-    tags: ["back pain", "causes", "disc", "posture"],
-    excerpt: "From muscle strain to disc problems, understanding what causes your back pain is the first step to treating it properly.",
+    tags: ["back pain", "kamar dard", "causes", "disc", "posture"],
+    excerpt: "From muscle strain to disc problems, understanding what causes your back pain (kamar dard) is the first step to treating it properly.",
     quickAnswer:
-      "The most common causes of back pain are muscle or ligament strain, poor posture and prolonged sitting, disc problems, incorrect lifting, and weak core muscles. Most causes are mechanical and improve with physiotherapy. A detailed assessment identifies the exact cause so treatment can target it directly.",
+      "The most common causes of back pain (kamar dard ki wajuhat) are muscle or ligament strain, poor posture and prolonged sitting, disc problems, incorrect lifting, and weak core muscles. Most causes are mechanical and improve with physiotherapy. A detailed assessment identifies the exact cause so treatment can target it directly.",
     date: "2026-06-24",
     updated: "2026-07-05",
     authorKey: "ZA",
