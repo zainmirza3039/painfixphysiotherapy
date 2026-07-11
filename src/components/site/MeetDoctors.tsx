@@ -1,4 +1,4 @@
-import { Calendar, BadgeCheck, Stethoscope, Linkedin } from "lucide-react";
+import { Calendar, BadgeCheck, Stethoscope, Linkedin, MessageCircle } from "lucide-react";
 import { team } from "@/data/team";
 import { Reveal } from "./Reveal";
 import { SectionHeading } from "./SectionHeading";
