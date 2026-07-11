@@ -1,4 +1,4 @@
-import { Calendar, BadgeCheck, Stethoscope, Linkedin } from "lucide-react";
+import { Calendar, BadgeCheck, Stethoscope, Linkedin, MessageCircle } from "lucide-react";
 import { team } from "@/data/team";
 import { Reveal } from "./Reveal";
 import { SectionHeading } from "./SectionHeading";
@@ -62,6 +62,17 @@ export function MeetDoctors() {
                     >
                       <Calendar className="h-4 w-4" /> Book Appointment
                     </button>
+                    <a
+                      href={`https://wa.me/${doc.whatsapp}?text=${encodeURIComponent(
+                        `Hi, I'd like to book an appointment with ${doc.name} at PainFix Physiotherapy Clinic.`,
+                      )}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={`Message ${doc.name} on WhatsApp (${doc.phoneDisplay})`}
+                      className="ripple inline-flex items-center gap-2 rounded-2xl border border-secondary px-5 py-3 text-sm font-semibold text-secondary transition-colors hover:bg-secondary hover:text-secondary-foreground"
+                    >
+                      <MessageCircle className="h-4 w-4" /> WhatsApp
+                    </a>
                     <a
                       href={SOCIAL_LINKS.linkedin.url}
                       target="_blank"
