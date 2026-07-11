@@ -1887,15 +1887,15 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: "text-neck-pain-from-mobile-phones",
-    title: "Text Neck: Neck Pain from Mobile Phones",
-    seoTitle: "Text Neck | Neck Pain from Phones — PainFix Multan",
+    title: "Text Neck: Neck Pain from Mobile Phones | Mobile Se Gardan Dard",
+    seoTitle: "Text Neck | Mobile Se Gardan Dard Ka Ilaj — PainFix Multan",
     metaDescription:
-      "'Text neck' is neck pain from looking down at phones. Learn what it is, why it happens, and how physiotherapy and simple habits relieve and prevent it.",
+      "'Text neck' is neck pain from looking down at phones (mobile se gardan dard). Learn what it is, why it happens, and how physiotherapy and simple habits relieve and prevent it.",
     category: "neck-pain",
-    tags: ["text neck", "posture", "phone", "neck pain"],
-    excerpt: "Hours looking down at your phone can strain your neck. Here's how to prevent and treat 'text neck'.",
+    tags: ["text neck", "mobile se gardan dard", "posture", "phone", "neck pain"],
+    excerpt: "Hours looking down at your phone can strain your neck (mobile se gardan dard). Here's how to prevent and treat 'text neck'.",
     quickAnswer:
-      "'Text neck' is neck pain and stiffness caused by looking down at phones and devices for long periods. Bending the head forward multiplies the load on the neck. It's treated and prevented by raising your device to eye level, taking regular breaks, and doing neck-strengthening and posture exercises. Physiotherapy relieves persistent symptoms.",
+      "'Text neck' (mobile se gardan dard) is neck pain and stiffness caused by looking down at phones and devices for long periods. Bending the head forward multiplies the load on the neck. It's treated and prevented by raising your device to eye level, taking regular breaks, and doing neck-strengthening and posture exercises. Physiotherapy relieves persistent symptoms.",
     date: "2026-03-30",
     updated: "2026-05-22",
     authorKey: "JD",
