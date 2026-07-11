@@ -1,7 +1,8 @@
 import { useState, type FormEvent } from "react";
-import { Loader2, Send } from "lucide-react";
+import { Loader2, Send, CheckCircle2 } from "lucide-react";
 import { toast } from "sonner";
 import { useI18n } from "@/i18n/LanguageProvider";
+import { GoogleReviewButton } from "./GoogleReviewButton";
 
 export function ContactForm() {
   const { t } = useI18n();
@@ -9,6 +10,7 @@ export function ContactForm() {
   const [values, setValues] = useState({ name: "", email: "", phone: "", message: "" });
   const [company, setCompany] = useState(""); // honeypot — real users leave this empty
   const [submitting, setSubmitting] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
 
   const onSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -34,6 +36,7 @@ export function ContactForm() {
       if (error) throw error;
       toast.success(c.success);
       setValues({ name: "", email: "", phone: "", message: "" });
+      setSubmitted(true);
     } catch (err) {
       console.error("Contact submission failed:", err);
       toast.error(c.error);
@@ -45,6 +48,31 @@ export function ContactForm() {
   const inputCls =
     "w-full rounded-xl border border-border bg-background px-4 py-3 text-sm text-foreground outline-none transition-colors placeholder:text-muted-foreground focus:border-primary focus:ring-2 focus:ring-primary/20";
   const labelCls = "mb-1.5 block text-sm font-semibold text-foreground";
+
+  if (submitted) {
+    return (
+      <div className="flex flex-col items-center rounded-2xl border border-border bg-surface p-8 text-center">
+        <span className="grid h-14 w-14 place-items-center rounded-full bg-secondary/12 text-secondary">
+          <CheckCircle2 className="h-7 w-7" />
+        </span>
+        <h4 className="mt-4 font-heading text-lg font-bold text-foreground">Thank you!</h4>
+        <p className="mt-2 max-w-sm text-sm text-muted-foreground">
+          Your message has been received. Our team will get back to you shortly. If we've helped you,
+          we'd love a quick review of your experience.
+        </p>
+        <div className="mt-6 flex flex-wrap justify-center gap-3">
+          <GoogleReviewButton variant="solid" />
+          <button
+            type="button"
+            onClick={() => setSubmitted(false)}
+            className="inline-flex items-center justify-center rounded-2xl border border-border bg-card px-5 py-3 text-sm font-semibold text-foreground transition-transform hover:scale-[1.03]"
+          >
+            Send another message
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <form onSubmit={onSubmit} className="grid gap-4">

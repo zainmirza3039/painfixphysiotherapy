@@ -10,7 +10,8 @@ import { Conditions } from "@/components/site/Conditions";
 import { About } from "@/components/site/About";
 import { MeetDoctors } from "@/components/site/MeetDoctors";
 import { Process } from "@/components/site/Process";
-import { Testimonials } from "@/components/site/Testimonials";
+import { GoogleReviews } from "@/components/site/GoogleReviews";
+import { TrustSignals } from "@/components/site/TrustSignals";
 import { Gallery } from "@/components/site/Gallery";
 import { FAQ } from "@/components/site/FAQ";
 import { CTA } from "@/components/site/CTA";
@@ -48,6 +49,7 @@ function Index() {
       <main>
         <Hero />
         <Stats />
+        <TrustSignals />
         <WhyChooseUs />
         <Services />
         <Conditions />
@@ -55,7 +57,7 @@ function Index() {
         <About />
         <MeetDoctors />
         <Process />
-        <Testimonials />
+        <GoogleReviews />
         <Gallery />
         <FAQ />
         <CTA />

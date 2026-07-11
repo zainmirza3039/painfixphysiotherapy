@@ -17,6 +17,13 @@ export const OPENING_HOURS = [
 
 export const CALENDLY_URL = "https://calendly.com/zainimirza30396";
 
+// Google Business Profile — review + profile links (NAP consistency)
+export const GOOGLE_REVIEW_URL = "https://g.page/r/Cc48O8FLSLh3EBE/review";
+export const GOOGLE_PLACE_ID = "ChIJhSmMfwDrPDkRzjw7wUtIuHc";
+// Public Google Maps business profile (also used for "View all reviews")
+export const GOOGLE_BUSINESS_PROFILE_URL =
+  "https://maps.google.com/?cid=8626724576429817038";
+
 // Exact clinic location on Google Maps
 export const CLINIC_NAME = "PainFix Physiotherapy Clinic";
 export const CLINIC_ADDRESS =

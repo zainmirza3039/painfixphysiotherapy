@@ -1,6 +1,7 @@
 import { Facebook, Instagram, AtSign, MapPin, Phone, Linkedin } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 import { NAV_LINKS, WHATSAPP_URL, PHONE_DISPLAY, PHONE_TEL, SOCIAL_LINKS, CLINIC_ADDRESS, MAP_PLACE_URL } from "./constants";
+import { GoogleReviewButton } from "./GoogleReviewButton";
 import logoAsset from "@/assets/painfix-logo.png.asset.json";
 
 
@@ -95,6 +96,12 @@ export function Footer() {
                 >
                   Book Appointment
                 </a>
+              </li>
+              <li>
+                <GoogleReviewButton
+                  variant="outline"
+                  className="border-background/20 bg-background/10 text-background hover:bg-background/20"
+                />
               </li>
             </ul>
           </div>

@@ -146,6 +146,14 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
           ],
           medicalSpecialty: "Physiotherapy",
           priceRange: "$$",
+          hasMap: "https://maps.google.com/?cid=8626724576429817038",
+          aggregateRating: {
+            "@type": "AggregateRating",
+            ratingValue: "4.9",
+            reviewCount: "31",
+            bestRating: "5",
+            worstRating: "1",
+          },
           sameAs: [
             "https://facebook.com/painfixphysiotherapy1",
             "https://instagram.com/painfixphysiotherapy_",

@@ -3,6 +3,7 @@ import { Reveal } from "./Reveal";
 import { SectionHeading } from "./SectionHeading";
 import { CalendlyInline } from "./CalendlyInline";
 import { ContactForm } from "./ContactForm";
+import { GoogleReviewButton, GoogleG } from "./GoogleReviewButton";
 import {
   WHATSAPP_URL,
   PHONE_DISPLAY,
@@ -104,6 +105,23 @@ export function Contact() {
                     </span>
                   </a>
                 ))}
+              </div>
+            </div>
+
+            <div className="rounded-[1.75rem] border border-border bg-card p-7 shadow-soft">
+              <div className="flex items-start gap-4">
+                <span className="grid h-11 w-11 shrink-0 place-items-center rounded-2xl bg-secondary/12">
+                  <GoogleG className="h-5 w-5" />
+                </span>
+                <div>
+                  <h3 className="font-heading font-bold text-foreground">Reviews</h3>
+                  <p className="mt-1 text-sm text-muted-foreground">
+                    Loved your experience? A quick Google review helps other patients find us.
+                  </p>
+                </div>
+              </div>
+              <div className="mt-4">
+                <GoogleReviewButton variant="solid" />
               </div>
             </div>
 
