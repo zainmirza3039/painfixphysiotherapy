@@ -611,15 +611,15 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: "frozen-shoulder-recovery-timeline",
-    title: "Frozen Shoulder Recovery Timeline",
-    seoTitle: "Frozen Shoulder Recovery Timeline | Stages & Treatment — PainFix",
+    title: "Frozen Shoulder Recovery Timeline | Kandhe Ki Jakadan Ka Ilaj",
+    seoTitle: "Frozen Shoulder | Kandhe Ki Jakadan Ka Ilaj — PainFix Multan",
     metaDescription:
-      "Understand the frozen shoulder recovery timeline — the freezing, frozen and thawing stages — and how physiotherapy speeds recovery and restores movement.",
+      "Understand the frozen shoulder (kandhe ki jakadan) recovery timeline — the freezing, frozen and thawing stages — and how physiotherapy speeds recovery and restores movement.",
     category: "frozen-shoulder",
-    tags: ["frozen shoulder", "adhesive capsulitis", "recovery"],
-    excerpt: "Frozen shoulder recovers in three stages. Knowing where you are helps set expectations — and physiotherapy shortens the journey.",
+    tags: ["frozen shoulder", "kandhe ka dard", "adhesive capsulitis", "recovery"],
+    excerpt: "Frozen shoulder (kandhe ki jakadan) recovers in three stages. Knowing where you are helps set expectations — and physiotherapy shortens the journey.",
     quickAnswer:
-      "Frozen shoulder recovers in three stages: freezing (painful, 2–9 months), frozen (stiff, 4–12 months) and thawing (movement returns, 6–24 months). Total recovery can take 1–3 years without treatment, but physiotherapy — with manual therapy, stretching and strengthening — significantly reduces pain and speeds the return of movement.",
+      "Frozen shoulder (kandhe ki jakadan ka ilaj) recovers in three stages: freezing (painful, 2–9 months), frozen (stiff, 4–12 months) and thawing (movement returns, 6–24 months). Total recovery can take 1–3 years without treatment, but physiotherapy — with manual therapy, stretching and strengthening — significantly reduces pain and speeds the return of movement.",
     date: "2026-06-08",
     updated: "2026-07-01",
     authorKey: "JD",
