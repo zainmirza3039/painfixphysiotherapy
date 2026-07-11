@@ -12,8 +12,7 @@ import { Newsletter } from "@/components/site/Newsletter";
 import { BlogCard } from "@/components/site/BlogCard";
 import { Reveal } from "@/components/site/Reveal";
 import { pageMeta, canonical, breadcrumbLd, faqLd } from "@/lib/seo";
-import { SITE_URL, WHATSAPP_URL, PHONE_TEL, PHONE_DISPLAY, MAP_DIRECTIONS_URL } from "@/components/site/constants";
-import { openCalendlyPopup } from "@/components/site/calendly";
+import { SITE_URL, WHATSAPP_URL, WHATSAPP_CONSULT_URL, PHONE_TEL, PHONE_DISPLAY, MAP_DIRECTIONS_URL } from "@/components/site/constants";
 
 export const Route = createFileRoute("/blog/$slug")({
   loader: ({ params }) => {
