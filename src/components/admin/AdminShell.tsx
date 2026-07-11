@@ -147,7 +147,7 @@ export function AdminShell({ children }: { children: ReactNode }) {
         </span>
         <div className="leading-tight">
           <p className="font-heading text-sm font-bold text-foreground">PainFix Admin</p>
-          <p className="text-[11px] text-muted-foreground">{isAdmin ? "Administrator" : "Staff"}</p>
+          <p className="text-[11px] text-muted-foreground">{panelLabel}</p>
         </div>
       </div>
       <nav className="flex-1 space-y-1 overflow-y-auto px-3 py-2">
