@@ -14,7 +14,7 @@ import { Process } from "@/components/site/Process";
 import { GoogleReviews } from "@/components/site/GoogleReviews";
 import { TrustSignals } from "@/components/site/TrustSignals";
 import { Gallery } from "@/components/site/Gallery";
-import { FAQ } from "@/components/site/FAQ";
+import { FAQ, homeFaqs } from "@/components/site/FAQ";
 import { CTA } from "@/components/site/CTA";
 import { Contact } from "@/components/site/Contact";
 import { Footer } from "@/components/site/Footer";
@@ -40,6 +40,7 @@ export const Route = createFileRoute("/")({
       { rel: "canonical", href: `${SITE_URL}/` },
       { rel: "preload", as: "image", href: heroImg, fetchPriority: "high" },
     ],
+    scripts: [faqLd(homeFaqs.map((f) => ({ q: f.q, a: f.a })))],
   }),
   component: Index,
 });
