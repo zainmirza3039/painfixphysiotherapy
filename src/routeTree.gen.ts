@@ -26,6 +26,7 @@ import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
 import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
 import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin.index'
 import { Route as BlogCategoryCategoryRouteImport } from './routes/blog.category.$category'
+import { Route as AuthenticatedAdminSettingsRouteImport } from './routes/_authenticated/admin.settings'
 import { Route as AuthenticatedAdminReportsRouteImport } from './routes/_authenticated/admin.reports'
 import { Route as AuthenticatedAdminPatientsRouteImport } from './routes/_authenticated/admin.patients'
 import { Route as AuthenticatedAdminMessagesRouteImport } from './routes/_authenticated/admin.messages'
@@ -118,6 +119,12 @@ const BlogCategoryCategoryRoute = BlogCategoryCategoryRouteImport.update({
   path: '/blog/category/$category',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedAdminSettingsRoute =
+  AuthenticatedAdminSettingsRouteImport.update({
+    id: '/settings',
+    path: '/settings',
+    getParentRoute: () => AuthenticatedAdminRoute,
+  } as any)
 const AuthenticatedAdminReportsRoute =
   AuthenticatedAdminReportsRouteImport.update({
     id: '/reports',
@@ -181,6 +188,7 @@ export interface FileRoutesByFullPath {
   '/admin/messages': typeof AuthenticatedAdminMessagesRoute
   '/admin/patients': typeof AuthenticatedAdminPatientsRoute
   '/admin/reports': typeof AuthenticatedAdminReportsRoute
+  '/admin/settings': typeof AuthenticatedAdminSettingsRoute
   '/blog/category/$category': typeof BlogCategoryCategoryRoute
   '/admin/': typeof AuthenticatedAdminIndexRoute
 }
@@ -205,6 +213,7 @@ export interface FileRoutesByTo {
   '/admin/messages': typeof AuthenticatedAdminMessagesRoute
   '/admin/patients': typeof AuthenticatedAdminPatientsRoute
   '/admin/reports': typeof AuthenticatedAdminReportsRoute
+  '/admin/settings': typeof AuthenticatedAdminSettingsRoute
   '/blog/category/$category': typeof BlogCategoryCategoryRoute
   '/admin': typeof AuthenticatedAdminIndexRoute
 }
@@ -232,6 +241,7 @@ export interface FileRoutesById {
   '/_authenticated/admin/messages': typeof AuthenticatedAdminMessagesRoute
   '/_authenticated/admin/patients': typeof AuthenticatedAdminPatientsRoute
   '/_authenticated/admin/reports': typeof AuthenticatedAdminReportsRoute
+  '/_authenticated/admin/settings': typeof AuthenticatedAdminSettingsRoute
   '/blog/category/$category': typeof BlogCategoryCategoryRoute
   '/_authenticated/admin/': typeof AuthenticatedAdminIndexRoute
 }
@@ -259,6 +269,7 @@ export interface FileRouteTypes {
     | '/admin/messages'
     | '/admin/patients'
     | '/admin/reports'
+    | '/admin/settings'
     | '/blog/category/$category'
     | '/admin/'
   fileRoutesByTo: FileRoutesByTo
@@ -283,6 +294,7 @@ export interface FileRouteTypes {
     | '/admin/messages'
     | '/admin/patients'
     | '/admin/reports'
+    | '/admin/settings'
     | '/blog/category/$category'
     | '/admin'
   id:
@@ -309,6 +321,7 @@ export interface FileRouteTypes {
     | '/_authenticated/admin/messages'
     | '/_authenticated/admin/patients'
     | '/_authenticated/admin/reports'
+    | '/_authenticated/admin/settings'
     | '/blog/category/$category'
     | '/_authenticated/admin/'
   fileRoutesById: FileRoutesById
@@ -452,6 +465,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BlogCategoryCategoryRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated/admin/settings': {
+      id: '/_authenticated/admin/settings'
+      path: '/settings'
+      fullPath: '/admin/settings'
+      preLoaderRoute: typeof AuthenticatedAdminSettingsRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
     '/_authenticated/admin/reports': {
       id: '/_authenticated/admin/reports'
       path: '/reports'
@@ -512,6 +532,7 @@ interface AuthenticatedAdminRouteChildren {
   AuthenticatedAdminMessagesRoute: typeof AuthenticatedAdminMessagesRoute
   AuthenticatedAdminPatientsRoute: typeof AuthenticatedAdminPatientsRoute
   AuthenticatedAdminReportsRoute: typeof AuthenticatedAdminReportsRoute
+  AuthenticatedAdminSettingsRoute: typeof AuthenticatedAdminSettingsRoute
   AuthenticatedAdminIndexRoute: typeof AuthenticatedAdminIndexRoute
 }
 
@@ -523,6 +544,7 @@ const AuthenticatedAdminRouteChildren: AuthenticatedAdminRouteChildren = {
   AuthenticatedAdminMessagesRoute: AuthenticatedAdminMessagesRoute,
   AuthenticatedAdminPatientsRoute: AuthenticatedAdminPatientsRoute,
   AuthenticatedAdminReportsRoute: AuthenticatedAdminReportsRoute,
+  AuthenticatedAdminSettingsRoute: AuthenticatedAdminSettingsRoute,
   AuthenticatedAdminIndexRoute: AuthenticatedAdminIndexRoute,
 }
 
