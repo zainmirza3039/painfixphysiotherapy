@@ -53,6 +53,7 @@ function Index() {
         <Conditions />
         <HomePhysio />
         <About />
+        <MeetDoctors />
         <Process />
         <Testimonials />
         <Gallery />
