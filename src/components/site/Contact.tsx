@@ -1,4 +1,4 @@
-import { MapPin, Phone, MessageCircle, Facebook, Instagram, AtSign, Navigation, CalendarClock } from "lucide-react";
+import { MapPin, Phone, MessageCircle, Facebook, Instagram, AtSign, Navigation, CalendarClock, Linkedin } from "lucide-react";
 import { Reveal } from "./Reveal";
 import { SectionHeading } from "./SectionHeading";
 import { CalendlyInline } from "./CalendlyInline";
@@ -18,6 +18,7 @@ const socials = [
   { icon: Facebook, label: "Facebook", ...SOCIAL_LINKS.facebook },
   { icon: Instagram, label: "Instagram", ...SOCIAL_LINKS.instagram },
   { icon: AtSign, label: "TikTok", ...SOCIAL_LINKS.tiktok },
+  { icon: Linkedin, label: "LinkedIn", ...SOCIAL_LINKS.linkedin },
 ];
 
 export function Contact() {

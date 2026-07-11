@@ -56,9 +56,9 @@ export function Hero() {
             <div className="overflow-hidden rounded-[2rem] shadow-glow ring-1 ring-border">
               <img
                 src={heroImg}
-                alt="Professional physiotherapist treating a patient at PainFix Physiotherapy Clinic"
-                width={1100}
-                height={1100}
+                alt="Physiotherapist performing manual therapy on a patient at PainFix Physiotherapy Clinic in Multan"
+                width={853}
+                height={1280}
                 className="h-full w-full object-cover"
                 fetchPriority="high"
               />

@@ -1,8 +1,9 @@
-import { Calendar, BadgeCheck, Stethoscope } from "lucide-react";
+import { Calendar, BadgeCheck, Stethoscope, Linkedin } from "lucide-react";
 import { team } from "@/data/team";
 import { Reveal } from "./Reveal";
 import { SectionHeading } from "./SectionHeading";
 import { openCalendlyPopup } from "./calendly";
+import { SOCIAL_LINKS } from "./constants";
 
 export function MeetDoctors() {
   return (
@@ -52,7 +53,7 @@ export function MeetDoctors() {
                     ))}
                   </ul>
 
-                  <div className="mt-auto pt-6">
+                  <div className="mt-auto flex flex-wrap items-center gap-3 pt-6">
                     <button
                       type="button"
                       onClick={() => openCalendlyPopup()}
@@ -60,6 +61,15 @@ export function MeetDoctors() {
                     >
                       <Calendar className="h-4 w-4" /> Book Appointment
                     </button>
+                    <a
+                      href={SOCIAL_LINKS.linkedin.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={`${doc.name} on LinkedIn — PainFix Physiotherapy Clinic`}
+                      className="inline-flex h-11 w-11 items-center justify-center rounded-2xl border border-border text-primary transition-colors hover:bg-primary hover:text-primary-foreground"
+                    >
+                      <Linkedin className="h-5 w-5" />
+                    </a>
                   </div>
                 </div>
               </article>

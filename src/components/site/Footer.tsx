@@ -1,4 +1,4 @@
-import { Facebook, Instagram, AtSign, MapPin, Phone } from "lucide-react";
+import { Facebook, Instagram, AtSign, MapPin, Phone, Linkedin } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 import { NAV_LINKS, WHATSAPP_URL, PHONE_DISPLAY, PHONE_TEL, SOCIAL_LINKS, CLINIC_ADDRESS, MAP_PLACE_URL } from "./constants";
 import logoAsset from "@/assets/painfix-logo.png.asset.json";
@@ -8,6 +8,7 @@ const socials = [
   { icon: Facebook, label: "Facebook", ...SOCIAL_LINKS.facebook },
   { icon: Instagram, label: "Instagram", ...SOCIAL_LINKS.instagram },
   { icon: AtSign, label: "TikTok", ...SOCIAL_LINKS.tiktok },
+  { icon: Linkedin, label: "LinkedIn", ...SOCIAL_LINKS.linkedin },
 ];
 
 export function Footer() {
