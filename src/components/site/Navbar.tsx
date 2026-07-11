@@ -523,6 +523,9 @@ export function Navbar() {
           <Link to="/home-visit" className={linkClass}>
             Home Physiotherapy
           </Link>
+          <Link to="/fitness" className={linkClass}>
+            Fitness
+          </Link>
           <Link to="/blog" className={linkClass}>
             Blog
           </Link>
