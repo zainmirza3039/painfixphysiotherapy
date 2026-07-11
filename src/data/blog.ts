@@ -159,6 +159,12 @@ export const blogPosts: BlogPost[] = [
         ],
       },
       {
+        heading: "Kamar Dard Ka Ilaj — Back Pain Treatment in Multan",
+        paragraphs: [
+          "Agar aap kamar dard (back pain) ka behtareen ilaj Multan mein talash kar rahe hain, physiotherapy sab se mahfooz aur asar-daar tareeqa hai. At PainFix Physiotherapy Clinic in Shalimar Colony, Multan, we assess the true cause of your kamar dard and build an evidence-based plan — manual therapy, targeted exercises and posture correction — usually without surgery or long-term painkillers.",
+        ],
+      },
+      {
         heading: "Common symptoms",
         paragraphs: ["Back pain presents in several ways, and the pattern helps guide treatment."],
         list: [
