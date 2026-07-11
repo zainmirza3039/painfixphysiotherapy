@@ -36,15 +36,15 @@ export function MeetDoctors() {
                   <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-secondary">
                     <BadgeCheck className="h-4 w-4" /> {doc.credentials}
                   </div>
-                  <h3 className="mt-2 font-heading text-xl font-extrabold text-foreground">{doc.name}</h3>
-                  <p className="text-sm font-semibold text-primary">{doc.role}</p>
-                  <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{doc.bio}</p>
+                  <h3 className="mt-2 font-heading text-xl font-extrabold text-foreground">{doc.fullName}</h3>
+                  <p className="text-sm font-semibold text-primary">{doc.title}</p>
+                  <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{doc.seoBio}</p>
 
                   <p className="mt-5 text-xs font-bold uppercase tracking-wider text-muted-foreground">
                     Areas of Expertise
                   </p>
                   <ul className="mt-3 flex flex-wrap gap-2">
-                    {doc.specialties.map((s) => (
+                    {doc.tags.map((s) => (
                       <li
                         key={s}
                         className="inline-flex items-center gap-1 rounded-full bg-accent px-3 py-1 text-xs font-medium text-accent-foreground"
@@ -62,6 +62,13 @@ export function MeetDoctors() {
                     >
                       <Calendar className="h-4 w-4" /> Book Appointment
                     </button>
+                    <a
+                      href={`/${doc.slug}`}
+                      aria-label={`View full profile of ${doc.fullName}, physiotherapist in Multan`}
+                      className="inline-flex items-center gap-2 rounded-2xl border border-primary px-5 py-3 text-sm font-semibold text-primary transition-colors hover:bg-primary hover:text-primary-foreground"
+                    >
+                      View Profile <ArrowRight className="h-4 w-4" />
+                    </a>
                     <a
                       href={`https://wa.me/${doc.whatsapp}?text=${encodeURIComponent(
                         `Hi, I'd like to book an appointment with ${doc.name} at PainFix Physiotherapy Clinic.`,
