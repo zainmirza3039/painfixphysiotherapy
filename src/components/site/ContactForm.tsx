@@ -99,6 +99,18 @@ export function ContactForm() {
           required
         />
       </div>
+      {/* Honeypot: visually hidden, ignored by humans, filled by bots */}
+      <div aria-hidden className="absolute left-[-9999px] top-[-9999px] h-0 w-0 overflow-hidden" tabIndex={-1}>
+        <label htmlFor="c-company">Company</label>
+        <input
+          id="c-company"
+          type="text"
+          tabIndex={-1}
+          autoComplete="off"
+          value={company}
+          onChange={(e) => setCompany(e.target.value)}
+        />
+      </div>
       <button
         type="submit"
         disabled={submitting}
