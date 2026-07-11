@@ -7,6 +7,8 @@ import { supabase } from "@/integrations/supabase/client";
 import type { Database } from "@/integrations/supabase/types";
 import { AdminPageHeader } from "@/components/admin/AdminPageHeader";
 import { AdminOnly } from "@/components/admin/AdminOnly";
+import { ContentOnly } from "@/components/admin/ContentOnly";
+import { useAdminAuth } from "@/admin/AdminAuthProvider";
 import { fmtDate, slugify } from "@/admin/utils";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
