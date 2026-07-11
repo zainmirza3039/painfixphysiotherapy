@@ -15,7 +15,6 @@ import { reportLovableError } from "../lib/lovable-error-reporting";
 import { LanguageProvider } from "@/i18n/LanguageProvider";
 import { ThemeProvider, THEME_INIT_SCRIPT } from "@/components/site/ThemeProvider";
 import { SITE_URL } from "@/components/site/constants";
-import { supabase } from "@/integrations/supabase/client";
 import type { AuthChangeEvent } from "@supabase/supabase-js";
 
 const LOGO_URL =
@@ -191,12 +190,23 @@ function RootComponent() {
   const router = useRouter();
 
   useEffect(() => {
-    const { data } = supabase.auth.onAuthStateChange((event: AuthChangeEvent) => {
-      if (event !== "SIGNED_IN" && event !== "SIGNED_OUT" && event !== "USER_UPDATED") return;
-      router.invalidate();
-      if (event !== "SIGNED_OUT") queryClient.invalidateQueries();
+    let active = true;
+    let unsubscribe: (() => void) | undefined;
+    // Defer the Supabase client (auth + realtime) off the initial bundle; the
+    // marketing pages never need it before hydration completes.
+    void import("@/integrations/supabase/client").then(({ supabase }) => {
+      if (!active) return;
+      const { data } = supabase.auth.onAuthStateChange((event: AuthChangeEvent) => {
+        if (event !== "SIGNED_IN" && event !== "SIGNED_OUT" && event !== "USER_UPDATED") return;
+        router.invalidate();
+        if (event !== "SIGNED_OUT") queryClient.invalidateQueries();
+      });
+      unsubscribe = () => data.subscription.unsubscribe();
     });
-    return () => data.subscription.unsubscribe();
+    return () => {
+      active = false;
+      unsubscribe?.();
+    };
   }, [router, queryClient]);
 
   return (
