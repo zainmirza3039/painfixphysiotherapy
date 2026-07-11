@@ -182,7 +182,7 @@ function MediaCard({ file, onDelete }: { file: MediaFile; onDelete: () => void }
         )}
       </div>
       <div className="p-3">
-        <p className="truncate text-xs font-medium text-foreground" title={file.name}>{file.name}</p>
+        <p className="truncate text-xs font-medium text-foreground" title={file.label}>{file.label}</p>
         <p className="mt-0.5 text-[11px] text-muted-foreground">{(file.size / 1024).toFixed(0)} KB</p>
         <div className="mt-2 flex gap-1">
           <Button
