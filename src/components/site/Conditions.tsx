@@ -1,7 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { ArrowRight } from "lucide-react";
 import { conditions } from "@/data/conditions";
-import { conditionImages } from "@/data/conditionImages";
+import { conditionImages, conditionImageAlt, conditionImageAltFallback } from "@/data/conditionImages";
 import { Reveal } from "./Reveal";
 import { SectionHeading } from "./SectionHeading";
 
@@ -25,7 +25,7 @@ export function Conditions() {
                 <div className="aspect-[4/3] overflow-hidden bg-surface">
                   <img
                     src={conditionImages[c.slug]}
-                    alt={`Illustration representing ${c.title}`}
+                    alt={conditionImageAlt[c.slug] ?? conditionImageAltFallback(c.title)}
                     loading="lazy"
                     decoding="async"
                     width={700}

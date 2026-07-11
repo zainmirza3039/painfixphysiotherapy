@@ -3,7 +3,9 @@ import { Menu, X, MessageCircle, Home, BookOpen } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 import { NAV_LINKS } from "./constants";
 import { openCalendlyPopup } from "./calendly";
-import { LanguageToggle } from "./LanguageToggle";
+// NOTE: LanguageToggle intentionally not rendered in the public header.
+// The i18n architecture (LanguageProvider, translations, LanguageToggle) is kept
+// so an Urdu switch can be re-enabled once a complete Urdu version is ready.
 import { ThemeToggle } from "./ThemeToggle";
 import { SiteSearch } from "./SiteSearch";
 import logoAsset from "@/assets/painfix-logo-96.webp.asset.json";
@@ -73,7 +75,6 @@ export function Navbar() {
         <div className="flex items-center gap-2">
           <SiteSearch />
           <ThemeToggle />
-          <LanguageToggle className="hidden sm:inline-flex" />
           <button
             type="button"
             onClick={() => openCalendlyPopup()}
@@ -120,9 +121,6 @@ export function Navbar() {
             >
               <BookOpen className="h-4 w-4" /> Blog
             </Link>
-            <div className="px-1 pt-1">
-              <LanguageToggle className="w-full justify-center" />
-            </div>
             <button
               type="button"
               onClick={() => {
