@@ -479,9 +479,13 @@ export function Navbar() {
           </button>
         </div>
       </nav>
+    </header>
 
       {/* ---------- Mobile full-screen slide menu ---------- */}
+      {/* Rendered OUTSIDE the transformed <header> so its position:fixed
+          children anchor to the viewport, not the header's box. */}
       <div className={`xl:hidden ${open ? "" : "pointer-events-none"}`}>
+
         {/* Backdrop */}
         <div
           onClick={closeMobile}
