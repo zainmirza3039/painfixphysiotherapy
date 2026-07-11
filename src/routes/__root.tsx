@@ -154,6 +154,26 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
             bestRating: "5",
             worstRating: "1",
           },
+          hasOfferCatalog: {
+            "@type": "OfferCatalog",
+            name: "Consultation Fees",
+            itemListElement: [
+              {
+                "@type": "Offer",
+                name: "In-Clinic Consultation",
+                description: "Initial assessment and treatment plan.",
+                price: "2000",
+                priceCurrency: "PKR",
+              },
+              {
+                "@type": "Offer",
+                name: "Video Consultation",
+                description: "Online consultation for follow-ups and second opinions.",
+                price: "1000",
+                priceCurrency: "PKR",
+              },
+            ],
+          },
           sameAs: [
             "https://facebook.com/painfixphysiotherapy1",
             "https://instagram.com/painfixphysiotherapy_",
