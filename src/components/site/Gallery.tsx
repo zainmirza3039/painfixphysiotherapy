@@ -6,6 +6,7 @@ import photo3 from "@/assets/clinic-photo-3.webp";
 import photo4 from "@/assets/clinic-photo-4.webp";
 import photo5 from "@/assets/clinic-photo-5.webp";
 import photo6 from "@/assets/clinic-photo-6.webp";
+import exteriorImg from "@/assets/clinic-exterior.webp";
 import { Reveal } from "./Reveal";
 import { SectionHeading } from "./SectionHeading";
 
