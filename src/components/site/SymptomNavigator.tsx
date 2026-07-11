@@ -52,10 +52,11 @@ export function SymptomNavigator() {
                     className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105 sm:aspect-[4/3]"
                   />
                 </div>
-                <span className="flex flex-1 items-center justify-between gap-2 sm:p-4">
-                  <span className="font-heading text-sm font-bold text-foreground sm:text-base">{s.label}</span>
+                <span className="flex min-w-0 flex-1 items-center justify-between gap-2 sm:p-4">
+                  <span className="min-w-0 font-heading text-sm font-bold leading-snug text-foreground [overflow-wrap:anywhere] sm:text-base">{s.label}</span>
                   <ArrowRight className="h-4 w-4 shrink-0 text-primary transition-transform group-hover:translate-x-1 rtl:rotate-180" />
                 </span>
+
               </Link>
             </Reveal>
           ))}
