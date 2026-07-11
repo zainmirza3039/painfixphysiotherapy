@@ -6,7 +6,6 @@ import {
   MapPin,
   Clock,
   Phone,
-  Calendar,
   MessageCircle,
   CheckCircle2,
 } from "lucide-react";
@@ -15,7 +14,6 @@ import { PageLayout } from "./PageLayout";
 import { PageHero } from "./PageHero";
 import { PageCTA } from "./PageCTA";
 import { Reveal } from "./Reveal";
-import { openCalendlyPopup } from "./calendly";
 import {
   CLINIC_NAME,
   CLINIC_ADDRESS,
