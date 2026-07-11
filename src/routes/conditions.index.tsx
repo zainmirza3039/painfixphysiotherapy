@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight } from "lucide-react";
 import { conditions } from "@/data/conditions";
+import { conditionImages } from "@/data/conditionImages";
 import { PageLayout } from "@/components/site/PageLayout";
 import { PageHero } from "@/components/site/PageHero";
 import { PageCTA } from "@/components/site/PageCTA";
@@ -39,19 +40,32 @@ function ConditionsIndex() {
       />
       <section className="py-16 sm:py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {conditions.map((c, i) => (
               <Reveal key={c.slug} anim="up" delay={(i % 3) * 60}>
                 <Link
                   to="/conditions/$slug"
                   params={{ slug: c.slug }}
-                  className="hover-lift group flex h-full items-center justify-between gap-3 rounded-2xl border border-border bg-card px-6 py-5 shadow-soft"
+                  className="hover-lift group flex h-full flex-col overflow-hidden rounded-[1.5rem] border border-border bg-card shadow-soft"
                 >
-                  <span className="flex items-center gap-3">
-                    <span className="text-2xl" aria-hidden="true">{c.icon}</span>
-                    <span className="font-heading font-bold text-foreground">{c.title}</span>
-                  </span>
-                  <ArrowRight className="h-4 w-4 text-primary transition-transform group-hover:translate-x-1 rtl:rotate-180" />
+                  <div className="aspect-[4/3] overflow-hidden bg-surface">
+                    <img
+                      src={conditionImages[c.slug]}
+                      alt={`Illustration representing ${c.title}`}
+                      loading="lazy"
+                      decoding="async"
+                      width={700}
+                      height={525}
+                      className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    />
+                  </div>
+                  <div className="flex flex-1 flex-col p-5">
+                    <h2 className="font-heading text-lg font-bold text-foreground">{c.title}</h2>
+                    <p className="mt-1.5 flex-1 text-sm leading-relaxed text-muted-foreground">{c.summary}</p>
+                    <span className="mt-3 inline-flex items-center gap-1.5 text-sm font-semibold text-primary">
+                      Learn more <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1 rtl:rotate-180" />
+                    </span>
+                  </div>
                 </Link>
               </Reveal>
             ))}

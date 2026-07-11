@@ -8,6 +8,7 @@ import {
   Brain,
   Activity,
   PersonStanding,
+  CircleDot,
   type LucideIcon,
 } from "lucide-react";
 
@@ -30,8 +31,14 @@ export interface Service {
   metaTitle: string;
   metaDescription: string;
   overview: string[];
+  /** Optional label override for the "Conditions Treated" panel (e.g. "Indications"). */
+  conditionsLabel?: string;
   conditionsTreated: string[];
   benefits: string[];
+  /** Optional evidence / current clinical understanding section. */
+  evidence?: string[];
+  /** Optional safety section listing when the therapy should be avoided. */
+  contraindications?: string[];
   process: ProcessStep[];
   equipment?: string[];
   faqs: Faq[];
@@ -416,6 +423,63 @@ export const services: Service[] = [
       { q: "Do you assess home offices?", a: "Yes, we provide guidance for home, office and study setups." },
     ],
     related: ["pain-management", "exercise-therapy", "manual-therapy"],
+  },
+  {
+    slug: "hijama-cupping-therapy",
+    title: "Hijama (Cupping Therapy)",
+    shortTitle: "Hijama",
+    icon: CircleDot,
+    tagline: "Traditional wet and dry cupping delivered safely under professional supervision.",
+    metaTitle: "Hijama (Cupping Therapy) in Multan | PainFix Physiotherapy",
+    metaDescription:
+      "Professional, hygienic Hijama (cupping therapy) at PainFix Physiotherapy Clinic, Multan. Single-use sterile equipment, trained practitioners and personalised aftercare.",
+    overview: [
+      "Hijama, also known as cupping therapy, is a traditional treatment in which suction cups are applied to the skin to encourage blood flow and relaxation of the underlying tissue. At PainFix Physiotherapy Clinic we offer Hijama as a complementary therapy alongside our evidence-based physiotherapy services.",
+      "Every session is performed by trained practitioners using single-use, sterile equipment in a clean, private treatment room. We assess your suitability first, explain each step, and combine cupping with physiotherapy guidance where appropriate so you get safe, well-rounded care.",
+    ],
+    conditionsLabel: "Commonly Requested For",
+    conditionsTreated: [
+      "General muscle tension and stiffness",
+      "Back and shoulder tightness",
+      "Neck tension linked to posture and stress",
+      "Muscular fatigue and heaviness",
+      "Relaxation and general wellbeing",
+      "As a complement to a physiotherapy programme",
+    ],
+    benefits: [
+      "May help reduce the sensation of muscle tightness",
+      "Promotes a feeling of relaxation and comfort",
+      "Performed with single-use, sterile equipment",
+      "Carried out by trained, supervised practitioners",
+      "Personalised assessment before every session",
+      "Integrated with physiotherapy advice and aftercare",
+    ],
+    evidence: [
+      "Research on cupping therapy is still developing. Some studies suggest it may provide short-term relief from certain types of musculoskeletal pain and muscle tension, but the overall quality of evidence is limited.",
+      "At PainFix, we position Hijama as a complementary therapy — not a replacement for physiotherapy, medication or medical treatment. We are transparent about what it can and cannot do, and we recommend it only when it is appropriate for you.",
+    ],
+    contraindications: [
+      "Bleeding disorders or use of blood-thinning medication",
+      "Pregnancy (unless cleared by your doctor)",
+      "Skin infections, wounds or inflammation at the treatment site",
+      "Uncontrolled diabetes or very fragile skin",
+      "Severe anaemia or a recent significant illness",
+      "Always tell us about your medical history so we can keep you safe.",
+    ],
+    process: [
+      { title: "Assessment", description: "We review your medical history and confirm Hijama is suitable and safe for you." },
+      { title: "Preparation", description: "The treatment area is cleaned and sterile, single-use equipment is prepared." },
+      { title: "Cupping", description: "Suction cups are applied for a controlled time; wet cupping includes tiny, superficial scratches." },
+      { title: "Aftercare", description: "We clean the area, advise on skin care and give guidance for the following days." },
+    ],
+    equipment: ["Single-use sterile cupping sets", "Medical-grade antiseptics", "Disposable protective supplies"],
+    faqs: [
+      { q: "Is Hijama safe?", a: "When performed by trained practitioners with sterile, single-use equipment and proper assessment, Hijama is generally well tolerated. We screen for conditions that make it unsafe before treating you." },
+      { q: "Does Hijama hurt?", a: "Most people feel a tugging or tightness from the suction rather than pain. Wet cupping involves very small, superficial scratches that are usually only mildly uncomfortable." },
+      { q: "Is the equipment reused?", a: "No. We use single-use, sterile equipment for every client and follow strict hygiene protocols." },
+      { q: "Can Hijama replace physiotherapy?", a: "No. We offer Hijama as a complementary therapy. For lasting results with pain and movement problems, we recommend it alongside a proper physiotherapy assessment and plan." },
+    ],
+    related: ["pain-management", "manual-therapy", "exercise-therapy"],
   },
 ];
 

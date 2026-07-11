@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Calendar } from "lucide-react";
 import { services } from "@/data/services";
+import { openCalendlyPopup } from "@/components/site/calendly";
 import { PageLayout } from "@/components/site/PageLayout";
 import { PageHero } from "@/components/site/PageHero";
 import { PageCTA } from "@/components/site/PageCTA";
@@ -42,20 +43,31 @@ function ServicesIndex() {
           <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {services.map((service, i) => (
               <Reveal key={service.slug} anim="up" delay={(i % 3) * 70}>
-                <Link
-                  to="/services/$slug"
-                  params={{ slug: service.slug }}
-                  className="hover-lift group flex h-full flex-col rounded-[1.75rem] border border-border bg-card p-7 shadow-soft"
-                >
+                <article className="hover-lift group flex h-full flex-col rounded-[1.75rem] border border-border bg-card p-7 shadow-soft">
                   <span className="grid h-14 w-14 place-items-center rounded-2xl bg-secondary/12 text-secondary">
                     <service.icon className="h-7 w-7" />
                   </span>
                   <h2 className="mt-5 font-heading text-xl font-bold text-foreground">{service.title}</h2>
                   <p className="mt-2 flex-1 text-sm leading-relaxed text-muted-foreground">{service.tagline}</p>
-                  <span className="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-primary">
-                    Learn more <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1 rtl:rotate-180" />
-                  </span>
-                </Link>
+                  <div className="mt-5 flex flex-wrap items-center gap-2.5">
+                    <Link
+                      to="/services/$slug"
+                      params={{ slug: service.slug }}
+                      className="inline-flex min-h-11 items-center gap-1.5 rounded-xl border border-primary px-4 py-2 text-sm font-semibold text-primary transition-colors hover:bg-primary hover:text-primary-foreground"
+                      aria-label={`Learn more about ${service.title}`}
+                    >
+                      Learn More <ArrowRight className="h-4 w-4 rtl:rotate-180" />
+                    </Link>
+                    <button
+                      type="button"
+                      onClick={() => openCalendlyPopup()}
+                      className="inline-flex min-h-11 items-center gap-1.5 rounded-xl bg-gradient-to-r from-primary to-secondary px-4 py-2 text-sm font-semibold text-primary-foreground shadow-soft transition-opacity hover:opacity-90"
+                      aria-label={`Book an appointment for ${service.title}`}
+                    >
+                      <Calendar className="h-4 w-4" /> Book Appointment
+                    </button>
+                  </div>
+                </article>
               </Reveal>
             ))}
           </div>

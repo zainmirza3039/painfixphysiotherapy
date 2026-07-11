@@ -54,6 +54,7 @@ export const blogCategories: BlogCategory[] = [
   { slug: "sports-performance", name: "Sports Performance", description: "Optimise strength, movement and athletic performance." },
   { slug: "recovery-tips", name: "Recovery Tips", description: "Practical, science-backed tips for faster recovery." },
   { slug: "patient-education", name: "Patient Education", description: "Answers to the questions patients ask us most." },
+  { slug: "hijama", name: "Hijama (Cupping Therapy)", description: "Safe, evidence-informed guidance on Hijama and cupping therapy." },
 ];
 
 export const blogCategoryMap = Object.fromEntries(blogCategories.map((c) => [c.slug, c]));
@@ -2014,6 +2015,138 @@ export const blogPosts: BlogPost[] = [
     ],
     relatedServices: ["manual-therapy", "exercise-therapy", "pain-management"],
     relatedConditions: ["cervical-radiculopathy", "neck-pain", "sciatica"],
+  },
+  {
+    slug: "what-is-hijama-cupping-therapy",
+    title: "What Is Hijama (Cupping Therapy)? A Simple, Honest Guide",
+    seoTitle: "What Is Hijama (Cupping Therapy)? Benefits & Safety — PainFix",
+    metaDescription:
+      "A clear, honest guide to Hijama (cupping therapy): what it is, how a session works, what it may help with and when to avoid it. From PainFix Physiotherapy, Multan.",
+    category: "hijama",
+    tags: ["hijama", "cupping therapy", "wet cupping", "dry cupping", "muscle tension"],
+    excerpt:
+      "Hijama, or cupping therapy, uses suction cups on the skin to encourage blood flow and relaxation. Here is an honest look at what it is, how it works and who it suits.",
+    quickAnswer:
+      "Hijama (cupping therapy) is a traditional treatment where suction cups are placed on the skin to increase local blood flow and ease muscle tension. It comes in dry and wet forms. At PainFix it is offered as a complementary therapy using single-use, sterile equipment, alongside — not instead of — physiotherapy.",
+    date: "2026-06-20",
+    updated: "2026-06-20",
+    authorKey: "ZA",
+    sections: [
+      {
+        heading: "What is Hijama?",
+        paragraphs: [
+          "Hijama, widely known as cupping therapy, is a traditional treatment in which special cups are placed on the skin to create suction. This gentle vacuum lifts the skin and underlying tissue, which is thought to increase local blood flow and help muscles relax.",
+          "There are two main types. Dry cupping uses suction alone. Wet cupping (traditional Hijama) involves very small, superficial scratches on the skin before the cup is reapplied to draw out a small amount of blood.",
+        ],
+      },
+      {
+        heading: "How a session works at PainFix",
+        paragraphs: [
+          "We begin with a short assessment of your health history to make sure Hijama is safe and suitable for you. The treatment area is then cleaned, and we use single-use, sterile equipment for every client.",
+          "Cups are applied for a controlled length of time. You may feel a tugging or tightness rather than pain. Afterwards we clean the area and give you simple aftercare advice for the next few days.",
+        ],
+        list: [
+          "Assessment and suitability check",
+          "Skin cleaned and sterile equipment prepared",
+          "Cups applied (dry or wet cupping)",
+          "Aftercare and guidance",
+        ],
+      },
+      {
+        heading: "What might Hijama help with?",
+        paragraphs: [
+          "Many people ask for Hijama for general muscle tension, tightness in the back, shoulders or neck, and a feeling of relaxation. Some studies suggest it may offer short-term relief for certain musculoskeletal complaints, though the overall evidence is still limited.",
+          "We are transparent about this: at PainFix we offer Hijama as a complementary therapy. For lasting improvements in pain and movement, we combine it with a proper physiotherapy assessment and treatment plan. " + BOOK_CTA,
+        ],
+      },
+    ],
+    faqs: [
+      { q: "Is Hijama the same as cupping therapy?", a: "Yes. Hijama is the traditional term; cupping therapy is the general name. Wet cupping (with tiny scratches) is what many people mean by Hijama." },
+      { q: "Does it leave marks?", a: "Cupping can leave temporary circular marks that usually fade within a few days to a couple of weeks." },
+      { q: "How often can I have Hijama?", a: "This depends on your health and goals. We advise on timing during your assessment and never rush repeat sessions." },
+    ],
+    keyTakeaways: [
+      "Hijama (cupping therapy) uses suction to increase local blood flow and ease tension.",
+      "Dry cupping uses suction only; wet cupping involves tiny superficial scratches.",
+      "PainFix uses single-use, sterile equipment and assesses suitability first.",
+      "It is a complementary therapy — best combined with physiotherapy, not a replacement.",
+    ],
+    relatedServices: ["hijama-cupping-therapy", "manual-therapy", "pain-management"],
+    relatedConditions: ["back-pain", "neck-pain"],
+  },
+  {
+    slug: "is-hijama-safe-benefits-and-precautions",
+    title: "Is Hijama Safe? Benefits, Risks and Precautions",
+    seoTitle: "Is Hijama Safe? Benefits, Risks & Precautions — PainFix",
+    metaDescription:
+      "Is Hijama safe? Learn the real benefits, risks and precautions of cupping therapy, who should avoid it, and how PainFix keeps sessions hygienic in Multan.",
+    category: "hijama",
+    tags: ["hijama", "cupping safety", "contraindications", "hygiene", "wet cupping"],
+    excerpt:
+      "Hijama is generally well tolerated when done correctly — but it is not for everyone. Here are the benefits, risks and precautions you should know before booking.",
+    quickAnswer:
+      "Hijama is generally safe when performed by trained practitioners using sterile, single-use equipment after a proper assessment. It should be avoided by people with bleeding disorders, those on blood thinners, during pregnancy without medical clearance, and over infected or broken skin. Always share your medical history first.",
+    date: "2026-06-27",
+    updated: "2026-06-27",
+    authorKey: "JD",
+    sections: [
+      {
+        heading: "Is Hijama safe?",
+        paragraphs: [
+          "When Hijama is performed by a trained practitioner using sterile, single-use equipment and after a proper assessment, it is generally well tolerated. The most important safety factors are hygiene, correct technique and screening for conditions that make cupping unsafe.",
+          "At PainFix Physiotherapy Clinic we follow strict hygiene protocols, use single-use equipment for every client, and only proceed once we are satisfied it is appropriate for you.",
+        ],
+      },
+      {
+        heading: "Possible benefits",
+        paragraphs: [
+          "People commonly report a feeling of relaxation and reduced muscle tightness after cupping. Some research suggests short-term relief for certain types of musculoskeletal pain, but the quality of evidence is limited and results vary between individuals.",
+        ],
+        list: [
+          "A feeling of relaxation and comfort",
+          "Reduced sensation of muscle tightness",
+          "A complementary option alongside physiotherapy",
+        ],
+      },
+      {
+        heading: "Risks and side effects",
+        paragraphs: [
+          "Side effects are usually mild and temporary. These can include circular marks, mild soreness, or light-headedness. With wet cupping there is a small risk of infection if hygiene is poor — which is exactly why single-use, sterile equipment matters.",
+        ],
+        list: [
+          "Temporary circular marks or bruising",
+          "Mild soreness at the treatment site",
+          "Occasional light-headedness",
+          "Small infection risk if hygiene is inadequate",
+        ],
+      },
+      {
+        heading: "Who should avoid Hijama?",
+        paragraphs: [
+          "Hijama is not suitable for everyone. Please tell us about your full medical history so we can keep you safe. " + BOOK_CTA,
+        ],
+        list: [
+          "People with bleeding disorders or on blood-thinning medication",
+          "Pregnancy, unless cleared by your doctor",
+          "Skin infections, wounds or inflammation at the site",
+          "Uncontrolled diabetes or very fragile skin",
+          "Severe anaemia or recent significant illness",
+        ],
+      },
+    ],
+    faqs: [
+      { q: "Can Hijama be dangerous?", a: "Serious problems are rare when it is done hygienically by a trained practitioner after screening. Risk rises with poor hygiene, reused equipment or ignoring contraindications." },
+      { q: "Is wet cupping safe?", a: "Wet cupping is safe when single-use, sterile equipment and proper technique are used. We never reuse equipment between clients." },
+      { q: "Should I stop my medication before Hijama?", a: "Never stop prescribed medication on your own. Tell us what you take — especially blood thinners — and consult your doctor first." },
+    ],
+    keyTakeaways: [
+      "Hijama is generally safe with trained practitioners and sterile, single-use equipment.",
+      "Side effects are usually mild: marks, soreness or brief light-headedness.",
+      "Avoid it with bleeding disorders, blood thinners, pregnancy or broken skin.",
+      "Always share your full medical history before a session.",
+    ],
+    relatedServices: ["hijama-cupping-therapy", "pain-management", "manual-therapy"],
+    relatedConditions: ["back-pain", "neck-pain"],
   },
 ];
 
