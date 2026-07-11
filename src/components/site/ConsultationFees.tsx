@@ -68,13 +68,24 @@ export function ConsultationFees() {
                     </li>
                   ))}
                 </ul>
-                <button
-                  type="button"
-                  onClick={() => openCalendlyPopup()}
-                  className="ripple mt-6 inline-flex items-center justify-center gap-2 rounded-2xl bg-primary px-6 py-3.5 text-sm font-semibold text-primary-foreground shadow-card transition-transform hover:scale-[1.02]"
-                >
-                  <Calendar className="h-4 w-4" /> Book Appointment
-                </button>
+                {fee.cta === "whatsapp" ? (
+                  <a
+                    href={WHATSAPP_CONSULT_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="ripple mt-6 inline-flex items-center justify-center gap-2 rounded-2xl bg-primary px-6 py-3.5 text-sm font-semibold text-primary-foreground shadow-card transition-transform hover:scale-[1.02]"
+                  >
+                    <MessageCircle className="h-4 w-4" /> Book via WhatsApp
+                  </a>
+                ) : (
+                  <button
+                    type="button"
+                    onClick={() => openCalendlyPopup()}
+                    className="ripple mt-6 inline-flex items-center justify-center gap-2 rounded-2xl bg-primary px-6 py-3.5 text-sm font-semibold text-primary-foreground shadow-card transition-transform hover:scale-[1.02]"
+                  >
+                    <Calendar className="h-4 w-4" /> Book Video Consultation
+                  </button>
+                )}
               </div>
             </Reveal>
           ))}
