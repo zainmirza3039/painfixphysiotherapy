@@ -18,7 +18,7 @@ export function MeetDoctors() {
         <div className="mt-12 grid gap-6 sm:gap-8 lg:grid-cols-2">
           {team.map((doc, i) => (
             <Reveal key={doc.initials} anim="up" delay={i * 100}>
-              <article className="group grid h-full gap-0 overflow-hidden rounded-[2rem] border border-border bg-card shadow-soft transition-shadow hover:shadow-card sm:grid-cols-[minmax(0,42%)_1fr]">
+              <article className="group relative grid h-full cursor-pointer gap-0 overflow-hidden rounded-[2rem] border border-border bg-card shadow-soft transition-shadow hover:border-primary/40 hover:shadow-card focus-within:ring-2 focus-within:ring-primary/50 sm:grid-cols-[minmax(0,42%)_1fr]">
                 <div className="relative overflow-hidden bg-accent/40">
                   <img
                     src={doc.photo}
