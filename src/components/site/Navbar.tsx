@@ -632,6 +632,6 @@ export function Navbar() {
           </div>
         </aside>
       </div>
-    </header>
+    </>
   );
 }
