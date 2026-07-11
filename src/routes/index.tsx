@@ -8,6 +8,7 @@ import { HomePhysio } from "@/components/site/HomePhysio";
 import { Services } from "@/components/site/Services";
 import { Conditions } from "@/components/site/Conditions";
 import { About } from "@/components/site/About";
+import { MeetDoctors } from "@/components/site/MeetDoctors";
 import { Process } from "@/components/site/Process";
 import { Testimonials } from "@/components/site/Testimonials";
 import { Gallery } from "@/components/site/Gallery";
