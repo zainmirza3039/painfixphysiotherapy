@@ -5,6 +5,7 @@ import { NAV_LINKS } from "./constants";
 import { openCalendlyPopup } from "./calendly";
 import { LanguageToggle } from "./LanguageToggle";
 import { ThemeToggle } from "./ThemeToggle";
+import { SiteSearch } from "./SiteSearch";
 import logoAsset from "@/assets/painfix-logo-96.webp.asset.json";
 
 
