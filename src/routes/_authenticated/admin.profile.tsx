@@ -196,7 +196,9 @@ function ProfilePage() {
               }}
               placeholder="dr-zain-ul-abideen"
             />
-            <p className="text-xs text-muted-foreground">Public page: /team/{publicSlug || "…"}</p>
+            <p className="text-xs text-muted-foreground">
+              Used as your unique profile identifier: {publicSlug || "…"}
+            </p>
           </div>
 
           <div className="space-y-1.5">
