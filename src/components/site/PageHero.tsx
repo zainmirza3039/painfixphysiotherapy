@@ -1,9 +1,8 @@
 import type { ReactNode } from "react";
-import { Calendar, MessageCircle } from "lucide-react";
+import { MessageCircle, Phone } from "lucide-react";
 import { Breadcrumbs } from "./Breadcrumbs";
 import { Reveal } from "./Reveal";
-import { WHATSAPP_URL } from "./constants";
-import { openCalendlyPopup } from "./calendly";
+import { WHATSAPP_CONSULT_URL, PHONE_TEL } from "./constants";
 import type { Crumb } from "@/lib/seo";
 
 interface PageHeroProps {
