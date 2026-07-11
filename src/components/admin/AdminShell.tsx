@@ -12,6 +12,7 @@ import {
   BarChart3,
   Settings,
   ShieldCheck,
+  UserCircle,
   Moon,
   Sun,
   LogOut,
