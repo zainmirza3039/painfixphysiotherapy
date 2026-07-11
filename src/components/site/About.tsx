@@ -17,9 +17,9 @@ export function About() {
             <div className="overflow-hidden rounded-[2rem] shadow-glow ring-1 ring-border">
               <img
                 src={clinicImg}
-                alt="Modern reception area of PainFix Physiotherapy Clinic"
-                width={800}
-                height={1000}
+                alt="Exterior storefront of PainFix Physiotherapy Clinic in Shalimar Colony, Multan"
+                width={880}
+                height={1105}
                 loading="lazy"
                 className="h-full w-full object-cover"
               />
