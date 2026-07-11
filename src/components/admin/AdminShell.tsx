@@ -103,8 +103,8 @@ export function AdminShell({ children }: { children: ReactNode }) {
     );
   }
 
-  // Signed in but no clinic role assigned yet.
-  if (!isStaff) {
+  // Signed in but no panel role assigned yet.
+  if (!canAccessPanel) {
     return (
       <div className="flex min-h-screen items-center justify-center bg-surface px-4">
         <div className="max-w-md rounded-3xl border border-border bg-card p-8 text-center shadow-card">
@@ -124,7 +124,20 @@ export function AdminShell({ children }: { children: ReactNode }) {
     );
   }
 
-  const items = NAV.filter((n) => !n.adminOnly || isAdmin);
+  const gatePass: Record<NavItem["gate"], boolean> = {
+    staff: isStaff,
+    admin: isAdmin,
+    content: canEditContent,
+    professional: isProfessional,
+  };
+  const items = NAV.filter((n) => gatePass[n.gate]);
+  const panelLabel = isAdmin
+    ? "Administrator"
+    : isStaff
+      ? "Staff"
+      : isProfessional
+        ? "Professional"
+        : "Content editor";
 
   const SidebarInner = (
     <div className="flex h-full flex-col">
