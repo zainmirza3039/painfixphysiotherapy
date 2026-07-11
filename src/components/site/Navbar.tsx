@@ -247,6 +247,7 @@ export function Navbar() {
     "block rounded-xl px-3 py-2.5 text-sm text-foreground/85 transition-colors hover:bg-accent hover:text-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-primary";
 
   return (
+    <>
     <header
       className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 will-change-transform ${
         scrolled ? "glass shadow-soft py-2" : "bg-transparent py-4"
