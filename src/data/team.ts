@@ -1,3 +1,6 @@
+import drZainImg from "@/assets/dr-zain.webp";
+import drJalalImg from "@/assets/dr-jalal.webp";
+
 export interface TeamMember {
   name: string;
   role: string;
@@ -5,24 +8,38 @@ export interface TeamMember {
   bio: string;
   specialties: string[];
   initials: string;
+  photo: string;
 }
 
 export const team: TeamMember[] = [
   {
     name: "Dr. Zain Ul Abideen",
-    role: "Consultant Physiotherapist",
+    role: "Doctor of Physical Therapy (DPT)",
     credentials: "DPT (Doctor of Physical Therapy)",
     bio: "Dr. Zain Ul Abideen leads patient care at PainFix with a focus on evidence-based, personalized rehabilitation. He is dedicated to helping patients overcome pain, recover from injury and restore lasting movement.",
-    specialties: ["Manual Therapy", "Sports Rehabilitation", "Pain Management"],
+    specialties: [
+      "Evidence-Based Physiotherapy",
+      "Manual Therapy",
+      "Sports Rehabilitation",
+      "Musculoskeletal Rehabilitation",
+      "Home Physiotherapy",
+    ],
     initials: "ZA",
+    photo: drZainImg,
   },
   {
     name: "Dr. Jalal Ud Din",
     role: "Clinical Physiotherapist",
     credentials: "DPT (Doctor of Physical Therapy)",
     bio: "Dr. Jalal Ud Din specialises in rehabilitation and recovery, designing individualized treatment plans that target the root cause of each patient's condition for long-term results.",
-    specialties: ["Post-Surgical Rehab", "Neuro Rehabilitation", "Exercise Therapy"],
+    specialties: [
+      "Exercise Therapy",
+      "Neurological Rehabilitation",
+      "Orthopaedic Rehabilitation",
+      "Pain Management",
+    ],
     initials: "JD",
+    photo: drJalalImg,
   },
 ];
 
