@@ -97,3 +97,15 @@ export function waterLitres(weightKg: number): number | null {
   if (weightKg <= 0) return null;
   return Math.round(weightKg * 0.033 * 10) / 10;
 }
+
+/**
+ * Estimated body-fat percentage using the Deurenberg equation
+ * (BF% = 1.20·BMI + 0.23·age − 10.8·sex − 5.4, sex: male=1, female=0).
+ * This is a population-level ESTIMATE only, not a measurement.
+ */
+export function estimateBodyFat(sex: Sex, bmi: number, ageYears: number): number | null {
+  if (bmi <= 0 || ageYears <= 0) return null;
+  const s = sex === "male" ? 1 : 0;
+  const bf = 1.2 * bmi + 0.23 * ageYears - 10.8 * s - 5.4;
+  return Math.max(0, Math.round(bf * 10) / 10);
+}

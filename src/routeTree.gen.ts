@@ -25,6 +25,7 @@ import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ServicesIndexRouteImport } from './routes/services.index'
+import { Route as FitnessIndexRouteImport } from './routes/fitness.index'
 import { Route as DietNutritionIndexRouteImport } from './routes/diet-nutrition.index'
 import { Route as ConditionsIndexRouteImport } from './routes/conditions.index'
 import { Route as BlogIndexRouteImport } from './routes/blog.index'
@@ -126,6 +127,11 @@ const IndexRoute = IndexRouteImport.update({
 const ServicesIndexRoute = ServicesIndexRouteImport.update({
   id: '/services/',
   path: '/services/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FitnessIndexRoute = FitnessIndexRouteImport.update({
+  id: '/fitness/',
+  path: '/fitness/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DietNutritionIndexRoute = DietNutritionIndexRouteImport.update({
@@ -265,6 +271,7 @@ export interface FileRoutesByFullPath {
   '/blog/': typeof BlogIndexRoute
   '/conditions/': typeof ConditionsIndexRoute
   '/diet-nutrition/': typeof DietNutritionIndexRoute
+  '/fitness/': typeof FitnessIndexRoute
   '/services/': typeof ServicesIndexRoute
   '/admin/appointments': typeof AuthenticatedAdminAppointmentsRoute
   '/admin/blog': typeof AuthenticatedAdminBlogRoute
@@ -302,6 +309,7 @@ export interface FileRoutesByTo {
   '/blog': typeof BlogIndexRoute
   '/conditions': typeof ConditionsIndexRoute
   '/diet-nutrition': typeof DietNutritionIndexRoute
+  '/fitness': typeof FitnessIndexRoute
   '/services': typeof ServicesIndexRoute
   '/admin/appointments': typeof AuthenticatedAdminAppointmentsRoute
   '/admin/blog': typeof AuthenticatedAdminBlogRoute
@@ -342,6 +350,7 @@ export interface FileRoutesById {
   '/blog/': typeof BlogIndexRoute
   '/conditions/': typeof ConditionsIndexRoute
   '/diet-nutrition/': typeof DietNutritionIndexRoute
+  '/fitness/': typeof FitnessIndexRoute
   '/services/': typeof ServicesIndexRoute
   '/_authenticated/admin/appointments': typeof AuthenticatedAdminAppointmentsRoute
   '/_authenticated/admin/blog': typeof AuthenticatedAdminBlogRoute
@@ -382,6 +391,7 @@ export interface FileRouteTypes {
     | '/blog/'
     | '/conditions/'
     | '/diet-nutrition/'
+    | '/fitness/'
     | '/services/'
     | '/admin/appointments'
     | '/admin/blog'
@@ -419,6 +429,7 @@ export interface FileRouteTypes {
     | '/blog'
     | '/conditions'
     | '/diet-nutrition'
+    | '/fitness'
     | '/services'
     | '/admin/appointments'
     | '/admin/blog'
@@ -458,6 +469,7 @@ export interface FileRouteTypes {
     | '/blog/'
     | '/conditions/'
     | '/diet-nutrition/'
+    | '/fitness/'
     | '/services/'
     | '/_authenticated/admin/appointments'
     | '/_authenticated/admin/blog'
@@ -497,6 +509,7 @@ export interface RootRouteChildren {
   BlogIndexRoute: typeof BlogIndexRoute
   ConditionsIndexRoute: typeof ConditionsIndexRoute
   DietNutritionIndexRoute: typeof DietNutritionIndexRoute
+  FitnessIndexRoute: typeof FitnessIndexRoute
   ServicesIndexRoute: typeof ServicesIndexRoute
   BlogCategoryCategoryRoute: typeof BlogCategoryCategoryRoute
 }
@@ -613,6 +626,13 @@ declare module '@tanstack/react-router' {
       path: '/services'
       fullPath: '/services/'
       preLoaderRoute: typeof ServicesIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/fitness/': {
+      id: '/fitness/'
+      path: '/fitness'
+      fullPath: '/fitness/'
+      preLoaderRoute: typeof FitnessIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/diet-nutrition/': {
@@ -831,6 +851,7 @@ const rootRouteChildren: RootRouteChildren = {
   BlogIndexRoute: BlogIndexRoute,
   ConditionsIndexRoute: ConditionsIndexRoute,
   DietNutritionIndexRoute: DietNutritionIndexRoute,
+  FitnessIndexRoute: FitnessIndexRoute,
   ServicesIndexRoute: ServicesIndexRoute,
   BlogCategoryCategoryRoute: BlogCategoryCategoryRoute,
 }
