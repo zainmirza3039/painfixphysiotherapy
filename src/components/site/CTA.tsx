@@ -35,6 +35,7 @@ export function CTA() {
               >
                 <MessageCircle className="h-4 w-4" /> WhatsApp
               </a>
+              <GoogleReviewButton variant="outline" />
             </div>
           </div>
         </Reveal>
