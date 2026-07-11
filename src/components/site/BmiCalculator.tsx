@@ -195,14 +195,22 @@ export function BmiCalculator({ compact = false }: { compact?: boolean }) {
               a diagnosis. For a personalised assessment, speak to our physiotherapists.
             </p>
 
-            <a
-              href={WHATSAPP_CONSULT_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-4 inline-flex items-center gap-2 rounded-2xl bg-secondary px-5 py-3 text-sm font-semibold text-secondary-foreground shadow-card transition-transform hover:scale-[1.02]"
-            >
-              <MessageCircle className="h-4 w-4" /> Discuss your result on WhatsApp
-            </a>
+            <div className="mt-4 rounded-2xl border border-secondary/25 bg-secondary/5 p-4">
+              <p className="text-sm font-semibold text-foreground">
+                Need personalised guidance?
+              </p>
+              <p className="mt-1 text-xs leading-relaxed text-muted-foreground">
+                Chat with our Physiotherapy team on WhatsApp for a plan built around your result.
+              </p>
+              <a
+                href={WHATSAPP_CONSULT_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-3 inline-flex items-center gap-2 rounded-2xl bg-secondary px-5 py-3 text-sm font-semibold text-secondary-foreground shadow-card transition-transform hover:scale-[1.02]"
+              >
+                <MessageCircle className="h-4 w-4" /> Chat on WhatsApp
+              </a>
+            </div>
           </>
         ) : (
           <p className="rounded-xl bg-surface p-4 text-sm text-muted-foreground">
