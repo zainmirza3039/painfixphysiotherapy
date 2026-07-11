@@ -1,4 +1,4 @@
-export const SITE_URL = "https://painfix-heal-path.lovable.app";
+export const SITE_URL = "https://painfixphysiotherapy.lovable.app";
 
 export const WHATSAPP_URL = "https://wa.me/923143039582";
 export const PHONE_DISPLAY = "0314-3039582";
