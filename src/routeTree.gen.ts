@@ -37,6 +37,7 @@ import { Route as BlogCategoryCategoryRouteImport } from './routes/blog.category
 import { Route as AuthenticatedAdminUsersRouteImport } from './routes/_authenticated/admin.users'
 import { Route as AuthenticatedAdminSettingsRouteImport } from './routes/_authenticated/admin.settings'
 import { Route as AuthenticatedAdminReportsRouteImport } from './routes/_authenticated/admin.reports'
+import { Route as AuthenticatedAdminProfileRouteImport } from './routes/_authenticated/admin.profile'
 import { Route as AuthenticatedAdminPatientsRouteImport } from './routes/_authenticated/admin.patients'
 import { Route as AuthenticatedAdminMessagesRouteImport } from './routes/_authenticated/admin.messages'
 import { Route as AuthenticatedAdminMediaRouteImport } from './routes/_authenticated/admin.media'
@@ -187,6 +188,12 @@ const AuthenticatedAdminReportsRoute =
     path: '/reports',
     getParentRoute: () => AuthenticatedAdminRoute,
   } as any)
+const AuthenticatedAdminProfileRoute =
+  AuthenticatedAdminProfileRouteImport.update({
+    id: '/profile',
+    path: '/profile',
+    getParentRoute: () => AuthenticatedAdminRoute,
+  } as any)
 const AuthenticatedAdminPatientsRoute =
   AuthenticatedAdminPatientsRouteImport.update({
     id: '/patients',
@@ -251,6 +258,7 @@ export interface FileRoutesByFullPath {
   '/admin/media': typeof AuthenticatedAdminMediaRoute
   '/admin/messages': typeof AuthenticatedAdminMessagesRoute
   '/admin/patients': typeof AuthenticatedAdminPatientsRoute
+  '/admin/profile': typeof AuthenticatedAdminProfileRoute
   '/admin/reports': typeof AuthenticatedAdminReportsRoute
   '/admin/settings': typeof AuthenticatedAdminSettingsRoute
   '/admin/users': typeof AuthenticatedAdminUsersRoute
@@ -285,6 +293,7 @@ export interface FileRoutesByTo {
   '/admin/media': typeof AuthenticatedAdminMediaRoute
   '/admin/messages': typeof AuthenticatedAdminMessagesRoute
   '/admin/patients': typeof AuthenticatedAdminPatientsRoute
+  '/admin/profile': typeof AuthenticatedAdminProfileRoute
   '/admin/reports': typeof AuthenticatedAdminReportsRoute
   '/admin/settings': typeof AuthenticatedAdminSettingsRoute
   '/admin/users': typeof AuthenticatedAdminUsersRoute
@@ -322,6 +331,7 @@ export interface FileRoutesById {
   '/_authenticated/admin/media': typeof AuthenticatedAdminMediaRoute
   '/_authenticated/admin/messages': typeof AuthenticatedAdminMessagesRoute
   '/_authenticated/admin/patients': typeof AuthenticatedAdminPatientsRoute
+  '/_authenticated/admin/profile': typeof AuthenticatedAdminProfileRoute
   '/_authenticated/admin/reports': typeof AuthenticatedAdminReportsRoute
   '/_authenticated/admin/settings': typeof AuthenticatedAdminSettingsRoute
   '/_authenticated/admin/users': typeof AuthenticatedAdminUsersRoute
@@ -359,6 +369,7 @@ export interface FileRouteTypes {
     | '/admin/media'
     | '/admin/messages'
     | '/admin/patients'
+    | '/admin/profile'
     | '/admin/reports'
     | '/admin/settings'
     | '/admin/users'
@@ -393,6 +404,7 @@ export interface FileRouteTypes {
     | '/admin/media'
     | '/admin/messages'
     | '/admin/patients'
+    | '/admin/profile'
     | '/admin/reports'
     | '/admin/settings'
     | '/admin/users'
@@ -429,6 +441,7 @@ export interface FileRouteTypes {
     | '/_authenticated/admin/media'
     | '/_authenticated/admin/messages'
     | '/_authenticated/admin/patients'
+    | '/_authenticated/admin/profile'
     | '/_authenticated/admin/reports'
     | '/_authenticated/admin/settings'
     | '/_authenticated/admin/users'
@@ -660,6 +673,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminReportsRouteImport
       parentRoute: typeof AuthenticatedAdminRoute
     }
+    '/_authenticated/admin/profile': {
+      id: '/_authenticated/admin/profile'
+      path: '/profile'
+      fullPath: '/admin/profile'
+      preLoaderRoute: typeof AuthenticatedAdminProfileRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
     '/_authenticated/admin/patients': {
       id: '/_authenticated/admin/patients'
       path: '/patients'
@@ -712,6 +732,7 @@ interface AuthenticatedAdminRouteChildren {
   AuthenticatedAdminMediaRoute: typeof AuthenticatedAdminMediaRoute
   AuthenticatedAdminMessagesRoute: typeof AuthenticatedAdminMessagesRoute
   AuthenticatedAdminPatientsRoute: typeof AuthenticatedAdminPatientsRoute
+  AuthenticatedAdminProfileRoute: typeof AuthenticatedAdminProfileRoute
   AuthenticatedAdminReportsRoute: typeof AuthenticatedAdminReportsRoute
   AuthenticatedAdminSettingsRoute: typeof AuthenticatedAdminSettingsRoute
   AuthenticatedAdminUsersRoute: typeof AuthenticatedAdminUsersRoute
@@ -725,6 +746,7 @@ const AuthenticatedAdminRouteChildren: AuthenticatedAdminRouteChildren = {
   AuthenticatedAdminMediaRoute: AuthenticatedAdminMediaRoute,
   AuthenticatedAdminMessagesRoute: AuthenticatedAdminMessagesRoute,
   AuthenticatedAdminPatientsRoute: AuthenticatedAdminPatientsRoute,
+  AuthenticatedAdminProfileRoute: AuthenticatedAdminProfileRoute,
   AuthenticatedAdminReportsRoute: AuthenticatedAdminReportsRoute,
   AuthenticatedAdminSettingsRoute: AuthenticatedAdminSettingsRoute,
   AuthenticatedAdminUsersRoute: AuthenticatedAdminUsersRoute,
