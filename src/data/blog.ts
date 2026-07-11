@@ -1044,15 +1044,15 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: "disc-herniation-treatment",
-    title: "Disc Herniation (Slipped Disc) Treatment",
-    seoTitle: "Disc Herniation Treatment | Slipped Disc Physiotherapy — PainFix",
+    title: "Disc Herniation (Slipped Disc) Treatment | Slip Disc Ka Ilaj",
+    seoTitle: "Slipped Disc Treatment | Slip Disc Ka Ilaj — PainFix Multan",
     metaDescription:
-      "A herniated or slipped disc doesn't usually need surgery. Learn how physiotherapy treats disc herniation, relieves nerve pain and prevents recurrence.",
+      "A herniated or slipped disc (slip disc) doesn't usually need surgery. Learn how physiotherapy in Multan treats disc herniation, relieves nerve pain and prevents recurrence.",
     category: "back-pain",
-    tags: ["disc herniation", "slipped disc", "sciatica", "back pain"],
-    excerpt: "A 'slipped disc' sounds alarming, but most heal without surgery. Here's how physiotherapy treats disc herniation.",
+    tags: ["disc herniation", "slip disc", "slip disc ka ilaj", "sciatica", "back pain"],
+    excerpt: "A 'slipped disc' (slip disc) sounds alarming, but most heal without surgery. Here's how physiotherapy treats disc herniation.",
     quickAnswer:
-      "Most disc herniations (slipped discs) heal without surgery. Physiotherapy relieves nerve irritation and pain through directional exercises, nerve mobilisation, manual therapy and progressive core strengthening. The majority of patients improve significantly within 6–12 weeks, and surgery is reserved for severe nerve compression or persistent, non-improving symptoms.",
+      "Most disc herniations (slip disc ka ilaj) heal without surgery. Physiotherapy relieves nerve irritation and pain through directional exercises, nerve mobilisation, manual therapy and progressive core strengthening. The majority of patients improve significantly within 6–12 weeks, and surgery is reserved for severe nerve compression or persistent, non-improving symptoms.",
     date: "2026-05-17",
     updated: "2026-06-18",
     authorKey: "JD",
