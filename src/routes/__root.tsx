@@ -15,7 +15,6 @@ import { reportLovableError } from "../lib/lovable-error-reporting";
 import { LanguageProvider } from "@/i18n/LanguageProvider";
 import { ThemeProvider, THEME_INIT_SCRIPT } from "@/components/site/ThemeProvider";
 import { SITE_URL } from "@/components/site/constants";
-import { supabase } from "@/integrations/supabase/client";
 import type { AuthChangeEvent } from "@supabase/supabase-js";
 
 const LOGO_URL =
