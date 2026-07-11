@@ -115,7 +115,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         type: "application/ld+json",
         children: JSON.stringify({
           "@context": "https://schema.org",
-          "@type": "Physiotherapy",
+          "@type": ["MedicalClinic", "LocalBusiness"],
           "@id": SITE_URL + "/#clinic",
           name: "PainFix Physiotherapy Clinic",
           url: SITE_URL,
