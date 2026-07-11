@@ -184,7 +184,7 @@ function MediaCard({ file, onDelete }: { file: MediaFile; onDelete: () => void }
           >
             <Copy className="mr-1 h-3.5 w-3.5" /> {copied ? "Copied" : "Copy URL"}
           </Button>
-          <Button variant="ghost" size="icon" className="h-8 w-8 text-rose-600" onClick={onDelete}>
+          <Button variant="ghost" size="icon" aria-label="Delete file" className="h-8 w-8 text-rose-600" onClick={onDelete}>
             <Trash2 className="h-3.5 w-3.5" />
           </Button>
         </div>

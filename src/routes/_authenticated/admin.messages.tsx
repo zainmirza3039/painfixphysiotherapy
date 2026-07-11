@@ -172,10 +172,10 @@ function MessagesPage() {
                     </TableCell>
                     <TableCell className="text-right">
                       <div className="flex justify-end gap-1">
-                        <Button variant="ghost" size="icon" onClick={() => openMessage(m)}>
+                        <Button variant="ghost" size="icon" aria-label="View message" onClick={() => openMessage(m)}>
                           <Eye className="h-4 w-4" />
                         </Button>
-                        <Button variant="ghost" size="icon" className="text-rose-600" onClick={() => setDeleteId(m.id)}>
+                        <Button variant="ghost" size="icon" aria-label="Delete message" className="text-rose-600" onClick={() => setDeleteId(m.id)}>
                           <Trash2 className="h-4 w-4" />
                         </Button>
                       </div>
