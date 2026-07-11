@@ -121,9 +121,6 @@ export function Navbar() {
             >
               <BookOpen className="h-4 w-4" /> Blog
             </Link>
-            <div className="px-1 pt-1">
-              <LanguageToggle className="w-full justify-center" />
-            </div>
             <button
               type="button"
               onClick={() => {
