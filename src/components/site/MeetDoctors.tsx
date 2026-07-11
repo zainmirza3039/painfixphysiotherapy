@@ -1,8 +1,7 @@
-import { Calendar, BadgeCheck, Stethoscope, Linkedin, MessageCircle, ArrowRight } from "lucide-react";
+import { BadgeCheck, Stethoscope, Linkedin, MessageCircle, ArrowRight } from "lucide-react";
 import { team } from "@/data/team";
 import { Reveal } from "./Reveal";
 import { SectionHeading } from "./SectionHeading";
-import { openCalendlyPopup } from "./calendly";
 import { SOCIAL_LINKS } from "./constants";
 import { GoogleReviewButton } from "./GoogleReviewButton";
 
