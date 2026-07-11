@@ -15,6 +15,7 @@ import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as PhysiotherapyClinicInMultanRouteImport } from './routes/physiotherapy-clinic-in-multan'
 import { Route as PhysiotherapistInMultanRouteImport } from './routes/physiotherapist-in-multan'
+import { Route as MembershipRouteImport } from './routes/membership'
 import { Route as HomeVisitRouteImport } from './routes/home-visit'
 import { Route as HealthCalculatorsRouteImport } from './routes/health-calculators'
 import { Route as FitnessRehabilitationRouteImport } from './routes/fitness-rehabilitation'
@@ -78,6 +79,11 @@ const PhysiotherapyClinicInMultanRoute =
 const PhysiotherapistInMultanRoute = PhysiotherapistInMultanRouteImport.update({
   id: '/physiotherapist-in-multan',
   path: '/physiotherapist-in-multan',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MembershipRoute = MembershipRouteImport.update({
+  id: '/membership',
+  path: '/membership',
   getParentRoute: () => rootRouteImport,
 } as any)
 const HomeVisitRoute = HomeVisitRouteImport.update({
@@ -263,6 +269,7 @@ export interface FileRoutesByFullPath {
   '/fitness-rehabilitation': typeof FitnessRehabilitationRoute
   '/health-calculators': typeof HealthCalculatorsRoute
   '/home-visit': typeof HomeVisitRoute
+  '/membership': typeof MembershipRoute
   '/physiotherapist-in-multan': typeof PhysiotherapistInMultanRoute
   '/physiotherapy-clinic-in-multan': typeof PhysiotherapyClinicInMultanRoute
   '/privacy': typeof PrivacyRoute
@@ -303,6 +310,7 @@ export interface FileRoutesByTo {
   '/fitness-rehabilitation': typeof FitnessRehabilitationRoute
   '/health-calculators': typeof HealthCalculatorsRoute
   '/home-visit': typeof HomeVisitRoute
+  '/membership': typeof MembershipRoute
   '/physiotherapist-in-multan': typeof PhysiotherapistInMultanRoute
   '/physiotherapy-clinic-in-multan': typeof PhysiotherapyClinicInMultanRoute
   '/privacy': typeof PrivacyRoute
@@ -344,6 +352,7 @@ export interface FileRoutesById {
   '/fitness-rehabilitation': typeof FitnessRehabilitationRoute
   '/health-calculators': typeof HealthCalculatorsRoute
   '/home-visit': typeof HomeVisitRoute
+  '/membership': typeof MembershipRoute
   '/physiotherapist-in-multan': typeof PhysiotherapistInMultanRoute
   '/physiotherapy-clinic-in-multan': typeof PhysiotherapyClinicInMultanRoute
   '/privacy': typeof PrivacyRoute
@@ -386,6 +395,7 @@ export interface FileRouteTypes {
     | '/fitness-rehabilitation'
     | '/health-calculators'
     | '/home-visit'
+    | '/membership'
     | '/physiotherapist-in-multan'
     | '/physiotherapy-clinic-in-multan'
     | '/privacy'
@@ -426,6 +436,7 @@ export interface FileRouteTypes {
     | '/fitness-rehabilitation'
     | '/health-calculators'
     | '/home-visit'
+    | '/membership'
     | '/physiotherapist-in-multan'
     | '/physiotherapy-clinic-in-multan'
     | '/privacy'
@@ -466,6 +477,7 @@ export interface FileRouteTypes {
     | '/fitness-rehabilitation'
     | '/health-calculators'
     | '/home-visit'
+    | '/membership'
     | '/physiotherapist-in-multan'
     | '/physiotherapy-clinic-in-multan'
     | '/privacy'
@@ -508,6 +520,7 @@ export interface RootRouteChildren {
   FitnessRehabilitationRoute: typeof FitnessRehabilitationRoute
   HealthCalculatorsRoute: typeof HealthCalculatorsRoute
   HomeVisitRoute: typeof HomeVisitRoute
+  MembershipRoute: typeof MembershipRoute
   PhysiotherapistInMultanRoute: typeof PhysiotherapistInMultanRoute
   PhysiotherapyClinicInMultanRoute: typeof PhysiotherapyClinicInMultanRoute
   PrivacyRoute: typeof PrivacyRoute
@@ -569,6 +582,13 @@ declare module '@tanstack/react-router' {
       path: '/physiotherapist-in-multan'
       fullPath: '/physiotherapist-in-multan'
       preLoaderRoute: typeof PhysiotherapistInMultanRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/membership': {
+      id: '/membership'
+      path: '/membership'
+      fullPath: '/membership'
+      preLoaderRoute: typeof MembershipRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/home-visit': {
@@ -858,6 +878,7 @@ const rootRouteChildren: RootRouteChildren = {
   FitnessRehabilitationRoute: FitnessRehabilitationRoute,
   HealthCalculatorsRoute: HealthCalculatorsRoute,
   HomeVisitRoute: HomeVisitRoute,
+  MembershipRoute: MembershipRoute,
   PhysiotherapistInMultanRoute: PhysiotherapistInMultanRoute,
   PhysiotherapyClinicInMultanRoute: PhysiotherapyClinicInMultanRoute,
   PrivacyRoute: PrivacyRoute,
