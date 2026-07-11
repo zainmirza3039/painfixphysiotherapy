@@ -129,14 +129,15 @@ export function ContactForm() {
       </div>
       {/* Honeypot: visually hidden, ignored by humans, filled by bots */}
       <div aria-hidden className="absolute left-[-9999px] top-[-9999px] h-0 w-0 overflow-hidden" tabIndex={-1}>
-        <label htmlFor="c-company">Company</label>
+        <label htmlFor="c-website">Website</label>
         <input
-          id="c-company"
+          id="c-website"
+          name="website"
           type="text"
           tabIndex={-1}
           autoComplete="off"
-          value={company}
-          onChange={(e) => setCompany(e.target.value)}
+          value={botField}
+          onChange={(e) => setBotField(e.target.value)}
         />
       </div>
       <button
