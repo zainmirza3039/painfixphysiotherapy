@@ -6,6 +6,7 @@ import photo3 from "@/assets/clinic-photo-3.webp";
 import photo4 from "@/assets/clinic-photo-4.webp";
 import photo5 from "@/assets/clinic-photo-5.webp";
 import photo6 from "@/assets/clinic-photo-6.webp";
+import exteriorImg from "@/assets/clinic-exterior.webp";
 import { Reveal } from "./Reveal";
 import { SectionHeading } from "./SectionHeading";
 
@@ -15,16 +16,27 @@ type Photo = {
   caption: string;
   /** grid placement classes */
   span: string;
+  /** object-position class override */
+  pos?: string;
   w: number;
   h: number;
 };
 
 const photos: Photo[] = [
   {
+    src: exteriorImg,
+    alt: "Storefront exterior of PainFix Physiotherapy Clinic with signage in Shalimar Colony, Multan",
+    caption: "Our Multan Clinic",
+    span: "col-span-2 row-span-2",
+    pos: "object-top",
+    w: 1100,
+    h: 1381,
+  },
+  {
     src: photo1,
     alt: "Physiotherapist treating a patient's leg with infrared heat therapy at PainFix Physiotherapy Clinic, Multan",
     caption: "Infrared Heat Therapy",
-    span: "col-span-2 row-span-2",
+    span: "col-span-2 lg:col-span-1 lg:row-span-2",
     w: 1200,
     h: 1600,
   },
@@ -64,7 +76,7 @@ const photos: Photo[] = [
     src: photo6,
     alt: "Modern, clean physiotherapy treatment room with anatomy charts at PainFix Clinic, Multan",
     caption: "Our Treatment Room",
-    span: "col-span-2 lg:col-span-1",
+    span: "col-span-2 lg:col-span-2",
     w: 738,
     h: 1280,
   },
@@ -97,7 +109,7 @@ export function Gallery() {
                   height={p.h}
                   loading={i === 0 ? "eager" : "lazy"}
                   decoding="async"
-                  className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
+                  className={`h-full w-full object-cover transition-transform duration-500 group-hover:scale-110 ${p.pos ?? ""}`}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-primary/75 via-primary/10 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
                 <span className="absolute bottom-4 left-4 translate-y-2 font-heading font-bold text-primary-foreground opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100">
