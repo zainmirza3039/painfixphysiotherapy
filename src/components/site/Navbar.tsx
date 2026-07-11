@@ -322,10 +322,7 @@ export function Navbar() {
   const dashboardLabel = isAdmin ? "Admin Dashboard" : "Dashboard";
   const DashboardIcon = isAdmin ? ShieldCheck : LayoutDashboard;
 
-  const panelClass =
-    "min-w-[16rem] overflow-hidden rounded-2xl border border-border bg-card p-1.5 shadow-card animate-fade-in";
-  const menuItemClass =
-    "block rounded-xl px-3 py-2.5 text-sm text-foreground/85 transition-colors hover:bg-accent hover:text-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-primary";
+
 
   return (
     <>
