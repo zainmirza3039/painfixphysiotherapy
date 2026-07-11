@@ -62,6 +62,3 @@ function DietIndex() {
     />
   );
 }
-
-// Referenced so tree-shaking keeps the sub-page data warm alongside the section.
-export const _dietSubPageCount = dietSubPages.length;
