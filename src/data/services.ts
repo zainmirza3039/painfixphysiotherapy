@@ -8,6 +8,7 @@ import {
   Brain,
   Activity,
   PersonStanding,
+  CircleDot,
   type LucideIcon,
 } from "lucide-react";
 
