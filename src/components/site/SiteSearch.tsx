@@ -20,7 +20,6 @@ import {
   Clock,
   TrendingUp,
   CornerDownLeft,
-  X,
 } from "lucide-react";
 import {
   Command,
