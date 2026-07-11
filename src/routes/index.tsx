@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import heroImg from "@/assets/hero.webp";
 import { SITE_URL } from "@/components/site/constants";
+import { faqLd } from "@/lib/seo";
 import { Navbar } from "@/components/site/Navbar";
 import { Hero } from "@/components/site/Hero";
 import { Stats } from "@/components/site/Stats";
@@ -14,15 +15,15 @@ import { Process } from "@/components/site/Process";
 import { GoogleReviews } from "@/components/site/GoogleReviews";
 import { TrustSignals } from "@/components/site/TrustSignals";
 import { Gallery } from "@/components/site/Gallery";
-import { FAQ } from "@/components/site/FAQ";
+import { FAQ, homeFaqs } from "@/components/site/FAQ";
 import { CTA } from "@/components/site/CTA";
 import { Contact } from "@/components/site/Contact";
 import { Footer } from "@/components/site/Footer";
 import { WhatsAppFab } from "@/components/site/WhatsAppFab";
 
-const TITLE = "PainFix Physiotherapy Clinic — Multan | Move Better, Recover Faster";
+const TITLE = "PainFix Physiotherapy Multan | Move Better, Recover Faster";
 const DESCRIPTION =
-  "Evidence-based physiotherapy and rehabilitation in Multan, Pakistan. Personalized treatment plans for back pain, sports injuries, and lasting recovery. Book your appointment today.";
+  "Evidence-based physiotherapy in Multan. Personalized treatment for back pain, sports injuries, and lasting recovery. Book your appointment today.";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -40,6 +41,7 @@ export const Route = createFileRoute("/")({
       { rel: "canonical", href: `${SITE_URL}/` },
       { rel: "preload", as: "image", href: heroImg, fetchPriority: "high" },
     ],
+    scripts: [faqLd(homeFaqs.map((f) => ({ q: f.q, a: f.a })))],
   }),
   component: Index,
 });

@@ -1,0 +1,45 @@
+# PainFix Physiotherapy Clinic
+
+> Evidence-based physiotherapy and rehabilitation clinic in Multan, Pakistan — pain relief, injury recovery, and restored movement, delivered by licensed physiotherapists at the clinic or at your home.
+
+PainFix Physiotherapy Clinic treats back pain, neck pain, sciatica, sports injuries, frozen shoulder, knee pain, and post-surgical and stroke rehabilitation. Led by Dr. Zain Ul Abideen PT and Dr. Jalal Ud Din PT.
+
+## Main Pages
+
+- [Home](/): Clinic overview, services, doctors, and appointment booking.
+- [Services](/services): Full range of physiotherapy services in Multan.
+- [Conditions](/conditions): Conditions we treat and how physiotherapy helps.
+- [Home Visit](/home-visit): Book home physiotherapy in Multan.
+- [Blog](/blog): Physiotherapy guides, condition education, and recovery tips.
+
+## Doctors
+
+- [Dr. Zain Ul Abideen PT](/dr-zain-ul-abideen-pt-multan): Physiotherapist in Multan — profile, expertise, and appointments.
+- [Dr. Jalal Ud Din PT](/dr-jalal-ud-din-pt-multan): Clinical Physiotherapist in Multan — profile, expertise, and appointments.
+
+## Services
+
+- [Manual Therapy](/services/manual-therapy): Hands-on mobilization and manipulation.
+- [Exercise Therapy](/services/exercise-therapy): Targeted rehabilitation exercise programs.
+- [Sports Rehabilitation](/services/sports-rehabilitation): Recovery and return-to-play for athletes.
+- [Post-Surgical Rehabilitation](/services/post-surgical-rehabilitation): Guided recovery after surgery.
+- [Pain Management](/services/pain-management): Evidence-based chronic pain treatment.
+- [Home Physiotherapy](/services/home-physiotherapy): Physiotherapy at your home in Multan.
+
+## Local
+
+- [Physiotherapist in Multan](/physiotherapist-in-multan): Find a licensed physiotherapist in Multan.
+- [Best Physiotherapist in Multan](/best-physiotherapist-in-multan): Why patients choose PainFix.
+- [Physiotherapy Clinic in Multan](/physiotherapy-clinic-in-multan): Clinic location, hours, and services.
+
+## Conditions
+
+- [Back Pain](/conditions/back-pain): Lower back pain treatment (Kamar Dard Ka Ilaj).
+- [Neck Pain](/conditions/neck-pain): Neck pain treatment (Gardan Dard Ka Ilaj).
+- [Sciatica](/conditions/sciatica): Sciatica nerve pain treatment.
+- [Knee Pain](/conditions/knee-pain): Knee pain treatment (Ghutno Ke Dard Ka Ilaj).
+
+## Optional
+
+- [Privacy Policy](/privacy): How we handle patient data.
+- [Terms of Service](/terms): Website terms of use.
