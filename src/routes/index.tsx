@@ -49,6 +49,7 @@ function Index() {
       <main>
         <Hero />
         <Stats />
+        <TrustSignals />
         <WhyChooseUs />
         <Services />
         <Conditions />
@@ -56,7 +57,7 @@ function Index() {
         <About />
         <MeetDoctors />
         <Process />
-        <Testimonials />
+        <GoogleReviews />
         <Gallery />
         <FAQ />
         <CTA />
