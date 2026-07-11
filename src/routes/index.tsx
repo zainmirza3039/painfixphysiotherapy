@@ -17,7 +17,6 @@ import { GoogleReviews } from "@/components/site/GoogleReviews";
 import { TrustSignals } from "@/components/site/TrustSignals";
 import { Gallery } from "@/components/site/Gallery";
 import { FAQ, homeFaqs } from "@/components/site/FAQ";
-import { CTA } from "@/components/site/CTA";
 import { Contact } from "@/components/site/Contact";
 import { Footer } from "@/components/site/Footer";
 import { WhatsAppFab } from "@/components/site/WhatsAppFab";
