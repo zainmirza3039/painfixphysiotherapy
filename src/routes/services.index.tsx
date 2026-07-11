@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Calendar } from "lucide-react";
 import { services } from "@/data/services";
+import { openCalendlyPopup } from "@/components/site/calendly";
 import { PageLayout } from "@/components/site/PageLayout";
 import { PageHero } from "@/components/site/PageHero";
 import { PageCTA } from "@/components/site/PageCTA";
