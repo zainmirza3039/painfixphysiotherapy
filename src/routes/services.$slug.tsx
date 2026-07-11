@@ -67,7 +67,8 @@ function ServiceNotFound() {
 }
 
 function ServiceDetail() {
-  const service: Service = Route.useLoaderData();
+  const { slug } = Route.useLoaderData();
+  const service = getService(slug) as Service;
   const Icon = service.icon;
 
   return (
