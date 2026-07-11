@@ -1,4 +1,4 @@
-import { Facebook, Instagram, AtSign, MapPin, Phone, Linkedin } from "lucide-react";
+import { Facebook, Instagram, AtSign, MapPin, Phone, Linkedin, MessageCircle } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 import { NAV_LINKS, WHATSAPP_URL, PHONE_DISPLAY, PHONE_TEL, SOCIAL_LINKS, CLINIC_ADDRESS, MAP_PLACE_URL } from "./constants";
 import { GoogleReviewButton } from "./GoogleReviewButton";
