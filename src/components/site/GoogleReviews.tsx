@@ -10,9 +10,9 @@ import { getGoogleReviews, type GoogleReview } from "@/lib/google-reviews.functi
 function Stars({ rating }: { rating: number }) {
   const full = Math.round(rating);
   return (
-    <div className="flex items-center gap-0.5 text-secondary" aria-label={`${rating} out of 5 stars`}>
+    <div className="flex items-center gap-0.5 text-secondary" role="img" aria-label={`${rating} out of 5 stars`}>
       {Array.from({ length: 5 }).map((_, i) => (
-        <Star key={i} className={`h-4 w-4 ${i < full ? "fill-current" : "text-border"}`} />
+        <Star key={i} className={`h-4 w-4 ${i < full ? "fill-current" : "text-border"}`} aria-hidden="true" />
       ))}
     </div>
   );

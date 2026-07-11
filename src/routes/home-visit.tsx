@@ -181,7 +181,7 @@ function HomeVisitPage() {
                 </span>
                 <h2 className="mt-4 font-heading text-2xl font-extrabold text-foreground">{hv.areas.title}</h2>
                 <p className="mt-3 text-base text-muted-foreground">{hv.areas.body}</p>
-                <p className="mt-2 text-sm text-muted-foreground/80">{hv.areas.note}</p>
+                <p className="mt-2 text-sm text-muted-foreground">{hv.areas.note}</p>
               </div>
             </Reveal>
             <Reveal anim="right">
@@ -229,7 +229,7 @@ function HomeVisitPage() {
                 </Reveal>
               ))}
             </div>
-            <p className="mt-6 text-center text-sm text-muted-foreground/80">{hv.pricing.travelNote}</p>
+            <p className="mt-6 text-center text-sm text-muted-foreground">{hv.pricing.travelNote}</p>
             <p className="mt-2 text-center font-heading text-lg font-semibold text-primary">{hv.pricing.note}</p>
           </div>
         </section>
