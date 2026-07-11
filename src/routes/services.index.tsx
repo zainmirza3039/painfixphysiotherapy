@@ -58,14 +58,15 @@ function ServicesIndex() {
                     >
                       Learn More <ArrowRight className="h-4 w-4 rtl:rotate-180" />
                     </Link>
-                    <button
-                      type="button"
-                      onClick={() => openCalendlyPopup()}
+                    <a
+                      href={WHATSAPP_CONSULT_URL}
+                      target="_blank"
+                      rel="noopener noreferrer"
                       className="inline-flex min-h-11 items-center gap-1.5 rounded-xl bg-gradient-to-r from-primary to-secondary px-4 py-2 text-sm font-semibold text-primary-foreground shadow-soft transition-opacity hover:opacity-90"
-                      aria-label={`Book an appointment for ${service.title}`}
+                      aria-label={`Ask about ${service.title} on WhatsApp`}
                     >
-                      <Calendar className="h-4 w-4" /> Book Appointment
-                    </button>
+                      <MessageCircle className="h-4 w-4" /> WhatsApp
+                    </a>
                   </div>
                 </article>
               </Reveal>
