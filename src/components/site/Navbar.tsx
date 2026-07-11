@@ -740,6 +740,9 @@ export function Navbar() {
               <Link to="/home-visit" onClick={closeMobile} className="rounded-xl px-4 py-3.5 text-base font-medium text-foreground/85 hover:bg-accent hover:text-primary">
                 Home Physiotherapy
               </Link>
+              <Link to="/fitness" onClick={closeMobile} className="rounded-xl px-4 py-3.5 text-base font-medium text-foreground/85 hover:bg-accent hover:text-primary">
+                Fitness
+              </Link>
               <Link to="/blog" onClick={closeMobile} className="rounded-xl px-4 py-3.5 text-base font-medium text-foreground/85 hover:bg-accent hover:text-primary">
                 Blog
               </Link>
