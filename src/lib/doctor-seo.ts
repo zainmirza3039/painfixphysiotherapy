@@ -35,7 +35,7 @@ export function doctorProfileHead(doc: TeamMember) {
           name: doc.fullName,
           alternateName: doc.name,
           url,
-          image: `${SITE_URL}${doc.photo}`,
+          image,
           jobTitle: doc.role,
           medicalSpecialty: "Physiotherapy",
           telephone: PHONE_TEL.replace("tel:", ""),
