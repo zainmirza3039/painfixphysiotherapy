@@ -282,15 +282,15 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: "how-physiotherapy-helps-sciatica",
-    title: "How Physiotherapy Helps Sciatica",
-    seoTitle: "How Physiotherapy Helps Sciatica | Nerve Pain Relief — PainFix",
+    title: "How Physiotherapy Helps Sciatica | Tang Ke Nerve Pain Ka Ilaj",
+    seoTitle: "Sciatica Treatment | Tang Ke Nerve Pain Ka Ilaj — PainFix",
     metaDescription:
-      "Sciatica causes shooting pain down the leg. Learn how physiotherapy relieves sciatica, the best exercises, and how long recovery usually takes.",
+      "Sciatica (tang ke nerve pain) causes shooting pain down the leg. Learn how physiotherapy in Multan relieves sciatica, the best exercises, and how long recovery usually takes.",
     category: "sciatica",
-    tags: ["sciatica", "nerve pain", "leg pain", "disc"],
-    excerpt: "Sciatica can be intensely painful, but most cases settle with the right physiotherapy. Here's how we treat it.",
+    tags: ["sciatica", "tang ka dard", "nerve pain", "leg pain", "disc"],
+    excerpt: "Sciatica (tang ke nerve pain) can be intensely painful, but most cases settle with the right physiotherapy. Here's how we treat it.",
     quickAnswer:
-      "Physiotherapy helps sciatica by relieving pressure and irritation on the sciatic nerve. Treatment includes gentle nerve-mobilising exercises, manual therapy, posture correction and progressive strengthening. Most sciatica improves within 4–8 weeks of consistent physiotherapy, and surgery is rarely needed.",
+      "Physiotherapy helps sciatica (tang ke nerve pain ka ilaj) by relieving pressure and irritation on the sciatic nerve. Treatment includes gentle nerve-mobilising exercises, manual therapy, posture correction and progressive strengthening. Most sciatica improves within 4–8 weeks of consistent physiotherapy, and surgery is rarely needed.",
     date: "2026-06-20",
     updated: "2026-07-06",
     authorKey: "JD",
