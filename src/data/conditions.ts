@@ -3,6 +3,7 @@ import type { Faq } from "./services";
 export interface Condition {
   slug: string;
   title: string;
+  summary: string; // short description for cards
   icon: string; // emoji marker for lightweight rendering
   metaTitle: string;
   metaDescription: string;
@@ -21,6 +22,7 @@ export const conditions: Condition[] = [
   {
     slug: "back-pain",
     title: "Back Pain",
+    summary: "Relief from aching, stiffness and pain that limits everyday movement.",
     icon: "🩺",
     metaTitle: "Back Pain Treatment in Multan | Physiotherapy — PainFix",
     metaDescription:
@@ -75,6 +77,7 @@ export const conditions: Condition[] = [
   {
     slug: "neck-pain",
     title: "Neck Pain",
+    summary: "Ease stiffness, headaches and pain caused by posture, strain or injury.",
     icon: "🦴",
     metaTitle: "Neck Pain Treatment in Multan | Physiotherapy — PainFix",
     metaDescription:
@@ -123,6 +126,7 @@ export const conditions: Condition[] = [
   {
     slug: "sciatica",
     title: "Sciatica",
+    summary: "Calm nerve pain radiating from the lower back down into the leg.",
     icon: "⚡",
     metaTitle: "Sciatica Treatment in Multan | Physiotherapy — PainFix",
     metaDescription:
@@ -165,6 +169,7 @@ export const conditions: Condition[] = [
   {
     slug: "frozen-shoulder",
     title: "Frozen Shoulder",
+    summary: "Restore movement and reduce the stiffness of a frozen shoulder.",
     icon: "💪",
     metaTitle: "Frozen Shoulder Treatment in Multan | Physiotherapy — PainFix",
     metaDescription:
@@ -207,6 +212,7 @@ export const conditions: Condition[] = [
   {
     slug: "knee-pain",
     title: "Knee Pain",
+    summary: "Rebuild strength and mobility after injury, arthritis or overuse.",
     icon: "🦵",
     metaTitle: "Knee Pain Treatment in Multan | Physiotherapy — PainFix",
     metaDescription:
@@ -243,6 +249,7 @@ export const conditions: Condition[] = [
   {
     slug: "osteoarthritis",
     title: "Osteoarthritis",
+    summary: "Reduce joint pain and stiffness and stay active for longer.",
     icon: "🦴",
     metaTitle: "Osteoarthritis Treatment in Multan | Physiotherapy — PainFix",
     metaDescription:
@@ -279,6 +286,7 @@ export const conditions: Condition[] = [
   {
     slug: "plantar-fasciitis",
     title: "Plantar Fasciitis",
+    summary: "Relieve stubborn heel and arch pain and walk comfortably again.",
     icon: "🦶",
     metaTitle: "Plantar Fasciitis Treatment in Multan | Physiotherapy — PainFix",
     metaDescription:
@@ -315,6 +323,7 @@ export const conditions: Condition[] = [
   {
     slug: "sports-injuries",
     title: "Sports Injuries",
+    summary: "Recover safely and return to your sport stronger than before.",
     icon: "🏅",
     metaTitle: "Sports Injury Treatment in Multan | Physiotherapy — PainFix",
     metaDescription:
@@ -351,6 +360,7 @@ export const conditions: Condition[] = [
   {
     slug: "stroke-rehabilitation",
     title: "Stroke Rehabilitation",
+    summary: "Regain movement, strength and independence after a stroke.",
     icon: "🧠",
     metaTitle: "Stroke Rehabilitation in Multan | Neuro Physiotherapy — PainFix",
     metaDescription:
@@ -387,6 +397,7 @@ export const conditions: Condition[] = [
   {
     slug: "cervical-radiculopathy",
     title: "Cervical Radiculopathy",
+    summary: "Settle nerve pain, tingling and weakness spreading from the neck into the arm.",
     icon: "⚡",
     metaTitle: "Cervical Radiculopathy Treatment in Multan | PainFix",
     metaDescription:
@@ -423,6 +434,7 @@ export const conditions: Condition[] = [
   {
     slug: "balance-disorders",
     title: "Balance Disorders",
+    summary: "Improve stability, reduce dizziness and lower your risk of falls.",
     icon: "🌀",
     metaTitle: "Balance Disorder Treatment in Multan | Physiotherapy — PainFix",
     metaDescription:
@@ -459,6 +471,7 @@ export const conditions: Condition[] = [
   {
     slug: "post-surgical-rehabilitation",
     title: "Post Surgical Rehabilitation",
+    summary: "Restore strength, movement and function safely after surgery.",
     icon: "🩹",
     metaTitle: "Post Surgical Rehabilitation in Multan | Physiotherapy — PainFix",
     metaDescription:
