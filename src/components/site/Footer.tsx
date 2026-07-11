@@ -66,6 +66,31 @@ export function Footer() {
                 </li>
               ))}
             </ul>
+            <h3 className="mt-6 font-heading text-sm font-bold uppercase tracking-wider text-background/90">
+              Physiotherapy in Multan
+            </h3>
+            <ul className="mt-4 grid grid-cols-1 gap-2 text-sm">
+              <li>
+                <Link to="/physiotherapist-in-multan" className="text-background/70 transition-colors hover:text-secondary">
+                  Physiotherapist in Multan
+                </Link>
+              </li>
+              <li>
+                <Link to="/best-physiotherapist-in-multan" className="text-background/70 transition-colors hover:text-secondary">
+                  Best Physiotherapist in Multan
+                </Link>
+              </li>
+              <li>
+                <Link to="/physiotherapy-clinic-in-multan" className="text-background/70 transition-colors hover:text-secondary">
+                  Physiotherapy Clinic in Multan
+                </Link>
+              </li>
+              <li>
+                <Link to="/home-visit" className="text-background/70 transition-colors hover:text-secondary">
+                  Home Physiotherapy in Multan
+                </Link>
+              </li>
+            </ul>
           </div>
 
           <div>
