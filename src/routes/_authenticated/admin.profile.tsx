@@ -130,8 +130,8 @@ function ProfilePage() {
           .map((s) => s.trim())
           .filter(Boolean),
         availability: form.availability.trim() || null,
-        faqs: faqs.filter((f) => f.q.trim() || f.a.trim()),
-        gallery: gallery.filter((g) => g.url.trim()),
+        faqs: faqs.filter((f) => f.q.trim() || f.a.trim()) as unknown as Json,
+        gallery: gallery.filter((g) => g.url.trim()) as unknown as Json,
         phone: form.phone.trim() || null,
         public_email: form.public_email.trim() || null,
         is_published: form.is_published,
