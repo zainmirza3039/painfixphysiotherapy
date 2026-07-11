@@ -29,6 +29,7 @@ import { Route as DietNutritionIndexRouteImport } from './routes/diet-nutrition.
 import { Route as ConditionsIndexRouteImport } from './routes/conditions.index'
 import { Route as BlogIndexRouteImport } from './routes/blog.index'
 import { Route as ServicesSlugRouteImport } from './routes/services.$slug'
+import { Route as FitnessSlugRouteImport } from './routes/fitness.$slug'
 import { Route as DietNutritionSlugRouteImport } from './routes/diet-nutrition.$slug'
 import { Route as ConditionsSlugRouteImport } from './routes/conditions.$slug'
 import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
@@ -147,6 +148,11 @@ const ServicesSlugRoute = ServicesSlugRouteImport.update({
   path: '/services/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const FitnessSlugRoute = FitnessSlugRouteImport.update({
+  id: '/fitness/$slug',
+  path: '/fitness/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const DietNutritionSlugRoute = DietNutritionSlugRouteImport.update({
   id: '/diet-nutrition/$slug',
   path: '/diet-nutrition/$slug',
@@ -254,6 +260,7 @@ export interface FileRoutesByFullPath {
   '/blog/$slug': typeof BlogSlugRoute
   '/conditions/$slug': typeof ConditionsSlugRoute
   '/diet-nutrition/$slug': typeof DietNutritionSlugRoute
+  '/fitness/$slug': typeof FitnessSlugRoute
   '/services/$slug': typeof ServicesSlugRoute
   '/blog/': typeof BlogIndexRoute
   '/conditions/': typeof ConditionsIndexRoute
@@ -290,6 +297,7 @@ export interface FileRoutesByTo {
   '/blog/$slug': typeof BlogSlugRoute
   '/conditions/$slug': typeof ConditionsSlugRoute
   '/diet-nutrition/$slug': typeof DietNutritionSlugRoute
+  '/fitness/$slug': typeof FitnessSlugRoute
   '/services/$slug': typeof ServicesSlugRoute
   '/blog': typeof BlogIndexRoute
   '/conditions': typeof ConditionsIndexRoute
@@ -329,6 +337,7 @@ export interface FileRoutesById {
   '/blog/$slug': typeof BlogSlugRoute
   '/conditions/$slug': typeof ConditionsSlugRoute
   '/diet-nutrition/$slug': typeof DietNutritionSlugRoute
+  '/fitness/$slug': typeof FitnessSlugRoute
   '/services/$slug': typeof ServicesSlugRoute
   '/blog/': typeof BlogIndexRoute
   '/conditions/': typeof ConditionsIndexRoute
@@ -368,6 +377,7 @@ export interface FileRouteTypes {
     | '/blog/$slug'
     | '/conditions/$slug'
     | '/diet-nutrition/$slug'
+    | '/fitness/$slug'
     | '/services/$slug'
     | '/blog/'
     | '/conditions/'
@@ -404,6 +414,7 @@ export interface FileRouteTypes {
     | '/blog/$slug'
     | '/conditions/$slug'
     | '/diet-nutrition/$slug'
+    | '/fitness/$slug'
     | '/services/$slug'
     | '/blog'
     | '/conditions'
@@ -442,6 +453,7 @@ export interface FileRouteTypes {
     | '/blog/$slug'
     | '/conditions/$slug'
     | '/diet-nutrition/$slug'
+    | '/fitness/$slug'
     | '/services/$slug'
     | '/blog/'
     | '/conditions/'
@@ -480,6 +492,7 @@ export interface RootRouteChildren {
   BlogSlugRoute: typeof BlogSlugRoute
   ConditionsSlugRoute: typeof ConditionsSlugRoute
   DietNutritionSlugRoute: typeof DietNutritionSlugRoute
+  FitnessSlugRoute: typeof FitnessSlugRoute
   ServicesSlugRoute: typeof ServicesSlugRoute
   BlogIndexRoute: typeof BlogIndexRoute
   ConditionsIndexRoute: typeof ConditionsIndexRoute
@@ -628,6 +641,13 @@ declare module '@tanstack/react-router' {
       path: '/services/$slug'
       fullPath: '/services/$slug'
       preLoaderRoute: typeof ServicesSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/fitness/$slug': {
+      id: '/fitness/$slug'
+      path: '/fitness/$slug'
+      fullPath: '/fitness/$slug'
+      preLoaderRoute: typeof FitnessSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/diet-nutrition/$slug': {
@@ -806,6 +826,7 @@ const rootRouteChildren: RootRouteChildren = {
   BlogSlugRoute: BlogSlugRoute,
   ConditionsSlugRoute: ConditionsSlugRoute,
   DietNutritionSlugRoute: DietNutritionSlugRoute,
+  FitnessSlugRoute: FitnessSlugRoute,
   ServicesSlugRoute: ServicesSlugRoute,
   BlogIndexRoute: BlogIndexRoute,
   ConditionsIndexRoute: ConditionsIndexRoute,
