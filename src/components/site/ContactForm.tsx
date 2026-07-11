@@ -8,15 +8,15 @@ export function ContactForm() {
   const { t } = useI18n();
   const c = t.contact;
   const [values, setValues] = useState({ name: "", email: "", phone: "", message: "" });
-  const [company, setCompany] = useState(""); // honeypot — real users leave this empty
+  const [botField, setBotField] = useState(""); // honeypot — real users leave this empty
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
 
   const onSubmit = async (e: FormEvent) => {
     e.preventDefault();
     // Silently drop bot submissions that fill the hidden honeypot field.
-    if (company) return;
-    if (!values.name.trim() || !values.message.trim()) {
+    if (botField) return;
+    if (!values.name.trim() || !values.phone.trim() || !values.message.trim()) {
       toast.error(c.required);
       return;
     }
@@ -91,7 +91,7 @@ export function ContactForm() {
         </div>
         <div>
           <label className={labelCls} htmlFor="c-phone">
-            {c.phoneField}
+            {c.phoneField} *
           </label>
           <input
             id="c-phone"
@@ -99,6 +99,7 @@ export function ContactForm() {
             className={inputCls}
             value={values.phone}
             onChange={(e) => setValues((v) => ({ ...v, phone: e.target.value }))}
+            required
           />
         </div>
       </div>
@@ -129,14 +130,15 @@ export function ContactForm() {
       </div>
       {/* Honeypot: visually hidden, ignored by humans, filled by bots */}
       <div aria-hidden className="absolute left-[-9999px] top-[-9999px] h-0 w-0 overflow-hidden" tabIndex={-1}>
-        <label htmlFor="c-company">Company</label>
+        <label htmlFor="c-website">Website</label>
         <input
-          id="c-company"
+          id="c-website"
+          name="website"
           type="text"
           tabIndex={-1}
           autoComplete="off"
-          value={company}
-          onChange={(e) => setCompany(e.target.value)}
+          value={botField}
+          onChange={(e) => setBotField(e.target.value)}
         />
       </div>
       <button

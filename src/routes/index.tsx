@@ -12,6 +12,7 @@ import { Conditions } from "@/components/site/Conditions";
 import { About } from "@/components/site/About";
 import { MeetDoctors } from "@/components/site/MeetDoctors";
 import { Process } from "@/components/site/Process";
+import { ConsultationFees } from "@/components/site/ConsultationFees";
 import { GoogleReviews } from "@/components/site/GoogleReviews";
 import { TrustSignals } from "@/components/site/TrustSignals";
 import { Gallery } from "@/components/site/Gallery";
@@ -61,6 +62,7 @@ function Index() {
         <About />
         <MeetDoctors />
         <Process />
+        <ConsultationFees />
         <GoogleReviews />
         <Gallery />
         <FAQ />

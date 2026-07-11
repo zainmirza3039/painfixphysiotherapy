@@ -149,7 +149,7 @@ export const en = {
     bookSubtitle: "Pick a time that works for you and schedule instantly — no calls needed.",
     success: "Message sent! We'll be in touch soon.",
     error: "Couldn't send your message. Please try again.",
-    required: "Please add your name and a message.",
+    required: "Please add your name, phone and a message.",
   },
   cta: {
     title: "Ready to Begin Your Recovery?",
@@ -312,7 +312,7 @@ export const ur: Dict = {
     bookSubtitle: "اپنے لیے موزوں وقت منتخب کریں اور فوراً شیڈول کریں — کال کی ضرورت نہیں۔",
     success: "پیغام بھیج دیا گیا! ہم جلد رابطہ کریں گے۔",
     error: "پیغام نہیں بھیجا جا سکا۔ دوبارہ کوشش کریں۔",
-    required: "براہِ کرم اپنا نام اور پیغام درج کریں۔",
+    required: "براہِ کرم اپنا نام، فون اور پیغام درج کریں۔",
   },
   cta: {
     title: "اپنی بحالی شروع کرنے کے لیے تیار ہیں؟",
