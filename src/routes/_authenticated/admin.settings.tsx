@@ -81,7 +81,7 @@ function SettingsPage() {
     mutationFn: async () => {
       const { error } = await supabase
         .from("clinic_settings")
-        .upsert({ key: "general", value: form }, { onConflict: "key" });
+        .upsert({ key: "general", value: form as unknown as Json }, { onConflict: "key" });
       if (error) throw error;
     },
     onSuccess: () => {
