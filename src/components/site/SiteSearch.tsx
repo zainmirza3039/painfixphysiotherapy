@@ -151,7 +151,7 @@ export function SiteSearch({ className = "" }: { className?: string }) {
                   {grouped.map((group) => {
                     const Icon = CATEGORY_ICON[group.category];
                     return (
-                      <CommandGroup key={group.category} heading={group.category}>
+                      <CommandGroup key={group.category} heading={`${group.category} · ${group.items.length}`}>
                         {group.items.map((item) => (
                           <CommandItem
                             key={item.id}
