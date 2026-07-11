@@ -1246,15 +1246,15 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: "bells-palsy-physiotherapy",
-    title: "Bell's Palsy Physiotherapy",
-    seoTitle: "Bell's Palsy Physiotherapy | Facial Rehabilitation — PainFix",
+    title: "Bell's Palsy Physiotherapy | Munh Terha Hona Ka Ilaj",
+    seoTitle: "Bell's Palsy | Munh Terha Hona Ka Ilaj — PainFix Multan",
     metaDescription:
-      "Bell's palsy causes sudden facial weakness. Learn how physiotherapy — facial exercises, retraining and education — supports recovery from Bell's palsy.",
+      "Bell's palsy causes sudden facial weakness (munh terha hona). Learn how physiotherapy in Multan — facial exercises, retraining and education — supports recovery from Bell's palsy.",
     category: "neurological-rehabilitation",
-    tags: ["Bell's palsy", "facial", "neuro rehab", "recovery"],
-    excerpt: "Bell's palsy can be frightening, but most people recover well — and facial physiotherapy supports the process.",
+    tags: ["Bell's palsy", "munh terha hona", "facial", "neuro rehab", "recovery"],
+    excerpt: "Bell's palsy (munh terha hona) can be frightening, but most people recover well — and facial physiotherapy supports the process.",
     quickAnswer:
-      "Bell's palsy is sudden, usually temporary weakness of one side of the face caused by facial nerve inflammation. Physiotherapy supports recovery through facial exercises, neuromuscular retraining, gentle massage and education. Most people recover within weeks to months, and physiotherapy helps restore symmetry and prevent abnormal movement patterns.",
+      "Bell's palsy (munh terha hona ka ilaj) is sudden, usually temporary weakness of one side of the face caused by facial nerve inflammation. Physiotherapy supports recovery through facial exercises, neuromuscular retraining, gentle massage and education. Most people recover within weeks to months, and physiotherapy helps restore symmetry and prevent abnormal movement patterns.",
     date: "2026-05-08",
     updated: "2026-06-12",
     authorKey: "JD",
