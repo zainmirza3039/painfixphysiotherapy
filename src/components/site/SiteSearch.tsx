@@ -78,7 +78,7 @@ export function SiteSearch({ className = "" }: { className?: string }) {
 
   const results = useMemo(() => {
     if (!items) return [];
-    return searchItems(items, query);
+    return searchItems(items, query, 40);
   }, [items, query]);
 
   const grouped = useMemo(() => {
