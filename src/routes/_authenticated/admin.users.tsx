@@ -3,8 +3,9 @@ import { useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import { toast } from "sonner";
-import { Plus, Trash2, Loader2, ShieldCheck, Mail } from "lucide-react";
+import { Plus, Trash2, Loader2, ShieldCheck, Mail, X } from "lucide-react";
 import { useAdminAuth } from "@/admin/AdminAuthProvider";
+import { APP_ROLES, ROLE_LABELS, ROLE_DESCRIPTIONS, type AppRole } from "@/admin/roles";
 import {
   listAdminUsers,
   createStaffUser,
@@ -19,7 +20,6 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
-import { Switch } from "@/components/ui/switch";
 import { Skeleton } from "@/components/ui/skeleton";
 import {
   Dialog,
@@ -71,7 +71,11 @@ function UsersPage() {
   const remove = useServerFn(deleteStaffUser);
 
   const [dialogOpen, setDialogOpen] = useState(false);
-  const [form, setForm] = useState({ email: "", password: "", role: "staff" as "admin" | "staff" });
+  const [form, setForm] = useState({
+    email: "",
+    password: "",
+    role: "clinical_physiotherapist" as AppRole,
+  });
   const [deleteId, setDeleteId] = useState<string | null>(null);
 
   const { data: users, isLoading } = useQuery({
@@ -84,17 +88,18 @@ function UsersPage() {
     onSuccess: () => {
       qc.invalidateQueries({ queryKey: ["admin", "users"] });
       setDialogOpen(false);
-      setForm({ email: "", password: "", role: "staff" });
+      setForm({ email: "", password: "", role: "clinical_physiotherapist" });
       toast.success("Team member created");
     },
     onError: (e) => toast.error(e instanceof Error ? e.message : "Create failed"),
   });
 
   const roleMutation = useMutation({
-    mutationFn: (vars: { userId: string; role: "admin" | "staff"; enabled: boolean }) => setRole({ data: vars }),
+    mutationFn: (vars: { userId: string; role: AppRole; enabled: boolean }) =>
+      setRole({ data: vars }),
     onSuccess: () => {
       qc.invalidateQueries({ queryKey: ["admin", "users"] });
-      toast.success("Role updated");
+      toast.success("Roles updated");
     },
     onError: (e) => toast.error(e instanceof Error ? e.message : "Update failed"),
   });
@@ -113,7 +118,7 @@ function UsersPage() {
     <div>
       <AdminPageHeader
         title="Team & Roles"
-        description="Manage admin and staff accounts and their access levels."
+        description="Create team accounts and assign one or more roles to control access."
         actions={
           <Button size="sm" onClick={() => setDialogOpen(true)}>
             <Plus className="mr-2 h-4 w-4" /> Add team member
@@ -133,36 +138,85 @@ function UsersPage() {
                 <TableRow>
                   <TableHead>Email</TableHead>
                   <TableHead>Last sign-in</TableHead>
-                  <TableHead className="text-center">Admin</TableHead>
-                  <TableHead className="text-center">Staff</TableHead>
+                  <TableHead>Roles</TableHead>
                   <TableHead className="text-right">Actions</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
                 {(users ?? []).map((u: AdminUserRow) => {
                   const isSelf = u.id === user?.id;
+                  const userRoles = u.roles as AppRole[];
+                  const available = APP_ROLES.filter((r) => !userRoles.includes(r));
                   return (
                     <TableRow key={u.id}>
                       <TableCell>
                         <div className="flex items-center gap-2 font-medium text-foreground">
                           <Mail className="h-4 w-4 text-muted-foreground" /> {u.email}
-                          {isSelf && <Badge variant="secondary" className="bg-primary/15 text-primary">You</Badge>}
+                          {isSelf && (
+                            <Badge variant="secondary" className="bg-primary/15 text-primary">
+                              You
+                            </Badge>
+                          )}
                         </div>
                       </TableCell>
-                      <TableCell className="text-muted-foreground">{fmtDateTime(u.last_sign_in_at)}</TableCell>
-                      <TableCell className="text-center">
-                        <Switch
-                          checked={u.roles.includes("admin")}
-                          disabled={isSelf || roleMutation.isPending}
-                          onCheckedChange={(v) => roleMutation.mutate({ userId: u.id, role: "admin", enabled: v })}
-                        />
+                      <TableCell className="text-muted-foreground">
+                        {fmtDateTime(u.last_sign_in_at)}
                       </TableCell>
-                      <TableCell className="text-center">
-                        <Switch
-                          checked={u.roles.includes("staff")}
-                          disabled={roleMutation.isPending}
-                          onCheckedChange={(v) => roleMutation.mutate({ userId: u.id, role: "staff", enabled: v })}
-                        />
+                      <TableCell>
+                        <div className="flex flex-wrap items-center gap-1.5">
+                          {userRoles.length === 0 && (
+                            <span className="text-xs text-muted-foreground">No roles</span>
+                          )}
+                          {userRoles.map((r) => {
+                            // Prevent removing your own admin/super_admin (lock-out guard).
+                            const locked = isSelf && (r === "admin" || r === "super_admin");
+                            return (
+                              <Badge
+                                key={r}
+                                variant="secondary"
+                                className="gap-1 bg-secondary/12 text-secondary"
+                              >
+                                {ROLE_LABELS[r] ?? r}
+                                {!locked && (
+                                  <button
+                                    type="button"
+                                    aria-label={`Remove ${ROLE_LABELS[r] ?? r} role`}
+                                    className="rounded-full hover:text-rose-600"
+                                    disabled={roleMutation.isPending}
+                                    onClick={() =>
+                                      roleMutation.mutate({ userId: u.id, role: r, enabled: false })
+                                    }
+                                  >
+                                    <X className="h-3 w-3" />
+                                  </button>
+                                )}
+                              </Badge>
+                            );
+                          })}
+                          {available.length > 0 && (
+                            <Select
+                              value=""
+                              onValueChange={(v) =>
+                                roleMutation.mutate({
+                                  userId: u.id,
+                                  role: v as AppRole,
+                                  enabled: true,
+                                })
+                              }
+                            >
+                              <SelectTrigger className="h-7 w-[130px] text-xs">
+                                <SelectValue placeholder="+ Add role" />
+                              </SelectTrigger>
+                              <SelectContent>
+                                {available.map((r) => (
+                                  <SelectItem key={r} value={r}>
+                                    {ROLE_LABELS[r]}
+                                  </SelectItem>
+                                ))}
+                              </SelectContent>
+                            </Select>
+                          )}
+                        </div>
                       </TableCell>
                       <TableCell className="text-right">
                         <Button
@@ -186,7 +240,9 @@ function UsersPage() {
       </div>
 
       <p className="mt-3 flex items-center gap-1.5 text-xs text-muted-foreground">
-        <ShieldCheck className="h-3.5 w-3.5" /> Admins have full access. Staff can manage patients, appointments and home visits.
+        <ShieldCheck className="h-3.5 w-3.5" /> Super Admins &amp; Admins have full access. Staff
+        manage patients, appointments and home visits. Professionals &amp; Content Editors manage
+        their own profile and articles.
       </p>
 
       <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
@@ -204,24 +260,45 @@ function UsersPage() {
           >
             <div className="space-y-1.5">
               <Label>Email</Label>
-              <Input type="email" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} required />
+              <Input
+                type="email"
+                value={form.email}
+                onChange={(e) => setForm({ ...form, email: e.target.value })}
+                required
+              />
             </div>
             <div className="space-y-1.5">
               <Label>Temporary password</Label>
-              <Input type="text" value={form.password} onChange={(e) => setForm({ ...form, password: e.target.value })} required />
+              <Input
+                type="text"
+                value={form.password}
+                onChange={(e) => setForm({ ...form, password: e.target.value })}
+                required
+              />
             </div>
             <div className="space-y-1.5">
               <Label>Role</Label>
-              <Select value={form.role} onValueChange={(v) => setForm({ ...form, role: v as "admin" | "staff" })}>
-                <SelectTrigger><SelectValue /></SelectTrigger>
+              <Select
+                value={form.role}
+                onValueChange={(v) => setForm({ ...form, role: v as AppRole })}
+              >
+                <SelectTrigger>
+                  <SelectValue />
+                </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="staff">Staff</SelectItem>
-                  <SelectItem value="admin">Admin</SelectItem>
+                  {APP_ROLES.map((r) => (
+                    <SelectItem key={r} value={r}>
+                      {ROLE_LABELS[r]}
+                    </SelectItem>
+                  ))}
                 </SelectContent>
               </Select>
+              <p className="text-xs text-muted-foreground">{ROLE_DESCRIPTIONS[form.role]}</p>
             </div>
             <DialogFooter>
-              <Button type="button" variant="ghost" onClick={() => setDialogOpen(false)}>Cancel</Button>
+              <Button type="button" variant="ghost" onClick={() => setDialogOpen(false)}>
+                Cancel
+              </Button>
               <Button type="submit" disabled={createMutation.isPending}>
                 {createMutation.isPending && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
                 Create
@@ -241,7 +318,10 @@ function UsersPage() {
           </AlertDialogHeader>
           <AlertDialogFooter>
             <AlertDialogCancel>Cancel</AlertDialogCancel>
-            <AlertDialogAction className="bg-rose-600 hover:bg-rose-700" onClick={() => deleteId && deleteMutation.mutate(deleteId)}>
+            <AlertDialogAction
+              className="bg-rose-600 hover:bg-rose-700"
+              onClick={() => deleteId && deleteMutation.mutate(deleteId)}
+            >
               Remove
             </AlertDialogAction>
           </AlertDialogFooter>
