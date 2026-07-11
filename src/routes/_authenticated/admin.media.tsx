@@ -5,7 +5,8 @@ import { toast } from "sonner";
 import { Upload, Trash2, Copy, Loader2, Image as ImageIcon, FileText } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { AdminPageHeader } from "@/components/admin/AdminPageHeader";
-import { AdminOnly } from "@/components/admin/AdminOnly";
+import { ContentOnly } from "@/components/admin/ContentOnly";
+import { useAdminAuth } from "@/admin/AdminAuthProvider";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import {
@@ -21,9 +22,9 @@ import {
 
 export const Route = createFileRoute("/_authenticated/admin/media")({
   component: () => (
-    <AdminOnly>
+    <ContentOnly>
       <MediaPage />
-    </AdminOnly>
+    </ContentOnly>
   ),
 });
 
