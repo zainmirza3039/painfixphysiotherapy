@@ -7,12 +7,19 @@ export function ContactForm() {
   const { t } = useI18n();
   const c = t.contact;
   const [values, setValues] = useState({ name: "", email: "", phone: "", message: "" });
+  const [company, setCompany] = useState(""); // honeypot — real users leave this empty
   const [submitting, setSubmitting] = useState(false);
 
   const onSubmit = async (e: FormEvent) => {
     e.preventDefault();
+    // Silently drop bot submissions that fill the hidden honeypot field.
+    if (company) return;
     if (!values.name.trim() || !values.message.trim()) {
       toast.error(c.required);
+      return;
+    }
+    if (values.email.trim() && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(values.email.trim())) {
+      toast.error(c.error);
       return;
     }
     setSubmitting(true);
