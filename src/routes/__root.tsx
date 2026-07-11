@@ -13,6 +13,10 @@ import { Toaster } from "sonner";
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { LanguageProvider } from "@/i18n/LanguageProvider";
+import { SITE_URL } from "@/components/site/constants";
+
+const LOGO_URL =
+  SITE_URL + "/__l5e/assets-v1/75948e0c-8e21-469d-84f9-a156e5280404/painfix-logo.png";
 
 function NotFoundComponent() {
   return (
