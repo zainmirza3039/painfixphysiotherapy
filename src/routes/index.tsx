@@ -14,6 +14,7 @@ import { About } from "@/components/site/About";
 import { MeetDoctors } from "@/components/site/MeetDoctors";
 import { Process } from "@/components/site/Process";
 import { PhysioFitness } from "@/components/site/PhysioFitness";
+import { HomeBmi } from "@/components/site/HomeBmi";
 import { ConsultationFees } from "@/components/site/ConsultationFees";
 import { GoogleReviews } from "@/components/site/GoogleReviews";
 import { TrustSignals } from "@/components/site/TrustSignals";
