@@ -7,6 +7,7 @@ import { Hero } from "@/components/site/Hero";
 import { Stats } from "@/components/site/Stats";
 import { WhyChooseUs } from "@/components/site/WhyChooseUs";
 import { HomePhysio } from "@/components/site/HomePhysio";
+import { SymptomNavigator } from "@/components/site/SymptomNavigator";
 import { Services } from "@/components/site/Services";
 import { Conditions } from "@/components/site/Conditions";
 import { About } from "@/components/site/About";
@@ -55,6 +56,7 @@ function Index() {
         <Stats />
         <TrustSignals />
         <WhyChooseUs />
+        <SymptomNavigator />
         <Services />
         <Conditions />
         <HomePhysio />
