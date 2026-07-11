@@ -18,6 +18,7 @@ export const Route = createFileRoute("/sitemap.xml")({
         const { conditions } = await import("@/data/conditions");
         const { blogPosts, blogCategories } = await import("@/data/blog");
         const { localPages } = await import("@/data/localPages");
+        const { team } = await import("@/data/team");
         const entries: SitemapEntry[] = [
           { path: "/", changefreq: "weekly", priority: "1.0" },
           { path: "/services", changefreq: "monthly", priority: "0.9" },
@@ -26,6 +27,7 @@ export const Route = createFileRoute("/sitemap.xml")({
           { path: "/blog", changefreq: "weekly", priority: "0.9" },
           { path: "/privacy", changefreq: "yearly", priority: "0.3" },
           { path: "/terms", changefreq: "yearly", priority: "0.3" },
+          ...team.map((m) => ({ path: `/${m.slug}`, changefreq: "monthly" as const, priority: "0.8" })),
           ...localPages.map((p) => ({ path: `/${p.slug}`, changefreq: "monthly" as const, priority: "0.9" })),
           ...services.map((s) => ({ path: `/services/${s.slug}`, changefreq: "monthly" as const, priority: "0.8" })),
           ...conditions.map((c) => ({ path: `/conditions/${c.slug}`, changefreq: "monthly" as const, priority: "0.7" })),
