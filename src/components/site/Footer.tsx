@@ -97,6 +97,12 @@ export function Footer() {
                   Book Appointment
                 </a>
               </li>
+              <li>
+                <GoogleReviewButton
+                  variant="outline"
+                  className="border-background/20 bg-background/10 text-background hover:bg-background/20"
+                />
+              </li>
             </ul>
           </div>
         </div>
