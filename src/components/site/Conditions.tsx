@@ -1,7 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { ArrowRight } from "lucide-react";
 import { conditions } from "@/data/conditions";
-import { conditionImages } from "@/data/conditionImages";
+import { conditionImages, conditionImageAlt, conditionImageAltFallback } from "@/data/conditionImages";
 import { Reveal } from "./Reveal";
 import { SectionHeading } from "./SectionHeading";
 
