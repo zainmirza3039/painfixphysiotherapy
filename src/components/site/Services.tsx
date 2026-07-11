@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { ArrowRight, MessageCircle } from "lucide-react";
 import { services } from "@/data/services";
+import { serviceImages, serviceImageAlt, serviceImageAltFallback } from "@/data/serviceImages";
 import { WHATSAPP_CONSULT_URL } from "./constants";
 import { Reveal } from "./Reveal";
 import { SectionHeading } from "./SectionHeading";
@@ -15,9 +16,25 @@ export function Services() {
           subtitle="A full spectrum of physiotherapy services delivered with precision and care. Learn more or book your appointment in seconds."
         />
         <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {services.map((s, i) => (
+          {services.map((s, i) => {
+            const image = serviceImages[s.slug];
+            return (
             <Reveal key={s.slug} anim="up" delay={(i % 3) * 80}>
-              <article className="hover-lift group relative flex h-full cursor-pointer flex-col rounded-[1.75rem] border border-border bg-card p-7 shadow-soft transition-shadow hover:border-primary/40 hover:shadow-card focus-within:ring-2 focus-within:ring-primary/50">
+              <article className="hover-lift group relative flex h-full cursor-pointer flex-col overflow-hidden rounded-[1.75rem] border border-border bg-card shadow-soft transition-shadow hover:border-primary/40 hover:shadow-card focus-within:ring-2 focus-within:ring-primary/50">
+                {image && (
+                  <div className="aspect-[16/9] overflow-hidden bg-surface">
+                    <img
+                      src={image}
+                      alt={serviceImageAlt[s.slug] ?? serviceImageAltFallback(s.title)}
+                      loading="lazy"
+                      decoding="async"
+                      width={700}
+                      height={394}
+                      className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    />
+                  </div>
+                )}
+                <div className="flex flex-1 flex-col p-7">
                 <span className="grid h-14 w-14 place-items-center rounded-2xl bg-gradient-to-br from-primary to-secondary text-primary-foreground transition-transform group-hover:scale-110">
                   <s.icon className="h-6 w-6" />
                 </span>
@@ -42,9 +59,11 @@ export function Services() {
                     <MessageCircle className="h-4 w-4" /> WhatsApp
                   </a>
                 </div>
+                </div>
               </article>
             </Reveal>
-          ))}
+            );
+          })}
         </div>
         <div className="mt-10 text-center">
           <Link

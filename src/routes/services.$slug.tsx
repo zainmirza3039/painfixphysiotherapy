@@ -1,11 +1,19 @@
 import { createFileRoute, notFound, Link } from "@tanstack/react-router";
-import { CheckCircle2, Sparkles, ClipboardList, Wrench, BookOpen, ShieldAlert } from "lucide-react";
+import { CheckCircle2, Sparkles, ClipboardList, Wrench, BookOpen, ShieldAlert, Users } from "lucide-react";
 import { getService, type Service } from "@/data/services";
+import { serviceImages, serviceImageAlt, serviceImageAltFallback } from "@/data/serviceImages";
+import {
+  whoCanBenefit,
+  relatedConditionsForService,
+  relatedArticlesForService,
+} from "@/data/serviceExtras";
 import { PageLayout } from "@/components/site/PageLayout";
 import { PageHero } from "@/components/site/PageHero";
 import { FaqAccordion } from "@/components/site/FaqAccordion";
 import { PageCTA } from "@/components/site/PageCTA";
 import { RelatedServices } from "@/components/site/RelatedServices";
+import { RelatedConditions } from "@/components/site/RelatedConditions";
+import { RelatedArticles } from "@/components/site/RelatedArticles";
 import { Reveal } from "@/components/site/Reveal";
 import { pageMeta, canonical, breadcrumbLd, faqLd } from "@/lib/seo";
 import { SITE_URL } from "@/components/site/constants";
@@ -70,6 +78,11 @@ function ServiceDetail() {
   const { slug } = Route.useLoaderData();
   const service = getService(slug) as Service;
   const Icon = service.icon;
+  const image = serviceImages[service.slug];
+  const imageAlt = serviceImageAlt[service.slug] ?? serviceImageAltFallback(service.title);
+  const benefitAudience = whoCanBenefit[service.slug] ?? [];
+  const relatedConditionSlugs = relatedConditionsForService(service.slug);
+  const relatedPosts = relatedArticlesForService(service.slug);
 
   return (
     <PageLayout>
@@ -87,20 +100,58 @@ function ServiceDetail() {
 
       {/* Overview */}
       <section className="py-14 sm:py-20">
-        <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
-          <Reveal anim="up">
-            <h2 className="font-heading text-2xl font-extrabold text-foreground sm:text-3xl">Overview</h2>
-            <div className="mt-5 space-y-4">
-              {service.overview.map((p) => (
-                <p key={p} className="text-base leading-relaxed text-muted-foreground">{p}</p>
-              ))}
-            </div>
-          </Reveal>
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="grid items-center gap-10 lg:grid-cols-2">
+            <Reveal anim="left">
+              <h2 className="font-heading text-2xl font-extrabold text-foreground sm:text-3xl">Overview</h2>
+              <div className="mt-5 space-y-4">
+                {service.overview.map((p) => (
+                  <p key={p} className="text-base leading-relaxed text-muted-foreground">{p}</p>
+                ))}
+              </div>
+            </Reveal>
+            {image && (
+              <Reveal anim="right">
+                <div className="overflow-hidden rounded-[1.75rem] border border-border shadow-card">
+                  <img
+                    src={image}
+                    alt={imageAlt}
+                    loading="lazy"
+                    decoding="async"
+                    width={800}
+                    height={600}
+                    className="aspect-[4/3] h-full w-full object-cover"
+                  />
+                </div>
+              </Reveal>
+            )}
+          </div>
         </div>
       </section>
 
+      {/* Who Can Benefit */}
+      {benefitAudience.length > 0 && (
+        <section className="bg-surface py-14 sm:py-20">
+          <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+            <h2 className="flex items-center justify-center gap-2 text-center font-heading text-2xl font-extrabold text-foreground sm:text-3xl">
+              <Users className="h-6 w-6 text-primary" /> Who Can Benefit
+            </h2>
+            <div className="mt-8 grid gap-4 sm:grid-cols-2">
+              {benefitAudience.map((b, i) => (
+                <Reveal key={b} anim="up" delay={i * 60}>
+                  <div className="flex h-full items-start gap-3 rounded-[1.5rem] border border-border bg-card p-6 shadow-soft">
+                    <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-secondary" />
+                    <span className="text-sm leading-relaxed text-foreground">{b}</span>
+                  </div>
+                </Reveal>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
       {/* Conditions + Benefits */}
-      <section className="bg-surface py-14 sm:py-20">
+      <section className="py-14 sm:py-20">
         <div className="mx-auto grid max-w-7xl gap-10 px-4 sm:px-6 lg:grid-cols-2 lg:px-8">
           <Reveal anim="left">
             <div className="rounded-[1.75rem] border border-border bg-card p-8 shadow-soft">
@@ -226,6 +277,8 @@ function ServiceDetail() {
 
       <PageCTA />
       <RelatedServices slugs={service.related} />
+      <RelatedConditions slugs={relatedConditionSlugs} />
+      <RelatedArticles posts={relatedPosts} />
     </PageLayout>
   );
 }
