@@ -62,8 +62,8 @@
   /* Lighter logo blue #0070C8 for gradients/glow */
   --primary-glow: oklch(0.541 0.16 251.7);
 
-  /* Logo green #019F61 */
-  --secondary: oklch(0.618 0.146 157.2);
+  /* Logo green, darkened to #008045 so it meets WCAG AA (4.5:1) as text/fills on white while keeping the brand hue */
+  --secondary: oklch(0.52 0.146 157.2);
   --secondary-foreground: oklch(0.99 0 0);
   /* Lighter logo green #02C078 for gradients/glow */
   --secondary-glow: oklch(0.711 0.167 157.8);

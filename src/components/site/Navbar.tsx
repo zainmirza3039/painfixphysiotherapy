@@ -25,7 +25,7 @@ export function Navbar() {
         scrolled ? "glass shadow-soft py-2" : "bg-transparent py-4"
       }`}
     >
-      <nav className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
+      <nav aria-label="Primary" className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
         <a href="/#home" className="flex min-w-0 items-center gap-2.5" aria-label="PainFix Physiotherapy Clinic home">
           <span className="grid h-11 w-11 shrink-0 place-items-center overflow-hidden rounded-xl bg-background shadow-soft ring-1 ring-border">
             <img

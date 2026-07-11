@@ -22,7 +22,7 @@ import { WhatsAppFab } from "@/components/site/WhatsAppFab";
 import { Reveal } from "@/components/site/Reveal";
 import { HomeVisitForm } from "@/components/site/HomeVisitForm";
 import { useI18n } from "@/i18n/LanguageProvider";
-import { WHATSAPP_URL, PHONE_TEL, PHONE_DISPLAY } from "@/components/site/constants";
+import { WHATSAPP_URL, PHONE_TEL, PHONE_DISPLAY, SITE_URL } from "@/components/site/constants";
 
 const TITLE = "Book a Home Visit — Home Physiotherapy in Multan | PainFix";
 const DESCRIPTION =
@@ -35,11 +35,12 @@ export const Route = createFileRoute("/home-visit")({
       { name: "description", content: DESCRIPTION },
       { property: "og:title", content: TITLE },
       { property: "og:description", content: DESCRIPTION },
-      { property: "og:url", content: "/home-visit" },
+      { property: "og:url", content: `${SITE_URL}/home-visit` },
       { name: "twitter:title", content: TITLE },
       { name: "twitter:description", content: DESCRIPTION },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
-    links: [{ rel: "canonical", href: "/home-visit" }],
+    links: [{ rel: "canonical", href: `${SITE_URL}/home-visit` }],
   }),
   component: HomeVisitPage,
 });
@@ -181,7 +182,7 @@ function HomeVisitPage() {
                 </span>
                 <h2 className="mt-4 font-heading text-2xl font-extrabold text-foreground">{hv.areas.title}</h2>
                 <p className="mt-3 text-base text-muted-foreground">{hv.areas.body}</p>
-                <p className="mt-2 text-sm text-muted-foreground/80">{hv.areas.note}</p>
+                <p className="mt-2 text-sm text-muted-foreground">{hv.areas.note}</p>
               </div>
             </Reveal>
             <Reveal anim="right">
@@ -229,7 +230,7 @@ function HomeVisitPage() {
                 </Reveal>
               ))}
             </div>
-            <p className="mt-6 text-center text-sm text-muted-foreground/80">{hv.pricing.travelNote}</p>
+            <p className="mt-6 text-center text-sm text-muted-foreground">{hv.pricing.travelNote}</p>
             <p className="mt-2 text-center font-heading text-lg font-semibold text-primary">{hv.pricing.note}</p>
           </div>
         </section>

@@ -48,6 +48,7 @@ export function CalendlyInline() {
   return (
     <div
       ref={ref}
+      role="region"
       aria-label="Appointment scheduler"
       className="h-[680px] w-full min-w-[320px] overflow-hidden rounded-[20px]"
     />
