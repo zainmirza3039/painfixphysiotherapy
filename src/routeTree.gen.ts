@@ -16,6 +16,7 @@ import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as PhysiotherapyClinicInMultanRouteImport } from './routes/physiotherapy-clinic-in-multan'
 import { Route as PhysiotherapistInMultanRouteImport } from './routes/physiotherapist-in-multan'
 import { Route as HomeVisitRouteImport } from './routes/home-visit'
+import { Route as HealthCalculatorsRouteImport } from './routes/health-calculators'
 import { Route as FitnessRehabilitationRouteImport } from './routes/fitness-rehabilitation'
 import { Route as DrZainUlAbideenPtMultanRouteImport } from './routes/dr-zain-ul-abideen-pt-multan'
 import { Route as DrJalalUdDinPtMultanRouteImport } from './routes/dr-jalal-ud-din-pt-multan'
@@ -79,6 +80,11 @@ const PhysiotherapistInMultanRoute = PhysiotherapistInMultanRouteImport.update({
 const HomeVisitRoute = HomeVisitRouteImport.update({
   id: '/home-visit',
   path: '/home-visit',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HealthCalculatorsRoute = HealthCalculatorsRouteImport.update({
+  id: '/health-calculators',
+  path: '/health-calculators',
   getParentRoute: () => rootRouteImport,
 } as any)
 const FitnessRehabilitationRoute = FitnessRehabilitationRouteImport.update({
@@ -236,6 +242,7 @@ export interface FileRoutesByFullPath {
   '/dr-jalal-ud-din-pt-multan': typeof DrJalalUdDinPtMultanRoute
   '/dr-zain-ul-abideen-pt-multan': typeof DrZainUlAbideenPtMultanRoute
   '/fitness-rehabilitation': typeof FitnessRehabilitationRoute
+  '/health-calculators': typeof HealthCalculatorsRoute
   '/home-visit': typeof HomeVisitRoute
   '/physiotherapist-in-multan': typeof PhysiotherapistInMultanRoute
   '/physiotherapy-clinic-in-multan': typeof PhysiotherapyClinicInMultanRoute
@@ -272,6 +279,7 @@ export interface FileRoutesByTo {
   '/dr-jalal-ud-din-pt-multan': typeof DrJalalUdDinPtMultanRoute
   '/dr-zain-ul-abideen-pt-multan': typeof DrZainUlAbideenPtMultanRoute
   '/fitness-rehabilitation': typeof FitnessRehabilitationRoute
+  '/health-calculators': typeof HealthCalculatorsRoute
   '/home-visit': typeof HomeVisitRoute
   '/physiotherapist-in-multan': typeof PhysiotherapistInMultanRoute
   '/physiotherapy-clinic-in-multan': typeof PhysiotherapyClinicInMultanRoute
@@ -309,6 +317,7 @@ export interface FileRoutesById {
   '/dr-jalal-ud-din-pt-multan': typeof DrJalalUdDinPtMultanRoute
   '/dr-zain-ul-abideen-pt-multan': typeof DrZainUlAbideenPtMultanRoute
   '/fitness-rehabilitation': typeof FitnessRehabilitationRoute
+  '/health-calculators': typeof HealthCalculatorsRoute
   '/home-visit': typeof HomeVisitRoute
   '/physiotherapist-in-multan': typeof PhysiotherapistInMultanRoute
   '/physiotherapy-clinic-in-multan': typeof PhysiotherapyClinicInMultanRoute
@@ -347,6 +356,7 @@ export interface FileRouteTypes {
     | '/dr-jalal-ud-din-pt-multan'
     | '/dr-zain-ul-abideen-pt-multan'
     | '/fitness-rehabilitation'
+    | '/health-calculators'
     | '/home-visit'
     | '/physiotherapist-in-multan'
     | '/physiotherapy-clinic-in-multan'
@@ -383,6 +393,7 @@ export interface FileRouteTypes {
     | '/dr-jalal-ud-din-pt-multan'
     | '/dr-zain-ul-abideen-pt-multan'
     | '/fitness-rehabilitation'
+    | '/health-calculators'
     | '/home-visit'
     | '/physiotherapist-in-multan'
     | '/physiotherapy-clinic-in-multan'
@@ -419,6 +430,7 @@ export interface FileRouteTypes {
     | '/dr-jalal-ud-din-pt-multan'
     | '/dr-zain-ul-abideen-pt-multan'
     | '/fitness-rehabilitation'
+    | '/health-calculators'
     | '/home-visit'
     | '/physiotherapist-in-multan'
     | '/physiotherapy-clinic-in-multan'
@@ -457,6 +469,7 @@ export interface RootRouteChildren {
   DrJalalUdDinPtMultanRoute: typeof DrJalalUdDinPtMultanRoute
   DrZainUlAbideenPtMultanRoute: typeof DrZainUlAbideenPtMultanRoute
   FitnessRehabilitationRoute: typeof FitnessRehabilitationRoute
+  HealthCalculatorsRoute: typeof HealthCalculatorsRoute
   HomeVisitRoute: typeof HomeVisitRoute
   PhysiotherapistInMultanRoute: typeof PhysiotherapistInMultanRoute
   PhysiotherapyClinicInMultanRoute: typeof PhysiotherapyClinicInMultanRoute
@@ -524,6 +537,13 @@ declare module '@tanstack/react-router' {
       path: '/home-visit'
       fullPath: '/home-visit'
       preLoaderRoute: typeof HomeVisitRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/health-calculators': {
+      id: '/health-calculators'
+      path: '/health-calculators'
+      fullPath: '/health-calculators'
+      preLoaderRoute: typeof HealthCalculatorsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/fitness-rehabilitation': {
@@ -775,6 +795,7 @@ const rootRouteChildren: RootRouteChildren = {
   DrJalalUdDinPtMultanRoute: DrJalalUdDinPtMultanRoute,
   DrZainUlAbideenPtMultanRoute: DrZainUlAbideenPtMultanRoute,
   FitnessRehabilitationRoute: FitnessRehabilitationRoute,
+  HealthCalculatorsRoute: HealthCalculatorsRoute,
   HomeVisitRoute: HomeVisitRoute,
   PhysiotherapistInMultanRoute: PhysiotherapistInMultanRoute,
   PhysiotherapyClinicInMultanRoute: PhysiotherapyClinicInMultanRoute,
