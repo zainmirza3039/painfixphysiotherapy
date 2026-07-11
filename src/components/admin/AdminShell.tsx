@@ -31,20 +31,21 @@ interface NavItem {
   to: string;
   label: string;
   icon: typeof LayoutDashboard;
-  adminOnly?: boolean;
+  gate: "staff" | "admin" | "content" | "professional";
 }
 
 const NAV: NavItem[] = [
-  { to: "/admin", label: "Dashboard", icon: LayoutDashboard },
-  { to: "/admin/patients", label: "Patients", icon: Users },
-  { to: "/admin/appointments", label: "Appointments", icon: CalendarClock },
-  { to: "/admin/home-visits", label: "Home Visits", icon: Home },
-  { to: "/admin/messages", label: "Messages", icon: MessageSquare, adminOnly: true },
-  { to: "/admin/blog", label: "Blog CMS", icon: Newspaper, adminOnly: true },
-  { to: "/admin/media", label: "Media Library", icon: ImageIcon, adminOnly: true },
-  { to: "/admin/reports", label: "Reports", icon: BarChart3, adminOnly: true },
-  { to: "/admin/users", label: "Team & Roles", icon: ShieldCheck, adminOnly: true },
-  { to: "/admin/settings", label: "Settings", icon: Settings, adminOnly: true },
+  { to: "/admin", label: "Dashboard", icon: LayoutDashboard, gate: "staff" },
+  { to: "/admin/patients", label: "Patients", icon: Users, gate: "staff" },
+  { to: "/admin/appointments", label: "Appointments", icon: CalendarClock, gate: "staff" },
+  { to: "/admin/home-visits", label: "Home Visits", icon: Home, gate: "staff" },
+  { to: "/admin/messages", label: "Messages", icon: MessageSquare, gate: "admin" },
+  { to: "/admin/profile", label: "My Profile", icon: UserCircle, gate: "professional" },
+  { to: "/admin/blog", label: "Blog CMS", icon: Newspaper, gate: "content" },
+  { to: "/admin/media", label: "Media Library", icon: ImageIcon, gate: "admin" },
+  { to: "/admin/reports", label: "Reports", icon: BarChart3, gate: "admin" },
+  { to: "/admin/users", label: "Team & Roles", icon: ShieldCheck, gate: "admin" },
+  { to: "/admin/settings", label: "Settings", icon: Settings, gate: "admin" },
 ];
 
 function useDarkMode() {
