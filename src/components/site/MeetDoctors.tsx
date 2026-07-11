@@ -1,11 +1,23 @@
 import { BadgeCheck, Stethoscope, Linkedin, MessageCircle, ArrowRight } from "lucide-react";
-import { team } from "@/data/team";
+import { useQuery } from "@tanstack/react-query";
+import { useServerFn } from "@tanstack/react-start";
+import { listPublishedProfiles } from "@/lib/profiles.functions";
+import { mergeTeam } from "@/lib/doctorProfile";
 import { Reveal } from "./Reveal";
 import { SectionHeading } from "./SectionHeading";
 import { SOCIAL_LINKS } from "./constants";
 import { GoogleReviewButton } from "./GoogleReviewButton";
 
 export function MeetDoctors() {
+  const listProfiles = useServerFn(listPublishedProfiles);
+  // SSR renders the static team; after publish, admin edits overlay on the client.
+  const { data: profiles } = useQuery({
+    queryKey: ["public-profiles"],
+    queryFn: () => listProfiles(),
+    staleTime: 5 * 60_000,
+  });
+  const team = mergeTeam(profiles);
+
   return (
     <section id="doctors" className="bg-surface py-16 sm:py-24">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
