@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { ArrowRight, MessageCircle } from "lucide-react";
 import { services } from "@/data/services";
+import { serviceImages, serviceImageAlt, serviceImageAltFallback } from "@/data/serviceImages";
 import { WHATSAPP_CONSULT_URL } from "./constants";
 import { Reveal } from "./Reveal";
 import { SectionHeading } from "./SectionHeading";
