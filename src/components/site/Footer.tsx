@@ -2,7 +2,7 @@ import { Facebook, Instagram, AtSign, MapPin, Phone, Linkedin } from "lucide-rea
 import { Link } from "@tanstack/react-router";
 import { NAV_LINKS, WHATSAPP_URL, PHONE_DISPLAY, PHONE_TEL, SOCIAL_LINKS, CLINIC_ADDRESS, MAP_PLACE_URL } from "./constants";
 import { GoogleReviewButton } from "./GoogleReviewButton";
-import logoAsset from "@/assets/painfix-logo.png.asset.json";
+import logoAsset from "@/assets/painfix-logo-96.webp.asset.json";
 
 
 const socials = [
