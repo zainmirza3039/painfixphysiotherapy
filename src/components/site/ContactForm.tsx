@@ -36,6 +36,7 @@ export function ContactForm() {
       if (error) throw error;
       toast.success(c.success);
       setValues({ name: "", email: "", phone: "", message: "" });
+      setSubmitted(true);
     } catch (err) {
       console.error("Contact submission failed:", err);
       toast.error(c.error);
