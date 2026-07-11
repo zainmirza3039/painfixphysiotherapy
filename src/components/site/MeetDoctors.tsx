@@ -77,6 +77,13 @@ export function MeetDoctors() {
             </Reveal>
           ))}
         </div>
+
+        <Reveal anim="up" className="mt-10 flex flex-col items-center gap-3 text-center">
+          <p className="text-sm text-muted-foreground">
+            Treated by our team? Share your recovery story with others.
+          </p>
+          <GoogleReviewButton variant="outline" />
+        </Reveal>
       </div>
     </section>
   );
