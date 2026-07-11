@@ -14,7 +14,7 @@ export const OPENING_HOURS = [
 
 // Calendly scheduling link — swap this for your real Calendly event URL.
 // e.g. "https://calendly.com/painfixphysiotherapy/consultation"
-export const CALENDLY_URL = "https://calendly.com/painfixphysiotherapy/consultation";
+export const CALENDLY_URL = "https://calendly.com/zainimirza30396";
 
 // Exact clinic location on Google Maps
 export const CLINIC_NAME = "PainFix Physiotherapy Clinic";
@@ -48,6 +48,10 @@ export const SOCIAL_LINKS = {
   tiktok: {
     url: "https://tiktok.com/@painfixphysiotherapy",
     username: "@painfixphysiotherapy",
+  },
+  linkedin: {
+    url: "https://www.linkedin.com/company/painfix-physiotherapy-clinic1/",
+    username: "PainFix Physiotherapy Clinic",
   },
 };
 
