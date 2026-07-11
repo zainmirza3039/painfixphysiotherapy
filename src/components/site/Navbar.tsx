@@ -70,6 +70,7 @@ export function Navbar() {
         </div>
 
         <div className="flex items-center gap-2">
+          <ThemeToggle />
           <LanguageToggle className="hidden sm:inline-flex" />
           <button
             type="button"
