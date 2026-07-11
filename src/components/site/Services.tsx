@@ -59,9 +59,11 @@ export function Services() {
                     <MessageCircle className="h-4 w-4" /> WhatsApp
                   </a>
                 </div>
+                </div>
               </article>
             </Reveal>
-          ))}
+            );
+          })}
         </div>
         <div className="mt-10 text-center">
           <Link
