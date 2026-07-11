@@ -25,7 +25,7 @@ export function Conditions() {
                 <div className="aspect-[4/3] overflow-hidden bg-surface">
                   <img
                     src={conditionImages[c.slug]}
-                    alt={`Illustration representing ${c.title}`}
+                    alt={conditionImageAlt[c.slug] ?? conditionImageAltFallback(c.title)}
                     loading="lazy"
                     decoding="async"
                     width={700}
