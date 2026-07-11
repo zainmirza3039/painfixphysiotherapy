@@ -667,15 +667,15 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: "knee-pain-after-walking",
-    title: "Knee Pain After Walking: Causes and How to Fix It",
-    seoTitle: "Knee Pain After Walking | Causes & Fixes — PainFix Multan",
+    title: "Knee Pain After Walking | Ghutno Ke Dard Ka Ilaj",
+    seoTitle: "Knee Pain Treatment | Ghutno Ke Dard Ka Ilaj — PainFix Multan",
     metaDescription:
-      "Why does your knee hurt after walking? Learn the common causes of knee pain after walking and how physiotherapy relieves it and gets you moving again.",
+      "Why does your knee hurt after walking? Learn the common causes of knee pain (ghutno ka dard) and how physiotherapy in Multan relieves it and gets you moving again.",
     category: "knee-pain",
-    tags: ["knee pain", "walking", "osteoarthritis", "runner's knee"],
-    excerpt: "Knee pain after walking is common and usually treatable. Here's what causes it and how to fix it for good.",
+    tags: ["knee pain", "ghutno ka dard", "walking", "osteoarthritis", "runner's knee"],
+    excerpt: "Knee pain after walking (ghutno ka dard) is common and usually treatable. Here's what causes it and how to fix it for good.",
     quickAnswer:
-      "Knee pain after walking is most often caused by osteoarthritis, patellofemoral pain (runner's knee), weak hip and thigh muscles, or overuse. Physiotherapy relieves it through targeted strengthening, movement retraining, manual therapy and load management. Most people improve within a few weeks of a personalized programme.",
+      "Knee pain after walking (ghutno ke dard ka ilaj) is most often caused by osteoarthritis, patellofemoral pain (runner's knee), weak hip and thigh muscles, or overuse. Physiotherapy relieves it through targeted strengthening, movement retraining, manual therapy and load management. Most people improve within a few weeks of a personalized programme.",
     date: "2026-06-05",
     updated: "2026-06-30",
     authorKey: "ZA",
