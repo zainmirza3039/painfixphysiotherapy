@@ -12,6 +12,7 @@ import {
   BarChart3,
   Settings,
   ShieldCheck,
+  UserCircle,
   Moon,
   Sun,
   LogOut,
@@ -30,20 +31,21 @@ interface NavItem {
   to: string;
   label: string;
   icon: typeof LayoutDashboard;
-  adminOnly?: boolean;
+  gate: "staff" | "admin" | "content" | "professional";
 }
 
 const NAV: NavItem[] = [
-  { to: "/admin", label: "Dashboard", icon: LayoutDashboard },
-  { to: "/admin/patients", label: "Patients", icon: Users },
-  { to: "/admin/appointments", label: "Appointments", icon: CalendarClock },
-  { to: "/admin/home-visits", label: "Home Visits", icon: Home },
-  { to: "/admin/messages", label: "Messages", icon: MessageSquare, adminOnly: true },
-  { to: "/admin/blog", label: "Blog CMS", icon: Newspaper, adminOnly: true },
-  { to: "/admin/media", label: "Media Library", icon: ImageIcon, adminOnly: true },
-  { to: "/admin/reports", label: "Reports", icon: BarChart3, adminOnly: true },
-  { to: "/admin/users", label: "Team & Roles", icon: ShieldCheck, adminOnly: true },
-  { to: "/admin/settings", label: "Settings", icon: Settings, adminOnly: true },
+  { to: "/admin", label: "Dashboard", icon: LayoutDashboard, gate: "staff" },
+  { to: "/admin/patients", label: "Patients", icon: Users, gate: "staff" },
+  { to: "/admin/appointments", label: "Appointments", icon: CalendarClock, gate: "staff" },
+  { to: "/admin/home-visits", label: "Home Visits", icon: Home, gate: "staff" },
+  { to: "/admin/messages", label: "Messages", icon: MessageSquare, gate: "admin" },
+  { to: "/admin/profile", label: "My Profile", icon: UserCircle, gate: "professional" },
+  { to: "/admin/blog", label: "Blog CMS", icon: Newspaper, gate: "content" },
+  { to: "/admin/media", label: "Media Library", icon: ImageIcon, gate: "admin" },
+  { to: "/admin/reports", label: "Reports", icon: BarChart3, gate: "admin" },
+  { to: "/admin/users", label: "Team & Roles", icon: ShieldCheck, gate: "admin" },
+  { to: "/admin/settings", label: "Settings", icon: Settings, gate: "admin" },
 ];
 
 function useDarkMode() {
@@ -71,7 +73,8 @@ function useDarkMode() {
 }
 
 export function AdminShell({ children }: { children: ReactNode }) {
-  const { user, isAdmin, isStaff, loading } = useAdminAuth();
+  const { user, isAdmin, isStaff, isProfessional, canEditContent, canAccessPanel, loading } =
+    useAdminAuth();
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   const { dark, toggle } = useDarkMode();
@@ -100,8 +103,8 @@ export function AdminShell({ children }: { children: ReactNode }) {
     );
   }
 
-  // Signed in but no clinic role assigned yet.
-  if (!isStaff) {
+  // Signed in but no panel role assigned yet.
+  if (!canAccessPanel) {
     return (
       <div className="flex min-h-screen items-center justify-center bg-surface px-4">
         <div className="max-w-md rounded-3xl border border-border bg-card p-8 text-center shadow-card">
@@ -121,7 +124,20 @@ export function AdminShell({ children }: { children: ReactNode }) {
     );
   }
 
-  const items = NAV.filter((n) => !n.adminOnly || isAdmin);
+  const gatePass: Record<NavItem["gate"], boolean> = {
+    staff: isStaff,
+    admin: isAdmin,
+    content: canEditContent,
+    professional: isProfessional,
+  };
+  const items = NAV.filter((n) => gatePass[n.gate]);
+  const panelLabel = isAdmin
+    ? "Administrator"
+    : isStaff
+      ? "Staff"
+      : isProfessional
+        ? "Professional"
+        : "Content editor";
 
   const SidebarInner = (
     <div className="flex h-full flex-col">
@@ -131,7 +147,7 @@ export function AdminShell({ children }: { children: ReactNode }) {
         </span>
         <div className="leading-tight">
           <p className="font-heading text-sm font-bold text-foreground">PainFix Admin</p>
-          <p className="text-[11px] text-muted-foreground">{isAdmin ? "Administrator" : "Staff"}</p>
+          <p className="text-[11px] text-muted-foreground">{panelLabel}</p>
         </div>
       </div>
       <nav className="flex-1 space-y-1 overflow-y-auto px-3 py-2">
@@ -196,7 +212,7 @@ export function AdminShell({ children }: { children: ReactNode }) {
               </SheetContent>
             </Sheet>
             <span className="text-sm font-medium text-muted-foreground">
-              {isAdmin ? "Administrator panel" : "Staff panel"}
+              {panelLabel} panel
             </span>
           </div>
           <div className="flex items-center gap-2">

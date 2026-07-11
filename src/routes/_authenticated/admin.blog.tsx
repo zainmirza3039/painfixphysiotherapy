@@ -6,7 +6,8 @@ import { Plus, Search, Pencil, Trash2, Loader2, Newspaper, Eye } from "lucide-re
 import { supabase } from "@/integrations/supabase/client";
 import type { Database } from "@/integrations/supabase/types";
 import { AdminPageHeader } from "@/components/admin/AdminPageHeader";
-import { AdminOnly } from "@/components/admin/AdminOnly";
+import { ContentOnly } from "@/components/admin/ContentOnly";
+import { useAdminAuth } from "@/admin/AdminAuthProvider";
 import { fmtDate, slugify } from "@/admin/utils";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -49,9 +50,9 @@ import {
 
 export const Route = createFileRoute("/_authenticated/admin/blog")({
   component: () => (
-    <AdminOnly>
+    <ContentOnly>
       <BlogPage />
-    </AdminOnly>
+    </ContentOnly>
   ),
 });
 
@@ -74,6 +75,7 @@ const empty = {
 
 function BlogPage() {
   const qc = useQueryClient();
+  const { user, isAdmin } = useAdminAuth();
   const [search, setSearch] = useState("");
   const [dialogOpen, setDialogOpen] = useState(false);
   const [editing, setEditing] = useState<Post | null>(null);
@@ -82,12 +84,16 @@ function BlogPage() {
   const [deleteId, setDeleteId] = useState<string | null>(null);
 
   const { data: rows, isLoading } = useQuery({
-    queryKey: ["admin", "blog"],
+    queryKey: ["admin", "blog", isAdmin ? "all" : user?.id],
+    enabled: isAdmin || !!user?.id,
     queryFn: async () => {
-      const { data, error } = await supabase
+      let query = supabase
         .from("blog_posts")
         .select("*")
         .order("created_at", { ascending: false });
+      // Non-admin authors only manage their own articles.
+      if (!isAdmin && user?.id) query = query.eq("author_id", user.id);
+      const { data, error } = await query;
       if (error) throw error;
       return data;
     },
@@ -121,7 +127,9 @@ function BlogPage() {
         const { error } = await supabase.from("blog_posts").update(payload).eq("id", editing.id);
         if (error) throw error;
       } else {
-        const { error } = await supabase.from("blog_posts").insert(payload);
+        const { error } = await supabase
+          .from("blog_posts")
+          .insert({ ...payload, author_id: user?.id ?? null });
         if (error) throw error;
       }
     },
@@ -176,8 +184,12 @@ function BlogPage() {
   return (
     <div>
       <AdminPageHeader
-        title="Blog CMS"
-        description="Create, edit and publish blog articles."
+        title={isAdmin ? "Blog CMS" : "My Articles"}
+        description={
+          isAdmin
+            ? "Create, edit and publish blog articles."
+            : "Create, edit and publish your own articles."
+        }
         actions={
           <Button size="sm" onClick={openNew}>
             <Plus className="mr-2 h-4 w-4" /> New post

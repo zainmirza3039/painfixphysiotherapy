@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, Navigate } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import {
   Users,
@@ -9,6 +9,7 @@ import {
   Activity,
 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
+import { useAdminAuth } from "@/admin/AdminAuthProvider";
 import { StatCard } from "@/components/admin/StatCard";
 import { AdminPageHeader } from "@/components/admin/AdminPageHeader";
 import { fmtDateTime, isToday } from "@/admin/utils";
@@ -19,7 +20,10 @@ export const Route = createFileRoute("/_authenticated/admin/")({
 });
 
 function DashboardPage() {
+  const { isStaff, isProfessional, canEditContent, loading } = useAdminAuth();
+
   const { data, isLoading } = useQuery({
+    enabled: isStaff,
     queryKey: ["admin", "dashboard"],
     queryFn: async () => {
       const [patients, appts, visits, messages] = await Promise.all([
@@ -46,6 +50,12 @@ function DashboardPage() {
   const todayAppts = (data?.appointments ?? []).filter((a) => isToday(a.appointment_at));
   const newVisits = (data?.visits ?? []).filter((v) => (v.status ?? "new") === "new");
   const unreadMessages = (data?.messages ?? []).filter((m) => (m.status ?? "new") === "new");
+
+  // Professionals / content editors without clinical access land on their own workspace.
+  if (!loading && !isStaff) {
+    if (isProfessional) return <Navigate to="/admin/profile" replace />;
+    if (canEditContent) return <Navigate to="/admin/blog" replace />;
+  }
 
   return (
     <div>
