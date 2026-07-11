@@ -1,12 +1,35 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { loadCalendly } from "./calendly";
 import { CALENDLY_URL } from "./constants";
 
-/** Inline Calendly scheduler embedded directly in the page. */
+/**
+ * Inline Calendly scheduler embedded directly in the page.
+ * The heavy third-party widget assets are only fetched once the container
+ * scrolls near the viewport, keeping it off the critical path.
+ */
 export function CalendlyInline() {
   const ref = useRef<HTMLDivElement>(null);
+  const [inView, setInView] = useState(false);
+
+  // Defer loading until the scheduler is close to the viewport.
+  useEffect(() => {
+    const el = ref.current;
+    if (!el || inView) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setInView(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: "400px 0px" },
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [inView]);
 
   useEffect(() => {
+    if (!inView) return;
     let cancelled = false;
     loadCalendly()
       .then(() => {
@@ -20,7 +43,7 @@ export function CalendlyInline() {
     return () => {
       cancelled = true;
     };
-  }, []);
+  }, [inView]);
 
   return (
     <div
