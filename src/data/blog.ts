@@ -54,6 +54,7 @@ export const blogCategories: BlogCategory[] = [
   { slug: "sports-performance", name: "Sports Performance", description: "Optimise strength, movement and athletic performance." },
   { slug: "recovery-tips", name: "Recovery Tips", description: "Practical, science-backed tips for faster recovery." },
   { slug: "patient-education", name: "Patient Education", description: "Answers to the questions patients ask us most." },
+  { slug: "hijama", name: "Hijama (Cupping Therapy)", description: "Safe, evidence-informed guidance on Hijama and cupping therapy." },
 ];
 
 export const blogCategoryMap = Object.fromEntries(blogCategories.map((c) => [c.slug, c]));
