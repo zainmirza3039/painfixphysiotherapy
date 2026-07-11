@@ -18,6 +18,8 @@ import {
   LogOut,
   Menu,
   Activity,
+  Calculator,
+  Dumbbell,
   ExternalLink,
 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
