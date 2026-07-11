@@ -17,9 +17,9 @@ export function HomePhysio() {
               <div className="overflow-hidden rounded-[2rem] shadow-glow ring-1 ring-border">
                 <img
                   src={homeVisitImg}
-                  alt="Physiotherapist providing home physiotherapy to an elderly patient"
-                  width={1280}
-                  height={960}
+                  alt="Physiotherapist providing personalized home physiotherapy to an elderly patient"
+                  width={720}
+                  height={1280}
                   loading="lazy"
                   className="h-full w-full object-cover"
                 />
