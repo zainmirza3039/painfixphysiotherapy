@@ -11,13 +11,27 @@ import {
   CalendarCheck,
   LogOut,
   ChevronDown,
+  Stethoscope,
+  Hand,
+  Dumbbell,
+  Home as HomeIcon,
+  Droplets,
+  Salad,
+  HeartPulse,
+  Video,
+  LayoutGrid,
+  ArrowRight,
+  Activity,
+  type LucideIcon,
 } from "lucide-react";
 import { Link, useNavigate } from "@tanstack/react-router";
 import {
   SERVICES_MENU,
   CONDITIONS_MENU,
   WHATSAPP_CONSULT_URL,
+  CALENDLY_URL,
 } from "./constants";
+
 // NOTE: LanguageToggle intentionally not rendered in the public header.
 // The i18n architecture (LanguageProvider, translations, LanguageToggle) is kept
 // so an Urdu switch can be re-enabled once a complete Urdu version is ready.
@@ -27,6 +41,56 @@ import logoAsset from "@/assets/painfix-logo-96.webp.asset.json";
 
 type ServicesMenuItem = (typeof SERVICES_MENU)[number];
 type ConditionsMenuItem = (typeof CONDITIONS_MENU)[number];
+
+/* Small professional icon per core service (keyed by label). */
+const SERVICE_ICONS: Record<string, LucideIcon> = {
+  Physiotherapy: Stethoscope,
+  "Manual Therapy": Hand,
+  "Exercise Therapy": Dumbbell,
+  "Home Physiotherapy": HomeIcon,
+  "Hijama Therapy": Droplets,
+  "Diet & Nutrition": Salad,
+  "Personalised Fitness & Rehabilitation": HeartPulse,
+};
+
+/* Featured column of the Services mega menu — booking-focused shortcuts. */
+type FeaturedItem = {
+  label: string;
+  desc: string;
+  icon: LucideIcon;
+  href?: string;
+  external?: boolean;
+  to?: string;
+};
+const FEATURED_SERVICES: FeaturedItem[] = [
+  {
+    label: "Book Consultation",
+    desc: "Chat with us on WhatsApp",
+    icon: MessageCircle,
+    href: WHATSAPP_CONSULT_URL,
+    external: true,
+  },
+  {
+    label: "Home Visits",
+    desc: "Expert physiotherapy at home",
+    icon: HomeIcon,
+    to: "/home-visit",
+  },
+  {
+    label: "Video Consultation",
+    desc: "Online session via Calendly",
+    icon: Video,
+    href: CALENDLY_URL,
+    external: true,
+  },
+  {
+    label: "View All Services",
+    desc: "Browse the full range",
+    icon: LayoutGrid,
+    to: "/services",
+  },
+];
+
 
 /**
  * Lightweight, UI-only auth affordance for the public header.
@@ -97,20 +161,30 @@ function ServiceLink({
   onNavigate,
   className,
   showDesc = false,
+  withIcon = false,
 }: {
   item: ServicesMenuItem;
   onNavigate: () => void;
   className: string;
   showDesc?: boolean;
+  withIcon?: boolean;
 }) {
+  const Icon = SERVICE_ICONS[item.label] ?? Activity;
   const content = (
     <>
-      <span className="block font-semibold">{item.label}</span>
-      {showDesc && (
-        <span className="mt-0.5 block text-xs font-normal text-muted-foreground">
-          {item.desc}
+      {withIcon && (
+        <span className="grid h-9 w-9 shrink-0 place-items-center rounded-lg bg-accent text-primary transition-colors group-hover:bg-primary group-hover:text-primary-foreground">
+          <Icon className="h-[18px] w-[18px]" />
         </span>
       )}
+      <span className="min-w-0">
+        <span className="block font-semibold leading-tight">{item.label}</span>
+        {showDesc && (
+          <span className="mt-0.5 block text-xs font-normal text-muted-foreground">
+            {item.desc}
+          </span>
+        )}
+      </span>
     </>
   );
   if (item.to === "/services/$slug") {
@@ -133,14 +207,17 @@ function ServiceLink({
   );
 }
 
+
 function ConditionLink({
   item,
   onNavigate,
   className,
+  withIcon = false,
 }: {
   item: ConditionsMenuItem;
   onNavigate: () => void;
   className: string;
+  withIcon?: boolean;
 }) {
   return (
     <Link
@@ -150,10 +227,14 @@ function ConditionLink({
       onClick={onNavigate}
       className={className}
     >
-      {item.label}
+      {withIcon && (
+        <Activity className="h-4 w-4 shrink-0 text-primary/70 transition-colors group-hover:text-primary" />
+      )}
+      <span className="min-w-0">{item.label}</span>
     </Link>
   );
 }
+
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -241,10 +322,7 @@ export function Navbar() {
   const dashboardLabel = isAdmin ? "Admin Dashboard" : "Dashboard";
   const DashboardIcon = isAdmin ? ShieldCheck : LayoutDashboard;
 
-  const panelClass =
-    "min-w-[16rem] overflow-hidden rounded-2xl border border-border bg-card p-1.5 shadow-card animate-fade-in";
-  const menuItemClass =
-    "block rounded-xl px-3 py-2.5 text-sm text-foreground/85 transition-colors hover:bg-accent hover:text-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-primary";
+
 
   return (
     <>
@@ -309,20 +387,83 @@ export function Navbar() {
               />
             </button>
             {menu === "services" && (
-              <div className="absolute left-0 top-full z-50 pt-2">
-                <div role="menu" className={panelClass}>
-                  {SERVICES_MENU.map((item) => (
-                    <ServiceLink
-                      key={item.label}
-                      item={item}
-                      showDesc
-                      onNavigate={() => setMenu(null)}
-                      className={menuItemClass}
-                    />
-                  ))}
+              <div className="absolute left-1/2 top-full z-50 -translate-x-1/2 pt-2">
+                <div
+                  role="menu"
+                  className="grid w-[46rem] grid-cols-[1.4fr_1fr] gap-2 overflow-hidden rounded-2xl border border-border bg-card p-3 shadow-card animate-fade-in"
+                >
+                  {/* Left: Core Services */}
+                  <div>
+                    <p className="px-2 pb-1.5 text-[11px] font-bold uppercase tracking-wide text-muted-foreground">
+                      Core Services
+                    </p>
+                    <div className="grid grid-cols-1 gap-0.5">
+                      {SERVICES_MENU.map((item) => (
+                        <ServiceLink
+                          key={item.label}
+                          item={item}
+                          showDesc
+                          withIcon
+                          onNavigate={() => setMenu(null)}
+                          className="group flex items-center gap-3 rounded-xl px-2.5 py-2 text-sm text-foreground/85 transition-colors hover:bg-accent hover:text-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+                        />
+                      ))}
+                    </div>
+                  </div>
+                  {/* Right: Featured Services */}
+                  <div className="rounded-xl bg-accent/40 p-2">
+                    <p className="px-2 pb-1.5 text-[11px] font-bold uppercase tracking-wide text-muted-foreground">
+                      Featured
+                    </p>
+                    <div className="grid grid-cols-1 gap-0.5">
+                      {FEATURED_SERVICES.map((f) => {
+                        const inner = (
+                          <>
+                            <span className="grid h-9 w-9 shrink-0 place-items-center rounded-lg bg-background text-primary shadow-soft transition-colors group-hover:bg-primary group-hover:text-primary-foreground">
+                              <f.icon className="h-[18px] w-[18px]" />
+                            </span>
+                            <span className="min-w-0">
+                              <span className="block font-semibold leading-tight">
+                                {f.label}
+                              </span>
+                              <span className="mt-0.5 block text-xs font-normal text-muted-foreground">
+                                {f.desc}
+                              </span>
+                            </span>
+                          </>
+                        );
+                        const cls =
+                          "group flex items-center gap-3 rounded-xl px-2.5 py-2 text-sm text-foreground/85 transition-colors hover:bg-background hover:text-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-primary";
+                        return f.external ? (
+                          <a
+                            key={f.label}
+                            href={f.href}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            role="menuitem"
+                            onClick={() => setMenu(null)}
+                            className={cls}
+                          >
+                            {inner}
+                          </a>
+                        ) : (
+                          <Link
+                            key={f.label}
+                            to={f.to!}
+                            role="menuitem"
+                            onClick={() => setMenu(null)}
+                            className={cls}
+                          >
+                            {inner}
+                          </Link>
+                        );
+                      })}
+                    </div>
+                  </div>
                 </div>
               </div>
             )}
+
           </div>
 
           {/* Conditions dropdown */}
@@ -346,24 +487,34 @@ export function Navbar() {
               />
             </button>
             {menu === "conditions" && (
-              <div className="absolute left-0 top-full z-50 pt-2">
-                <div role="menu" className={`${panelClass} grid w-[26rem] grid-cols-2`}>
-                  {CONDITIONS_MENU.map((item) => (
-                    <ConditionLink
-                      key={item.slug}
-                      item={item}
-                      onNavigate={() => setMenu(null)}
-                      className={menuItemClass}
-                    />
-                  ))}
+              <div className="absolute left-1/2 top-full z-50 -translate-x-1/2 pt-2">
+                <div
+                  role="menu"
+                  className="w-[34rem] overflow-hidden rounded-2xl border border-border bg-card p-3 shadow-card animate-fade-in"
+                >
+                  <p className="px-2 pb-1.5 text-[11px] font-bold uppercase tracking-wide text-muted-foreground">
+                    Conditions We Treat
+                  </p>
+                  <div className="grid grid-cols-2 gap-0.5">
+                    {CONDITIONS_MENU.map((item) => (
+                      <ConditionLink
+                        key={item.slug}
+                        item={item}
+                        withIcon
+                        onNavigate={() => setMenu(null)}
+                        className="group flex items-center gap-2.5 rounded-xl px-2.5 py-2 text-sm text-foreground/85 transition-colors hover:bg-accent hover:text-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+                      />
+                    ))}
+                  </div>
                   <Link
                     to="/conditions"
                     role="menuitem"
                     onClick={() => setMenu(null)}
-                    className="col-span-2 mt-1 block rounded-xl bg-accent px-3 py-2.5 text-center text-sm font-semibold text-primary transition-colors hover:bg-primary hover:text-primary-foreground"
+                    className="mt-2 flex items-center justify-center gap-1.5 rounded-xl bg-accent px-3 py-2.5 text-center text-sm font-semibold text-primary transition-colors hover:bg-primary hover:text-primary-foreground"
                   >
-                    View All Conditions
+                    View All Conditions <ArrowRight className="h-4 w-4" />
                   </Link>
+
                 </div>
               </div>
             )}
@@ -542,8 +693,16 @@ export function Navbar() {
                       className="block rounded-lg px-3 py-3 text-sm font-medium text-foreground/80 hover:bg-accent hover:text-primary"
                     />
                   ))}
+                  <Link
+                    to="/services"
+                    onClick={closeMobile}
+                    className="mt-0.5 block rounded-lg px-3 py-3 text-sm font-semibold text-primary hover:bg-accent"
+                  >
+                    View All Services
+                  </Link>
                 </div>
               )}
+
 
               {/* Conditions accordion */}
               <button
