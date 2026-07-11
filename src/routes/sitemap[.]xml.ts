@@ -20,12 +20,19 @@ export const Route = createFileRoute("/sitemap.xml")({
         const { localPages } = await import("@/data/localPages");
         const { team } = await import("@/data/team");
         const { dietMainPage, dietSubPages, DIET_NUTRITION_ENABLED } = await import("@/data/wellness");
+        const { fitnessPages } = await import("@/data/fitness");
         const entries: SitemapEntry[] = [
           { path: "/", changefreq: "weekly", priority: "1.0" },
           { path: "/services", changefreq: "monthly", priority: "0.9" },
           { path: "/conditions", changefreq: "monthly", priority: "0.9" },
           { path: "/home-visit", changefreq: "monthly", priority: "0.8" },
           { path: "/fitness-rehabilitation", changefreq: "monthly", priority: "0.8" },
+          { path: "/fitness", changefreq: "monthly", priority: "0.8" },
+          { path: "/fitness-assessment", changefreq: "monthly", priority: "0.7" },
+          { path: "/fitness-resources", changefreq: "monthly", priority: "0.7" },
+          { path: "/health-calculators", changefreq: "monthly", priority: "0.7" },
+          { path: "/membership", changefreq: "monthly", priority: "0.7" },
+          { path: "/success-stories", changefreq: "monthly", priority: "0.7" },
           { path: "/blog", changefreq: "weekly", priority: "0.9" },
           { path: "/privacy", changefreq: "yearly", priority: "0.3" },
           { path: "/terms", changefreq: "yearly", priority: "0.3" },
@@ -41,6 +48,7 @@ export const Route = createFileRoute("/sitemap.xml")({
               ]
             : []),
           ...team.map((m) => ({ path: `/${m.slug}`, changefreq: "monthly" as const, priority: "0.8" })),
+          ...fitnessPages.map((p) => ({ path: `/fitness/${p.slug}`, changefreq: "monthly" as const, priority: "0.7" })),
           ...localPages.map((p) => ({ path: `/${p.slug}`, changefreq: "monthly" as const, priority: "0.9" })),
           ...services.map((s) => ({ path: `/services/${s.slug}`, changefreq: "monthly" as const, priority: "0.8" })),
           ...conditions.map((c) => ({ path: `/conditions/${c.slug}`, changefreq: "monthly" as const, priority: "0.7" })),
