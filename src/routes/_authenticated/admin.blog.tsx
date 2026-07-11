@@ -127,7 +127,9 @@ function BlogPage() {
         const { error } = await supabase.from("blog_posts").update(payload).eq("id", editing.id);
         if (error) throw error;
       } else {
-        const { error } = await supabase.from("blog_posts").insert(payload);
+        const { error } = await supabase
+          .from("blog_posts")
+          .insert({ ...payload, author_id: user?.id ?? null });
         if (error) throw error;
       }
     },
