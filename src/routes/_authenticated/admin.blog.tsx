@@ -50,9 +50,9 @@ import {
 
 export const Route = createFileRoute("/_authenticated/admin/blog")({
   component: () => (
-    <AdminOnly>
+    <ContentOnly>
       <BlogPage />
-    </AdminOnly>
+    </ContentOnly>
   ),
 });
 
