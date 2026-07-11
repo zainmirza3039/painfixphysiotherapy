@@ -6,7 +6,6 @@ import { Plus, Search, Pencil, Trash2, Loader2, Newspaper, Eye } from "lucide-re
 import { supabase } from "@/integrations/supabase/client";
 import type { Database } from "@/integrations/supabase/types";
 import { AdminPageHeader } from "@/components/admin/AdminPageHeader";
-import { AdminOnly } from "@/components/admin/AdminOnly";
 import { ContentOnly } from "@/components/admin/ContentOnly";
 import { useAdminAuth } from "@/admin/AdminAuthProvider";
 import { fmtDate, slugify } from "@/admin/utils";
