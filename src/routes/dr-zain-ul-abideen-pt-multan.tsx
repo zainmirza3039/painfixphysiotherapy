@@ -1,10 +1,9 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import { getTeamMemberBySlug } from "@/data/team";
 import { getPublishedProfileBySlug } from "@/lib/profiles.functions";
 import { mergeDoctor } from "@/lib/doctorProfile";
 import { DoctorProfile } from "@/components/site/DoctorProfile";
 import { doctorProfileHead } from "@/lib/doctor-seo";
-import { PageLayout } from "@/components/site/PageLayout";
 
 const SLUG = "dr-zain-ul-abideen-pt-multan";
 const base = getTeamMemberBySlug(SLUG)!;
