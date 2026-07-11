@@ -4,6 +4,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { Loader2, Save, UserCircle } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
+import type { Json } from "@/integrations/supabase/types";
 import { useAdminAuth } from "@/admin/AdminAuthProvider";
 import { AdminPageHeader } from "@/components/admin/AdminPageHeader";
 import { slugify } from "@/admin/utils";
@@ -27,15 +28,45 @@ const empty = {
   specialties: "",
   years_experience: "",
   qualifications: "",
+  certifications: "",
+  clinical_interests: "",
+  availability: "",
   phone: "",
   public_email: "",
   is_published: false,
 };
 
+interface Faq {
+  q: string;
+  a: string;
+}
+interface GalleryItem {
+  url: string;
+  caption: string;
+}
+
+function asFaqs(value: unknown): Faq[] {
+  if (!Array.isArray(value)) return [];
+  return value
+    .map((v) => ({ q: String((v as Faq)?.q ?? ""), a: String((v as Faq)?.a ?? "") }))
+    .filter((f) => f.q || f.a);
+}
+function asGallery(value: unknown): GalleryItem[] {
+  if (!Array.isArray(value)) return [];
+  return value
+    .map((v) => ({
+      url: String((v as GalleryItem)?.url ?? ""),
+      caption: String((v as GalleryItem)?.caption ?? ""),
+    }))
+    .filter((g) => g.url);
+}
+
 function ProfilePage() {
   const qc = useQueryClient();
   const { user } = useAdminAuth();
   const [form, setForm] = useState({ ...empty });
+  const [faqs, setFaqs] = useState<Faq[]>([]);
+  const [gallery, setGallery] = useState<GalleryItem[]>([]);
   const [slugTouched, setSlugTouched] = useState(false);
 
   const { data: profile, isLoading } = useQuery({
@@ -65,10 +96,15 @@ function ProfilePage() {
         years_experience:
           profile.years_experience != null ? String(profile.years_experience) : "",
         qualifications: profile.qualifications ?? "",
+        certifications: profile.certifications ?? "",
+        clinical_interests: (profile.clinical_interests ?? []).join(", "),
+        availability: profile.availability ?? "",
         phone: profile.phone ?? "",
         public_email: profile.public_email ?? "",
         is_published: profile.is_published ?? false,
       });
+      setFaqs(asFaqs(profile.faqs));
+      setGallery(asGallery(profile.gallery));
     }
   }, [profile]);
 
@@ -89,6 +125,14 @@ function ProfilePage() {
           .filter(Boolean),
         years_experience: years ? Number(years) : null,
         qualifications: form.qualifications.trim() || null,
+        certifications: form.certifications.trim() || null,
+        clinical_interests: form.clinical_interests
+          .split(",")
+          .map((s) => s.trim())
+          .filter(Boolean),
+        availability: form.availability.trim() || null,
+        faqs: faqs.filter((f) => f.q.trim() || f.a.trim()) as unknown as Json,
+        gallery: gallery.filter((g) => g.url.trim()) as unknown as Json,
         phone: form.phone.trim() || null,
         public_email: form.public_email.trim() || null,
         is_published: form.is_published,
@@ -252,6 +296,161 @@ function ProfilePage() {
               onChange={(e) => setForm((f) => ({ ...f, qualifications: e.target.value }))}
               placeholder="DPT, MSPT — University of…"
             />
+          </div>
+
+          <div className="space-y-1.5">
+            <Label>Certifications</Label>
+            <Textarea
+              rows={3}
+              value={form.certifications}
+              onChange={(e) => setForm((f) => ({ ...f, certifications: e.target.value }))}
+              placeholder="Certified Strength & Conditioning, Dry Needling, etc."
+            />
+          </div>
+
+          <div className="space-y-1.5">
+            <Label>Clinical interests</Label>
+            <Input
+              value={form.clinical_interests}
+              onChange={(e) => setForm((f) => ({ ...f, clinical_interests: e.target.value }))}
+              placeholder="Strength training, Return to sport, Chronic pain"
+            />
+            <p className="text-xs text-muted-foreground">Separate with commas.</p>
+          </div>
+
+          <div className="space-y-1.5">
+            <Label>Consultation availability</Label>
+            <Textarea
+              rows={2}
+              value={form.availability}
+              onChange={(e) => setForm((f) => ({ ...f, availability: e.target.value }))}
+              placeholder="Mon–Sat, 10am–7pm. Online sessions on request."
+            />
+          </div>
+
+          {/* FAQs */}
+          <div className="space-y-3 rounded-2xl border border-border bg-card p-4 shadow-soft">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="font-medium text-foreground">FAQs</p>
+                <p className="text-sm text-muted-foreground">
+                  Questions and answers shown on your public profile.
+                </p>
+              </div>
+              <Button
+                type="button"
+                variant="outline"
+                size="sm"
+                onClick={() => setFaqs((prev) => [...prev, { q: "", a: "" }])}
+              >
+                Add FAQ
+              </Button>
+            </div>
+            {faqs.map((faq, i) => (
+              <div key={i} className="space-y-2 rounded-xl border border-border bg-surface p-3">
+                <div className="flex items-center gap-2">
+                  <Input
+                    value={faq.q}
+                    onChange={(e) =>
+                      setFaqs((prev) =>
+                        prev.map((f, idx) => (idx === i ? { ...f, q: e.target.value } : f)),
+                      )
+                    }
+                    placeholder="Question"
+                  />
+                  <Button
+                    type="button"
+                    variant="ghost"
+                    size="sm"
+                    className="text-rose-600"
+                    onClick={() => setFaqs((prev) => prev.filter((_, idx) => idx !== i))}
+                  >
+                    Remove
+                  </Button>
+                </div>
+                <Textarea
+                  rows={2}
+                  value={faq.a}
+                  onChange={(e) =>
+                    setFaqs((prev) =>
+                      prev.map((f, idx) => (idx === i ? { ...f, a: e.target.value } : f)),
+                    )
+                  }
+                  placeholder="Answer"
+                />
+              </div>
+            ))}
+            {faqs.length === 0 && (
+              <p className="text-sm text-muted-foreground">No FAQs added yet.</p>
+            )}
+          </div>
+
+          {/* Gallery */}
+          <div className="space-y-3 rounded-2xl border border-border bg-card p-4 shadow-soft">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="font-medium text-foreground">Gallery images</p>
+                <p className="text-sm text-muted-foreground">
+                  Image URLs (upload in Media Library, then paste the URL here).
+                </p>
+              </div>
+              <Button
+                type="button"
+                variant="outline"
+                size="sm"
+                onClick={() => setGallery((prev) => [...prev, { url: "", caption: "" }])}
+              >
+                Add image
+              </Button>
+            </div>
+            {gallery.map((item, i) => (
+              <div
+                key={i}
+                className="flex flex-col gap-2 rounded-xl border border-border bg-surface p-3 sm:flex-row sm:items-center"
+              >
+                {item.url ? (
+                  <img
+                    src={item.url}
+                    alt={item.caption || "Gallery item"}
+                    className="h-14 w-14 shrink-0 rounded-lg object-cover"
+                  />
+                ) : (
+                  <span className="grid h-14 w-14 shrink-0 place-items-center rounded-lg bg-muted text-muted-foreground">
+                    <UserCircle className="h-6 w-6" />
+                  </span>
+                )}
+                <Input
+                  value={item.url}
+                  onChange={(e) =>
+                    setGallery((prev) =>
+                      prev.map((g, idx) => (idx === i ? { ...g, url: e.target.value } : g)),
+                    )
+                  }
+                  placeholder="https://…"
+                />
+                <Input
+                  value={item.caption}
+                  onChange={(e) =>
+                    setGallery((prev) =>
+                      prev.map((g, idx) => (idx === i ? { ...g, caption: e.target.value } : g)),
+                    )
+                  }
+                  placeholder="Caption (optional)"
+                />
+                <Button
+                  type="button"
+                  variant="ghost"
+                  size="sm"
+                  className="text-rose-600"
+                  onClick={() => setGallery((prev) => prev.filter((_, idx) => idx !== i))}
+                >
+                  Remove
+                </Button>
+              </div>
+            ))}
+            {gallery.length === 0 && (
+              <p className="text-sm text-muted-foreground">No gallery images added yet.</p>
+            )}
           </div>
 
           <div className="grid gap-4 sm:grid-cols-2">

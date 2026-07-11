@@ -18,6 +18,8 @@ import {
   LogOut,
   Menu,
   Activity,
+  Calculator,
+  Dumbbell,
   ExternalLink,
 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
@@ -41,8 +43,10 @@ const NAV: NavItem[] = [
   { to: "/admin/home-visits", label: "Home Visits", icon: Home, gate: "staff" },
   { to: "/admin/messages", label: "Messages", icon: MessageSquare, gate: "admin" },
   { to: "/admin/profile", label: "My Profile", icon: UserCircle, gate: "professional" },
+  { to: "/admin/fitness-content", label: "Fitness Content", icon: Dumbbell, gate: "content" },
   { to: "/admin/blog", label: "Blog CMS", icon: Newspaper, gate: "content" },
-  { to: "/admin/media", label: "Media Library", icon: ImageIcon, gate: "admin" },
+  { to: "/admin/calculators", label: "Calculators", icon: Calculator, gate: "content" },
+  { to: "/admin/media", label: "Media Library", icon: ImageIcon, gate: "content" },
   { to: "/admin/reports", label: "Reports", icon: BarChart3, gate: "admin" },
   { to: "/admin/users", label: "Team & Roles", icon: ShieldCheck, gate: "admin" },
   { to: "/admin/settings", label: "Settings", icon: Settings, gate: "admin" },

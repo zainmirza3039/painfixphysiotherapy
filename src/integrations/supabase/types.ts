@@ -130,6 +130,30 @@ export type Database = {
         }
         Relationships: []
       }
+      calculator_settings: {
+        Row: {
+          description: string | null
+          disclaimer: string | null
+          heading: string | null
+          key: string
+          updated_at: string
+        }
+        Insert: {
+          description?: string | null
+          disclaimer?: string | null
+          heading?: string | null
+          key: string
+          updated_at?: string
+        }
+        Update: {
+          description?: string | null
+          disclaimer?: string | null
+          heading?: string | null
+          key?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       clinic_settings: {
         Row: {
           key: string
@@ -175,6 +199,66 @@ export type Database = {
           name?: string
           phone?: string | null
           status?: string
+        }
+        Relationships: []
+      }
+      fitness_content: {
+        Row: {
+          author_id: string
+          body: string | null
+          category: string | null
+          content_type: string
+          created_at: string
+          excerpt: string | null
+          extra: Json
+          featured_image: string | null
+          id: string
+          meta_description: string | null
+          seo_title: string | null
+          slug: string | null
+          sort_order: number
+          status: string
+          tags: string[]
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          author_id: string
+          body?: string | null
+          category?: string | null
+          content_type?: string
+          created_at?: string
+          excerpt?: string | null
+          extra?: Json
+          featured_image?: string | null
+          id?: string
+          meta_description?: string | null
+          seo_title?: string | null
+          slug?: string | null
+          sort_order?: number
+          status?: string
+          tags?: string[]
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          author_id?: string
+          body?: string | null
+          category?: string | null
+          content_type?: string
+          created_at?: string
+          excerpt?: string | null
+          extra?: Json
+          featured_image?: string | null
+          id?: string
+          meta_description?: string | null
+          seo_title?: string | null
+          slug?: string | null
+          sort_order?: number
+          status?: string
+          tags?: string[]
+          title?: string
+          updated_at?: string
         }
         Relationships: []
       }
@@ -338,10 +422,15 @@ export type Database = {
       }
       profiles: {
         Row: {
+          availability: string | null
           bio: string | null
+          certifications: string | null
+          clinical_interests: string[]
           created_at: string
           display_order: number
+          faqs: Json
           full_name: string
+          gallery: Json
           is_published: boolean
           phone: string | null
           photo_url: string | null
@@ -355,10 +444,15 @@ export type Database = {
           years_experience: number | null
         }
         Insert: {
+          availability?: string | null
           bio?: string | null
+          certifications?: string | null
+          clinical_interests?: string[]
           created_at?: string
           display_order?: number
+          faqs?: Json
           full_name?: string
+          gallery?: Json
           is_published?: boolean
           phone?: string | null
           photo_url?: string | null
@@ -372,10 +466,15 @@ export type Database = {
           years_experience?: number | null
         }
         Update: {
+          availability?: string | null
           bio?: string | null
+          certifications?: string | null
+          clinical_interests?: string[]
           created_at?: string
           display_order?: number
+          faqs?: Json
           full_name?: string
+          gallery?: Json
           is_published?: boolean
           phone?: string | null
           photo_url?: string | null

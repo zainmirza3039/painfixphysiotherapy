@@ -5,7 +5,8 @@ import { toast } from "sonner";
 import { Upload, Trash2, Copy, Loader2, Image as ImageIcon, FileText } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { AdminPageHeader } from "@/components/admin/AdminPageHeader";
-import { AdminOnly } from "@/components/admin/AdminOnly";
+import { ContentOnly } from "@/components/admin/ContentOnly";
+import { useAdminAuth } from "@/admin/AdminAuthProvider";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import {
@@ -21,14 +22,15 @@ import {
 
 export const Route = createFileRoute("/_authenticated/admin/media")({
   component: () => (
-    <AdminOnly>
+    <ContentOnly>
       <MediaPage />
-    </AdminOnly>
+    </ContentOnly>
   ),
 });
 
 interface MediaFile {
   name: string;
+  label: string;
   size: number;
   url: string;
   isImage: boolean;
@@ -36,24 +38,35 @@ interface MediaFile {
 
 function MediaPage() {
   const qc = useQueryClient();
+  const { user, isAdmin } = useAdminAuth();
   const fileInput = useRef<HTMLInputElement>(null);
   const [uploading, setUploading] = useState(false);
   const [deleteName, setDeleteName] = useState<string | null>(null);
 
+  // Admins manage the shared root; content professionals are scoped to their
+  // own private folder so they only ever see and touch their own files.
+  const prefix = isAdmin ? "" : (user?.id ?? "");
+  const withPrefix = (name: string) => (prefix ? `${prefix}/${name}` : name);
+
   const { data: files, isLoading } = useQuery({
-    queryKey: ["admin", "media"],
+    queryKey: ["admin", "media", prefix],
+    enabled: isAdmin || !!user?.id,
     queryFn: async (): Promise<MediaFile[]> => {
       const { data, error } = await supabase.storage
         .from("media")
-        .list("", { limit: 200, sortBy: { column: "created_at", order: "desc" } });
+        .list(prefix, { limit: 200, sortBy: { column: "created_at", order: "desc" } });
       if (error) throw error;
       const items = (data ?? []).filter((f) => f.id !== null);
       const signed = await Promise.all(
         items.map(async (f) => {
-          const { data: s } = await supabase.storage.from("media").createSignedUrl(f.name, 60 * 60 * 24 * 7);
+          const fullPath = withPrefix(f.name);
+          const { data: s } = await supabase.storage
+            .from("media")
+            .createSignedUrl(fullPath, 60 * 60 * 24 * 7);
           const ext = f.name.split(".").pop()?.toLowerCase() ?? "";
           return {
-            name: f.name,
+            name: fullPath,
+            label: f.name,
             size: f.metadata?.size ?? 0,
             url: s?.signedUrl ?? "",
             isImage: ["jpg", "jpeg", "png", "gif", "webp", "svg", "avif"].includes(ext),
@@ -84,7 +97,7 @@ function MediaPage() {
     try {
       for (const file of selected) {
         const safe = `${Date.now()}-${file.name.replace(/[^a-zA-Z0-9.\-_]/g, "_")}`;
-        const { error } = await supabase.storage.from("media").upload(safe, file, {
+        const { error } = await supabase.storage.from("media").upload(withPrefix(safe), file, {
           cacheControl: "3600",
           upsert: false,
         });
@@ -169,7 +182,7 @@ function MediaCard({ file, onDelete }: { file: MediaFile; onDelete: () => void }
         )}
       </div>
       <div className="p-3">
-        <p className="truncate text-xs font-medium text-foreground" title={file.name}>{file.name}</p>
+        <p className="truncate text-xs font-medium text-foreground" title={file.label}>{file.label}</p>
         <p className="mt-0.5 text-[11px] text-muted-foreground">{(file.size / 1024).toFixed(0)} KB</p>
         <div className="mt-2 flex gap-1">
           <Button
