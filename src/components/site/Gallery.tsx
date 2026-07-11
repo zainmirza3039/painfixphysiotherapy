@@ -16,6 +16,8 @@ type Photo = {
   caption: string;
   /** grid placement classes */
   span: string;
+  /** object-position class override */
+  pos?: string;
   w: number;
   h: number;
 };
@@ -26,6 +28,7 @@ const photos: Photo[] = [
     alt: "Storefront exterior of PainFix Physiotherapy Clinic with signage in Shalimar Colony, Multan",
     caption: "Our Multan Clinic",
     span: "col-span-2 row-span-2",
+    pos: "object-top",
     w: 1100,
     h: 1381,
   },
