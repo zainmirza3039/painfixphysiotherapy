@@ -91,7 +91,7 @@ export function ContactForm() {
         </div>
         <div>
           <label className={labelCls} htmlFor="c-phone">
-            {c.phoneField}
+            {c.phoneField} *
           </label>
           <input
             id="c-phone"
@@ -99,6 +99,7 @@ export function ContactForm() {
             className={inputCls}
             value={values.phone}
             onChange={(e) => setValues((v) => ({ ...v, phone: e.target.value }))}
+            required
           />
         </div>
       </div>
