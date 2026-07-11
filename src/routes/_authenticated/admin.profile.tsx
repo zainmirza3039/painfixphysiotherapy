@@ -4,6 +4,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { Loader2, Save, UserCircle } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
+import type { Json } from "@/integrations/supabase/types";
 import { useAdminAuth } from "@/admin/AdminAuthProvider";
 import { AdminPageHeader } from "@/components/admin/AdminPageHeader";
 import { slugify } from "@/admin/utils";
