@@ -32,7 +32,7 @@ export function SymptomNavigator() {
           title="What are you suffering from?"
           subtitle="Tap your main complaint to see how our physiotherapists in Multan can help you recover."
         />
-        <div className="mt-12 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-3">
+        <div className="mt-12 grid grid-cols-1 gap-4 min-[400px]:grid-cols-2 sm:grid-cols-3">
           {symptoms.map((s, i) => (
             <Reveal key={s.slug} anim="up" delay={(i % 3) * 60}>
               <Link
