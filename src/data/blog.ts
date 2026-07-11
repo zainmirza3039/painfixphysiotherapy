@@ -1951,15 +1951,15 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: "cervical-radiculopathy-treatment",
-    title: "Cervical Radiculopathy Treatment (Pinched Neck Nerve)",
-    seoTitle: "Cervical Radiculopathy Treatment | Pinched Nerve — PainFix",
+    title: "Cervical Radiculopathy Treatment | Gardan Ki Nerve Dabne Ka Ilaj",
+    seoTitle: "Cervical Radiculopathy | Gardan Ki Nerve Dabna — PainFix",
     metaDescription:
-      "Cervical radiculopathy is a pinched nerve in the neck causing arm pain. Learn the symptoms and how physiotherapy relieves it — usually without surgery.",
+      "Cervical radiculopathy is a pinched nerve in the neck causing arm pain (gardan ki nerve dabna). Learn the symptoms and how physiotherapy relieves it — usually without surgery.",
     category: "neck-pain",
-    tags: ["cervical radiculopathy", "pinched nerve", "arm pain", "neck"],
-    excerpt: "A pinched nerve in the neck can send pain down the arm. Here's how physiotherapy treats cervical radiculopathy.",
+    tags: ["cervical radiculopathy", "gardan ki nerve dabna", "pinched nerve", "arm pain", "neck"],
+    excerpt: "A pinched nerve in the neck (gardan ki nerve dabna) can send pain down the arm. Here's how physiotherapy treats cervical radiculopathy.",
     quickAnswer:
-      "Cervical radiculopathy is a pinched or irritated nerve in the neck that causes pain, numbness or weakness radiating into the arm. Physiotherapy relieves it with nerve-mobilising exercises, gentle traction, manual therapy and strengthening. Most cases improve within 6–12 weeks without surgery, which is reserved for severe or persistent nerve compression.",
+      "Cervical radiculopathy (gardan ki nerve dabne ka ilaj) is a pinched or irritated nerve in the neck that causes pain, numbness or weakness radiating into the arm. Physiotherapy relieves it with nerve-mobilising exercises, gentle traction, manual therapy and strengthening. Most cases improve within 6–12 weeks without surgery, which is reserved for severe or persistent nerve compression.",
     date: "2026-03-26",
     updated: "2026-05-20",
     authorKey: "ZA",
