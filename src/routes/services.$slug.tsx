@@ -1,11 +1,19 @@
 import { createFileRoute, notFound, Link } from "@tanstack/react-router";
-import { CheckCircle2, Sparkles, ClipboardList, Wrench, BookOpen, ShieldAlert } from "lucide-react";
+import { CheckCircle2, Sparkles, ClipboardList, Wrench, BookOpen, ShieldAlert, Users } from "lucide-react";
 import { getService, type Service } from "@/data/services";
+import { serviceImages, serviceImageAlt, serviceImageAltFallback } from "@/data/serviceImages";
+import {
+  whoCanBenefit,
+  relatedConditionsForService,
+  relatedArticlesForService,
+} from "@/data/serviceExtras";
 import { PageLayout } from "@/components/site/PageLayout";
 import { PageHero } from "@/components/site/PageHero";
 import { FaqAccordion } from "@/components/site/FaqAccordion";
 import { PageCTA } from "@/components/site/PageCTA";
 import { RelatedServices } from "@/components/site/RelatedServices";
+import { RelatedConditions } from "@/components/site/RelatedConditions";
+import { RelatedArticles } from "@/components/site/RelatedArticles";
 import { Reveal } from "@/components/site/Reveal";
 import { pageMeta, canonical, breadcrumbLd, faqLd } from "@/lib/seo";
 import { SITE_URL } from "@/components/site/constants";
