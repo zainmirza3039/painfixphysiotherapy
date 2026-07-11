@@ -97,3 +97,30 @@ export const RESOURCE_NAV = [
   { label: "Recovery Guides", to: "/recovery-guides" },
   { label: "Blog", to: "/blog" },
 ] as const;
+
+// ── Primary navigation dropdowns ───────────────────────────────────────────
+// Items with `to === "/services/$slug"` (or "/conditions/$slug") are dynamic
+// route params rendered via <Link params>. All other `to` values are concrete
+// static routes. `desc` powers the premium dropdown subtitles.
+export const SERVICES_MENU = [
+  { label: "Physiotherapy", to: "/services", desc: "Full range of evidence-based care" },
+  { label: "Manual Therapy", to: "/services/$slug", slug: "manual-therapy", desc: "Hands-on joint & soft-tissue work" },
+  { label: "Exercise Therapy", to: "/services/$slug", slug: "exercise-therapy", desc: "Targeted movement & strengthening" },
+  { label: "Home Physiotherapy", to: "/services/$slug", slug: "home-physiotherapy", desc: "Expert care at your doorstep" },
+  { label: "Hijama Therapy", to: "/services/$slug", slug: "hijama-cupping-therapy", desc: "Cupping therapy for pain relief" },
+  { label: "Diet & Nutrition", to: "/diet-nutrition", desc: "Personalised nutrition guidance" },
+  { label: "Personalised Fitness & Rehabilitation", to: "/fitness-rehabilitation", desc: "Guided strength & recovery programs" },
+] as const;
+
+export const CONDITIONS_MENU = [
+  { label: "Back Pain", to: "/conditions/$slug", slug: "back-pain" },
+  { label: "Neck Pain", to: "/conditions/$slug", slug: "neck-pain" },
+  { label: "Sciatica", to: "/conditions/$slug", slug: "sciatica" },
+  { label: "Knee Pain", to: "/conditions/$slug", slug: "knee-pain" },
+  { label: "Frozen Shoulder", to: "/conditions/$slug", slug: "frozen-shoulder" },
+  { label: "Heel Pain", to: "/conditions/$slug", slug: "plantar-fasciitis" },
+  { label: "Arthritis", to: "/conditions/$slug", slug: "osteoarthritis" },
+  { label: "Sports Injury", to: "/conditions/$slug", slug: "sports-injuries" },
+  { label: "Stroke Rehabilitation", to: "/conditions/$slug", slug: "stroke-rehabilitation" },
+  { label: "Cervical Radiculopathy", to: "/conditions/$slug", slug: "cervical-radiculopathy" },
+] as const;
