@@ -11,9 +11,15 @@ export function AuthorCard({ authorKey, updated }: { authorKey: string; updated?
         <BadgeCheck className="h-4 w-4" /> Medically Reviewed By
       </div>
       <div className="mt-4 flex items-start gap-4">
-        <span className="grid h-14 w-14 shrink-0 place-items-center rounded-2xl bg-primary/10 font-heading text-lg font-bold text-primary">
-          {member.initials}
-        </span>
+        <img
+          src={member.photo}
+          alt={`Portrait of ${member.name}, ${member.role} at PainFix Physiotherapy Clinic, Multan`}
+          width={56}
+          height={56}
+          loading="lazy"
+          decoding="async"
+          className="h-14 w-14 shrink-0 rounded-2xl object-cover object-top ring-1 ring-border"
+        />
         <div className="min-w-0">
           <p className="font-heading text-lg font-bold text-foreground">{member.name}</p>
           <p className="text-sm font-medium text-secondary">{member.role}</p>
