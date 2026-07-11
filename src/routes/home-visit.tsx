@@ -22,7 +22,7 @@ import { WhatsAppFab } from "@/components/site/WhatsAppFab";
 import { Reveal } from "@/components/site/Reveal";
 import { HomeVisitForm } from "@/components/site/HomeVisitForm";
 import { useI18n } from "@/i18n/LanguageProvider";
-import { WHATSAPP_URL, PHONE_TEL, PHONE_DISPLAY } from "@/components/site/constants";
+import { WHATSAPP_URL, PHONE_TEL, PHONE_DISPLAY, SITE_URL } from "@/components/site/constants";
 
 const TITLE = "Book a Home Visit — Home Physiotherapy in Multan | PainFix";
 const DESCRIPTION =
