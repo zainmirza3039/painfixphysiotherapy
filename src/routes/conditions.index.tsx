@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight } from "lucide-react";
 import { conditions } from "@/data/conditions";
+import { conditionImages } from "@/data/conditionImages";
 import { PageLayout } from "@/components/site/PageLayout";
 import { PageHero } from "@/components/site/PageHero";
 import { PageCTA } from "@/components/site/PageCTA";
