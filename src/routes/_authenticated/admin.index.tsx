@@ -20,6 +20,14 @@ export const Route = createFileRoute("/_authenticated/admin/")({
 });
 
 function DashboardPage() {
+  const { isStaff, isProfessional, canEditContent, loading } = useAdminAuth();
+
+  // Professionals / content editors without clinical access land on their own workspace.
+  if (!loading && !isStaff) {
+    if (isProfessional) return <Navigate to="/admin/profile" replace />;
+    if (canEditContent) return <Navigate to="/admin/blog" replace />;
+  }
+
   const { data, isLoading } = useQuery({
     queryKey: ["admin", "dashboard"],
     queryFn: async () => {
