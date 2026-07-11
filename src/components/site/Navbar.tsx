@@ -161,20 +161,30 @@ function ServiceLink({
   onNavigate,
   className,
   showDesc = false,
+  withIcon = false,
 }: {
   item: ServicesMenuItem;
   onNavigate: () => void;
   className: string;
   showDesc?: boolean;
+  withIcon?: boolean;
 }) {
+  const Icon = SERVICE_ICONS[item.label] ?? Activity;
   const content = (
     <>
-      <span className="block font-semibold">{item.label}</span>
-      {showDesc && (
-        <span className="mt-0.5 block text-xs font-normal text-muted-foreground">
-          {item.desc}
+      {withIcon && (
+        <span className="grid h-9 w-9 shrink-0 place-items-center rounded-lg bg-accent text-primary transition-colors group-hover:bg-primary group-hover:text-primary-foreground">
+          <Icon className="h-[18px] w-[18px]" />
         </span>
       )}
+      <span className="min-w-0">
+        <span className="block font-semibold leading-tight">{item.label}</span>
+        {showDesc && (
+          <span className="mt-0.5 block text-xs font-normal text-muted-foreground">
+            {item.desc}
+          </span>
+        )}
+      </span>
     </>
   );
   if (item.to === "/services/$slug") {
@@ -196,6 +206,7 @@ function ServiceLink({
     </Link>
   );
 }
+
 
 function ConditionLink({
   item,
