@@ -384,20 +384,83 @@ export function Navbar() {
               />
             </button>
             {menu === "services" && (
-              <div className="absolute left-0 top-full z-50 pt-2">
-                <div role="menu" className={panelClass}>
-                  {SERVICES_MENU.map((item) => (
-                    <ServiceLink
-                      key={item.label}
-                      item={item}
-                      showDesc
-                      onNavigate={() => setMenu(null)}
-                      className={menuItemClass}
-                    />
-                  ))}
+              <div className="absolute left-1/2 top-full z-50 -translate-x-1/2 pt-2">
+                <div
+                  role="menu"
+                  className="grid w-[46rem] grid-cols-[1.4fr_1fr] gap-2 overflow-hidden rounded-2xl border border-border bg-card p-3 shadow-card animate-fade-in"
+                >
+                  {/* Left: Core Services */}
+                  <div>
+                    <p className="px-2 pb-1.5 text-[11px] font-bold uppercase tracking-wide text-muted-foreground">
+                      Core Services
+                    </p>
+                    <div className="grid grid-cols-1 gap-0.5">
+                      {SERVICES_MENU.map((item) => (
+                        <ServiceLink
+                          key={item.label}
+                          item={item}
+                          showDesc
+                          withIcon
+                          onNavigate={() => setMenu(null)}
+                          className="group flex items-center gap-3 rounded-xl px-2.5 py-2 text-sm text-foreground/85 transition-colors hover:bg-accent hover:text-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+                        />
+                      ))}
+                    </div>
+                  </div>
+                  {/* Right: Featured Services */}
+                  <div className="rounded-xl bg-accent/40 p-2">
+                    <p className="px-2 pb-1.5 text-[11px] font-bold uppercase tracking-wide text-muted-foreground">
+                      Featured
+                    </p>
+                    <div className="grid grid-cols-1 gap-0.5">
+                      {FEATURED_SERVICES.map((f) => {
+                        const inner = (
+                          <>
+                            <span className="grid h-9 w-9 shrink-0 place-items-center rounded-lg bg-background text-primary shadow-soft transition-colors group-hover:bg-primary group-hover:text-primary-foreground">
+                              <f.icon className="h-[18px] w-[18px]" />
+                            </span>
+                            <span className="min-w-0">
+                              <span className="block font-semibold leading-tight">
+                                {f.label}
+                              </span>
+                              <span className="mt-0.5 block text-xs font-normal text-muted-foreground">
+                                {f.desc}
+                              </span>
+                            </span>
+                          </>
+                        );
+                        const cls =
+                          "group flex items-center gap-3 rounded-xl px-2.5 py-2 text-sm text-foreground/85 transition-colors hover:bg-background hover:text-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-primary";
+                        return f.external ? (
+                          <a
+                            key={f.label}
+                            href={f.href}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            role="menuitem"
+                            onClick={() => setMenu(null)}
+                            className={cls}
+                          >
+                            {inner}
+                          </a>
+                        ) : (
+                          <Link
+                            key={f.label}
+                            to={f.to!}
+                            role="menuitem"
+                            onClick={() => setMenu(null)}
+                            className={cls}
+                          >
+                            {inner}
+                          </Link>
+                        );
+                      })}
+                    </div>
+                  </div>
                 </div>
               </div>
             )}
+
           </div>
 
           {/* Conditions dropdown */}
