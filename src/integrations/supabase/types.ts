@@ -73,6 +73,7 @@ export type Database = {
       blog_posts: {
         Row: {
           author: string | null
+          author_id: string | null
           category: string | null
           content: string | null
           created_at: string
@@ -91,6 +92,7 @@ export type Database = {
         }
         Insert: {
           author?: string | null
+          author_id?: string | null
           category?: string | null
           content?: string | null
           created_at?: string
@@ -109,6 +111,7 @@ export type Database = {
         }
         Update: {
           author?: string | null
+          author_id?: string | null
           category?: string | null
           content?: string | null
           created_at?: string
@@ -333,6 +336,60 @@ export type Database = {
         }
         Relationships: []
       }
+      profiles: {
+        Row: {
+          bio: string | null
+          created_at: string
+          display_order: number
+          full_name: string
+          is_published: boolean
+          phone: string | null
+          photo_url: string | null
+          professional_title: string
+          public_email: string | null
+          qualifications: string | null
+          slug: string | null
+          specialties: string[]
+          updated_at: string
+          user_id: string
+          years_experience: number | null
+        }
+        Insert: {
+          bio?: string | null
+          created_at?: string
+          display_order?: number
+          full_name?: string
+          is_published?: boolean
+          phone?: string | null
+          photo_url?: string | null
+          professional_title?: string
+          public_email?: string | null
+          qualifications?: string | null
+          slug?: string | null
+          specialties?: string[]
+          updated_at?: string
+          user_id: string
+          years_experience?: number | null
+        }
+        Update: {
+          bio?: string | null
+          created_at?: string
+          display_order?: number
+          full_name?: string
+          is_published?: boolean
+          phone?: string | null
+          photo_url?: string | null
+          professional_title?: string
+          public_email?: string | null
+          qualifications?: string | null
+          slug?: string | null
+          specialties?: string[]
+          updated_at?: string
+          user_id?: string
+          years_experience?: number | null
+        }
+        Relationships: []
+      }
       user_roles: {
         Row: {
           created_at: string
@@ -360,6 +417,7 @@ export type Database = {
     }
     Functions: {
       bootstrap_admin: { Args: never; Returns: undefined }
+      can_edit_content: { Args: { _user_id: string }; Returns: boolean }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]
@@ -367,10 +425,18 @@ export type Database = {
         }
         Returns: boolean
       }
+      is_admin: { Args: { _user_id: string }; Returns: boolean }
       is_staff: { Args: { _user_id: string }; Returns: boolean }
     }
     Enums: {
-      app_role: "admin" | "staff"
+      app_role:
+        | "admin"
+        | "staff"
+        | "super_admin"
+        | "clinical_physiotherapist"
+        | "dietitian"
+        | "fitness_professional"
+        | "content_editor"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -498,7 +564,15 @@ export type CompositeTypes<
 export const Constants = {
   public: {
     Enums: {
-      app_role: ["admin", "staff"],
+      app_role: [
+        "admin",
+        "staff",
+        "super_admin",
+        "clinical_physiotherapist",
+        "dietitian",
+        "fitness_professional",
+        "content_editor",
+      ],
     },
   },
 } as const
