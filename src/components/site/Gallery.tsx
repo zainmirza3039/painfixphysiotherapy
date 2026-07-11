@@ -22,10 +22,18 @@ type Photo = {
 
 const photos: Photo[] = [
   {
+    src: exteriorImg,
+    alt: "Storefront exterior of PainFix Physiotherapy Clinic with signage in Shalimar Colony, Multan",
+    caption: "Our Multan Clinic",
+    span: "col-span-2 row-span-2",
+    w: 1100,
+    h: 1381,
+  },
+  {
     src: photo1,
     alt: "Physiotherapist treating a patient's leg with infrared heat therapy at PainFix Physiotherapy Clinic, Multan",
     caption: "Infrared Heat Therapy",
-    span: "col-span-2 row-span-2",
+    span: "col-span-2 lg:col-span-1 lg:row-span-2",
     w: 1200,
     h: 1600,
   },
@@ -65,7 +73,7 @@ const photos: Photo[] = [
     src: photo6,
     alt: "Modern, clean physiotherapy treatment room with anatomy charts at PainFix Clinic, Multan",
     caption: "Our Treatment Room",
-    span: "col-span-2 lg:col-span-1",
+    span: "col-span-2 lg:col-span-2",
     w: 738,
     h: 1280,
   },
