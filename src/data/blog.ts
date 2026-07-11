@@ -1178,15 +1178,15 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: "whiplash-injury",
-    title: "Whiplash Injury: Recovery with Physiotherapy",
-    seoTitle: "Whiplash Injury Treatment | Neck Physiotherapy — PainFix",
+    title: "Whiplash Injury: Recovery with Physiotherapy | Gardan Ki Chot Ka Ilaj",
+    seoTitle: "Whiplash Injury | Gardan Ki Chot Ka Ilaj — PainFix Multan",
     metaDescription:
-      "Whiplash after a car accident causes neck pain and stiffness. Learn how physiotherapy speeds whiplash recovery and prevents long-term neck problems.",
+      "Whiplash after a car accident causes neck pain and stiffness (gardan ki chot). Learn how physiotherapy in Multan speeds whiplash recovery and prevents long-term neck problems.",
     category: "neck-pain",
-    tags: ["whiplash", "neck", "car accident", "recovery"],
-    excerpt: "Whiplash recovers fastest when you stay active with guided physiotherapy. Here's what to do.",
+    tags: ["whiplash", "gardan ki chot", "neck", "car accident", "recovery"],
+    excerpt: "Whiplash (gardan ki chot) recovers fastest when you stay active with guided physiotherapy. Here's what to do.",
     quickAnswer:
-      "Whiplash is a neck injury from rapid back-and-forth movement, usually in a car accident. Recovery is fastest with early, gentle movement and physiotherapy rather than rest or a collar. Treatment includes range-of-motion exercises, manual therapy, strengthening and reassurance. Most people recover within a few weeks to a few months.",
+      "Whiplash (gardan ki chot ka ilaj) is a neck injury from rapid back-and-forth movement, usually in a car accident. Recovery is fastest with early, gentle movement and physiotherapy rather than rest or a collar. Treatment includes range-of-motion exercises, manual therapy, strengthening and reassurance. Most people recover within a few weeks to a few months.",
     date: "2026-05-11",
     updated: "2026-06-14",
     authorKey: "JD",
