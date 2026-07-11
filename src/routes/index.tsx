@@ -56,6 +56,7 @@ function Index() {
         <Stats />
         <TrustSignals />
         <WhyChooseUs />
+        <SymptomNavigator />
         <Services />
         <Conditions />
         <HomePhysio />
