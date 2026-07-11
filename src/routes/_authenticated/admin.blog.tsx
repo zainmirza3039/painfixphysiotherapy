@@ -75,6 +75,7 @@ const empty = {
 
 function BlogPage() {
   const qc = useQueryClient();
+  const { user, isAdmin } = useAdminAuth();
   const [search, setSearch] = useState("");
   const [dialogOpen, setDialogOpen] = useState(false);
   const [editing, setEditing] = useState<Post | null>(null);
@@ -83,12 +84,16 @@ function BlogPage() {
   const [deleteId, setDeleteId] = useState<string | null>(null);
 
   const { data: rows, isLoading } = useQuery({
-    queryKey: ["admin", "blog"],
+    queryKey: ["admin", "blog", isAdmin ? "all" : user?.id],
+    enabled: isAdmin || !!user?.id,
     queryFn: async () => {
-      const { data, error } = await supabase
+      let query = supabase
         .from("blog_posts")
         .select("*")
         .order("created_at", { ascending: false });
+      // Non-admin authors only manage their own articles.
+      if (!isAdmin && user?.id) query = query.eq("author_id", user.id);
+      const { data, error } = await query;
       if (error) throw error;
       return data;
     },
