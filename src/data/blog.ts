@@ -350,15 +350,15 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: "best-exercises-for-neck-pain",
-    title: "Best Exercises for Neck Pain",
-    seoTitle: "Best Exercises for Neck Pain | Physiotherapy Guide — PainFix",
+    title: "Best Exercises for Neck Pain | Gardan Ke Dard Ki Exercises",
+    seoTitle: "Neck Pain Exercises | Gardan Ke Dard Ka Ilaj — PainFix",
     metaDescription:
-      "Relieve neck pain with these physiotherapist-recommended exercises. Simple, safe movements to reduce stiffness, improve posture and prevent 'tech neck'.",
+      "Relieve neck pain (gardan ka dard) with these physiotherapist-recommended exercises. Simple, safe movements to reduce stiffness, improve posture and prevent 'tech neck'.",
     category: "neck-pain",
-    tags: ["neck pain", "exercises", "stretches", "posture"],
-    excerpt: "A few minutes of the right exercises each day can dramatically reduce neck pain and stiffness. Here are the ones we recommend.",
+    tags: ["neck pain", "gardan ka dard", "exercises", "stretches", "posture"],
+    excerpt: "A few minutes of the right exercises each day can dramatically reduce neck pain (gardan ka dard) and stiffness. Here are the ones we recommend.",
     quickAnswer:
-      "The best exercises for neck pain include chin tucks, gentle neck rotations, shoulder blade squeezes, upper trapezius stretches and levator scapulae stretches. Performed daily and pain-free, they reduce stiffness, strengthen the deep neck muscles and correct the forward-head posture that drives most neck pain.",
+      "The best exercises for neck pain (gardan ke dard ka ilaj) include chin tucks, gentle neck rotations, shoulder blade squeezes, upper trapezius stretches and levator scapulae stretches. Performed daily and pain-free, they reduce stiffness, strengthen the deep neck muscles and correct the forward-head posture that drives most neck pain.",
     date: "2026-06-18",
     updated: "2026-07-04",
     authorKey: "JD",
