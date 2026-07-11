@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Menu, X, MessageCircle, Home, BookOpen } from "lucide-react";
+import { Menu, X, MessageCircle, Home, BookOpen, Dumbbell } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 import { NAV_LINKS } from "./constants";
 import { openCalendlyPopup } from "./calendly";

@@ -28,6 +28,7 @@ import { Route as DietNutritionIndexRouteImport } from './routes/diet-nutrition.
 import { Route as ConditionsIndexRouteImport } from './routes/conditions.index'
 import { Route as BlogIndexRouteImport } from './routes/blog.index'
 import { Route as ServicesSlugRouteImport } from './routes/services.$slug'
+import { Route as DietNutritionSlugRouteImport } from './routes/diet-nutrition.$slug'
 import { Route as ConditionsSlugRouteImport } from './routes/conditions.$slug'
 import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
 import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
@@ -139,6 +140,11 @@ const ServicesSlugRoute = ServicesSlugRouteImport.update({
   path: '/services/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DietNutritionSlugRoute = DietNutritionSlugRouteImport.update({
+  id: '/diet-nutrition/$slug',
+  path: '/diet-nutrition/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ConditionsSlugRoute = ConditionsSlugRouteImport.update({
   id: '/conditions/$slug',
   path: '/conditions/$slug',
@@ -233,6 +239,7 @@ export interface FileRoutesByFullPath {
   '/admin': typeof AuthenticatedAdminRouteWithChildren
   '/blog/$slug': typeof BlogSlugRoute
   '/conditions/$slug': typeof ConditionsSlugRoute
+  '/diet-nutrition/$slug': typeof DietNutritionSlugRoute
   '/services/$slug': typeof ServicesSlugRoute
   '/blog/': typeof BlogIndexRoute
   '/conditions/': typeof ConditionsIndexRoute
@@ -266,6 +273,7 @@ export interface FileRoutesByTo {
   '/terms': typeof TermsRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/conditions/$slug': typeof ConditionsSlugRoute
+  '/diet-nutrition/$slug': typeof DietNutritionSlugRoute
   '/services/$slug': typeof ServicesSlugRoute
   '/blog': typeof BlogIndexRoute
   '/conditions': typeof ConditionsIndexRoute
@@ -302,6 +310,7 @@ export interface FileRoutesById {
   '/_authenticated/admin': typeof AuthenticatedAdminRouteWithChildren
   '/blog/$slug': typeof BlogSlugRoute
   '/conditions/$slug': typeof ConditionsSlugRoute
+  '/diet-nutrition/$slug': typeof DietNutritionSlugRoute
   '/services/$slug': typeof ServicesSlugRoute
   '/blog/': typeof BlogIndexRoute
   '/conditions/': typeof ConditionsIndexRoute
@@ -338,6 +347,7 @@ export interface FileRouteTypes {
     | '/admin'
     | '/blog/$slug'
     | '/conditions/$slug'
+    | '/diet-nutrition/$slug'
     | '/services/$slug'
     | '/blog/'
     | '/conditions/'
@@ -371,6 +381,7 @@ export interface FileRouteTypes {
     | '/terms'
     | '/blog/$slug'
     | '/conditions/$slug'
+    | '/diet-nutrition/$slug'
     | '/services/$slug'
     | '/blog'
     | '/conditions'
@@ -406,6 +417,7 @@ export interface FileRouteTypes {
     | '/_authenticated/admin'
     | '/blog/$slug'
     | '/conditions/$slug'
+    | '/diet-nutrition/$slug'
     | '/services/$slug'
     | '/blog/'
     | '/conditions/'
@@ -441,6 +453,7 @@ export interface RootRouteChildren {
   TermsRoute: typeof TermsRoute
   BlogSlugRoute: typeof BlogSlugRoute
   ConditionsSlugRoute: typeof ConditionsSlugRoute
+  DietNutritionSlugRoute: typeof DietNutritionSlugRoute
   ServicesSlugRoute: typeof ServicesSlugRoute
   BlogIndexRoute: typeof BlogIndexRoute
   ConditionsIndexRoute: typeof ConditionsIndexRoute
@@ -582,6 +595,13 @@ declare module '@tanstack/react-router' {
       path: '/services/$slug'
       fullPath: '/services/$slug'
       preLoaderRoute: typeof ServicesSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/diet-nutrition/$slug': {
+      id: '/diet-nutrition/$slug'
+      path: '/diet-nutrition/$slug'
+      fullPath: '/diet-nutrition/$slug'
+      preLoaderRoute: typeof DietNutritionSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/conditions/$slug': {
@@ -742,6 +762,7 @@ const rootRouteChildren: RootRouteChildren = {
   TermsRoute: TermsRoute,
   BlogSlugRoute: BlogSlugRoute,
   ConditionsSlugRoute: ConditionsSlugRoute,
+  DietNutritionSlugRoute: DietNutritionSlugRoute,
   ServicesSlugRoute: ServicesSlugRoute,
   BlogIndexRoute: BlogIndexRoute,
   ConditionsIndexRoute: ConditionsIndexRoute,
