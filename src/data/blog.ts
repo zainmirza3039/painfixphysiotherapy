@@ -796,15 +796,15 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: "plantar-fasciitis-treatment",
-    title: "Plantar Fasciitis Treatment: Relieve Heel Pain for Good",
-    seoTitle: "Plantar Fasciitis Treatment | Heel Pain Relief — PainFix",
+    title: "Plantar Fasciitis Treatment | Airi Ke Dard Ka Ilaj",
+    seoTitle: "Plantar Fasciitis | Airi (Heel) Ke Dard Ka Ilaj — PainFix",
     metaDescription:
-      "Plantar fasciitis causes stabbing heel pain, worst with the first steps of the day. Learn how physiotherapy treats it with stretching, strengthening and load management.",
+      "Plantar fasciitis causes stabbing heel pain (airi ka dard), worst with the first steps of the day. Learn how physiotherapy treats it with stretching, strengthening and load management.",
     category: "recovery-tips",
-    tags: ["plantar fasciitis", "heel pain", "foot", "stretching"],
-    excerpt: "That stabbing heel pain with your first morning steps is often plantar fasciitis. Here's how to treat it.",
+    tags: ["plantar fasciitis", "airi ka dard", "heel pain", "foot", "stretching"],
+    excerpt: "That stabbing heel pain (airi ka dard) with your first morning steps is often plantar fasciitis. Here's how to treat it.",
     quickAnswer:
-      "Plantar fasciitis is treated with calf and plantar fascia stretching, foot and calf strengthening, load management, supportive footwear and manual therapy. Most cases improve within a few months of consistent physiotherapy. The characteristic sign is sharp heel pain with the first steps in the morning that eases as you move.",
+      "Plantar fasciitis (airi ke dard ka ilaj) is treated with calf and plantar fascia stretching, foot and calf strengthening, load management, supportive footwear and manual therapy. Most cases improve within a few months of consistent physiotherapy. The characteristic sign is sharp heel pain with the first steps in the morning that eases as you move.",
     date: "2026-05-30",
     updated: "2026-06-26",
     authorKey: "ZA",
