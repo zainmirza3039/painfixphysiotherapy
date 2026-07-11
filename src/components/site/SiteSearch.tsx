@@ -83,16 +83,20 @@ export function SiteSearch({ className = "" }: { className?: string }) {
   }, [items, query]);
 
   const grouped = useMemo(() => {
+    // Results are already globally ranked by relevance. Group them while
+    // preserving that order, so the category holding the best match appears
+    // first, and cap each category so no single group floods the list.
     const map = new Map<SearchCategory, SearchItem[]>();
+    const order: SearchCategory[] = [];
     for (const r of results) {
-      const list = map.get(r.category) ?? [];
-      list.push(r);
-      map.set(r.category, list);
+      if (!map.has(r.category)) {
+        map.set(r.category, []);
+        order.push(r.category);
+      }
+      const list = map.get(r.category)!;
+      if (list.length < 6) list.push(r);
     }
-    return CATEGORY_ORDER.filter((c) => map.has(c)).map((c) => ({
-      category: c,
-      items: map.get(c)!,
-    }));
+    return order.map((c) => ({ category: c, items: map.get(c)! }));
   }, [results]);
 
   function go(href: string) {
