@@ -1,7 +1,7 @@
 import { Link } from "@tanstack/react-router";
-import { ArrowRight, Calendar } from "lucide-react";
+import { ArrowRight, MessageCircle } from "lucide-react";
 import { services } from "@/data/services";
-import { openCalendlyPopup } from "./calendly";
+import { WHATSAPP_CONSULT_URL } from "./constants";
 import { Reveal } from "./Reveal";
 import { SectionHeading } from "./SectionHeading";
 
