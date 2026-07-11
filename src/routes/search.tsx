@@ -1,13 +1,10 @@
 import { useEffect, useMemo, useState } from "react";
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
-import { zodValidator, fallback } from "@tanstack/zod-adapter";
-import { z } from "zod";
 import { Search, MessageCircle, X, Clock, TrendingUp, ArrowRight } from "lucide-react";
 import { PageLayout } from "@/components/site/PageLayout";
 import { PageHero } from "@/components/site/PageHero";
 import { Reveal } from "@/components/site/Reveal";
 import { WHATSAPP_CONSULT_URL } from "@/components/site/constants";
-import { SITE_URL } from "@/components/site/constants";
 import { CATEGORY_ICON, highlightMatch } from "@/components/site/SiteSearch";
 import {
   buildSearchIndex,
@@ -29,20 +26,28 @@ const TITLE = "Search | PainFix Physiotherapy Multan";
 const DESCRIPTION =
   "Search PainFix Physiotherapy — find services, conditions, doctors, blog articles, fitness programmes, health calculators and more.";
 
-const searchSchema = z.object({
-  q: fallback(z.string(), "").default(""),
-  cat: fallback(z.string(), "all").default("all"),
-  sort: fallback(z.string(), "relevance").default("relevance"),
-});
+interface SearchParams {
+  q: string;
+  cat: string;
+  sort: string;
+}
 
 export const Route = createFileRoute("/search")({
-  validateSearch: zodValidator(searchSchema),
+  validateSearch: (search: Record<string, unknown>): SearchParams => ({
+    q: typeof search.q === "string" ? search.q : "",
+    cat: typeof search.cat === "string" ? search.cat : "all",
+    sort: typeof search.sort === "string" ? search.sort : "relevance",
+  }),
   head: () => ({
-    meta: [...pageMeta({ title: TITLE, description: DESCRIPTION, path: PATH }), { name: "robots", content: "noindex,follow" }],
+    meta: [
+      ...pageMeta({ title: TITLE, description: DESCRIPTION, path: PATH }),
+      { name: "robots", content: "noindex,follow" },
+    ],
     links: canonical(PATH),
   }),
   component: SearchPage,
 });
+
 
 function SearchPage() {
   const { q, cat, sort } = Route.useSearch();
