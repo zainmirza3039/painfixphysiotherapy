@@ -3,7 +3,7 @@ import { ArrowRight, MapPin, Phone, Clock, Stethoscope, BookOpen } from "lucide-
 import type { LocalPage } from "@/data/localPages";
 import { serviceMap } from "@/data/services";
 import { conditionMap } from "@/data/conditions";
-import { blogPostMap } from "@/data/blog";
+import { blogMap } from "@/data/blog";
 import { team } from "@/data/team";
 import { PageLayout } from "./PageLayout";
 import { PageHero } from "./PageHero";
