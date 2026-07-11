@@ -196,7 +196,7 @@ export function AdminShell({ children }: { children: ReactNode }) {
               </SheetContent>
             </Sheet>
             <span className="text-sm font-medium text-muted-foreground">
-              {roles.includes("admin") ? "Administrator panel" : "Staff panel"}
+              {isAdmin ? "Administrator panel" : "Staff panel"}
             </span>
           </div>
           <div className="flex items-center gap-2">
