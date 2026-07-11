@@ -1,7 +1,8 @@
-import { Building2, Video, Calendar, CheckCircle2 } from "lucide-react";
+import { Building2, Video, Calendar, MessageCircle, CheckCircle2 } from "lucide-react";
 import { Reveal } from "./Reveal";
 import { SectionHeading } from "./SectionHeading";
 import { openCalendlyPopup } from "./calendly";
+import { WHATSAPP_CONSULT_URL } from "./constants";
 
 interface Fee {
   icon: typeof Building2;
@@ -9,6 +10,7 @@ interface Fee {
   price: string;
   description: string;
   points: string[];
+  cta: "whatsapp" | "calendly";
 }
 
 const fees: Fee[] = [
@@ -22,6 +24,7 @@ const fees: Fee[] = [
       "Personalized treatment plan",
       "Hands-on physiotherapy session",
     ],
+    cta: "whatsapp",
   },
   {
     icon: Video,
@@ -33,6 +36,7 @@ const fees: Fee[] = [
       "Ideal for follow-ups",
       "Expert second opinions",
     ],
+    cta: "calendly",
   },
 ];
 
