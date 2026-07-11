@@ -55,6 +55,7 @@ function Index() {
       <Navbar />
       <main>
         <Hero />
+        <HomeBmi />
         <Stats />
         <TrustSignals />
         <WhyChooseUs />
