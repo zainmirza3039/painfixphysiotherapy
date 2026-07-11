@@ -68,23 +68,23 @@ export function DoctorProfile({ doc }: { doc: TeamMember }) {
               ))}
             </div>
             <div className="mt-6 flex flex-wrap gap-3">
-              <button
-                type="button"
-                onClick={() => openCalendlyPopup()}
-                className="ripple inline-flex items-center gap-2 rounded-2xl bg-primary px-6 py-3.5 text-sm font-semibold text-primary-foreground shadow-card transition-transform hover:scale-[1.03]"
-              >
-                <Calendar className="h-4 w-4" /> Book Appointment
-              </button>
               <a
                 href={`https://wa.me/${doc.whatsapp}?text=${encodeURIComponent(
-                  `Hi, I'd like to book an appointment with ${doc.name} at ${CLINIC_NAME}.`,
+                  `Hi, I'd like a physiotherapy consultation with ${doc.name} at ${CLINIC_NAME}.`,
                 )}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label={`Message ${doc.name} on WhatsApp (${doc.phoneDisplay})`}
-                className="inline-flex items-center gap-2 rounded-2xl border border-secondary px-6 py-3.5 text-sm font-semibold text-secondary transition-colors hover:bg-secondary hover:text-secondary-foreground"
+                aria-label={`Chat with ${doc.name} on WhatsApp (${doc.phoneDisplay})`}
+                className="ripple inline-flex items-center gap-2 rounded-2xl bg-secondary px-6 py-3.5 text-sm font-semibold text-secondary-foreground shadow-card transition-transform hover:scale-[1.03]"
               >
-                <MessageCircle className="h-4 w-4" /> WhatsApp
+                <MessageCircle className="h-4 w-4" /> WhatsApp Consultation
+              </a>
+              <a
+                href={`tel:+${doc.whatsapp}`}
+                aria-label={`Call ${doc.name} (${doc.phoneDisplay})`}
+                className="inline-flex items-center gap-2 rounded-2xl border border-primary px-6 py-3.5 text-sm font-semibold text-primary transition-colors hover:bg-primary hover:text-primary-foreground"
+              >
+                <Phone className="h-4 w-4" /> Call Now
               </a>
             </div>
           </Reveal>
