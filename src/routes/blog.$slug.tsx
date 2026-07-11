@@ -184,24 +184,21 @@ function BlogArticle() {
 
             {/* Conversion CTA */}
             <div className="mt-12 overflow-hidden rounded-[2rem] bg-gradient-to-br from-primary to-secondary p-8 text-center shadow-card">
-              <h2 className="font-heading text-2xl font-extrabold text-primary-foreground">Ready to Begin Your Recovery?</h2>
+              <h2 className="font-heading text-2xl font-extrabold text-primary-foreground">Have a question about this?</h2>
               <p className="mx-auto mt-3 max-w-xl text-sm text-primary-foreground/85">
-                Book an assessment at PainFix Physiotherapy Clinic in Shalimar Colony, Multan, and get a personalized,
-                evidence-based treatment plan.
+                Chat with our physiotherapists on WhatsApp for honest advice about your condition — no obligation to book.
               </p>
               <div className="mt-6 flex flex-wrap justify-center gap-3">
-                <button
-                  type="button"
-                  onClick={() => openCalendlyPopup()}
+                <a
+                  href={WHATSAPP_CONSULT_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="ripple inline-flex items-center gap-2 rounded-2xl bg-background px-5 py-3 text-sm font-semibold text-primary shadow-card"
                 >
-                  <Calendar className="h-4 w-4" /> Book Appointment
-                </button>
-                <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 rounded-2xl border border-primary-foreground/40 px-5 py-3 text-sm font-semibold text-primary-foreground">
-                  <MessageCircle className="h-4 w-4" /> WhatsApp
+                  <MessageCircle className="h-4 w-4" /> WhatsApp Consultation
                 </a>
                 <a href={PHONE_TEL} className="inline-flex items-center gap-2 rounded-2xl border border-primary-foreground/40 px-5 py-3 text-sm font-semibold text-primary-foreground">
-                  <Phone className="h-4 w-4" /> {PHONE_DISPLAY}
+                  <Phone className="h-4 w-4" /> Call {PHONE_DISPLAY}
                 </a>
                 <a href={MAP_DIRECTIONS_URL} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 rounded-2xl border border-primary-foreground/40 px-5 py-3 text-sm font-semibold text-primary-foreground">
                   <MapPin className="h-4 w-4" /> Directions
