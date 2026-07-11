@@ -14,30 +14,33 @@ export const Route = createFileRoute("/services/$slug")({
   loader: ({ params }) => {
     const service = getService(params.slug);
     if (!service) throw notFound();
-    return service;
+    // Return only the serializable slug — the service object contains a
+    // non-serializable lucide `icon` component that breaks SSR dehydration.
+    return { slug: service.slug };
   },
   head: ({ params, loaderData }) => {
-    if (!loaderData) {
+    const service = loaderData ? getService(loaderData.slug) : undefined;
+    if (!service) {
       return { meta: [{ title: "Service Not Found — PainFix" }, { name: "robots", content: "noindex" }] };
     }
     const path = `/services/${params.slug}`;
     return {
-      meta: pageMeta({ title: loaderData.metaTitle, description: loaderData.metaDescription, path }),
+      meta: pageMeta({ title: service.metaTitle, description: service.metaDescription, path }),
       links: canonical(path),
       scripts: [
         breadcrumbLd([
           { label: "Home", path: "/" },
           { label: "Services", path: "/services" },
-          { label: loaderData.title, path },
+          { label: service.title, path },
         ]),
-        faqLd(loaderData.faqs),
+        faqLd(service.faqs),
         {
           type: "application/ld+json",
           children: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "MedicalTherapy",
-            name: loaderData.title,
-            description: loaderData.metaDescription,
+            name: service.title,
+            description: service.metaDescription,
             url: `${SITE_URL}${path}`,
             provider: { "@type": "MedicalClinic", name: "PainFix Physiotherapy Clinic" },
           }),
