@@ -101,7 +101,7 @@ function ServiceDetail() {
           <Reveal anim="left">
             <div className="rounded-[1.75rem] border border-border bg-card p-8 shadow-soft">
               <h2 className="flex items-center gap-2 font-heading text-xl font-bold text-foreground">
-                <ClipboardList className="h-5 w-5 text-primary" /> Conditions Treated
+                <ClipboardList className="h-5 w-5 text-primary" /> {service.conditionsLabel ?? "Conditions Treated"}
               </h2>
               <ul className="mt-5 space-y-3">
                 {service.conditionsTreated.map((c) => (
