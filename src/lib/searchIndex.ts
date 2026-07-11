@@ -1,15 +1,27 @@
-// Lightweight, dependency-free site search index + matcher.
-// The index is built lazily (only when the search dialog first opens) from the
-// static content data files, so it adds nothing to the initial bundle and has
-// zero SSR / Core Web Vitals cost.
+// Lightweight, dependency-free universal site search index + matcher.
+// The index is built lazily (only when the search dialog or /search page first
+// needs it) from the static content data files, so it adds nothing to the
+// initial bundle and has zero SSR / Core Web Vitals cost.
+
+import { serviceImages } from "@/data/serviceImages";
+import { conditionImages } from "@/data/conditionImages";
+import { expandQuery, stemVariants, normalize } from "./searchSynonyms";
 
 export type SearchCategory =
   | "Services"
   | "Conditions"
+  | "Doctors"
   | "Blog Articles"
   | "FAQs"
-  | "Doctors"
-  | "Resources";
+  | "Fitness"
+  | "Diet"
+  | "Programmes"
+  | "Membership"
+  | "Success Stories"
+  | "Calculators"
+  | "Resources"
+  | "Categories"
+  | "Pages";
 
 export interface SearchItem {
   id: string;
@@ -18,6 +30,8 @@ export interface SearchItem {
   category: SearchCategory;
   /** Destination path. May contain a "#hash" for on-page sections. */
   href: string;
+  /** Optional thumbnail (imported asset URL). Falls back to a category icon. */
+  thumbnail?: string;
   /** Extra searchable text (not displayed). */
   keywords: string;
 }
@@ -26,10 +40,18 @@ export interface SearchItem {
 export const CATEGORY_ORDER: SearchCategory[] = [
   "Services",
   "Conditions",
+  "Doctors",
   "Blog Articles",
   "FAQs",
-  "Doctors",
+  "Fitness",
+  "Programmes",
+  "Diet",
+  "Membership",
+  "Success Stories",
+  "Calculators",
   "Resources",
+  "Categories",
+  "Pages",
 ];
 
 let cache: SearchItem[] | null = null;
@@ -38,12 +60,24 @@ let cache: SearchItem[] | null = null;
 export async function buildSearchIndex(): Promise<SearchItem[]> {
   if (cache) return cache;
 
-  const [{ services }, { conditions }, { blogPosts }, { team }, { localPages }] = await Promise.all([
+  const [
+    { services },
+    { conditions },
+    { blogPosts, blogCategories },
+    { team },
+    { localPages },
+    { fitnessPages, FITNESS_GROUPS },
+    { MEMBERSHIP_PLANS },
+    { DIET_NUTRITION_ENABLED },
+  ] = await Promise.all([
     import("@/data/services"),
     import("@/data/conditions"),
     import("@/data/blog"),
     import("@/data/team"),
     import("@/data/localPages"),
+    import("@/data/fitness"),
+    import("@/data/membership"),
+    import("@/data/wellness"),
   ]);
 
   const items: SearchItem[] = [];
@@ -56,6 +90,7 @@ export async function buildSearchIndex(): Promise<SearchItem[]> {
       subtitle: s.tagline,
       category: "Services",
       href: `/services/${s.slug}`,
+      thumbnail: serviceImages[s.slug],
       keywords: [...s.conditionsTreated, ...s.benefits, s.metaDescription].join(" "),
     });
     for (const [i, f] of s.faqs.entries()) {
@@ -78,6 +113,7 @@ export async function buildSearchIndex(): Promise<SearchItem[]> {
       subtitle: c.metaDescription,
       category: "Conditions",
       href: `/conditions/${c.slug}`,
+      thumbnail: conditionImages[c.slug],
       keywords: [...c.symptoms, ...c.causes, ...c.riskFactors].join(" "),
     });
     for (const [i, f] of c.faqs.entries()) {
@@ -92,6 +128,19 @@ export async function buildSearchIndex(): Promise<SearchItem[]> {
     }
   }
 
+  // Doctors — link to each clinician's dedicated profile page.
+  for (const m of team) {
+    items.push({
+      id: `doctor-${m.slug}`,
+      title: m.name,
+      subtitle: m.title,
+      category: "Doctors",
+      href: `/${m.slug}`,
+      thumbnail: m.photo,
+      keywords: [...m.specialties, ...m.tags, m.credentials, m.seoBio].join(" "),
+    });
+  }
+
   // Blog articles + their FAQs
   for (const p of blogPosts) {
     items.push({
@@ -100,7 +149,7 @@ export async function buildSearchIndex(): Promise<SearchItem[]> {
       subtitle: p.excerpt,
       category: "Blog Articles",
       href: `/blog/${p.slug}`,
-      keywords: [...p.tags, p.quickAnswer].join(" "),
+      keywords: [...p.tags, p.quickAnswer, p.category].join(" "),
     });
     for (const [i, f] of p.faqs.entries()) {
       items.push({
@@ -114,19 +163,93 @@ export async function buildSearchIndex(): Promise<SearchItem[]> {
     }
   }
 
-  // Doctor profiles
-  for (const m of team) {
+  // Blog categories
+  for (const c of blogCategories) {
     items.push({
-      id: `doctor-${m.initials}`,
-      title: m.name,
-      subtitle: m.role,
-      category: "Doctors",
-      href: "/#doctors",
-      keywords: [...m.specialties, m.credentials, m.bio].join(" "),
+      id: `blog-category-${c.slug}`,
+      title: c.name,
+      subtitle: c.description,
+      category: "Categories",
+      href: `/blog/category/${c.slug}`,
+      keywords: `${c.name} articles category topic`,
     });
   }
 
-  // Patient resources / key pages
+  // Fitness & rehabilitation programmes
+  const fitnessGroupMap = Object.fromEntries(FITNESS_GROUPS.map((g) => [g.category, g.title]));
+  for (const f of fitnessPages) {
+    const isProgramme = f.category === "programmes";
+    items.push({
+      id: `fitness-${f.slug}`,
+      title: f.title,
+      subtitle: f.heroSubtitle,
+      category: isProgramme ? "Programmes" : "Fitness",
+      href: `/fitness/${f.slug}`,
+      keywords: [f.quickSummary, f.metaDescription, fitnessGroupMap[f.category] ?? "", "fitness exercise workout rehabilitation"].join(" "),
+    });
+  }
+
+  // Diet & Nutrition — only indexed when the section is publicly enabled.
+  if (DIET_NUTRITION_ENABLED) {
+    try {
+      const { dietPages } = await import("@/data/wellness");
+      if (Array.isArray(dietPages)) {
+        for (const d of dietPages) {
+          items.push({
+            id: `diet-${d.slug}`,
+            title: d.title,
+            subtitle: d.heroSubtitle,
+            category: "Diet",
+            href: `/diet-nutrition/${d.slug}`,
+            keywords: [d.quickSummary, d.metaDescription, "diet nutrition meal plan"].join(" "),
+          });
+        }
+      }
+    } catch {
+      /* diet data optional */
+    }
+  }
+
+  // Membership packages
+  items.push({
+    id: "page-membership",
+    title: "Membership & Packages",
+    subtitle: "Physiotherapy and fitness membership plans",
+    category: "Membership",
+    href: "/membership",
+    keywords: "membership packages plans pricing subscription monthly fitness",
+  });
+  for (const plan of MEMBERSHIP_PLANS) {
+    items.push({
+      id: `membership-${plan.slug}`,
+      title: `${plan.name} Membership`,
+      subtitle: plan.tagline,
+      category: "Membership",
+      href: "/membership",
+      keywords: [plan.price, plan.period, ...plan.features].join(" "),
+    });
+  }
+
+  // Health calculators
+  const calculators: { title: string; desc: string; kw: string; href: string }[] = [
+    { title: "BMI Calculator", desc: "Body Mass Index & WHO category", kw: "bmi body mass index weight height obesity healthy weight", href: "/health-calculators" },
+    { title: "Calorie Calculator", desc: "Estimate daily calorie needs (TDEE)", kw: "calorie calories tdee bmr energy maintenance deficit", href: "/health-calculators" },
+    { title: "Daily Water Intake Calculator", desc: "Recommended daily hydration", kw: "water hydration fluid intake litres", href: "/health-calculators" },
+    { title: "Protein Intake Calculator", desc: "Daily protein target", kw: "protein macros muscle intake grams", href: "/health-calculators" },
+    { title: "Ideal Weight Calculator", desc: "Healthy weight range for your height", kw: "ideal weight healthy range target weight", href: "/health-calculators" },
+  ];
+  for (const c of calculators) {
+    items.push({
+      id: `calc-${c.title.toLowerCase().replace(/\s+/g, "-")}`,
+      title: c.title,
+      subtitle: c.desc,
+      category: "Calculators",
+      href: c.href,
+      keywords: `${c.kw} calculator health tool`,
+    });
+  }
+
+  // Local / resource pillar pages
   for (const l of localPages) {
     items.push({
       id: `local-${l.slug}`,
@@ -134,9 +257,11 @@ export async function buildSearchIndex(): Promise<SearchItem[]> {
       subtitle: l.eyebrow,
       category: "Resources",
       href: `/${l.slug}`,
-      keywords: l.title,
+      keywords: [l.metaDescription, l.quickAnswer].join(" "),
     });
   }
+
+  // Key resources / pages
   items.push(
     {
       id: "resource-home-visit",
@@ -144,32 +269,68 @@ export async function buildSearchIndex(): Promise<SearchItem[]> {
       subtitle: "Book professional physiotherapy at home in Multan",
       category: "Resources",
       href: "/home-visit",
-      keywords: "home visit domiciliary bedside care elderly stroke rehab at home",
+      keywords: "home visit domiciliary bedside care elderly stroke rehab at home physiotherapy",
     },
     {
-      id: "resource-blog",
-      title: "Blog & Patient Resources",
-      subtitle: "Evidence-based physiotherapy articles and guides",
-      category: "Resources",
-      href: "/blog",
-      keywords: "articles guides education resources knowledge hub",
+      id: "resource-fitness-rehab",
+      title: "Personalised Fitness & Rehabilitation",
+      subtitle: "Physiotherapist-led exercise and rehab programmes",
+      category: "Fitness",
+      href: "/fitness-rehabilitation",
+      keywords: "fitness rehabilitation strength mobility injury prevention exercise",
     },
     {
-      id: "resource-contact",
-      title: "Contact & Directions",
-      subtitle: "Address, phone, WhatsApp and Google Maps",
-      category: "Resources",
-      href: "/#contact",
-      keywords: "contact address phone whatsapp map directions location multan",
+      id: "resource-fitness-assessment",
+      title: "Fitness Assessment",
+      subtitle: "Movement and fitness screening",
+      category: "Fitness",
+      href: "/fitness-assessment",
+      keywords: "fitness assessment screening movement test",
     },
     {
-      id: "resource-book",
-      title: "Book an Appointment",
-      subtitle: "Schedule your assessment",
+      id: "resource-fitness-resources",
+      title: "Educational Fitness Resources",
+      subtitle: "Guides, tips and exercise education",
       category: "Resources",
-      href: "/#book",
-      keywords: "book appointment schedule booking calendly",
+      href: "/fitness-resources",
+      keywords: "educational resources guides tips exercise library knowledge",
     },
+    {
+      id: "resource-success-stories",
+      title: "Patient Success Stories",
+      subtitle: "Real recovery journeys",
+      category: "Success Stories",
+      href: "/success-stories",
+      keywords: "success stories testimonials reviews recovery journeys results outcomes",
+    },
+    {
+      id: "resource-health-calculators",
+      title: "Health Tools & Calculators",
+      subtitle: "BMI, calorie, water, protein & ideal-weight tools",
+      category: "Calculators",
+      href: "/health-calculators",
+      keywords: "health tools calculators bmi calorie water protein ideal weight",
+    },
+    {
+      id: "resource-gallery",
+      title: "Clinic Gallery",
+      subtitle: "Photos of our Multan physiotherapy clinic",
+      category: "Resources",
+      href: "/#gallery",
+      keywords: "gallery photos clinic images treatment rooms equipment multan",
+    },
+  );
+
+  // Core navigation pages
+  items.push(
+    { id: "page-home", title: "Home", subtitle: "PainFix Physiotherapy Multan", category: "Pages", href: "/", keywords: "home main homepage painfix physiotherapy" },
+    { id: "page-services", title: "All Services", subtitle: "Browse physiotherapy services", category: "Pages", href: "/services", keywords: "services treatments physiotherapy" },
+    { id: "page-conditions", title: "All Conditions", subtitle: "Conditions we treat", category: "Pages", href: "/conditions", keywords: "conditions problems pain treat" },
+    { id: "page-blog", title: "Blog & Patient Resources", subtitle: "Evidence-based articles", category: "Pages", href: "/blog", keywords: "blog articles guides education resources" },
+    { id: "page-fitness", title: "Fitness Programmes", subtitle: "All fitness & rehab programmes", category: "Pages", href: "/fitness", keywords: "fitness programmes exercise workout" },
+    { id: "page-contact", title: "Contact & Directions", subtitle: "Address, phone, WhatsApp & map", category: "Pages", href: "/#contact", keywords: "contact address phone whatsapp map directions location multan" },
+    { id: "page-book", title: "Book an Appointment", subtitle: "Schedule your assessment", category: "Pages", href: "/#book", keywords: "book appointment schedule booking consultation" },
+    { id: "page-about", title: "About PainFix", subtitle: "Our clinic and approach", category: "Pages", href: "/#about", keywords: "about clinic story mission team approach" },
   );
 
   cache = items;
@@ -206,7 +367,7 @@ function isSubsequence(term: string, text: string): boolean {
   return i === term.length;
 }
 
-/** Typo tolerance: any word in `text` within Levenshtein `tol` of `term`. */
+/** Typo tolerance: any word in `words` within Levenshtein `tol` of `term`. */
 function hasTypoMatch(term: string, words: string[], tol: number): boolean {
   for (const w of words) {
     if (Math.abs(w.length - term.length) > tol) continue;
@@ -220,47 +381,59 @@ interface Scored {
   score: number;
 }
 
+/** Score a single item against a single normalized query string. */
+function scoreItem(item: SearchItem, terms: string[]): number {
+  const title = item.title.toLowerCase();
+  const sub = (item.subtitle ?? "").toLowerCase();
+  const hay = `${title} ${sub} ${item.keywords.toLowerCase()}`;
+  const titleWords = title.split(/[^a-z0-9]+/).filter(Boolean);
+
+  let total = 0;
+
+  for (const rawTerm of terms) {
+    // Each term may match via any of its singular/plural variants.
+    const variants = stemVariants(rawTerm);
+    let best = 0;
+
+    for (const t of variants) {
+      const tol = t.length >= 6 ? 2 : t.length >= 4 ? 1 : 0;
+      let s = 0;
+      if (title.startsWith(t)) s = 120;
+      else if (title.includes(t)) s = 90;
+      else if (sub.includes(t)) s = 55;
+      else if (hay.includes(t)) s = 40;
+      else if (tol > 0 && hasTypoMatch(t, titleWords, tol)) s = 30;
+      else if (isSubsequence(t, title)) s = 22;
+      else if (isSubsequence(t, hay)) s = 14;
+      if (s > best) best = s;
+    }
+
+    if (best === 0) return 0; // every term must match somewhere
+    total += best;
+  }
+
+  return total;
+}
+
 /**
- * Rank items for a query. Every whitespace-separated term must match somewhere
- * (title, subtitle or keywords) via exact substring, prefix, subsequence, or a
- * small edit distance for typo tolerance. Higher score = better match.
+ * Rank items for a query. The query is expanded with synonyms into several
+ * equivalent phrasings; each item keeps its best score across all of them.
+ * Higher score = better match.
  */
 export function searchItems(items: SearchItem[], query: string, limit = 24): SearchItem[] {
-  const q = query.trim().toLowerCase();
+  const q = normalize(query);
   if (!q) return [];
-  const terms = q.split(/\s+/).filter(Boolean);
 
+  const variants = expandQuery(q).map((v) => v.split(/\s+/).filter(Boolean));
   const results: Scored[] = [];
 
   for (const item of items) {
-    const title = item.title.toLowerCase();
-    const sub = (item.subtitle ?? "").toLowerCase();
-    const hay = `${title} ${sub} ${item.keywords.toLowerCase()}`;
-    const titleWords = title.split(/[^a-z0-9]+/).filter(Boolean);
-
-    let total = 0;
-    let matchedAll = true;
-
-    for (const t of terms) {
-      let best = 0;
-      const tol = t.length >= 6 ? 2 : t.length >= 4 ? 1 : 0;
-
-      if (title.startsWith(t)) best = 120;
-      else if (title.includes(t)) best = 90;
-      else if (sub.includes(t)) best = 55;
-      else if (hay.includes(t)) best = 40;
-      else if (tol > 0 && hasTypoMatch(t, titleWords, tol)) best = 30;
-      else if (isSubsequence(t, title)) best = 22;
-      else if (isSubsequence(t, hay)) best = 14;
-
-      if (best === 0) {
-        matchedAll = false;
-        break;
-      }
-      total += best;
+    let best = 0;
+    for (const terms of variants) {
+      const s = scoreItem(item, terms);
+      if (s > best) best = s;
     }
-
-    if (matchedAll) results.push({ item, score: total });
+    if (best > 0) results.push({ item, score: best });
   }
 
   results.sort((a, b) => b.score - a.score || a.item.title.length - b.item.title.length);
