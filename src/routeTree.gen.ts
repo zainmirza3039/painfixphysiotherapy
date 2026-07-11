@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as TermsRouteImport } from './routes/terms'
 import { Route as SuccessStoriesRouteImport } from './routes/success-stories'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
+import { Route as SearchRouteImport } from './routes/search'
 import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as PhysiotherapyClinicInMultanRouteImport } from './routes/physiotherapy-clinic-in-multan'
@@ -67,6 +68,11 @@ const SuccessStoriesRoute = SuccessStoriesRouteImport.update({
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
   path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SearchRoute = SearchRouteImport.update({
+  id: '/search',
+  path: '/search',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ResetPasswordRoute = ResetPasswordRouteImport.update({
@@ -301,6 +307,7 @@ export interface FileRoutesByFullPath {
   '/physiotherapy-clinic-in-multan': typeof PhysiotherapyClinicInMultanRoute
   '/privacy': typeof PrivacyRoute
   '/reset-password': typeof ResetPasswordRoute
+  '/search': typeof SearchRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/success-stories': typeof SuccessStoriesRoute
   '/terms': typeof TermsRoute
@@ -346,6 +353,7 @@ export interface FileRoutesByTo {
   '/physiotherapy-clinic-in-multan': typeof PhysiotherapyClinicInMultanRoute
   '/privacy': typeof PrivacyRoute
   '/reset-password': typeof ResetPasswordRoute
+  '/search': typeof SearchRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/success-stories': typeof SuccessStoriesRoute
   '/terms': typeof TermsRoute
@@ -392,6 +400,7 @@ export interface FileRoutesById {
   '/physiotherapy-clinic-in-multan': typeof PhysiotherapyClinicInMultanRoute
   '/privacy': typeof PrivacyRoute
   '/reset-password': typeof ResetPasswordRoute
+  '/search': typeof SearchRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/success-stories': typeof SuccessStoriesRoute
   '/terms': typeof TermsRoute
@@ -439,6 +448,7 @@ export interface FileRouteTypes {
     | '/physiotherapy-clinic-in-multan'
     | '/privacy'
     | '/reset-password'
+    | '/search'
     | '/sitemap.xml'
     | '/success-stories'
     | '/terms'
@@ -484,6 +494,7 @@ export interface FileRouteTypes {
     | '/physiotherapy-clinic-in-multan'
     | '/privacy'
     | '/reset-password'
+    | '/search'
     | '/sitemap.xml'
     | '/success-stories'
     | '/terms'
@@ -529,6 +540,7 @@ export interface FileRouteTypes {
     | '/physiotherapy-clinic-in-multan'
     | '/privacy'
     | '/reset-password'
+    | '/search'
     | '/sitemap.xml'
     | '/success-stories'
     | '/terms'
@@ -576,6 +588,7 @@ export interface RootRouteChildren {
   PhysiotherapyClinicInMultanRoute: typeof PhysiotherapyClinicInMultanRoute
   PrivacyRoute: typeof PrivacyRoute
   ResetPasswordRoute: typeof ResetPasswordRoute
+  SearchRoute: typeof SearchRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   SuccessStoriesRoute: typeof SuccessStoriesRoute
   TermsRoute: typeof TermsRoute
@@ -613,6 +626,13 @@ declare module '@tanstack/react-router' {
       path: '/sitemap.xml'
       fullPath: '/sitemap.xml'
       preLoaderRoute: typeof SitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/search': {
+      id: '/search'
+      path: '/search'
+      fullPath: '/search'
+      preLoaderRoute: typeof SearchRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/reset-password': {
@@ -968,6 +988,7 @@ const rootRouteChildren: RootRouteChildren = {
   PhysiotherapyClinicInMultanRoute: PhysiotherapyClinicInMultanRoute,
   PrivacyRoute: PrivacyRoute,
   ResetPasswordRoute: ResetPasswordRoute,
+  SearchRoute: SearchRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   SuccessStoriesRoute: SuccessStoriesRoute,
   TermsRoute: TermsRoute,
