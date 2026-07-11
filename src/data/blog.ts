@@ -1111,15 +1111,15 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: "rotator-cuff-rehabilitation",
-    title: "Rotator Cuff Rehabilitation",
-    seoTitle: "Rotator Cuff Rehabilitation | Shoulder Physiotherapy — PainFix",
+    title: "Rotator Cuff Rehabilitation | Kandhe Ke Dard Ka Ilaj",
+    seoTitle: "Shoulder Pain Treatment | Kandhe Ke Dard Ka Ilaj — PainFix",
     metaDescription:
-      "Rotator cuff injuries cause shoulder pain and weakness. Learn how physiotherapy rehabilitates the rotator cuff and restores pain-free shoulder movement.",
+      "Rotator cuff injuries cause shoulder pain and weakness (kandhe ka dard). Learn how physiotherapy in Multan rehabilitates the rotator cuff and restores pain-free shoulder movement.",
     category: "sports-injuries",
-    tags: ["rotator cuff", "shoulder", "tendon", "rehab"],
-    excerpt: "Most rotator cuff problems respond to strengthening, not surgery. Here's how rehabilitation works.",
+    tags: ["rotator cuff", "kandhe ka dard", "shoulder", "tendon", "rehab"],
+    excerpt: "Most rotator cuff problems (kandhe ka dard) respond to strengthening, not surgery. Here's how rehabilitation works.",
     quickAnswer:
-      "Rotator cuff rehabilitation uses progressive strengthening, movement retraining and manual therapy to restore pain-free shoulder function. Most rotator cuff injuries — including many partial tears and tendinopathy — improve without surgery. A structured programme typically produces meaningful improvement within 8–12 weeks.",
+      "Rotator cuff rehabilitation (kandhe ke dard ka ilaj) uses progressive strengthening, movement retraining and manual therapy to restore pain-free shoulder function. Most rotator cuff injuries — including many partial tears and tendinopathy — improve without surgery. A structured programme typically produces meaningful improvement within 8–12 weeks.",
     date: "2026-05-14",
     updated: "2026-06-16",
     authorKey: "ZA",
