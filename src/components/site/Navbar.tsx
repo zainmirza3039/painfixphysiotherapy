@@ -65,6 +65,12 @@ export function Navbar() {
             <Home className="h-4 w-4" /> Home Visit
           </Link>
           <Link
+            to="/fitness-rehabilitation"
+            className="inline-flex items-center gap-1.5 rounded-full px-3 py-2 text-sm font-medium text-foreground/80 transition-colors hover:bg-accent hover:text-primary"
+          >
+            <Dumbbell className="h-4 w-4" /> Fitness
+          </Link>
+          <Link
             to="/blog"
             className="inline-flex items-center gap-1.5 rounded-full px-3 py-2 text-sm font-medium text-foreground/80 transition-colors hover:bg-accent hover:text-primary"
           >
