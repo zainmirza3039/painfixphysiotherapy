@@ -34,7 +34,7 @@ export function BlogCard({ post }: { post: BlogPost }) {
       )}
       <div className="flex flex-1 flex-col p-6">
         <div className="flex flex-wrap items-center gap-2 text-xs font-semibold">
-          <span className="rounded-full bg-secondary/12 px-3 py-1 text-secondary">{cat?.name ?? "Article"}</span>
+          <span className="rounded-full bg-secondary/12 px-3 py-1 text-secondary">{categoryLabel}</span>
           <span className="inline-flex items-center gap-1 text-muted-foreground">
             <Clock className="h-3 w-3" /> {readingMinutes(post)} min read
           </span>
