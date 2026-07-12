@@ -37,7 +37,7 @@ import {
 // so an Urdu switch can be re-enabled once a complete Urdu version is ready.
 import { ThemeToggle } from "./ThemeToggle";
 import { SiteSearch } from "./SiteSearch";
-<img src={logoAsset.url} ...>
+
 
 type ServicesMenuItem = (typeof SERVICES_MENU)[number];
 type ConditionsMenuItem = (typeof CONDITIONS_MENU)[number];
