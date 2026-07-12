@@ -52,14 +52,24 @@ export const Route = createFileRoute("/blog/")({
       ],
     };
   },
+  loader: async () => {
+    try {
+      const rows = await listPublishedBlogPosts();
+      return { dbPosts: rows.map(dbPostToBlogPost) };
+    } catch {
+      return { dbPosts: [] as BlogPost[] };
+    }
+  },
   component: BlogIndex,
 });
 
 function BlogIndex() {
+  const { dbPosts } = Route.useLoaderData();
   const [query, setQuery] = useState("");
-  const all = latestPosts();
+  const all = useMemo(() => mergeBlogPosts(latestPosts(), dbPosts), [dbPosts]);
   const featured = featuredPosts();
   const popular = popularPosts(5);
+
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
