@@ -20,8 +20,7 @@ import type { AuthChangeEvent } from "@supabase/supabase-js";
 const FONT_HREF =
   "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@500;600;700;800&display=swap";
 
-const LOGO_URL =
-  SITE_URL + "/__l5e/assets-v1/75948e0c-8e21-469d-84f9-a156e5280404/painfix-logo.png";
+const LOGO_URL = SITE_URL + "/painfix-logo.png";
 
 function NotFoundComponent() {
   return (
@@ -103,8 +102,8 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     ],
     links: [
       { rel: "stylesheet", href: appCss },
-      { rel: "icon", type: "image/png", href: "/__l5e/assets-v1/75948e0c-8e21-469d-84f9-a156e5280404/painfix-logo.png" },
-      { rel: "apple-touch-icon", href: "/__l5e/assets-v1/75948e0c-8e21-469d-84f9-a156e5280404/painfix-logo.png" },
+      { rel: "icon", type: "image/png", href: "/painfix-logo.png" },
+{ rel: "apple-touch-icon", href: "/painfix-logo.png" },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       // Preload the font CSS as a resource so it is discovered early, but load
