@@ -173,7 +173,7 @@ export function SiteSearch({ className = "" }: { className?: string }) {
     setRecent(addRecentSearch(q));
     setOpen(false);
     setQuery("");
-    navigate({ to: "/search", search: { q } });
+    navigate({ to: "/search", search: { q, cat: "all", sort: "relevance" } });
   }
 
   const hasQuery = query.trim() !== "";
