@@ -72,7 +72,9 @@ export const Route = createFileRoute("/sitemap.xml")({
           ...conditions.map((c) => ({ path: `/conditions/${c.slug}`, changefreq: "monthly" as const, priority: "0.7" })),
           ...blogCategories.map((c) => ({ path: `/blog/category/${c.slug}`, changefreq: "weekly" as const, priority: "0.6" })),
           ...blogPosts.map((p) => ({ path: `/blog/${p.slug}`, lastmod: p.updated, changefreq: "monthly" as const, priority: "0.7" })),
+          ...cmsBlogEntries,
         ];
+
 
         const urls = entries.map((e) =>
           [
