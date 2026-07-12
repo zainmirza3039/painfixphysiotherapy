@@ -66,14 +66,19 @@ export function Hero() {
         <Reveal anim="right" className="order-1 lg:order-2">
           <div className="relative mx-auto max-w-md lg:max-w-none">
             <div className="overflow-hidden rounded-[2rem] shadow-glow ring-1 ring-border">
-              <img
-                src={heroImg}
-                alt="Physiotherapist performing manual therapy on a patient at PainFix Physiotherapy Clinic in Multan"
-                width={853}
-                height={1280}
-                className="h-full w-full object-cover"
-                fetchPriority="high"
-              />
+              <picture>
+                <source type="image/avif" srcSet={HERO_AVIF_SRCSET} sizes={HERO_SIZES} />
+                <source type="image/webp" srcSet={HERO_WEBP_SRCSET} sizes={HERO_SIZES} />
+                <img
+                  src={heroImg}
+                  alt="Physiotherapist performing manual therapy on a patient at PainFix Physiotherapy Clinic in Multan"
+                  width={853}
+                  height={1280}
+                  className="h-full w-full object-cover"
+                  fetchPriority="high"
+                  decoding="async"
+                />
+              </picture>
             </div>
             {floatingCards.map((c) => (
               <div
