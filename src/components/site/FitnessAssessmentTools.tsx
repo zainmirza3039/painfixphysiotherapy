@@ -32,7 +32,11 @@ export function BodyFatEstimator() {
       <div className="mt-4 grid grid-cols-2 gap-3">
         <div className="col-span-2">
           <span className={labelClass}>Sex</span>
-          <div role="group" aria-label="Sex" className="inline-flex rounded-xl border border-border bg-background p-1">
+          <div
+            role="group"
+            aria-label="Sex"
+            className="inline-flex rounded-xl border border-border bg-background p-1"
+          >
             {(["male", "female"] as Sex[]).map((s) => (
               <button
                 key={s}
@@ -49,24 +53,57 @@ export function BodyFatEstimator() {
           </div>
         </div>
         <div>
-          <label htmlFor="bf-age" className={labelClass}>Age</label>
-          <input id="bf-age" type="number" min={0} value={age} onChange={(e) => setAge(e.target.value)} className={inputClass} placeholder="30" />
+          <label htmlFor="bf-age" className={labelClass}>
+            Age
+          </label>
+          <input
+            id="bf-age"
+            type="number"
+            min={0}
+            value={age}
+            onChange={(e) => setAge(e.target.value)}
+            className={inputClass}
+            placeholder="30"
+          />
         </div>
         <div>
-          <label htmlFor="bf-w" className={labelClass}>Weight (kg)</label>
-          <input id="bf-w" type="number" min={0} value={weight} onChange={(e) => setWeight(e.target.value)} className={inputClass} placeholder="68" />
+          <label htmlFor="bf-w" className={labelClass}>
+            Weight (kg)
+          </label>
+          <input
+            id="bf-w"
+            type="number"
+            min={0}
+            value={weight}
+            onChange={(e) => setWeight(e.target.value)}
+            className={inputClass}
+            placeholder="68"
+          />
         </div>
         <div className="col-span-2">
-          <label htmlFor="bf-h" className={labelClass}>Height (cm)</label>
-          <input id="bf-h" type="number" min={0} value={height} onChange={(e) => setHeight(e.target.value)} className={inputClass} placeholder="170" />
+          <label htmlFor="bf-h" className={labelClass}>
+            Height (cm)
+          </label>
+          <input
+            id="bf-h"
+            type="number"
+            min={0}
+            value={height}
+            onChange={(e) => setHeight(e.target.value)}
+            className={inputClass}
+            placeholder="170"
+          />
         </div>
       </div>
-      <div aria-live="polite" className="mt-4 rounded-xl bg-surface p-4 text-sm leading-relaxed text-foreground">
+      <div
+        aria-live="polite"
+        className="mt-4 rounded-xl bg-surface p-4 text-sm leading-relaxed text-foreground"
+      >
         {result ? (
           <>
-            Estimated body fat: <strong className="font-heading text-lg">{result.bf}%</strong>. This is a
-            statistical estimate from height, weight, age and sex — not a measurement. For accurate body
-            composition, a professional assessment is recommended.
+            Estimated body fat: <strong className="font-heading text-lg">{result.bf}%</strong>. This
+            is a statistical estimate from height, weight, age and sex — not a measurement. For
+            accurate body composition, a professional assessment is recommended.
           </>
         ) : (
           "Enter your details for an estimated body-fat percentage."
@@ -111,7 +148,8 @@ export function FitnessGoalForm() {
     <div className="rounded-[1.75rem] border border-border bg-card p-6 shadow-soft sm:p-8">
       <h3 className="font-heading text-lg font-bold text-foreground">Fitness Goal Questionnaire</h3>
       <p className="mt-1.5 text-sm text-muted-foreground">
-        Tell us your goals and we'll build a safe, personalised plan. Sends securely via WhatsApp — no data stored here.
+        Tell us your goals and we'll build a safe, personalised plan. Sends securely via WhatsApp —
+        no data stored here.
       </p>
 
       <fieldset className="mt-5">
@@ -158,7 +196,9 @@ export function FitnessGoalForm() {
       </fieldset>
 
       <div className="mt-5">
-        <label htmlFor="fg-notes" className={labelClass}>Anything else? (injuries, conditions, preferences)</label>
+        <label htmlFor="fg-notes" className={labelClass}>
+          Anything else? (injuries, conditions, preferences)
+        </label>
         <textarea
           id="fg-notes"
           value={notes}

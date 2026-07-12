@@ -120,9 +120,20 @@ function MediaPage() {
         description="Upload and manage images and documents."
         actions={
           <>
-            <input ref={fileInput} type="file" multiple accept="image/*,.pdf" className="hidden" onChange={handleUpload} />
+            <input
+              ref={fileInput}
+              type="file"
+              multiple
+              accept="image/*,.pdf"
+              className="hidden"
+              onChange={handleUpload}
+            />
             <Button size="sm" onClick={() => fileInput.current?.click()} disabled={uploading}>
-              {uploading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Upload className="mr-2 h-4 w-4" />}
+              {uploading ? (
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+              ) : (
+                <Upload className="mr-2 h-4 w-4" />
+              )}
               Upload
             </Button>
           </>
@@ -131,7 +142,9 @@ function MediaPage() {
 
       {isLoading ? (
         <div className="grid gap-4 sm:grid-cols-3 lg:grid-cols-4">
-          {Array.from({ length: 8 }).map((_, i) => <Skeleton key={i} className="h-40" />)}
+          {Array.from({ length: 8 }).map((_, i) => (
+            <Skeleton key={i} className="h-40" />
+          ))}
         </div>
       ) : !files?.length ? (
         <div className="flex flex-col items-center gap-2 rounded-2xl border border-border bg-card py-20 text-muted-foreground">
@@ -154,7 +167,10 @@ function MediaPage() {
           </AlertDialogHeader>
           <AlertDialogFooter>
             <AlertDialogCancel>Cancel</AlertDialogCancel>
-            <AlertDialogAction className="bg-rose-600 hover:bg-rose-700" onClick={() => deleteName && deleteMutation.mutate(deleteName)}>
+            <AlertDialogAction
+              className="bg-rose-600 hover:bg-rose-700"
+              onClick={() => deleteName && deleteMutation.mutate(deleteName)}
+            >
               Delete
             </AlertDialogAction>
           </AlertDialogFooter>
@@ -176,14 +192,23 @@ function MediaCard({ file, onDelete }: { file: MediaFile; onDelete: () => void }
     <div className="group overflow-hidden rounded-2xl border border-border bg-card shadow-soft">
       <div className="grid h-36 place-items-center overflow-hidden bg-muted">
         {file.isImage ? (
-          <img src={file.url} alt={file.name} className="h-full w-full object-cover" loading="lazy" />
+          <img
+            src={file.url}
+            alt={file.name}
+            className="h-full w-full object-cover"
+            loading="lazy"
+          />
         ) : (
           <FileText className="h-10 w-10 text-muted-foreground" />
         )}
       </div>
       <div className="p-3">
-        <p className="truncate text-xs font-medium text-foreground" title={file.label}>{file.label}</p>
-        <p className="mt-0.5 text-[11px] text-muted-foreground">{(file.size / 1024).toFixed(0)} KB</p>
+        <p className="truncate text-xs font-medium text-foreground" title={file.label}>
+          {file.label}
+        </p>
+        <p className="mt-0.5 text-[11px] text-muted-foreground">
+          {(file.size / 1024).toFixed(0)} KB
+        </p>
         <div className="mt-2 flex gap-1">
           <Button
             variant="outline"
@@ -197,7 +222,13 @@ function MediaCard({ file, onDelete }: { file: MediaFile; onDelete: () => void }
           >
             <Copy className="mr-1 h-3.5 w-3.5" /> {copied ? "Copied" : "Copy URL"}
           </Button>
-          <Button variant="ghost" size="icon" aria-label="Delete file" className="h-8 w-8 text-rose-600" onClick={onDelete}>
+          <Button
+            variant="ghost"
+            size="icon"
+            aria-label="Delete file"
+            className="h-8 w-8 text-rose-600"
+            onClick={onDelete}
+          >
             <Trash2 className="h-3.5 w-3.5" />
           </Button>
         </div>

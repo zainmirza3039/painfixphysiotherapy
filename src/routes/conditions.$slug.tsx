@@ -1,6 +1,13 @@
 import { createFileRoute, notFound, Link } from "@tanstack/react-router";
 import {
-  CheckCircle2, AlertCircle, Activity, ShieldAlert, Stethoscope, HeartPulse, TrendingUp, ArrowRight,
+  CheckCircle2,
+  AlertCircle,
+  Activity,
+  ShieldAlert,
+  Stethoscope,
+  HeartPulse,
+  TrendingUp,
+  ArrowRight,
 } from "lucide-react";
 import { getCondition, type Condition } from "@/data/conditions";
 import { serviceMap } from "@/data/services";
@@ -19,11 +26,17 @@ export const Route = createFileRoute("/conditions/$slug")({
   },
   head: ({ params, loaderData }) => {
     if (!loaderData) {
-      return { meta: [{ title: "Condition Not Found — PainFix" }, { name: "robots", content: "noindex" }] };
+      return {
+        meta: [{ title: "Condition Not Found — PainFix" }, { name: "robots", content: "noindex" }],
+      };
     }
     const path = `/conditions/${params.slug}`;
     return {
-      meta: pageMeta({ title: loaderData.metaTitle, description: loaderData.metaDescription, path }),
+      meta: pageMeta({
+        title: loaderData.metaTitle,
+        description: loaderData.metaDescription,
+        path,
+      }),
       links: canonical(path),
       scripts: [
         breadcrumbLd([
@@ -43,9 +56,14 @@ function ConditionNotFound() {
   return (
     <PageLayout>
       <section className="mx-auto max-w-3xl px-4 py-40 text-center">
-        <h1 className="font-heading text-3xl font-extrabold text-foreground">Condition not found</h1>
+        <h1 className="font-heading text-3xl font-extrabold text-foreground">
+          Condition not found
+        </h1>
         <p className="mt-3 text-muted-foreground">This condition page doesn't exist.</p>
-        <Link to="/conditions" className="mt-6 inline-flex rounded-2xl bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground">
+        <Link
+          to="/conditions"
+          className="mt-6 inline-flex rounded-2xl bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground"
+        >
           View all conditions
         </Link>
       </section>
@@ -81,10 +99,14 @@ function ConditionDetail() {
       <section className="py-14 sm:py-20">
         <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
           <Reveal anim="up">
-            <h2 className="font-heading text-2xl font-extrabold text-foreground sm:text-3xl">What is {c.title}?</h2>
+            <h2 className="font-heading text-2xl font-extrabold text-foreground sm:text-3xl">
+              What is {c.title}?
+            </h2>
             <div className="mt-5 space-y-4">
               {c.intro.map((p) => (
-                <p key={p} className="text-base leading-relaxed text-muted-foreground">{p}</p>
+                <p key={p} className="text-base leading-relaxed text-muted-foreground">
+                  {p}
+                </p>
               ))}
             </div>
           </Reveal>
@@ -98,7 +120,10 @@ function ConditionDetail() {
                   </h3>
                   <ul className="mt-4 space-y-2.5">
                     {c[b.key].map((item) => (
-                      <li key={item} className="flex items-start gap-2.5 text-sm text-muted-foreground">
+                      <li
+                        key={item}
+                        className="flex items-start gap-2.5 text-sm text-muted-foreground"
+                      >
                         <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-secondary" /> {item}
                       </li>
                     ))}
@@ -147,10 +172,15 @@ function ConditionDetail() {
                     <span className="grid h-12 w-12 place-items-center rounded-2xl bg-secondary/12 text-secondary">
                       <service.icon className="h-6 w-6" />
                     </span>
-                    <h3 className="mt-4 font-heading text-lg font-bold text-foreground">{service.title}</h3>
-                    <p className="mt-2 flex-1 text-sm leading-relaxed text-muted-foreground">{service.tagline}</p>
+                    <h3 className="mt-4 font-heading text-lg font-bold text-foreground">
+                      {service.title}
+                    </h3>
+                    <p className="mt-2 flex-1 text-sm leading-relaxed text-muted-foreground">
+                      {service.tagline}
+                    </p>
                     <span className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-primary">
-                      Learn more <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1 rtl:rotate-180" />
+                      Learn more{" "}
+                      <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1 rtl:rotate-180" />
                     </span>
                   </Link>
                 </Reveal>

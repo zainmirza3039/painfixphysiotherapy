@@ -1,14 +1,45 @@
-import { ClipboardList, Hand, FlaskConical, GraduationCap, Dumbbell, TrendingUp } from "lucide-react";
+import {
+  ClipboardList,
+  Hand,
+  FlaskConical,
+  GraduationCap,
+  Dumbbell,
+  TrendingUp,
+} from "lucide-react";
 import { Reveal } from "./Reveal";
 import { SectionHeading } from "./SectionHeading";
 
 const items = [
-  { icon: ClipboardList, title: "Comprehensive Assessment", desc: "Detailed evaluation to pinpoint the true root cause of your pain." },
-  { icon: Hand, title: "Manual Therapy", desc: "Hands-on techniques that release tension and restore mobility." },
-  { icon: FlaskConical, title: "Evidence-Based Practice", desc: "Treatments backed by the latest clinical research." },
-  { icon: GraduationCap, title: "Patient Education", desc: "Understand your condition and stay in control of your recovery." },
-  { icon: Dumbbell, title: "Personalized Exercise Programs", desc: "Tailored routines designed around your goals and lifestyle." },
-  { icon: TrendingUp, title: "Long-Term Recovery", desc: "Focused on lasting results, not temporary pain relief." },
+  {
+    icon: ClipboardList,
+    title: "Comprehensive Assessment",
+    desc: "Detailed evaluation to pinpoint the true root cause of your pain.",
+  },
+  {
+    icon: Hand,
+    title: "Manual Therapy",
+    desc: "Hands-on techniques that release tension and restore mobility.",
+  },
+  {
+    icon: FlaskConical,
+    title: "Evidence-Based Practice",
+    desc: "Treatments backed by the latest clinical research.",
+  },
+  {
+    icon: GraduationCap,
+    title: "Patient Education",
+    desc: "Understand your condition and stay in control of your recovery.",
+  },
+  {
+    icon: Dumbbell,
+    title: "Personalized Exercise Programs",
+    desc: "Tailored routines designed around your goals and lifestyle.",
+  },
+  {
+    icon: TrendingUp,
+    title: "Long-Term Recovery",
+    desc: "Focused on lasting results, not temporary pain relief.",
+  },
 ];
 
 export function WhyChooseUs() {

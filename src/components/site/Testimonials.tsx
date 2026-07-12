@@ -48,12 +48,17 @@ export function Testimonials() {
           {reviews.map((r, i) => (
             <Reveal key={r.name} anim="up" delay={(i % 3) * 90}>
               <figure className="hover-lift flex h-full flex-col rounded-[1.75rem] border border-border bg-card p-7 shadow-soft">
-                <div className="flex items-center gap-1 text-secondary" aria-label="5 out of 5 stars">
+                <div
+                  className="flex items-center gap-1 text-secondary"
+                  aria-label="5 out of 5 stars"
+                >
                   {Array.from({ length: 5 }).map((_, k) => (
                     <Star key={k} className="h-4 w-4 fill-current" />
                   ))}
                 </div>
-                <blockquote className="mt-4 flex-1 text-sm leading-relaxed text-foreground/90">"{r.text}"</blockquote>
+                <blockquote className="mt-4 flex-1 text-sm leading-relaxed text-foreground/90">
+                  "{r.text}"
+                </blockquote>
                 <figcaption className="mt-6 flex items-center gap-3">
                   <span className="grid h-10 w-10 place-items-center rounded-full bg-primary font-heading font-bold text-primary-foreground">
                     {r.initial}

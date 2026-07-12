@@ -19,12 +19,16 @@ export const Route = createFileRoute("/sitemap.xml")({
         const { blogPosts, blogCategories } = await import("@/data/blog");
         const { localPages } = await import("@/data/localPages");
         const { team } = await import("@/data/team");
-        const { dietMainPage, dietSubPages, DIET_NUTRITION_ENABLED } = await import("@/data/wellness");
+        const { dietMainPage, dietSubPages, DIET_NUTRITION_ENABLED } =
+          await import("@/data/wellness");
         const { fitnessPages } = await import("@/data/fitness");
         const { listPublishedBlogPosts } = await import("@/lib/blog.functions");
         let dbPosts: { slug: string; updated_at: string }[] = [];
         try {
-          dbPosts = (await listPublishedBlogPosts()).map((p) => ({ slug: p.slug, updated_at: p.updated_at }));
+          dbPosts = (await listPublishedBlogPosts()).map((p) => ({
+            slug: p.slug,
+            updated_at: p.updated_at,
+          }));
         } catch {
           dbPosts = [];
         }
@@ -65,16 +69,44 @@ export const Route = createFileRoute("/sitemap.xml")({
                 })),
               ]
             : []),
-          ...team.map((m) => ({ path: `/${m.slug}`, changefreq: "monthly" as const, priority: "0.8" })),
-          ...fitnessPages.map((p) => ({ path: `/fitness/${p.slug}`, changefreq: "monthly" as const, priority: "0.7" })),
-          ...localPages.map((p) => ({ path: `/${p.slug}`, changefreq: "monthly" as const, priority: "0.9" })),
-          ...services.map((s) => ({ path: `/services/${s.slug}`, changefreq: "monthly" as const, priority: "0.8" })),
-          ...conditions.map((c) => ({ path: `/conditions/${c.slug}`, changefreq: "monthly" as const, priority: "0.7" })),
-          ...blogCategories.map((c) => ({ path: `/blog/category/${c.slug}`, changefreq: "weekly" as const, priority: "0.6" })),
-          ...blogPosts.map((p) => ({ path: `/blog/${p.slug}`, lastmod: p.updated, changefreq: "monthly" as const, priority: "0.7" })),
+          ...team.map((m) => ({
+            path: `/${m.slug}`,
+            changefreq: "monthly" as const,
+            priority: "0.8",
+          })),
+          ...fitnessPages.map((p) => ({
+            path: `/fitness/${p.slug}`,
+            changefreq: "monthly" as const,
+            priority: "0.7",
+          })),
+          ...localPages.map((p) => ({
+            path: `/${p.slug}`,
+            changefreq: "monthly" as const,
+            priority: "0.9",
+          })),
+          ...services.map((s) => ({
+            path: `/services/${s.slug}`,
+            changefreq: "monthly" as const,
+            priority: "0.8",
+          })),
+          ...conditions.map((c) => ({
+            path: `/conditions/${c.slug}`,
+            changefreq: "monthly" as const,
+            priority: "0.7",
+          })),
+          ...blogCategories.map((c) => ({
+            path: `/blog/category/${c.slug}`,
+            changefreq: "weekly" as const,
+            priority: "0.6",
+          })),
+          ...blogPosts.map((p) => ({
+            path: `/blog/${p.slug}`,
+            lastmod: p.updated,
+            changefreq: "monthly" as const,
+            priority: "0.7",
+          })),
           ...cmsBlogEntries,
         ];
-
 
         const urls = entries.map((e) =>
           [

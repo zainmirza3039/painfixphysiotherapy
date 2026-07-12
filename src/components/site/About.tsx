@@ -26,7 +26,9 @@ export function About() {
             </div>
             <div className="glass absolute -bottom-6 -right-2 rounded-2xl px-6 py-4 shadow-card sm:-right-6">
               <div className="font-heading text-3xl font-extrabold text-primary">1000+</div>
-              <div className="text-xs font-medium text-muted-foreground">Patients on the road to recovery</div>
+              <div className="text-xs font-medium text-muted-foreground">
+                Patients on the road to recovery
+              </div>
             </div>
           </div>
         </Reveal>
@@ -39,11 +41,12 @@ export function About() {
             Recovery built around <span className="text-gradient">you</span>
           </h2>
           <p className="mt-5 text-base leading-relaxed text-muted-foreground">
-            PainFix Physiotherapy Clinic provides patient-centered rehabilitation using evidence-based physiotherapy.
+            PainFix Physiotherapy Clinic provides patient-centered rehabilitation using
+            evidence-based physiotherapy.
           </p>
           <p className="mt-4 text-base leading-relaxed text-muted-foreground">
-            Every patient receives a detailed assessment followed by an individualized treatment plan focused on
-            long-term recovery rather than temporary pain relief.
+            Every patient receives a detailed assessment followed by an individualized treatment
+            plan focused on long-term recovery rather than temporary pain relief.
           </p>
           <ul className="mt-7 space-y-3">
             {points.map((p) => (

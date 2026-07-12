@@ -1,13 +1,6 @@
 import { createFileRoute, Link, Navigate } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
-import {
-  Users,
-  CalendarClock,
-  Home,
-  MessageSquare,
-  ArrowRight,
-  Activity,
-} from "lucide-react";
+import { Users, CalendarClock, Home, MessageSquare, ArrowRight, Activity } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useAdminAuth } from "@/admin/AdminAuthProvider";
 import { StatCard } from "@/components/admin/StatCard";
@@ -72,10 +65,33 @@ function DashboardPage() {
         </div>
       ) : (
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          <StatCard label="Total Patients" value={data?.patientCount ?? 0} icon={<Users className="h-5 w-5" />} accent="primary" />
-          <StatCard label="Appointments Today" value={todayAppts.length} icon={<CalendarClock className="h-5 w-5" />} accent="secondary" hint={`${data?.appointments.length ?? 0} total`} />
-          <StatCard label="New Home Visits" value={newVisits.length} icon={<Home className="h-5 w-5" />} accent="amber" hint={`${data?.visits.length ?? 0} total`} />
-          <StatCard label="Unread Messages" value={unreadMessages.length} icon={<MessageSquare className="h-5 w-5" />} accent="rose" hint={`${data?.messages.length ?? 0} total`} />
+          <StatCard
+            label="Total Patients"
+            value={data?.patientCount ?? 0}
+            icon={<Users className="h-5 w-5" />}
+            accent="primary"
+          />
+          <StatCard
+            label="Appointments Today"
+            value={todayAppts.length}
+            icon={<CalendarClock className="h-5 w-5" />}
+            accent="secondary"
+            hint={`${data?.appointments.length ?? 0} total`}
+          />
+          <StatCard
+            label="New Home Visits"
+            value={newVisits.length}
+            icon={<Home className="h-5 w-5" />}
+            accent="amber"
+            hint={`${data?.visits.length ?? 0} total`}
+          />
+          <StatCard
+            label="Unread Messages"
+            value={unreadMessages.length}
+            icon={<MessageSquare className="h-5 w-5" />}
+            accent="rose"
+            hint={`${data?.messages.length ?? 0} total`}
+          />
         </div>
       )}
 
@@ -109,7 +125,10 @@ function Panel({ title, to, children }: { title: string; to: string; children: R
     <div className="rounded-2xl border border-border bg-card p-5 shadow-soft">
       <div className="mb-2 flex items-center justify-between">
         <h2 className="font-heading text-base font-bold text-foreground">{title}</h2>
-        <Link to={to} className="inline-flex items-center gap-1 text-sm font-medium text-primary hover:underline">
+        <Link
+          to={to}
+          className="inline-flex items-center gap-1 text-sm font-medium text-primary hover:underline"
+        >
           View all <ArrowRight className="h-3.5 w-3.5" />
         </Link>
       </div>

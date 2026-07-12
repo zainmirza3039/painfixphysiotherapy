@@ -1,7 +1,11 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight } from "lucide-react";
 import { conditions } from "@/data/conditions";
-import { conditionImages, conditionImageAlt, conditionImageAltFallback } from "@/data/conditionImages";
+import {
+  conditionImages,
+  conditionImageAlt,
+  conditionImageAltFallback,
+} from "@/data/conditionImages";
 import { PageLayout } from "@/components/site/PageLayout";
 import { PageHero } from "@/components/site/PageHero";
 import { PageCTA } from "@/components/site/PageCTA";
@@ -61,9 +65,12 @@ function ConditionsIndex() {
                   </div>
                   <div className="flex flex-1 flex-col p-5">
                     <h2 className="font-heading text-lg font-bold text-foreground">{c.title}</h2>
-                    <p className="mt-1.5 flex-1 text-sm leading-relaxed text-muted-foreground">{c.summary}</p>
+                    <p className="mt-1.5 flex-1 text-sm leading-relaxed text-muted-foreground">
+                      {c.summary}
+                    </p>
                     <span className="mt-3 inline-flex items-center gap-1.5 text-sm font-semibold text-primary">
-                      Learn more <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1 rtl:rotate-180" />
+                      Learn more{" "}
+                      <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1 rtl:rotate-180" />
                     </span>
                   </div>
                 </Link>

@@ -4,14 +4,17 @@ import { type BlogPost, blogCategoryMap, readingMinutes } from "@/data/blog";
 import { getTeamMember } from "@/data/team";
 import { conditionImages } from "@/data/conditionImages";
 
-const dateFmt = new Intl.DateTimeFormat("en-GB", { day: "numeric", month: "short", year: "numeric" });
+const dateFmt = new Intl.DateTimeFormat("en-GB", {
+  day: "numeric",
+  month: "short",
+  year: "numeric",
+});
 
 export function BlogCard({ post }: { post: BlogPost }) {
   const cat = blogCategoryMap[post.category];
   const reviewer = getTeamMember(post.authorKey);
   const image = post.heroImage ?? conditionImages[post.category];
   const categoryLabel = cat?.name ?? post.categoryName ?? "Article";
-
 
   return (
     <Link
@@ -34,17 +37,22 @@ export function BlogCard({ post }: { post: BlogPost }) {
       )}
       <div className="flex flex-1 flex-col p-6">
         <div className="flex flex-wrap items-center gap-2 text-xs font-semibold">
-          <span className="rounded-full bg-secondary/12 px-3 py-1 text-secondary">{categoryLabel}</span>
+          <span className="rounded-full bg-secondary/12 px-3 py-1 text-secondary">
+            {categoryLabel}
+          </span>
           <span className="inline-flex items-center gap-1 text-muted-foreground">
             <Clock className="h-3 w-3" /> {readingMinutes(post)} min read
           </span>
         </div>
-        <h3 className="mt-4 font-heading text-lg font-bold leading-snug text-foreground">{post.title}</h3>
+        <h3 className="mt-4 font-heading text-lg font-bold leading-snug text-foreground">
+          {post.title}
+        </h3>
         <p className="mt-2 flex-1 text-sm leading-relaxed text-muted-foreground">{post.excerpt}</p>
 
         <div className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-1.5 text-xs text-muted-foreground">
           <span className="inline-flex items-center gap-1">
-            <CalendarClock className="h-3.5 w-3.5" /> Updated {dateFmt.format(new Date(post.updated))}
+            <CalendarClock className="h-3.5 w-3.5" /> Updated{" "}
+            {dateFmt.format(new Date(post.updated))}
           </span>
           {reviewer && (
             <span className="inline-flex items-center gap-1">
@@ -54,7 +62,8 @@ export function BlogCard({ post }: { post: BlogPost }) {
         </div>
 
         <span className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-primary">
-          Read article <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1 rtl:rotate-180" />
+          Read article{" "}
+          <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1 rtl:rotate-180" />
         </span>
       </div>
     </Link>

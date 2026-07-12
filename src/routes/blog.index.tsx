@@ -20,7 +20,6 @@ import { dbPostToBlogPost, mergeBlogPosts } from "@/lib/dbBlog";
 import { pageMeta, canonical, breadcrumbLd } from "@/lib/seo";
 import { SITE_URL } from "@/components/site/constants";
 
-
 export const Route = createFileRoute("/blog/")({
   head: () => {
     const path = "/blog";
@@ -69,7 +68,6 @@ function BlogIndex() {
   const all = useMemo(() => mergeBlogPosts(latestPosts(), dbPosts), [dbPosts]);
   const featured = featuredPosts();
   const popular = popularPosts(5);
-
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
@@ -153,7 +151,9 @@ function BlogIndex() {
                 {query ? `Results (${filtered.length})` : "Latest Articles"}
               </h2>
               {filtered.length === 0 ? (
-                <p className="mt-6 text-muted-foreground">No articles match your search. Try another term.</p>
+                <p className="mt-6 text-muted-foreground">
+                  No articles match your search. Try another term.
+                </p>
               ) : (
                 <div className="mt-6 grid gap-5 sm:grid-cols-2">
                   {filtered.map((p, i) => (
@@ -174,11 +174,7 @@ function BlogIndex() {
                 <ul className="mt-4 space-y-4">
                   {popular.map((p) => (
                     <li key={p.slug}>
-                      <Link
-                        to="/blog/$slug"
-                        params={{ slug: p.slug }}
-                        className="group block"
-                      >
+                      <Link to="/blog/$slug" params={{ slug: p.slug }} className="group block">
                         <span className="font-medium text-foreground transition-colors group-hover:text-primary">
                           {p.title}
                         </span>

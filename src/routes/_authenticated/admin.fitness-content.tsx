@@ -9,11 +9,7 @@ import { AdminPageHeader } from "@/components/admin/AdminPageHeader";
 import { ContentOnly } from "@/components/admin/ContentOnly";
 import { useAdminAuth } from "@/admin/AdminAuthProvider";
 import { fmtDate, slugify } from "@/admin/utils";
-import {
-  FITNESS_CONTENT_TYPES,
-  FITNESS_TYPE_LABELS,
-  fitnessTypeLabel,
-} from "@/lib/fitnessContent";
+import { FITNESS_CONTENT_TYPES, FITNESS_TYPE_LABELS, fitnessTypeLabel } from "@/lib/fitnessContent";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";

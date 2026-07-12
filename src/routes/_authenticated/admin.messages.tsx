@@ -12,12 +12,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -90,7 +85,9 @@ function MessagesPage() {
     const q = search.trim().toLowerCase();
     if (!q) return rows ?? [];
     return (rows ?? []).filter((r) =>
-      [r.name, r.email, r.phone, r.message].filter(Boolean).some((v) => String(v).toLowerCase().includes(q)),
+      [r.name, r.email, r.phone, r.message]
+        .filter(Boolean)
+        .some((v) => String(v).toLowerCase().includes(q)),
     );
   }, [rows, search]);
 
@@ -126,13 +123,20 @@ function MessagesPage() {
 
       <div className="relative mb-4 max-w-sm">
         <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-        <Input className="pl-9" placeholder="Search messages…" value={search} onChange={(e) => setSearch(e.target.value)} />
+        <Input
+          className="pl-9"
+          placeholder="Search messages…"
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+        />
       </div>
 
       <div className="overflow-hidden rounded-2xl border border-border bg-card shadow-soft">
         {isLoading ? (
           <div className="space-y-2 p-4">
-            {Array.from({ length: 5 }).map((_, i) => <Skeleton key={i} className="h-12" />)}
+            {Array.from({ length: 5 }).map((_, i) => (
+              <Skeleton key={i} className="h-12" />
+            ))}
           </div>
         ) : filtered.length === 0 ? (
           <div className="flex flex-col items-center gap-2 py-16 text-muted-foreground">
@@ -153,29 +157,55 @@ function MessagesPage() {
               </TableHeader>
               <TableBody>
                 {filtered.map((m) => (
-                  <TableRow key={m.id} className={(m.status ?? "new") === "new" ? "font-medium" : ""}>
+                  <TableRow
+                    key={m.id}
+                    className={(m.status ?? "new") === "new" ? "font-medium" : ""}
+                  >
                     <TableCell>
                       <div className="text-foreground">{m.name}</div>
-                      <div className="text-xs text-muted-foreground">{m.email ?? m.phone ?? ""}</div>
+                      <div className="text-xs text-muted-foreground">
+                        {m.email ?? m.phone ?? ""}
+                      </div>
                     </TableCell>
-                    <TableCell className="max-w-[280px] truncate text-muted-foreground">{m.message}</TableCell>
-                    <TableCell className="text-muted-foreground">{fmtDateTime(m.created_at)}</TableCell>
+                    <TableCell className="max-w-[280px] truncate text-muted-foreground">
+                      {m.message}
+                    </TableCell>
+                    <TableCell className="text-muted-foreground">
+                      {fmtDateTime(m.created_at)}
+                    </TableCell>
                     <TableCell>
                       <Select value={m.status ?? "new"} onValueChange={(s) => updateStatus(m, s)}>
                         <SelectTrigger className="h-8 w-[120px]">
-                          <Badge variant="secondary" className={statusColor(m.status ?? "new")}>{m.status ?? "new"}</Badge>
+                          <Badge variant="secondary" className={statusColor(m.status ?? "new")}>
+                            {m.status ?? "new"}
+                          </Badge>
                         </SelectTrigger>
                         <SelectContent>
-                          {STATUSES.map((s) => <SelectItem key={s} value={s}>{s}</SelectItem>)}
+                          {STATUSES.map((s) => (
+                            <SelectItem key={s} value={s}>
+                              {s}
+                            </SelectItem>
+                          ))}
                         </SelectContent>
                       </Select>
                     </TableCell>
                     <TableCell className="text-right">
                       <div className="flex justify-end gap-1">
-                        <Button variant="ghost" size="icon" aria-label="View message" onClick={() => openMessage(m)}>
+                        <Button
+                          variant="ghost"
+                          size="icon"
+                          aria-label="View message"
+                          onClick={() => openMessage(m)}
+                        >
                           <Eye className="h-4 w-4" />
                         </Button>
-                        <Button variant="ghost" size="icon" aria-label="Delete message" className="text-rose-600" onClick={() => setDeleteId(m.id)}>
+                        <Button
+                          variant="ghost"
+                          size="icon"
+                          aria-label="Delete message"
+                          className="text-rose-600"
+                          onClick={() => setDeleteId(m.id)}
+                        >
                           <Trash2 className="h-4 w-4" />
                         </Button>
                       </div>
@@ -195,17 +225,25 @@ function MessagesPage() {
           </DialogHeader>
           {selected && (
             <div className="space-y-4">
-              <p className="whitespace-pre-wrap rounded-xl bg-muted p-4 text-sm text-foreground">{selected.message}</p>
-              <p className="text-xs text-muted-foreground">Received {fmtDateTime(selected.created_at)}</p>
+              <p className="whitespace-pre-wrap rounded-xl bg-muted p-4 text-sm text-foreground">
+                {selected.message}
+              </p>
+              <p className="text-xs text-muted-foreground">
+                Received {fmtDateTime(selected.created_at)}
+              </p>
               <div className="flex flex-wrap gap-2">
                 {selected.email && (
                   <Button asChild size="sm" variant="secondary">
-                    <a href={`mailto:${selected.email}`}><Mail className="mr-2 h-4 w-4" /> Reply by email</a>
+                    <a href={`mailto:${selected.email}`}>
+                      <Mail className="mr-2 h-4 w-4" /> Reply by email
+                    </a>
                   </Button>
                 )}
                 {selected.phone && (
                   <Button asChild size="sm" variant="outline">
-                    <a href={`tel:${selected.phone}`}><Phone className="mr-2 h-4 w-4" /> Call</a>
+                    <a href={`tel:${selected.phone}`}>
+                      <Phone className="mr-2 h-4 w-4" /> Call
+                    </a>
                   </Button>
                 )}
               </div>
@@ -222,7 +260,10 @@ function MessagesPage() {
           </AlertDialogHeader>
           <AlertDialogFooter>
             <AlertDialogCancel>Cancel</AlertDialogCancel>
-            <AlertDialogAction className="bg-rose-600 hover:bg-rose-700" onClick={() => deleteId && deleteMutation.mutate(deleteId)}>
+            <AlertDialogAction
+              className="bg-rose-600 hover:bg-rose-700"
+              onClick={() => deleteId && deleteMutation.mutate(deleteId)}
+            >
               Delete
             </AlertDialogAction>
           </AlertDialogFooter>

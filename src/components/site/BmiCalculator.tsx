@@ -74,7 +74,10 @@ export function BmiCalculator({ compact = false }: { compact?: boolean }) {
       <div className="mt-5 grid gap-4 sm:grid-cols-2">
         {unit === "cm" ? (
           <div>
-            <label htmlFor="bmi-cm" className="mb-1.5 block text-xs font-semibold text-muted-foreground">
+            <label
+              htmlFor="bmi-cm"
+              className="mb-1.5 block text-xs font-semibold text-muted-foreground"
+            >
               Height (cm)
             </label>
             <input
@@ -91,7 +94,10 @@ export function BmiCalculator({ compact = false }: { compact?: boolean }) {
         ) : (
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label htmlFor="bmi-ft" className="mb-1.5 block text-xs font-semibold text-muted-foreground">
+              <label
+                htmlFor="bmi-ft"
+                className="mb-1.5 block text-xs font-semibold text-muted-foreground"
+              >
                 Height (ft)
               </label>
               <input
@@ -106,7 +112,10 @@ export function BmiCalculator({ compact = false }: { compact?: boolean }) {
               />
             </div>
             <div>
-              <label htmlFor="bmi-in" className="mb-1.5 block text-xs font-semibold text-muted-foreground">
+              <label
+                htmlFor="bmi-in"
+                className="mb-1.5 block text-xs font-semibold text-muted-foreground"
+              >
                 Inches
               </label>
               <input
@@ -124,7 +133,10 @@ export function BmiCalculator({ compact = false }: { compact?: boolean }) {
         )}
 
         <div>
-          <label htmlFor="bmi-weight" className="mb-1.5 block text-xs font-semibold text-muted-foreground">
+          <label
+            htmlFor="bmi-weight"
+            className="mb-1.5 block text-xs font-semibold text-muted-foreground"
+          >
             Weight (kg)
           </label>
           <input
@@ -164,7 +176,11 @@ export function BmiCalculator({ compact = false }: { compact?: boolean }) {
               <div className="relative h-3 w-full overflow-hidden rounded-full">
                 <div className="flex h-full w-full">
                   {BMI_BANDS.map((b) => (
-                    <div key={b.key} className="h-full flex-1" style={{ backgroundColor: b.color }} />
+                    <div
+                      key={b.key}
+                      className="h-full flex-1"
+                      style={{ backgroundColor: b.color }}
+                    />
                   ))}
                 </div>
               </div>
@@ -189,16 +205,14 @@ export function BmiCalculator({ compact = false }: { compact?: boolean }) {
             </div>
 
             <p className="mt-4 rounded-xl bg-surface p-4 text-xs leading-relaxed text-muted-foreground">
-              BMI (Body Mass Index) is a screening estimate based on height and weight using the World
-              Health Organisation categories. It does not measure body fat, muscle mass or overall
-              health, and can read high for muscular or athletic builds. Use it as a general guide, not
-              a diagnosis. For a personalised assessment, speak to our physiotherapists.
+              BMI (Body Mass Index) is a screening estimate based on height and weight using the
+              World Health Organisation categories. It does not measure body fat, muscle mass or
+              overall health, and can read high for muscular or athletic builds. Use it as a general
+              guide, not a diagnosis. For a personalised assessment, speak to our physiotherapists.
             </p>
 
             <div className="mt-4 rounded-2xl border border-secondary/25 bg-secondary/5 p-4">
-              <p className="text-sm font-semibold text-foreground">
-                Need personalised guidance?
-              </p>
+              <p className="text-sm font-semibold text-foreground">Need personalised guidance?</p>
               <p className="mt-1 text-xs leading-relaxed text-muted-foreground">
                 Chat with our Physiotherapy team on WhatsApp for a plan built around your result.
               </p>

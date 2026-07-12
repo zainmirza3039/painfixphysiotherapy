@@ -17,7 +17,11 @@ export function ThemeToggle({ className = "" }: { className?: string }) {
       title={label}
       className={`grid h-10 w-10 place-items-center rounded-xl border border-border bg-background text-foreground transition-colors hover:bg-accent hover:text-primary ${className}`}
     >
-      {isDark ? <Sun className="h-5 w-5" aria-hidden="true" /> : <Moon className="h-5 w-5" aria-hidden="true" />}
+      {isDark ? (
+        <Sun className="h-5 w-5" aria-hidden="true" />
+      ) : (
+        <Moon className="h-5 w-5" aria-hidden="true" />
+      )}
     </button>
   );
 }

@@ -17,7 +17,8 @@ export function CTA() {
               Ready to Begin Your Recovery?
             </h2>
             <p className="relative mx-auto mt-4 max-w-xl text-base text-primary-foreground/80">
-              Take the first step toward a stronger, pain-free life. Our team is ready to help you move better.
+              Take the first step toward a stronger, pain-free life. Our team is ready to help you
+              move better.
             </p>
             <div className="relative mt-8 flex flex-wrap justify-center gap-3">
               <button

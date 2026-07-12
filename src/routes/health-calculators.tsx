@@ -98,9 +98,9 @@ function HealthCalculatorsPage() {
             >
               <Info className="mt-0.5 h-5 w-5 shrink-0 text-primary" />
               <p className="leading-relaxed">
-                These calculators provide general educational estimates only and are not a substitute
-                for professional medical or dietary advice. Personalised diet plans will be available
-                from a qualified dietitian once they join PainFix.
+                These calculators provide general educational estimates only and are not a
+                substitute for professional medical or dietary advice. Personalised diet plans will
+                be available from a qualified dietitian once they join PainFix.
               </p>
             </div>
           </Reveal>

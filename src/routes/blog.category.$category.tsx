@@ -4,7 +4,13 @@ import { PageHero } from "@/components/site/PageHero";
 import { PageCTA } from "@/components/site/PageCTA";
 import { Reveal } from "@/components/site/Reveal";
 import { BlogCard } from "@/components/site/BlogCard";
-import { blogCategoryMap, blogCategories, postsByCategory, type BlogPost, type BlogCategory } from "@/data/blog";
+import {
+  blogCategoryMap,
+  blogCategories,
+  postsByCategory,
+  type BlogPost,
+  type BlogCategory,
+} from "@/data/blog";
 import { listPublishedBlogPosts } from "@/lib/blog.functions";
 import { dbPostToBlogPost, mergeBlogPosts } from "@/lib/dbBlog";
 import { pageMeta, canonical, breadcrumbLd } from "@/lib/seo";
@@ -25,7 +31,9 @@ export const Route = createFileRoute("/blog/category/$category")({
 
   head: ({ params, loaderData }) => {
     if (!loaderData) {
-      return { meta: [{ title: "Category Not Found — PainFix" }, { name: "robots", content: "noindex" }] };
+      return {
+        meta: [{ title: "Category Not Found — PainFix" }, { name: "robots", content: "noindex" }],
+      };
     }
     const { category } = loaderData;
     const path = `/blog/category/${params.category}`;
@@ -54,7 +62,10 @@ function CategoryNotFound() {
     <PageLayout>
       <section className="mx-auto max-w-3xl px-4 py-40 text-center">
         <h1 className="font-heading text-3xl font-extrabold text-foreground">Category not found</h1>
-        <Link to="/blog" className="mt-6 inline-flex rounded-2xl bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground">
+        <Link
+          to="/blog"
+          className="mt-6 inline-flex rounded-2xl bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground"
+        >
           Back to blog
         </Link>
       </section>
@@ -63,7 +74,10 @@ function CategoryNotFound() {
 }
 
 function BlogCategoryPage() {
-  const { category, posts } = Route.useLoaderData() as { category: BlogCategory; posts: BlogPost[] };
+  const { category, posts } = Route.useLoaderData() as {
+    category: BlogCategory;
+    posts: BlogPost[];
+  };
 
   return (
     <PageLayout>
@@ -102,7 +116,10 @@ function BlogCategoryPage() {
           {posts.length === 0 ? (
             <p className="mt-12 text-center text-muted-foreground">
               No articles in this category yet. Explore{" "}
-              <Link to="/blog" className="font-semibold text-primary">all articles</Link>.
+              <Link to="/blog" className="font-semibold text-primary">
+                all articles
+              </Link>
+              .
             </p>
           ) : (
             <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">

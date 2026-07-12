@@ -52,7 +52,10 @@ export function Process() {
                 <span className="grid h-12 w-12 place-items-center rounded-2xl bg-secondary/12 text-secondary">
                   <s.icon className="h-6 w-6" aria-hidden="true" />
                 </span>
-                <span className="font-heading text-2xl font-extrabold text-border" aria-hidden="true">
+                <span
+                  className="font-heading text-2xl font-extrabold text-border"
+                  aria-hidden="true"
+                >
                   {s.n}
                 </span>
               </div>

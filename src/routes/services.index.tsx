@@ -9,7 +9,6 @@ import { PageCTA } from "@/components/site/PageCTA";
 import { Reveal } from "@/components/site/Reveal";
 import { pageMeta, canonical, breadcrumbLd } from "@/lib/seo";
 
-
 const TITLE = "Physiotherapy Services in Multan | PainFix Clinic";
 const DESCRIPTION =
   "Explore our full range of physiotherapy services in Multan — manual therapy, exercise therapy, electrotherapy, sports rehab, home physiotherapy and more.";
@@ -49,8 +48,12 @@ function ServicesIndex() {
                   <span className="grid h-14 w-14 place-items-center rounded-2xl bg-secondary/12 text-secondary">
                     <service.icon className="h-7 w-7" />
                   </span>
-                  <h2 className="mt-5 font-heading text-xl font-bold text-foreground">{service.title}</h2>
-                  <p className="mt-2 flex-1 text-sm leading-relaxed text-muted-foreground">{service.tagline}</p>
+                  <h2 className="mt-5 font-heading text-xl font-bold text-foreground">
+                    {service.title}
+                  </h2>
+                  <p className="mt-2 flex-1 text-sm leading-relaxed text-muted-foreground">
+                    {service.tagline}
+                  </p>
                   <div className="mt-5 flex flex-wrap items-center gap-2.5">
                     <Link
                       to="/services/$slug"
@@ -89,7 +92,9 @@ function ServicesIndex() {
                     )}
                   </div>
                   <h2 className="mt-5 font-heading text-xl font-bold text-foreground">{c.title}</h2>
-                  <p className="mt-2 flex-1 text-sm leading-relaxed text-muted-foreground">{c.tagline}</p>
+                  <p className="mt-2 flex-1 text-sm leading-relaxed text-muted-foreground">
+                    {c.tagline}
+                  </p>
                   <div className="mt-5 flex flex-wrap items-center gap-2.5">
                     <Link
                       to={c.to}
@@ -113,7 +118,6 @@ function ServicesIndex() {
             ))}
           </div>
         </div>
-
       </section>
       <PageCTA />
     </PageLayout>

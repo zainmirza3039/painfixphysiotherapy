@@ -35,7 +35,10 @@ export function RelatedConditions({
                     <div className="aspect-[16/9] overflow-hidden bg-surface">
                       <img
                         src={image}
-                        alt={conditionImageAlt[condition.slug] ?? `${condition.title} physiotherapy treatment in Multan`}
+                        alt={
+                          conditionImageAlt[condition.slug] ??
+                          `${condition.title} physiotherapy treatment in Multan`
+                        }
                         loading="lazy"
                         decoding="async"
                         width={700}
@@ -45,10 +48,15 @@ export function RelatedConditions({
                     </div>
                   )}
                   <div className="flex flex-1 flex-col p-6">
-                    <h3 className="font-heading text-lg font-bold text-foreground">{condition.title}</h3>
-                    <p className="mt-2 flex-1 text-sm leading-relaxed text-muted-foreground">{condition.summary}</p>
+                    <h3 className="font-heading text-lg font-bold text-foreground">
+                      {condition.title}
+                    </h3>
+                    <p className="mt-2 flex-1 text-sm leading-relaxed text-muted-foreground">
+                      {condition.summary}
+                    </p>
                     <span className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-primary">
-                      Learn more <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1 rtl:rotate-180" />
+                      Learn more{" "}
+                      <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1 rtl:rotate-180" />
                     </span>
                   </div>
                 </Link>

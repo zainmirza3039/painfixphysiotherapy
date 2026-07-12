@@ -29,7 +29,10 @@ export function AuthorCard({ authorKey, updated }: { authorKey: string; updated?
       <p className="mt-4 text-sm leading-relaxed text-muted-foreground">{member.bio}</p>
       <div className="mt-4 flex flex-wrap gap-2">
         {member.specialties.map((s) => (
-          <span key={s} className="inline-flex items-center gap-1 rounded-full bg-accent px-3 py-1 text-xs font-medium text-accent-foreground">
+          <span
+            key={s}
+            className="inline-flex items-center gap-1 rounded-full bg-accent px-3 py-1 text-xs font-medium text-accent-foreground"
+          >
             <Stethoscope className="h-3 w-3" /> {s}
           </span>
         ))}
@@ -39,12 +42,17 @@ export function AuthorCard({ authorKey, updated }: { authorKey: string; updated?
         aria-label={`View full profile of ${member.name}, physiotherapist in Multan`}
         className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-primary after:absolute after:inset-0 after:rounded-[1.75rem] after:content-[''] focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
       >
-        View full profile <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1 rtl:rotate-180" />
+        View full profile{" "}
+        <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1 rtl:rotate-180" />
       </a>
       {updated && (
         <p className="mt-4 border-t border-border pt-3 text-xs text-muted-foreground">
           Last reviewed and updated:{" "}
-          {new Date(updated).toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" })}
+          {new Date(updated).toLocaleDateString("en-GB", {
+            day: "numeric",
+            month: "long",
+            year: "numeric",
+          })}
         </p>
       )}
     </div>

@@ -95,9 +95,12 @@ function FitnessResources() {
 
       <section className="py-14 sm:py-20">
         <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
-          <h2 className="font-heading text-2xl font-extrabold text-foreground sm:text-3xl">Exercise & Recovery Guides</h2>
+          <h2 className="font-heading text-2xl font-extrabold text-foreground sm:text-3xl">
+            Exercise & Recovery Guides
+          </h2>
           <p className="mt-2 text-sm text-muted-foreground">
-            Practical, evidence-informed guidance. These tips are general — for pain or injury, get a personalised assessment.
+            Practical, evidence-informed guidance. These tips are general — for pain or injury, get
+            a personalised assessment.
           </p>
           <div className="mt-8">
             <FaqAccordion faqs={GUIDES} />
@@ -132,12 +135,15 @@ function FitnessResources() {
                 <span className="grid h-11 w-11 place-items-center rounded-2xl bg-primary/10 text-primary">
                   <Calculator className="h-5 w-5" />
                 </span>
-                <h3 className="mt-4 font-heading text-lg font-bold text-foreground">Health Calculators</h3>
+                <h3 className="mt-4 font-heading text-lg font-bold text-foreground">
+                  Health Calculators
+                </h3>
                 <p className="mt-2 flex-1 text-sm text-muted-foreground">
                   Free BMI, calorie, protein and water-intake calculators.
                 </p>
                 <span className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-primary">
-                  Open calculators <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                  Open calculators{" "}
+                  <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
                 </span>
               </Link>
             </Reveal>
@@ -149,12 +155,15 @@ function FitnessResources() {
                 <span className="grid h-11 w-11 place-items-center rounded-2xl bg-secondary/12 text-secondary">
                   <BookOpen className="h-5 w-5" />
                 </span>
-                <h3 className="mt-4 font-heading text-lg font-bold text-foreground">Fitness Assessment</h3>
+                <h3 className="mt-4 font-heading text-lg font-bold text-foreground">
+                  Fitness Assessment
+                </h3>
                 <p className="mt-2 flex-1 text-sm text-muted-foreground">
                   Check your BMI, estimate body fat and set your goals.
                 </p>
                 <span className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-primary">
-                  Start assessment <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                  Start assessment{" "}
+                  <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
                 </span>
               </Link>
             </Reveal>

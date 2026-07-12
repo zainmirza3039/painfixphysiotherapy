@@ -57,8 +57,8 @@ export function ContactForm() {
         </span>
         <h4 className="mt-4 font-heading text-lg font-bold text-foreground">Thank you!</h4>
         <p className="mt-2 max-w-sm text-sm text-muted-foreground">
-          Your message has been received. Our team will get back to you shortly. If we've helped you,
-          we'd love a quick review of your experience.
+          Your message has been received. Our team will get back to you shortly. If we've helped
+          you, we'd love a quick review of your experience.
         </p>
         <div className="mt-6 flex flex-wrap justify-center gap-3">
           <GoogleReviewButton variant="solid" />
@@ -129,7 +129,11 @@ export function ContactForm() {
         />
       </div>
       {/* Honeypot: visually hidden, ignored by humans, filled by bots */}
-      <div aria-hidden className="absolute left-[-9999px] top-[-9999px] h-0 w-0 overflow-hidden" tabIndex={-1}>
+      <div
+        aria-hidden
+        className="absolute left-[-9999px] top-[-9999px] h-0 w-0 overflow-hidden"
+        tabIndex={-1}
+      >
         <label htmlFor="c-website">Website</label>
         <input
           id="c-website"

@@ -14,7 +14,14 @@ interface PageHeroProps {
   showActions?: boolean;
 }
 
-export function PageHero({ eyebrow, title, subtitle, crumbs, icon, showActions = true }: PageHeroProps) {
+export function PageHero({
+  eyebrow,
+  title,
+  subtitle,
+  crumbs,
+  icon,
+  showActions = true,
+}: PageHeroProps) {
   return (
     <section className="relative overflow-hidden border-b border-border bg-surface pt-28 pb-12 sm:pt-36 sm:pb-16">
       <div className="pointer-events-none absolute -top-24 right-0 h-[24rem] w-[24rem] rounded-full bg-secondary/12 blur-3xl" />

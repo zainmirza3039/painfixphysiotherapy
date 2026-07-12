@@ -47,7 +47,9 @@ function ReportsPage() {
       <div>
         <AdminPageHeader title="Reports" description="Clinic performance at a glance." />
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {Array.from({ length: 4 }).map((_, i) => <Skeleton key={i} className="h-28" />)}
+          {Array.from({ length: 4 }).map((_, i) => (
+            <Skeleton key={i} className="h-28" />
+          ))}
         </div>
       </div>
     );
@@ -64,10 +66,31 @@ function ReportsPage() {
       <AdminPageHeader title="Reports" description="Clinic performance at a glance." />
 
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        <StatCard label="Total Patients" value={data.patients.length} icon={<Users className="h-5 w-5" />} accent="primary" />
-        <StatCard label="Total Appointments" value={data.appts.length} icon={<CalendarClock className="h-5 w-5" />} accent="secondary" />
-        <StatCard label="Home Visit Requests" value={data.visits.length} icon={<Home className="h-5 w-5" />} accent="amber" />
-        <StatCard label="Blog Views" value={totalViews} icon={<Newspaper className="h-5 w-5" />} accent="rose" hint={`${publishedPosts} published`} />
+        <StatCard
+          label="Total Patients"
+          value={data.patients.length}
+          icon={<Users className="h-5 w-5" />}
+          accent="primary"
+        />
+        <StatCard
+          label="Total Appointments"
+          value={data.appts.length}
+          icon={<CalendarClock className="h-5 w-5" />}
+          accent="secondary"
+        />
+        <StatCard
+          label="Home Visit Requests"
+          value={data.visits.length}
+          icon={<Home className="h-5 w-5" />}
+          accent="amber"
+        />
+        <StatCard
+          label="Blog Views"
+          value={totalViews}
+          icon={<Newspaper className="h-5 w-5" />}
+          accent="rose"
+          hint={`${publishedPosts} published`}
+        />
       </div>
 
       <div className="mt-8 grid gap-6 lg:grid-cols-3">
@@ -79,7 +102,15 @@ function ReportsPage() {
   );
 }
 
-function BreakdownCard({ title, data, color }: { title: string; data: Record<string, number>; color: string }) {
+function BreakdownCard({
+  title,
+  data,
+  color,
+}: {
+  title: string;
+  data: Record<string, number>;
+  color: string;
+}) {
   const entries = Object.entries(data).sort((a, b) => b[1] - a[1]);
   const max = Math.max(1, ...entries.map(([, v]) => v));
   return (
@@ -99,7 +130,10 @@ function BreakdownCard({ title, data, color }: { title: string; data: Record<str
                 <span className="font-semibold text-muted-foreground">{value}</span>
               </div>
               <div className="h-2 overflow-hidden rounded-full bg-muted">
-                <div className={`h-full rounded-full ${color}`} style={{ width: `${(value / max) * 100}%` }} />
+                <div
+                  className={`h-full rounded-full ${color}`}
+                  style={{ width: `${(value / max) * 100}%` }}
+                />
               </div>
             </li>
           ))}

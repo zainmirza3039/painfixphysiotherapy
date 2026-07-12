@@ -39,13 +39,7 @@ export function fitnessTypeLabel(type: string): string {
   return FITNESS_TYPE_LABELS[type as FitnessContentType] ?? type;
 }
 
-export const CALCULATOR_KEYS = [
-  "bmi",
-  "calorie",
-  "water",
-  "protein",
-  "ideal_weight",
-] as const;
+export const CALCULATOR_KEYS = ["bmi", "calorie", "water", "protein", "ideal_weight"] as const;
 
 export type CalculatorKey = (typeof CALCULATOR_KEYS)[number];
 

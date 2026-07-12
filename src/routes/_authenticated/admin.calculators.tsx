@@ -98,10 +98,7 @@ function CalculatorsPage() {
             const setField = (field: keyof Draft, value: string) =>
               setDrafts((prev) => ({ ...prev, [key]: { ...prev[key], [field]: value } }));
             return (
-              <div
-                key={key}
-                className="rounded-2xl border border-border bg-card p-5 shadow-soft"
-              >
+              <div key={key} className="rounded-2xl border border-border bg-card p-5 shadow-soft">
                 <div className="mb-4 flex items-center gap-2.5">
                   <span className="grid h-9 w-9 place-items-center rounded-xl bg-secondary/10 text-secondary">
                     <Calculator className="h-4.5 w-4.5" />

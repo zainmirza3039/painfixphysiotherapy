@@ -97,7 +97,9 @@ function SettingsPage() {
 
       {isLoading ? (
         <div className="max-w-2xl space-y-4">
-          {Array.from({ length: 6 }).map((_, i) => <Skeleton key={i} className="h-14" />)}
+          {Array.from({ length: 6 }).map((_, i) => (
+            <Skeleton key={i} className="h-14" />
+          ))}
         </div>
       ) : (
         <form
@@ -109,7 +111,10 @@ function SettingsPage() {
         >
           <div className="grid gap-4 sm:grid-cols-2">
             {FIELDS.map((f) => (
-              <div key={f.key} className={`space-y-1.5 ${f.key === "address" ? "sm:col-span-2" : ""}`}>
+              <div
+                key={f.key}
+                className={`space-y-1.5 ${f.key === "address" ? "sm:col-span-2" : ""}`}
+              >
                 <Label>{f.label}</Label>
                 <Input
                   value={form[f.key]}
@@ -120,7 +125,11 @@ function SettingsPage() {
           </div>
           <div className="mt-6 flex justify-end">
             <Button type="submit" disabled={saveMutation.isPending}>
-              {saveMutation.isPending ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Save className="mr-2 h-4 w-4" />}
+              {saveMutation.isPending ? (
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+              ) : (
+                <Save className="mr-2 h-4 w-4" />
+              )}
               Save settings
             </Button>
           </div>

@@ -8,12 +8,10 @@ export function Newsletter() {
         <Mail className="h-4 w-4 text-secondary" /> Health Tips Newsletter
       </div>
       <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-        Get evidence-based physiotherapy tips and recovery guides from PainFix Physiotherapy Clinic, Multan.
+        Get evidence-based physiotherapy tips and recovery guides from PainFix Physiotherapy Clinic,
+        Multan.
       </p>
-      <form
-        className="mt-4 flex flex-col gap-2 sm:flex-row"
-        onSubmit={(e) => e.preventDefault()}
-      >
+      <form className="mt-4 flex flex-col gap-2 sm:flex-row" onSubmit={(e) => e.preventDefault()}>
         <label htmlFor="newsletter-email" className="sr-only">
           Email address
         </label>

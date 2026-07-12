@@ -22,10 +22,7 @@ export function pageMeta({ title, description, path, type = "website", image }: 
     { name: "twitter:description", content: description },
   ];
   if (image) {
-    meta.push(
-      { property: "og:image", content: image },
-      { name: "twitter:image", content: image },
-    );
+    meta.push({ property: "og:image", content: image }, { name: "twitter:image", content: image });
   }
   return meta;
 }

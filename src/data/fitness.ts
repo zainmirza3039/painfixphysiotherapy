@@ -90,15 +90,36 @@ const services: FitnessPage[] = [
       "People wanting a realistic, guided long-term approach",
     ],
     features: [
-      { title: "Graded Exercise Plan", description: "Low-impact, joint-friendly activity that builds up safely at your pace." },
-      { title: "Strength Foundations", description: "Simple strengthening to boost metabolism and protect your joints." },
-      { title: "Lifestyle Habits", description: "Practical, realistic guidance on daily activity and routine." },
-      { title: "Progress Tracking", description: "Regular check-ins so your plan keeps working as you improve." },
+      {
+        title: "Graded Exercise Plan",
+        description: "Low-impact, joint-friendly activity that builds up safely at your pace.",
+      },
+      {
+        title: "Strength Foundations",
+        description: "Simple strengthening to boost metabolism and protect your joints.",
+      },
+      {
+        title: "Lifestyle Habits",
+        description: "Practical, realistic guidance on daily activity and routine.",
+      },
+      {
+        title: "Progress Tracking",
+        description: "Regular check-ins so your plan keeps working as you improve.",
+      },
     ],
     faqs: [
-      { q: "Do you use crash diets?", a: "No. We focus on safe, gradual, sustainable changes you can maintain. Personalised diet plans will be available from a qualified dietitian once they join PainFix." },
-      { q: "Can losing weight help my joint pain?", a: "Reducing excess weight lowers load on the knees, hips and spine, which can ease pain and improve mobility." },
-      { q: "Is exercise safe if I'm very unfit?", a: "Yes — every programme starts at your level after an assessment and is progressed gradually and safely." },
+      {
+        q: "Do you use crash diets?",
+        a: "No. We focus on safe, gradual, sustainable changes you can maintain. Personalised diet plans will be available from a qualified dietitian once they join PainFix.",
+      },
+      {
+        q: "Can losing weight help my joint pain?",
+        a: "Reducing excess weight lowers load on the knees, hips and spine, which can ease pain and improve mobility.",
+      },
+      {
+        q: "Is exercise safe if I'm very unfit?",
+        a: "Yes — every programme starts at your level after an assessment and is progressed gradually and safely.",
+      },
       WHATSAPP_FAQ,
     ],
     relatedServiceSlugs: ["exercise-therapy", "pain-management"],
@@ -129,18 +150,43 @@ const services: FitnessPage[] = [
       "Athletes wanting structured conditioning",
     ],
     features: [
-      { title: "Movement Assessment", description: "We assess strength and technique before loading anything." },
-      { title: "Progressive Overload", description: "Structured, gradual progression for steady, safe gains." },
-      { title: "Technique Coaching", description: "Correct form to build strength without injury." },
-      { title: "Home & Gym Options", description: "Programmes for the gym or minimal home equipment." },
+      {
+        title: "Movement Assessment",
+        description: "We assess strength and technique before loading anything.",
+      },
+      {
+        title: "Progressive Overload",
+        description: "Structured, gradual progression for steady, safe gains.",
+      },
+      {
+        title: "Technique Coaching",
+        description: "Correct form to build strength without injury.",
+      },
+      {
+        title: "Home & Gym Options",
+        description: "Programmes for the gym or minimal home equipment.",
+      },
     ],
     faqs: [
-      { q: "Will I get injured lifting weights?", a: "Not when it's programmed and coached correctly. We assess your movement, teach technique and progress load gradually to keep you safe." },
-      { q: "Do I need a gym?", a: "No — we can design effective programmes for the gym or for home with minimal equipment." },
-      { q: "Is strength training safe for older adults?", a: "Yes. Progressive strength training is one of the most beneficial and evidence-based activities for older adults." },
+      {
+        q: "Will I get injured lifting weights?",
+        a: "Not when it's programmed and coached correctly. We assess your movement, teach technique and progress load gradually to keep you safe.",
+      },
+      {
+        q: "Do I need a gym?",
+        a: "No — we can design effective programmes for the gym or for home with minimal equipment.",
+      },
+      {
+        q: "Is strength training safe for older adults?",
+        a: "Yes. Progressive strength training is one of the most beneficial and evidence-based activities for older adults.",
+      },
       WHATSAPP_FAQ,
     ],
-    relatedServiceSlugs: ["exercise-therapy", "sports-rehabilitation", "post-surgical-rehabilitation"],
+    relatedServiceSlugs: [
+      "exercise-therapy",
+      "sports-rehabilitation",
+      "post-surgical-rehabilitation",
+    ],
     relatedArticleCategories: ["exercise-therapy", "sports-performance"],
   },
   {
@@ -168,9 +214,18 @@ const services: FitnessPage[] = [
       "Those wanting accountability and structure",
     ],
     faqs: [
-      { q: "I've never exercised before — is this for me?", a: "Absolutely. Coaching starts from your current level and builds up gradually, with clear guidance every step." },
-      { q: "How often would I train?", a: "Typically 2–4 sessions a week, tailored to your goals, schedule and recovery." },
-      { q: "Can I train at home?", a: "Yes — we provide clear home programmes alongside any in-clinic sessions." },
+      {
+        q: "I've never exercised before — is this for me?",
+        a: "Absolutely. Coaching starts from your current level and builds up gradually, with clear guidance every step.",
+      },
+      {
+        q: "How often would I train?",
+        a: "Typically 2–4 sessions a week, tailored to your goals, schedule and recovery.",
+      },
+      {
+        q: "Can I train at home?",
+        a: "Yes — we provide clear home programmes alongside any in-clinic sessions.",
+      },
       WHATSAPP_FAQ,
     ],
     relatedServiceSlugs: ["exercise-therapy", "posture-ergonomic-assessment"],
@@ -201,9 +256,18 @@ const services: FitnessPage[] = [
       "Anyone maintaining fitness between clinic visits",
     ],
     faqs: [
-      { q: "Do I need equipment?", a: "No — programmes can use just your bodyweight, or simple items like resistance bands and light weights if you have them." },
-      { q: "How do I know I'm doing it right?", a: "We provide clear instructions and can review your technique on WhatsApp or in an online session." },
-      { q: "Will a home workout really work?", a: "Yes. A well-designed, progressive home programme can build real strength and fitness." },
+      {
+        q: "Do I need equipment?",
+        a: "No — programmes can use just your bodyweight, or simple items like resistance bands and light weights if you have them.",
+      },
+      {
+        q: "How do I know I'm doing it right?",
+        a: "We provide clear instructions and can review your technique on WhatsApp or in an online session.",
+      },
+      {
+        q: "Will a home workout really work?",
+        a: "Yes. A well-designed, progressive home programme can build real strength and fitness.",
+      },
       WHATSAPP_FAQ,
     ],
     relatedServiceSlugs: ["exercise-therapy"],
@@ -234,9 +298,18 @@ const services: FitnessPage[] = [
       "Anyone wanting expert oversight remotely",
     ],
     faqs: [
-      { q: "How does online coaching work?", a: "After a remote assessment we send a personalised programme, then support you with video check-ins and messaging to review progress and technique." },
-      { q: "Can you coach me from another city or country?", a: "Yes — online coaching works anywhere with an internet connection." },
-      { q: "Is it as effective as in-person?", a: "For most fitness goals, well-structured online coaching is highly effective. Some conditions still benefit from hands-on assessment, which we'll advise on." },
+      {
+        q: "How does online coaching work?",
+        a: "After a remote assessment we send a personalised programme, then support you with video check-ins and messaging to review progress and technique.",
+      },
+      {
+        q: "Can you coach me from another city or country?",
+        a: "Yes — online coaching works anywhere with an internet connection.",
+      },
+      {
+        q: "Is it as effective as in-person?",
+        a: "For most fitness goals, well-structured online coaching is highly effective. Some conditions still benefit from hands-on assessment, which we'll advise on.",
+      },
       WHATSAPP_FAQ,
     ],
     relatedServiceSlugs: ["exercise-therapy"],
@@ -267,15 +340,36 @@ const services: FitnessPage[] = [
       "Anyone recovering strength after illness",
     ],
     features: [
-      { title: "Balance Training", description: "Evidence-based exercises to improve stability and reduce fall risk." },
-      { title: "Gentle Strengthening", description: "Safe resistance work to protect muscle and bone." },
-      { title: "Mobility Work", description: "Keep joints comfortable and movement easy for daily life." },
-      { title: "Confidence Building", description: "Supervised, reassuring sessions at a comfortable pace." },
+      {
+        title: "Balance Training",
+        description: "Evidence-based exercises to improve stability and reduce fall risk.",
+      },
+      {
+        title: "Gentle Strengthening",
+        description: "Safe resistance work to protect muscle and bone.",
+      },
+      {
+        title: "Mobility Work",
+        description: "Keep joints comfortable and movement easy for daily life.",
+      },
+      {
+        title: "Confidence Building",
+        description: "Supervised, reassuring sessions at a comfortable pace.",
+      },
     ],
     faqs: [
-      { q: "Is exercise safe at my age?", a: "Yes — appropriate, supervised exercise is one of the best things for healthy ageing. Everything is assessed and tailored to you." },
-      { q: "What if I have arthritis or other conditions?", a: "We adapt every programme around your conditions to keep it safe and comfortable." },
-      { q: "Can this help prevent falls?", a: "Balance and strength training are proven to help reduce fall risk in older adults." },
+      {
+        q: "Is exercise safe at my age?",
+        a: "Yes — appropriate, supervised exercise is one of the best things for healthy ageing. Everything is assessed and tailored to you.",
+      },
+      {
+        q: "What if I have arthritis or other conditions?",
+        a: "We adapt every programme around your conditions to keep it safe and comfortable.",
+      },
+      {
+        q: "Can this help prevent falls?",
+        a: "Balance and strength training are proven to help reduce fall risk in older adults.",
+      },
       WHATSAPP_FAQ,
     ],
     relatedServiceSlugs: ["exercise-therapy", "geriatric-physiotherapy", "pain-management"],
@@ -306,9 +400,18 @@ const services: FitnessPage[] = [
       "Anyone with muscle imbalances or weakness",
     ],
     faqs: [
-      { q: "How do you know what to correct?", a: "We start with a detailed movement and posture assessment to identify the specific imbalances or faults driving your problem." },
-      { q: "How long until I notice a difference?", a: "Many people feel improvements within a few weeks, with lasting change over consistent training." },
-      { q: "Is this the same as regular exercise?", a: "No — it's specifically targeted to your assessment findings, rather than general fitness work." },
+      {
+        q: "How do you know what to correct?",
+        a: "We start with a detailed movement and posture assessment to identify the specific imbalances or faults driving your problem.",
+      },
+      {
+        q: "How long until I notice a difference?",
+        a: "Many people feel improvements within a few weeks, with lasting change over consistent training.",
+      },
+      {
+        q: "Is this the same as regular exercise?",
+        a: "No — it's specifically targeted to your assessment findings, rather than general fitness work.",
+      },
       WHATSAPP_FAQ,
     ],
     relatedServiceSlugs: ["exercise-therapy", "posture-ergonomic-assessment", "manual-therapy"],
@@ -341,14 +444,32 @@ const mobility: FitnessPage[] = [
     ],
     featuresHeading: "What Mobility Work Can Cover",
     features: [
-      { title: "Mobility Assessment", description: "We measure your movement and identify restricted or stiff areas." },
-      { title: "Stretching Programmes", description: "Safe, effective stretching routines tailored to you." },
-      { title: "Posture Correction", description: "Correct posture habits that cause stiffness and pain." },
-      { title: "Desk Worker Mobility", description: "Quick routines to counter long hours of sitting." },
-      { title: "Back Pain Prevention", description: "Exercises to keep your spine mobile and resilient." },
+      {
+        title: "Mobility Assessment",
+        description: "We measure your movement and identify restricted or stiff areas.",
+      },
+      {
+        title: "Stretching Programmes",
+        description: "Safe, effective stretching routines tailored to you.",
+      },
+      {
+        title: "Posture Correction",
+        description: "Correct posture habits that cause stiffness and pain.",
+      },
+      {
+        title: "Desk Worker Mobility",
+        description: "Quick routines to counter long hours of sitting.",
+      },
+      {
+        title: "Back Pain Prevention",
+        description: "Exercises to keep your spine mobile and resilient.",
+      },
       { title: "Neck Mobility", description: "Gentle work to ease tech-neck and stiffness." },
       { title: "Shoulder Mobility", description: "Restore reach and comfort in stiff shoulders." },
-      { title: "Hip & Lower Limb Mobility", description: "Free up hips, knees and ankles for easier movement." },
+      {
+        title: "Hip & Lower Limb Mobility",
+        description: "Free up hips, knees and ankles for easier movement.",
+      },
     ],
     whoCanBenefit: [
       "Desk workers and students with stiffness",
@@ -357,9 +478,18 @@ const mobility: FitnessPage[] = [
       "Anyone recovering movement after injury",
     ],
     faqs: [
-      { q: "Is stretching enough to fix stiffness?", a: "Stretching helps, but lasting mobility usually needs a mix of mobility drills, strengthening and posture work — which we combine based on your assessment." },
-      { q: "Can mobility work help my back or neck pain?", a: "Often yes. Improving mobility and posture can reduce strain and ease many types of back and neck discomfort." },
-      { q: "How often should I do mobility work?", a: "Short daily routines work best. We'll give you a simple, realistic plan." },
+      {
+        q: "Is stretching enough to fix stiffness?",
+        a: "Stretching helps, but lasting mobility usually needs a mix of mobility drills, strengthening and posture work — which we combine based on your assessment.",
+      },
+      {
+        q: "Can mobility work help my back or neck pain?",
+        a: "Often yes. Improving mobility and posture can reduce strain and ease many types of back and neck discomfort.",
+      },
+      {
+        q: "How often should I do mobility work?",
+        a: "Short daily routines work best. We'll give you a simple, realistic plan.",
+      },
       WHATSAPP_FAQ,
     ],
     relatedServiceSlugs: ["exercise-therapy", "posture-ergonomic-assessment", "manual-therapy"],
@@ -397,8 +527,14 @@ const injuryPrevention: FitnessPage[] = [
       "Anyone wanting to train without setbacks",
     ],
     faqs: [
-      { q: "I keep getting minor injuries — can you help?", a: "Yes. We assess your technique, mobility and weak links, then build a plan to reduce recurring injuries." },
-      { q: "Do you review lifting technique?", a: "Yes, in person or via video for online clients." },
+      {
+        q: "I keep getting minor injuries — can you help?",
+        a: "Yes. We assess your technique, mobility and weak links, then build a plan to reduce recurring injuries.",
+      },
+      {
+        q: "Do you review lifting technique?",
+        a: "Yes, in person or via video for online clients.",
+      },
       WHATSAPP_FAQ,
     ],
     relatedServiceSlugs: ["sports-rehabilitation", "exercise-therapy"],
@@ -429,8 +565,14 @@ const injuryPrevention: FitnessPage[] = [
       "Anyone training for a race or event",
     ],
     faqs: [
-      { q: "Why do runners keep getting injured?", a: "Most running injuries relate to training load and strength deficits. We address both to keep you running." },
-      { q: "Can you help me return after injury?", a: "Yes — we build a graded return-to-running plan tailored to you." },
+      {
+        q: "Why do runners keep getting injured?",
+        a: "Most running injuries relate to training load and strength deficits. We address both to keep you running.",
+      },
+      {
+        q: "Can you help me return after injury?",
+        a: "Yes — we build a graded return-to-running plan tailored to you.",
+      },
       WHATSAPP_FAQ,
     ],
     relatedServiceSlugs: ["sports-rehabilitation", "exercise-therapy"],
@@ -461,8 +603,14 @@ const injuryPrevention: FitnessPage[] = [
       "Players returning from injury",
     ],
     faqs: [
-      { q: "Why are fast bowlers prone to back injury?", a: "The repetitive, high-load bowling action stresses the lower back. Targeted conditioning and load management help reduce this risk." },
-      { q: "Do you work with young cricketers?", a: "Yes — with age-appropriate, safe programming and load guidance." },
+      {
+        q: "Why are fast bowlers prone to back injury?",
+        a: "The repetitive, high-load bowling action stresses the lower back. Targeted conditioning and load management help reduce this risk.",
+      },
+      {
+        q: "Do you work with young cricketers?",
+        a: "Yes — with age-appropriate, safe programming and load guidance.",
+      },
       WHATSAPP_FAQ,
     ],
     relatedServiceSlugs: ["sports-rehabilitation", "exercise-therapy"],
@@ -493,11 +641,21 @@ const injuryPrevention: FitnessPage[] = [
       "Athletes returning after injury",
     ],
     faqs: [
-      { q: "Can you help reduce hamstring injuries?", a: "Yes — evidence-based eccentric strengthening and load management significantly reduce hamstring injury risk." },
-      { q: "Do you help after an ACL injury?", a: "We support graded rehabilitation and return-to-sport conditioning in coordination with your surgeon where needed." },
+      {
+        q: "Can you help reduce hamstring injuries?",
+        a: "Yes — evidence-based eccentric strengthening and load management significantly reduce hamstring injury risk.",
+      },
+      {
+        q: "Do you help after an ACL injury?",
+        a: "We support graded rehabilitation and return-to-sport conditioning in coordination with your surgeon where needed.",
+      },
       WHATSAPP_FAQ,
     ],
-    relatedServiceSlugs: ["sports-rehabilitation", "exercise-therapy", "post-surgical-rehabilitation"],
+    relatedServiceSlugs: [
+      "sports-rehabilitation",
+      "exercise-therapy",
+      "post-surgical-rehabilitation",
+    ],
     relatedArticleCategories: ["sports-injuries", "sports-performance"],
   },
   {
@@ -525,8 +683,14 @@ const injuryPrevention: FitnessPage[] = [
       "People returning to activity",
     ],
     faqs: [
-      { q: "How long should a warm-up be?", a: "Around 5–10 minutes is enough for most activities — longer for intense sport." },
-      { q: "Should I stretch before exercise?", a: "Favour dynamic movements before activity. Long static stretches are better afterwards." },
+      {
+        q: "How long should a warm-up be?",
+        a: "Around 5–10 minutes is enough for most activities — longer for intense sport.",
+      },
+      {
+        q: "Should I stretch before exercise?",
+        a: "Favour dynamic movements before activity. Long static stretches are better afterwards.",
+      },
       WHATSAPP_FAQ,
     ],
     relatedServiceSlugs: ["exercise-therapy", "sports-rehabilitation"],
@@ -557,8 +721,14 @@ const injuryPrevention: FitnessPage[] = [
       "Athletes managing recovery",
     ],
     faqs: [
-      { q: "Does cooling down prevent soreness?", a: "It won't eliminate muscle soreness, but gentle cooling down and stretching can help you feel less stiff and ease back to rest." },
-      { q: "What should a cool-down include?", a: "A few minutes of light activity followed by gentle static stretching of the muscles you used." },
+      {
+        q: "Does cooling down prevent soreness?",
+        a: "It won't eliminate muscle soreness, but gentle cooling down and stretching can help you feel less stiff and ease back to rest.",
+      },
+      {
+        q: "What should a cool-down include?",
+        a: "A few minutes of light activity followed by gentle static stretching of the muscles you used.",
+      },
       WHATSAPP_FAQ,
     ],
     relatedServiceSlugs: ["exercise-therapy", "sports-rehabilitation"],
@@ -590,18 +760,31 @@ const injuryPrevention: FitnessPage[] = [
     ],
     journeyHeading: "Your Return-to-Sport Pathway",
     journey: [
-      { title: "Assessment", description: "Evaluate strength, movement and readiness after injury." },
+      {
+        title: "Assessment",
+        description: "Evaluate strength, movement and readiness after injury.",
+      },
       { title: "Rebuild", description: "Restore strength, mobility and control progressively." },
       { title: "Sport-Specific", description: "Add sport-specific drills, agility and power." },
       { title: "Testing", description: "Meet clear return-to-sport criteria before progressing." },
       { title: "Return", description: "Graded return to training and competition." },
     ],
     faqs: [
-      { q: "When can I return to sport?", a: "When you meet clear strength, control and confidence milestones — not just by a set date. This reduces re-injury risk." },
-      { q: "Do you work with surgeons?", a: "Yes, we coordinate with your surgeon's protocol where surgery was involved." },
+      {
+        q: "When can I return to sport?",
+        a: "When you meet clear strength, control and confidence milestones — not just by a set date. This reduces re-injury risk.",
+      },
+      {
+        q: "Do you work with surgeons?",
+        a: "Yes, we coordinate with your surgeon's protocol where surgery was involved.",
+      },
       WHATSAPP_FAQ,
     ],
-    relatedServiceSlugs: ["sports-rehabilitation", "post-surgical-rehabilitation", "exercise-therapy"],
+    relatedServiceSlugs: [
+      "sports-rehabilitation",
+      "post-surgical-rehabilitation",
+      "exercise-therapy",
+    ],
     relatedArticleCategories: ["sports-injuries", "recovery-tips"],
   },
 ];
@@ -635,7 +818,10 @@ const programmes: FitnessPage[] = [
       "Anyone wanting safe, guided momentum",
     ],
     faqs: [
-      { q: "Is 4 weeks enough to lose weight?", a: "Four weeks builds momentum and habits. Sustainable weight change continues beyond that — we help you keep going safely." },
+      {
+        q: "Is 4 weeks enough to lose weight?",
+        a: "Four weeks builds momentum and habits. Sustainable weight change continues beyond that — we help you keep going safely.",
+      },
       { q: "Do I need a gym?", a: "No — it can be done at home or in a gym." },
       { q: "Is it safe for me?", a: ADAPT_NOTE },
       WHATSAPP_FAQ,
@@ -668,7 +854,10 @@ const programmes: FitnessPage[] = [
     ],
     faqs: [
       { q: "How long does each day take?", a: "Most daily routines take around 10–15 minutes." },
-      { q: "Will it help my stiffness?", a: "Consistent daily mobility work is one of the best ways to reduce stiffness and improve range of motion." },
+      {
+        q: "Will it help my stiffness?",
+        a: "Consistent daily mobility work is one of the best ways to reduce stiffness and improve range of motion.",
+      },
       { q: "Is it right for me?", a: ADAPT_NOTE },
       WHATSAPP_FAQ,
     ],
@@ -699,8 +888,14 @@ const programmes: FitnessPage[] = [
       "Anyone wanting a structured recovery plan",
     ],
     faqs: [
-      { q: "Is exercise safe with back pain?", a: "For most back pain, appropriate graded exercise is safe and helpful. We assess you first and adapt the plan to your situation." },
-      { q: "What if my pain is severe?", a: "Please get assessed first. Certain symptoms need in-person evaluation before starting — message us and we'll advise." },
+      {
+        q: "Is exercise safe with back pain?",
+        a: "For most back pain, appropriate graded exercise is safe and helpful. We assess you first and adapt the plan to your situation.",
+      },
+      {
+        q: "What if my pain is severe?",
+        a: "Please get assessed first. Certain symptoms need in-person evaluation before starting — message us and we'll advise.",
+      },
       { q: "Is it right for me?", a: ADAPT_NOTE },
       WHATSAPP_FAQ,
     ],
@@ -731,8 +926,14 @@ const programmes: FitnessPage[] = [
       "Anyone with desk-related aches",
     ],
     faqs: [
-      { q: "Can I do this at my desk?", a: "Yes — many routines are designed for short breaks at or near your desk." },
-      { q: "Will it help my neck and back?", a: "Improving posture, mobility and strength commonly reduces desk-related neck and back strain." },
+      {
+        q: "Can I do this at my desk?",
+        a: "Yes — many routines are designed for short breaks at or near your desk.",
+      },
+      {
+        q: "Will it help my neck and back?",
+        a: "Improving posture, mobility and strength commonly reduces desk-related neck and back strain.",
+      },
       { q: "Is it right for me?", a: ADAPT_NOTE },
       WHATSAPP_FAQ,
     ],
@@ -763,8 +964,14 @@ const programmes: FitnessPage[] = [
       "Those rebuilding strength after illness",
     ],
     faqs: [
-      { q: "Is it safe for someone with health conditions?", a: "We adapt the programme around your conditions. Please get assessed first so we can make it safe for you." },
-      { q: "How gentle is it?", a: "It starts gently and progresses at a pace that's comfortable and safe for you." },
+      {
+        q: "Is it safe for someone with health conditions?",
+        a: "We adapt the programme around your conditions. Please get assessed first so we can make it safe for you.",
+      },
+      {
+        q: "How gentle is it?",
+        a: "It starts gently and progresses at a pace that's comfortable and safe for you.",
+      },
       { q: "Is it right for me?", a: ADAPT_NOTE },
       WHATSAPP_FAQ,
     ],

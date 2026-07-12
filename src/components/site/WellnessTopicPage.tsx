@@ -40,10 +40,10 @@ export function WellnessTopicPage({ page, crumbs, comingSoon = false }: Wellness
               >
                 <Info className="mt-0.5 h-5 w-5 shrink-0 text-primary" />
                 <p className="text-sm leading-relaxed text-foreground">
-                  <strong className="font-semibold">Launching soon.</strong> Our Diet &amp; Nutrition
-                  service will be delivered by a qualified dietitian who is joining PainFix shortly.
-                  Message us on WhatsApp to register your interest and we&apos;ll contact you as soon
-                  as it&apos;s available.
+                  <strong className="font-semibold">Launching soon.</strong> Our Diet &amp;
+                  Nutrition service will be delivered by a qualified dietitian who is joining
+                  PainFix shortly. Message us on WhatsApp to register your interest and we&apos;ll
+                  contact you as soon as it&apos;s available.
                 </p>
               </div>
             </Reveal>
@@ -63,14 +63,17 @@ export function WellnessTopicPage({ page, crumbs, comingSoon = false }: Wellness
         <section className="bg-surface py-14 sm:py-20">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <h2 className="flex items-center justify-center gap-2 text-center font-heading text-2xl font-extrabold text-foreground sm:text-3xl">
-              <Sparkles className="h-6 w-6 text-primary" /> {page.featuresHeading ?? "What We Offer"}
+              <Sparkles className="h-6 w-6 text-primary" />{" "}
+              {page.featuresHeading ?? "What We Offer"}
             </h2>
             <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
               {page.features.map((f, i) => (
                 <Reveal key={f.title} anim="up" delay={(i % 3) * 70}>
                   <div className="hover-lift h-full rounded-[1.75rem] border border-border bg-card p-6 shadow-soft">
                     <h3 className="font-heading text-lg font-bold text-foreground">{f.title}</h3>
-                    <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{f.description}</p>
+                    <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                      {f.description}
+                    </p>
                   </div>
                 </Reveal>
               ))}
@@ -115,7 +118,9 @@ export function WellnessTopicPage({ page, crumbs, comingSoon = false }: Wellness
                       {i + 1}
                     </span>
                     <h3 className="mt-4 font-heading font-bold text-foreground">{step.title}</h3>
-                    <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{step.description}</p>
+                    <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                      {step.description}
+                    </p>
                   </li>
                 </Reveal>
               ))}

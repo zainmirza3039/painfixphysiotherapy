@@ -81,11 +81,16 @@ export function HomeBmi() {
                     </span>
                   )}
                 </div>
-                <h3 className="mt-4 font-heading text-sm font-bold text-foreground">{tool.title}</h3>
+                <h3 className="mt-4 font-heading text-sm font-bold text-foreground">
+                  {tool.title}
+                </h3>
                 <p className="mt-1 text-xs leading-relaxed text-muted-foreground">{tool.text}</p>
                 <span className="mt-auto pt-3 inline-flex items-center gap-1 text-xs font-semibold text-primary">
                   {tool.featured ? "Try it below" : "Open tool"}
-                  <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" aria-hidden="true" />
+                  <ArrowRight
+                    className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5"
+                    aria-hidden="true"
+                  />
                 </span>
               </>
             );
@@ -100,10 +105,7 @@ export function HomeBmi() {
                     {inner}
                   </a>
                 ) : (
-                  <Link
-                    to="/health-calculators"
-                    className={`${cardBase} border-border bg-card`}
-                  >
+                  <Link to="/health-calculators" className={`${cardBase} border-border bg-card`}>
                     {inner}
                   </Link>
                 )}

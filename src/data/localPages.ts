@@ -84,8 +84,19 @@ export const localPages: LocalPage[] = [
       "home-physiotherapy",
       "pain-management",
     ],
-    conditionSlugs: ["back-pain", "neck-pain", "sciatica", "frozen-shoulder", "knee-pain", "sports-injuries"],
-    blogSlugs: ["can-physiotherapy-avoid-surgery", "how-many-physiotherapy-sessions-needed", "causes-of-back-pain"],
+    conditionSlugs: [
+      "back-pain",
+      "neck-pain",
+      "sciatica",
+      "frozen-shoulder",
+      "knee-pain",
+      "sports-injuries",
+    ],
+    blogSlugs: [
+      "can-physiotherapy-avoid-surgery",
+      "how-many-physiotherapy-sessions-needed",
+      "causes-of-back-pain",
+    ],
     faqs: [
       {
         q: "Who is the best physiotherapist in Multan?",
@@ -127,7 +138,7 @@ export const localPages: LocalPage[] = [
       {
         heading: "What makes PainFix one of the best physiotherapy clinics in Multan?",
         paragraphs: [
-          "Being the \"best\" physiotherapist is about outcomes, not slogans. PainFix is chosen by patients across Multan because every treatment plan is grounded in evidence, tailored to the individual, and focused on restoring lasting function — supported by a 4.9★ Google rating from genuine patients.",
+          'Being the "best" physiotherapist is about outcomes, not slogans. PainFix is chosen by patients across Multan because every treatment plan is grounded in evidence, tailored to the individual, and focused on restoring lasting function — supported by a 4.9★ Google rating from genuine patients.',
         ],
         list: [
           "DPT-qualified clinicians with real clinical experience",
@@ -158,8 +169,19 @@ export const localPages: LocalPage[] = [
       "stroke-rehabilitation",
       "pain-management",
     ],
-    conditionSlugs: ["back-pain", "sciatica", "frozen-shoulder", "knee-pain", "sports-injuries", "stroke-rehabilitation"],
-    blogSlugs: ["best-physiotherapist-in-multan", "how-physiotherapy-helps-sciatica", "can-physiotherapy-avoid-surgery"],
+    conditionSlugs: [
+      "back-pain",
+      "sciatica",
+      "frozen-shoulder",
+      "knee-pain",
+      "sports-injuries",
+      "stroke-rehabilitation",
+    ],
+    blogSlugs: [
+      "best-physiotherapist-in-multan",
+      "how-physiotherapy-helps-sciatica",
+      "can-physiotherapy-avoid-surgery",
+    ],
     faqs: [
       {
         q: "Why is PainFix considered among the best physiotherapists in Multan?",
@@ -232,7 +254,14 @@ export const localPages: LocalPage[] = [
       "post-surgical-rehabilitation",
       "home-physiotherapy",
     ],
-    conditionSlugs: ["back-pain", "neck-pain", "sciatica", "knee-pain", "osteoarthritis", "plantar-fasciitis"],
+    conditionSlugs: [
+      "back-pain",
+      "neck-pain",
+      "sciatica",
+      "knee-pain",
+      "osteoarthritis",
+      "plantar-fasciitis",
+    ],
     blogSlugs: ["home-physiotherapy-benefits", "office-ergonomics", "recovery-tips"],
     faqs: [
       {

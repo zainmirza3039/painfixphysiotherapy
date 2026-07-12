@@ -98,14 +98,46 @@ export const fitnessPage: WellnessPage = {
   ],
   featuresHeading: "What Your Programme Can Include",
   features: [
-    { title: "Personalised Fitness Programmes", description: "Individually designed exercise plans matched to your body, goals and current fitness level." },
-    { title: "Corrective Exercise", description: "Targeted movements that correct muscle imbalances, weakness and faulty movement patterns." },
-    { title: "Functional Training", description: "Real-life movement training so you move, lift and work with less pain and more confidence." },
-    { title: "Injury Prevention", description: "Screening and conditioning to reduce your risk of injury and recurring problems." },
-    { title: "Strength & Conditioning", description: "Progressive, evidence-based strengthening to rebuild power, stability and endurance." },
-    { title: "Mobility Training", description: "Flexibility and joint-mobility work to restore a full, comfortable range of motion." },
-    { title: "Posture Improvement", description: "Postural correction for desk workers, students and anyone with tech-neck or back strain." },
-    { title: "Home Exercise Programmes", description: "Clear, guided home routines so your progress continues safely between clinic visits." },
+    {
+      title: "Personalised Fitness Programmes",
+      description:
+        "Individually designed exercise plans matched to your body, goals and current fitness level.",
+    },
+    {
+      title: "Corrective Exercise",
+      description:
+        "Targeted movements that correct muscle imbalances, weakness and faulty movement patterns.",
+    },
+    {
+      title: "Functional Training",
+      description:
+        "Real-life movement training so you move, lift and work with less pain and more confidence.",
+    },
+    {
+      title: "Injury Prevention",
+      description:
+        "Screening and conditioning to reduce your risk of injury and recurring problems.",
+    },
+    {
+      title: "Strength & Conditioning",
+      description:
+        "Progressive, evidence-based strengthening to rebuild power, stability and endurance.",
+    },
+    {
+      title: "Mobility Training",
+      description:
+        "Flexibility and joint-mobility work to restore a full, comfortable range of motion.",
+    },
+    {
+      title: "Posture Improvement",
+      description:
+        "Postural correction for desk workers, students and anyone with tech-neck or back strain.",
+    },
+    {
+      title: "Home Exercise Programmes",
+      description:
+        "Clear, guided home routines so your progress continues safely between clinic visits.",
+    },
   ],
   whoCanBenefit: [
     "People recovering from injury, surgery or long inactivity",
@@ -115,18 +147,48 @@ export const fitnessPage: WellnessPage = {
   ],
   journeyHeading: "Your Fitness & Rehabilitation Journey",
   journey: [
-    { title: "Assessment", description: "A detailed evaluation of your strength, movement, posture and history." },
-    { title: "Goal Setting", description: "We agree clear, realistic goals based on your needs and lifestyle." },
-    { title: "Personalised Programme", description: "A graded, individualised exercise plan built specifically for you." },
-    { title: "Progress Monitoring", description: "Guided sessions with regular tracking to ensure safe progression." },
-    { title: "Reassessment", description: "We re-test and adjust your programme so you keep improving." },
+    {
+      title: "Assessment",
+      description: "A detailed evaluation of your strength, movement, posture and history.",
+    },
+    {
+      title: "Goal Setting",
+      description: "We agree clear, realistic goals based on your needs and lifestyle.",
+    },
+    {
+      title: "Personalised Programme",
+      description: "A graded, individualised exercise plan built specifically for you.",
+    },
+    {
+      title: "Progress Monitoring",
+      description: "Guided sessions with regular tracking to ensure safe progression.",
+    },
+    {
+      title: "Reassessment",
+      description: "We re-test and adjust your programme so you keep improving.",
+    },
   ],
   faqs: [
-    { q: "Who designs and supervises the programme?", a: "Your programme is designed and supervised by our qualified physiotherapists, Dr. Zain Ul Abideen and Dr. Jalal Ud Din, based on a full assessment — not a generic template." },
-    { q: "Do I need to be fit already to start?", a: "No. Programmes begin at your current level and are progressed gradually and safely, whether you are recovering from injury or building general fitness." },
-    { q: "Is this different from a normal gym plan?", a: "Yes. Every plan is based on a clinical assessment of your movement, strength and any injuries, so it is safe, targeted and specific to you." },
-    { q: "Can I continue the exercises at home?", a: "Absolutely — we provide a clear home exercise programme with guidance so you can keep progressing between clinic sessions." },
-    { q: "How soon will I see results?", a: "Most people feel stronger and move more comfortably within 2–4 weeks of consistent training, with lasting gains over the following weeks." },
+    {
+      q: "Who designs and supervises the programme?",
+      a: "Your programme is designed and supervised by our qualified physiotherapists, Dr. Zain Ul Abideen and Dr. Jalal Ud Din, based on a full assessment — not a generic template.",
+    },
+    {
+      q: "Do I need to be fit already to start?",
+      a: "No. Programmes begin at your current level and are progressed gradually and safely, whether you are recovering from injury or building general fitness.",
+    },
+    {
+      q: "Is this different from a normal gym plan?",
+      a: "Yes. Every plan is based on a clinical assessment of your movement, strength and any injuries, so it is safe, targeted and specific to you.",
+    },
+    {
+      q: "Can I continue the exercises at home?",
+      a: "Absolutely — we provide a clear home exercise programme with guidance so you can keep progressing between clinic sessions.",
+    },
+    {
+      q: "How soon will I see results?",
+      a: "Most people feel stronger and move more comfortably within 2–4 weeks of consistent training, with lasting gains over the following weeks.",
+    },
   ],
   relatedServiceSlugs: [
     "exercise-therapy",
@@ -135,7 +197,13 @@ export const fitnessPage: WellnessPage = {
     "posture-ergonomic-assessment",
     "pain-management",
   ],
-  relatedArticleCategories: ["exercise-therapy", "sports-performance", "sports-injuries", "posture", "recovery-tips"],
+  relatedArticleCategories: [
+    "exercise-therapy",
+    "sports-performance",
+    "sports-injuries",
+    "posture",
+    "recovery-tips",
+  ],
 };
 
 /* -------------------------------------------------------------------------- */
@@ -161,10 +229,23 @@ export const dietMainPage: WellnessPage = {
   ],
   featuresHeading: "Our Diet & Nutrition Approach",
   features: [
-    { title: "Personalised Diet Plans", description: "Individual plans built around your goals, health, preferences and daily routine." },
-    { title: "Nutrition Counselling", description: "One-to-one guidance to understand your needs and build sustainable habits." },
-    { title: "Healthy Lifestyle Guidance", description: "Practical advice on balanced eating, hydration and everyday routines." },
-    { title: "Recovery-Focused Nutrition", description: "Nutrition that supports healing, energy and physiotherapy outcomes." },
+    {
+      title: "Personalised Diet Plans",
+      description:
+        "Individual plans built around your goals, health, preferences and daily routine.",
+    },
+    {
+      title: "Nutrition Counselling",
+      description: "One-to-one guidance to understand your needs and build sustainable habits.",
+    },
+    {
+      title: "Healthy Lifestyle Guidance",
+      description: "Practical advice on balanced eating, hydration and everyday routines.",
+    },
+    {
+      title: "Recovery-Focused Nutrition",
+      description: "Nutrition that supports healing, energy and physiotherapy outcomes.",
+    },
   ],
   whoCanBenefit: [
     "People wanting to manage their weight healthily",
@@ -173,10 +254,22 @@ export const dietMainPage: WellnessPage = {
     "People seeking culturally relevant, practical dietary guidance",
   ],
   faqs: [
-    { q: "Who will prepare my diet plan?", a: "Diet plans and nutrition counselling will be provided by a qualified dietitian. This service is launching soon at PainFix — contact us on WhatsApp to register your interest." },
-    { q: "Are the plans suitable for local foods?", a: "Yes. Our guidance is designed to be practical and culturally relevant, built around everyday foods available in Multan." },
-    { q: "Can nutrition support my physiotherapy recovery?", a: "Good nutrition supports healing, energy and overall recovery, which can complement your physiotherapy programme." },
-    { q: "How do I get started?", a: "Message us on WhatsApp to register your interest. We will contact you as soon as our dietitian service is available." },
+    {
+      q: "Who will prepare my diet plan?",
+      a: "Diet plans and nutrition counselling will be provided by a qualified dietitian. This service is launching soon at PainFix — contact us on WhatsApp to register your interest.",
+    },
+    {
+      q: "Are the plans suitable for local foods?",
+      a: "Yes. Our guidance is designed to be practical and culturally relevant, built around everyday foods available in Multan.",
+    },
+    {
+      q: "Can nutrition support my physiotherapy recovery?",
+      a: "Good nutrition supports healing, energy and overall recovery, which can complement your physiotherapy programme.",
+    },
+    {
+      q: "How do I get started?",
+      a: "Message us on WhatsApp to register your interest. We will contact you as soon as our dietitian service is available.",
+    },
   ],
   relatedServiceSlugs: ["pain-management", "exercise-therapy", "sports-rehabilitation"],
 };
@@ -204,9 +297,18 @@ export const dietSubPages: WellnessPage[] = [
       "Anyone seeking a realistic, long-term approach to weight",
     ],
     faqs: [
-      { q: "Do you use crash diets?", a: "No. We focus on safe, sustainable changes you can maintain, with guidance from a qualified dietitian (launching soon)." },
-      { q: "Can losing weight help my joint pain?", a: "Reducing excess weight lowers load on the knees, hips and spine, which can ease pain and improve mobility." },
-      { q: "How do I start?", a: "Message us on WhatsApp to register your interest and we'll contact you when the service is available." },
+      {
+        q: "Do you use crash diets?",
+        a: "No. We focus on safe, sustainable changes you can maintain, with guidance from a qualified dietitian (launching soon).",
+      },
+      {
+        q: "Can losing weight help my joint pain?",
+        a: "Reducing excess weight lowers load on the knees, hips and spine, which can ease pain and improve mobility.",
+      },
+      {
+        q: "How do I start?",
+        a: "Message us on WhatsApp to register your interest and we'll contact you when the service is available.",
+      },
     ],
     relatedServiceSlugs: ["exercise-therapy", "pain-management"],
   },
@@ -232,9 +334,18 @@ export const dietSubPages: WellnessPage[] = [
       "Anyone wanting to eat well around training",
     ],
     faqs: [
-      { q: "Is this only for professional athletes?", a: "No — guidance is tailored to every level, from weekend players to competitive athletes." },
-      { q: "Does it work with my rehab plan?", a: "Yes. Sports nutrition is designed to complement your sports rehabilitation and conditioning." },
-      { q: "How do I start?", a: "Message us on WhatsApp to register your interest for when the dietitian service launches." },
+      {
+        q: "Is this only for professional athletes?",
+        a: "No — guidance is tailored to every level, from weekend players to competitive athletes.",
+      },
+      {
+        q: "Does it work with my rehab plan?",
+        a: "Yes. Sports nutrition is designed to complement your sports rehabilitation and conditioning.",
+      },
+      {
+        q: "How do I start?",
+        a: "Message us on WhatsApp to register your interest for when the dietitian service launches.",
+      },
     ],
     relatedServiceSlugs: ["sports-rehabilitation", "exercise-therapy"],
   },
@@ -260,9 +371,18 @@ export const dietSubPages: WellnessPage[] = [
       "Anyone seeking professional, evidence-based advice",
     ],
     faqs: [
-      { q: "Who provides clinical nutrition guidance?", a: "A qualified dietitian, once they officially join PainFix. The service is launching soon." },
-      { q: "Does this replace my doctor's advice?", a: "No. Nutrition guidance complements, and never replaces, advice from your treating doctor." },
-      { q: "How do I start?", a: "Message us on WhatsApp to register your interest and we'll be in touch." },
+      {
+        q: "Who provides clinical nutrition guidance?",
+        a: "A qualified dietitian, once they officially join PainFix. The service is launching soon.",
+      },
+      {
+        q: "Does this replace my doctor's advice?",
+        a: "No. Nutrition guidance complements, and never replaces, advice from your treating doctor.",
+      },
+      {
+        q: "How do I start?",
+        a: "Message us on WhatsApp to register your interest and we'll be in touch.",
+      },
     ],
     relatedServiceSlugs: ["pain-management", "exercise-therapy"],
   },
@@ -288,9 +408,18 @@ export const dietSubPages: WellnessPage[] = [
       "People seeking practical, no-nonsense guidance",
     ],
     faqs: [
-      { q: "Do I have to give up my favourite foods?", a: "No. The focus is balance and moderation with practical, sustainable changes rather than strict restrictions." },
-      { q: "Is the advice suitable for local cuisine?", a: "Yes — guidance is built around foods commonly available and eaten in Multan." },
-      { q: "How do I start?", a: "Message us on WhatsApp to register your interest for the dietitian service launch." },
+      {
+        q: "Do I have to give up my favourite foods?",
+        a: "No. The focus is balance and moderation with practical, sustainable changes rather than strict restrictions.",
+      },
+      {
+        q: "Is the advice suitable for local cuisine?",
+        a: "Yes — guidance is built around foods commonly available and eaten in Multan.",
+      },
+      {
+        q: "How do I start?",
+        a: "Message us on WhatsApp to register your interest for the dietitian service launch.",
+      },
     ],
     relatedServiceSlugs: ["exercise-therapy", "pain-management"],
   },
@@ -316,9 +445,18 @@ export const dietSubPages: WellnessPage[] = [
       "Anyone wanting recovery-focused dietary guidance",
     ],
     faqs: [
-      { q: "How does nutrition help recovery?", a: "The right nutrition supports tissue repair, energy and immune function, which can complement your physiotherapy recovery." },
-      { q: "Is this the same as a normal diet plan?", a: "It is tailored specifically to support healing and rehabilitation, guided by a qualified dietitian." },
-      { q: "How do I start?", a: "Message us on WhatsApp to register your interest and we'll contact you when the service is available." },
+      {
+        q: "How does nutrition help recovery?",
+        a: "The right nutrition supports tissue repair, energy and immune function, which can complement your physiotherapy recovery.",
+      },
+      {
+        q: "Is this the same as a normal diet plan?",
+        a: "It is tailored specifically to support healing and rehabilitation, guided by a qualified dietitian.",
+      },
+      {
+        q: "How do I start?",
+        a: "Message us on WhatsApp to register your interest and we'll contact you when the service is available.",
+      },
     ],
     relatedServiceSlugs: ["post-surgical-rehabilitation", "exercise-therapy"],
   },

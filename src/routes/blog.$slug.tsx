@@ -1,5 +1,13 @@
 import { createFileRoute, notFound, Link } from "@tanstack/react-router";
-import { Clock, CheckCircle2, Facebook, MessageCircle, Phone, MapPin, ArrowRight } from "lucide-react";
+import {
+  Clock,
+  CheckCircle2,
+  Facebook,
+  MessageCircle,
+  Phone,
+  MapPin,
+  ArrowRight,
+} from "lucide-react";
 import { getPost, readingMinutes, relatedPosts, blogCategoryMap, type BlogPost } from "@/data/blog";
 import { getTeamMember } from "@/data/team";
 import { serviceMap } from "@/data/services";
@@ -14,7 +22,14 @@ import { Newsletter } from "@/components/site/Newsletter";
 import { BlogCard } from "@/components/site/BlogCard";
 import { Reveal } from "@/components/site/Reveal";
 import { pageMeta, canonical, breadcrumbLd, faqLd } from "@/lib/seo";
-import { SITE_URL, WHATSAPP_URL, WHATSAPP_CONSULT_URL, PHONE_TEL, PHONE_DISPLAY, MAP_DIRECTIONS_URL } from "@/components/site/constants";
+import {
+  SITE_URL,
+  WHATSAPP_URL,
+  WHATSAPP_CONSULT_URL,
+  PHONE_TEL,
+  PHONE_DISPLAY,
+  MAP_DIRECTIONS_URL,
+} from "@/components/site/constants";
 
 export const Route = createFileRoute("/blog/$slug")({
   loader: async ({ params }) => {
@@ -32,7 +47,9 @@ export const Route = createFileRoute("/blog/$slug")({
 
   head: ({ params, loaderData }) => {
     if (!loaderData) {
-      return { meta: [{ title: "Article Not Found — PainFix" }, { name: "robots", content: "noindex" }] };
+      return {
+        meta: [{ title: "Article Not Found — PainFix" }, { name: "robots", content: "noindex" }],
+      };
     }
     const post = loaderData;
     const path = `/blog/${params.slug}`;
@@ -64,9 +81,16 @@ export const Route = createFileRoute("/blog/$slug")({
             url: `${SITE_URL}${path}`,
             mainEntityOfPage: `${SITE_URL}${path}`,
             author: author
-              ? { "@type": "Person", name: author.name, jobTitle: author.role, description: author.credentials }
+              ? {
+                  "@type": "Person",
+                  name: author.name,
+                  jobTitle: author.role,
+                  description: author.credentials,
+                }
               : { "@type": "Organization", name: "PainFix Physiotherapy Clinic" },
-            reviewedBy: author ? { "@type": "Person", name: author.name, jobTitle: author.role } : undefined,
+            reviewedBy: author
+              ? { "@type": "Person", name: author.name, jobTitle: author.role }
+              : undefined,
             publisher: {
               "@type": "MedicalClinic",
               name: "PainFix Physiotherapy Clinic",
@@ -92,7 +116,10 @@ function BlogNotFound() {
       <section className="mx-auto max-w-3xl px-4 py-40 text-center">
         <h1 className="font-heading text-3xl font-extrabold text-foreground">Article not found</h1>
         <p className="mt-3 text-muted-foreground">This article doesn't exist or has moved.</p>
-        <Link to="/blog" className="mt-6 inline-flex rounded-2xl bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground">
+        <Link
+          to="/blog"
+          className="mt-6 inline-flex rounded-2xl bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground"
+        >
           Back to blog
         </Link>
       </section>
@@ -132,13 +159,19 @@ function BlogArticle() {
               <span aria-hidden>•</span>
               <span>
                 Updated{" "}
-                {new Date(post.updated).toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" })}
+                {new Date(post.updated).toLocaleDateString("en-GB", {
+                  day: "numeric",
+                  month: "short",
+                  year: "numeric",
+                })}
               </span>
             </div>
 
             {/* Quick Answer (AEO) */}
             <div className="mt-6 rounded-[1.75rem] border-l-4 border-secondary bg-surface p-6 shadow-soft">
-              <p className="text-xs font-bold uppercase tracking-wider text-secondary">Quick Answer</p>
+              <p className="text-xs font-bold uppercase tracking-wider text-secondary">
+                Quick Answer
+              </p>
               <p className="mt-2 text-base leading-relaxed text-foreground">{post.quickAnswer}</p>
             </div>
 
@@ -148,11 +181,15 @@ function BlogArticle() {
                 <Reveal key={i} anim="up">
                   <section>
                     {s.heading && (
-                      <h2 className="font-heading text-2xl font-extrabold text-foreground">{s.heading}</h2>
+                      <h2 className="font-heading text-2xl font-extrabold text-foreground">
+                        {s.heading}
+                      </h2>
                     )}
                     <div className={s.heading ? "mt-3 space-y-4" : "space-y-4"}>
                       {s.paragraphs.map((p, j) => (
-                        <p key={j} className="text-base leading-relaxed text-muted-foreground">{p}</p>
+                        <p key={j} className="text-base leading-relaxed text-muted-foreground">
+                          {p}
+                        </p>
                       ))}
                     </div>
                     {s.list && (
@@ -188,19 +225,23 @@ function BlogArticle() {
             {/* FAQs */}
             {post.faqs.length > 0 && (
               <div className="mt-12">
-                <h2 className="font-heading text-2xl font-extrabold text-foreground">Frequently Asked Questions</h2>
+                <h2 className="font-heading text-2xl font-extrabold text-foreground">
+                  Frequently Asked Questions
+                </h2>
                 <div className="mt-6">
                   <FaqAccordion faqs={post.faqs} />
                 </div>
               </div>
             )}
 
-
             {/* Conversion CTA */}
             <div className="mt-12 overflow-hidden rounded-[2rem] bg-gradient-to-br from-primary to-secondary p-8 text-center shadow-card">
-              <h2 className="font-heading text-2xl font-extrabold text-primary-foreground">Have a question about this?</h2>
+              <h2 className="font-heading text-2xl font-extrabold text-primary-foreground">
+                Have a question about this?
+              </h2>
               <p className="mx-auto mt-3 max-w-xl text-sm text-primary-foreground/85">
-                Chat with our physiotherapists on WhatsApp for honest advice about your condition — no obligation to book.
+                Chat with our physiotherapists on WhatsApp for honest advice about your condition —
+                no obligation to book.
               </p>
               <div className="mt-6 flex flex-wrap justify-center gap-3">
                 <a
@@ -211,10 +252,18 @@ function BlogArticle() {
                 >
                   <MessageCircle className="h-4 w-4" /> WhatsApp Consultation
                 </a>
-                <a href={PHONE_TEL} className="inline-flex items-center gap-2 rounded-2xl border border-primary-foreground/40 px-5 py-3 text-sm font-semibold text-primary-foreground">
+                <a
+                  href={PHONE_TEL}
+                  className="inline-flex items-center gap-2 rounded-2xl border border-primary-foreground/40 px-5 py-3 text-sm font-semibold text-primary-foreground"
+                >
                   <Phone className="h-4 w-4" /> Call {PHONE_DISPLAY}
                 </a>
-                <a href={MAP_DIRECTIONS_URL} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 rounded-2xl border border-primary-foreground/40 px-5 py-3 text-sm font-semibold text-primary-foreground">
+                <a
+                  href={MAP_DIRECTIONS_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 rounded-2xl border border-primary-foreground/40 px-5 py-3 text-sm font-semibold text-primary-foreground"
+                >
                   <MapPin className="h-4 w-4" /> Directions
                 </a>
               </div>
@@ -222,9 +271,10 @@ function BlogArticle() {
 
             {/* Medical disclaimer */}
             <p className="mt-8 rounded-2xl border border-border bg-surface p-4 text-xs leading-relaxed text-muted-foreground">
-              <strong className="text-foreground">Medical disclaimer:</strong> This article is for general education and
-              is not a substitute for personalized medical advice, diagnosis or treatment. Always consult a qualified
-              physiotherapist or healthcare professional about your specific condition.
+              <strong className="text-foreground">Medical disclaimer:</strong> This article is for
+              general education and is not a substitute for personalized medical advice, diagnosis
+              or treatment. Always consult a qualified physiotherapist or healthcare professional
+              about your specific condition.
             </p>
           </article>
 
@@ -264,7 +314,11 @@ function BlogArticle() {
                 <ul className="mt-3 space-y-2">
                   {services.map((s) => (
                     <li key={s.slug}>
-                      <Link to="/services/$slug" params={{ slug: s.slug }} className="group inline-flex items-center gap-1.5 text-sm text-primary">
+                      <Link
+                        to="/services/$slug"
+                        params={{ slug: s.slug }}
+                        className="group inline-flex items-center gap-1.5 text-sm text-primary"
+                      >
                         {s.title}
                         <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1 rtl:rotate-180" />
                       </Link>
@@ -281,7 +335,11 @@ function BlogArticle() {
                 <ul className="mt-3 space-y-2">
                   {conditions.map((c) => (
                     <li key={c.slug}>
-                      <Link to="/conditions/$slug" params={{ slug: c.slug }} className="group inline-flex items-center gap-1.5 text-sm text-primary">
+                      <Link
+                        to="/conditions/$slug"
+                        params={{ slug: c.slug }}
+                        className="group inline-flex items-center gap-1.5 text-sm text-primary"
+                      >
                         {c.title}
                         <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1 rtl:rotate-180" />
                       </Link>
@@ -298,7 +356,9 @@ function BlogArticle() {
         {/* Related posts */}
         {related.length > 0 && (
           <div className="mt-16">
-            <h2 className="font-heading text-2xl font-extrabold text-foreground">Related Articles</h2>
+            <h2 className="font-heading text-2xl font-extrabold text-foreground">
+              Related Articles
+            </h2>
             <div className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
               {related.map((p, i) => (
                 <Reveal key={p.slug} anim="up" delay={i * 70}>

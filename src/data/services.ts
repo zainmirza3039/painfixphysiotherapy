@@ -75,16 +75,38 @@ export const services: Service[] = [
       "Drug-free, non-invasive pain relief",
     ],
     process: [
-      { title: "Assessment", description: "A thorough evaluation of posture, movement and the affected joints or tissues." },
-      { title: "Hands-On Treatment", description: "Targeted mobilization, manipulation and soft-tissue techniques." },
-      { title: "Home Guidance", description: "Simple self-care and mobility advice to maintain your progress." },
-      { title: "Review", description: "We track your response and adjust the plan for continued improvement." },
+      {
+        title: "Assessment",
+        description:
+          "A thorough evaluation of posture, movement and the affected joints or tissues.",
+      },
+      {
+        title: "Hands-On Treatment",
+        description: "Targeted mobilization, manipulation and soft-tissue techniques.",
+      },
+      {
+        title: "Home Guidance",
+        description: "Simple self-care and mobility advice to maintain your progress.",
+      },
+      {
+        title: "Review",
+        description: "We track your response and adjust the plan for continued improvement.",
+      },
     ],
     equipment: ["Treatment couches", "Mobilization wedges & belts", "Massage and myofascial tools"],
     faqs: [
-      { q: "Is manual therapy painful?", a: "Techniques are gentle and adjusted to your comfort. Mild soreness afterwards is normal and settles quickly." },
-      { q: "How many sessions will I need?", a: "Most patients notice improvement within 3–6 sessions, though this depends on your condition and goals." },
-      { q: "Can it be combined with exercise?", a: "Yes — manual therapy works best alongside a personalized exercise programme for long-term results." },
+      {
+        q: "Is manual therapy painful?",
+        a: "Techniques are gentle and adjusted to your comfort. Mild soreness afterwards is normal and settles quickly.",
+      },
+      {
+        q: "How many sessions will I need?",
+        a: "Most patients notice improvement within 3–6 sessions, though this depends on your condition and goals.",
+      },
+      {
+        q: "Can it be combined with exercise?",
+        a: "Yes — manual therapy works best alongside a personalized exercise programme for long-term results.",
+      },
     ],
     related: ["exercise-therapy", "pain-management", "post-surgical-rehabilitation"],
   },
@@ -117,16 +139,42 @@ export const services: Service[] = [
       "Empowers you to self-manage",
     ],
     process: [
-      { title: "Functional Assessment", description: "We measure your strength, range and movement quality." },
-      { title: "Programme Design", description: "A graded, personalized exercise plan matched to your goals." },
-      { title: "Supervised Training", description: "Guided sessions to ensure correct technique and safe progression." },
-      { title: "Progression & Review", description: "We advance your programme as your strength and function improve." },
+      {
+        title: "Functional Assessment",
+        description: "We measure your strength, range and movement quality.",
+      },
+      {
+        title: "Programme Design",
+        description: "A graded, personalized exercise plan matched to your goals.",
+      },
+      {
+        title: "Supervised Training",
+        description: "Guided sessions to ensure correct technique and safe progression.",
+      },
+      {
+        title: "Progression & Review",
+        description: "We advance your programme as your strength and function improve.",
+      },
     ],
-    equipment: ["Resistance bands & weights", "Balance & stability trainers", "Exercise mats & gym ball", "Parallel bars"],
+    equipment: [
+      "Resistance bands & weights",
+      "Balance & stability trainers",
+      "Exercise mats & gym ball",
+      "Parallel bars",
+    ],
     faqs: [
-      { q: "Do I need to be fit to start?", a: "No. Programmes start at your current level and build up gradually and safely." },
-      { q: "Can I do the exercises at home?", a: "Yes — we provide a clear home programme with guidance so you can continue between sessions." },
-      { q: "How soon will I see results?", a: "Most patients feel stronger within 2–4 weeks of consistent training." },
+      {
+        q: "Do I need to be fit to start?",
+        a: "No. Programmes start at your current level and build up gradually and safely.",
+      },
+      {
+        q: "Can I do the exercises at home?",
+        a: "Yes — we provide a clear home programme with guidance so you can continue between sessions.",
+      },
+      {
+        q: "How soon will I see results?",
+        a: "Most patients feel stronger within 2–4 weeks of consistent training.",
+      },
     ],
     related: ["manual-therapy", "sports-rehabilitation", "post-surgical-rehabilitation"],
   },
@@ -159,16 +207,42 @@ export const services: Service[] = [
       "Comfortable and non-invasive",
     ],
     process: [
-      { title: "Assessment", description: "We confirm electrotherapy is safe and suitable for your condition." },
-      { title: "Modality Selection", description: "The right technique and dosage is chosen for your goals." },
-      { title: "Treatment", description: "A comfortable, targeted session applied to the affected area." },
-      { title: "Integration", description: "Combined with manual therapy and exercise for the best outcome." },
+      {
+        title: "Assessment",
+        description: "We confirm electrotherapy is safe and suitable for your condition.",
+      },
+      {
+        title: "Modality Selection",
+        description: "The right technique and dosage is chosen for your goals.",
+      },
+      {
+        title: "Treatment",
+        description: "A comfortable, targeted session applied to the affected area.",
+      },
+      {
+        title: "Integration",
+        description: "Combined with manual therapy and exercise for the best outcome.",
+      },
     ],
-    equipment: ["TENS units", "Therapeutic ultrasound", "Electrical muscle stimulation (EMS)", "Interferential therapy (IFT)"],
+    equipment: [
+      "TENS units",
+      "Therapeutic ultrasound",
+      "Electrical muscle stimulation (EMS)",
+      "Interferential therapy (IFT)",
+    ],
     faqs: [
-      { q: "Does electrotherapy hurt?", a: "No. You feel a mild tingling or warmth, and intensity is always kept comfortable." },
-      { q: "Is it safe?", a: "Yes, when applied by trained physiotherapists after screening for contraindications." },
-      { q: "Will it cure my problem alone?", a: "It works best as part of a complete plan that includes exercise and manual therapy." },
+      {
+        q: "Does electrotherapy hurt?",
+        a: "No. You feel a mild tingling or warmth, and intensity is always kept comfortable.",
+      },
+      {
+        q: "Is it safe?",
+        a: "Yes, when applied by trained physiotherapists after screening for contraindications.",
+      },
+      {
+        q: "Will it cure my problem alone?",
+        a: "It works best as part of a complete plan that includes exercise and manual therapy.",
+      },
     ],
     related: ["pain-management", "manual-therapy", "sports-rehabilitation"],
   },
@@ -201,16 +275,41 @@ export const services: Service[] = [
       "Performance-focused conditioning",
     ],
     process: [
-      { title: "Injury Assessment", description: "We diagnose the injury and understand your sport demands." },
-      { title: "Recovery Phase", description: "Pain control, mobility and early loading of the injured tissue." },
-      { title: "Strength & Power", description: "Progressive, sport-specific strengthening and conditioning." },
-      { title: "Return to Sport", description: "Testing and drills to confirm you're ready to compete safely." },
+      {
+        title: "Injury Assessment",
+        description: "We diagnose the injury and understand your sport demands.",
+      },
+      {
+        title: "Recovery Phase",
+        description: "Pain control, mobility and early loading of the injured tissue.",
+      },
+      {
+        title: "Strength & Power",
+        description: "Progressive, sport-specific strengthening and conditioning.",
+      },
+      {
+        title: "Return to Sport",
+        description: "Testing and drills to confirm you're ready to compete safely.",
+      },
     ],
-    equipment: ["Resistance & plyometric equipment", "Agility and balance trainers", "Functional testing tools"],
+    equipment: [
+      "Resistance & plyometric equipment",
+      "Agility and balance trainers",
+      "Functional testing tools",
+    ],
     faqs: [
-      { q: "How long until I can return to sport?", a: "It depends on the injury, but we use objective criteria to make sure your return is safe." },
-      { q: "Do you treat non-professional athletes?", a: "Absolutely — programmes are tailored to every level, from beginners to competitors." },
-      { q: "Can you help prevent future injuries?", a: "Yes, prevention and conditioning are a core part of every plan." },
+      {
+        q: "How long until I can return to sport?",
+        a: "It depends on the injury, but we use objective criteria to make sure your return is safe.",
+      },
+      {
+        q: "Do you treat non-professional athletes?",
+        a: "Absolutely — programmes are tailored to every level, from beginners to competitors.",
+      },
+      {
+        q: "Can you help prevent future injuries?",
+        a: "Yes, prevention and conditioning are a core part of every plan.",
+      },
     ],
     related: ["exercise-therapy", "manual-therapy", "post-surgical-rehabilitation"],
   },
@@ -243,16 +342,37 @@ export const services: Service[] = [
       "Ideal for reduced mobility",
     ],
     process: [
-      { title: "Request a Visit", description: "Share your details and needs through our home-visit form or WhatsApp." },
-      { title: "Home Assessment", description: "A physiotherapist evaluates you and your home environment." },
-      { title: "Treatment Plan", description: "A personalized plan delivered in the comfort of your home." },
-      { title: "Ongoing Care", description: "Scheduled visits with progress tracking and family guidance." },
+      {
+        title: "Request a Visit",
+        description: "Share your details and needs through our home-visit form or WhatsApp.",
+      },
+      {
+        title: "Home Assessment",
+        description: "A physiotherapist evaluates you and your home environment.",
+      },
+      {
+        title: "Treatment Plan",
+        description: "A personalized plan delivered in the comfort of your home.",
+      },
+      {
+        title: "Ongoing Care",
+        description: "Scheduled visits with progress tracking and family guidance.",
+      },
     ],
     equipment: ["Portable therapy equipment", "Mobility & transfer aids", "Home exercise tools"],
     faqs: [
-      { q: "Which areas do you cover?", a: "We serve Multan city and nearby areas. Contact us to confirm coverage for your location." },
-      { q: "How long is a home session?", a: "A typical home session lasts 45–60 minutes depending on your treatment needs." },
-      { q: "Do you bring the equipment?", a: "Yes — our physiotherapists bring the portable equipment required for your treatment." },
+      {
+        q: "Which areas do you cover?",
+        a: "We serve Multan city and nearby areas. Contact us to confirm coverage for your location.",
+      },
+      {
+        q: "How long is a home session?",
+        a: "A typical home session lasts 45–60 minutes depending on your treatment needs.",
+      },
+      {
+        q: "Do you bring the equipment?",
+        a: "Yes — our physiotherapists bring the portable equipment required for your treatment.",
+      },
     ],
     related: ["post-surgical-rehabilitation", "stroke-rehabilitation", "exercise-therapy"],
   },
@@ -285,16 +405,41 @@ export const services: Service[] = [
       "Lower risk of complications",
     ],
     process: [
-      { title: "Protection Phase", description: "Gentle movement and pain control to protect the healing tissue." },
-      { title: "Mobility Phase", description: "Restoring range of motion and reducing stiffness safely." },
-      { title: "Strengthening Phase", description: "Progressive loading to rebuild strength and stability." },
-      { title: "Functional Phase", description: "Return to daily activities, work and sport with confidence." },
+      {
+        title: "Protection Phase",
+        description: "Gentle movement and pain control to protect the healing tissue.",
+      },
+      {
+        title: "Mobility Phase",
+        description: "Restoring range of motion and reducing stiffness safely.",
+      },
+      {
+        title: "Strengthening Phase",
+        description: "Progressive loading to rebuild strength and stability.",
+      },
+      {
+        title: "Functional Phase",
+        description: "Return to daily activities, work and sport with confidence.",
+      },
     ],
-    equipment: ["CPM & mobility aids", "Resistance & balance equipment", "Electrotherapy for pain & swelling"],
+    equipment: [
+      "CPM & mobility aids",
+      "Resistance & balance equipment",
+      "Electrotherapy for pain & swelling",
+    ],
     faqs: [
-      { q: "When should I start rehab after surgery?", a: "Often within days, following your surgeon's guidance. Early, safe movement improves outcomes." },
-      { q: "Do you follow my surgeon's protocol?", a: "Yes — we align your programme with your surgeon's instructions and your recovery stage." },
-      { q: "How long does recovery take?", a: "It varies by procedure, but we set clear milestones and progress you safely at each stage." },
+      {
+        q: "When should I start rehab after surgery?",
+        a: "Often within days, following your surgeon's guidance. Early, safe movement improves outcomes.",
+      },
+      {
+        q: "Do you follow my surgeon's protocol?",
+        a: "Yes — we align your programme with your surgeon's instructions and your recovery stage.",
+      },
+      {
+        q: "How long does recovery take?",
+        a: "It varies by procedure, but we set clear milestones and progress you safely at each stage.",
+      },
     ],
     related: ["exercise-therapy", "manual-therapy", "home-physiotherapy"],
   },
@@ -327,16 +472,42 @@ export const services: Service[] = [
       "Support for patients and families",
     ],
     process: [
-      { title: "Neuro Assessment", description: "A detailed evaluation of movement, tone, balance and function." },
-      { title: "Task-Specific Training", description: "Repetitive practice of real-life movements to retrain control." },
-      { title: "Strength & Balance", description: "Targeted work to improve stability and reduce fall risk." },
-      { title: "Independence Training", description: "Building the skills needed for daily activities and mobility." },
+      {
+        title: "Neuro Assessment",
+        description: "A detailed evaluation of movement, tone, balance and function.",
+      },
+      {
+        title: "Task-Specific Training",
+        description: "Repetitive practice of real-life movements to retrain control.",
+      },
+      {
+        title: "Strength & Balance",
+        description: "Targeted work to improve stability and reduce fall risk.",
+      },
+      {
+        title: "Independence Training",
+        description: "Building the skills needed for daily activities and mobility.",
+      },
     ],
-    equipment: ["Balance & gait trainers", "Parallel bars", "Functional rehab tools", "Mobility aids"],
+    equipment: [
+      "Balance & gait trainers",
+      "Parallel bars",
+      "Functional rehab tools",
+      "Mobility aids",
+    ],
     faqs: [
-      { q: "When should stroke rehab begin?", a: "As early as it is medically safe. Early rehabilitation leads to better recovery." },
-      { q: "Can rehab be done at home?", a: "Yes — we offer home-based neuro rehabilitation for patients who cannot travel." },
-      { q: "How long does recovery take?", a: "Recovery is gradual and individual; consistent therapy over months gives the best results." },
+      {
+        q: "When should stroke rehab begin?",
+        a: "As early as it is medically safe. Early rehabilitation leads to better recovery.",
+      },
+      {
+        q: "Can rehab be done at home?",
+        a: "Yes — we offer home-based neuro rehabilitation for patients who cannot travel.",
+      },
+      {
+        q: "How long does recovery take?",
+        a: "Recovery is gradual and individual; consistent therapy over months gives the best results.",
+      },
     ],
     related: ["home-physiotherapy", "exercise-therapy", "manual-therapy"],
   },
@@ -370,15 +541,33 @@ export const services: Service[] = [
     ],
     process: [
       { title: "Pain Assessment", description: "We identify the source and drivers of your pain." },
-      { title: "Multimodal Treatment", description: "A blend of manual therapy, electrotherapy and exercise." },
-      { title: "Education", description: "Understanding your pain to reduce fear and improve recovery." },
-      { title: "Self-Management", description: "Strategies and exercises to keep pain under control long-term." },
+      {
+        title: "Multimodal Treatment",
+        description: "A blend of manual therapy, electrotherapy and exercise.",
+      },
+      {
+        title: "Education",
+        description: "Understanding your pain to reduce fear and improve recovery.",
+      },
+      {
+        title: "Self-Management",
+        description: "Strategies and exercises to keep pain under control long-term.",
+      },
     ],
     equipment: ["Electrotherapy modalities", "Manual therapy tools", "Exercise equipment"],
     faqs: [
-      { q: "Can physiotherapy really reduce chronic pain?", a: "Yes — evidence shows active, personalized physiotherapy is highly effective for chronic pain." },
-      { q: "Will I become dependent on treatment?", a: "No. Our goal is to give you the tools to manage your pain independently." },
-      { q: "Do I need a referral?", a: "No referral is needed — you can book an assessment directly with us." },
+      {
+        q: "Can physiotherapy really reduce chronic pain?",
+        a: "Yes — evidence shows active, personalized physiotherapy is highly effective for chronic pain.",
+      },
+      {
+        q: "Will I become dependent on treatment?",
+        a: "No. Our goal is to give you the tools to manage your pain independently.",
+      },
+      {
+        q: "Do I need a referral?",
+        a: "No referral is needed — you can book an assessment directly with us.",
+      },
     ],
     related: ["manual-therapy", "electrotherapy", "posture-ergonomic-assessment"],
   },
@@ -411,16 +600,34 @@ export const services: Service[] = [
       "Prevents recurring problems",
     ],
     process: [
-      { title: "Postural Analysis", description: "We assess your standing, sitting and working posture." },
-      { title: "Ergonomic Review", description: "Evaluation of your workstation and daily positions." },
-      { title: "Correction Plan", description: "Personalized adjustments and corrective exercises." },
+      {
+        title: "Postural Analysis",
+        description: "We assess your standing, sitting and working posture.",
+      },
+      {
+        title: "Ergonomic Review",
+        description: "Evaluation of your workstation and daily positions.",
+      },
+      {
+        title: "Correction Plan",
+        description: "Personalized adjustments and corrective exercises.",
+      },
       { title: "Follow-Up", description: "We review your changes and refine your programme." },
     ],
     equipment: ["Postural assessment tools", "Corrective exercise equipment"],
     faqs: [
-      { q: "Who needs a posture assessment?", a: "Anyone with recurring neck, back or shoulder pain, or who works long hours at a desk." },
-      { q: "Can better posture really reduce pain?", a: "Yes — correcting posture and workstation habits significantly reduces strain and pain." },
-      { q: "Do you assess home offices?", a: "Yes, we provide guidance for home, office and study setups." },
+      {
+        q: "Who needs a posture assessment?",
+        a: "Anyone with recurring neck, back or shoulder pain, or who works long hours at a desk.",
+      },
+      {
+        q: "Can better posture really reduce pain?",
+        a: "Yes — correcting posture and workstation habits significantly reduces strain and pain.",
+      },
+      {
+        q: "Do you assess home offices?",
+        a: "Yes, we provide guidance for home, office and study setups.",
+      },
     ],
     related: ["pain-management", "exercise-therapy", "manual-therapy"],
   },
@@ -467,17 +674,48 @@ export const services: Service[] = [
       "Always tell us about your medical history so we can keep you safe.",
     ],
     process: [
-      { title: "Assessment", description: "We review your medical history and confirm Hijama is suitable and safe for you." },
-      { title: "Preparation", description: "The treatment area is cleaned and sterile, single-use equipment is prepared." },
-      { title: "Cupping", description: "Suction cups are applied for a controlled time; wet cupping includes tiny, superficial scratches." },
-      { title: "Aftercare", description: "We clean the area, advise on skin care and give guidance for the following days." },
+      {
+        title: "Assessment",
+        description:
+          "We review your medical history and confirm Hijama is suitable and safe for you.",
+      },
+      {
+        title: "Preparation",
+        description: "The treatment area is cleaned and sterile, single-use equipment is prepared.",
+      },
+      {
+        title: "Cupping",
+        description:
+          "Suction cups are applied for a controlled time; wet cupping includes tiny, superficial scratches.",
+      },
+      {
+        title: "Aftercare",
+        description:
+          "We clean the area, advise on skin care and give guidance for the following days.",
+      },
     ],
-    equipment: ["Single-use sterile cupping sets", "Medical-grade antiseptics", "Disposable protective supplies"],
+    equipment: [
+      "Single-use sterile cupping sets",
+      "Medical-grade antiseptics",
+      "Disposable protective supplies",
+    ],
     faqs: [
-      { q: "Is Hijama safe?", a: "When performed by trained practitioners with sterile, single-use equipment and proper assessment, Hijama is generally well tolerated. We screen for conditions that make it unsafe before treating you." },
-      { q: "Does Hijama hurt?", a: "Most people feel a tugging or tightness from the suction rather than pain. Wet cupping involves very small, superficial scratches that are usually only mildly uncomfortable." },
-      { q: "Is the equipment reused?", a: "No. We use single-use, sterile equipment for every client and follow strict hygiene protocols." },
-      { q: "Can Hijama replace physiotherapy?", a: "No. We offer Hijama as a complementary therapy. For lasting results with pain and movement problems, we recommend it alongside a proper physiotherapy assessment and plan." },
+      {
+        q: "Is Hijama safe?",
+        a: "When performed by trained practitioners with sterile, single-use equipment and proper assessment, Hijama is generally well tolerated. We screen for conditions that make it unsafe before treating you.",
+      },
+      {
+        q: "Does Hijama hurt?",
+        a: "Most people feel a tugging or tightness from the suction rather than pain. Wet cupping involves very small, superficial scratches that are usually only mildly uncomfortable.",
+      },
+      {
+        q: "Is the equipment reused?",
+        a: "No. We use single-use, sterile equipment for every client and follow strict hygiene protocols.",
+      },
+      {
+        q: "Can Hijama replace physiotherapy?",
+        a: "No. We offer Hijama as a complementary therapy. For lasting results with pain and movement problems, we recommend it alongside a proper physiotherapy assessment and plan.",
+      },
     ],
     related: ["pain-management", "manual-therapy", "exercise-therapy"],
   },

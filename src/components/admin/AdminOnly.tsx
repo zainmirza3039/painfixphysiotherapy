@@ -10,7 +10,9 @@ export function AdminOnly({ children }: { children: ReactNode }) {
       <span className="grid h-12 w-12 place-items-center rounded-2xl bg-rose-500/10 text-rose-600">
         <ShieldAlert className="h-6 w-6" />
       </span>
-      <h2 className="font-heading text-lg font-bold text-foreground">Administrator access required</h2>
+      <h2 className="font-heading text-lg font-bold text-foreground">
+        Administrator access required
+      </h2>
       <p className="max-w-sm text-sm text-muted-foreground">
         You don't have permission to view this section. Contact an administrator if you need access.
       </p>

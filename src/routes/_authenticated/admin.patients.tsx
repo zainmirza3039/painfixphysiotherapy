@@ -266,7 +266,9 @@ function PatientsPage() {
               <TableBody>
                 {filtered.map((p) => (
                   <TableRow key={p.id}>
-                    <TableCell className="font-mono text-xs text-muted-foreground">{p.patient_code}</TableCell>
+                    <TableCell className="font-mono text-xs text-muted-foreground">
+                      {p.patient_code}
+                    </TableCell>
                     <TableCell className="font-medium text-foreground">{p.name}</TableCell>
                     <TableCell>{p.phone ?? "—"}</TableCell>
                     <TableCell className="max-w-[180px] truncate">{p.diagnosis ?? "—"}</TableCell>
@@ -279,7 +281,12 @@ function PatientsPage() {
                     </TableCell>
                     <TableCell className="text-right">
                       <div className="flex justify-end gap-1">
-                        <Button variant="ghost" size="icon" aria-label="Edit patient" onClick={() => openEdit(p)}>
+                        <Button
+                          variant="ghost"
+                          size="icon"
+                          aria-label="Edit patient"
+                          onClick={() => openEdit(p)}
+                        >
                           <Pencil className="h-4 w-4" />
                         </Button>
                         {isAdmin && (
@@ -320,21 +327,41 @@ function PatientsPage() {
             className="grid gap-4 sm:grid-cols-2"
           >
             <Field label="Full name" required>
-              <Input value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} required />
+              <Input
+                value={form.name}
+                onChange={(e) => setForm({ ...form, name: e.target.value })}
+                required
+              />
             </Field>
             <Field label="Phone">
-              <Input value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} />
+              <Input
+                value={form.phone}
+                onChange={(e) => setForm({ ...form, phone: e.target.value })}
+              />
             </Field>
             <Field label="Email">
-              <Input type="email" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} />
+              <Input
+                type="email"
+                value={form.email}
+                onChange={(e) => setForm({ ...form, email: e.target.value })}
+              />
             </Field>
             <div className="grid grid-cols-2 gap-3">
               <Field label="Age">
-                <Input type="number" value={form.age} onChange={(e) => setForm({ ...form, age: e.target.value })} />
+                <Input
+                  type="number"
+                  value={form.age}
+                  onChange={(e) => setForm({ ...form, age: e.target.value })}
+                />
               </Field>
               <Field label="Gender">
-                <Select value={form.gender || undefined} onValueChange={(v) => setForm({ ...form, gender: v })}>
-                  <SelectTrigger><SelectValue placeholder="Select" /></SelectTrigger>
+                <Select
+                  value={form.gender || undefined}
+                  onValueChange={(v) => setForm({ ...form, gender: v })}
+                >
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select" />
+                  </SelectTrigger>
                   <SelectContent>
                     <SelectItem value="male">Male</SelectItem>
                     <SelectItem value="female">Female</SelectItem>
@@ -344,38 +371,69 @@ function PatientsPage() {
               </Field>
             </div>
             <Field label="Assigned physiotherapist">
-              <Input value={form.assigned_physiotherapist} onChange={(e) => setForm({ ...form, assigned_physiotherapist: e.target.value })} />
+              <Input
+                value={form.assigned_physiotherapist}
+                onChange={(e) => setForm({ ...form, assigned_physiotherapist: e.target.value })}
+              />
             </Field>
             <Field label="Status">
               <Select value={form.status} onValueChange={(v) => setForm({ ...form, status: v })}>
-                <SelectTrigger><SelectValue /></SelectTrigger>
+                <SelectTrigger>
+                  <SelectValue />
+                </SelectTrigger>
                 <SelectContent>
                   {STATUSES.map((s) => (
-                    <SelectItem key={s} value={s}>{s}</SelectItem>
+                    <SelectItem key={s} value={s}>
+                      {s}
+                    </SelectItem>
                   ))}
                 </SelectContent>
               </Select>
             </Field>
             <Field label="Follow-up date">
-              <Input type="date" value={form.follow_up_date} onChange={(e) => setForm({ ...form, follow_up_date: e.target.value })} />
+              <Input
+                type="date"
+                value={form.follow_up_date}
+                onChange={(e) => setForm({ ...form, follow_up_date: e.target.value })}
+              />
             </Field>
             <Field label="Address" full>
-              <Input value={form.address} onChange={(e) => setForm({ ...form, address: e.target.value })} />
+              <Input
+                value={form.address}
+                onChange={(e) => setForm({ ...form, address: e.target.value })}
+              />
             </Field>
             <Field label="Medical condition" full>
-              <Input value={form.medical_condition} onChange={(e) => setForm({ ...form, medical_condition: e.target.value })} />
+              <Input
+                value={form.medical_condition}
+                onChange={(e) => setForm({ ...form, medical_condition: e.target.value })}
+              />
             </Field>
             <Field label="Diagnosis" full>
-              <Textarea rows={2} value={form.diagnosis} onChange={(e) => setForm({ ...form, diagnosis: e.target.value })} />
+              <Textarea
+                rows={2}
+                value={form.diagnosis}
+                onChange={(e) => setForm({ ...form, diagnosis: e.target.value })}
+              />
             </Field>
             <Field label="Treatment plan" full>
-              <Textarea rows={2} value={form.treatment_plan} onChange={(e) => setForm({ ...form, treatment_plan: e.target.value })} />
+              <Textarea
+                rows={2}
+                value={form.treatment_plan}
+                onChange={(e) => setForm({ ...form, treatment_plan: e.target.value })}
+              />
             </Field>
             <Field label="Notes" full>
-              <Textarea rows={2} value={form.notes} onChange={(e) => setForm({ ...form, notes: e.target.value })} />
+              <Textarea
+                rows={2}
+                value={form.notes}
+                onChange={(e) => setForm({ ...form, notes: e.target.value })}
+              />
             </Field>
             <DialogFooter className="sm:col-span-2">
-              <Button type="button" variant="ghost" onClick={() => setDialogOpen(false)}>Cancel</Button>
+              <Button type="button" variant="ghost" onClick={() => setDialogOpen(false)}>
+                Cancel
+              </Button>
               <Button type="submit" disabled={saveMutation.isPending}>
                 {saveMutation.isPending && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
                 {editing ? "Save changes" : "Add patient"}

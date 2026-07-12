@@ -8,7 +8,13 @@ type RevealProps = {
   as?: "div" | "li" | "section";
 };
 
-export function Reveal({ children, anim = "up", delay = 0, className = "", as = "div" }: RevealProps) {
+export function Reveal({
+  children,
+  anim = "up",
+  delay = 0,
+  className = "",
+  as = "div",
+}: RevealProps) {
   const ref = useRef<HTMLElement | null>(null);
   const [visible, setVisible] = useState(false);
 

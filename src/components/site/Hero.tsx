@@ -17,9 +17,24 @@ import { WHATSAPP_URL } from "./constants";
 import { openCalendlyPopup } from "./calendly";
 
 const floatingCards = [
-  { icon: ShieldCheck, label: "Evidence-Based Care", pos: "left-2 top-8 sm:-left-6", anim: "left" as const },
-  { icon: HeartPulse, label: "Personalized Treatment", pos: "right-2 top-1/3 sm:-right-6", anim: "right" as const },
-  { icon: Stethoscope, label: "Professional Rehabilitation", pos: "bottom-6 left-1/4", anim: "up" as const },
+  {
+    icon: ShieldCheck,
+    label: "Evidence-Based Care",
+    pos: "left-2 top-8 sm:-left-6",
+    anim: "left" as const,
+  },
+  {
+    icon: HeartPulse,
+    label: "Personalized Treatment",
+    pos: "right-2 top-1/3 sm:-right-6",
+    anim: "right" as const,
+  },
+  {
+    icon: Stethoscope,
+    label: "Professional Rehabilitation",
+    pos: "bottom-6 left-1/4",
+    anim: "up" as const,
+  },
 ];
 
 export function Hero() {
@@ -41,8 +56,9 @@ export function Hero() {
             <span className="text-gradient">Live Pain-Free.</span>
           </h1>
           <p className="mt-6 max-w-xl text-base leading-relaxed text-muted-foreground sm:text-lg">
-            PainFix Physiotherapy Clinic provides evidence-based physiotherapy and rehabilitation to help patients
-            overcome pain, recover from injuries, and restore movement through personalized treatment plans.
+            PainFix Physiotherapy Clinic provides evidence-based physiotherapy and rehabilitation to
+            help patients overcome pain, recover from injuries, and restore movement through
+            personalized treatment plans.
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
             <button

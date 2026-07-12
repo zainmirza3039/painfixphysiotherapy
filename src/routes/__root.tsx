@@ -97,14 +97,26 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { title: "PainFix Physiotherapy Clinic — Multan" },
       { property: "og:title", content: "PainFix Physiotherapy Clinic — Multan" },
       { name: "twitter:title", content: "PainFix Physiotherapy Clinic — Multan" },
-      { name: "description", content: "PainFix Physiotherapy Clinic in Multan, Pakistan — evidence-based physiotherapy and rehabilitation for lasting pain relief, injury recovery, and restored movement." },
-      { property: "og:description", content: "PainFix Physiotherapy Clinic in Multan, Pakistan — evidence-based physiotherapy and rehabilitation for lasting pain relief, injury recovery, and restored movement." },
-      { name: "twitter:description", content: "PainFix Physiotherapy Clinic in Multan, Pakistan — evidence-based physiotherapy and rehabilitation for lasting pain relief, injury recovery, and restored movement." },
+      {
+        name: "description",
+        content:
+          "PainFix Physiotherapy Clinic in Multan, Pakistan — evidence-based physiotherapy and rehabilitation for lasting pain relief, injury recovery, and restored movement.",
+      },
+      {
+        property: "og:description",
+        content:
+          "PainFix Physiotherapy Clinic in Multan, Pakistan — evidence-based physiotherapy and rehabilitation for lasting pain relief, injury recovery, and restored movement.",
+      },
+      {
+        name: "twitter:description",
+        content:
+          "PainFix Physiotherapy Clinic in Multan, Pakistan — evidence-based physiotherapy and rehabilitation for lasting pain relief, injury recovery, and restored movement.",
+      },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
       { rel: "icon", type: "image/png", href: "/painfix-logo.png" },
-{ rel: "apple-touch-icon", href: "/painfix-logo.png" },
+      { rel: "apple-touch-icon", href: "/painfix-logo.png" },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       // Preload the font CSS as a resource so it is discovered early, but load
@@ -231,10 +243,10 @@ function RootShell({ children }: { children: ReactNode }) {
         </noscript>
       </head>
       <body>
-  {children}
-  <Scripts />
-  <SpeedInsights />
-</body>
+        {children}
+        <Scripts />
+        <SpeedInsights />
+      </body>
     </html>
   );
 }
