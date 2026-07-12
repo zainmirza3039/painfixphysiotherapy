@@ -171,25 +171,30 @@ function BlogArticle() {
             </div>
 
             {/* Key Takeaways */}
-            <div className="mt-10 rounded-[1.75rem] border border-border bg-card p-6 shadow-soft">
-              <h2 className="font-heading text-xl font-bold text-foreground">Key Takeaways</h2>
-              <ul className="mt-4 space-y-2.5">
-                {post.keyTakeaways.map((k) => (
-                  <li key={k} className="flex items-start gap-3 text-muted-foreground">
-                    <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-primary" />
-                    <span>{k}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
+            {post.keyTakeaways.length > 0 && (
+              <div className="mt-10 rounded-[1.75rem] border border-border bg-card p-6 shadow-soft">
+                <h2 className="font-heading text-xl font-bold text-foreground">Key Takeaways</h2>
+                <ul className="mt-4 space-y-2.5">
+                  {post.keyTakeaways.map((k) => (
+                    <li key={k} className="flex items-start gap-3 text-muted-foreground">
+                      <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-primary" />
+                      <span>{k}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
 
             {/* FAQs */}
-            <div className="mt-12">
-              <h2 className="font-heading text-2xl font-extrabold text-foreground">Frequently Asked Questions</h2>
-              <div className="mt-6">
-                <FaqAccordion faqs={post.faqs} />
+            {post.faqs.length > 0 && (
+              <div className="mt-12">
+                <h2 className="font-heading text-2xl font-extrabold text-foreground">Frequently Asked Questions</h2>
+                <div className="mt-6">
+                  <FaqAccordion faqs={post.faqs} />
+                </div>
               </div>
-            </div>
+            )}
+
 
             {/* Conversion CTA */}
             <div className="mt-12 overflow-hidden rounded-[2rem] bg-gradient-to-br from-primary to-secondary p-8 text-center shadow-card">
