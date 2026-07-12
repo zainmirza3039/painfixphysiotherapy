@@ -111,7 +111,7 @@ function BlogArticle() {
   return (
     <PageLayout>
       <PageHero
-        eyebrow={cat?.name ?? "Article"}
+        eyebrow={cat?.name ?? post.categoryName ?? "Article"}
         title={post.title}
         crumbs={[
           { label: "Home", path: "/" },
