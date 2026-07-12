@@ -216,13 +216,15 @@ function RootShell({ children }: { children: ReactNode }) {
         <script dangerouslySetInnerHTML={{ __html: THEME_INIT_SCRIPT }} />
         {/* Non-render-blocking web fonts: load with media="print" then flip to
             "all" once the stylesheet arrives, so FCP is never gated on the
-            cross-origin font CSS. <noscript> keeps fonts for no-JS clients. */}
-        <link
-          rel="stylesheet"
-          href={FONT_HREF}
-          media="print"
-          // eslint-disable-next-line react/no-unknown-property
-          {...{ onload: "this.media='all'" }}
+            cross-origin font CSS. The inline script performs the swap (React
+            strips string event handlers, so this is more reliable than onload).
+            <noscript> keeps fonts for no-JS clients. */}
+        <link id="gfont-css" rel="stylesheet" href={FONT_HREF} media="print" />
+        <script
+          dangerouslySetInnerHTML={{
+            __html:
+              "(function(){var g=document.getElementById('gfont-css');if(!g)return;function a(){g.media='all';}if(g.sheet){a();}else{g.addEventListener('load',a,{once:true});}})();",
+          }}
         />
         <noscript>
           <link rel="stylesheet" href={FONT_HREF} />
