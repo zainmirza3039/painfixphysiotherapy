@@ -13,7 +13,7 @@ import { GoogleReviewButton } from "./GoogleReviewButton";
 import { services } from "@/data/services";
 import { conditions } from "@/data/conditions";
 import { latestPosts } from "@/data/blog";
-import logoAsset from "@/assets/painfix-logo-96.webp.asset.json";
+
 
 const socials = [
   { icon: Facebook, label: "Facebook", ...SOCIAL_LINKS.facebook },
@@ -37,7 +37,7 @@ export function Footer() {
             <div className="flex items-center gap-2.5">
               <span className="grid h-11 w-11 place-items-center overflow-hidden rounded-xl bg-background p-0.5">
                 <img
-                  src={logoAsset.url}
+                  src="/painfix-logo-96.webp"
                   alt="PainFix Physiotherapy Clinic logo"
                   width={44}
                   height={44}
