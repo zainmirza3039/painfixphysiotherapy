@@ -9,7 +9,9 @@ const dateFmt = new Intl.DateTimeFormat("en-GB", { day: "numeric", month: "short
 export function BlogCard({ post }: { post: BlogPost }) {
   const cat = blogCategoryMap[post.category];
   const reviewer = getTeamMember(post.authorKey);
-  const image = conditionImages[post.category];
+  const image = post.heroImage ?? conditionImages[post.category];
+  const categoryLabel = cat?.name ?? post.categoryName ?? "Article";
+
 
   return (
     <Link
