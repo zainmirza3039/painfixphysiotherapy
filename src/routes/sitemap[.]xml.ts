@@ -21,6 +21,24 @@ export const Route = createFileRoute("/sitemap.xml")({
         const { team } = await import("@/data/team");
         const { dietMainPage, dietSubPages, DIET_NUTRITION_ENABLED } = await import("@/data/wellness");
         const { fitnessPages } = await import("@/data/fitness");
+        const { listPublishedBlogPosts } = await import("@/lib/blog.functions");
+        let dbPosts: { slug: string; updated_at: string }[] = [];
+        try {
+          dbPosts = (await listPublishedBlogPosts()).map((p) => ({ slug: p.slug, updated_at: p.updated_at }));
+        } catch {
+          dbPosts = [];
+        }
+        // De-duplicate CMS slugs that also exist in static data.
+        const staticSlugs = new Set(blogPosts.map((p) => p.slug));
+        const cmsBlogEntries = dbPosts
+          .filter((p) => !staticSlugs.has(p.slug))
+          .map((p) => ({
+            path: `/blog/${p.slug}`,
+            lastmod: p.updated_at,
+            changefreq: "monthly" as const,
+            priority: "0.7",
+          }));
+
         const entries: SitemapEntry[] = [
           { path: "/", changefreq: "weekly", priority: "1.0" },
           { path: "/services", changefreq: "monthly", priority: "0.9" },
