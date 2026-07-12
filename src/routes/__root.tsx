@@ -17,6 +17,9 @@ import { ThemeProvider, THEME_INIT_SCRIPT } from "@/components/site/ThemeProvide
 import { SITE_URL } from "@/components/site/constants";
 import type { AuthChangeEvent } from "@supabase/supabase-js";
 
+const FONT_HREF =
+  "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@500;600;700;800&display=swap";
+
 const LOGO_URL =
   SITE_URL + "/__l5e/assets-v1/75948e0c-8e21-469d-84f9-a156e5280404/painfix-logo.png";
 
