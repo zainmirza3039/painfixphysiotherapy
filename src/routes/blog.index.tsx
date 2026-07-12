@@ -13,9 +13,13 @@ import {
   latestPosts,
   popularPosts,
   readingMinutes,
+  type BlogPost,
 } from "@/data/blog";
+import { listPublishedBlogPosts } from "@/lib/blog.functions";
+import { dbPostToBlogPost, mergeBlogPosts } from "@/lib/dbBlog";
 import { pageMeta, canonical, breadcrumbLd } from "@/lib/seo";
 import { SITE_URL } from "@/components/site/constants";
+
 
 export const Route = createFileRoute("/blog/")({
   head: () => {
@@ -48,14 +52,24 @@ export const Route = createFileRoute("/blog/")({
       ],
     };
   },
+  loader: async () => {
+    try {
+      const rows = await listPublishedBlogPosts();
+      return { dbPosts: rows.map(dbPostToBlogPost) };
+    } catch {
+      return { dbPosts: [] as BlogPost[] };
+    }
+  },
   component: BlogIndex,
 });
 
 function BlogIndex() {
+  const { dbPosts } = Route.useLoaderData();
   const [query, setQuery] = useState("");
-  const all = latestPosts();
+  const all = useMemo(() => mergeBlogPosts(latestPosts(), dbPosts), [dbPosts]);
   const featured = featuredPosts();
   const popular = popularPosts(5);
+
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();

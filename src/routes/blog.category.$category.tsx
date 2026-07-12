@@ -5,14 +5,24 @@ import { PageCTA } from "@/components/site/PageCTA";
 import { Reveal } from "@/components/site/Reveal";
 import { BlogCard } from "@/components/site/BlogCard";
 import { blogCategoryMap, blogCategories, postsByCategory, type BlogPost, type BlogCategory } from "@/data/blog";
+import { listPublishedBlogPosts } from "@/lib/blog.functions";
+import { dbPostToBlogPost, mergeBlogPosts } from "@/lib/dbBlog";
 import { pageMeta, canonical, breadcrumbLd } from "@/lib/seo";
 
 export const Route = createFileRoute("/blog/category/$category")({
-  loader: ({ params }) => {
+  loader: async ({ params }) => {
     const category = blogCategoryMap[params.category];
     if (!category) throw notFound();
-    return { category, posts: postsByCategory(params.category) };
+    let dbPosts: BlogPost[] = [];
+    try {
+      const rows = await listPublishedBlogPosts();
+      dbPosts = rows.map(dbPostToBlogPost).filter((p) => p.category === params.category);
+    } catch {
+      dbPosts = [];
+    }
+    return { category, posts: mergeBlogPosts(postsByCategory(params.category), dbPosts) };
   },
+
   head: ({ params, loaderData }) => {
     if (!loaderData) {
       return { meta: [{ title: "Category Not Found — PainFix" }, { name: "robots", content: "noindex" }] };

@@ -26,6 +26,14 @@ export interface BlogPost {
   keyTakeaways: string[];
   relatedServices: string[];
   relatedConditions: string[];
+  /** Set for posts sourced from the CMS (blog_posts table) rather than static data. */
+  source?: "static" | "cms";
+  /** Display name for CMS categories that don't map to a known static category. */
+  categoryName?: string;
+  /** Author display name for CMS posts (no static team mapping). */
+  authorName?: string;
+  /** Uploaded featured image URL for CMS posts (preferred over category image). */
+  heroImage?: string;
 }
 
 export interface BlogCategory {

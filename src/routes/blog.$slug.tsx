@@ -4,6 +4,8 @@ import { getPost, readingMinutes, relatedPosts, blogCategoryMap, type BlogPost }
 import { getTeamMember } from "@/data/team";
 import { serviceMap } from "@/data/services";
 import { conditionMap } from "@/data/conditions";
+import { getPublishedBlogPostBySlug } from "@/lib/blog.functions";
+import { dbPostToBlogPost } from "@/lib/dbBlog";
 import { PageLayout } from "@/components/site/PageLayout";
 import { PageHero } from "@/components/site/PageHero";
 import { FaqAccordion } from "@/components/site/FaqAccordion";
@@ -15,11 +17,19 @@ import { pageMeta, canonical, breadcrumbLd, faqLd } from "@/lib/seo";
 import { SITE_URL, WHATSAPP_URL, WHATSAPP_CONSULT_URL, PHONE_TEL, PHONE_DISPLAY, MAP_DIRECTIONS_URL } from "@/components/site/constants";
 
 export const Route = createFileRoute("/blog/$slug")({
-  loader: ({ params }) => {
-    const post = getPost(params.slug);
-    if (!post) throw notFound();
-    return post;
+  loader: async ({ params }) => {
+    const staticPost = getPost(params.slug);
+    if (staticPost) return staticPost;
+    // Fall back to a published CMS post before giving up.
+    try {
+      const row = await getPublishedBlogPostBySlug({ data: { slug: params.slug } });
+      if (row) return dbPostToBlogPost(row);
+    } catch {
+      // ignore and 404 below
+    }
+    throw notFound();
   },
+
   head: ({ params, loaderData }) => {
     if (!loaderData) {
       return { meta: [{ title: "Article Not Found — PainFix" }, { name: "robots", content: "noindex" }] };
@@ -101,7 +111,7 @@ function BlogArticle() {
   return (
     <PageLayout>
       <PageHero
-        eyebrow={cat?.name ?? "Article"}
+        eyebrow={cat?.name ?? post.categoryName ?? "Article"}
         title={post.title}
         crumbs={[
           { label: "Home", path: "/" },
@@ -161,25 +171,30 @@ function BlogArticle() {
             </div>
 
             {/* Key Takeaways */}
-            <div className="mt-10 rounded-[1.75rem] border border-border bg-card p-6 shadow-soft">
-              <h2 className="font-heading text-xl font-bold text-foreground">Key Takeaways</h2>
-              <ul className="mt-4 space-y-2.5">
-                {post.keyTakeaways.map((k) => (
-                  <li key={k} className="flex items-start gap-3 text-muted-foreground">
-                    <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-primary" />
-                    <span>{k}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
+            {post.keyTakeaways.length > 0 && (
+              <div className="mt-10 rounded-[1.75rem] border border-border bg-card p-6 shadow-soft">
+                <h2 className="font-heading text-xl font-bold text-foreground">Key Takeaways</h2>
+                <ul className="mt-4 space-y-2.5">
+                  {post.keyTakeaways.map((k) => (
+                    <li key={k} className="flex items-start gap-3 text-muted-foreground">
+                      <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-primary" />
+                      <span>{k}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
 
             {/* FAQs */}
-            <div className="mt-12">
-              <h2 className="font-heading text-2xl font-extrabold text-foreground">Frequently Asked Questions</h2>
-              <div className="mt-6">
-                <FaqAccordion faqs={post.faqs} />
+            {post.faqs.length > 0 && (
+              <div className="mt-12">
+                <h2 className="font-heading text-2xl font-extrabold text-foreground">Frequently Asked Questions</h2>
+                <div className="mt-6">
+                  <FaqAccordion faqs={post.faqs} />
+                </div>
               </div>
-            </div>
+            )}
+
 
             {/* Conversion CTA */}
             <div className="mt-12 overflow-hidden rounded-[2rem] bg-gradient-to-br from-primary to-secondary p-8 text-center shadow-card">
