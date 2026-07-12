@@ -1,5 +1,5 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import {
+import { { SpeedInsights } from "@vercel/speed-insights/react";
   Outlet,
   Link,
   createRootRouteWithContext,
