@@ -108,6 +108,13 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         rel: "stylesheet",
         href: "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@500;600;700;800&display=swap",
       },
+      // DNS prefetch for third-party origins that load lazily (on scroll,
+      // interaction, or idle). Cheaper than preconnect and avoids reserving
+      // sockets for origins that may never be needed on a given visit.
+      { rel: "dns-prefetch", href: "https://www.clarity.ms" },
+      { rel: "dns-prefetch", href: "https://assets.calendly.com" },
+      { rel: "dns-prefetch", href: "https://www.google.com" },
+      { rel: "dns-prefetch", href: "https://maps.googleapis.com" },
     ],
 
     scripts: [
