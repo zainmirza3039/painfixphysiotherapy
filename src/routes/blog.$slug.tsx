@@ -4,6 +4,8 @@ import { getPost, readingMinutes, relatedPosts, blogCategoryMap, type BlogPost }
 import { getTeamMember } from "@/data/team";
 import { serviceMap } from "@/data/services";
 import { conditionMap } from "@/data/conditions";
+import { getPublishedBlogPostBySlug } from "@/lib/blog.functions";
+import { dbPostToBlogPost } from "@/lib/dbBlog";
 import { PageLayout } from "@/components/site/PageLayout";
 import { PageHero } from "@/components/site/PageHero";
 import { FaqAccordion } from "@/components/site/FaqAccordion";
@@ -15,11 +17,19 @@ import { pageMeta, canonical, breadcrumbLd, faqLd } from "@/lib/seo";
 import { SITE_URL, WHATSAPP_URL, WHATSAPP_CONSULT_URL, PHONE_TEL, PHONE_DISPLAY, MAP_DIRECTIONS_URL } from "@/components/site/constants";
 
 export const Route = createFileRoute("/blog/$slug")({
-  loader: ({ params }) => {
-    const post = getPost(params.slug);
-    if (!post) throw notFound();
-    return post;
+  loader: async ({ params }) => {
+    const staticPost = getPost(params.slug);
+    if (staticPost) return staticPost;
+    // Fall back to a published CMS post before giving up.
+    try {
+      const row = await getPublishedBlogPostBySlug({ data: { slug: params.slug } });
+      if (row) return dbPostToBlogPost(row);
+    } catch {
+      // ignore and 404 below
+    }
+    throw notFound();
   },
+
   head: ({ params, loaderData }) => {
     if (!loaderData) {
       return { meta: [{ title: "Article Not Found — PainFix" }, { name: "robots", content: "noindex" }] };
