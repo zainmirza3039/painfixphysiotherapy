@@ -1,5 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
-import heroImg from "@/assets/hero.webp";
+import heroAvif480 from "@/assets/hero-480.avif";
+import heroAvif768 from "@/assets/hero-768.avif";
+import heroAvif960 from "@/assets/hero-960.avif";
 import { SITE_URL } from "@/components/site/constants";
 import { faqLd } from "@/lib/seo";
 import { Navbar } from "@/components/site/Navbar";
