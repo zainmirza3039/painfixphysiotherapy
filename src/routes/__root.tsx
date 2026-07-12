@@ -230,9 +230,10 @@ function RootShell({ children }: { children: ReactNode }) {
         </noscript>
       </head>
       <body>
-        {children}
-        <Scripts />
-      </body>
+  {children}
+  <Scripts />
+  <SpeedInsights />
+</body>
     </html>
   );
 }
