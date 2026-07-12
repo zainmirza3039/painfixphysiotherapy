@@ -163,6 +163,27 @@ export async function buildSearchIndex(): Promise<SearchItem[]> {
     }
   }
 
+  // CMS blog articles (published) — fetched at build time so newly published
+  // posts become searchable without a code change. De-duplicated against static.
+  try {
+    const { listPublishedBlogPosts } = await import("@/lib/blog.functions");
+    const staticSlugs = new Set(blogPosts.map((p) => p.slug));
+    const rows = await listPublishedBlogPosts();
+    for (const p of rows) {
+      if (staticSlugs.has(p.slug)) continue;
+      items.push({
+        id: `blog-cms-${p.slug}`,
+        title: p.title,
+        subtitle: p.excerpt ?? p.meta_description ?? undefined,
+        category: "Blog Articles",
+        href: `/blog/${p.slug}`,
+        keywords: [...(p.tags ?? []), p.excerpt ?? "", p.category ?? ""].join(" "),
+      });
+    }
+  } catch {
+    // Search still works from static content if the CMS fetch fails.
+  }
+
   // Blog categories
   for (const c of blogCategories) {
     items.push({
