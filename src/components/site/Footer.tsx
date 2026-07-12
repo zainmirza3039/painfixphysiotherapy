@@ -125,7 +125,7 @@ export function Footer() {
                 </Link>
               </li>
               <li>
-                <Link to="/services" className="inline-flex items-center gap-1 font-semibold text-secondary">
+                <Link to="/services" className="inline-flex items-center gap-1 font-semibold text-secondary-glow">
                   All Services <ArrowRight className="h-3.5 w-3.5" />
                 </Link>
               </li>
@@ -148,7 +148,7 @@ export function Footer() {
                 </li>
               ))}
               <li>
-                <Link to="/conditions" className="inline-flex items-center gap-1 font-semibold text-secondary">
+                <Link to="/conditions" className="inline-flex items-center gap-1 font-semibold text-secondary-glow">
                   All Conditions <ArrowRight className="h-3.5 w-3.5" />
                 </Link>
               </li>
@@ -173,7 +173,7 @@ export function Footer() {
                 </li>
               ))}
               <li>
-                <Link to="/blog" className="inline-flex items-center gap-1 font-semibold text-secondary">
+                <Link to="/blog" className="inline-flex items-center gap-1 font-semibold text-secondary-glow">
                   Read the Blog <ArrowRight className="h-3.5 w-3.5" />
                 </Link>
               </li>

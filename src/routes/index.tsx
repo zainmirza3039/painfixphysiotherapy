@@ -1,5 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
-import heroImg from "@/assets/hero.webp";
+import heroAvif480 from "@/assets/hero-480.avif";
+import heroAvif768 from "@/assets/hero-768.avif";
+import heroAvif960 from "@/assets/hero-960.avif";
 import { SITE_URL } from "@/components/site/constants";
 import { faqLd } from "@/lib/seo";
 import { Navbar } from "@/components/site/Navbar";
@@ -42,7 +44,15 @@ export const Route = createFileRoute("/")({
     ],
     links: [
       { rel: "canonical", href: `${SITE_URL}/` },
-      { rel: "preload", as: "image", href: heroImg, fetchPriority: "high" },
+      {
+        rel: "preload",
+        as: "image",
+        type: "image/avif",
+        href: heroAvif480,
+        imageSrcset: `${heroAvif480} 480w, ${heroAvif768} 768w, ${heroAvif960} 960w`,
+        imageSizes: "(min-width: 1024px) 600px, (min-width: 640px) 448px, 90vw",
+        fetchPriority: "high",
+      },
     ],
     scripts: [faqLd(homeFaqs.map((f) => ({ q: f.q, a: f.a })))],
   }),

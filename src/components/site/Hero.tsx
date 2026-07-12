@@ -1,6 +1,18 @@
 import { Calendar, MessageCircle, ShieldCheck, HeartPulse, Stethoscope } from "lucide-react";
 import heroImg from "@/assets/hero.webp";
+import heroAvif480 from "@/assets/hero-480.avif";
+import heroAvif768 from "@/assets/hero-768.avif";
+import heroAvif960 from "@/assets/hero-960.avif";
+import heroWebp480 from "@/assets/hero-480.webp";
+import heroWebp768 from "@/assets/hero-768.webp";
+import heroWebp960 from "@/assets/hero-960.webp";
 import { Reveal } from "./Reveal";
+
+// Responsive srcsets — the browser picks the smallest source that fits the
+// rendered box, cutting LCP bytes on mobile from ~75KB to ~20KB (AVIF 480w).
+const HERO_SIZES = "(min-width: 1024px) 600px, (min-width: 640px) 448px, 90vw";
+const HERO_AVIF_SRCSET = `${heroAvif480} 480w, ${heroAvif768} 768w, ${heroAvif960} 960w`;
+const HERO_WEBP_SRCSET = `${heroWebp480} 480w, ${heroWebp768} 768w, ${heroWebp960} 960w`;
 import { WHATSAPP_URL } from "./constants";
 import { openCalendlyPopup } from "./calendly";
 
@@ -54,14 +66,19 @@ export function Hero() {
         <Reveal anim="right" className="order-1 lg:order-2">
           <div className="relative mx-auto max-w-md lg:max-w-none">
             <div className="overflow-hidden rounded-[2rem] shadow-glow ring-1 ring-border">
-              <img
-                src={heroImg}
-                alt="Physiotherapist performing manual therapy on a patient at PainFix Physiotherapy Clinic in Multan"
-                width={853}
-                height={1280}
-                className="h-full w-full object-cover"
-                fetchPriority="high"
-              />
+              <picture>
+                <source type="image/avif" srcSet={HERO_AVIF_SRCSET} sizes={HERO_SIZES} />
+                <source type="image/webp" srcSet={HERO_WEBP_SRCSET} sizes={HERO_SIZES} />
+                <img
+                  src={heroImg}
+                  alt="Physiotherapist performing manual therapy on a patient at PainFix Physiotherapy Clinic in Multan"
+                  width={853}
+                  height={1280}
+                  className="h-full w-full object-cover"
+                  fetchPriority="high"
+                  decoding="async"
+                />
+              </picture>
             </div>
             {floatingCards.map((c) => (
               <div

@@ -17,6 +17,9 @@ import { ThemeProvider, THEME_INIT_SCRIPT } from "@/components/site/ThemeProvide
 import { SITE_URL } from "@/components/site/constants";
 import type { AuthChangeEvent } from "@supabase/supabase-js";
 
+const FONT_HREF =
+  "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@500;600;700;800&display=swap";
+
 const LOGO_URL =
   SITE_URL + "/__l5e/assets-v1/75948e0c-8e21-469d-84f9-a156e5280404/painfix-logo.png";
 
@@ -104,10 +107,11 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { rel: "apple-touch-icon", href: "/__l5e/assets-v1/75948e0c-8e21-469d-84f9-a156e5280404/painfix-logo.png" },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
-      {
-        rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@500;600;700;800&display=swap",
-      },
+      // Preload the font CSS as a resource so it is discovered early, but load
+      // it non-render-blocking (the swap happens in RootShell) so FCP isn't
+      // gated on a cross-origin stylesheet round-trip. font-display:swap in the
+      // URL keeps text visible with the fallback until the webfont arrives.
+      { rel: "preload", as: "style", href: FONT_HREF },
       // DNS prefetch for third-party origins that load lazily (on scroll,
       // interaction, or idle). Cheaper than preconnect and avoids reserving
       // sockets for origins that may never be needed on a given visit.
@@ -210,6 +214,21 @@ function RootShell({ children }: { children: ReactNode }) {
       <head>
         <HeadContent />
         <script dangerouslySetInnerHTML={{ __html: THEME_INIT_SCRIPT }} />
+        {/* Non-render-blocking web fonts: load with media="print" then flip to
+            "all" once the stylesheet arrives, so FCP is never gated on the
+            cross-origin font CSS. The inline script performs the swap (React
+            strips string event handlers, so this is more reliable than onload).
+            <noscript> keeps fonts for no-JS clients. */}
+        <link id="gfont-css" rel="stylesheet" href={FONT_HREF} media="print" />
+        <script
+          dangerouslySetInnerHTML={{
+            __html:
+              "(function(){var g=document.getElementById('gfont-css');if(!g)return;function a(){g.media='all';}if(g.sheet){a();}else{g.addEventListener('load',a,{once:true});}})();",
+          }}
+        />
+        <noscript>
+          <link rel="stylesheet" href={FONT_HREF} />
+        </noscript>
       </head>
       <body>
         {children}
