@@ -108,6 +108,13 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         rel: "stylesheet",
         href: "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@500;600;700;800&display=swap",
       },
+      // DNS prefetch for third-party origins that load lazily (on scroll,
+      // interaction, or idle). Cheaper than preconnect and avoids reserving
+      // sockets for origins that may never be needed on a given visit.
+      { rel: "dns-prefetch", href: "https://www.clarity.ms" },
+      { rel: "dns-prefetch", href: "https://assets.calendly.com" },
+      { rel: "dns-prefetch", href: "https://www.google.com" },
+      { rel: "dns-prefetch", href: "https://maps.googleapis.com" },
     ],
 
     scripts: [
@@ -183,10 +190,11 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         }),
       },
       {
-        // Microsoft Clarity — loads asynchronously so it never blocks render,
-        // SEO, or Core Web Vitals.
+        // Microsoft Clarity — deferred until the browser is idle after load so
+        // it never competes with hydration or the LCP for main-thread time.
+        // Falls back to a timeout where requestIdleCallback is unsupported.
         children:
-          '(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","xkrug632ml");',
+          '(function(){function l(){(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","xkrug632ml")}function s(){"requestIdleCallback"in window?requestIdleCallback(l,{timeout:6000}):setTimeout(l,3000)}"complete"===document.readyState?s():window.addEventListener("load",s,{once:true})})();',
       },
     ],
   }),
