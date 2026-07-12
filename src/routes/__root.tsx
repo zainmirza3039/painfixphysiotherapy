@@ -107,10 +107,11 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { rel: "apple-touch-icon", href: "/__l5e/assets-v1/75948e0c-8e21-469d-84f9-a156e5280404/painfix-logo.png" },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
-      {
-        rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@500;600;700;800&display=swap",
-      },
+      // Preload the font CSS as a resource so it is discovered early, but load
+      // it non-render-blocking (the swap happens in RootShell) so FCP isn't
+      // gated on a cross-origin stylesheet round-trip. font-display:swap in the
+      // URL keeps text visible with the fallback until the webfont arrives.
+      { rel: "preload", as: "style", href: FONT_HREF },
       // DNS prefetch for third-party origins that load lazily (on scroll,
       // interaction, or idle). Cheaper than preconnect and avoids reserving
       // sockets for origins that may never be needed on a given visit.
