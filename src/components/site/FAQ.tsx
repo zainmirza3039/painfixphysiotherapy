@@ -49,7 +49,9 @@ export function FAQ() {
                     onClick={() => setOpen(isOpen ? null : i)}
                     className="flex w-full items-center justify-between gap-4 px-6 py-5 text-left"
                   >
-                    <span className="font-heading text-base font-semibold text-foreground">{f.q}</span>
+                    <span className="font-heading text-base font-semibold text-foreground">
+                      {f.q}
+                    </span>
                     <Plus
                       className={`h-5 w-5 shrink-0 text-secondary transition-transform duration-300 ${isOpen ? "rotate-45" : ""}`}
                     />
@@ -59,7 +61,9 @@ export function FAQ() {
                     style={{ gridTemplateRows: isOpen ? "1fr" : "0fr" }}
                   >
                     <div className="overflow-hidden">
-                      <p className="px-6 pb-5 text-sm leading-relaxed text-muted-foreground">{f.a}</p>
+                      <p className="px-6 pb-5 text-sm leading-relaxed text-muted-foreground">
+                        {f.a}
+                      </p>
                     </div>
                   </div>
                 </div>

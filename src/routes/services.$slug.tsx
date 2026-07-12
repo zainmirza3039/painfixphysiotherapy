@@ -1,5 +1,13 @@
 import { createFileRoute, notFound, Link } from "@tanstack/react-router";
-import { CheckCircle2, Sparkles, ClipboardList, Wrench, BookOpen, ShieldAlert, Users } from "lucide-react";
+import {
+  CheckCircle2,
+  Sparkles,
+  ClipboardList,
+  Wrench,
+  BookOpen,
+  ShieldAlert,
+  Users,
+} from "lucide-react";
 import { getService, type Service } from "@/data/services";
 import { serviceImages, serviceImageAlt, serviceImageAltFallback } from "@/data/serviceImages";
 import {
@@ -29,7 +37,9 @@ export const Route = createFileRoute("/services/$slug")({
   head: ({ params, loaderData }) => {
     const service = loaderData ? getService(loaderData.slug) : undefined;
     if (!service) {
-      return { meta: [{ title: "Service Not Found — PainFix" }, { name: "robots", content: "noindex" }] };
+      return {
+        meta: [{ title: "Service Not Found — PainFix" }, { name: "robots", content: "noindex" }],
+      };
     }
     const path = `/services/${params.slug}`;
     return {
@@ -66,7 +76,10 @@ function ServiceNotFound() {
       <section className="mx-auto max-w-3xl px-4 py-40 text-center">
         <h1 className="font-heading text-3xl font-extrabold text-foreground">Service not found</h1>
         <p className="mt-3 text-muted-foreground">This service page doesn't exist.</p>
-        <Link to="/services" className="mt-6 inline-flex rounded-2xl bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground">
+        <Link
+          to="/services"
+          className="mt-6 inline-flex rounded-2xl bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground"
+        >
           View all services
         </Link>
       </section>
@@ -103,10 +116,14 @@ function ServiceDetail() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid items-center gap-10 lg:grid-cols-2">
             <Reveal anim="left">
-              <h2 className="font-heading text-2xl font-extrabold text-foreground sm:text-3xl">Overview</h2>
+              <h2 className="font-heading text-2xl font-extrabold text-foreground sm:text-3xl">
+                Overview
+              </h2>
               <div className="mt-5 space-y-4">
                 {service.overview.map((p) => (
-                  <p key={p} className="text-base leading-relaxed text-muted-foreground">{p}</p>
+                  <p key={p} className="text-base leading-relaxed text-muted-foreground">
+                    {p}
+                  </p>
                 ))}
               </div>
             </Reveal>
@@ -156,7 +173,8 @@ function ServiceDetail() {
           <Reveal anim="left">
             <div className="rounded-[1.75rem] border border-border bg-card p-8 shadow-soft">
               <h2 className="flex items-center gap-2 font-heading text-xl font-bold text-foreground">
-                <ClipboardList className="h-5 w-5 text-primary" /> {service.conditionsLabel ?? "Conditions Treated"}
+                <ClipboardList className="h-5 w-5 text-primary" />{" "}
+                {service.conditionsLabel ?? "Conditions Treated"}
               </h2>
               <ul className="mt-5 space-y-3">
                 {service.conditionsTreated.map((c) => (
@@ -198,7 +216,9 @@ function ServiceDetail() {
                     {i + 1}
                   </span>
                   <h3 className="mt-4 font-heading font-bold text-foreground">{step.title}</h3>
-                  <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{step.description}</p>
+                  <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                    {step.description}
+                  </p>
                 </div>
               </Reveal>
             ))}
@@ -219,7 +239,9 @@ function ServiceDetail() {
                   </h2>
                   <div className="mt-5 space-y-4">
                     {service.evidence.map((p) => (
-                      <p key={p} className="text-sm leading-relaxed text-muted-foreground">{p}</p>
+                      <p key={p} className="text-sm leading-relaxed text-muted-foreground">
+                        {p}
+                      </p>
                     ))}
                   </div>
                 </div>
@@ -254,7 +276,10 @@ function ServiceDetail() {
             </h2>
             <div className="mt-8 flex flex-wrap justify-center gap-3">
               {service.equipment.map((e) => (
-                <span key={e} className="rounded-full border border-border bg-card px-5 py-2.5 text-sm font-medium text-foreground shadow-soft">
+                <span
+                  key={e}
+                  className="rounded-full border border-border bg-card px-5 py-2.5 text-sm font-medium text-foreground shadow-soft"
+                >
                   {e}
                 </span>
               ))}

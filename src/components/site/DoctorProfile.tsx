@@ -136,7 +136,8 @@ export function DoctorProfile({ doc }: { doc: TeamMember }) {
               <ClipboardList className="h-6 w-6 text-primary" /> Conditions Treated
             </h2>
             <p className="mt-3 text-sm text-muted-foreground">
-              {doc.fullName} treats a wide range of conditions with evidence-based physiotherapy in Multan.
+              {doc.fullName} treats a wide range of conditions with evidence-based physiotherapy in
+              Multan.
             </p>
             <ul className="mt-6 grid gap-3 sm:grid-cols-2">
               {doc.profile.conditionsTreated.map((c) => (

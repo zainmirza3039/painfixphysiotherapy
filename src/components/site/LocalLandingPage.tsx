@@ -49,17 +49,22 @@ export function LocalLandingPage({ page }: { page: LocalPage }) {
         <div className="mx-auto max-w-4xl space-y-12 px-4 sm:px-6 lg:px-8">
           {page.sections.map((s) => (
             <Reveal key={s.heading} anim="up">
-              <h2 className="font-heading text-2xl font-extrabold text-foreground sm:text-3xl">{s.heading}</h2>
+              <h2 className="font-heading text-2xl font-extrabold text-foreground sm:text-3xl">
+                {s.heading}
+              </h2>
               <div className="mt-4 space-y-4">
                 {s.paragraphs.map((p) => (
-                  <p key={p} className="text-base leading-relaxed text-muted-foreground">{p}</p>
+                  <p key={p} className="text-base leading-relaxed text-muted-foreground">
+                    {p}
+                  </p>
                 ))}
               </div>
               {s.list && s.list.length > 0 && (
                 <ul className="mt-5 grid gap-2.5 sm:grid-cols-2">
                   {s.list.map((item) => (
                     <li key={item} className="flex items-start gap-2.5 text-sm text-foreground">
-                      <ArrowRight className="mt-0.5 h-4 w-4 shrink-0 text-secondary rtl:rotate-180" /> {item}
+                      <ArrowRight className="mt-0.5 h-4 w-4 shrink-0 text-secondary rtl:rotate-180" />{" "}
+                      {item}
                     </li>
                   ))}
                 </ul>
@@ -87,10 +92,15 @@ export function LocalLandingPage({ page }: { page: LocalPage }) {
                     <span className="grid h-12 w-12 place-items-center rounded-2xl bg-secondary/12 text-secondary">
                       <service.icon className="h-6 w-6" />
                     </span>
-                    <h3 className="mt-4 font-heading text-lg font-bold text-foreground">{service.title}</h3>
-                    <p className="mt-2 flex-1 text-sm leading-relaxed text-muted-foreground">{service.tagline}</p>
+                    <h3 className="mt-4 font-heading text-lg font-bold text-foreground">
+                      {service.title}
+                    </h3>
+                    <p className="mt-2 flex-1 text-sm leading-relaxed text-muted-foreground">
+                      {service.tagline}
+                    </p>
                     <span className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-primary">
-                      Learn more <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1 rtl:rotate-180" />
+                      Learn more{" "}
+                      <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1 rtl:rotate-180" />
                     </span>
                   </Link>
                 </Reveal>
@@ -116,7 +126,9 @@ export function LocalLandingPage({ page }: { page: LocalPage }) {
                     className="hover-lift group flex h-full items-center justify-between gap-3 rounded-2xl border border-border bg-card px-6 py-5 shadow-soft"
                   >
                     <span className="flex items-center gap-3">
-                      <span className="text-2xl" aria-hidden="true">{c.icon}</span>
+                      <span className="text-2xl" aria-hidden="true">
+                        {c.icon}
+                      </span>
                       <span className="font-heading font-bold text-foreground">{c.title}</span>
                     </span>
                     <ArrowRight className="h-4 w-4 text-primary transition-transform group-hover:translate-x-1 rtl:rotate-180" />
@@ -162,7 +174,9 @@ export function LocalLandingPage({ page }: { page: LocalPage }) {
       <section className="py-14 sm:py-20">
         <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
           <div className="rounded-[1.75rem] border border-border bg-card p-8 shadow-soft">
-            <h2 className="font-heading text-xl font-bold text-foreground">Visit PainFix Physiotherapy Clinic</h2>
+            <h2 className="font-heading text-xl font-bold text-foreground">
+              Visit PainFix Physiotherapy Clinic
+            </h2>
             <ul className="mt-5 space-y-3 text-sm text-muted-foreground">
               <li>
                 <a
@@ -175,7 +189,10 @@ export function LocalLandingPage({ page }: { page: LocalPage }) {
                 </a>
               </li>
               <li>
-                <a href={PHONE_TEL} className="flex items-center gap-2.5 transition-colors hover:text-primary">
+                <a
+                  href={PHONE_TEL}
+                  className="flex items-center gap-2.5 transition-colors hover:text-primary"
+                >
                   <Phone className="h-4 w-4 shrink-0 text-secondary" /> {PHONE_DISPLAY}
                 </a>
               </li>
@@ -225,9 +242,12 @@ export function LocalLandingPage({ page }: { page: LocalPage }) {
                     className="hover-lift group flex h-full flex-col rounded-[1.75rem] border border-border bg-card p-6 shadow-soft"
                   >
                     <h3 className="font-heading text-lg font-bold text-foreground">{post.title}</h3>
-                    <p className="mt-2 flex-1 text-sm leading-relaxed text-muted-foreground line-clamp-3">{post.excerpt}</p>
+                    <p className="mt-2 flex-1 text-sm leading-relaxed text-muted-foreground line-clamp-3">
+                      {post.excerpt}
+                    </p>
                     <span className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-primary">
-                      Read article <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1 rtl:rotate-180" />
+                      Read article{" "}
+                      <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1 rtl:rotate-180" />
                     </span>
                   </Link>
                 </Reveal>

@@ -89,10 +89,15 @@ function SuccessStories() {
                   <p className="mt-1 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
                     {j.profile}
                   </p>
-                  <p className="mt-3 flex-1 text-sm leading-relaxed text-muted-foreground">{j.journey}</p>
+                  <p className="mt-3 flex-1 text-sm leading-relaxed text-muted-foreground">
+                    {j.journey}
+                  </p>
                   <div className="mt-4 flex flex-wrap gap-2">
                     {j.focus.map((f) => (
-                      <span key={f} className="rounded-full bg-accent px-3 py-1 text-xs font-semibold text-accent-foreground">
+                      <span
+                        key={f}
+                        className="rounded-full bg-accent px-3 py-1 text-xs font-semibold text-accent-foreground"
+                      >
                         {f}
                       </span>
                     ))}
@@ -102,8 +107,9 @@ function SuccessStories() {
             ))}
           </div>
           <p className="mx-auto mt-8 max-w-2xl text-center text-xs leading-relaxed text-muted-foreground">
-            The journeys above are representative and anonymised to protect privacy; individual results vary.
-            Identifiable patient stories are shared only with documented written consent.
+            The journeys above are representative and anonymised to protect privacy; individual
+            results vary. Identifiable patient stories are shared only with documented written
+            consent.
           </p>
         </div>
       </section>

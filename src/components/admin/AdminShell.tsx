@@ -57,7 +57,9 @@ function useDarkMode() {
 
   useEffect(() => {
     const saved = localStorage.getItem("painfix-admin-theme");
-    const isDark = saved ? saved === "dark" : window.matchMedia("(prefers-color-scheme: dark)").matches;
+    const isDark = saved
+      ? saved === "dark"
+      : window.matchMedia("(prefers-color-scheme: dark)").matches;
     setDark(isDark);
     document.documentElement.classList.toggle("dark", isDark);
     // Remove admin dark scope when leaving the admin area so the public site stays light.
@@ -117,8 +119,8 @@ export function AdminShell({ children }: { children: ReactNode }) {
           </span>
           <h1 className="mt-4 font-heading text-xl font-bold text-foreground">Access pending</h1>
           <p className="mt-2 text-sm text-muted-foreground">
-            Your account (<span className="font-medium">{user?.email}</span>) is not yet authorised for
-            the admin panel. Please ask an administrator to grant you access.
+            Your account (<span className="font-medium">{user?.email}</span>) is not yet authorised
+            for the admin panel. Please ask an administrator to grant you access.
           </p>
           <Button variant="outline" className="mt-6" onClick={signOut}>
             <LogOut className="mr-2 h-4 w-4" /> Sign out
@@ -156,7 +158,8 @@ export function AdminShell({ children }: { children: ReactNode }) {
       </div>
       <nav className="flex-1 space-y-1 overflow-y-auto px-3 py-2">
         {items.map((item) => {
-          const active = item.to === "/admin" ? pathname === "/admin" : pathname.startsWith(item.to);
+          const active =
+            item.to === "/admin" ? pathname === "/admin" : pathname.startsWith(item.to);
           return (
             <Link
               key={item.to}
@@ -215,9 +218,7 @@ export function AdminShell({ children }: { children: ReactNode }) {
                 {SidebarInner}
               </SheetContent>
             </Sheet>
-            <span className="text-sm font-medium text-muted-foreground">
-              {panelLabel} panel
-            </span>
+            <span className="text-sm font-medium text-muted-foreground">{panelLabel} panel</span>
           </div>
           <div className="flex items-center gap-2">
             <Button variant="ghost" size="icon" onClick={toggle} aria-label="Toggle theme">

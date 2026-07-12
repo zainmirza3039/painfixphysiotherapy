@@ -168,12 +168,30 @@ export const team: TeamMember[] = [
 ];
 
 export const trustPoints = [
-  { title: "Evidence-Based Treatment", description: "Care grounded in the latest physiotherapy research and proven techniques." },
-  { title: "Personalized Care Plans", description: "Every treatment plan is tailored to your body, condition and goals." },
-  { title: "Patient Education", description: "We help you understand your condition so you can recover with confidence." },
-  { title: "Modern Rehabilitation", description: "Up-to-date equipment and methods for effective, comfortable treatment." },
-  { title: "Home Visits Available", description: "Professional physiotherapy delivered in the comfort of your home." },
-  { title: "Experienced Physiotherapists", description: "Qualified, caring clinicians committed to your long-term recovery." },
+  {
+    title: "Evidence-Based Treatment",
+    description: "Care grounded in the latest physiotherapy research and proven techniques.",
+  },
+  {
+    title: "Personalized Care Plans",
+    description: "Every treatment plan is tailored to your body, condition and goals.",
+  },
+  {
+    title: "Patient Education",
+    description: "We help you understand your condition so you can recover with confidence.",
+  },
+  {
+    title: "Modern Rehabilitation",
+    description: "Up-to-date equipment and methods for effective, comfortable treatment.",
+  },
+  {
+    title: "Home Visits Available",
+    description: "Professional physiotherapy delivered in the comfort of your home.",
+  },
+  {
+    title: "Experienced Physiotherapists",
+    description: "Qualified, caring clinicians committed to your long-term recovery.",
+  },
 ];
 
 export const teamMap = Object.fromEntries(team.map((m) => [m.initials, m]));

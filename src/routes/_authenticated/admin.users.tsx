@@ -129,7 +129,9 @@ function UsersPage() {
       <div className="overflow-hidden rounded-2xl border border-border bg-card shadow-soft">
         {isLoading ? (
           <div className="space-y-2 p-4">
-            {Array.from({ length: 4 }).map((_, i) => <Skeleton key={i} className="h-12" />)}
+            {Array.from({ length: 4 }).map((_, i) => (
+              <Skeleton key={i} className="h-12" />
+            ))}
           </div>
         ) : (
           <div className="overflow-x-auto">
@@ -253,7 +255,8 @@ function UsersPage() {
           <form
             onSubmit={(e) => {
               e.preventDefault();
-              if (form.password.length < 8) return toast.error("Password must be at least 8 characters");
+              if (form.password.length < 8)
+                return toast.error("Password must be at least 8 characters");
               createMutation.mutate();
             }}
             className="space-y-4"

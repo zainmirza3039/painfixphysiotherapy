@@ -80,10 +80,14 @@ function Membership() {
                       Most popular
                     </span>
                   )}
-                  <h2 className="font-heading text-xl font-extrabold text-foreground">{plan.name}</h2>
+                  <h2 className="font-heading text-xl font-extrabold text-foreground">
+                    {plan.name}
+                  </h2>
                   <p className="mt-1.5 text-sm text-muted-foreground">{plan.tagline}</p>
                   <div className="mt-4 flex items-end gap-1">
-                    <span className="font-heading text-2xl font-extrabold text-primary">{plan.price}</span>
+                    <span className="font-heading text-2xl font-extrabold text-primary">
+                      {plan.price}
+                    </span>
                     <span className="pb-1 text-xs text-muted-foreground">{plan.period}</span>
                   </div>
                   <ul className="mt-5 flex-1 space-y-3">
@@ -110,8 +114,9 @@ function Membership() {
             ))}
           </div>
           <p className="mx-auto mt-8 max-w-2xl text-center text-xs leading-relaxed text-muted-foreground">
-            Prices are starting points and confirmed after your assessment. Every plan is tailored to your
-            health, goals and any existing conditions. Contact us on WhatsApp for exact pricing and availability.
+            Prices are starting points and confirmed after your assessment. Every plan is tailored
+            to your health, goals and any existing conditions. Contact us on WhatsApp for exact
+            pricing and availability.
           </p>
         </div>
       </section>

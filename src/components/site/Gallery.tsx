@@ -190,8 +190,13 @@ function Lightbox({
       onClick={onClose}
     >
       {/* Top bar */}
-      <div className="flex items-center justify-between px-4 py-4 sm:px-6" onClick={(e) => e.stopPropagation()}>
-        <span className="font-heading text-sm font-bold text-background sm:text-base">{photo.caption}</span>
+      <div
+        className="flex items-center justify-between px-4 py-4 sm:px-6"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <span className="font-heading text-sm font-bold text-background sm:text-base">
+          {photo.caption}
+        </span>
         <div className="flex items-center gap-2">
           <button
             type="button"
@@ -253,7 +258,10 @@ function Lightbox({
       </div>
 
       {/* Counter */}
-      <div className="pb-5 text-center text-sm font-medium text-background/80" onClick={(e) => e.stopPropagation()}>
+      <div
+        className="pb-5 text-center text-sm font-medium text-background/80"
+        onClick={(e) => e.stopPropagation()}
+      >
         {index + 1} / {photos.length}
       </div>
     </div>

@@ -206,7 +206,12 @@ export async function buildSearchIndex(): Promise<SearchItem[]> {
       subtitle: f.heroSubtitle,
       category: isProgramme ? "Programmes" : "Fitness",
       href: `/fitness/${f.slug}`,
-      keywords: [f.quickSummary, f.metaDescription, fitnessGroupMap[f.category] ?? "", "fitness exercise workout rehabilitation"].join(" "),
+      keywords: [
+        f.quickSummary,
+        f.metaDescription,
+        fitnessGroupMap[f.category] ?? "",
+        "fitness exercise workout rehabilitation",
+      ].join(" "),
     });
   }
 
@@ -248,11 +253,36 @@ export async function buildSearchIndex(): Promise<SearchItem[]> {
 
   // Health calculators
   const calculators: { title: string; desc: string; kw: string; href: string }[] = [
-    { title: "BMI Calculator", desc: "Body Mass Index & WHO category", kw: "bmi body mass index weight height obesity healthy weight", href: "/health-calculators" },
-    { title: "Calorie Calculator", desc: "Estimate daily calorie needs (TDEE)", kw: "calorie calories tdee bmr energy maintenance deficit", href: "/health-calculators" },
-    { title: "Daily Water Intake Calculator", desc: "Recommended daily hydration", kw: "water hydration fluid intake litres", href: "/health-calculators" },
-    { title: "Protein Intake Calculator", desc: "Daily protein target", kw: "protein macros muscle intake grams", href: "/health-calculators" },
-    { title: "Ideal Weight Calculator", desc: "Healthy weight range for your height", kw: "ideal weight healthy range target weight", href: "/health-calculators" },
+    {
+      title: "BMI Calculator",
+      desc: "Body Mass Index & WHO category",
+      kw: "bmi body mass index weight height obesity healthy weight",
+      href: "/health-calculators",
+    },
+    {
+      title: "Calorie Calculator",
+      desc: "Estimate daily calorie needs (TDEE)",
+      kw: "calorie calories tdee bmr energy maintenance deficit",
+      href: "/health-calculators",
+    },
+    {
+      title: "Daily Water Intake Calculator",
+      desc: "Recommended daily hydration",
+      kw: "water hydration fluid intake litres",
+      href: "/health-calculators",
+    },
+    {
+      title: "Protein Intake Calculator",
+      desc: "Daily protein target",
+      kw: "protein macros muscle intake grams",
+      href: "/health-calculators",
+    },
+    {
+      title: "Ideal Weight Calculator",
+      desc: "Healthy weight range for your height",
+      kw: "ideal weight healthy range target weight",
+      href: "/health-calculators",
+    },
   ];
   for (const c of calculators) {
     items.push({
@@ -339,14 +369,70 @@ export async function buildSearchIndex(): Promise<SearchItem[]> {
 
   // Core navigation pages
   items.push(
-    { id: "page-home", title: "Home", subtitle: "PainFix Physiotherapy Multan", category: "Pages", href: "/", keywords: "home main homepage painfix physiotherapy" },
-    { id: "page-services", title: "All Services", subtitle: "Browse physiotherapy services", category: "Pages", href: "/services", keywords: "services treatments physiotherapy" },
-    { id: "page-conditions", title: "All Conditions", subtitle: "Conditions we treat", category: "Pages", href: "/conditions", keywords: "conditions problems pain treat" },
-    { id: "page-blog", title: "Blog & Patient Resources", subtitle: "Evidence-based articles", category: "Pages", href: "/blog", keywords: "blog articles guides education resources" },
-    { id: "page-fitness", title: "Fitness Programmes", subtitle: "All fitness & rehab programmes", category: "Pages", href: "/fitness", keywords: "fitness programmes exercise workout" },
-    { id: "page-contact", title: "Contact & Directions", subtitle: "Address, phone, WhatsApp & map", category: "Pages", href: "/#contact", keywords: "contact address phone whatsapp map directions location multan" },
-    { id: "page-book", title: "Book an Appointment", subtitle: "Schedule your assessment", category: "Pages", href: "/#book", keywords: "book appointment schedule booking consultation" },
-    { id: "page-about", title: "About PainFix", subtitle: "Our clinic and approach", category: "Pages", href: "/#about", keywords: "about clinic story mission team approach" },
+    {
+      id: "page-home",
+      title: "Home",
+      subtitle: "PainFix Physiotherapy Multan",
+      category: "Pages",
+      href: "/",
+      keywords: "home main homepage painfix physiotherapy",
+    },
+    {
+      id: "page-services",
+      title: "All Services",
+      subtitle: "Browse physiotherapy services",
+      category: "Pages",
+      href: "/services",
+      keywords: "services treatments physiotherapy",
+    },
+    {
+      id: "page-conditions",
+      title: "All Conditions",
+      subtitle: "Conditions we treat",
+      category: "Pages",
+      href: "/conditions",
+      keywords: "conditions problems pain treat",
+    },
+    {
+      id: "page-blog",
+      title: "Blog & Patient Resources",
+      subtitle: "Evidence-based articles",
+      category: "Pages",
+      href: "/blog",
+      keywords: "blog articles guides education resources",
+    },
+    {
+      id: "page-fitness",
+      title: "Fitness Programmes",
+      subtitle: "All fitness & rehab programmes",
+      category: "Pages",
+      href: "/fitness",
+      keywords: "fitness programmes exercise workout",
+    },
+    {
+      id: "page-contact",
+      title: "Contact & Directions",
+      subtitle: "Address, phone, WhatsApp & map",
+      category: "Pages",
+      href: "/#contact",
+      keywords: "contact address phone whatsapp map directions location multan",
+    },
+    {
+      id: "page-book",
+      title: "Book an Appointment",
+      subtitle: "Schedule your assessment",
+      category: "Pages",
+      href: "/#book",
+      keywords: "book appointment schedule booking consultation",
+    },
+    {
+      id: "page-about",
+      title: "About PainFix",
+      subtitle: "Our clinic and approach",
+      category: "Pages",
+      href: "/#about",
+      keywords: "about clinic story mission team approach",
+    },
   );
 
   cache = items;

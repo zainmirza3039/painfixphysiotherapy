@@ -93,8 +93,7 @@ function ProfilePage() {
         bio: profile.bio ?? "",
         photo_url: profile.photo_url ?? "",
         specialties: (profile.specialties ?? []).join(", "),
-        years_experience:
-          profile.years_experience != null ? String(profile.years_experience) : "",
+        years_experience: profile.years_experience != null ? String(profile.years_experience) : "",
         qualifications: profile.qualifications ?? "",
         certifications: profile.certifications ?? "",
         clinical_interests: (profile.clinical_interests ?? []).join(", "),
@@ -137,9 +136,7 @@ function ProfilePage() {
         public_email: form.public_email.trim() || null,
         is_published: form.is_published,
       };
-      const { error } = await supabase
-        .from("profiles")
-        .upsert(payload, { onConflict: "user_id" });
+      const { error } = await supabase.from("profiles").upsert(payload, { onConflict: "user_id" });
       if (error) throw error;
     },
     onSuccess: () => {
@@ -157,7 +154,6 @@ function ProfilePage() {
         title="My Profile"
         description="Manage the public profile shown on the PainFix website."
       />
-
 
       {isLoading ? (
         <div className="space-y-3">
@@ -222,9 +218,7 @@ function ProfilePage() {
               </Label>
               <Input
                 value={form.professional_title}
-                onChange={(e) =>
-                  setForm((f) => ({ ...f, professional_title: e.target.value }))
-                }
+                onChange={(e) => setForm((f) => ({ ...f, professional_title: e.target.value }))}
                 placeholder="Clinical Physiotherapist"
               />
             </div>
@@ -270,9 +264,7 @@ function ProfilePage() {
                 type="number"
                 min={0}
                 value={form.years_experience}
-                onChange={(e) =>
-                  setForm((f) => ({ ...f, years_experience: e.target.value }))
-                }
+                onChange={(e) => setForm((f) => ({ ...f, years_experience: e.target.value }))}
                 placeholder="8"
               />
             </div>

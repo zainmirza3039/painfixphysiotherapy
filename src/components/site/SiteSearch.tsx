@@ -194,7 +194,8 @@ export function SiteSearch({ className = "" }: { className?: string }) {
         <DialogContent className="overflow-hidden p-0 sm:max-w-xl">
           <DialogTitle className="sr-only">Search the website</DialogTitle>
           <DialogDescription className="sr-only">
-            Search services, conditions, doctors, blog articles, FAQs, fitness, calculators and more.
+            Search services, conditions, doctors, blog articles, FAQs, fitness, calculators and
+            more.
           </DialogDescription>
           <Command
             shouldFilter={false}
@@ -272,9 +273,13 @@ export function SiteSearch({ className = "" }: { className?: string }) {
                     className="cursor-pointer justify-between gap-3 border-b border-border"
                   >
                     <span className="flex items-center gap-2 font-medium text-primary">
-                      <Search className="h-4 w-4" aria-hidden="true" /> See all results for “{query.trim()}”
+                      <Search className="h-4 w-4" aria-hidden="true" /> See all results for “
+                      {query.trim()}”
                     </span>
-                    <CornerDownLeft className="h-3.5 w-3.5 text-muted-foreground" aria-hidden="true" />
+                    <CornerDownLeft
+                      className="h-3.5 w-3.5 text-muted-foreground"
+                      aria-hidden="true"
+                    />
                   </CommandItem>
                   <CommandEmpty>No results for “{query}”.</CommandEmpty>
                   {grouped.map((group) => {

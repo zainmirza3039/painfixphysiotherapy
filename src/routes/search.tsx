@@ -48,7 +48,6 @@ export const Route = createFileRoute("/search")({
   component: SearchPage,
 });
 
-
 function SearchPage() {
   const { q, cat, sort } = Route.useSearch();
   const navigate = useNavigate({ from: PATH });
@@ -199,7 +198,8 @@ function SearchPage() {
               )}
               <div>
                 <h2 className="flex items-center gap-2 text-sm font-semibold text-foreground">
-                  <TrendingUp className="h-4 w-4 text-primary" aria-hidden="true" /> Popular searches
+                  <TrendingUp className="h-4 w-4 text-primary" aria-hidden="true" /> Popular
+                  searches
                 </h2>
                 <div className="mt-3 flex flex-wrap gap-2">
                   {POPULAR_SEARCHES.map((p) => (
@@ -226,7 +226,9 @@ function SearchPage() {
                   <FilterChip
                     label={`All (${allResults.length})`}
                     active={cat === "all"}
-                    onClick={() => navigate({ search: (p: SearchParams) => ({ ...p, cat: "all" }) })}
+                    onClick={() =>
+                      navigate({ search: (p: SearchParams) => ({ ...p, cat: "all" }) })
+                    }
                   />
                   {activeCategories.map((c) => (
                     <FilterChip
@@ -241,7 +243,9 @@ function SearchPage() {
                   Sort
                   <select
                     value={sort}
-                    onChange={(e) => navigate({ search: (p: SearchParams) => ({ ...p, sort: e.target.value }) })}
+                    onChange={(e) =>
+                      navigate({ search: (p: SearchParams) => ({ ...p, sort: e.target.value }) })
+                    }
                     className="rounded-lg border border-border bg-card px-3 py-1.5 text-sm text-foreground outline-none focus:border-primary"
                   >
                     <option value="relevance">Relevance</option>
@@ -391,7 +395,10 @@ function NoResults({ query, onPick }: { query: string; onPick: (t: string) => vo
             title="Popular Blogs"
             links={[
               { label: "Blog Home", to: "/blog" },
-              { label: "Best Physiotherapist in Multan", to: "/blog/best-physiotherapist-in-multan" },
+              {
+                label: "Best Physiotherapist in Multan",
+                to: "/blog/best-physiotherapist-in-multan",
+              },
               { label: "Health Tools", to: "/health-calculators" },
             ]}
           />
@@ -423,13 +430,7 @@ function NoResults({ query, onPick }: { query: string; onPick: (t: string) => vo
   );
 }
 
-function SuggestBlock({
-  title,
-  links,
-}: {
-  title: string;
-  links: { label: string; to: string }[];
-}) {
+function SuggestBlock({ title, links }: { title: string; links: { label: string; to: string }[] }) {
   return (
     <div className="rounded-2xl border border-border bg-surface p-4">
       <h3 className="text-sm font-bold text-foreground">{title}</h3>

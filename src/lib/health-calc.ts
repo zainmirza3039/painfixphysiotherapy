@@ -57,7 +57,12 @@ export const ACTIVITY_FACTORS: Record<ActivityLevel, { factor: number; label: st
 };
 
 /** Mifflin–St Jeor Basal Metabolic Rate. */
-export function calcBmr(sex: Sex, weightKg: number, heightCm: number, ageYears: number): number | null {
+export function calcBmr(
+  sex: Sex,
+  weightKg: number,
+  heightCm: number,
+  ageYears: number,
+): number | null {
   if (weightKg <= 0 || heightCm <= 0 || ageYears <= 0) return null;
   const base = 10 * weightKg + 6.25 * heightCm - 5 * ageYears;
   return Math.round(sex === "male" ? base + 5 : base - 161);
@@ -85,7 +90,10 @@ export function idealWeightRange(heightCm: number): { min: number; max: number }
  * Daily protein intake range (grams). Evidence-based general ranges:
  * 0.8 g/kg (general health) up to ~1.6 g/kg (active / strength training).
  */
-export function proteinRange(weightKg: number, active: boolean): { min: number; max: number } | null {
+export function proteinRange(
+  weightKg: number,
+  active: boolean,
+): { min: number; max: number } | null {
   if (weightKg <= 0) return null;
   const low = active ? 1.2 : 0.8;
   const high = active ? 1.6 : 1.2;

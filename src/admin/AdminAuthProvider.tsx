@@ -1,11 +1,4 @@
-import {
-  createContext,
-  useContext,
-  useCallback,
-  useEffect,
-  useState,
-  type ReactNode,
-} from "react";
+import { createContext, useContext, useCallback, useEffect, useState, type ReactNode } from "react";
 import type { User } from "@supabase/supabase-js";
 import { supabase } from "@/integrations/supabase/client";
 import {
@@ -56,18 +49,12 @@ export function AdminAuthProvider({ children }: { children: ReactNode }) {
       return;
     }
 
-    let { data: rows } = await supabase
-      .from("user_roles")
-      .select("role")
-      .eq("user_id", current.id);
+    let { data: rows } = await supabase.from("user_roles").select("role").eq("user_id", current.id);
 
     // First-login bootstrap: grants admin ONLY to the designated owner email.
     if (!rows || rows.length === 0) {
       await supabase.rpc("bootstrap_admin");
-      const res = await supabase
-        .from("user_roles")
-        .select("role")
-        .eq("user_id", current.id);
+      const res = await supabase.from("user_roles").select("role").eq("user_id", current.id);
       rows = res.data;
     }
 

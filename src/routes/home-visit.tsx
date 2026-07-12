@@ -114,8 +114,12 @@ function HomeVisitPage() {
         <section className="py-8">
           <div className="mx-auto max-w-4xl px-4 text-center sm:px-6 lg:px-8">
             <Reveal anim="up">
-              <h2 className="font-heading text-2xl font-extrabold text-foreground sm:text-3xl">{hv.intro.title}</h2>
-              <p className="mt-4 text-base leading-relaxed text-muted-foreground">{hv.intro.body}</p>
+              <h2 className="font-heading text-2xl font-extrabold text-foreground sm:text-3xl">
+                {hv.intro.title}
+              </h2>
+              <p className="mt-4 text-base leading-relaxed text-muted-foreground">
+                {hv.intro.body}
+              </p>
             </Reveal>
           </div>
         </section>
@@ -146,7 +150,9 @@ function HomeVisitPage() {
           <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
             <Reveal anim="up">
               <div className="text-center">
-                <h2 className="font-heading text-2xl font-extrabold text-foreground sm:text-3xl">{hv.how.title}</h2>
+                <h2 className="font-heading text-2xl font-extrabold text-foreground sm:text-3xl">
+                  {hv.how.title}
+                </h2>
                 <p className="mx-auto mt-3 max-w-xl text-muted-foreground">{hv.how.subtitle}</p>
               </div>
             </Reveal>
@@ -163,7 +169,9 @@ function HomeVisitPage() {
                         <Icon className="h-6 w-6" />
                       </span>
                       <h3 className="mt-4 font-heading font-bold text-foreground">{step.title}</h3>
-                      <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{step.desc}</p>
+                      <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                        {step.desc}
+                      </p>
                     </div>
                   </Reveal>
                 );
@@ -180,7 +188,9 @@ function HomeVisitPage() {
                 <span className="grid h-12 w-12 place-items-center rounded-2xl bg-secondary/12 text-secondary">
                   <MapPin className="h-6 w-6" />
                 </span>
-                <h2 className="mt-4 font-heading text-2xl font-extrabold text-foreground">{hv.areas.title}</h2>
+                <h2 className="mt-4 font-heading text-2xl font-extrabold text-foreground">
+                  {hv.areas.title}
+                </h2>
                 <p className="mt-3 text-base text-muted-foreground">{hv.areas.body}</p>
                 <p className="mt-2 text-sm text-muted-foreground">{hv.areas.note}</p>
               </div>
@@ -190,11 +200,16 @@ function HomeVisitPage() {
                 <span className="grid h-12 w-12 place-items-center rounded-2xl bg-primary/12 text-primary">
                   <CalendarCheck className="h-6 w-6" />
                 </span>
-                <h2 className="mt-4 font-heading text-2xl font-extrabold text-foreground">{hv.scheduling.title}</h2>
+                <h2 className="mt-4 font-heading text-2xl font-extrabold text-foreground">
+                  {hv.scheduling.title}
+                </h2>
                 <p className="mt-3 text-base text-muted-foreground">{hv.scheduling.subtitle}</p>
                 <ul className="mt-4 space-y-2">
                   {hv.scheduling.ways.map((w) => (
-                    <li key={w} className="flex items-center gap-2 text-sm font-medium text-foreground">
+                    <li
+                      key={w}
+                      className="flex items-center gap-2 text-sm font-medium text-foreground"
+                    >
                       <CheckCircle2 className="h-4 w-4 shrink-0 text-secondary" /> {w}
                     </li>
                   ))}
@@ -230,8 +245,12 @@ function HomeVisitPage() {
                 </Reveal>
               ))}
             </div>
-            <p className="mt-6 text-center text-sm text-muted-foreground">{hv.pricing.travelNote}</p>
-            <p className="mt-2 text-center font-heading text-lg font-semibold text-primary">{hv.pricing.note}</p>
+            <p className="mt-6 text-center text-sm text-muted-foreground">
+              {hv.pricing.travelNote}
+            </p>
+            <p className="mt-2 text-center font-heading text-lg font-semibold text-primary">
+              {hv.pricing.note}
+            </p>
           </div>
         </section>
 
@@ -240,7 +259,9 @@ function HomeVisitPage() {
           <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
             <Reveal anim="up">
               <div className="rounded-[2rem] border border-border bg-card p-6 shadow-card sm:p-9">
-                <h2 className="font-heading text-2xl font-extrabold text-foreground sm:text-3xl">{hv.form.title}</h2>
+                <h2 className="font-heading text-2xl font-extrabold text-foreground sm:text-3xl">
+                  {hv.form.title}
+                </h2>
                 <p className="mt-2 text-muted-foreground">{hv.form.subtitle}</p>
                 <div className="mt-7">
                   <HomeVisitForm />
@@ -262,7 +283,10 @@ function HomeVisitPage() {
               {hv.faq.items.map((item, i) => {
                 const open = openFaq === i;
                 return (
-                  <div key={item.q} className="overflow-hidden rounded-2xl border border-border bg-card shadow-soft">
+                  <div
+                    key={item.q}
+                    className="overflow-hidden rounded-2xl border border-border bg-card shadow-soft"
+                  >
                     <button
                       type="button"
                       onClick={() => setOpenFaq(open ? null : i)}
@@ -277,7 +301,9 @@ function HomeVisitPage() {
                       )}
                     </button>
                     {open && (
-                      <p className="px-5 pb-5 text-sm leading-relaxed text-muted-foreground">{item.a}</p>
+                      <p className="px-5 pb-5 text-sm leading-relaxed text-muted-foreground">
+                        {item.a}
+                      </p>
                     )}
                   </div>
                 );

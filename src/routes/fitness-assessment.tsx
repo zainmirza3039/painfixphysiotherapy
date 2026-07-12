@@ -103,8 +103,12 @@ function FitnessAssessment() {
 
       <section className="pb-4">
         <div className="mx-auto grid max-w-5xl gap-6 px-4 sm:px-6 lg:grid-cols-2 lg:px-8">
-          <Reveal anim="up"><BmiCalculator /></Reveal>
-          <Reveal anim="up" delay={80}><BodyFatEstimator /></Reveal>
+          <Reveal anim="up">
+            <BmiCalculator />
+          </Reveal>
+          <Reveal anim="up" delay={80}>
+            <BodyFatEstimator />
+          </Reveal>
         </div>
       </section>
 
@@ -116,12 +120,15 @@ function FitnessAssessment() {
                 <Activity className="h-5 w-5 text-secondary" /> Posture Self-Screen
               </h2>
               <p className="mt-2 text-sm text-muted-foreground">
-                Answer these honestly. If several apply to you, a professional posture and movement assessment
-                is recommended.
+                Answer these honestly. If several apply to you, a professional posture and movement
+                assessment is recommended.
               </p>
               <ul className="mt-5 grid gap-3 sm:grid-cols-2">
                 {POSTURE_CHECKS.map((c) => (
-                  <li key={c} className="flex items-start gap-2.5 rounded-xl bg-surface p-3.5 text-sm text-foreground">
+                  <li
+                    key={c}
+                    className="flex items-start gap-2.5 rounded-xl bg-surface p-3.5 text-sm text-foreground"
+                  >
                     <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-secondary" /> {c}
                   </li>
                 ))}
@@ -133,7 +140,9 @@ function FitnessAssessment() {
 
       <section className="pb-14 sm:pb-20">
         <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
-          <Reveal anim="up"><FitnessGoalForm /></Reveal>
+          <Reveal anim="up">
+            <FitnessGoalForm />
+          </Reveal>
         </div>
       </section>
 

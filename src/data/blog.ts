@@ -43,26 +43,106 @@ export interface BlogCategory {
 }
 
 export const blogCategories: BlogCategory[] = [
-  { slug: "back-pain", name: "Back Pain", description: "Evidence-based guidance on relieving and preventing back pain." },
-  { slug: "neck-pain", name: "Neck Pain", description: "Understand and treat neck pain, tech neck and cervical problems." },
-  { slug: "sciatica", name: "Sciatica", description: "Physiotherapy for sciatica and nerve-related leg pain." },
-  { slug: "frozen-shoulder", name: "Frozen Shoulder", description: "Recovery, exercises and timelines for frozen shoulder." },
-  { slug: "knee-pain", name: "Knee Pain", description: "Causes, treatment and rehab for knee pain and injuries." },
-  { slug: "sports-injuries", name: "Sports Injuries", description: "Rehab and safe return to sport after injury." },
-  { slug: "stroke-rehabilitation", name: "Stroke Rehabilitation", description: "Neurological recovery after stroke through physiotherapy." },
-  { slug: "posture", name: "Posture", description: "Fix your posture and set up an ergonomic workspace." },
-  { slug: "exercise-therapy", name: "Exercise Therapy", description: "Therapeutic exercise programmes that build lasting strength." },
-  { slug: "manual-therapy", name: "Manual Therapy", description: "Hands-on techniques to restore movement and relieve pain." },
-  { slug: "electrotherapy", name: "Electrotherapy", description: "TENS, ultrasound and modern electrotherapy modalities." },
-  { slug: "home-physiotherapy", name: "Home Physiotherapy", description: "Expert physiotherapy delivered at home in Multan." },
-  { slug: "pediatric-physiotherapy", name: "Pediatric Physiotherapy", description: "Physiotherapy for infants, children and adolescents." },
-  { slug: "neurological-rehabilitation", name: "Neurological Rehabilitation", description: "Rehab for stroke, Bell's palsy and neurological conditions." },
-  { slug: "elderly-care", name: "Elderly Care", description: "Mobility, balance and fall prevention for older adults." },
-  { slug: "womens-health", name: "Women's Health", description: "Pre- and postnatal physiotherapy and women's health rehab." },
-  { slug: "sports-performance", name: "Sports Performance", description: "Optimise strength, movement and athletic performance." },
-  { slug: "recovery-tips", name: "Recovery Tips", description: "Practical, science-backed tips for faster recovery." },
-  { slug: "patient-education", name: "Patient Education", description: "Answers to the questions patients ask us most." },
-  { slug: "hijama", name: "Hijama (Cupping Therapy)", description: "Safe, evidence-informed guidance on Hijama and cupping therapy." },
+  {
+    slug: "back-pain",
+    name: "Back Pain",
+    description: "Evidence-based guidance on relieving and preventing back pain.",
+  },
+  {
+    slug: "neck-pain",
+    name: "Neck Pain",
+    description: "Understand and treat neck pain, tech neck and cervical problems.",
+  },
+  {
+    slug: "sciatica",
+    name: "Sciatica",
+    description: "Physiotherapy for sciatica and nerve-related leg pain.",
+  },
+  {
+    slug: "frozen-shoulder",
+    name: "Frozen Shoulder",
+    description: "Recovery, exercises and timelines for frozen shoulder.",
+  },
+  {
+    slug: "knee-pain",
+    name: "Knee Pain",
+    description: "Causes, treatment and rehab for knee pain and injuries.",
+  },
+  {
+    slug: "sports-injuries",
+    name: "Sports Injuries",
+    description: "Rehab and safe return to sport after injury.",
+  },
+  {
+    slug: "stroke-rehabilitation",
+    name: "Stroke Rehabilitation",
+    description: "Neurological recovery after stroke through physiotherapy.",
+  },
+  {
+    slug: "posture",
+    name: "Posture",
+    description: "Fix your posture and set up an ergonomic workspace.",
+  },
+  {
+    slug: "exercise-therapy",
+    name: "Exercise Therapy",
+    description: "Therapeutic exercise programmes that build lasting strength.",
+  },
+  {
+    slug: "manual-therapy",
+    name: "Manual Therapy",
+    description: "Hands-on techniques to restore movement and relieve pain.",
+  },
+  {
+    slug: "electrotherapy",
+    name: "Electrotherapy",
+    description: "TENS, ultrasound and modern electrotherapy modalities.",
+  },
+  {
+    slug: "home-physiotherapy",
+    name: "Home Physiotherapy",
+    description: "Expert physiotherapy delivered at home in Multan.",
+  },
+  {
+    slug: "pediatric-physiotherapy",
+    name: "Pediatric Physiotherapy",
+    description: "Physiotherapy for infants, children and adolescents.",
+  },
+  {
+    slug: "neurological-rehabilitation",
+    name: "Neurological Rehabilitation",
+    description: "Rehab for stroke, Bell's palsy and neurological conditions.",
+  },
+  {
+    slug: "elderly-care",
+    name: "Elderly Care",
+    description: "Mobility, balance and fall prevention for older adults.",
+  },
+  {
+    slug: "womens-health",
+    name: "Women's Health",
+    description: "Pre- and postnatal physiotherapy and women's health rehab.",
+  },
+  {
+    slug: "sports-performance",
+    name: "Sports Performance",
+    description: "Optimise strength, movement and athletic performance.",
+  },
+  {
+    slug: "recovery-tips",
+    name: "Recovery Tips",
+    description: "Practical, science-backed tips for faster recovery.",
+  },
+  {
+    slug: "patient-education",
+    name: "Patient Education",
+    description: "Answers to the questions patients ask us most.",
+  },
+  {
+    slug: "hijama",
+    name: "Hijama (Cupping Therapy)",
+    description: "Safe, evidence-informed guidance on Hijama and cupping therapy.",
+  },
 ];
 
 export const blogCategoryMap = Object.fromEntries(blogCategories.map((c) => [c.slug, c]));
@@ -127,12 +207,30 @@ export const blogPosts: BlogPost[] = [
       },
     ],
     faqs: [
-      { q: "What qualification should a physiotherapist have in Pakistan?", a: "Look for a Doctor of Physical Therapy (DPT) degree and current registration. This ensures your clinician is trained to assess, diagnose and treat safely." },
-      { q: "How do I know if a physiotherapy clinic is good?", a: "A good clinic performs a thorough assessment, explains your diagnosis, personalises treatment, and combines manual therapy with exercise and education rather than relying only on machines." },
-      { q: "Is physiotherapy available at home in Multan?", a: "Yes. PainFix offers home physiotherapy across Multan for elderly, post-surgical and mobility-limited patients who cannot easily travel to the clinic." },
-      { q: "Do I need a doctor's referral to see a physiotherapist?", a: "In most cases you can book directly. If your condition requires medical investigation, your physiotherapist will advise you." },
-      { q: "How much does physiotherapy cost in Multan?", a: "Costs depend on your condition and number of sessions. Contact PainFix for current pricing and a personalised recommendation after assessment." },
-      { q: "How long before I see results?", a: "Many patients notice improvement within 3–6 sessions, though this varies with the condition and how consistently you follow your plan." },
+      {
+        q: "What qualification should a physiotherapist have in Pakistan?",
+        a: "Look for a Doctor of Physical Therapy (DPT) degree and current registration. This ensures your clinician is trained to assess, diagnose and treat safely.",
+      },
+      {
+        q: "How do I know if a physiotherapy clinic is good?",
+        a: "A good clinic performs a thorough assessment, explains your diagnosis, personalises treatment, and combines manual therapy with exercise and education rather than relying only on machines.",
+      },
+      {
+        q: "Is physiotherapy available at home in Multan?",
+        a: "Yes. PainFix offers home physiotherapy across Multan for elderly, post-surgical and mobility-limited patients who cannot easily travel to the clinic.",
+      },
+      {
+        q: "Do I need a doctor's referral to see a physiotherapist?",
+        a: "In most cases you can book directly. If your condition requires medical investigation, your physiotherapist will advise you.",
+      },
+      {
+        q: "How much does physiotherapy cost in Multan?",
+        a: "Costs depend on your condition and number of sessions. Contact PainFix for current pricing and a personalised recommendation after assessment.",
+      },
+      {
+        q: "How long before I see results?",
+        a: "Many patients notice improvement within 3–6 sessions, though this varies with the condition and how consistently you follow your plan.",
+      },
     ],
     keyTakeaways: [
       "Choose a licensed DPT-qualified physiotherapist.",
@@ -150,7 +248,14 @@ export const blogPosts: BlogPost[] = [
     metaDescription:
       "Effective back pain treatment in Multan (kamar dard ka ilaj). Learn the causes, when to worry, and how evidence-based physiotherapy relieves back pain and prevents it returning.",
     category: "back-pain",
-    tags: ["back pain", "kamar dard", "kamar dard ka ilaj", "Multan", "lower back", "physiotherapy"],
+    tags: [
+      "back pain",
+      "kamar dard",
+      "kamar dard ka ilaj",
+      "Multan",
+      "lower back",
+      "physiotherapy",
+    ],
     excerpt:
       "Most back pain (kamar dard) responds extremely well to physiotherapy. Here's how we assess, treat and prevent back pain at our Multan clinic.",
     quickAnswer:
@@ -185,7 +290,9 @@ export const blogPosts: BlogPost[] = [
       },
       {
         heading: "What causes back pain",
-        paragraphs: ["Most back pain has a mechanical cause that physiotherapy can directly address."],
+        paragraphs: [
+          "Most back pain has a mechanical cause that physiotherapy can directly address.",
+        ],
         list: [
           "Muscle or ligament strain",
           "Poor posture and prolonged sitting",
@@ -215,13 +322,34 @@ export const blogPosts: BlogPost[] = [
       },
     ],
     faqs: [
-      { q: "Should I rest or stay active with back pain?", a: "Gentle activity is usually better than bed rest. Prolonged rest can stiffen the spine and slow recovery. Your physiotherapist will guide safe movement." },
-      { q: "Can physiotherapy cure back pain?", a: "Physiotherapy resolves most mechanical back pain and, importantly, reduces the chance of it returning by addressing the underlying cause." },
-      { q: "How long does back pain take to recover?", a: "Many patients feel meaningful relief within 2–4 weeks of consistent physiotherapy, with a full programme designed to prevent recurrence." },
-      { q: "Do I need an MRI for back pain?", a: "Most back pain does not require an MRI. Imaging is reserved for specific warning signs, which your physiotherapist will screen for." },
-      { q: "Is back pain a sign of something serious?", a: "Rarely. But red flags like unexplained weight loss, fever, or leg weakness need medical review — we screen for these at assessment." },
-      { q: "Can I get back pain treatment at home in Multan?", a: "Yes, PainFix provides home physiotherapy across Multan for patients who cannot travel comfortably." },
-      { q: "Will I need surgery for back pain?", a: "The large majority of back pain never needs surgery. Physiotherapy is the recommended first-line treatment." },
+      {
+        q: "Should I rest or stay active with back pain?",
+        a: "Gentle activity is usually better than bed rest. Prolonged rest can stiffen the spine and slow recovery. Your physiotherapist will guide safe movement.",
+      },
+      {
+        q: "Can physiotherapy cure back pain?",
+        a: "Physiotherapy resolves most mechanical back pain and, importantly, reduces the chance of it returning by addressing the underlying cause.",
+      },
+      {
+        q: "How long does back pain take to recover?",
+        a: "Many patients feel meaningful relief within 2–4 weeks of consistent physiotherapy, with a full programme designed to prevent recurrence.",
+      },
+      {
+        q: "Do I need an MRI for back pain?",
+        a: "Most back pain does not require an MRI. Imaging is reserved for specific warning signs, which your physiotherapist will screen for.",
+      },
+      {
+        q: "Is back pain a sign of something serious?",
+        a: "Rarely. But red flags like unexplained weight loss, fever, or leg weakness need medical review — we screen for these at assessment.",
+      },
+      {
+        q: "Can I get back pain treatment at home in Multan?",
+        a: "Yes, PainFix provides home physiotherapy across Multan for patients who cannot travel comfortably.",
+      },
+      {
+        q: "Will I need surgery for back pain?",
+        a: "The large majority of back pain never needs surgery. Physiotherapy is the recommended first-line treatment.",
+      },
     ],
     keyTakeaways: [
       "Most back pain is mechanical and responds well to physiotherapy.",
@@ -240,7 +368,8 @@ export const blogPosts: BlogPost[] = [
       "What causes back pain (kamar dard ki wajuhat)? Understand the most common causes — from muscle strain and posture to disc problems — and how physiotherapy in Multan treats each one.",
     category: "back-pain",
     tags: ["back pain", "kamar dard", "causes", "disc", "posture"],
-    excerpt: "From muscle strain to disc problems, understanding what causes your back pain (kamar dard) is the first step to treating it properly.",
+    excerpt:
+      "From muscle strain to disc problems, understanding what causes your back pain (kamar dard) is the first step to treating it properly.",
     quickAnswer:
       "The most common causes of back pain (kamar dard ki wajuhat) are muscle or ligament strain, poor posture and prolonged sitting, disc problems, incorrect lifting, and weak core muscles. Most causes are mechanical and improve with physiotherapy. A detailed assessment identifies the exact cause so treatment can target it directly.",
     date: "2026-06-24",
@@ -278,12 +407,30 @@ export const blogPosts: BlogPost[] = [
       },
     ],
     faqs: [
-      { q: "What is the most common cause of back pain?", a: "Muscle or ligament strain is the most common cause, usually triggered by lifting, twisting or a sudden movement." },
-      { q: "Can sitting too much cause back pain?", a: "Yes. Prolonged sitting with poor posture loads the spine and weakens supporting muscles, a very common contributor to back pain." },
-      { q: "How do I know if my back pain is from a disc?", a: "Disc-related pain often travels into the leg and may cause numbness or tingling. A physiotherapy assessment can identify this pattern." },
-      { q: "Is back pain caused by weak muscles?", a: "A weak core and back muscles reduce spinal support and increase strain, contributing to pain and recurrence." },
-      { q: "Can stress cause back pain?", a: "Stress increases muscle tension and can worsen or trigger back pain, which is why we address movement, activity and habits together." },
-      { q: "When should I worry about back pain?", a: "Seek review for pain with leg weakness, numbness, unexplained weight loss, fever, or bladder/bowel changes." },
+      {
+        q: "What is the most common cause of back pain?",
+        a: "Muscle or ligament strain is the most common cause, usually triggered by lifting, twisting or a sudden movement.",
+      },
+      {
+        q: "Can sitting too much cause back pain?",
+        a: "Yes. Prolonged sitting with poor posture loads the spine and weakens supporting muscles, a very common contributor to back pain.",
+      },
+      {
+        q: "How do I know if my back pain is from a disc?",
+        a: "Disc-related pain often travels into the leg and may cause numbness or tingling. A physiotherapy assessment can identify this pattern.",
+      },
+      {
+        q: "Is back pain caused by weak muscles?",
+        a: "A weak core and back muscles reduce spinal support and increase strain, contributing to pain and recurrence.",
+      },
+      {
+        q: "Can stress cause back pain?",
+        a: "Stress increases muscle tension and can worsen or trigger back pain, which is why we address movement, activity and habits together.",
+      },
+      {
+        q: "When should I worry about back pain?",
+        a: "Seek review for pain with leg weakness, numbness, unexplained weight loss, fever, or bladder/bowel changes.",
+      },
     ],
     keyTakeaways: [
       "Most back pain is mechanical, not sinister.",
@@ -302,7 +449,8 @@ export const blogPosts: BlogPost[] = [
       "Sciatica (tang ke nerve pain) causes shooting pain down the leg. Learn how physiotherapy in Multan relieves sciatica, the best exercises, and how long recovery usually takes.",
     category: "sciatica",
     tags: ["sciatica", "tang ka dard", "nerve pain", "leg pain", "disc"],
-    excerpt: "Sciatica (tang ke nerve pain) can be intensely painful, but most cases settle with the right physiotherapy. Here's how we treat it.",
+    excerpt:
+      "Sciatica (tang ke nerve pain) can be intensely painful, but most cases settle with the right physiotherapy. Here's how we treat it.",
     quickAnswer:
       "Physiotherapy helps sciatica (tang ke nerve pain ka ilaj) by relieving pressure and irritation on the sciatic nerve. Treatment includes gentle nerve-mobilising exercises, manual therapy, posture correction and progressive strengthening. Most sciatica improves within 4–8 weeks of consistent physiotherapy, and surgery is rarely needed.",
     date: "2026-06-20",
@@ -346,12 +494,30 @@ export const blogPosts: BlogPost[] = [
       },
     ],
     faqs: [
-      { q: "How long does sciatica take to heal?", a: "Most sciatica improves within 4–8 weeks of consistent physiotherapy, though severe cases can take longer." },
-      { q: "What is the best exercise for sciatica?", a: "Nerve-gliding exercises and gentle directional movements are often best, but the ideal exercise depends on your assessment findings." },
-      { q: "Should I rest or move with sciatica?", a: "Gentle, guided movement is better than bed rest. Prolonged rest can worsen stiffness and slow recovery." },
-      { q: "Can physiotherapy fix sciatica without surgery?", a: "Yes — the large majority of sciatica resolves with physiotherapy. Surgery is reserved for severe or non-improving cases with nerve compression." },
-      { q: "Why is my sciatica worse when sitting?", a: "Sitting increases pressure on the lumbar discs, which can further irritate the nerve. We provide sitting and posture strategies to manage this." },
-      { q: "When is sciatica an emergency?", a: "Seek urgent care for loss of bladder or bowel control, or rapidly worsening leg weakness." },
+      {
+        q: "How long does sciatica take to heal?",
+        a: "Most sciatica improves within 4–8 weeks of consistent physiotherapy, though severe cases can take longer.",
+      },
+      {
+        q: "What is the best exercise for sciatica?",
+        a: "Nerve-gliding exercises and gentle directional movements are often best, but the ideal exercise depends on your assessment findings.",
+      },
+      {
+        q: "Should I rest or move with sciatica?",
+        a: "Gentle, guided movement is better than bed rest. Prolonged rest can worsen stiffness and slow recovery.",
+      },
+      {
+        q: "Can physiotherapy fix sciatica without surgery?",
+        a: "Yes — the large majority of sciatica resolves with physiotherapy. Surgery is reserved for severe or non-improving cases with nerve compression.",
+      },
+      {
+        q: "Why is my sciatica worse when sitting?",
+        a: "Sitting increases pressure on the lumbar discs, which can further irritate the nerve. We provide sitting and posture strategies to manage this.",
+      },
+      {
+        q: "When is sciatica an emergency?",
+        a: "Seek urgent care for loss of bladder or bowel control, or rapidly worsening leg weakness.",
+      },
     ],
     keyTakeaways: [
       "Sciatica is usually caused by nerve irritation from a disc.",
@@ -370,7 +536,8 @@ export const blogPosts: BlogPost[] = [
       "Relieve neck pain (gardan ka dard) with these physiotherapist-recommended exercises. Simple, safe movements to reduce stiffness, improve posture and prevent 'tech neck'.",
     category: "neck-pain",
     tags: ["neck pain", "gardan ka dard", "exercises", "stretches", "posture"],
-    excerpt: "A few minutes of the right exercises each day can dramatically reduce neck pain (gardan ka dard) and stiffness. Here are the ones we recommend.",
+    excerpt:
+      "A few minutes of the right exercises each day can dramatically reduce neck pain (gardan ka dard) and stiffness. Here are the ones we recommend.",
     quickAnswer:
       "The best exercises for neck pain (gardan ke dard ka ilaj) include chin tucks, gentle neck rotations, shoulder blade squeezes, upper trapezius stretches and levator scapulae stretches. Performed daily and pain-free, they reduce stiffness, strengthen the deep neck muscles and correct the forward-head posture that drives most neck pain.",
     date: "2026-06-18",
@@ -412,12 +579,30 @@ export const blogPosts: BlogPost[] = [
       },
     ],
     faqs: [
-      { q: "How often should I do neck exercises?", a: "Once or twice daily is usually ideal. Little and often works better than occasional long sessions." },
-      { q: "Can exercises make neck pain worse?", a: "Gentle, pain-free movement helps. If an exercise sharply increases pain or causes arm symptoms, stop and get assessed." },
-      { q: "What causes most neck pain?", a: "Forward-head posture from screen and phone use, muscle tension and reduced movement are the leading causes." },
-      { q: "How long until neck exercises work?", a: "Many people notice reduced stiffness within 1–2 weeks of consistent practice." },
-      { q: "Should I use heat or ice for neck pain?", a: "Heat usually helps muscular stiffness; ice can help an acute flare. Your physiotherapist will advise based on your case." },
-      { q: "When should I see a physiotherapist for neck pain?", a: "See us if pain lasts more than two weeks, radiates into the arm, or comes with numbness, tingling or weakness." },
+      {
+        q: "How often should I do neck exercises?",
+        a: "Once or twice daily is usually ideal. Little and often works better than occasional long sessions.",
+      },
+      {
+        q: "Can exercises make neck pain worse?",
+        a: "Gentle, pain-free movement helps. If an exercise sharply increases pain or causes arm symptoms, stop and get assessed.",
+      },
+      {
+        q: "What causes most neck pain?",
+        a: "Forward-head posture from screen and phone use, muscle tension and reduced movement are the leading causes.",
+      },
+      {
+        q: "How long until neck exercises work?",
+        a: "Many people notice reduced stiffness within 1–2 weeks of consistent practice.",
+      },
+      {
+        q: "Should I use heat or ice for neck pain?",
+        a: "Heat usually helps muscular stiffness; ice can help an acute flare. Your physiotherapist will advise based on your case.",
+      },
+      {
+        q: "When should I see a physiotherapist for neck pain?",
+        a: "See us if pain lasts more than two weeks, radiates into the arm, or comes with numbness, tingling or weakness.",
+      },
     ],
     keyTakeaways: [
       "Chin tucks strengthen the deep neck muscles.",
@@ -436,7 +621,8 @@ export const blogPosts: BlogPost[] = [
       "Can physiotherapy help you avoid surgery? For many back, knee and shoulder conditions, yes. Learn when physiotherapy is the recommended first-line treatment.",
     category: "patient-education",
     tags: ["surgery", "conservative treatment", "back pain", "knee"],
-    excerpt: "For many common conditions, physiotherapy is the recommended first treatment — and often removes the need for surgery altogether.",
+    excerpt:
+      "For many common conditions, physiotherapy is the recommended first treatment — and often removes the need for surgery altogether.",
     quickAnswer:
       "Yes — for many conditions physiotherapy can help you avoid surgery. Research shows that for back pain, sciatica, knee osteoarthritis, rotator cuff problems and many sports injuries, structured physiotherapy delivers outcomes comparable to surgery in most patients, and is recommended as the first-line treatment before considering an operation.",
     date: "2026-06-15",
@@ -451,7 +637,9 @@ export const blogPosts: BlogPost[] = [
       },
       {
         heading: "Conditions where physiotherapy often avoids surgery",
-        paragraphs: ["Evidence supports trying structured physiotherapy first for many conditions."],
+        paragraphs: [
+          "Evidence supports trying structured physiotherapy first for many conditions.",
+        ],
         list: [
           "Back pain and sciatica (including many disc herniations)",
           "Knee osteoarthritis",
@@ -475,12 +663,30 @@ export const blogPosts: BlogPost[] = [
       },
     ],
     faqs: [
-      { q: "Can physiotherapy replace surgery for a herniated disc?", a: "In most cases, yes. The majority of disc herniations improve with physiotherapy, and surgery is reserved for severe or non-improving nerve compression." },
-      { q: "Should I try physiotherapy before knee surgery?", a: "Yes. For knee osteoarthritis and many meniscus problems, physiotherapy is recommended first and often delays or avoids surgery." },
-      { q: "How long should I try physiotherapy before considering surgery?", a: "A meaningful trial is usually 6–12 weeks of structured physiotherapy, depending on the condition." },
-      { q: "Does physiotherapy help after surgery too?", a: "Absolutely. Rehabilitation before and after surgery significantly improves recovery, strength and long-term outcomes." },
-      { q: "Is avoiding surgery safe?", a: "When guided by proper assessment, yes. Your physiotherapist screens for signs that require surgical referral." },
-      { q: "What if physiotherapy doesn't work?", a: "If you do not improve, we coordinate onward referral for further investigation or a surgical opinion." },
+      {
+        q: "Can physiotherapy replace surgery for a herniated disc?",
+        a: "In most cases, yes. The majority of disc herniations improve with physiotherapy, and surgery is reserved for severe or non-improving nerve compression.",
+      },
+      {
+        q: "Should I try physiotherapy before knee surgery?",
+        a: "Yes. For knee osteoarthritis and many meniscus problems, physiotherapy is recommended first and often delays or avoids surgery.",
+      },
+      {
+        q: "How long should I try physiotherapy before considering surgery?",
+        a: "A meaningful trial is usually 6–12 weeks of structured physiotherapy, depending on the condition.",
+      },
+      {
+        q: "Does physiotherapy help after surgery too?",
+        a: "Absolutely. Rehabilitation before and after surgery significantly improves recovery, strength and long-term outcomes.",
+      },
+      {
+        q: "Is avoiding surgery safe?",
+        a: "When guided by proper assessment, yes. Your physiotherapist screens for signs that require surgical referral.",
+      },
+      {
+        q: "What if physiotherapy doesn't work?",
+        a: "If you do not improve, we coordinate onward referral for further investigation or a surgical opinion.",
+      },
     ],
     keyTakeaways: [
       "Physiotherapy is first-line for many back, knee and shoulder conditions.",
@@ -499,7 +705,8 @@ export const blogPosts: BlogPost[] = [
       "Home physiotherapy brings expert care to your door. Discover the benefits, who it suits best, and what to expect from a home visit in Multan.",
     category: "home-physiotherapy",
     tags: ["home visit", "Multan", "elderly", "post-surgery"],
-    excerpt: "Home physiotherapy delivers the same expert care as the clinic — in the comfort of your own home. Here's who benefits most.",
+    excerpt:
+      "Home physiotherapy delivers the same expert care as the clinic — in the comfort of your own home. Here's who benefits most.",
     quickAnswer:
       "Home physiotherapy delivers professional, one-on-one treatment in your own home. It benefits elderly patients, those recovering from surgery, stroke survivors and anyone who finds travel difficult. Benefits include personalized care in a familiar environment, no travel stress, real-world functional training, and family involvement in recovery.",
     date: "2026-06-12",
@@ -541,12 +748,30 @@ export const blogPosts: BlogPost[] = [
       },
     ],
     faqs: [
-      { q: "Is home physiotherapy as effective as clinic treatment?", a: "Yes. For many conditions it is equally effective, and functional training in your own home can be an advantage." },
-      { q: "Who should choose home physiotherapy?", a: "Elderly, post-surgical, stroke and mobility-limited patients, and anyone who finds travel difficult." },
-      { q: "Do I need any equipment at home?", a: "Usually not. Your physiotherapist brings what is needed and uses your home environment for functional training." },
-      { q: "Is home physiotherapy available across Multan?", a: "Yes, PainFix provides home visits across Multan. Contact us to arrange a visit in your area." },
-      { q: "How long is a home visit?", a: "A typical session lasts 30–60 minutes depending on your condition and treatment plan." },
-      { q: "Can family members be involved?", a: "Yes, and we encourage it — family can learn to support your exercises and daily movement safely." },
+      {
+        q: "Is home physiotherapy as effective as clinic treatment?",
+        a: "Yes. For many conditions it is equally effective, and functional training in your own home can be an advantage.",
+      },
+      {
+        q: "Who should choose home physiotherapy?",
+        a: "Elderly, post-surgical, stroke and mobility-limited patients, and anyone who finds travel difficult.",
+      },
+      {
+        q: "Do I need any equipment at home?",
+        a: "Usually not. Your physiotherapist brings what is needed and uses your home environment for functional training.",
+      },
+      {
+        q: "Is home physiotherapy available across Multan?",
+        a: "Yes, PainFix provides home visits across Multan. Contact us to arrange a visit in your area.",
+      },
+      {
+        q: "How long is a home visit?",
+        a: "A typical session lasts 30–60 minutes depending on your condition and treatment plan.",
+      },
+      {
+        q: "Can family members be involved?",
+        a: "Yes, and we encourage it — family can learn to support your exercises and daily movement safely.",
+      },
     ],
     keyTakeaways: [
       "Home physiotherapy is as effective as clinic care for many conditions.",
@@ -554,8 +779,16 @@ export const blogPosts: BlogPost[] = [
       "Functional training happens in your real environment.",
       "Available across Multan on a scheduled basis.",
     ],
-    relatedServices: ["home-physiotherapy", "post-surgical-rehabilitation", "stroke-rehabilitation"],
-    relatedConditions: ["stroke-rehabilitation", "balance-disorders", "post-surgical-rehabilitation"],
+    relatedServices: [
+      "home-physiotherapy",
+      "post-surgical-rehabilitation",
+      "stroke-rehabilitation",
+    ],
+    relatedConditions: [
+      "stroke-rehabilitation",
+      "balance-disorders",
+      "post-surgical-rehabilitation",
+    ],
   },
   {
     slug: "how-many-physiotherapy-sessions-needed",
@@ -565,7 +798,8 @@ export const blogPosts: BlogPost[] = [
       "How many physiotherapy sessions will you need? Learn typical session counts by condition and the factors that speed up or slow down your recovery.",
     category: "patient-education",
     tags: ["sessions", "recovery", "treatment plan"],
-    excerpt: "One of the most common questions we hear. The honest answer depends on your condition — here's a realistic guide.",
+    excerpt:
+      "One of the most common questions we hear. The honest answer depends on your condition — here's a realistic guide.",
     quickAnswer:
       "Most patients need between 4 and 12 physiotherapy sessions, depending on the condition and its severity. Simple muscular problems may resolve in 3–6 sessions, while post-surgical or neurological rehabilitation can take longer. Your physiotherapist estimates a realistic number after assessment and reviews progress regularly.",
     date: "2026-06-10",
@@ -607,12 +841,30 @@ export const blogPosts: BlogPost[] = [
       },
     ],
     faqs: [
-      { q: "How many physiotherapy sessions for back pain?", a: "Typically 6–10 sessions, though many people improve sooner with consistent home exercises." },
-      { q: "Will I need physiotherapy forever?", a: "No. The goal is to make you independent with a home programme so you no longer need regular sessions." },
-      { q: "How often should sessions be?", a: "Often 1–2 times per week initially, reducing in frequency as you improve." },
-      { q: "Can I do fewer sessions and just exercise at home?", a: "Home exercise is essential, but early guidance ensures you are doing the right things safely and progressing correctly." },
-      { q: "What if I'm not improving after several sessions?", a: "We reassess, adjust the plan, and refer for further investigation if needed." },
-      { q: "Does session count depend on age?", a: "Age can influence recovery speed, but consistency and the right plan matter more." },
+      {
+        q: "How many physiotherapy sessions for back pain?",
+        a: "Typically 6–10 sessions, though many people improve sooner with consistent home exercises.",
+      },
+      {
+        q: "Will I need physiotherapy forever?",
+        a: "No. The goal is to make you independent with a home programme so you no longer need regular sessions.",
+      },
+      {
+        q: "How often should sessions be?",
+        a: "Often 1–2 times per week initially, reducing in frequency as you improve.",
+      },
+      {
+        q: "Can I do fewer sessions and just exercise at home?",
+        a: "Home exercise is essential, but early guidance ensures you are doing the right things safely and progressing correctly.",
+      },
+      {
+        q: "What if I'm not improving after several sessions?",
+        a: "We reassess, adjust the plan, and refer for further investigation if needed.",
+      },
+      {
+        q: "Does session count depend on age?",
+        a: "Age can influence recovery speed, but consistency and the right plan matter more.",
+      },
     ],
     keyTakeaways: [
       "Most people need 4–12 sessions.",
@@ -631,7 +883,8 @@ export const blogPosts: BlogPost[] = [
       "Understand the frozen shoulder (kandhe ki jakadan) recovery timeline — the freezing, frozen and thawing stages — and how physiotherapy speeds recovery and restores movement.",
     category: "frozen-shoulder",
     tags: ["frozen shoulder", "kandhe ka dard", "adhesive capsulitis", "recovery"],
-    excerpt: "Frozen shoulder (kandhe ki jakadan) recovers in three stages. Knowing where you are helps set expectations — and physiotherapy shortens the journey.",
+    excerpt:
+      "Frozen shoulder (kandhe ki jakadan) recovers in three stages. Knowing where you are helps set expectations — and physiotherapy shortens the journey.",
     quickAnswer:
       "Frozen shoulder (kandhe ki jakadan ka ilaj) recovers in three stages: freezing (painful, 2–9 months), frozen (stiff, 4–12 months) and thawing (movement returns, 6–24 months). Total recovery can take 1–3 years without treatment, but physiotherapy — with manual therapy, stretching and strengthening — significantly reduces pain and speeds the return of movement.",
     date: "2026-06-08",
@@ -663,12 +916,30 @@ export const blogPosts: BlogPost[] = [
       },
     ],
     faqs: [
-      { q: "How long does frozen shoulder last?", a: "Without treatment it can last 1–3 years. Physiotherapy reduces pain and speeds the return of movement." },
-      { q: "Can physiotherapy cure frozen shoulder?", a: "Physiotherapy is the mainstay of treatment and helps most people regain function and relieve pain across all stages." },
-      { q: "Should I keep moving with a frozen shoulder?", a: "Yes — gentle, guided movement within comfort helps preserve range. Aggressive stretching in the painful stage can worsen it." },
-      { q: "What triggers frozen shoulder?", a: "It often follows immobility, injury or surgery, and is more common in people with diabetes." },
-      { q: "Is surgery needed for frozen shoulder?", a: "Rarely. Most cases resolve with physiotherapy; surgery is considered only for severe, unresponsive cases." },
-      { q: "How soon should I start physiotherapy?", a: "Early treatment in the freezing stage helps control pain and limit stiffness, so start as soon as it is diagnosed." },
+      {
+        q: "How long does frozen shoulder last?",
+        a: "Without treatment it can last 1–3 years. Physiotherapy reduces pain and speeds the return of movement.",
+      },
+      {
+        q: "Can physiotherapy cure frozen shoulder?",
+        a: "Physiotherapy is the mainstay of treatment and helps most people regain function and relieve pain across all stages.",
+      },
+      {
+        q: "Should I keep moving with a frozen shoulder?",
+        a: "Yes — gentle, guided movement within comfort helps preserve range. Aggressive stretching in the painful stage can worsen it.",
+      },
+      {
+        q: "What triggers frozen shoulder?",
+        a: "It often follows immobility, injury or surgery, and is more common in people with diabetes.",
+      },
+      {
+        q: "Is surgery needed for frozen shoulder?",
+        a: "Rarely. Most cases resolve with physiotherapy; surgery is considered only for severe, unresponsive cases.",
+      },
+      {
+        q: "How soon should I start physiotherapy?",
+        a: "Early treatment in the freezing stage helps control pain and limit stiffness, so start as soon as it is diagnosed.",
+      },
     ],
     keyTakeaways: [
       "Frozen shoulder has three stages: freezing, frozen, thawing.",
@@ -687,7 +958,8 @@ export const blogPosts: BlogPost[] = [
       "Why does your knee hurt after walking? Learn the common causes of knee pain (ghutno ka dard) and how physiotherapy in Multan relieves it and gets you moving again.",
     category: "knee-pain",
     tags: ["knee pain", "ghutno ka dard", "walking", "osteoarthritis", "runner's knee"],
-    excerpt: "Knee pain after walking (ghutno ka dard) is common and usually treatable. Here's what causes it and how to fix it for good.",
+    excerpt:
+      "Knee pain after walking (ghutno ka dard) is common and usually treatable. Here's what causes it and how to fix it for good.",
     quickAnswer:
       "Knee pain after walking (ghutno ke dard ka ilaj) is most often caused by osteoarthritis, patellofemoral pain (runner's knee), weak hip and thigh muscles, or overuse. Physiotherapy relieves it through targeted strengthening, movement retraining, manual therapy and load management. Most people improve within a few weeks of a personalized programme.",
     date: "2026-06-05",
@@ -731,12 +1003,30 @@ export const blogPosts: BlogPost[] = [
       },
     ],
     faqs: [
-      { q: "Why does my knee hurt after walking?", a: "Usually because the knee is loaded more than the supporting muscles can handle — often from osteoarthritis, kneecap tracking or weakness." },
-      { q: "Should I stop walking if my knee hurts?", a: "Not entirely. Reduce distance and let physiotherapy guide a gradual, structured return rather than complete rest." },
-      { q: "Can physiotherapy help knee osteoarthritis?", a: "Yes. Strengthening and load management are proven to reduce osteoarthritis pain and improve function, often avoiding surgery." },
-      { q: "Is knee pain after walking serious?", a: "Usually not, but persistent swelling, locking or giving way should be assessed." },
-      { q: "What exercises help knee pain?", a: "Quadriceps and hip strengthening are most effective; your exact programme is based on assessment." },
-      { q: "How long until my knee improves?", a: "Many people improve within 4–6 weeks of a consistent strengthening programme." },
+      {
+        q: "Why does my knee hurt after walking?",
+        a: "Usually because the knee is loaded more than the supporting muscles can handle — often from osteoarthritis, kneecap tracking or weakness.",
+      },
+      {
+        q: "Should I stop walking if my knee hurts?",
+        a: "Not entirely. Reduce distance and let physiotherapy guide a gradual, structured return rather than complete rest.",
+      },
+      {
+        q: "Can physiotherapy help knee osteoarthritis?",
+        a: "Yes. Strengthening and load management are proven to reduce osteoarthritis pain and improve function, often avoiding surgery.",
+      },
+      {
+        q: "Is knee pain after walking serious?",
+        a: "Usually not, but persistent swelling, locking or giving way should be assessed.",
+      },
+      {
+        q: "What exercises help knee pain?",
+        a: "Quadriceps and hip strengthening are most effective; your exact programme is based on assessment.",
+      },
+      {
+        q: "How long until my knee improves?",
+        a: "Many people improve within 4–6 weeks of a consistent strengthening programme.",
+      },
     ],
     keyTakeaways: [
       "Knee pain after walking usually means overload plus weakness.",
@@ -755,7 +1045,8 @@ export const blogPosts: BlogPost[] = [
       "Prevent neck and back pain at work with proper office ergonomics. A physiotherapist's guide to desk, chair and screen setup for a pain-free workday.",
     category: "posture",
     tags: ["ergonomics", "posture", "desk", "work from home"],
-    excerpt: "Small changes to your desk setup can prevent hours of neck and back pain. Here's how to get it right.",
+    excerpt:
+      "Small changes to your desk setup can prevent hours of neck and back pain. Here's how to get it right.",
     quickAnswer:
       "Good office ergonomics means your screen top is at eye level, your elbows and knees are at about 90 degrees, your lower back is supported, and your feet are flat on the floor. Combine this setup with micro-breaks and posture changes every 30–45 minutes to prevent neck, back and wrist pain.",
     date: "2026-06-02",
@@ -792,12 +1083,30 @@ export const blogPosts: BlogPost[] = [
       },
     ],
     faqs: [
-      { q: "What is the correct desk posture?", a: "Screen at eye level, elbows and knees around 90 degrees, back supported, feet flat, and wrists neutral." },
-      { q: "How often should I take breaks at work?", a: "Move for a minute or two every 30–45 minutes. Frequent movement matters more than any single posture." },
-      { q: "Does a standing desk prevent back pain?", a: "Alternating sitting and standing helps, but prolonged standing can also cause discomfort. Variety is the goal." },
-      { q: "How high should my monitor be?", a: "The top of the screen should be at or just below eye level, about an arm's length away." },
-      { q: "Can office ergonomics fix existing pain?", a: "It helps prevent and reduce pain, but existing pain may also need targeted physiotherapy." },
-      { q: "What is 'tech neck'?", a: "Neck strain from looking down at screens and phones for long periods, which good ergonomics and exercises can prevent." },
+      {
+        q: "What is the correct desk posture?",
+        a: "Screen at eye level, elbows and knees around 90 degrees, back supported, feet flat, and wrists neutral.",
+      },
+      {
+        q: "How often should I take breaks at work?",
+        a: "Move for a minute or two every 30–45 minutes. Frequent movement matters more than any single posture.",
+      },
+      {
+        q: "Does a standing desk prevent back pain?",
+        a: "Alternating sitting and standing helps, but prolonged standing can also cause discomfort. Variety is the goal.",
+      },
+      {
+        q: "How high should my monitor be?",
+        a: "The top of the screen should be at or just below eye level, about an arm's length away.",
+      },
+      {
+        q: "Can office ergonomics fix existing pain?",
+        a: "It helps prevent and reduce pain, but existing pain may also need targeted physiotherapy.",
+      },
+      {
+        q: "What is 'tech neck'?",
+        a: "Neck strain from looking down at screens and phones for long periods, which good ergonomics and exercises can prevent.",
+      },
     ],
     keyTakeaways: [
       "Set your screen at eye level and support your lower back.",
@@ -816,7 +1125,8 @@ export const blogPosts: BlogPost[] = [
       "Plantar fasciitis causes stabbing heel pain (airi ka dard), worst with the first steps of the day. Learn how physiotherapy treats it with stretching, strengthening and load management.",
     category: "recovery-tips",
     tags: ["plantar fasciitis", "airi ka dard", "heel pain", "foot", "stretching"],
-    excerpt: "That stabbing heel pain (airi ka dard) with your first morning steps is often plantar fasciitis. Here's how to treat it.",
+    excerpt:
+      "That stabbing heel pain (airi ka dard) with your first morning steps is often plantar fasciitis. Here's how to treat it.",
     quickAnswer:
       "Plantar fasciitis (airi ke dard ka ilaj) is treated with calf and plantar fascia stretching, foot and calf strengthening, load management, supportive footwear and manual therapy. Most cases improve within a few months of consistent physiotherapy. The characteristic sign is sharp heel pain with the first steps in the morning that eases as you move.",
     date: "2026-05-30",
@@ -860,12 +1170,30 @@ export const blogPosts: BlogPost[] = [
       },
     ],
     faqs: [
-      { q: "What does plantar fasciitis feel like?", a: "Sharp, stabbing heel pain that is worst with the first steps in the morning or after sitting, easing as you move." },
-      { q: "How long does plantar fasciitis take to heal?", a: "Most cases improve within 8–12 weeks of consistent physiotherapy, though some take longer." },
-      { q: "What is the best exercise for plantar fasciitis?", a: "Calf stretches and progressive calf-raise strengthening are highly effective; your programme is tailored to you." },
-      { q: "Should I rest completely?", a: "No — managed activity is better than complete rest. We help you adjust load rather than stop moving." },
-      { q: "Do I need special shoes or insoles?", a: "Supportive footwear helps, and insoles can offload the heel in some cases. We advise based on your assessment." },
-      { q: "Can plantar fasciitis come back?", a: "It can, but calf and foot strengthening plus load management greatly reduce the risk of recurrence." },
+      {
+        q: "What does plantar fasciitis feel like?",
+        a: "Sharp, stabbing heel pain that is worst with the first steps in the morning or after sitting, easing as you move.",
+      },
+      {
+        q: "How long does plantar fasciitis take to heal?",
+        a: "Most cases improve within 8–12 weeks of consistent physiotherapy, though some take longer.",
+      },
+      {
+        q: "What is the best exercise for plantar fasciitis?",
+        a: "Calf stretches and progressive calf-raise strengthening are highly effective; your programme is tailored to you.",
+      },
+      {
+        q: "Should I rest completely?",
+        a: "No — managed activity is better than complete rest. We help you adjust load rather than stop moving.",
+      },
+      {
+        q: "Do I need special shoes or insoles?",
+        a: "Supportive footwear helps, and insoles can offload the heel in some cases. We advise based on your assessment.",
+      },
+      {
+        q: "Can plantar fasciitis come back?",
+        a: "It can, but calf and foot strengthening plus load management greatly reduce the risk of recurrence.",
+      },
     ],
     keyTakeaways: [
       "Heel pain worst with first morning steps suggests plantar fasciitis.",
@@ -884,7 +1212,8 @@ export const blogPosts: BlogPost[] = [
       "A complete guide to stroke rehabilitation (falij ka ilaj). Learn how physiotherapy in Multan restores movement, strength and independence after a stroke, and why early rehab matters.",
     category: "stroke-rehabilitation",
     tags: ["stroke", "falij", "falij ka ilaj", "neuro rehab", "recovery"],
-    excerpt: "Recovery after a stroke (falij) is possible with the right rehabilitation. Here's how physiotherapy rebuilds movement and independence.",
+    excerpt:
+      "Recovery after a stroke (falij) is possible with the right rehabilitation. Here's how physiotherapy rebuilds movement and independence.",
     quickAnswer:
       "Stroke rehabilitation (falij ka ilaj) uses physiotherapy to restore movement, strength, balance and independence after a stroke. It works by harnessing neuroplasticity — the brain's ability to rewire — through repetitive, task-specific practice. Rehabilitation should start early and continue consistently; meaningful gains are possible for months and years after a stroke.",
     date: "2026-05-27",
@@ -922,12 +1251,30 @@ export const blogPosts: BlogPost[] = [
       },
     ],
     faqs: [
-      { q: "How soon should stroke rehabilitation start?", a: "As early as it is medically safe. Early rehabilitation is associated with better recovery of movement and function." },
-      { q: "How long does stroke recovery take?", a: "It varies widely. Fastest gains are often in the first months, but meaningful improvement can continue for years with consistent rehab." },
-      { q: "Can physiotherapy help years after a stroke?", a: "Yes. The brain retains the capacity to adapt, so structured practice can still produce gains long after a stroke." },
-      { q: "Is home rehabilitation effective after stroke?", a: "Very. Home physiotherapy enables consistent, functional practice and family involvement, both key to recovery." },
-      { q: "What does stroke physiotherapy involve?", a: "Strengthening, balance and gait retraining, hand and arm work, and practice of everyday functional tasks." },
-      { q: "Can walking be restored after a stroke?", a: "Many stroke survivors regain walking ability with structured gait retraining and strengthening." },
+      {
+        q: "How soon should stroke rehabilitation start?",
+        a: "As early as it is medically safe. Early rehabilitation is associated with better recovery of movement and function.",
+      },
+      {
+        q: "How long does stroke recovery take?",
+        a: "It varies widely. Fastest gains are often in the first months, but meaningful improvement can continue for years with consistent rehab.",
+      },
+      {
+        q: "Can physiotherapy help years after a stroke?",
+        a: "Yes. The brain retains the capacity to adapt, so structured practice can still produce gains long after a stroke.",
+      },
+      {
+        q: "Is home rehabilitation effective after stroke?",
+        a: "Very. Home physiotherapy enables consistent, functional practice and family involvement, both key to recovery.",
+      },
+      {
+        q: "What does stroke physiotherapy involve?",
+        a: "Strengthening, balance and gait retraining, hand and arm work, and practice of everyday functional tasks.",
+      },
+      {
+        q: "Can walking be restored after a stroke?",
+        a: "Many stroke survivors regain walking ability with structured gait retraining and strengthening.",
+      },
     ],
     keyTakeaways: [
       "Rehabilitation drives recovery through neuroplasticity.",
@@ -946,7 +1293,8 @@ export const blogPosts: BlogPost[] = [
       "A phase-by-phase guide to ACL rehabilitation after surgery. Learn the recovery timeline, key milestones and how physiotherapy ensures a safe return to sport.",
     category: "sports-injuries",
     tags: ["ACL", "knee", "surgery", "return to sport"],
-    excerpt: "ACL recovery is a marathon of progressive milestones. Here's the phase-by-phase rehab journey.",
+    excerpt:
+      "ACL recovery is a marathon of progressive milestones. Here's the phase-by-phase rehab journey.",
     quickAnswer:
       "ACL rehabilitation after surgery progresses through phases: early recovery (restore movement and control swelling), strengthening (rebuild muscle and control), and return to sport (agility, power and sport-specific training). Full recovery typically takes 9–12 months, and passing objective return-to-sport tests is essential to avoid re-injury.",
     date: "2026-05-24",
@@ -978,12 +1326,30 @@ export const blogPosts: BlogPost[] = [
       },
     ],
     faqs: [
-      { q: "How long does ACL rehabilitation take?", a: "Typically 9–12 months to a safe return to pivoting sport, though everyday function returns much sooner." },
-      { q: "When can I walk after ACL surgery?", a: "Most people walk with support within days and without aids within a few weeks, guided by their surgeon and physiotherapist." },
-      { q: "Why is ACL rehab so important?", a: "It rebuilds strength and control and reduces re-injury risk. Returning too soon is the main cause of a second ACL injury." },
-      { q: "Can I return to sport after 6 months?", a: "Time alone is not enough. Return should be based on passing strength and functional tests, usually not before 9 months." },
-      { q: "Will my knee be as strong as before?", a: "With complete rehabilitation, most people regain full strength and function and return to their sport." },
-      { q: "Do I need rehab before ACL surgery too?", a: "Yes. 'Prehab' to restore movement and strength before surgery improves post-operative outcomes." },
+      {
+        q: "How long does ACL rehabilitation take?",
+        a: "Typically 9–12 months to a safe return to pivoting sport, though everyday function returns much sooner.",
+      },
+      {
+        q: "When can I walk after ACL surgery?",
+        a: "Most people walk with support within days and without aids within a few weeks, guided by their surgeon and physiotherapist.",
+      },
+      {
+        q: "Why is ACL rehab so important?",
+        a: "It rebuilds strength and control and reduces re-injury risk. Returning too soon is the main cause of a second ACL injury.",
+      },
+      {
+        q: "Can I return to sport after 6 months?",
+        a: "Time alone is not enough. Return should be based on passing strength and functional tests, usually not before 9 months.",
+      },
+      {
+        q: "Will my knee be as strong as before?",
+        a: "With complete rehabilitation, most people regain full strength and function and return to their sport.",
+      },
+      {
+        q: "Do I need rehab before ACL surgery too?",
+        a: "Yes. 'Prehab' to restore movement and strength before surgery improves post-operative outcomes.",
+      },
     ],
     keyTakeaways: [
       "ACL rehab progresses through clear phases.",
@@ -1002,7 +1368,8 @@ export const blogPosts: BlogPost[] = [
       "Recover from a sports injury the right way. Learn the phases of sports injury rehabilitation and how to return to sport safely without re-injury.",
     category: "sports-injuries",
     tags: ["sports injury", "return to sport", "rehab", "athletes"],
-    excerpt: "A structured approach turns a sports injury into a stronger comeback. Here's the step-by-step rehab process.",
+    excerpt:
+      "A structured approach turns a sports injury into a stronger comeback. Here's the step-by-step rehab process.",
     quickAnswer:
       "Sports injury recovery follows four phases: protect and settle symptoms, restore movement and control, rebuild strength and power, and return to sport with agility and sport-specific training. Returning based on objective criteria rather than time is the key to avoiding re-injury and coming back stronger.",
     date: "2026-05-20",
@@ -1040,12 +1407,30 @@ export const blogPosts: BlogPost[] = [
       },
     ],
     faqs: [
-      { q: "How soon can I return to sport after injury?", a: "When you pass return-to-sport criteria — full movement, strength symmetry and confident sport-specific performance — not simply after a set number of weeks." },
-      { q: "Should I rest or move after a sports injury?", a: "Relative rest with gentle movement is usually better than complete rest, which can slow recovery." },
-      { q: "Why do sports injuries keep coming back?", a: "Usually because of an incomplete return to strength and control, or returning too soon. Full rehab reduces recurrence." },
-      { q: "Can physiotherapy improve my performance?", a: "Yes. Rehabilitation restores and often improves strength, control and movement quality, reducing future injury risk." },
-      { q: "Do I need imaging for a sports injury?", a: "Not always. Many injuries are diagnosed clinically; imaging is used when it will change management." },
-      { q: "How do I avoid re-injury?", a: "Complete every rehab phase, restore full strength, and return based on objective testing." },
+      {
+        q: "How soon can I return to sport after injury?",
+        a: "When you pass return-to-sport criteria — full movement, strength symmetry and confident sport-specific performance — not simply after a set number of weeks.",
+      },
+      {
+        q: "Should I rest or move after a sports injury?",
+        a: "Relative rest with gentle movement is usually better than complete rest, which can slow recovery.",
+      },
+      {
+        q: "Why do sports injuries keep coming back?",
+        a: "Usually because of an incomplete return to strength and control, or returning too soon. Full rehab reduces recurrence.",
+      },
+      {
+        q: "Can physiotherapy improve my performance?",
+        a: "Yes. Rehabilitation restores and often improves strength, control and movement quality, reducing future injury risk.",
+      },
+      {
+        q: "Do I need imaging for a sports injury?",
+        a: "Not always. Many injuries are diagnosed clinically; imaging is used when it will change management.",
+      },
+      {
+        q: "How do I avoid re-injury?",
+        a: "Complete every rehab phase, restore full strength, and return based on objective testing.",
+      },
     ],
     keyTakeaways: [
       "Rehab follows protect, restore, strengthen and return phases.",
@@ -1064,7 +1449,8 @@ export const blogPosts: BlogPost[] = [
       "A herniated or slipped disc (slip disc) doesn't usually need surgery. Learn how physiotherapy in Multan treats disc herniation, relieves nerve pain and prevents recurrence.",
     category: "back-pain",
     tags: ["disc herniation", "slip disc", "slip disc ka ilaj", "sciatica", "back pain"],
-    excerpt: "A 'slipped disc' (slip disc) sounds alarming, but most heal without surgery. Here's how physiotherapy treats disc herniation.",
+    excerpt:
+      "A 'slipped disc' (slip disc) sounds alarming, but most heal without surgery. Here's how physiotherapy treats disc herniation.",
     quickAnswer:
       "Most disc herniations (slip disc ka ilaj) heal without surgery. Physiotherapy relieves nerve irritation and pain through directional exercises, nerve mobilisation, manual therapy and progressive core strengthening. The majority of patients improve significantly within 6–12 weeks, and surgery is reserved for severe nerve compression or persistent, non-improving symptoms.",
     date: "2026-05-17",
@@ -1107,12 +1493,30 @@ export const blogPosts: BlogPost[] = [
       },
     ],
     faqs: [
-      { q: "Can a herniated disc heal on its own?", a: "Yes. Many disc herniations shrink over time, and symptoms usually improve with physiotherapy without surgery." },
-      { q: "How long does a slipped disc take to heal?", a: "Most people improve significantly within 6–12 weeks of consistent physiotherapy." },
-      { q: "Is it safe to exercise with a herniated disc?", a: "Yes, with the right exercises. Guided, symptom-directed movement is a core part of treatment." },
-      { q: "When does a disc herniation need surgery?", a: "For severe or worsening nerve compression, significant weakness, or symptoms that don't respond to physiotherapy." },
-      { q: "What should I avoid with a herniated disc?", a: "Prolonged sitting, heavy or twisting lifts, and complete bed rest. Your physiotherapist gives specific guidance." },
-      { q: "Can a herniated disc come back?", a: "Recurrence is possible, but core strengthening and good movement habits substantially reduce the risk." },
+      {
+        q: "Can a herniated disc heal on its own?",
+        a: "Yes. Many disc herniations shrink over time, and symptoms usually improve with physiotherapy without surgery.",
+      },
+      {
+        q: "How long does a slipped disc take to heal?",
+        a: "Most people improve significantly within 6–12 weeks of consistent physiotherapy.",
+      },
+      {
+        q: "Is it safe to exercise with a herniated disc?",
+        a: "Yes, with the right exercises. Guided, symptom-directed movement is a core part of treatment.",
+      },
+      {
+        q: "When does a disc herniation need surgery?",
+        a: "For severe or worsening nerve compression, significant weakness, or symptoms that don't respond to physiotherapy.",
+      },
+      {
+        q: "What should I avoid with a herniated disc?",
+        a: "Prolonged sitting, heavy or twisting lifts, and complete bed rest. Your physiotherapist gives specific guidance.",
+      },
+      {
+        q: "Can a herniated disc come back?",
+        a: "Recurrence is possible, but core strengthening and good movement habits substantially reduce the risk.",
+      },
     ],
     keyTakeaways: [
       "Most slipped discs heal without surgery.",
@@ -1131,7 +1535,8 @@ export const blogPosts: BlogPost[] = [
       "Rotator cuff injuries cause shoulder pain and weakness (kandhe ka dard). Learn how physiotherapy in Multan rehabilitates the rotator cuff and restores pain-free shoulder movement.",
     category: "sports-injuries",
     tags: ["rotator cuff", "kandhe ka dard", "shoulder", "tendon", "rehab"],
-    excerpt: "Most rotator cuff problems (kandhe ka dard) respond to strengthening, not surgery. Here's how rehabilitation works.",
+    excerpt:
+      "Most rotator cuff problems (kandhe ka dard) respond to strengthening, not surgery. Here's how rehabilitation works.",
     quickAnswer:
       "Rotator cuff rehabilitation (kandhe ke dard ka ilaj) uses progressive strengthening, movement retraining and manual therapy to restore pain-free shoulder function. Most rotator cuff injuries — including many partial tears and tendinopathy — improve without surgery. A structured programme typically produces meaningful improvement within 8–12 weeks.",
     date: "2026-05-14",
@@ -1174,12 +1579,30 @@ export const blogPosts: BlogPost[] = [
       },
     ],
     faqs: [
-      { q: "Can a rotator cuff heal without surgery?", a: "Yes. Most rotator cuff tendinopathy and many partial tears improve with progressive strengthening and physiotherapy." },
-      { q: "How long does rotator cuff recovery take?", a: "Meaningful improvement usually occurs within 8–12 weeks, with continued strengthening beyond that." },
-      { q: "What exercises help the rotator cuff?", a: "Progressive strengthening of the cuff and shoulder-blade muscles, tailored to your stage of recovery." },
-      { q: "Should I rest a rotator cuff injury?", a: "Relative rest from aggravating activities helps, but complete rest weakens the shoulder. Guided loading is essential." },
-      { q: "When is rotator cuff surgery needed?", a: "For large or full-thickness tears with significant weakness, or when physiotherapy has not helped." },
-      { q: "Why is my shoulder worse at night?", a: "Night pain is common with rotator cuff problems; positioning advice and treatment usually help settle it." },
+      {
+        q: "Can a rotator cuff heal without surgery?",
+        a: "Yes. Most rotator cuff tendinopathy and many partial tears improve with progressive strengthening and physiotherapy.",
+      },
+      {
+        q: "How long does rotator cuff recovery take?",
+        a: "Meaningful improvement usually occurs within 8–12 weeks, with continued strengthening beyond that.",
+      },
+      {
+        q: "What exercises help the rotator cuff?",
+        a: "Progressive strengthening of the cuff and shoulder-blade muscles, tailored to your stage of recovery.",
+      },
+      {
+        q: "Should I rest a rotator cuff injury?",
+        a: "Relative rest from aggravating activities helps, but complete rest weakens the shoulder. Guided loading is essential.",
+      },
+      {
+        q: "When is rotator cuff surgery needed?",
+        a: "For large or full-thickness tears with significant weakness, or when physiotherapy has not helped.",
+      },
+      {
+        q: "Why is my shoulder worse at night?",
+        a: "Night pain is common with rotator cuff problems; positioning advice and treatment usually help settle it.",
+      },
     ],
     keyTakeaways: [
       "Most rotator cuff problems don't need surgery.",
@@ -1198,7 +1621,8 @@ export const blogPosts: BlogPost[] = [
       "Whiplash after a car accident causes neck pain and stiffness (gardan ki chot). Learn how physiotherapy in Multan speeds whiplash recovery and prevents long-term neck problems.",
     category: "neck-pain",
     tags: ["whiplash", "gardan ki chot", "neck", "car accident", "recovery"],
-    excerpt: "Whiplash (gardan ki chot) recovers fastest when you stay active with guided physiotherapy. Here's what to do.",
+    excerpt:
+      "Whiplash (gardan ki chot) recovers fastest when you stay active with guided physiotherapy. Here's what to do.",
     quickAnswer:
       "Whiplash (gardan ki chot ka ilaj) is a neck injury from rapid back-and-forth movement, usually in a car accident. Recovery is fastest with early, gentle movement and physiotherapy rather than rest or a collar. Treatment includes range-of-motion exercises, manual therapy, strengthening and reassurance. Most people recover within a few weeks to a few months.",
     date: "2026-05-11",
@@ -1242,12 +1666,30 @@ export const blogPosts: BlogPost[] = [
       },
     ],
     faqs: [
-      { q: "How long does whiplash take to heal?", a: "Many people recover within a few weeks, though some symptoms can last a few months. Early physiotherapy speeds recovery." },
-      { q: "Should I wear a neck collar for whiplash?", a: "Generally no. Prolonged collar use delays recovery; gentle movement and physiotherapy are recommended instead." },
-      { q: "Is it safe to move my neck after whiplash?", a: "Yes — gentle, early movement within comfort is beneficial and improves outcomes." },
-      { q: "When should I start physiotherapy for whiplash?", a: "As early as possible. Early treatment reduces stiffness and the risk of persistent symptoms." },
-      { q: "Can whiplash cause long-term problems?", a: "Most people fully recover. Early, active management greatly reduces the chance of long-term neck pain." },
-      { q: "What helps whiplash headaches?", a: "Manual therapy, neck exercises and posture correction usually relieve whiplash-related headaches." },
+      {
+        q: "How long does whiplash take to heal?",
+        a: "Many people recover within a few weeks, though some symptoms can last a few months. Early physiotherapy speeds recovery.",
+      },
+      {
+        q: "Should I wear a neck collar for whiplash?",
+        a: "Generally no. Prolonged collar use delays recovery; gentle movement and physiotherapy are recommended instead.",
+      },
+      {
+        q: "Is it safe to move my neck after whiplash?",
+        a: "Yes — gentle, early movement within comfort is beneficial and improves outcomes.",
+      },
+      {
+        q: "When should I start physiotherapy for whiplash?",
+        a: "As early as possible. Early treatment reduces stiffness and the risk of persistent symptoms.",
+      },
+      {
+        q: "Can whiplash cause long-term problems?",
+        a: "Most people fully recover. Early, active management greatly reduces the chance of long-term neck pain.",
+      },
+      {
+        q: "What helps whiplash headaches?",
+        a: "Manual therapy, neck exercises and posture correction usually relieve whiplash-related headaches.",
+      },
     ],
     keyTakeaways: [
       "Stay gently active — avoid prolonged collar use.",
@@ -1266,7 +1708,8 @@ export const blogPosts: BlogPost[] = [
       "Bell's palsy causes sudden facial weakness (munh terha hona). Learn how physiotherapy in Multan — facial exercises, retraining and education — supports recovery from Bell's palsy.",
     category: "neurological-rehabilitation",
     tags: ["Bell's palsy", "munh terha hona", "facial", "neuro rehab", "recovery"],
-    excerpt: "Bell's palsy (munh terha hona) can be frightening, but most people recover well — and facial physiotherapy supports the process.",
+    excerpt:
+      "Bell's palsy (munh terha hona) can be frightening, but most people recover well — and facial physiotherapy supports the process.",
     quickAnswer:
       "Bell's palsy (munh terha hona ka ilaj) is sudden, usually temporary weakness of one side of the face caused by facial nerve inflammation. Physiotherapy supports recovery through facial exercises, neuromuscular retraining, gentle massage and education. Most people recover within weeks to months, and physiotherapy helps restore symmetry and prevent abnormal movement patterns.",
     date: "2026-05-08",
@@ -1309,12 +1752,30 @@ export const blogPosts: BlogPost[] = [
       },
     ],
     faqs: [
-      { q: "Does Bell's palsy go away?", a: "Most people recover well within weeks to months. Physiotherapy supports a smoother, more complete recovery." },
-      { q: "Can physiotherapy help Bell's palsy?", a: "Yes. Facial retraining exercises and neuromuscular techniques help restore balanced movement and prevent abnormal patterns." },
-      { q: "When should I start facial exercises?", a: "Your physiotherapist will guide timing based on your stage of recovery — gentle, correct exercises matter more than intensity." },
-      { q: "What is synkinesis?", a: "Unwanted linked facial movements that can develop during recovery. Proper retraining reduces this risk." },
-      { q: "How do I protect my eye with Bell's palsy?", a: "If you cannot close the eye fully, use lubricating drops and protection as advised to prevent damage." },
-      { q: "Is Bell's palsy permanent?", a: "Rarely. The majority recover, though some may have mild residual weakness that physiotherapy can help improve." },
+      {
+        q: "Does Bell's palsy go away?",
+        a: "Most people recover well within weeks to months. Physiotherapy supports a smoother, more complete recovery.",
+      },
+      {
+        q: "Can physiotherapy help Bell's palsy?",
+        a: "Yes. Facial retraining exercises and neuromuscular techniques help restore balanced movement and prevent abnormal patterns.",
+      },
+      {
+        q: "When should I start facial exercises?",
+        a: "Your physiotherapist will guide timing based on your stage of recovery — gentle, correct exercises matter more than intensity.",
+      },
+      {
+        q: "What is synkinesis?",
+        a: "Unwanted linked facial movements that can develop during recovery. Proper retraining reduces this risk.",
+      },
+      {
+        q: "How do I protect my eye with Bell's palsy?",
+        a: "If you cannot close the eye fully, use lubricating drops and protection as advised to prevent damage.",
+      },
+      {
+        q: "Is Bell's palsy permanent?",
+        a: "Rarely. The majority recover, though some may have mild residual weakness that physiotherapy can help improve.",
+      },
     ],
     keyTakeaways: [
       "Bell's palsy is usually temporary facial nerve weakness.",
@@ -1333,7 +1794,8 @@ export const blogPosts: BlogPost[] = [
       "Balance problems increase the risk of falls, especially in older adults. Learn how physiotherapy improves balance, strength and confidence to prevent falls.",
     category: "elderly-care",
     tags: ["balance", "falls", "elderly", "dizziness"],
-    excerpt: "Falls are not an inevitable part of ageing. Physiotherapy can restore balance, strength and confidence.",
+    excerpt:
+      "Falls are not an inevitable part of ageing. Physiotherapy can restore balance, strength and confidence.",
     quickAnswer:
       "Balance disorders cause unsteadiness and increase the risk of falls, especially in older adults. Physiotherapy improves balance through targeted balance retraining, leg strengthening, walking practice and, when needed, vestibular rehabilitation. A structured programme reduces fall risk and restores confidence in daily activities.",
     date: "2026-05-05",
@@ -1377,12 +1839,30 @@ export const blogPosts: BlogPost[] = [
       },
     ],
     faqs: [
-      { q: "Can physiotherapy improve balance?", a: "Yes. Balance retraining and strengthening are proven to improve stability and reduce fall risk." },
-      { q: "Are falls a normal part of ageing?", a: "No. While risk rises with age, most falls are preventable with strength and balance training." },
-      { q: "What causes dizziness and unsteadiness?", a: "Common causes include inner-ear problems, muscle weakness, reduced sensation and some medications." },
-      { q: "What is vestibular rehabilitation?", a: "A specialised physiotherapy programme that retrains the inner-ear balance system to reduce dizziness and improve stability." },
-      { q: "How can I prevent falls at home?", a: "Strength and balance exercises plus home safety changes — good lighting, removing trip hazards and grab rails where needed." },
-      { q: "Is home physiotherapy good for balance?", a: "Yes. Training in your own home targets the real environment where falls occur and is highly effective." },
+      {
+        q: "Can physiotherapy improve balance?",
+        a: "Yes. Balance retraining and strengthening are proven to improve stability and reduce fall risk.",
+      },
+      {
+        q: "Are falls a normal part of ageing?",
+        a: "No. While risk rises with age, most falls are preventable with strength and balance training.",
+      },
+      {
+        q: "What causes dizziness and unsteadiness?",
+        a: "Common causes include inner-ear problems, muscle weakness, reduced sensation and some medications.",
+      },
+      {
+        q: "What is vestibular rehabilitation?",
+        a: "A specialised physiotherapy programme that retrains the inner-ear balance system to reduce dizziness and improve stability.",
+      },
+      {
+        q: "How can I prevent falls at home?",
+        a: "Strength and balance exercises plus home safety changes — good lighting, removing trip hazards and grab rails where needed.",
+      },
+      {
+        q: "Is home physiotherapy good for balance?",
+        a: "Yes. Training in your own home targets the real environment where falls occur and is highly effective.",
+      },
     ],
     keyTakeaways: [
       "Falls are largely preventable, not inevitable.",
@@ -1401,7 +1881,8 @@ export const blogPosts: BlogPost[] = [
       "Ease lower back pain (kamar dard) with these physiotherapist-approved exercises. Safe, effective movements to relieve pain, build core strength and prevent recurrence.",
     category: "exercise-therapy",
     tags: ["lower back pain", "kamar dard", "exercises", "core", "stretches"],
-    excerpt: "The right exercises are one of the most powerful treatments for lower back pain (kamar dard). Here are the ones we recommend.",
+    excerpt:
+      "The right exercises are one of the most powerful treatments for lower back pain (kamar dard). Here are the ones we recommend.",
     quickAnswer:
       "The best exercises for lower back pain (kamar dard ki exercises) include the pelvic tilt, bird-dog, glute bridge, knee-to-chest stretch and cat-cow. Done regularly and pain-free, they relieve stiffness, strengthen the core and improve mobility. Combine gentle mobility work with progressive strengthening for lasting relief and fewer flare-ups.",
     date: "2026-05-02",
@@ -1439,12 +1920,30 @@ export const blogPosts: BlogPost[] = [
       },
     ],
     faqs: [
-      { q: "What is the best exercise for lower back pain?", a: "There is no single best exercise, but the glute bridge, bird-dog and gentle mobility work are highly effective for most people." },
-      { q: "Is it safe to exercise with back pain?", a: "Yes — gentle, guided exercise is one of the most effective treatments. Avoid sharp pain and progress gradually." },
-      { q: "How often should I do back exercises?", a: "Daily gentle mobility and strengthening 3–4 times a week works well for most people." },
-      { q: "Should I stretch or strengthen for back pain?", a: "Both. Mobility relieves stiffness while strengthening builds lasting support for the spine." },
-      { q: "When should I avoid back exercises?", a: "Stop and seek assessment if exercise causes leg pain, numbness, weakness or sharply worsening symptoms." },
-      { q: "How long until exercises reduce my back pain?", a: "Many people notice improvement within 1–2 weeks of consistent, correct exercise." },
+      {
+        q: "What is the best exercise for lower back pain?",
+        a: "There is no single best exercise, but the glute bridge, bird-dog and gentle mobility work are highly effective for most people.",
+      },
+      {
+        q: "Is it safe to exercise with back pain?",
+        a: "Yes — gentle, guided exercise is one of the most effective treatments. Avoid sharp pain and progress gradually.",
+      },
+      {
+        q: "How often should I do back exercises?",
+        a: "Daily gentle mobility and strengthening 3–4 times a week works well for most people.",
+      },
+      {
+        q: "Should I stretch or strengthen for back pain?",
+        a: "Both. Mobility relieves stiffness while strengthening builds lasting support for the spine.",
+      },
+      {
+        q: "When should I avoid back exercises?",
+        a: "Stop and seek assessment if exercise causes leg pain, numbness, weakness or sharply worsening symptoms.",
+      },
+      {
+        q: "How long until exercises reduce my back pain?",
+        a: "Many people notice improvement within 1–2 weeks of consistent, correct exercise.",
+      },
     ],
     keyTakeaways: [
       "Exercise beats rest for most lower back pain.",
@@ -1463,7 +1962,8 @@ export const blogPosts: BlogPost[] = [
       "What is manual therapy? Learn how hands-on physiotherapy techniques like joint mobilization and soft-tissue release relieve pain and restore movement.",
     category: "manual-therapy",
     tags: ["manual therapy", "mobilization", "soft tissue", "hands-on"],
-    excerpt: "Manual therapy is hands-on treatment that relieves pain and restores movement. Here's how it works.",
+    excerpt:
+      "Manual therapy is hands-on treatment that relieves pain and restores movement. Here's how it works.",
     quickAnswer:
       "Manual therapy is a hands-on physiotherapy approach that uses skilled techniques — joint mobilization, manipulation and soft-tissue release — to reduce pain, improve joint movement and relieve muscle tension. It works best combined with exercise and education, and is used for neck and back pain, stiff joints, frozen shoulder and many other conditions.",
     date: "2026-04-28",
@@ -1505,12 +2005,30 @@ export const blogPosts: BlogPost[] = [
       },
     ],
     faqs: [
-      { q: "Is manual therapy painful?", a: "Techniques are gentle and adjusted to your comfort. Mild soreness afterwards is normal and settles quickly." },
-      { q: "What conditions does manual therapy treat?", a: "Neck and back pain, frozen shoulder, stiff joints, muscle tension, headaches of neck origin and sciatica, among others." },
-      { q: "How many sessions of manual therapy will I need?", a: "Many people improve within 3–6 sessions, but it depends on your condition and goals." },
-      { q: "Is manual therapy safe?", a: "In the hands of a qualified physiotherapist, yes. Techniques are selected and adjusted based on your assessment." },
-      { q: "Can manual therapy be combined with exercise?", a: "Yes — this combination gives the best and most lasting results." },
-      { q: "Does manual therapy fix the cause of pain?", a: "It relieves symptoms and improves movement; combined with exercise and education, it also addresses the underlying cause." },
+      {
+        q: "Is manual therapy painful?",
+        a: "Techniques are gentle and adjusted to your comfort. Mild soreness afterwards is normal and settles quickly.",
+      },
+      {
+        q: "What conditions does manual therapy treat?",
+        a: "Neck and back pain, frozen shoulder, stiff joints, muscle tension, headaches of neck origin and sciatica, among others.",
+      },
+      {
+        q: "How many sessions of manual therapy will I need?",
+        a: "Many people improve within 3–6 sessions, but it depends on your condition and goals.",
+      },
+      {
+        q: "Is manual therapy safe?",
+        a: "In the hands of a qualified physiotherapist, yes. Techniques are selected and adjusted based on your assessment.",
+      },
+      {
+        q: "Can manual therapy be combined with exercise?",
+        a: "Yes — this combination gives the best and most lasting results.",
+      },
+      {
+        q: "Does manual therapy fix the cause of pain?",
+        a: "It relieves symptoms and improves movement; combined with exercise and education, it also addresses the underlying cause.",
+      },
     ],
     keyTakeaways: [
       "Manual therapy is hands-on treatment for pain and stiffness.",
@@ -1529,7 +2047,8 @@ export const blogPosts: BlogPost[] = [
       "What is electrotherapy? Learn how TENS, ultrasound and other modalities are used in physiotherapy to relieve pain and support healing — and their real role in treatment.",
     category: "electrotherapy",
     tags: ["electrotherapy", "TENS", "ultrasound", "pain relief"],
-    excerpt: "Electrotherapy can relieve pain and support healing, but it works best as part of an active treatment plan. Here's the balanced view.",
+    excerpt:
+      "Electrotherapy can relieve pain and support healing, but it works best as part of an active treatment plan. Here's the balanced view.",
     quickAnswer:
       "Electrotherapy uses modalities such as TENS, ultrasound and electrical stimulation to relieve pain, reduce muscle spasm and support healing. It is a useful adjunct in physiotherapy but is most effective when combined with manual therapy and exercise — not used alone. Your physiotherapist selects modalities based on your specific condition.",
     date: "2026-04-24",
@@ -1566,12 +2085,30 @@ export const blogPosts: BlogPost[] = [
       },
     ],
     faqs: [
-      { q: "Does electrotherapy really work?", a: "It can provide useful short-term pain relief and support recovery, but works best combined with manual therapy and exercise, not alone." },
-      { q: "Is TENS safe?", a: "TENS is generally very safe when used appropriately, with some exceptions your physiotherapist will screen for." },
-      { q: "Can electrotherapy heal my injury?", a: "It supports certain phases of healing but does not replace active rehabilitation, which drives lasting recovery." },
-      { q: "Is ultrasound therapy effective?", a: "Evidence is mixed; it may help some soft-tissue conditions and is used selectively as an adjunct." },
-      { q: "Should a clinic use only machines?", a: "No. Effective physiotherapy is active — machines alone are not adequate treatment." },
-      { q: "Does electrotherapy hurt?", a: "No. You typically feel a mild tingling or warmth; treatment is adjusted to your comfort." },
+      {
+        q: "Does electrotherapy really work?",
+        a: "It can provide useful short-term pain relief and support recovery, but works best combined with manual therapy and exercise, not alone.",
+      },
+      {
+        q: "Is TENS safe?",
+        a: "TENS is generally very safe when used appropriately, with some exceptions your physiotherapist will screen for.",
+      },
+      {
+        q: "Can electrotherapy heal my injury?",
+        a: "It supports certain phases of healing but does not replace active rehabilitation, which drives lasting recovery.",
+      },
+      {
+        q: "Is ultrasound therapy effective?",
+        a: "Evidence is mixed; it may help some soft-tissue conditions and is used selectively as an adjunct.",
+      },
+      {
+        q: "Should a clinic use only machines?",
+        a: "No. Effective physiotherapy is active — machines alone are not adequate treatment.",
+      },
+      {
+        q: "Does electrotherapy hurt?",
+        a: "No. You typically feel a mild tingling or warmth; treatment is adjusted to your comfort.",
+      },
     ],
     keyTakeaways: [
       "Electrotherapy relieves pain and supports healing.",
@@ -1590,7 +2127,8 @@ export const blogPosts: BlogPost[] = [
       "Pediatric physiotherapy helps children with developmental delays, injuries and movement difficulties. Learn the signs your child may benefit and what treatment involves.",
     category: "pediatric-physiotherapy",
     tags: ["pediatric", "children", "development", "physiotherapy"],
-    excerpt: "Children aren't just small adults. Pediatric physiotherapy supports development, movement and confidence in a child-friendly way.",
+    excerpt:
+      "Children aren't just small adults. Pediatric physiotherapy supports development, movement and confidence in a child-friendly way.",
     quickAnswer:
       "Pediatric physiotherapy helps children who have developmental delays, movement difficulties, injuries or neurological conditions. It uses play-based, child-friendly techniques to improve strength, coordination, balance and motor skills. Early intervention often leads to the best outcomes, so signs like delayed milestones or difficulty moving should be assessed promptly.",
     date: "2026-04-20",
@@ -1627,12 +2165,30 @@ export const blogPosts: BlogPost[] = [
       },
     ],
     faqs: [
-      { q: "What does a pediatric physiotherapist do?", a: "They assess and treat children's movement, strength, coordination and developmental skills using play-based, child-friendly techniques." },
-      { q: "When should I take my child to physiotherapy?", a: "If you notice delayed milestones, coordination difficulties, unusual walking, or after an injury — early assessment is best." },
-      { q: "Is pediatric physiotherapy safe for babies?", a: "Yes. Techniques are gentle, age-appropriate and designed specifically for infants and children." },
-      { q: "Does my child need a referral?", a: "You can usually book an assessment directly; we advise if further medical input is needed." },
-      { q: "Can parents help at home?", a: "Absolutely. We guide parents on simple, effective activities to continue between sessions." },
-      { q: "How long does pediatric physiotherapy take?", a: "It varies with the child's needs; progress is reviewed regularly and programmes are adjusted as the child develops." },
+      {
+        q: "What does a pediatric physiotherapist do?",
+        a: "They assess and treat children's movement, strength, coordination and developmental skills using play-based, child-friendly techniques.",
+      },
+      {
+        q: "When should I take my child to physiotherapy?",
+        a: "If you notice delayed milestones, coordination difficulties, unusual walking, or after an injury — early assessment is best.",
+      },
+      {
+        q: "Is pediatric physiotherapy safe for babies?",
+        a: "Yes. Techniques are gentle, age-appropriate and designed specifically for infants and children.",
+      },
+      {
+        q: "Does my child need a referral?",
+        a: "You can usually book an assessment directly; we advise if further medical input is needed.",
+      },
+      {
+        q: "Can parents help at home?",
+        a: "Absolutely. We guide parents on simple, effective activities to continue between sessions.",
+      },
+      {
+        q: "How long does pediatric physiotherapy take?",
+        a: "It varies with the child's needs; progress is reviewed regularly and programmes are adjusted as the child develops.",
+      },
     ],
     keyTakeaways: [
       "Pediatric physiotherapy supports movement and development.",
@@ -1651,7 +2207,8 @@ export const blogPosts: BlogPost[] = [
       "Postnatal physiotherapy helps mothers recover core strength, heal from birth and relieve back pain. Learn how to safely rebuild after pregnancy and childbirth.",
     category: "womens-health",
     tags: ["postnatal", "women's health", "core", "pelvic floor"],
-    excerpt: "Pregnancy and birth change your body. Postnatal physiotherapy helps you rebuild core strength safely and relieve back pain.",
+    excerpt:
+      "Pregnancy and birth change your body. Postnatal physiotherapy helps you rebuild core strength safely and relieve back pain.",
     quickAnswer:
       "Postnatal physiotherapy helps new mothers recover after pregnancy and childbirth by safely rebuilding core and pelvic floor strength, relieving back and pelvic pain, and addressing abdominal separation (diastasis recti). A gradual, guided programme restores strength and function and helps you return to exercise and daily activities with confidence.",
     date: "2026-04-16",
@@ -1695,12 +2252,30 @@ export const blogPosts: BlogPost[] = [
       },
     ],
     faqs: [
-      { q: "When can I start postnatal physiotherapy?", a: "Gentle work can begin soon after birth with medical clearance, progressing gradually. It is beneficial even long after childbirth." },
-      { q: "What is diastasis recti?", a: "A separation of the abdominal muscles that can occur in pregnancy. Physiotherapy helps restore core function and reduce the gap." },
-      { q: "Can physiotherapy help postnatal back pain?", a: "Yes. Core and pelvic strengthening plus posture correction relieve common postnatal back and pelvic pain." },
-      { q: "Is it safe to exercise after having a baby?", a: "Yes, with a gradual, guided approach. Physiotherapy ensures you rebuild strength safely before returning to intense exercise." },
-      { q: "How do I strengthen my pelvic floor?", a: "Correct pelvic floor exercises, guided by a physiotherapist, are effective. Technique matters more than intensity." },
-      { q: "Is it too late to start if my baby is older?", a: "No. Postnatal recovery work is beneficial months or even years after childbirth." },
+      {
+        q: "When can I start postnatal physiotherapy?",
+        a: "Gentle work can begin soon after birth with medical clearance, progressing gradually. It is beneficial even long after childbirth.",
+      },
+      {
+        q: "What is diastasis recti?",
+        a: "A separation of the abdominal muscles that can occur in pregnancy. Physiotherapy helps restore core function and reduce the gap.",
+      },
+      {
+        q: "Can physiotherapy help postnatal back pain?",
+        a: "Yes. Core and pelvic strengthening plus posture correction relieve common postnatal back and pelvic pain.",
+      },
+      {
+        q: "Is it safe to exercise after having a baby?",
+        a: "Yes, with a gradual, guided approach. Physiotherapy ensures you rebuild strength safely before returning to intense exercise.",
+      },
+      {
+        q: "How do I strengthen my pelvic floor?",
+        a: "Correct pelvic floor exercises, guided by a physiotherapist, are effective. Technique matters more than intensity.",
+      },
+      {
+        q: "Is it too late to start if my baby is older?",
+        a: "No. Postnatal recovery work is beneficial months or even years after childbirth.",
+      },
     ],
     keyTakeaways: [
       "Postnatal physiotherapy rebuilds core and pelvic strength.",
@@ -1719,7 +2294,8 @@ export const blogPosts: BlogPost[] = [
       "Physiotherapy helps older adults stay strong, mobile and independent. Learn how it improves balance, reduces pain and prevents falls — at the clinic or at home in Multan.",
     category: "elderly-care",
     tags: ["elderly", "mobility", "independence", "strength"],
-    excerpt: "Staying strong and mobile is the key to independence in later life. Here's how physiotherapy helps older adults thrive.",
+    excerpt:
+      "Staying strong and mobile is the key to independence in later life. Here's how physiotherapy helps older adults thrive.",
     quickAnswer:
       "Physiotherapy for the elderly focuses on maintaining strength, balance, mobility and independence. It reduces joint and muscle pain, improves walking, prevents falls, and supports recovery after illness or surgery. Gentle, progressive strengthening and balance training — available at home in Multan — help older adults stay active and confident.",
     date: "2026-04-12",
@@ -1756,12 +2332,30 @@ export const blogPosts: BlogPost[] = [
       },
     ],
     faqs: [
-      { q: "Is physiotherapy safe for elderly people?", a: "Yes. Programmes are gentle, progressive and tailored to each person's health and abilities." },
-      { q: "Can physiotherapy help arthritis in older adults?", a: "Yes. Strengthening and movement reduce arthritis pain and improve function, often reducing the need for medication." },
-      { q: "How does physiotherapy prevent falls?", a: "Through balance training and leg strengthening, which improve stability and confidence." },
-      { q: "Is it too late to start exercising in old age?", a: "No. Older adults gain strength and balance at any age with appropriate, progressive training." },
-      { q: "Can seniors get physiotherapy at home?", a: "Yes. PainFix offers home visits across Multan, ideal for those with limited mobility." },
-      { q: "How does physiotherapy help after a hospital stay?", a: "It rebuilds strength and mobility lost during illness or bed rest, helping restore independence." },
+      {
+        q: "Is physiotherapy safe for elderly people?",
+        a: "Yes. Programmes are gentle, progressive and tailored to each person's health and abilities.",
+      },
+      {
+        q: "Can physiotherapy help arthritis in older adults?",
+        a: "Yes. Strengthening and movement reduce arthritis pain and improve function, often reducing the need for medication.",
+      },
+      {
+        q: "How does physiotherapy prevent falls?",
+        a: "Through balance training and leg strengthening, which improve stability and confidence.",
+      },
+      {
+        q: "Is it too late to start exercising in old age?",
+        a: "No. Older adults gain strength and balance at any age with appropriate, progressive training.",
+      },
+      {
+        q: "Can seniors get physiotherapy at home?",
+        a: "Yes. PainFix offers home visits across Multan, ideal for those with limited mobility.",
+      },
+      {
+        q: "How does physiotherapy help after a hospital stay?",
+        a: "It rebuilds strength and mobility lost during illness or bed rest, helping restore independence.",
+      },
     ],
     keyTakeaways: [
       "Decline with age is not inevitable.",
@@ -1780,7 +2374,8 @@ export const blogPosts: BlogPost[] = [
       "Physiotherapy isn't just for injuries. Learn how sports physiotherapy improves strength, movement and resilience to boost performance and prevent injury.",
     category: "sports-performance",
     tags: ["performance", "athletes", "strength", "injury prevention"],
-    excerpt: "Physiotherapy is a performance tool, not just an injury fix. Here's how it helps athletes move better and stay injury-free.",
+    excerpt:
+      "Physiotherapy is a performance tool, not just an injury fix. Here's how it helps athletes move better and stay injury-free.",
     quickAnswer:
       "Physiotherapy improves athletic performance by optimising strength, movement quality, mobility and recovery, while reducing injury risk. A movement assessment identifies weaknesses and imbalances, and a targeted programme addresses them. This helps athletes move more efficiently, train more consistently and perform at a higher level.",
     date: "2026-04-08",
@@ -1817,12 +2412,30 @@ export const blogPosts: BlogPost[] = [
       },
     ],
     faqs: [
-      { q: "Can physiotherapy improve sports performance?", a: "Yes. By improving strength, mobility, movement quality and recovery, physiotherapy helps athletes perform better and stay healthy." },
-      { q: "What is a movement screen?", a: "An assessment of how you move to identify weaknesses, imbalances and limitations that affect performance and injury risk." },
-      { q: "Do I need to be injured to see a sports physiotherapist?", a: "No. Many athletes use physiotherapy proactively for performance and injury prevention." },
-      { q: "How does physiotherapy prevent injuries?", a: "By correcting the strength and movement risk factors that lead to injury, and building resilience to training loads." },
-      { q: "Can physiotherapy help with recovery between sessions?", a: "Yes. It guides recovery strategies that allow you to train consistently and adapt effectively." },
-      { q: "Is strength training part of sports physiotherapy?", a: "Yes. Progressive strength and power work is central to both performance and injury prevention." },
+      {
+        q: "Can physiotherapy improve sports performance?",
+        a: "Yes. By improving strength, mobility, movement quality and recovery, physiotherapy helps athletes perform better and stay healthy.",
+      },
+      {
+        q: "What is a movement screen?",
+        a: "An assessment of how you move to identify weaknesses, imbalances and limitations that affect performance and injury risk.",
+      },
+      {
+        q: "Do I need to be injured to see a sports physiotherapist?",
+        a: "No. Many athletes use physiotherapy proactively for performance and injury prevention.",
+      },
+      {
+        q: "How does physiotherapy prevent injuries?",
+        a: "By correcting the strength and movement risk factors that lead to injury, and building resilience to training loads.",
+      },
+      {
+        q: "Can physiotherapy help with recovery between sessions?",
+        a: "Yes. It guides recovery strategies that allow you to train consistently and adapt effectively.",
+      },
+      {
+        q: "Is strength training part of sports physiotherapy?",
+        a: "Yes. Progressive strength and power work is central to both performance and injury prevention.",
+      },
     ],
     keyTakeaways: [
       "Physiotherapy is a performance tool, not just injury care.",
@@ -1841,7 +2454,8 @@ export const blogPosts: BlogPost[] = [
       "How long before physiotherapy works? Learn realistic timelines for pain relief and recovery, and the factors that speed up your progress.",
     category: "patient-education",
     tags: ["timeline", "recovery", "results", "expectations"],
-    excerpt: "Wondering when you'll feel better? Here's a realistic look at how quickly physiotherapy works.",
+    excerpt:
+      "Wondering when you'll feel better? Here's a realistic look at how quickly physiotherapy works.",
     quickAnswer:
       "Many people feel some relief after the first few physiotherapy sessions, with meaningful improvement over 2–6 weeks for common conditions. Full recovery depends on the problem — muscle strains resolve faster than post-surgical or chronic conditions. Consistency with your home exercises is the biggest factor in how quickly physiotherapy works.",
     date: "2026-04-04",
@@ -1883,12 +2497,30 @@ export const blogPosts: BlogPost[] = [
       },
     ],
     faqs: [
-      { q: "How quickly does physiotherapy work?", a: "Many people feel some relief within the first few sessions, with meaningful improvement over 2–6 weeks for common conditions." },
-      { q: "Why isn't my physiotherapy working yet?", a: "Recovery takes time and consistency. If there's no progress after a fair trial, we reassess and adjust your plan." },
-      { q: "Do home exercises really speed recovery?", a: "Yes — consistent home exercise is one of the strongest predictors of faster, lasting recovery." },
-      { q: "How long for chronic pain to improve?", a: "Chronic conditions typically take longer — several weeks to months — but steady improvement is achievable." },
-      { q: "Will one session fix my problem?", a: "Rarely. Physiotherapy works through a progressive plan; single sessions may relieve symptoms but not resolve the cause." },
-      { q: "Does starting early make a difference?", a: "Yes. Earlier treatment generally leads to faster recovery and fewer long-term problems." },
+      {
+        q: "How quickly does physiotherapy work?",
+        a: "Many people feel some relief within the first few sessions, with meaningful improvement over 2–6 weeks for common conditions.",
+      },
+      {
+        q: "Why isn't my physiotherapy working yet?",
+        a: "Recovery takes time and consistency. If there's no progress after a fair trial, we reassess and adjust your plan.",
+      },
+      {
+        q: "Do home exercises really speed recovery?",
+        a: "Yes — consistent home exercise is one of the strongest predictors of faster, lasting recovery.",
+      },
+      {
+        q: "How long for chronic pain to improve?",
+        a: "Chronic conditions typically take longer — several weeks to months — but steady improvement is achievable.",
+      },
+      {
+        q: "Will one session fix my problem?",
+        a: "Rarely. Physiotherapy works through a progressive plan; single sessions may relieve symptoms but not resolve the cause.",
+      },
+      {
+        q: "Does starting early make a difference?",
+        a: "Yes. Earlier treatment generally leads to faster recovery and fewer long-term problems.",
+      },
     ],
     keyTakeaways: [
       "Some relief often comes within a few sessions.",
@@ -1907,7 +2539,8 @@ export const blogPosts: BlogPost[] = [
       "'Text neck' is neck pain from looking down at phones (mobile se gardan dard). Learn what it is, why it happens, and how physiotherapy and simple habits relieve and prevent it.",
     category: "neck-pain",
     tags: ["text neck", "mobile se gardan dard", "posture", "phone", "neck pain"],
-    excerpt: "Hours looking down at your phone can strain your neck (mobile se gardan dard). Here's how to prevent and treat 'text neck'.",
+    excerpt:
+      "Hours looking down at your phone can strain your neck (mobile se gardan dard). Here's how to prevent and treat 'text neck'.",
     quickAnswer:
       "'Text neck' (mobile se gardan dard) is neck pain and stiffness caused by looking down at phones and devices for long periods. Bending the head forward multiplies the load on the neck. It's treated and prevented by raising your device to eye level, taking regular breaks, and doing neck-strengthening and posture exercises. Physiotherapy relieves persistent symptoms.",
     date: "2026-03-30",
@@ -1947,12 +2580,30 @@ export const blogPosts: BlogPost[] = [
       },
     ],
     faqs: [
-      { q: "What is text neck?", a: "Neck pain and stiffness caused by prolonged looking down at phones and devices, which overloads the neck." },
-      { q: "How do I fix text neck?", a: "Raise your device to eye level, take breaks, and do neck-strengthening and posture exercises. Physiotherapy helps persistent cases." },
-      { q: "Can looking at my phone damage my neck?", a: "Prolonged forward head posture strains the neck and can cause pain, though good habits prevent lasting harm." },
-      { q: "What exercises help text neck?", a: "Chin tucks, shoulder-blade squeezes and gentle neck mobility exercises are effective." },
-      { q: "How often should I take screen breaks?", a: "Every 20–30 minutes, changing position and moving your neck gently." },
-      { q: "When should I see a physiotherapist for text neck?", a: "If pain persists beyond two weeks, causes headaches, or radiates into the arm." },
+      {
+        q: "What is text neck?",
+        a: "Neck pain and stiffness caused by prolonged looking down at phones and devices, which overloads the neck.",
+      },
+      {
+        q: "How do I fix text neck?",
+        a: "Raise your device to eye level, take breaks, and do neck-strengthening and posture exercises. Physiotherapy helps persistent cases.",
+      },
+      {
+        q: "Can looking at my phone damage my neck?",
+        a: "Prolonged forward head posture strains the neck and can cause pain, though good habits prevent lasting harm.",
+      },
+      {
+        q: "What exercises help text neck?",
+        a: "Chin tucks, shoulder-blade squeezes and gentle neck mobility exercises are effective.",
+      },
+      {
+        q: "How often should I take screen breaks?",
+        a: "Every 20–30 minutes, changing position and moving your neck gently.",
+      },
+      {
+        q: "When should I see a physiotherapist for text neck?",
+        a: "If pain persists beyond two weeks, causes headaches, or radiates into the arm.",
+      },
     ],
     keyTakeaways: [
       "Text neck comes from prolonged looking down at devices.",
@@ -1971,7 +2622,8 @@ export const blogPosts: BlogPost[] = [
       "Cervical radiculopathy is a pinched nerve in the neck causing arm pain (gardan ki nerve dabna). Learn the symptoms and how physiotherapy relieves it — usually without surgery.",
     category: "neck-pain",
     tags: ["cervical radiculopathy", "gardan ki nerve dabna", "pinched nerve", "arm pain", "neck"],
-    excerpt: "A pinched nerve in the neck (gardan ki nerve dabna) can send pain down the arm. Here's how physiotherapy treats cervical radiculopathy.",
+    excerpt:
+      "A pinched nerve in the neck (gardan ki nerve dabna) can send pain down the arm. Here's how physiotherapy treats cervical radiculopathy.",
     quickAnswer:
       "Cervical radiculopathy (gardan ki nerve dabne ka ilaj) is a pinched or irritated nerve in the neck that causes pain, numbness or weakness radiating into the arm. Physiotherapy relieves it with nerve-mobilising exercises, gentle traction, manual therapy and strengthening. Most cases improve within 6–12 weeks without surgery, which is reserved for severe or persistent nerve compression.",
     date: "2026-03-26",
@@ -2014,12 +2666,30 @@ export const blogPosts: BlogPost[] = [
       },
     ],
     faqs: [
-      { q: "What is cervical radiculopathy?", a: "A pinched or irritated nerve in the neck that causes pain, numbness or weakness radiating into the arm." },
-      { q: "Can physiotherapy treat a pinched neck nerve?", a: "Yes. Most cases improve with nerve mobilisation, traction, manual therapy and strengthening — usually without surgery." },
-      { q: "How long does cervical radiculopathy take to heal?", a: "Most cases improve within 6–12 weeks of consistent physiotherapy." },
-      { q: "Do I need surgery for a pinched nerve in the neck?", a: "Usually not. Surgery is reserved for severe or persistent nerve compression that doesn't respond to conservative treatment." },
-      { q: "What makes cervical radiculopathy worse?", a: "Certain neck positions and prolonged poor posture can increase symptoms; we identify and modify these." },
-      { q: "Is arm weakness serious?", a: "Progressive or significant weakness should be assessed promptly, as it may indicate more significant nerve compression." },
+      {
+        q: "What is cervical radiculopathy?",
+        a: "A pinched or irritated nerve in the neck that causes pain, numbness or weakness radiating into the arm.",
+      },
+      {
+        q: "Can physiotherapy treat a pinched neck nerve?",
+        a: "Yes. Most cases improve with nerve mobilisation, traction, manual therapy and strengthening — usually without surgery.",
+      },
+      {
+        q: "How long does cervical radiculopathy take to heal?",
+        a: "Most cases improve within 6–12 weeks of consistent physiotherapy.",
+      },
+      {
+        q: "Do I need surgery for a pinched nerve in the neck?",
+        a: "Usually not. Surgery is reserved for severe or persistent nerve compression that doesn't respond to conservative treatment.",
+      },
+      {
+        q: "What makes cervical radiculopathy worse?",
+        a: "Certain neck positions and prolonged poor posture can increase symptoms; we identify and modify these.",
+      },
+      {
+        q: "Is arm weakness serious?",
+        a: "Progressive or significant weakness should be assessed promptly, as it may indicate more significant nerve compression.",
+      },
     ],
     keyTakeaways: [
       "Cervical radiculopathy is a pinched neck nerve causing arm symptoms.",
@@ -2070,14 +2740,24 @@ export const blogPosts: BlogPost[] = [
         heading: "What might Hijama help with?",
         paragraphs: [
           "Many people ask for Hijama for general muscle tension, tightness in the back, shoulders or neck, and a feeling of relaxation. Some studies suggest it may offer short-term relief for certain musculoskeletal complaints, though the overall evidence is still limited.",
-          "We are transparent about this: at PainFix we offer Hijama as a complementary therapy. For lasting improvements in pain and movement, we combine it with a proper physiotherapy assessment and treatment plan. " + BOOK_CTA,
+          "We are transparent about this: at PainFix we offer Hijama as a complementary therapy. For lasting improvements in pain and movement, we combine it with a proper physiotherapy assessment and treatment plan. " +
+            BOOK_CTA,
         ],
       },
     ],
     faqs: [
-      { q: "Is Hijama the same as cupping therapy?", a: "Yes. Hijama is the traditional term; cupping therapy is the general name. Wet cupping (with tiny scratches) is what many people mean by Hijama." },
-      { q: "Does it leave marks?", a: "Cupping can leave temporary circular marks that usually fade within a few days to a couple of weeks." },
-      { q: "How often can I have Hijama?", a: "This depends on your health and goals. We advise on timing during your assessment and never rush repeat sessions." },
+      {
+        q: "Is Hijama the same as cupping therapy?",
+        a: "Yes. Hijama is the traditional term; cupping therapy is the general name. Wet cupping (with tiny scratches) is what many people mean by Hijama.",
+      },
+      {
+        q: "Does it leave marks?",
+        a: "Cupping can leave temporary circular marks that usually fade within a few days to a couple of weeks.",
+      },
+      {
+        q: "How often can I have Hijama?",
+        a: "This depends on your health and goals. We advise on timing during your assessment and never rush repeat sessions.",
+      },
     ],
     keyTakeaways: [
       "Hijama (cupping therapy) uses suction to increase local blood flow and ease tension.",
@@ -2137,7 +2817,8 @@ export const blogPosts: BlogPost[] = [
       {
         heading: "Who should avoid Hijama?",
         paragraphs: [
-          "Hijama is not suitable for everyone. Please tell us about your full medical history so we can keep you safe. " + BOOK_CTA,
+          "Hijama is not suitable for everyone. Please tell us about your full medical history so we can keep you safe. " +
+            BOOK_CTA,
         ],
         list: [
           "People with bleeding disorders or on blood-thinning medication",
@@ -2149,9 +2830,18 @@ export const blogPosts: BlogPost[] = [
       },
     ],
     faqs: [
-      { q: "Can Hijama be dangerous?", a: "Serious problems are rare when it is done hygienically by a trained practitioner after screening. Risk rises with poor hygiene, reused equipment or ignoring contraindications." },
-      { q: "Is wet cupping safe?", a: "Wet cupping is safe when single-use, sterile equipment and proper technique are used. We never reuse equipment between clients." },
-      { q: "Should I stop my medication before Hijama?", a: "Never stop prescribed medication on your own. Tell us what you take — especially blood thinners — and consult your doctor first." },
+      {
+        q: "Can Hijama be dangerous?",
+        a: "Serious problems are rare when it is done hygienically by a trained practitioner after screening. Risk rises with poor hygiene, reused equipment or ignoring contraindications.",
+      },
+      {
+        q: "Is wet cupping safe?",
+        a: "Wet cupping is safe when single-use, sterile equipment and proper technique are used. We never reuse equipment between clients.",
+      },
+      {
+        q: "Should I stop my medication before Hijama?",
+        a: "Never stop prescribed medication on your own. Tell us what you take — especially blood thinners — and consult your doctor first.",
+      },
     ],
     keyTakeaways: [
       "Hijama is generally safe with trained practitioners and sterile, single-use equipment.",

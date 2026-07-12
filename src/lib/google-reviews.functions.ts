@@ -24,7 +24,13 @@ const GATEWAY_URL = "https://connector-gateway.lovable.dev/google_maps";
 let cache: { data: GoogleReviewsData; expires: number } | null = null;
 const TTL_MS = 60 * 60 * 1000; // 1 hour
 
-const EMPTY: GoogleReviewsData = { rating: null, total: null, reviews: [], mapsUri: null, ok: false };
+const EMPTY: GoogleReviewsData = {
+  rating: null,
+  total: null,
+  reviews: [],
+  mapsUri: null,
+  ok: false,
+};
 
 /**
  * Fetch the clinic's public Google Business Profile rating + reviews via the

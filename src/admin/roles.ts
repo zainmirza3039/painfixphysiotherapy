@@ -46,11 +46,7 @@ export const PROFESSIONAL_ROLES: AppRole[] = [
 ];
 
 // Roles allowed to author & manage their own blog content.
-export const CONTENT_ROLES: AppRole[] = [
-  ...ADMIN_ROLES,
-  ...PROFESSIONAL_ROLES,
-  "content_editor",
-];
+export const CONTENT_ROLES: AppRole[] = [...ADMIN_ROLES, ...PROFESSIONAL_ROLES, "content_editor"];
 
 // Any role that should be able to sign into the admin/portal area at all.
 export const PANEL_ROLES: AppRole[] = [

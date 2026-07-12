@@ -72,12 +72,30 @@ export const en = {
       title: "How Home Visits Work",
       subtitle: "A simple, guided process from request to recovery.",
       steps: [
-        { title: "Submit a Request", desc: "Submit a Home Visit Request through the website or WhatsApp." },
-        { title: "We Contact You", desc: "Our team will contact you to understand your condition and confirm your location." },
-        { title: "Schedule a Time", desc: "A suitable appointment date and time will be scheduled." },
-        { title: "Physiotherapist Visits", desc: "A licensed physiotherapist will visit your home with the required equipment." },
-        { title: "Assessment & Treatment", desc: "A personalized assessment and treatment session will be performed." },
-        { title: "Rehabilitation Plan", desc: "A customized rehabilitation plan and follow-up schedule will be provided." },
+        {
+          title: "Submit a Request",
+          desc: "Submit a Home Visit Request through the website or WhatsApp.",
+        },
+        {
+          title: "We Contact You",
+          desc: "Our team will contact you to understand your condition and confirm your location.",
+        },
+        {
+          title: "Schedule a Time",
+          desc: "A suitable appointment date and time will be scheduled.",
+        },
+        {
+          title: "Physiotherapist Visits",
+          desc: "A licensed physiotherapist will visit your home with the required equipment.",
+        },
+        {
+          title: "Assessment & Treatment",
+          desc: "A personalized assessment and treatment session will be performed.",
+        },
+        {
+          title: "Rehabilitation Plan",
+          desc: "A customized rehabilitation plan and follow-up schedule will be provided.",
+        },
       ],
     },
     areas: {
@@ -105,11 +123,26 @@ export const en = {
     faq: {
       title: "Frequently Asked Questions",
       items: [
-        { q: "How long is one home session?", a: "A typical home physiotherapy session lasts around 45–60 minutes, depending on your condition and treatment plan." },
-        { q: "Who can benefit from home physiotherapy?", a: "Elderly patients, stroke and post-surgical patients, neurological and orthopedic cases, chronic pain sufferers, and anyone with mobility limitations." },
-        { q: "What equipment will the physiotherapist bring?", a: "Our physiotherapists carry the essential portable equipment needed for assessment, mobilization, and rehabilitation exercises." },
-        { q: "Can family members attend the session?", a: "Yes. We encourage family involvement so caregivers can learn how to support ongoing recovery at home." },
-        { q: "How do I reschedule an appointment?", a: "Simply contact us on WhatsApp or by phone and we'll arrange a new date and time that suits you." },
+        {
+          q: "How long is one home session?",
+          a: "A typical home physiotherapy session lasts around 45–60 minutes, depending on your condition and treatment plan.",
+        },
+        {
+          q: "Who can benefit from home physiotherapy?",
+          a: "Elderly patients, stroke and post-surgical patients, neurological and orthopedic cases, chronic pain sufferers, and anyone with mobility limitations.",
+        },
+        {
+          q: "What equipment will the physiotherapist bring?",
+          a: "Our physiotherapists carry the essential portable equipment needed for assessment, mobilization, and rehabilitation exercises.",
+        },
+        {
+          q: "Can family members attend the session?",
+          a: "Yes. We encourage family involvement so caregivers can learn how to support ongoing recovery at home.",
+        },
+        {
+          q: "How do I reschedule an appointment?",
+          a: "Simply contact us on WhatsApp or by phone and we'll arrange a new date and time that suits you.",
+        },
       ],
     },
     form: {
@@ -157,7 +190,8 @@ export const en = {
       "Take the first step toward a stronger, pain-free life. Our team is ready to help you move better.",
   },
   footer: {
-    tagline: "Evidence-based physiotherapy and rehabilitation in Multan, helping you move better and live pain-free.",
+    tagline:
+      "Evidence-based physiotherapy and rehabilitation in Multan, helping you move better and live pain-free.",
     quickLinks: "Quick Links",
     contact: "Contact",
     rights: "All rights reserved.",
@@ -235,10 +269,19 @@ export const ur: Dict = {
       title: "گھر وزٹ کیسے کام کرتا ہے",
       subtitle: "درخواست سے بحالی تک ایک آسان، رہنمائی شدہ عمل۔",
       steps: [
-        { title: "درخواست جمع کروائیں", desc: "ویب سائٹ یا واٹس ایپ کے ذریعے گھر وزٹ کی درخواست دیں۔" },
-        { title: "ہم رابطہ کریں گے", desc: "ہماری ٹیم آپ کی حالت سمجھنے اور مقام کی تصدیق کے لیے آپ سے رابطہ کرے گی۔" },
+        {
+          title: "درخواست جمع کروائیں",
+          desc: "ویب سائٹ یا واٹس ایپ کے ذریعے گھر وزٹ کی درخواست دیں۔",
+        },
+        {
+          title: "ہم رابطہ کریں گے",
+          desc: "ہماری ٹیم آپ کی حالت سمجھنے اور مقام کی تصدیق کے لیے آپ سے رابطہ کرے گی۔",
+        },
         { title: "وقت طے کریں", desc: "ایک موزوں اپائنٹمنٹ تاریخ اور وقت طے کیا جائے گا۔" },
-        { title: "فزیوتھراپسٹ کی آمد", desc: "لائسنس یافتہ فزیوتھراپسٹ ضروری آلات کے ساتھ آپ کے گھر آئے گا۔" },
+        {
+          title: "فزیوتھراپسٹ کی آمد",
+          desc: "لائسنس یافتہ فزیوتھراپسٹ ضروری آلات کے ساتھ آپ کے گھر آئے گا۔",
+        },
         { title: "تشخیص و علاج", desc: "ذاتی تشخیص اور علاج کا سیشن کیا جائے گا۔" },
         { title: "بحالی پلان", desc: "ذاتی بحالی پلان اور فالو اپ شیڈول فراہم کیا جائے گا۔" },
       ],
@@ -256,23 +299,33 @@ export const ur: Dict = {
     pricing: {
       title: "قیمتیں",
       subtitle: "شفاف، آپ کی علاج کی ضروریات کے مطابق۔",
-      items: [
-        "گھر وزٹ چارجز",
-        "ابتدائی تشخیص فیس",
-        "فالو اپ سیشن فیس",
-        "ماہانہ بحالی پیکجز",
-      ],
+      items: ["گھر وزٹ چارجز", "ابتدائی تشخیص فیس", "فالو اپ سیشن فیس", "ماہانہ بحالی پیکجز"],
       travelNote: "فاصلے کے مطابق سفری چارجز لاگو ہو سکتے ہیں۔",
       note: "موجودہ قیمتوں اور ذاتی علاج پیکجز کے لیے ہم سے رابطہ کریں۔",
     },
     faq: {
       title: "اکثر پوچھے جانے والے سوالات",
       items: [
-        { q: "ایک گھر سیشن کتنا طویل ہوتا ہے؟", a: "عام گھریلو فزیوتھراپی سیشن آپ کی حالت اور علاج پلان کے مطابق تقریباً 45 تا 60 منٹ ہوتا ہے۔" },
-        { q: "گھر پر فزیوتھراپی سے کون فائدہ اٹھا سکتا ہے؟", a: "بزرگ مریض، فالج اور آپریشن کے بعد کے مریض، اعصابی و ہڈی جوڑ کے کیسز، دائمی درد کے مریض، اور حرکت میں محدودیت والے افراد۔" },
-        { q: "فزیوتھراپسٹ کون سے آلات لائے گا؟", a: "ہمارے فزیوتھراپسٹ تشخیص، حرکت اور بحالی کی ورزشوں کے لیے ضروری پورٹیبل آلات ساتھ لاتے ہیں۔" },
-        { q: "کیا اہلِ خانہ سیشن میں شریک ہو سکتے ہیں؟", a: "جی ہاں۔ ہم اہلِ خانہ کی شرکت کی حوصلہ افزائی کرتے ہیں تاکہ وہ گھر پر بحالی میں مدد کرنا سیکھ سکیں۔" },
-        { q: "میں اپائنٹمنٹ دوبارہ کیسے شیڈول کروں؟", a: "بس واٹس ایپ یا فون پر ہم سے رابطہ کریں، ہم آپ کے لیے موزوں نئی تاریخ اور وقت طے کر دیں گے۔" },
+        {
+          q: "ایک گھر سیشن کتنا طویل ہوتا ہے؟",
+          a: "عام گھریلو فزیوتھراپی سیشن آپ کی حالت اور علاج پلان کے مطابق تقریباً 45 تا 60 منٹ ہوتا ہے۔",
+        },
+        {
+          q: "گھر پر فزیوتھراپی سے کون فائدہ اٹھا سکتا ہے؟",
+          a: "بزرگ مریض، فالج اور آپریشن کے بعد کے مریض، اعصابی و ہڈی جوڑ کے کیسز، دائمی درد کے مریض، اور حرکت میں محدودیت والے افراد۔",
+        },
+        {
+          q: "فزیوتھراپسٹ کون سے آلات لائے گا؟",
+          a: "ہمارے فزیوتھراپسٹ تشخیص، حرکت اور بحالی کی ورزشوں کے لیے ضروری پورٹیبل آلات ساتھ لاتے ہیں۔",
+        },
+        {
+          q: "کیا اہلِ خانہ سیشن میں شریک ہو سکتے ہیں؟",
+          a: "جی ہاں۔ ہم اہلِ خانہ کی شرکت کی حوصلہ افزائی کرتے ہیں تاکہ وہ گھر پر بحالی میں مدد کرنا سیکھ سکیں۔",
+        },
+        {
+          q: "میں اپائنٹمنٹ دوبارہ کیسے شیڈول کروں؟",
+          a: "بس واٹس ایپ یا فون پر ہم سے رابطہ کریں، ہم آپ کے لیے موزوں نئی تاریخ اور وقت طے کر دیں گے۔",
+        },
       ],
     },
     form: {
@@ -320,7 +373,8 @@ export const ur: Dict = {
       "مضبوط، درد سے پاک زندگی کی طرف پہلا قدم اٹھائیں۔ ہماری ٹیم آپ کی بہتر حرکت میں مدد کے لیے تیار ہے۔",
   },
   footer: {
-    tagline: "ملتان میں شواہد پر مبنی فزیوتھراپی اور بحالی، جو آپ کو بہتر حرکت اور درد سے پاک زندگی میں مدد دیتی ہے۔",
+    tagline:
+      "ملتان میں شواہد پر مبنی فزیوتھراپی اور بحالی، جو آپ کو بہتر حرکت اور درد سے پاک زندگی میں مدد دیتی ہے۔",
     quickLinks: "فوری لنکس",
     contact: "رابطہ",
     rights: "جملہ حقوق محفوظ ہیں۔",

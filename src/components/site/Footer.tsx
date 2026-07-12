@@ -1,4 +1,14 @@
-import { Facebook, Instagram, AtSign, MapPin, Phone, Linkedin, MessageCircle, Clock, ArrowRight } from "lucide-react";
+import {
+  Facebook,
+  Instagram,
+  AtSign,
+  MapPin,
+  Phone,
+  Linkedin,
+  MessageCircle,
+  Clock,
+  ArrowRight,
+} from "lucide-react";
 import { Link } from "@tanstack/react-router";
 import {
   WHATSAPP_URL,
@@ -13,7 +23,6 @@ import { GoogleReviewButton } from "./GoogleReviewButton";
 import { services } from "@/data/services";
 import { conditions } from "@/data/conditions";
 import { latestPosts } from "@/data/blog";
-
 
 const socials = [
   { icon: Facebook, label: "Facebook", ...SOCIAL_LINKS.facebook },
@@ -51,8 +60,8 @@ export function Footer() {
               </div>
             </div>
             <p className="mt-5 max-w-sm text-sm leading-relaxed text-background/70">
-              Evidence-based physiotherapy and rehabilitation in Multan. Helping you move better, recover faster, and
-              live pain-free.
+              Evidence-based physiotherapy and rehabilitation in Multan. Helping you move better,
+              recover faster, and live pain-free.
             </p>
 
             {/* Working hours */}
@@ -88,7 +97,9 @@ export function Footer() {
 
           {/* Top Services */}
           <div>
-            <h3 className="font-heading text-sm font-bold uppercase tracking-wider text-background/90">Top Services</h3>
+            <h3 className="font-heading text-sm font-bold uppercase tracking-wider text-background/90">
+              Top Services
+            </h3>
             <ul className="mt-4 space-y-2 text-sm">
               {topServices.map((s) => (
                 <li key={s.slug}>
@@ -110,22 +121,34 @@ export function Footer() {
                 </Link>
               </li>
               <li>
-                <Link to="/fitness" className="text-background/70 transition-colors hover:text-secondary">
+                <Link
+                  to="/fitness"
+                  className="text-background/70 transition-colors hover:text-secondary"
+                >
                   Fitness Platform
                 </Link>
               </li>
               <li>
-                <Link to="/health-calculators" className="text-background/70 transition-colors hover:text-secondary">
+                <Link
+                  to="/health-calculators"
+                  className="text-background/70 transition-colors hover:text-secondary"
+                >
                   Health Calculators
                 </Link>
               </li>
               <li>
-                <Link to="/membership" className="text-background/70 transition-colors hover:text-secondary">
+                <Link
+                  to="/membership"
+                  className="text-background/70 transition-colors hover:text-secondary"
+                >
                   Membership
                 </Link>
               </li>
               <li>
-                <Link to="/services" className="inline-flex items-center gap-1 font-semibold text-secondary-glow">
+                <Link
+                  to="/services"
+                  className="inline-flex items-center gap-1 font-semibold text-secondary-glow"
+                >
                   All Services <ArrowRight className="h-3.5 w-3.5" />
                 </Link>
               </li>
@@ -134,7 +157,9 @@ export function Footer() {
 
           {/* Top Conditions */}
           <div>
-            <h3 className="font-heading text-sm font-bold uppercase tracking-wider text-background/90">Top Conditions</h3>
+            <h3 className="font-heading text-sm font-bold uppercase tracking-wider text-background/90">
+              Top Conditions
+            </h3>
             <ul className="mt-4 space-y-2 text-sm">
               {topConditions.map((c) => (
                 <li key={c.slug}>
@@ -148,7 +173,10 @@ export function Footer() {
                 </li>
               ))}
               <li>
-                <Link to="/conditions" className="inline-flex items-center gap-1 font-semibold text-secondary-glow">
+                <Link
+                  to="/conditions"
+                  className="inline-flex items-center gap-1 font-semibold text-secondary-glow"
+                >
                   All Conditions <ArrowRight className="h-3.5 w-3.5" />
                 </Link>
               </li>
@@ -173,7 +201,10 @@ export function Footer() {
                 </li>
               ))}
               <li>
-                <Link to="/blog" className="inline-flex items-center gap-1 font-semibold text-secondary-glow">
+                <Link
+                  to="/blog"
+                  className="inline-flex items-center gap-1 font-semibold text-secondary-glow"
+                >
                   Read the Blog <ArrowRight className="h-3.5 w-3.5" />
                 </Link>
               </li>
@@ -195,7 +226,10 @@ export function Footer() {
                 </a>
               </li>
               <li>
-                <a href={PHONE_TEL} className="flex items-center gap-2.5 transition-colors hover:text-secondary">
+                <a
+                  href={PHONE_TEL}
+                  className="flex items-center gap-2.5 transition-colors hover:text-secondary"
+                >
                   <Phone className="h-4 w-4 shrink-0 text-secondary" /> {PHONE_DISPLAY}
                 </a>
               </li>

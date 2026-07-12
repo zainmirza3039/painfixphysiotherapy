@@ -33,11 +33,9 @@ const PUBLIC_COLUMNS =
  * No session persistence — safe in SSR / Workers.
  */
 function publicClient() {
-  return createClient<Database>(
-    process.env.SUPABASE_URL!,
-    process.env.SUPABASE_PUBLISHABLE_KEY!,
-    { auth: { storage: undefined, persistSession: false, autoRefreshToken: false } },
-  );
+  return createClient<Database>(process.env.SUPABASE_URL!, process.env.SUPABASE_PUBLISHABLE_KEY!, {
+    auth: { storage: undefined, persistSession: false, autoRefreshToken: false },
+  });
 }
 
 /** All published CMS blog posts, newest first. RLS filters out drafts/scheduled posts. */

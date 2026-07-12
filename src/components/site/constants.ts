@@ -26,8 +26,7 @@ export const CALENDLY_URL = "https://calendly.com/zainimirza30396";
 export const GOOGLE_REVIEW_URL = "https://g.page/r/Cc48O8FLSLh3EBE/review";
 export const GOOGLE_PLACE_ID = "ChIJhSmMfwDrPDkRzjw7wUtIuHc";
 // Public Google Maps business profile (also used for "View all reviews")
-export const GOOGLE_BUSINESS_PROFILE_URL =
-  "https://maps.google.com/?cid=8626724576429817038";
+export const GOOGLE_BUSINESS_PROFILE_URL = "https://maps.google.com/?cid=8626724576429817038";
 
 // Exact clinic location on Google Maps
 export const CLINIC_NAME = "PainFix Physiotherapy Clinic";
@@ -104,12 +103,36 @@ export const RESOURCE_NAV = [
 // static routes. `desc` powers the premium dropdown subtitles.
 export const SERVICES_MENU = [
   { label: "Physiotherapy", to: "/services", desc: "Full range of evidence-based care" },
-  { label: "Manual Therapy", to: "/services/$slug", slug: "manual-therapy", desc: "Hands-on joint & soft-tissue work" },
-  { label: "Exercise Therapy", to: "/services/$slug", slug: "exercise-therapy", desc: "Targeted movement & strengthening" },
-  { label: "Home Physiotherapy", to: "/services/$slug", slug: "home-physiotherapy", desc: "Expert care at your doorstep" },
-  { label: "Hijama Therapy", to: "/services/$slug", slug: "hijama-cupping-therapy", desc: "Cupping therapy for pain relief" },
+  {
+    label: "Manual Therapy",
+    to: "/services/$slug",
+    slug: "manual-therapy",
+    desc: "Hands-on joint & soft-tissue work",
+  },
+  {
+    label: "Exercise Therapy",
+    to: "/services/$slug",
+    slug: "exercise-therapy",
+    desc: "Targeted movement & strengthening",
+  },
+  {
+    label: "Home Physiotherapy",
+    to: "/services/$slug",
+    slug: "home-physiotherapy",
+    desc: "Expert care at your doorstep",
+  },
+  {
+    label: "Hijama Therapy",
+    to: "/services/$slug",
+    slug: "hijama-cupping-therapy",
+    desc: "Cupping therapy for pain relief",
+  },
   { label: "Diet & Nutrition", to: "/diet-nutrition", desc: "Personalised nutrition guidance" },
-  { label: "Personalised Fitness & Rehabilitation", to: "/fitness-rehabilitation", desc: "Guided strength & recovery programs" },
+  {
+    label: "Personalised Fitness & Rehabilitation",
+    to: "/fitness-rehabilitation",
+    desc: "Guided strength & recovery programs",
+  },
 ] as const;
 
 export const CONDITIONS_MENU = [

@@ -1,16 +1,43 @@
-import { Dumbbell, Activity, ShieldPlus, HeartPulse, Zap, MessageCircle, ArrowRight } from "lucide-react";
+import {
+  Dumbbell,
+  Activity,
+  ShieldPlus,
+  HeartPulse,
+  Zap,
+  MessageCircle,
+  ArrowRight,
+} from "lucide-react";
 import { Link } from "@tanstack/react-router";
 import { SectionHeading } from "./SectionHeading";
 import { Reveal } from "./Reveal";
 import { WHATSAPP_CONSULT_URL } from "./constants";
 
-
 const PILLARS = [
-  { icon: Dumbbell, title: "Strength", text: "Progressive strengthening to rebuild power, stability and confidence." },
-  { icon: Activity, title: "Mobility", text: "Restore a full, comfortable range of motion in every joint." },
-  { icon: ShieldPlus, title: "Injury Prevention", text: "Screening and conditioning to reduce your risk of recurring injury." },
-  { icon: HeartPulse, title: "Rehabilitation", text: "Evidence-based recovery after injury, surgery or long inactivity." },
-  { icon: Zap, title: "Functional Fitness", text: "Move, lift and work better in everyday life and sport." },
+  {
+    icon: Dumbbell,
+    title: "Strength",
+    text: "Progressive strengthening to rebuild power, stability and confidence.",
+  },
+  {
+    icon: Activity,
+    title: "Mobility",
+    text: "Restore a full, comfortable range of motion in every joint.",
+  },
+  {
+    icon: ShieldPlus,
+    title: "Injury Prevention",
+    text: "Screening and conditioning to reduce your risk of recurring injury.",
+  },
+  {
+    icon: HeartPulse,
+    title: "Rehabilitation",
+    text: "Evidence-based recovery after injury, surgery or long inactivity.",
+  },
+  {
+    icon: Zap,
+    title: "Functional Fitness",
+    text: "Move, lift and work better in everyday life and sport.",
+  },
 ];
 
 export function PhysioFitness() {
@@ -54,7 +81,6 @@ export function PhysioFitness() {
             </div>
           </Reveal>
         </div>
-
       </div>
     </section>
   );

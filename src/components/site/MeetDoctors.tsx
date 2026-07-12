@@ -47,7 +47,9 @@ export function MeetDoctors() {
                   <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-secondary">
                     <BadgeCheck className="h-4 w-4" /> {doc.credentials}
                   </div>
-                  <h3 className="mt-2 font-heading text-xl font-extrabold text-foreground">{doc.fullName}</h3>
+                  <h3 className="mt-2 font-heading text-xl font-extrabold text-foreground">
+                    {doc.fullName}
+                  </h3>
                   <p className="text-sm font-semibold text-primary">{doc.title}</p>
                   <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{doc.seoBio}</p>
 

@@ -10,7 +10,13 @@ function toSections(content: string | null, title: string): BlogSection[] {
     .split(/\n{2,}/)
     .map((b) => b.trim())
     .filter(Boolean);
-  const source = blocks.length > 1 ? blocks : content.split(/\n/).map((b) => b.trim()).filter(Boolean);
+  const source =
+    blocks.length > 1
+      ? blocks
+      : content
+          .split(/\n/)
+          .map((b) => b.trim())
+          .filter(Boolean);
   // Drop a leading paragraph that merely repeats the title.
   const paragraphs = source.filter((p) => p.toLowerCase() !== title.toLowerCase());
   return [{ paragraphs: paragraphs.length ? paragraphs : source }];
@@ -23,7 +29,9 @@ export function dbCategorySlug(category: string | null): string {
   const slug = slugify(raw);
   if (blogCategoryMap[slug]) return slug;
   // Match by display name too (e.g. "Back Pain" → "back-pain").
-  const byName = Object.values(blogCategoryMap).find((c) => c.name.toLowerCase() === raw.toLowerCase());
+  const byName = Object.values(blogCategoryMap).find(
+    (c) => c.name.toLowerCase() === raw.toLowerCase(),
+  );
   return byName?.slug ?? slug;
 }
 

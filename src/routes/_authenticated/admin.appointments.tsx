@@ -205,14 +205,23 @@ function AppointmentsPage() {
       <div className="mb-4 flex flex-wrap items-center gap-3">
         <div className="relative max-w-sm flex-1">
           <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-          <Input className="pl-9" placeholder="Search…" value={search} onChange={(e) => setSearch(e.target.value)} />
+          <Input
+            className="pl-9"
+            placeholder="Search…"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          />
         </div>
         <Select value={statusFilter} onValueChange={setStatusFilter}>
-          <SelectTrigger className="w-40"><SelectValue /></SelectTrigger>
+          <SelectTrigger className="w-40">
+            <SelectValue />
+          </SelectTrigger>
           <SelectContent>
             <SelectItem value="all">All statuses</SelectItem>
             {STATUSES.map((s) => (
-              <SelectItem key={s} value={s}>{s}</SelectItem>
+              <SelectItem key={s} value={s}>
+                {s}
+              </SelectItem>
             ))}
           </SelectContent>
         </Select>
@@ -221,7 +230,9 @@ function AppointmentsPage() {
       <div className="overflow-hidden rounded-2xl border border-border bg-card shadow-soft">
         {isLoading ? (
           <div className="space-y-2 p-4">
-            {Array.from({ length: 5 }).map((_, i) => <Skeleton key={i} className="h-12" />)}
+            {Array.from({ length: 5 }).map((_, i) => (
+              <Skeleton key={i} className="h-12" />
+            ))}
           </div>
         ) : filtered.length === 0 ? (
           <div className="flex flex-col items-center gap-2 py-16 text-muted-foreground">
@@ -254,17 +265,26 @@ function AppointmentsPage() {
                     <TableCell>
                       <Select value={a.status} onValueChange={(v) => quickStatus(a, v)}>
                         <SelectTrigger className="h-8 w-[130px]">
-                          <Badge variant="secondary" className={statusColor(a.status)}>{a.status}</Badge>
+                          <Badge variant="secondary" className={statusColor(a.status)}>
+                            {a.status}
+                          </Badge>
                         </SelectTrigger>
                         <SelectContent>
                           {STATUSES.map((s) => (
-                            <SelectItem key={s} value={s}>{s}</SelectItem>
+                            <SelectItem key={s} value={s}>
+                              {s}
+                            </SelectItem>
                           ))}
                         </SelectContent>
                       </Select>
                     </TableCell>
                     <TableCell className="text-right">
-                      <Button variant="ghost" size="icon" aria-label="Edit appointment" onClick={() => openEdit(a)}>
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        aria-label="Edit appointment"
+                        onClick={() => openEdit(a)}
+                      >
                         <Pencil className="h-4 w-4" />
                       </Button>
                     </TableCell>
@@ -290,41 +310,68 @@ function AppointmentsPage() {
             className="space-y-4"
           >
             <div className="space-y-1.5">
-              <Label>Patient name <span className="text-rose-500">*</span></Label>
-              <Input value={form.patient_name} onChange={(e) => setForm({ ...form, patient_name: e.target.value })} required />
+              <Label>
+                Patient name <span className="text-rose-500">*</span>
+              </Label>
+              <Input
+                value={form.patient_name}
+                onChange={(e) => setForm({ ...form, patient_name: e.target.value })}
+                required
+              />
             </div>
             <div className="grid grid-cols-2 gap-3">
               <div className="space-y-1.5">
                 <Label>Phone</Label>
-                <Input value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} />
+                <Input
+                  value={form.phone}
+                  onChange={(e) => setForm({ ...form, phone: e.target.value })}
+                />
               </div>
               <div className="space-y-1.5">
                 <Label>Email</Label>
-                <Input type="email" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} />
+                <Input
+                  type="email"
+                  value={form.email}
+                  onChange={(e) => setForm({ ...form, email: e.target.value })}
+                />
               </div>
             </div>
             <div className="grid grid-cols-2 gap-3">
               <div className="space-y-1.5">
                 <Label>Service</Label>
-                <Input value={form.service} onChange={(e) => setForm({ ...form, service: e.target.value })} />
+                <Input
+                  value={form.service}
+                  onChange={(e) => setForm({ ...form, service: e.target.value })}
+                />
               </div>
               <div className="space-y-1.5">
                 <Label>Therapist</Label>
-                <Input value={form.assigned_therapist} onChange={(e) => setForm({ ...form, assigned_therapist: e.target.value })} />
+                <Input
+                  value={form.assigned_therapist}
+                  onChange={(e) => setForm({ ...form, assigned_therapist: e.target.value })}
+                />
               </div>
             </div>
             <div className="grid grid-cols-2 gap-3">
               <div className="space-y-1.5">
                 <Label>Date & time</Label>
-                <Input type="datetime-local" value={form.appointment_at} onChange={(e) => setForm({ ...form, appointment_at: e.target.value })} />
+                <Input
+                  type="datetime-local"
+                  value={form.appointment_at}
+                  onChange={(e) => setForm({ ...form, appointment_at: e.target.value })}
+                />
               </div>
               <div className="space-y-1.5">
                 <Label>Status</Label>
                 <Select value={form.status} onValueChange={(v) => setForm({ ...form, status: v })}>
-                  <SelectTrigger><SelectValue /></SelectTrigger>
+                  <SelectTrigger>
+                    <SelectValue />
+                  </SelectTrigger>
                   <SelectContent>
                     {STATUSES.map((s) => (
-                      <SelectItem key={s} value={s}>{s}</SelectItem>
+                      <SelectItem key={s} value={s}>
+                        {s}
+                      </SelectItem>
                     ))}
                   </SelectContent>
                 </Select>
@@ -332,10 +379,16 @@ function AppointmentsPage() {
             </div>
             <div className="space-y-1.5">
               <Label>Notes</Label>
-              <Textarea rows={2} value={form.notes} onChange={(e) => setForm({ ...form, notes: e.target.value })} />
+              <Textarea
+                rows={2}
+                value={form.notes}
+                onChange={(e) => setForm({ ...form, notes: e.target.value })}
+              />
             </div>
             <DialogFooter>
-              <Button type="button" variant="ghost" onClick={() => setDialogOpen(false)}>Cancel</Button>
+              <Button type="button" variant="ghost" onClick={() => setDialogOpen(false)}>
+                Cancel
+              </Button>
               <Button type="submit" disabled={saveMutation.isPending}>
                 {saveMutation.isPending && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
                 {editing ? "Save changes" : "Create"}

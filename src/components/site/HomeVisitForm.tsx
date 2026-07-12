@@ -23,8 +23,7 @@ export function HomeVisitForm() {
   const [company, setCompany] = useState(""); // honeypot — real users leave this empty
   const [submitting, setSubmitting] = useState(false);
 
-  const set = (key: keyof typeof initial, val: string) =>
-    setValues((v) => ({ ...v, [key]: val }));
+  const set = (key: keyof typeof initial, val: string) => setValues((v) => ({ ...v, [key]: val }));
 
   const onSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -86,7 +85,11 @@ export function HomeVisitForm() {
   return (
     <form onSubmit={onSubmit} className="grid gap-4 sm:grid-cols-2">
       {/* Honeypot: visually hidden, ignored by humans, filled by bots */}
-      <div aria-hidden className="absolute left-[-9999px] top-[-9999px] h-0 w-0 overflow-hidden" tabIndex={-1}>
+      <div
+        aria-hidden
+        className="absolute left-[-9999px] top-[-9999px] h-0 w-0 overflow-hidden"
+        tabIndex={-1}
+      >
         <label htmlFor="hv-company">Company</label>
         <input
           id="hv-company"

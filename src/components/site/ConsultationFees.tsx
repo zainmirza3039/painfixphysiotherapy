@@ -31,11 +31,7 @@ const fees: Fee[] = [
     title: "Video Consultation",
     price: "Rs. 1,000",
     description: "Online consultation for follow-ups and second opinions.",
-    points: [
-      "Convenient online session",
-      "Ideal for follow-ups",
-      "Expert second opinions",
-    ],
+    points: ["Convenient online session", "Ideal for follow-ups", "Expert second opinions"],
     cta: "calendly",
   },
 ];
@@ -58,9 +54,13 @@ export function ConsultationFees() {
                 </span>
                 <h3 className="mt-5 font-heading text-xl font-bold text-foreground">{fee.title}</h3>
                 <div className="mt-2 flex items-baseline gap-1">
-                  <span className="font-heading text-3xl font-extrabold text-secondary">{fee.price}</span>
+                  <span className="font-heading text-3xl font-extrabold text-secondary">
+                    {fee.price}
+                  </span>
                 </div>
-                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{fee.description}</p>
+                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                  {fee.description}
+                </p>
                 <ul className="mt-5 flex-1 space-y-2.5">
                   {fee.points.map((p) => (
                     <li key={p} className="flex items-start gap-2.5 text-sm text-foreground">

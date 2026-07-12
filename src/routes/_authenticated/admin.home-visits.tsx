@@ -2,16 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
-import {
-  Search,
-  Download,
-  Trash2,
-  Home,
-  Phone,
-  MapPin,
-  Eye,
-  FileText,
-} from "lucide-react";
+import { Search, Download, Trash2, Home, Phone, MapPin, Eye, FileText } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import type { Database } from "@/integrations/supabase/types";
 import { useAdminAuth } from "@/admin/AdminAuthProvider";
@@ -21,12 +12,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -165,13 +151,24 @@ function HomeVisitsPage() {
       <div className="mb-4 flex flex-wrap items-center gap-3">
         <div className="relative max-w-sm flex-1">
           <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-          <Input className="pl-9" placeholder="Search…" value={search} onChange={(e) => setSearch(e.target.value)} />
+          <Input
+            className="pl-9"
+            placeholder="Search…"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          />
         </div>
         <Select value={statusFilter} onValueChange={setStatusFilter}>
-          <SelectTrigger className="w-40"><SelectValue /></SelectTrigger>
+          <SelectTrigger className="w-40">
+            <SelectValue />
+          </SelectTrigger>
           <SelectContent>
             <SelectItem value="all">All statuses</SelectItem>
-            {STATUSES.map((s) => <SelectItem key={s} value={s}>{s}</SelectItem>)}
+            {STATUSES.map((s) => (
+              <SelectItem key={s} value={s}>
+                {s}
+              </SelectItem>
+            ))}
           </SelectContent>
         </Select>
       </div>
@@ -179,7 +176,9 @@ function HomeVisitsPage() {
       <div className="overflow-hidden rounded-2xl border border-border bg-card shadow-soft">
         {isLoading ? (
           <div className="space-y-2 p-4">
-            {Array.from({ length: 5 }).map((_, i) => <Skeleton key={i} className="h-12" />)}
+            {Array.from({ length: 5 }).map((_, i) => (
+              <Skeleton key={i} className="h-12" />
+            ))}
           </div>
         ) : filtered.length === 0 ? (
           <div className="flex flex-col items-center gap-2 py-16 text-muted-foreground">
@@ -204,25 +203,47 @@ function HomeVisitsPage() {
                   <TableRow key={v.id}>
                     <TableCell className="font-medium text-foreground">{v.full_name}</TableCell>
                     <TableCell>{v.phone}</TableCell>
-                    <TableCell>{fmtDate(v.preferred_date)}{v.preferred_time ? `, ${v.preferred_time}` : ""}</TableCell>
-                    <TableCell className="text-muted-foreground">{fmtDateTime(v.created_at)}</TableCell>
+                    <TableCell>
+                      {fmtDate(v.preferred_date)}
+                      {v.preferred_time ? `, ${v.preferred_time}` : ""}
+                    </TableCell>
+                    <TableCell className="text-muted-foreground">
+                      {fmtDateTime(v.created_at)}
+                    </TableCell>
                     <TableCell>
                       <Select value={v.status ?? "new"} onValueChange={(s) => updateStatus(v, s)}>
                         <SelectTrigger className="h-8 w-[130px]">
-                          <Badge variant="secondary" className={statusColor(v.status ?? "new")}>{v.status ?? "new"}</Badge>
+                          <Badge variant="secondary" className={statusColor(v.status ?? "new")}>
+                            {v.status ?? "new"}
+                          </Badge>
                         </SelectTrigger>
                         <SelectContent>
-                          {STATUSES.map((s) => <SelectItem key={s} value={s}>{s}</SelectItem>)}
+                          {STATUSES.map((s) => (
+                            <SelectItem key={s} value={s}>
+                              {s}
+                            </SelectItem>
+                          ))}
                         </SelectContent>
                       </Select>
                     </TableCell>
                     <TableCell className="text-right">
                       <div className="flex justify-end gap-1">
-                        <Button variant="ghost" size="icon" aria-label="View home visit" onClick={() => setSelected(v)}>
+                        <Button
+                          variant="ghost"
+                          size="icon"
+                          aria-label="View home visit"
+                          onClick={() => setSelected(v)}
+                        >
                           <Eye className="h-4 w-4" />
                         </Button>
                         {isAdmin && (
-                          <Button variant="ghost" size="icon" aria-label="Delete home visit" className="text-rose-600" onClick={() => setDeleteId(v.id)}>
+                          <Button
+                            variant="ghost"
+                            size="icon"
+                            aria-label="Delete home visit"
+                            className="text-rose-600"
+                            onClick={() => setDeleteId(v.id)}
+                          >
                             <Trash2 className="h-4 w-4" />
                           </Button>
                         )}
@@ -244,19 +265,31 @@ function HomeVisitsPage() {
           {selected && (
             <div className="space-y-3 text-sm">
               <Detail label="Phone" value={selected.phone} />
-              <Detail label="Age" value={selected.patient_age != null ? String(selected.patient_age) : "—"} />
+              <Detail
+                label="Age"
+                value={selected.patient_age != null ? String(selected.patient_age) : "—"}
+              />
               <Detail label="Address" value={selected.address} />
               <Detail label="Maps location" value={selected.maps_location ?? "—"} />
               <Detail label="Medical condition" value={selected.medical_condition ?? "—"} />
-              <Detail label="Preferred" value={`${fmtDate(selected.preferred_date)}${selected.preferred_time ? `, ${selected.preferred_time}` : ""}`} />
+              <Detail
+                label="Preferred"
+                value={`${fmtDate(selected.preferred_date)}${selected.preferred_time ? `, ${selected.preferred_time}` : ""}`}
+              />
               <Detail label="Notes" value={selected.notes ?? "—"} />
               <Detail label="Received" value={fmtDateTime(selected.created_at)} />
               <div className="flex flex-wrap gap-2 pt-2">
                 <Button asChild size="sm" variant="secondary">
-                  <a href={`tel:${selected.phone}`}><Phone className="mr-2 h-4 w-4" /> Call</a>
+                  <a href={`tel:${selected.phone}`}>
+                    <Phone className="mr-2 h-4 w-4" /> Call
+                  </a>
                 </Button>
                 <Button asChild size="sm" variant="outline">
-                  <a href={`https://wa.me/${selected.phone.replace(/[^0-9]/g, "")}`} target="_blank" rel="noreferrer">
+                  <a
+                    href={`https://wa.me/${selected.phone.replace(/[^0-9]/g, "")}`}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
                     WhatsApp
                   </a>
                 </Button>
@@ -288,7 +321,10 @@ function HomeVisitsPage() {
           </AlertDialogHeader>
           <AlertDialogFooter>
             <AlertDialogCancel>Cancel</AlertDialogCancel>
-            <AlertDialogAction className="bg-rose-600 hover:bg-rose-700" onClick={() => deleteId && deleteMutation.mutate(deleteId)}>
+            <AlertDialogAction
+              className="bg-rose-600 hover:bg-rose-700"
+              onClick={() => deleteId && deleteMutation.mutate(deleteId)}
+            >
               Delete
             </AlertDialogAction>
           </AlertDialogFooter>

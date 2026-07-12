@@ -87,10 +87,7 @@ function BlogPage() {
     queryKey: ["admin", "blog", isAdmin ? "all" : user?.id],
     enabled: isAdmin || !!user?.id,
     queryFn: async () => {
-      let query = supabase
-        .from("blog_posts")
-        .select("*")
-        .order("created_at", { ascending: false });
+      let query = supabase.from("blog_posts").select("*").order("created_at", { ascending: false });
       // Non-admin authors only manage their own articles.
       if (!isAdmin && user?.id) query = query.eq("author_id", user.id);
       const { data, error } = await query;
@@ -103,7 +100,9 @@ function BlogPage() {
     const q = search.trim().toLowerCase();
     if (!q) return rows ?? [];
     return (rows ?? []).filter((r) =>
-      [r.title, r.category, r.author, r.slug].filter(Boolean).some((v) => String(v).toLowerCase().includes(q)),
+      [r.title, r.category, r.author, r.slug]
+        .filter(Boolean)
+        .some((v) => String(v).toLowerCase().includes(q)),
     );
   }, [rows, search]);
 
@@ -115,7 +114,10 @@ function BlogPage() {
         excerpt: form.excerpt.trim() || null,
         content: form.content.trim() || null,
         category: form.category.trim() || null,
-        tags: form.tags.split(",").map((t) => t.trim()).filter(Boolean),
+        tags: form.tags
+          .split(",")
+          .map((t) => t.trim())
+          .filter(Boolean),
         author: form.author.trim() || null,
         featured_image: form.featured_image.trim() || null,
         seo_title: form.seo_title.trim() || null,
@@ -199,13 +201,20 @@ function BlogPage() {
 
       <div className="relative mb-4 max-w-sm">
         <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-        <Input className="pl-9" placeholder="Search posts…" value={search} onChange={(e) => setSearch(e.target.value)} />
+        <Input
+          className="pl-9"
+          placeholder="Search posts…"
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+        />
       </div>
 
       <div className="overflow-hidden rounded-2xl border border-border bg-card shadow-soft">
         {isLoading ? (
           <div className="space-y-2 p-4">
-            {Array.from({ length: 5 }).map((_, i) => <Skeleton key={i} className="h-12" />)}
+            {Array.from({ length: 5 }).map((_, i) => (
+              <Skeleton key={i} className="h-12" />
+            ))}
           </div>
         ) : filtered.length === 0 ? (
           <div className="flex flex-col items-center gap-2 py-16 text-muted-foreground">
@@ -236,7 +245,11 @@ function BlogPage() {
                     <TableCell>
                       <Badge
                         variant="secondary"
-                        className={p.status === "published" ? "bg-secondary/15 text-secondary" : "bg-muted text-muted-foreground"}
+                        className={
+                          p.status === "published"
+                            ? "bg-secondary/15 text-secondary"
+                            : "bg-muted text-muted-foreground"
+                        }
                       >
                         {p.status}
                       </Badge>
@@ -246,14 +259,32 @@ function BlogPage() {
                     <TableCell className="text-right">
                       <div className="flex justify-end gap-1">
                         {p.status === "published" && (
-                          <Button asChild variant="ghost" size="icon" aria-label="View published post">
-                            <a href={`/blog/${p.slug}`} target="_blank" rel="noreferrer"><Eye className="h-4 w-4" /></a>
+                          <Button
+                            asChild
+                            variant="ghost"
+                            size="icon"
+                            aria-label="View published post"
+                          >
+                            <a href={`/blog/${p.slug}`} target="_blank" rel="noreferrer">
+                              <Eye className="h-4 w-4" />
+                            </a>
                           </Button>
                         )}
-                        <Button variant="ghost" size="icon" aria-label="Edit post" onClick={() => openEdit(p)}>
+                        <Button
+                          variant="ghost"
+                          size="icon"
+                          aria-label="Edit post"
+                          onClick={() => openEdit(p)}
+                        >
                           <Pencil className="h-4 w-4" />
                         </Button>
-                        <Button variant="ghost" size="icon" aria-label="Delete post" className="text-rose-600" onClick={() => setDeleteId(p.id)}>
+                        <Button
+                          variant="ghost"
+                          size="icon"
+                          aria-label="Delete post"
+                          className="text-rose-600"
+                          onClick={() => setDeleteId(p.id)}
+                        >
                           <Trash2 className="h-4 w-4" />
                         </Button>
                       </div>
@@ -280,7 +311,9 @@ function BlogPage() {
             className="space-y-4"
           >
             <div className="space-y-1.5">
-              <Label>Title <span className="text-rose-500">*</span></Label>
+              <Label>
+                Title <span className="text-rose-500">*</span>
+              </Label>
               <Input
                 value={form.title}
                 onChange={(e) =>
@@ -306,20 +339,31 @@ function BlogPage() {
               </div>
               <div className="space-y-1.5">
                 <Label>Category</Label>
-                <Input value={form.category} onChange={(e) => setForm({ ...form, category: e.target.value })} />
+                <Input
+                  value={form.category}
+                  onChange={(e) => setForm({ ...form, category: e.target.value })}
+                />
               </div>
               <div className="space-y-1.5">
                 <Label>Author</Label>
-                <Input value={form.author} onChange={(e) => setForm({ ...form, author: e.target.value })} />
+                <Input
+                  value={form.author}
+                  onChange={(e) => setForm({ ...form, author: e.target.value })}
+                />
               </div>
               <div className="space-y-1.5">
                 <Label>Tags (comma separated)</Label>
-                <Input value={form.tags} onChange={(e) => setForm({ ...form, tags: e.target.value })} />
+                <Input
+                  value={form.tags}
+                  onChange={(e) => setForm({ ...form, tags: e.target.value })}
+                />
               </div>
               <div className="space-y-1.5">
                 <Label>Status</Label>
                 <Select value={form.status} onValueChange={(v) => setForm({ ...form, status: v })}>
-                  <SelectTrigger><SelectValue /></SelectTrigger>
+                  <SelectTrigger>
+                    <SelectValue />
+                  </SelectTrigger>
                   <SelectContent>
                     <SelectItem value="draft">Draft</SelectItem>
                     <SelectItem value="published">Published</SelectItem>
@@ -328,33 +372,56 @@ function BlogPage() {
               </div>
               <div className="space-y-1.5">
                 <Label>Publish date</Label>
-                <Input type="date" value={form.publish_at} onChange={(e) => setForm({ ...form, publish_at: e.target.value })} />
+                <Input
+                  type="date"
+                  value={form.publish_at}
+                  onChange={(e) => setForm({ ...form, publish_at: e.target.value })}
+                />
               </div>
             </div>
             <div className="space-y-1.5">
               <Label>Featured image URL</Label>
-              <Input value={form.featured_image} onChange={(e) => setForm({ ...form, featured_image: e.target.value })} />
+              <Input
+                value={form.featured_image}
+                onChange={(e) => setForm({ ...form, featured_image: e.target.value })}
+              />
             </div>
             <div className="space-y-1.5">
               <Label>Excerpt</Label>
-              <Textarea rows={2} value={form.excerpt} onChange={(e) => setForm({ ...form, excerpt: e.target.value })} />
+              <Textarea
+                rows={2}
+                value={form.excerpt}
+                onChange={(e) => setForm({ ...form, excerpt: e.target.value })}
+              />
             </div>
             <div className="space-y-1.5">
               <Label>Content</Label>
-              <Textarea rows={8} value={form.content} onChange={(e) => setForm({ ...form, content: e.target.value })} />
+              <Textarea
+                rows={8}
+                value={form.content}
+                onChange={(e) => setForm({ ...form, content: e.target.value })}
+              />
             </div>
             <div className="grid gap-4 sm:grid-cols-2">
               <div className="space-y-1.5">
                 <Label>SEO title</Label>
-                <Input value={form.seo_title} onChange={(e) => setForm({ ...form, seo_title: e.target.value })} />
+                <Input
+                  value={form.seo_title}
+                  onChange={(e) => setForm({ ...form, seo_title: e.target.value })}
+                />
               </div>
               <div className="space-y-1.5">
                 <Label>Meta description</Label>
-                <Input value={form.meta_description} onChange={(e) => setForm({ ...form, meta_description: e.target.value })} />
+                <Input
+                  value={form.meta_description}
+                  onChange={(e) => setForm({ ...form, meta_description: e.target.value })}
+                />
               </div>
             </div>
             <DialogFooter>
-              <Button type="button" variant="ghost" onClick={() => setDialogOpen(false)}>Cancel</Button>
+              <Button type="button" variant="ghost" onClick={() => setDialogOpen(false)}>
+                Cancel
+              </Button>
               <Button type="submit" disabled={saveMutation.isPending}>
                 {saveMutation.isPending && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
                 {editing ? "Save changes" : "Create post"}
@@ -372,7 +439,10 @@ function BlogPage() {
           </AlertDialogHeader>
           <AlertDialogFooter>
             <AlertDialogCancel>Cancel</AlertDialogCancel>
-            <AlertDialogAction className="bg-rose-600 hover:bg-rose-700" onClick={() => deleteId && deleteMutation.mutate(deleteId)}>
+            <AlertDialogAction
+              className="bg-rose-600 hover:bg-rose-700"
+              onClick={() => deleteId && deleteMutation.mutate(deleteId)}
+            >
               Delete
             </AlertDialogAction>
           </AlertDialogFooter>

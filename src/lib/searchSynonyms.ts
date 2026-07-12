@@ -8,7 +8,15 @@
  * Keep entries lower-case; phrases are matched as substrings of the query.
  */
 const SYNONYM_GROUPS: string[][] = [
-  ["back pain", "low back pain", "lower back pain", "lumbar pain", "backache", "back ache", "lumbago"],
+  [
+    "back pain",
+    "low back pain",
+    "lower back pain",
+    "lumbar pain",
+    "backache",
+    "back ache",
+    "lumbago",
+  ],
   ["sciatica", "sciatic pain", "nerve pain", "pinched nerve", "radiculopathy", "leg pain"],
   ["neck pain", "cervical pain", "tech neck", "stiff neck", "cervical"],
   ["frozen shoulder", "adhesive capsulitis", "shoulder stiffness"],
