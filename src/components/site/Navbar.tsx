@@ -342,7 +342,7 @@ export function Navbar() {
         >
           <span className="grid h-11 w-11 shrink-0 place-items-center overflow-hidden rounded-xl bg-background shadow-soft ring-1 ring-border">
             <img
-              src={src={logoAsset.url} ko src="/painfix-logo-96.webp.url}
+              src="/painfix-logo-96.webp"
               alt="PainFix Physiotherapy Clinic logo"
               width={44}
               height={44}
