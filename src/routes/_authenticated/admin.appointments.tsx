@@ -135,7 +135,39 @@ function AppointmentsPage() {
       setDialogOpen(false);
       toast.success(editing ? "Appointment updated" : "Appointment created");
     },
-    onError: (e) => toast.error(e instanceof Error ? e.message : "Save failed"),
+    onError: (e) => {
+      // Extract Supabase error details
+      const error = e as any;
+      const errorCode = error?.code || "UNKNOWN";
+      const errorMessage = error?.message || String(e);
+      const errorDetails = error?.details || "";
+      const errorHint = error?.hint || "";
+
+      // Log comprehensive error to console for debugging
+      console.error("[APPOINTMENT SAVE ERROR]", {
+        code: errorCode,
+        message: errorMessage,
+        details: errorDetails,
+        hint: errorHint,
+        fullError: error,
+      });
+
+      // Build user-friendly error message
+      let displayMessage = errorMessage;
+      
+      if (errorDetails) {
+        displayMessage = errorDetails;
+      } else if (errorHint) {
+        displayMessage = errorHint;
+      } else if (errorCode === "PGRST301") {
+        displayMessage = "Permission denied. You may not have staff/admin access.";
+      } else if (!displayMessage || displayMessage === "null") {
+        displayMessage = "Save failed";
+      }
+
+      // Show error to user
+      toast.error(displayMessage);
+    },
   });
 
   async function quickStatus(a: Appointment, status: string) {
