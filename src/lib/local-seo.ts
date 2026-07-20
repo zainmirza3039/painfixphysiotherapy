@@ -21,33 +21,35 @@ export function localPageHead(page: LocalPage) {
       ]),
       faqLd(page.faqs),
       {
-  type: "application/ld+json",
-  children: JSON.stringify({
-    "@context": "https://schema.org",
-    "@type": "MedicalClinic",
-    "@id": SITE_URL + "/#clinic",
-    name: CLINIC_NAME,
-    url: SITE_URL,
-    medicalSpecialty: "Physiotherapy",
-    telephone: "+92-314-3039582",
-    address: {
-      "@type": "PostalAddress",
-      streetAddress: "Usman Raja Market, Near Khair Ul Maarif School, Shalimar Colony",
-      addressLocality: "Multan",
-      addressRegion: "Punjab",
-      addressCountry: "PK"
-    },
-    areaServed: {
-      "@type": "City",
-      name: "Multan"
-    },
-    founder: {
-      "@type": "Person",
-      name: "Dr. Zain Ul Abideen",
-      jobTitle: "Doctor of Physical Therapy"
-    }
-  })
-
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "MedicalClinic",
+          "@id": SITE_URL + "/#clinic",
+          name: CLINIC_NAME,
+          url: SITE_URL,
+          medicalSpecialty: "Physiotherapy",
+          telephone: "+92-314-3039582",
+          address: {
+            "@type": "PostalAddress",
+            streetAddress:
+              "Usman Raja Market, Near Khair Ul Maarif School, Shalimar Colony",
+            addressLocality: "Multan",
+            addressRegion: "Punjab",
+            addressCountry: "PK",
+          },
+          areaServed: {
+            "@type": "City",
+            name: "Multan",
+          },
+          founder: {
+            "@type": "Person",
+            name: "Dr. Zain Ul Abideen",
+            jobTitle: "Doctor of Physical Therapy",
+          },
+        }),
+      },
+      {
         type: "application/ld+json",
         children: JSON.stringify({
           "@context": "https://schema.org",
@@ -67,7 +69,8 @@ export function localPageHead(page: LocalPage) {
             },
             address: {
               "@type": "PostalAddress",
-              streetAddress: "Usman Raja Market, Near Khair Ul Maarif School, Shalimar Colony",
+              streetAddress:
+                "Usman Raja Market, Near Khair Ul Maarif School, Shalimar Colony",
               addressLocality: "Multan",
               addressRegion: "Punjab",
               addressCountry: "PK",
@@ -76,6 +79,3 @@ export function localPageHead(page: LocalPage) {
           },
         }),
       },
-    ],
-  };
-}
