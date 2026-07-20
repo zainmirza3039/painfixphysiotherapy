@@ -4,4 +4,4 @@ Disallow: /admin
 Disallow: /auth
 Disallow: /reset-password
 
-Sitemap: https://painfixphysiotherapy.lovable.app/sitemap.xml
+Sitemap: https://painfixphysiotherapy.com/sitemap.xml
