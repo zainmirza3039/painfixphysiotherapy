@@ -79,3 +79,6 @@ export function localPageHead(page: LocalPage) {
           },
         }),
       },
+    ],
+  };
+}
