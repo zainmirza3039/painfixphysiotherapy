@@ -107,8 +107,3 @@ Patients can contact PainFix Physiotherapy Clinic for physiotherapy consultation
 
 Website:
 https://painfixphysiotherapy.com/
-
-## Optional
-
-- Privacy Policy
-- Terms of Service
