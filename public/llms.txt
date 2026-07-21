@@ -1,45 +1,114 @@
 # PainFix Physiotherapy Clinic
 
-> Evidence-based physiotherapy and rehabilitation clinic in Multan, Pakistan — pain relief, injury recovery, and restored movement, delivered by licensed physiotherapists at the clinic or at your home.
+> PainFix Physiotherapy Clinic is an evidence-based physiotherapy and rehabilitation clinic in Multan, Punjab, Pakistan. The clinic provides manual therapy, exercise rehabilitation, sports injury treatment, pain management, post-surgical rehabilitation, stroke rehabilitation, and home physiotherapy services.
 
-PainFix Physiotherapy Clinic treats back pain, neck pain, sciatica, sports injuries, frozen shoulder, knee pain, and post-surgical and stroke rehabilitation. Led by Dr. Zain Ul Abideen PT and Dr. Jalal Ud Din PT.
+## About
+
+PainFix Physiotherapy Clinic helps patients recover from musculoskeletal pain, injuries, mobility limitations, and neurological conditions through personalized physiotherapy programs.
+
+Clinic Location:
+Multan, Punjab, Pakistan
+
+Services are available:
+- In-clinic physiotherapy
+- Home physiotherapy visits in Multan
+
+## Clinical Team
+
+### Dr. Zain Ul Abideen PT
+Doctor of Physical Therapy (DPT)
+Physiotherapist in Multan specializing in musculoskeletal rehabilitation, manual therapy, pain management, posture correction, and functional recovery.
+
+Profile:
+https://painfixphysiotherapy.com/dr-zain-ul-abideen-pt-multan
+
+### Dr. Jalal Ud Din PT
+Doctor of Physical Therapy (DPT)
+Clinical Physiotherapist providing rehabilitation care for pain, injuries, and movement disorders.
+
+Profile:
+https://painfixphysiotherapy.com/dr-jalal-ud-din-pt-multan
 
 ## Main Pages
 
-- [Home](/): Clinic overview, services, doctors, and appointment booking.
-- [Services](/services): Full range of physiotherapy services in Multan.
-- [Conditions](/conditions): Conditions we treat and how physiotherapy helps.
-- [Home Visit](/home-visit): Book home physiotherapy in Multan.
-- [Blog](/blog): Physiotherapy guides, condition education, and recovery tips.
+- Home:
+https://painfixphysiotherapy.com/
 
-## Doctors
+- Services:
+https://painfixphysiotherapy.com/services
 
-- [Dr. Zain Ul Abideen PT](/dr-zain-ul-abideen-pt-multan): Physiotherapist in Multan — profile, expertise, and appointments.
-- [Dr. Jalal Ud Din PT](/dr-jalal-ud-din-pt-multan): Clinical Physiotherapist in Multan — profile, expertise, and appointments.
+- Conditions:
+https://painfixphysiotherapy.com/conditions
 
-## Services
+- Home Physiotherapy:
+https://painfixphysiotherapy.com/home-visit
 
-- [Manual Therapy](/services/manual-therapy): Hands-on mobilization and manipulation.
-- [Exercise Therapy](/services/exercise-therapy): Targeted rehabilitation exercise programs.
-- [Sports Rehabilitation](/services/sports-rehabilitation): Recovery and return-to-play for athletes.
-- [Post-Surgical Rehabilitation](/services/post-surgical-rehabilitation): Guided recovery after surgery.
-- [Pain Management](/services/pain-management): Evidence-based chronic pain treatment.
-- [Home Physiotherapy](/services/home-physiotherapy): Physiotherapy at your home in Multan.
+- Blog:
+https://painfixphysiotherapy.com/blog
 
-## Local
+## Physiotherapy Services
 
-- [Physiotherapist in Multan](/physiotherapist-in-multan): Find a licensed physiotherapist in Multan.
-- [Best Physiotherapist in Multan](/best-physiotherapist-in-multan): Why patients choose PainFix.
-- [Physiotherapy Clinic in Multan](/physiotherapy-clinic-in-multan): Clinic location, hours, and services.
+- Manual Therapy:
+https://painfixphysiotherapy.com/services/manual-therapy
 
-## Conditions
+- Exercise Therapy:
+https://painfixphysiotherapy.com/services/exercise-therapy
 
-- [Back Pain](/conditions/back-pain): Lower back pain treatment (Kamar Dard Ka Ilaj).
-- [Neck Pain](/conditions/neck-pain): Neck pain treatment (Gardan Dard Ka Ilaj).
-- [Sciatica](/conditions/sciatica): Sciatica nerve pain treatment.
-- [Knee Pain](/conditions/knee-pain): Knee pain treatment (Ghutno Ke Dard Ka Ilaj).
+- Sports Rehabilitation:
+https://painfixphysiotherapy.com/services/sports-rehabilitation
+
+- Post-Surgical Rehabilitation:
+https://painfixphysiotherapy.com/services/post-surgical-rehabilitation
+
+- Pain Management:
+https://painfixphysiotherapy.com/services/pain-management
+
+- Home Physiotherapy:
+https://painfixphysiotherapy.com/services/home-physiotherapy
+
+## Conditions Treated
+
+PainFix Physiotherapy Clinic provides rehabilitation for:
+
+- Back pain
+- Neck pain
+- Sciatica
+- Slip disc and disc-related pain
+- Frozen shoulder
+- Knee pain
+- Sports injuries
+- Muscle and ligament injuries
+- Post-surgical recovery
+- Stroke rehabilitation
+- Postural problems
+- Mobility limitations
+
+## Local Search Topics
+
+- Physiotherapist in Multan
+- Best physiotherapist in Multan
+- Physiotherapy clinic in Multan
+- Home physiotherapy in Multan
+- Back pain treatment in Multan
+- Neck pain treatment in Multan
+- Sciatica treatment in Multan
+- Knee pain physiotherapy in Multan
+
+## Patient Information
+
+Patients can explore physiotherapy education articles, rehabilitation guidance, and treatment information through the PainFix blog.
+
+Blog:
+https://painfixphysiotherapy.com/blog
+
+## Appointment
+
+Patients can contact PainFix Physiotherapy Clinic for physiotherapy consultations, rehabilitation plans, and home visit appointments.
+
+Website:
+https://painfixphysiotherapy.com/
 
 ## Optional
 
-- [Privacy Policy](/privacy): How we handle patient data.
-- [Terms of Service](/terms): Website terms of use.
+- Privacy Policy
+- Terms of Service
