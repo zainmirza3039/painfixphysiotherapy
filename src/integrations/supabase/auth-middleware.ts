@@ -17,9 +17,9 @@ function createSupabaseFetch(supabaseKey: string): typeof fetch {
     );
 
     if (init?.headers) {
-      new Headers(init.headers).forEach((value, key) =>
-        headers.set(key, value),
-      );
+      new Headers(init.headers).forEach((value, key) => {
+        headers.set(key, value);
+      });
     }
 
     if (
@@ -35,82 +35,80 @@ function createSupabaseFetch(supabaseKey: string): typeof fetch {
   };
 }
 
-export const requireSupabaseAuth = createMiddleware({ type: "function" }).server(
-  async ({ next }) => {
-    const SUPABASE_URL = process.env.SUPABASE_URL;
-    const SUPABASE_PUBLISHABLE_KEY = process.env.SUPABASE_PUBLISHABLE_KEY;
+export const requireSupabaseAuth = createMiddleware({
+  type: "function",
+}).server(async ({ next }) => {
+  const SUPABASE_URL = process.env.SUPABASE_URL;
+  const SUPABASE_PUBLISHABLE_KEY = process.env.SUPABASE_PUBLISHABLE_KEY;
 
-    if (!SUPABASE_URL || !SUPABASE_PUBLISHABLE_KEY) {
-      throw new Error(
-        "Missing Supabase environment variables",
-      );
-    }
+  if (!SUPABASE_URL || !SUPABASE_PUBLISHABLE_KEY) {
+    throw new Error("Missing Supabase environment variables");
+  }
 
-    const request = getRequest();
+  const request = getRequest();
 
-    if (!request?.headers) {
-      throw new Error("Unauthorized: No request headers available");
-    }
+  if (!request?.headers) {
+    throw new Error("Unauthorized: No request headers available");
+  }
 
-        const authHeader =
-      request.headers.get("authorization") ||
-      request.headers.get("Authorization");
+  const authHeader =
+    request.headers.get("authorization") ||
+    request.headers.get("Authorization");
 
-    console.log("AUTH HEADER RECEIVED:", authHeader);
+  console.log("AUTH HEADER RECEIVED:", authHeader);
 
-    if (!authHeader) {
-      throw new Error("Unauthorized: No authorization header provided");
-    }
-    if (!authHeader.startsWith("Bearer ")) {
-      throw new Error("Unauthorized: Only Bearer tokens are supported");
-    }
+  if (!authHeader) {
+    throw new Error("Unauthorized: No authorization header provided");
+  }
 
-    const token = authHeader.substring(7).trim();
+  if (!authHeader.startsWith("Bearer ")) {
+    throw new Error("Unauthorized: Only Bearer tokens are supported");
+  }
 
-    if (!token) {
-      throw new Error("Unauthorized: No token provided");
-    }
+  const token = authHeader.replace("Bearer ", "").trim();
 
-    // Supabase user access tokens are JWTs
-    if (token.split(".").length !== 3) {
-      throw new Error("Unauthorized: Invalid token format");
-    }
+  if (!token) {
+    throw new Error("Unauthorized: No token provided");
+  }
 
-    const supabase = createClient<Database>(
-      SUPABASE_URL,
-      SUPABASE_PUBLISHABLE_KEY,
-      {
-        global: {
-          fetch: createSupabaseFetch(SUPABASE_PUBLISHABLE_KEY),
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        },
-        auth: {
-          storage: undefined,
-          persistSession: false,
-          autoRefreshToken: false,
+  if (token.split(".").length !== 3) {
+    throw new Error("Unauthorized: Invalid token format");
+  }
+
+  const supabase = createClient<Database>(
+    SUPABASE_URL,
+    SUPABASE_PUBLISHABLE_KEY,
+    {
+      global: {
+        fetch: createSupabaseFetch(SUPABASE_PUBLISHABLE_KEY),
+        headers: {
+          Authorization: `Bearer ${token}`,
         },
       },
-    );
-
-    const { data, error } = await supabase.auth.getClaims(token);
-
-    if (error || !data?.claims) {
-      console.error("Supabase token verification failed:", error);
-      throw new Error("Unauthorized: Invalid token");
-    }
-
-    if (!data.claims.sub) {
-      throw new Error("Unauthorized: No user ID found in token");
-    }
-
-    return next({
-      context: {
-        supabase,
-        userId: data.claims.sub,
-        claims: data.claims,
+      auth: {
+        storage: undefined,
+        persistSession: false,
+        autoRefreshToken: false,
       },
-    });
-  },
-);
+    },
+  );
+
+  const { data, error } = await supabase.auth.getClaims(token);
+
+  if (error || !data?.claims) {
+    console.error("Supabase token verification failed:", error);
+    throw new Error("Unauthorized: Invalid token");
+  }
+
+  if (!data.claims.sub) {
+    throw new Error("Unauthorized: No user ID found in token");
+  }
+
+  return next({
+    context: {
+      supabase,
+      userId: data.claims.sub,
+      claims: data.claims,
+    },
+  });
+});
