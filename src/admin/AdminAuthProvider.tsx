@@ -38,9 +38,11 @@ export function AdminAuthProvider({ children }: { children: ReactNode }) {
 
   const load = useCallback(async () => {
     setLoading(true);
+
     const {
       data: { user: current },
     } = await supabase.auth.getUser();
+
     setUser(current ?? null);
 
     if (!current) {
@@ -49,23 +51,41 @@ export function AdminAuthProvider({ children }: { children: ReactNode }) {
       return;
     }
 
-    let { data: rows } = await supabase.from("user_roles").select("role").eq("user_id", current.id);
+    let { data: rows } = await supabase
+      .from("user_roles")
+      .select("role")
+      .eq("user_id", current.id);
 
     // First-login bootstrap: grants admin ONLY to the designated owner email.
     if (!rows || rows.length === 0) {
       await supabase.rpc("bootstrap_admin");
-      const res = await supabase.from("user_roles").select("role").eq("user_id", current.id);
+
+      const res = await supabase
+        .from("user_roles")
+        .select("role")
+        .eq("user_id", current.id);
+
       rows = res.data;
     }
 
     setRoles((rows ?? []).map((r) => r.role as AppRole));
     setLoading(false);
   }, []);
+
   useEffect(() => {
     void load();
+
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange(() => {
+      void load();
+    });
+
+    return () => {
+      subscription.unsubscribe();
+    };
   }, [load]);
 
-  const hasRole = (role: AppRole) => roles.includes(role);
   const hasRole = (role: AppRole) => roles.includes(role);
   const hasAnyRole = (list: AppRole[]) => list.some((r) => roles.includes(r));
 
@@ -100,6 +120,10 @@ export function AdminAuthProvider({ children }: { children: ReactNode }) {
 
 export function useAdminAuth() {
   const ctx = useContext(AdminAuthContext);
-  if (!ctx) throw new Error("useAdminAuth must be used within AdminAuthProvider");
+
+  if (!ctx) {
+    throw new Error("useAdminAuth must be used within AdminAuthProvider");
+  }
+
   return ctx;
 }
