@@ -16,15 +16,41 @@ Services are available:
 ## Clinical Team
 
 ### Dr. Zain Ul Abideen PT
+
+Qualification:
 Doctor of Physical Therapy (DPT)
-Physiotherapist in Multan specializing in musculoskeletal rehabilitation, manual therapy, pain management, posture correction, and functional recovery.
+
+Role:
+Physiotherapist at PainFix Physiotherapy Clinic, Multan.
+
+Specialties:
+- Musculoskeletal rehabilitation
+- Manual therapy
+- Exercise-based rehabilitation
+- Back pain and neck pain management
+- Sciatica rehabilitation
+- Posture correction
+- Functional recovery programs
 
 Profile:
 https://painfixphysiotherapy.com/dr-zain-ul-abideen-pt-multan
 
+
 ### Dr. Jalal Ud Din PT
+
+Qualification:
 Doctor of Physical Therapy (DPT)
-Clinical Physiotherapist providing rehabilitation care for pain, injuries, and movement disorders.
+
+Role:
+Clinical Physiotherapist at PainFix Physiotherapy Clinic, Multan.
+
+Specialties:
+- Musculoskeletal physiotherapy
+- Pain management
+- Sports injury rehabilitation
+- Joint and soft tissue rehabilitation
+- Mobility improvement
+- Functional rehabilitation programs
 
 Profile:
 https://painfixphysiotherapy.com/dr-jalal-ud-din-pt-multan
@@ -107,3 +133,11 @@ Patients can contact PainFix Physiotherapy Clinic for physiotherapy consultation
 
 Website:
 https://painfixphysiotherapy.com/
+
+## Service Area
+
+PainFix Physiotherapy Clinic provides physiotherapy services in Multan and nearby areas, including clinic-based and home visit rehabilitation.
+
+## Disclaimer
+
+Information on this website is for physiotherapy education and general guidance. Assessment by a qualified physiotherapist is recommended for individual treatment decisions.
