@@ -61,11 +61,11 @@ export function AdminAuthProvider({ children }: { children: ReactNode }) {
     setRoles((rows ?? []).map((r) => r.role as AppRole));
     setLoading(false);
   }, []);
-
   useEffect(() => {
     void load();
   }, [load]);
 
+  const hasRole = (role: AppRole) => roles.includes(role);
   const hasRole = (role: AppRole) => roles.includes(role);
   const hasAnyRole = (list: AppRole[]) => list.some((r) => roles.includes(r));
 
