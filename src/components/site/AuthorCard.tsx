@@ -3,7 +3,9 @@ import { BadgeCheck, Stethoscope, ArrowRight } from "lucide-react";
 
 /** EEAT "Reviewed by" author card shown on every blog article. Fully clickable → doctor profile. */
 export function AuthorCard({ authorKey, updated }: { authorKey: string; updated?: string }) {
-  const member = getTeamMember(authorKey) ?? getTeamMember("ZA");
+  const member =
+  getTeamMember(medicalReviewer || authorKey) ??
+  getTeamMember("ZA");
   if (!member) return null;
   return (
     <div className="group relative cursor-pointer rounded-[1.75rem] border border-border bg-card p-6 shadow-soft transition-shadow hover:border-primary/40 hover:shadow-card focus-within:ring-2 focus-within:ring-primary/50">
