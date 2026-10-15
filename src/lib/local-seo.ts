@@ -32,8 +32,7 @@ export function localPageHead(page: LocalPage) {
           telephone: "+92-314-3039582",
           address: {
             "@type": "PostalAddress",
-            streetAddress:
-              "Usman Raja Market, Near Khair Ul Maarif School, Shalimar Colony",
+            streetAddress: "Usman Raja Market, Near Khair Ul Maarif School, Shalimar Colony",
             addressLocality: "Multan",
             addressRegion: "Punjab",
             addressCountry: "PK",
@@ -69,8 +68,7 @@ export function localPageHead(page: LocalPage) {
             },
             address: {
               "@type": "PostalAddress",
-              streetAddress:
-                "Usman Raja Market, Near Khair Ul Maarif School, Shalimar Colony",
+              streetAddress: "Usman Raja Market, Near Khair Ul Maarif School, Shalimar Colony",
               addressLocality: "Multan",
               addressRegion: "Punjab",
               addressCountry: "PK",

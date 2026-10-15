@@ -2,6 +2,11 @@ import { useState, type FormEvent } from "react";
 import { Loader2, Send, Upload } from "lucide-react";
 import { toast } from "sonner";
 import { useI18n } from "@/i18n/LanguageProvider";
+import {
+  getMedicalReportExtension,
+  MEDICAL_REPORT_ACCEPT,
+  validateMedicalReport,
+} from "@/lib/medical-report";
 
 const initial = {
   full_name: "",
@@ -24,6 +29,8 @@ export function HomeVisitForm() {
   const [submitting, setSubmitting] = useState(false);
 
   const set = (key: keyof typeof initial, val: string) => setValues((v) => ({ ...v, [key]: val }));
+  const reportErrorMessage = (error: NonNullable<ReturnType<typeof validateMedicalReport>>) =>
+    error === "size" ? f.reportTooLarge : error === "empty" ? f.reportEmpty : f.reportInvalidType;
 
   const onSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -33,22 +40,25 @@ export function HomeVisitForm() {
       toast.error(f.required);
       return;
     }
+    if (file) {
+      const validationError = validateMedicalReport(file);
+      if (validationError) {
+        toast.error(reportErrorMessage(validationError));
+        return;
+      }
+    }
     setSubmitting(true);
     try {
       const { supabase } = await import("@/integrations/supabase/client");
       let report_url: string | null = null;
 
       if (file) {
-        if (file.size > 10 * 1024 * 1024) {
-          toast.error(f.reportHint);
-          setSubmitting(false);
-          return;
-        }
-        const ext = file.name.split(".").pop() ?? "dat";
-        const path = `${crypto.randomUUID()}.${ext}`;
+        const extension = getMedicalReportExtension(file.type);
+        if (!extension) throw new Error("Unsupported medical report MIME type");
+        const path = `${crypto.randomUUID()}.${extension}`;
         const { error: uploadError } = await supabase.storage
           .from("medical-reports")
-          .upload(path, file, { contentType: file.type || undefined });
+          .upload(path, file, { contentType: file.type });
         if (uploadError) throw uploadError;
         report_url = path;
       }
@@ -217,9 +227,23 @@ export function HomeVisitForm() {
         <input
           id="report"
           type="file"
-          accept="image/*,application/pdf"
+          accept={MEDICAL_REPORT_ACCEPT}
           className="hidden"
-          onChange={(e) => setFile(e.target.files?.[0] ?? null)}
+          onChange={(e) => {
+            const selected = e.target.files?.[0] ?? null;
+            if (!selected) {
+              setFile(null);
+              return;
+            }
+            const validationError = validateMedicalReport(selected);
+            if (validationError) {
+              setFile(null);
+              e.target.value = "";
+              toast.error(reportErrorMessage(validationError));
+              return;
+            }
+            setFile(selected);
+          }}
         />
       </div>
 
