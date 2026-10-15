@@ -19,13 +19,21 @@ export const Route = createFileRoute("/dr-fatima-iqbal-dpt-multan")({
   },
   head: ({ loaderData }) => doctorProfileHead(mergeDoctor(base, loaderData?.profile)),
   component: DoctorPage,
-  errorComponent: DoctorFallback,
-  notFoundComponent: DoctorFallback,
+  errorComponent: DoctorErrorFallback,
+  notFoundComponent: DoctorNotFoundFallback,
 });
 
 function DoctorPage() {
   const { profile } = Route.useLoaderData();
   return <DoctorProfile doc={mergeDoctor(base, profile)} />;
+}
+
+function DoctorErrorFallback() {
+  return <DoctorFallback />;
+}
+
+function DoctorNotFoundFallback() {
+  return <DoctorFallback />;
 }
 
 // Even on loader error, show the static profile rather than an error screen.
