@@ -1,5 +1,6 @@
 import { getTeamMember } from "@/data/team";
 import { BadgeCheck, Stethoscope, ArrowRight } from "lucide-react";
+import { ClinicianPortrait } from "./ClinicianPortrait";
 
 /**
  * EEAT "Reviewed by" author card shown on blog articles.
@@ -26,14 +27,11 @@ export function AuthorCard({
       </div>
 
       <div className="mt-4 flex items-start gap-4">
-        <img
-          src={member.photo}
-          alt={`Portrait of ${member.name}, ${member.role} at PainFix Physiotherapy Clinic, Multan`}
-          width={56}
-          height={56}
-          loading="lazy"
-          decoding="async"
-          className="h-14 w-14 shrink-0 rounded-2xl object-cover object-top ring-1 ring-border"
+        <ClinicianPortrait
+          photo={member.photo}
+          name={member.name}
+          role={member.role}
+          className="h-14 w-14 shrink-0 rounded-2xl ring-1 ring-border"
         />
 
         <div className="min-w-0">

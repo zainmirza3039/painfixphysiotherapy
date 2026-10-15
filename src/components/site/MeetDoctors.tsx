@@ -1,12 +1,12 @@
-import { BadgeCheck, Stethoscope, Linkedin, MessageCircle, ArrowRight } from "lucide-react";
+import { BadgeCheck, Stethoscope, MessageCircle, ArrowRight } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import { listPublishedProfiles } from "@/lib/profiles.functions";
 import { mergeTeam } from "@/lib/doctorProfile";
 import { Reveal } from "./Reveal";
 import { SectionHeading } from "./SectionHeading";
-import { SOCIAL_LINKS } from "./constants";
 import { GoogleReviewButton } from "./GoogleReviewButton";
+import { ClinicianPortrait } from "./ClinicianPortrait";
 
 export function MeetDoctors() {
   const listProfiles = useServerFn(listPublishedProfiles);
@@ -27,19 +27,16 @@ export function MeetDoctors() {
           subtitle="Qualified, caring physiotherapists dedicated to evidence-based, personalized recovery for every patient in Multan."
         />
 
-        <div className="mt-12 grid gap-6 sm:gap-8 lg:grid-cols-2">
+        <div className="mt-12 grid gap-6 sm:grid-cols-2 sm:gap-8 lg:grid-cols-3">
           {team.map((doc, i) => (
             <Reveal key={doc.initials} anim="up" delay={i * 100}>
-              <article className="group relative grid h-full cursor-pointer gap-0 overflow-hidden rounded-[2rem] border border-border bg-card shadow-soft transition-shadow hover:border-primary/40 hover:shadow-card focus-within:ring-2 focus-within:ring-primary/50 sm:grid-cols-[minmax(0,42%)_1fr]">
-                <div className="relative overflow-hidden bg-accent/40">
-                  <img
-                    src={doc.photo}
-                    alt={`Professional portrait of ${doc.name}, ${doc.role} at PainFix Physiotherapy Clinic, Multan`}
-                    width={900}
-                    height={900}
-                    loading="lazy"
-                    decoding="async"
-                    className="h-56 w-full object-cover object-top transition-transform duration-500 group-hover:scale-105 sm:h-full"
+              <article className="group relative flex h-full flex-col overflow-hidden rounded-[2rem] border border-border bg-card shadow-soft transition-shadow hover:border-primary/40 hover:shadow-card focus-within:ring-2 focus-within:ring-primary/50">
+                <div className="relative h-60 shrink-0 overflow-hidden bg-accent/40">
+                  <ClinicianPortrait
+                    photo={doc.photo}
+                    name={doc.name}
+                    role={doc.role}
+                    className="h-full w-full transition-transform duration-500 group-hover:scale-105"
                   />
                 </div>
 
@@ -53,19 +50,23 @@ export function MeetDoctors() {
                   <p className="text-sm font-semibold text-primary">{doc.title}</p>
                   <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{doc.seoBio}</p>
 
-                  <p className="mt-5 text-xs font-bold uppercase tracking-wider text-muted-foreground">
-                    Areas of Expertise
-                  </p>
-                  <ul className="mt-3 flex flex-wrap gap-2">
-                    {doc.tags.map((s) => (
-                      <li
-                        key={s}
-                        className="inline-flex items-center gap-1 rounded-full bg-accent px-3 py-1 text-xs font-medium text-accent-foreground"
-                      >
-                        <Stethoscope className="h-3 w-3 text-secondary" /> {s}
-                      </li>
-                    ))}
-                  </ul>
+                  {doc.tags.length > 0 && (
+                    <>
+                      <p className="mt-5 text-xs font-bold uppercase tracking-wider text-muted-foreground">
+                        Areas of Expertise
+                      </p>
+                      <ul className="mt-3 flex flex-wrap gap-2">
+                        {doc.tags.map((s) => (
+                          <li
+                            key={s}
+                            className="inline-flex items-center gap-1 rounded-full bg-accent px-3 py-1 text-xs font-medium text-accent-foreground"
+                          >
+                            <Stethoscope className="h-3 w-3 text-secondary" /> {s}
+                          </li>
+                        ))}
+                      </ul>
+                    </>
+                  )}
 
                   <div className="mt-auto flex flex-wrap items-center gap-3 pt-6">
                     <a
@@ -85,15 +86,6 @@ export function MeetDoctors() {
                       className="inline-flex items-center gap-2 rounded-2xl border border-primary px-5 py-3 text-sm font-semibold text-primary transition-colors after:absolute after:inset-0 after:rounded-[2rem] after:content-[''] hover:bg-primary hover:text-primary-foreground focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
                     >
                       View Profile <ArrowRight className="h-4 w-4" />
-                    </a>
-                    <a
-                      href={SOCIAL_LINKS.linkedin.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      aria-label={`${doc.name} on LinkedIn — PainFix Physiotherapy Clinic`}
-                      className="relative z-10 inline-flex h-11 w-11 items-center justify-center rounded-2xl border border-border text-primary transition-colors hover:bg-primary hover:text-primary-foreground"
-                    >
-                      <Linkedin className="h-5 w-5" />
                     </a>
                   </div>
                 </div>

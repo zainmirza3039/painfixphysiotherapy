@@ -14,6 +14,7 @@ import { PageLayout } from "./PageLayout";
 import { PageHero } from "./PageHero";
 import { PageCTA } from "./PageCTA";
 import { Reveal } from "./Reveal";
+import { ClinicianPortrait } from "./ClinicianPortrait";
 import {
   CLINIC_NAME,
   CLINIC_ADDRESS,
@@ -41,15 +42,13 @@ export function DoctorProfile({ doc }: { doc: TeamMember }) {
       <section className="py-14 sm:py-20">
         <div className="mx-auto grid max-w-6xl gap-10 px-4 sm:px-6 lg:grid-cols-[minmax(0,340px)_1fr] lg:px-8">
           <Reveal anim="left">
-            <div className="overflow-hidden rounded-[2rem] border border-border bg-card shadow-soft">
-              <img
-                src={doc.photo}
-                alt={`Professional portrait of ${doc.fullName}, ${doc.title} at ${CLINIC_NAME}, Multan`}
-                width={900}
-                height={900}
+            <div className="aspect-square overflow-hidden rounded-[2rem] border border-border bg-card shadow-soft">
+              <ClinicianPortrait
+                photo={doc.photo}
+                name={doc.fullName}
+                role={doc.title}
+                className="h-full w-full"
                 loading="eager"
-                decoding="async"
-                className="h-full w-full object-cover object-top"
               />
             </div>
           </Reveal>
@@ -91,9 +90,13 @@ export function DoctorProfile({ doc }: { doc: TeamMember }) {
         </div>
       </section>
 
-      {/* Qualifications + Expertise */}
+      {/* Qualifications + optional expertise */}
       <section className="bg-surface py-14 sm:py-20">
-        <div className="mx-auto grid max-w-7xl gap-10 px-4 sm:px-6 lg:grid-cols-2 lg:px-8">
+        <div
+          className={`mx-auto grid max-w-7xl gap-10 px-4 sm:px-6 lg:px-8 ${
+            doc.profile.expertise.length > 0 ? "lg:grid-cols-2" : "lg:grid-cols-1"
+          }`}
+        >
           <Reveal anim="left">
             <div className="h-full rounded-[1.75rem] border border-border bg-card p-8 shadow-soft">
               <h2 className="flex items-center gap-2 font-heading text-xl font-bold text-foreground">
@@ -108,50 +111,54 @@ export function DoctorProfile({ doc }: { doc: TeamMember }) {
               </ul>
             </div>
           </Reveal>
-          <Reveal anim="right">
-            <div className="h-full rounded-[1.75rem] border border-border bg-card p-8 shadow-soft">
-              <h2 className="flex items-center gap-2 font-heading text-xl font-bold text-foreground">
-                <Stethoscope className="h-5 w-5 text-primary" /> Areas of Expertise
-              </h2>
-              <ul className="mt-5 flex flex-wrap gap-2">
-                {doc.profile.expertise.map((e) => (
-                  <li
-                    key={e}
-                    className="inline-flex items-center gap-1 rounded-full bg-accent px-3 py-1.5 text-sm font-medium text-accent-foreground"
-                  >
-                    {e}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </Reveal>
+          {doc.profile.expertise.length > 0 && (
+            <Reveal anim="right">
+              <div className="h-full rounded-[1.75rem] border border-border bg-card p-8 shadow-soft">
+                <h2 className="flex items-center gap-2 font-heading text-xl font-bold text-foreground">
+                  <Stethoscope className="h-5 w-5 text-primary" /> Areas of Expertise
+                </h2>
+                <ul className="mt-5 flex flex-wrap gap-2">
+                  {doc.profile.expertise.map((e) => (
+                    <li
+                      key={e}
+                      className="inline-flex items-center gap-1 rounded-full bg-accent px-3 py-1.5 text-sm font-medium text-accent-foreground"
+                    >
+                      {e}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </Reveal>
+          )}
         </div>
       </section>
 
       {/* Conditions treated */}
-      <section className="py-14 sm:py-20">
-        <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
-          <Reveal anim="up">
-            <h2 className="flex items-center gap-2 font-heading text-2xl font-extrabold text-foreground sm:text-3xl">
-              <ClipboardList className="h-6 w-6 text-primary" /> Conditions Treated
-            </h2>
-            <p className="mt-3 text-sm text-muted-foreground">
-              {doc.fullName} treats a wide range of conditions with evidence-based physiotherapy in
-              Multan.
-            </p>
-            <ul className="mt-6 grid gap-3 sm:grid-cols-2">
-              {doc.profile.conditionsTreated.map((c) => (
-                <li
-                  key={c}
-                  className="flex items-start gap-3 rounded-2xl border border-border bg-card p-4 text-sm text-foreground shadow-soft"
-                >
-                  <HeartPulse className="mt-0.5 h-5 w-5 shrink-0 text-secondary" /> {c}
-                </li>
-              ))}
-            </ul>
-          </Reveal>
-        </div>
-      </section>
+      {doc.profile.conditionsTreated.length > 0 && (
+        <section className="py-14 sm:py-20">
+          <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+            <Reveal anim="up">
+              <h2 className="flex items-center gap-2 font-heading text-2xl font-extrabold text-foreground sm:text-3xl">
+                <ClipboardList className="h-6 w-6 text-primary" /> Conditions Treated
+              </h2>
+              <p className="mt-3 text-sm text-muted-foreground">
+                {doc.fullName} treats a wide range of conditions with evidence-based physiotherapy
+                in Multan.
+              </p>
+              <ul className="mt-6 grid gap-3 sm:grid-cols-2">
+                {doc.profile.conditionsTreated.map((c) => (
+                  <li
+                    key={c}
+                    className="flex items-start gap-3 rounded-2xl border border-border bg-card p-4 text-sm text-foreground shadow-soft"
+                  >
+                    <HeartPulse className="mt-0.5 h-5 w-5 shrink-0 text-secondary" /> {c}
+                  </li>
+                ))}
+              </ul>
+            </Reveal>
+          </div>
+        </section>
+      )}
 
       {/* Treatment approach */}
       <section className="bg-surface py-14 sm:py-20">

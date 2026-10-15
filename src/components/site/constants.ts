@@ -13,7 +13,7 @@ export const EMAIL_HREF = "mailto:painfixphysiotherapy@gmail.com";
 
 // Clinic opening hours (used across pages + schema)
 export const OPENING_HOURS = [
-  { days: "Monday – Saturday", time: "9:00 AM – 9:00 PM" },
+  { days: "Monday – Saturday", time: "11:00 AM – 4:00 PM" },
   { days: "Sunday", time: "By Appointment" },
 ];
 

@@ -11,7 +11,11 @@ export function doctorProfileHead(doc: TeamMember) {
   const path = `/${doc.slug}`;
   const url = `${SITE_URL}${path}`;
   // Static imports are root-relative paths; admin-uploaded photos may be absolute URLs.
-  const image = /^https?:\/\//.test(doc.photo) ? doc.photo : `${SITE_URL}${doc.photo}`;
+  const image = doc.photo
+    ? /^https?:\/\//.test(doc.photo)
+      ? doc.photo
+      : `${SITE_URL}${doc.photo}`
+    : undefined;
 
   return {
     meta: pageMeta({
@@ -35,7 +39,7 @@ export function doctorProfileHead(doc: TeamMember) {
           name: doc.fullName,
           alternateName: doc.name,
           url,
-          image,
+          ...(image ? { image } : {}),
           jobTitle: doc.role,
           medicalSpecialty: "Physiotherapy",
           telephone: PHONE_TEL.replace("tel:", ""),

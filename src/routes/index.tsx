@@ -65,21 +65,21 @@ function Index() {
       <Navbar />
       <main>
         <Hero />
-        <HomeBmi />
         <Stats />
         <TrustSignals />
-        <WhyChooseUs />
         <SymptomNavigator />
         <Services />
-        <Conditions />
-        <HomePhysio />
-        <About />
         <MeetDoctors />
         <Process />
+        <Conditions />
+        <WhyChooseUs />
+        <HomePhysio />
+        <About />
         <PhysioFitness />
         <GoogleReviews />
         <Gallery />
         <FAQ />
+        <HomeBmi />
         <ConsultationFees />
         <Contact />
       </main>

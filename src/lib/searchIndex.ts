@@ -136,7 +136,7 @@ export async function buildSearchIndex(): Promise<SearchItem[]> {
       subtitle: m.title,
       category: "Doctors",
       href: `/${m.slug}`,
-      thumbnail: m.photo,
+      thumbnail: m.photo ?? undefined,
       keywords: [...m.specialties, ...m.tags, m.credentials, m.seoBio].join(" "),
     });
   }

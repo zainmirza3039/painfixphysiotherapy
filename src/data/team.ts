@@ -18,7 +18,7 @@ export interface TeamMember {
   initials: string;
   /** URL slug for the dedicated doctor profile page. */
   slug: string;
-  photo: string;
+  photo: string | null;
   /** Display phone number for this clinician. */
   phoneDisplay: string;
   /** Digits-only international number used for wa.me WhatsApp links. */
@@ -162,6 +162,37 @@ export const team: TeamMember[] = [
       approach: [
         "Dr. Jalal focuses on individualized, patient-centred care. Each plan starts with a thorough evaluation, followed by a structured combination of exercise therapy, hands-on treatment and clear patient education.",
         "By targeting the underlying cause rather than just symptoms, he helps patients regain function, reduce pain and achieve durable recovery.",
+      ],
+    },
+  },
+  {
+    name: "Dr. Fatima Iqbal",
+    fullName: "Dr. Fatima Iqbal PT",
+    role: "Doctor of Physical Therapy (DPT)",
+    title: "Physiotherapist in Multan | DPT",
+    credentials: "DPT (Doctor of Physical Therapy)",
+    bio: "Dr. Fatima Iqbal is a Doctor of Physical Therapy (DPT) at PainFix Physiotherapy Clinic in Multan. Contact the clinic to ask about appointments and discuss your physiotherapy needs.",
+    seoBio:
+      "Dr. Fatima Iqbal is a Doctor of Physical Therapy (DPT) at PainFix Physiotherapy Clinic in Multan. Contact the clinic to ask about appointments and discuss your physiotherapy needs.",
+    specialties: [],
+    tags: [],
+    initials: "FI",
+    slug: "dr-fatima-iqbal-dpt-multan",
+    photo: null,
+    phoneDisplay: "0314-3039582",
+    whatsapp: "923143039582",
+    profile: {
+      metaTitle: "Dr. Fatima Iqbal DPT — Physiotherapist in Multan | PainFix",
+      metaDescription:
+        "Meet Dr. Fatima Iqbal, Doctor of Physical Therapy (DPT) at PainFix Physiotherapy Clinic in Multan. Contact the clinic to ask about appointments.",
+      intro: [
+        "Dr. Fatima Iqbal is a Doctor of Physical Therapy (DPT) at PainFix Physiotherapy Clinic in Multan. Contact the clinic to ask about appointments and discuss your physiotherapy needs.",
+      ],
+      qualifications: ["Doctor of Physical Therapy (DPT)"],
+      expertise: [],
+      conditionsTreated: [],
+      approach: [
+        "Care begins with an individual physiotherapy assessment and a plan discussed with you in light of your needs and goals.",
       ],
     },
   },

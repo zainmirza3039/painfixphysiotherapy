@@ -25,6 +25,7 @@ import { Route as FitnessRehabilitationRouteImport } from './routes/fitness-reha
 import { Route as FitnessAssessmentRouteImport } from './routes/fitness-assessment'
 import { Route as DrZainUlAbideenPtMultanRouteImport } from './routes/dr-zain-ul-abideen-pt-multan'
 import { Route as DrJalalUdDinPtMultanRouteImport } from './routes/dr-jalal-ud-din-pt-multan'
+import { Route as DrFatimaIqbalDptMultanRouteImport } from './routes/dr-fatima-iqbal-dpt-multan'
 import { Route as BestPhysiotherapistInMultanRouteImport } from './routes/best-physiotherapist-in-multan'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
@@ -134,6 +135,11 @@ const DrZainUlAbideenPtMultanRoute = DrZainUlAbideenPtMultanRouteImport.update({
 const DrJalalUdDinPtMultanRoute = DrJalalUdDinPtMultanRouteImport.update({
   id: '/dr-jalal-ud-din-pt-multan',
   path: '/dr-jalal-ud-din-pt-multan',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DrFatimaIqbalDptMultanRoute = DrFatimaIqbalDptMultanRouteImport.update({
+  id: '/dr-fatima-iqbal-dpt-multan',
+  path: '/dr-fatima-iqbal-dpt-multan',
   getParentRoute: () => rootRouteImport,
 } as any)
 const BestPhysiotherapistInMultanRoute =
@@ -295,6 +301,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/best-physiotherapist-in-multan': typeof BestPhysiotherapistInMultanRoute
+  '/dr-fatima-iqbal-dpt-multan': typeof DrFatimaIqbalDptMultanRoute
   '/dr-jalal-ud-din-pt-multan': typeof DrJalalUdDinPtMultanRoute
   '/dr-zain-ul-abideen-pt-multan': typeof DrZainUlAbideenPtMultanRoute
   '/fitness-assessment': typeof FitnessAssessmentRoute
@@ -341,6 +348,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/best-physiotherapist-in-multan': typeof BestPhysiotherapistInMultanRoute
+  '/dr-fatima-iqbal-dpt-multan': typeof DrFatimaIqbalDptMultanRoute
   '/dr-jalal-ud-din-pt-multan': typeof DrJalalUdDinPtMultanRoute
   '/dr-zain-ul-abideen-pt-multan': typeof DrZainUlAbideenPtMultanRoute
   '/fitness-assessment': typeof FitnessAssessmentRoute
@@ -388,6 +396,7 @@ export interface FileRoutesById {
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/auth': typeof AuthRoute
   '/best-physiotherapist-in-multan': typeof BestPhysiotherapistInMultanRoute
+  '/dr-fatima-iqbal-dpt-multan': typeof DrFatimaIqbalDptMultanRoute
   '/dr-jalal-ud-din-pt-multan': typeof DrJalalUdDinPtMultanRoute
   '/dr-zain-ul-abideen-pt-multan': typeof DrZainUlAbideenPtMultanRoute
   '/fitness-assessment': typeof FitnessAssessmentRoute
@@ -436,6 +445,7 @@ export interface FileRouteTypes {
     | '/'
     | '/auth'
     | '/best-physiotherapist-in-multan'
+    | '/dr-fatima-iqbal-dpt-multan'
     | '/dr-jalal-ud-din-pt-multan'
     | '/dr-zain-ul-abideen-pt-multan'
     | '/fitness-assessment'
@@ -482,6 +492,7 @@ export interface FileRouteTypes {
     | '/'
     | '/auth'
     | '/best-physiotherapist-in-multan'
+    | '/dr-fatima-iqbal-dpt-multan'
     | '/dr-jalal-ud-din-pt-multan'
     | '/dr-zain-ul-abideen-pt-multan'
     | '/fitness-assessment'
@@ -528,6 +539,7 @@ export interface FileRouteTypes {
     | '/_authenticated'
     | '/auth'
     | '/best-physiotherapist-in-multan'
+    | '/dr-fatima-iqbal-dpt-multan'
     | '/dr-jalal-ud-din-pt-multan'
     | '/dr-zain-ul-abideen-pt-multan'
     | '/fitness-assessment'
@@ -576,6 +588,7 @@ export interface RootRouteChildren {
   AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
   AuthRoute: typeof AuthRoute
   BestPhysiotherapistInMultanRoute: typeof BestPhysiotherapistInMultanRoute
+  DrFatimaIqbalDptMultanRoute: typeof DrFatimaIqbalDptMultanRoute
   DrJalalUdDinPtMultanRoute: typeof DrJalalUdDinPtMultanRoute
   DrZainUlAbideenPtMultanRoute: typeof DrZainUlAbideenPtMultanRoute
   FitnessAssessmentRoute: typeof FitnessAssessmentRoute
@@ -717,6 +730,13 @@ declare module '@tanstack/react-router' {
       path: '/dr-jalal-ud-din-pt-multan'
       fullPath: '/dr-jalal-ud-din-pt-multan'
       preLoaderRoute: typeof DrJalalUdDinPtMultanRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dr-fatima-iqbal-dpt-multan': {
+      id: '/dr-fatima-iqbal-dpt-multan'
+      path: '/dr-fatima-iqbal-dpt-multan'
+      fullPath: '/dr-fatima-iqbal-dpt-multan'
+      preLoaderRoute: typeof DrFatimaIqbalDptMultanRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/best-physiotherapist-in-multan': {
@@ -976,6 +996,7 @@ const rootRouteChildren: RootRouteChildren = {
   AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
   AuthRoute: AuthRoute,
   BestPhysiotherapistInMultanRoute: BestPhysiotherapistInMultanRoute,
+  DrFatimaIqbalDptMultanRoute: DrFatimaIqbalDptMultanRoute,
   DrJalalUdDinPtMultanRoute: DrJalalUdDinPtMultanRoute,
   DrZainUlAbideenPtMultanRoute: DrZainUlAbideenPtMultanRoute,
   FitnessAssessmentRoute: FitnessAssessmentRoute,
