@@ -1,4 +1,4 @@
-import { Building2, Video, Calendar, MessageCircle, CheckCircle2 } from "lucide-react";
+import { Building2, Calendar, Check, MessageCircle, Video } from "lucide-react";
 import { Reveal } from "./Reveal";
 import { SectionHeading } from "./SectionHeading";
 import { openCalendlyPopup } from "./calendly";
@@ -16,7 +16,7 @@ interface Fee {
 const fees: Fee[] = [
   {
     icon: Building2,
-    title: "In-Clinic Consultation",
+    title: "In-clinic consultation",
     price: "Rs. 2,000",
     description: "Initial assessment and treatment plan.",
     points: [
@@ -28,7 +28,7 @@ const fees: Fee[] = [
   },
   {
     icon: Video,
-    title: "Video Consultation",
+    title: "Video consultation",
     price: "Rs. 1,000",
     description: "Online consultation for follow-ups and second opinions.",
     points: ["Convenient online session", "Ideal for follow-ups", "Expert second opinions"],
@@ -38,57 +38,67 @@ const fees: Fee[] = [
 
 export function ConsultationFees() {
   return (
-    <section id="fees" className="bg-surface py-16 sm:py-24">
+    <section id="fees" className="home-section home-section--tint scroll-mt-24">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <SectionHeading
-          eyebrow="Consultation Fees"
-          title="Simple, transparent pricing"
-          subtitle="Clear, upfront fees for expert physiotherapy care — in the clinic or online."
+          eyebrow="Consultation fees"
+          title="Know the fee before you book."
+          subtitle="Current consultation options listed by PainFix. Contact the team if you need to confirm details before booking."
         />
-        <div className="mx-auto mt-12 grid max-w-4xl gap-5 sm:grid-cols-2">
-          {fees.map((fee, i) => (
-            <Reveal key={fee.title} anim="up" delay={i * 90}>
-              <div className="hover-lift flex h-full flex-col rounded-[1.75rem] border border-border bg-card p-8 shadow-soft">
-                <span className="grid h-12 w-12 place-items-center rounded-2xl bg-primary/10 text-primary">
-                  <fee.icon className="h-6 w-6" />
-                </span>
-                <h3 className="mt-5 font-heading text-xl font-bold text-foreground">{fee.title}</h3>
-                <div className="mt-2 flex items-baseline gap-1">
-                  <span className="font-heading text-3xl font-extrabold text-secondary">
-                    {fee.price}
-                  </span>
-                </div>
-                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                  {fee.description}
-                </p>
-                <ul className="mt-5 flex-1 space-y-2.5">
-                  {fee.points.map((p) => (
-                    <li key={p} className="flex items-start gap-2.5 text-sm text-foreground">
-                      <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-secondary" /> {p}
-                    </li>
-                  ))}
-                </ul>
-                {fee.cta === "whatsapp" ? (
-                  <a
-                    href={WHATSAPP_CONSULT_URL}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="ripple mt-6 inline-flex items-center justify-center gap-2 rounded-2xl bg-primary px-6 py-3.5 text-sm font-semibold text-primary-foreground shadow-card transition-transform hover:scale-[1.02]"
-                  >
-                    <MessageCircle className="h-4 w-4" /> Book via WhatsApp
-                  </a>
-                ) : (
-                  <button
-                    type="button"
-                    onClick={() => openCalendlyPopup()}
-                    className="ripple mt-6 inline-flex items-center justify-center gap-2 rounded-2xl bg-primary px-6 py-3.5 text-sm font-semibold text-primary-foreground shadow-card transition-transform hover:scale-[1.02]"
-                  >
-                    <Calendar className="h-4 w-4" /> Book Video Consultation
-                  </button>
-                )}
-              </div>
-            </Reveal>
-          ))}
+        <div className="mx-auto mt-10 max-w-5xl divide-y divide-border border-y border-border">
+          {fees.map((fee, index) => {
+            const Icon = fee.icon;
+            return (
+              <Reveal key={fee.title} anim="up" delay={index * 60}>
+                <article className="home-fee-row">
+                  <div className="home-fee-row__title">
+                    <Icon className="h-5 w-5 shrink-0 text-secondary" aria-hidden="true" />
+                    <div>
+                      <h3 className="font-heading text-2xl font-semibold text-foreground">
+                        {fee.title}
+                      </h3>
+                      <p className="mt-1 text-sm text-muted-foreground">{fee.description}</p>
+                    </div>
+                  </div>
+                  <ul className="home-fee-row__details">
+                    {fee.points.map((point) => (
+                      <li
+                        key={point}
+                        className="flex items-start gap-2 text-sm text-muted-foreground"
+                      >
+                        <Check
+                          className="mt-0.5 h-4 w-4 shrink-0 text-secondary"
+                          aria-hidden="true"
+                        />{" "}
+                        {point}
+                      </li>
+                    ))}
+                  </ul>
+                  <div className="home-fee-row__action">
+                    <p className="font-heading text-3xl font-semibold text-primary">{fee.price}</p>
+                    {fee.cta === "whatsapp" ? (
+                      <a
+                        href={WHATSAPP_CONSULT_URL}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex min-h-11 items-center justify-center gap-2 rounded-md bg-primary px-4 py-2.5 text-sm font-semibold text-primary-foreground hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+                      >
+                        <MessageCircle className="h-4 w-4" aria-hidden="true" /> Ask on WhatsApp
+                      </a>
+                    ) : (
+                      <button
+                        type="button"
+                        onClick={() => openCalendlyPopup()}
+                        className="inline-flex min-h-11 items-center justify-center gap-2 rounded-md bg-primary px-4 py-2.5 text-sm font-semibold text-primary-foreground hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+                      >
+                        <Calendar className="h-4 w-4" aria-hidden="true" /> Book online
+                      </button>
+                    )}
+                  </div>
+                </article>
+              </Reveal>
+            );
+          })}
         </div>
       </div>
     </section>

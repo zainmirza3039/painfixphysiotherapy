@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
-import { Star, ExternalLink, Loader2 } from "lucide-react";
+import { ExternalLink, Loader2, Star } from "lucide-react";
 import { Reveal } from "./Reveal";
 import { SectionHeading } from "./SectionHeading";
 import { GoogleReviewButton, GoogleG } from "./GoogleReviewButton";
@@ -15,10 +15,10 @@ function Stars({ rating }: { rating: number }) {
       role="img"
       aria-label={`${rating} out of 5 stars`}
     >
-      {Array.from({ length: 5 }).map((_, i) => (
+      {Array.from({ length: 5 }).map((_, index) => (
         <Star
-          key={i}
-          className={`h-4 w-4 ${i < full ? "fill-current" : "text-border"}`}
+          key={index}
+          className={`h-4 w-4 ${index < full ? "fill-current" : "text-border"}`}
           aria-hidden="true"
         />
       ))}
@@ -26,20 +26,20 @@ function Stars({ rating }: { rating: number }) {
   );
 }
 
-function ReviewCard({ r }: { r: GoogleReview }) {
+function ReviewCard({ review }: { review: GoogleReview }) {
   return (
-    <figure className="hover-lift flex h-full flex-col rounded-[1.75rem] border border-border bg-card p-7 shadow-soft">
-      <div className="flex items-center justify-between">
-        <Stars rating={r.rating} />
-        <GoogleG className="h-5 w-5" />
+    <figure className="home-review-card">
+      <div className="flex items-center justify-between gap-3">
+        <Stars rating={review.rating} />
+        <GoogleG className="h-5 w-5 shrink-0" />
       </div>
-      <blockquote className="mt-4 flex-1 text-sm leading-relaxed text-foreground/90 line-clamp-6">
-        "{r.text}"
+      <blockquote className="mt-4 flex-1 text-sm leading-6 text-foreground/90">
+        “{review.text}”
       </blockquote>
-      <figcaption className="mt-6 flex items-center gap-3">
-        {r.photo ? (
+      <figcaption className="mt-5 flex items-center gap-3 border-t border-border pt-4">
+        {review.photo ? (
           <img
-            src={r.photo}
+            src={review.photo}
             alt=""
             width={40}
             height={40}
@@ -48,16 +48,21 @@ function ReviewCard({ r }: { r: GoogleReview }) {
             className="h-10 w-10 rounded-full object-cover"
           />
         ) : (
-          <span className="grid h-10 w-10 place-items-center rounded-full bg-primary font-heading font-bold text-primary-foreground">
-            {r.author.charAt(0)}
+          <span
+            className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-accent font-semibold text-primary"
+            aria-hidden="true"
+          >
+            {review.author.charAt(0)}
           </span>
         )}
-        <div className="min-w-0">
-          <div className="truncate text-sm font-bold text-foreground">{r.author}</div>
-          <div className="text-xs text-muted-foreground">
-            {r.relativeTime ? `${r.relativeTime} · ` : ""}Google Review
-          </div>
-        </div>
+        <span className="min-w-0">
+          <span className="block truncate text-sm font-semibold text-foreground">
+            {review.author}
+          </span>
+          <span className="block text-xs text-muted-foreground">
+            {review.relativeTime ? `${review.relativeTime} · ` : ""}Google Review
+          </span>
+        </span>
       </figcaption>
     </figure>
   );
@@ -78,70 +83,85 @@ export function GoogleReviews() {
   const viewAllUrl = data?.mapsUri ?? GOOGLE_BUSINESS_PROFILE_URL;
 
   return (
-    <section id="testimonials" className="py-16 sm:py-24">
+    <section id="testimonials" className="home-section scroll-mt-24">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <SectionHeading
-          eyebrow="Patient Reviews"
-          title="Loved by our patients"
-          subtitle="Real, verified reviews from patients on our Google Business Profile."
-        />
+        <div className="mb-9 grid gap-4 md:grid-cols-[0.9fr_1.1fr] md:items-end md:gap-12">
+          <div>
+            <p className="home-eyebrow">
+              <span aria-hidden="true" /> Patient feedback
+            </p>
+            <h2 className="home-section-title mt-4">Feedback on Google.</h2>
+          </div>
+          <p className="max-w-2xl text-base leading-7 text-muted-foreground">
+            Read current patient feedback on PainFix’s Google Business Profile. Reviews and ratings
+            below are shown only when returned by the connected profile feed.
+          </p>
+        </div>
 
-        {/* Rating summary */}
-        <Reveal anim="up" className="mt-10">
-          <div className="flex flex-col items-center gap-6 rounded-[2rem] border border-border bg-surface p-7 text-center shadow-soft sm:flex-row sm:justify-between sm:text-left">
+        <Reveal anim="up">
+          <div className="home-review-summary">
             <div className="flex items-center gap-4">
-              <GoogleG className="h-10 w-10" />
+              <GoogleG className="h-10 w-10 shrink-0" />
               <div>
-                <div className="flex items-center gap-2">
-                  <span className="font-heading text-3xl font-extrabold text-foreground">
-                    {rating != null ? rating.toFixed(1) : "5.0"}
-                  </span>
-                  <Stars rating={rating ?? 5} />
-                </div>
-                <p className="mt-1 text-sm text-muted-foreground">
-                  {total != null ? `Based on ${total} Google reviews` : "Rated on Google Reviews"}
-                </p>
+                {rating !== null ? (
+                  <>
+                    <div className="flex flex-wrap items-center gap-2">
+                      <span className="font-heading text-3xl font-semibold text-foreground">
+                        {rating.toFixed(1)}
+                      </span>
+                      <Stars rating={rating} />
+                    </div>
+                    <p className="mt-1 text-sm text-muted-foreground">
+                      {total !== null
+                        ? `Based on ${total} Google reviews`
+                        : "Google Business Profile rating"}
+                    </p>
+                  </>
+                ) : (
+                  <>
+                    <p className="font-semibold text-foreground">PainFix on Google</p>
+                    <p className="mt-1 text-sm text-muted-foreground">
+                      {total !== null
+                        ? `${total} Google reviews`
+                        : "Browse current patient feedback and clinic details."}
+                    </p>
+                  </>
+                )}
               </div>
             </div>
-            <div className="flex flex-wrap justify-center gap-3">
+            <div className="flex flex-wrap gap-3">
               <a
                 href={viewAllUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="ripple inline-flex items-center justify-center gap-2 rounded-2xl bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground shadow-card transition-transform hover:scale-[1.03]"
+                className="inline-flex min-h-11 items-center justify-center gap-2 rounded-md bg-primary px-4 py-2.5 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
               >
-                View All Reviews on Google <ExternalLink className="h-4 w-4" />
+                View Google profile <ExternalLink className="h-4 w-4" aria-hidden="true" />
               </a>
               <GoogleReviewButton variant="outline" />
             </div>
           </div>
         </Reveal>
 
-        {/* Reviews grid */}
         {isLoading ? (
-          <div className="mt-10 flex items-center justify-center gap-2 text-sm text-muted-foreground">
-            <Loader2 className="h-4 w-4 animate-spin" /> Loading reviews…
-          </div>
+          <p
+            className="mt-8 flex items-center justify-center gap-2 text-sm text-muted-foreground"
+            role="status"
+          >
+            <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" /> Loading Google reviews…
+          </p>
         ) : reviews.length > 0 ? (
-          <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {reviews.slice(0, 6).map((r, i) => (
-              <Reveal key={`${r.author}-${i}`} anim="up" delay={(i % 3) * 90}>
-                <ReviewCard r={r} />
+          <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {reviews.slice(0, 6).map((review, index) => (
+              <Reveal key={`${review.author}-${index}`} anim="up" delay={(index % 3) * 45}>
+                <ReviewCard review={review} />
               </Reveal>
             ))}
           </div>
         ) : (
-          <p className="mt-10 text-center text-sm text-muted-foreground">
-            Read our verified patient reviews directly on{" "}
-            <a
-              href={viewAllUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="font-semibold text-primary underline-offset-2 hover:underline"
-            >
-              Google
-            </a>
-            .
+          <p className="mt-6 text-sm leading-6 text-muted-foreground">
+            No review text is available in the live feed right now. Use the Google profile above to
+            see the latest feedback.
           </p>
         )}
       </div>

@@ -140,7 +140,7 @@ function useAuthState() {
 }
 
 const linkClass =
-  "rounded-full px-2.5 py-2 text-sm font-medium text-foreground/80 transition-colors hover:bg-accent hover:text-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-primary";
+  "whitespace-nowrap rounded-md px-2.5 py-2 text-sm font-medium text-foreground/80 transition-colors hover:bg-accent hover:text-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-primary";
 
 /* ---------- Desktop dropdown item links ---------- */
 
@@ -230,6 +230,9 @@ export function Navbar() {
   const [accountOpen, setAccountOpen] = useState(false);
   const [mobileServices, setMobileServices] = useState(false);
   const [mobileConditions, setMobileConditions] = useState(false);
+  const mobileMenuButtonRef = useRef<HTMLButtonElement>(null);
+  const mobileMenuCloseRef = useRef<HTMLButtonElement>(null);
+  const hadOpenMenuRef = useRef(false);
   const lastYRef = useRef(0);
   const accountRef = useRef<HTMLDivElement>(null);
   const { signedIn, isAdmin } = useAuthState();
@@ -275,6 +278,9 @@ export function Navbar() {
       if (e.key === "Escape") {
         setMenu(null);
         setAccountOpen(false);
+        setOpen(false);
+        setMobileServices(false);
+        setMobileConditions(false);
       }
     };
     window.addEventListener("keydown", onKey);
@@ -289,6 +295,15 @@ export function Navbar() {
     return () => {
       document.body.style.overflow = prev;
     };
+  }, [open]);
+
+  useEffect(() => {
+    if (open) {
+      mobileMenuCloseRef.current?.focus();
+    } else if (hadOpenMenuRef.current) {
+      mobileMenuButtonRef.current?.focus();
+    }
+    hadOpenMenuRef.current = open;
   }, [open]);
 
   function closeMobile() {
@@ -311,8 +326,8 @@ export function Navbar() {
   return (
     <>
       <header
-        className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 will-change-transform ${
-          scrolled ? "glass shadow-soft py-2" : "bg-transparent py-4"
+        className={`fixed inset-x-0 top-0 z-50 border-b border-border/80 bg-background/95 backdrop-blur transition-all duration-300 will-change-transform ${
+          scrolled ? "shadow-soft py-2" : "py-3"
         } ${hidden && !open ? "-translate-y-full" : "translate-y-0"}`}
       >
         <nav
@@ -499,17 +514,8 @@ export function Navbar() {
             </div>
 
             <Link to="/home-visit" className={linkClass}>
-              Home Physiotherapy
+              Home Visits
             </Link>
-            <Link to="/fitness" className={linkClass}>
-              Fitness
-            </Link>
-            <Link to="/blog" className={linkClass}>
-              Blog
-            </Link>
-            <a href="/#gallery" className={linkClass}>
-              Gallery
-            </a>
             <a href="/#contact" className={linkClass}>
               Contact
             </a>
@@ -577,15 +583,9 @@ export function Navbar() {
                 )}
               </div>
             ) : (
-              <div className="hidden items-center gap-1 xl:flex">
+              <div className="hidden items-center xl:flex">
                 <Link to="/auth" className={linkClass}>
                   Sign In
-                </Link>
-                <Link
-                  to="/auth"
-                  className="rounded-full border border-primary px-3 py-2 text-sm font-semibold text-primary transition-colors hover:bg-primary hover:text-primary-foreground"
-                >
-                  Sign Up
                 </Link>
               </div>
             )}
@@ -595,17 +595,19 @@ export function Navbar() {
               href={WHATSAPP_CONSULT_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="ripple hidden items-center gap-2 rounded-full bg-secondary px-4 py-2.5 text-sm font-semibold text-secondary-foreground shadow-soft transition-transform hover:scale-105 sm:inline-flex"
+              className="hidden min-h-10 items-center gap-2 rounded-md bg-primary px-3.5 py-2.5 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 sm:inline-flex"
             >
               <MessageCircle className="h-4 w-4" /> WhatsApp Consultation
             </a>
 
             <button
+              ref={mobileMenuButtonRef}
               type="button"
-              aria-label="Toggle menu"
+              aria-label={open ? "Close menu" : "Open menu"}
               aria-expanded={open}
+              aria-controls="mobile-navigation-panel"
               onClick={() => (open ? closeMobile() : setOpen(true))}
-              className="grid h-10 w-10 place-items-center rounded-xl border border-border bg-background text-foreground xl:hidden"
+              className="grid h-11 w-11 place-items-center rounded-md border border-border bg-background text-foreground transition-colors hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary xl:hidden"
             >
               {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
             </button>
@@ -627,18 +629,22 @@ export function Navbar() {
         />
         {/* Panel */}
         <aside
+          id="mobile-navigation-panel"
           className={`fixed inset-y-0 right-0 z-[70] flex h-full w-full max-w-md flex-col bg-background shadow-card transition-transform duration-300 ease-out ${
             open ? "translate-x-0" : "translate-x-full"
           }`}
           aria-label="Mobile navigation"
+          aria-hidden={!open}
+          inert={!open}
         >
           <div className="flex items-center justify-between border-b border-border px-5 py-4">
             <span className="font-heading text-base font-bold text-foreground">Menu</span>
             <button
+              ref={mobileMenuCloseRef}
               type="button"
               aria-label="Close menu"
               onClick={closeMobile}
-              className="grid h-10 w-10 place-items-center rounded-xl border border-border bg-background text-foreground"
+              className="grid h-11 w-11 place-items-center rounded-xl border border-border bg-background text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
             >
               <X className="h-5 w-5" />
             </button>

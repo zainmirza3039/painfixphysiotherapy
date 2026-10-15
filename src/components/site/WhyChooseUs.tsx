@@ -1,68 +1,61 @@
-import {
-  ClipboardList,
-  Hand,
-  FlaskConical,
-  GraduationCap,
-  Dumbbell,
-  TrendingUp,
-} from "lucide-react";
+import { ClipboardList, MessagesSquare, MoveRight } from "lucide-react";
 import { Reveal } from "./Reveal";
-import { SectionHeading } from "./SectionHeading";
 
-const items = [
+const principles = [
   {
+    number: "01",
     icon: ClipboardList,
-    title: "Comprehensive Assessment",
-    desc: "Detailed evaluation to pinpoint the true root cause of your pain.",
+    title: "We begin with your story",
+    description:
+      "Your history, symptoms and movement help shape the assessment—not just the place that hurts.",
   },
   {
-    icon: Hand,
-    title: "Manual Therapy",
-    desc: "Hands-on techniques that release tension and restore mobility.",
+    number: "02",
+    icon: MessagesSquare,
+    title: "We plan with you",
+    description:
+      "We explain what we find, discuss suitable options, and build a plan around your priorities.",
   },
   {
-    icon: FlaskConical,
-    title: "Evidence-Based Practice",
-    desc: "Treatments backed by the latest clinical research.",
-  },
-  {
-    icon: GraduationCap,
-    title: "Patient Education",
-    desc: "Understand your condition and stay in control of your recovery.",
-  },
-  {
-    icon: Dumbbell,
-    title: "Personalized Exercise Programs",
-    desc: "Tailored routines designed around your goals and lifestyle.",
-  },
-  {
-    icon: TrendingUp,
-    title: "Long-Term Recovery",
-    desc: "Focused on lasting results, not temporary pain relief.",
+    number: "03",
+    icon: MoveRight,
+    title: "We build practical progress",
+    description:
+      "Where appropriate, care can combine hands-on treatment, exercise and guidance for everyday movement.",
   },
 ];
 
 export function WhyChooseUs() {
   return (
-    <section className="bg-surface py-16 sm:py-24">
+    <section className="home-section home-section--navy">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <SectionHeading
-          eyebrow="Why Choose Us"
-          title="A smarter approach to recovery"
-          subtitle="We combine clinical expertise with genuine care to deliver outcomes you can feel."
-        />
-        <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {items.map((it, i) => (
-            <Reveal key={it.title} anim="up" delay={(i % 3) * 90}>
-              <div className="hover-lift h-full rounded-[1.75rem] border border-border bg-card p-7 shadow-soft">
-                <span className="grid h-12 w-12 place-items-center rounded-2xl bg-secondary/12 text-secondary">
-                  <it.icon className="h-6 w-6" />
+        <div className="grid gap-10 lg:grid-cols-[0.72fr_1.28fr] lg:gap-20">
+          <div>
+            <p className="home-eyebrow home-eyebrow--light">
+              <span aria-hidden="true" /> How care works
+            </p>
+            <h2 className="home-section-title home-section-title--light mt-4">
+              Clear steps. Care with you, not just for you.
+            </h2>
+            <p className="mt-5 max-w-lg text-base leading-7 text-white/75">
+              Physiotherapy is a partnership. We want you to understand the plan, take part in your
+              recovery and know what the next step is.
+            </p>
+          </div>
+          <ol className="home-principles">
+            {principles.map(({ number, icon: Icon, title, description }, index) => (
+              <Reveal key={number} anim="up" delay={index * 70} as="li" className="home-principle">
+                <span className="home-principle__number">{number}</span>
+                <span className="home-principle__icon">
+                  <Icon className="h-5 w-5" aria-hidden="true" />
                 </span>
-                <h3 className="mt-5 font-heading text-lg font-bold text-foreground">{it.title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{it.desc}</p>
-              </div>
-            </Reveal>
-          ))}
+                <span className="min-w-0">
+                  <h3 className="text-lg font-semibold text-white">{title}</h3>
+                  <p className="mt-2 max-w-xl text-sm leading-6 text-white/70">{description}</p>
+                </span>
+              </Reveal>
+            ))}
+          </ol>
         </div>
       </div>
     </section>

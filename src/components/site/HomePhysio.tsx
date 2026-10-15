@@ -1,67 +1,62 @@
+import { ArrowUpRight, House, Check } from "lucide-react";
 import { Link } from "@tanstack/react-router";
-import { HeartPulse, Home, CheckCircle2, ArrowRight } from "lucide-react";
-import homeVisitImg from "@/assets/home-visit.webp";
-import { Reveal } from "./Reveal";
-import { useI18n } from "@/i18n/LanguageProvider";
+
+const suitableFor = [
+  "Older adults",
+  "Post-surgical recovery",
+  "Stroke rehabilitation",
+  "People with limited mobility",
+];
 
 export function HomePhysio() {
-  const { t } = useI18n();
-  const p = t.homePhysio;
-
   return (
-    <section id="home-physio" className="py-16 sm:py-24">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-10">
-          <Reveal anim="left">
-            <div className="relative mx-auto max-w-md lg:max-w-none">
-              <div className="overflow-hidden rounded-[2rem] shadow-glow ring-1 ring-border">
-                <img
-                  src={homeVisitImg}
-                  alt="Physiotherapist providing personalized home physiotherapy to an elderly patient"
-                  width={720}
-                  height={1280}
-                  loading="lazy"
-                  className="h-full w-full object-cover"
-                />
-              </div>
-              <div className="glass animate-float absolute -bottom-5 left-4 flex items-center gap-2.5 rounded-2xl px-4 py-3 shadow-card sm:left-6">
-                <span className="grid h-9 w-9 place-items-center rounded-xl bg-secondary/15 text-secondary">
-                  <Home className="h-4 w-4" />
-                </span>
-                <span className="text-sm font-semibold text-foreground">{p.eyebrow}</span>
-              </div>
-            </div>
-          </Reveal>
-
-          <Reveal anim="right">
-            <span className="inline-flex items-center gap-2 rounded-full bg-accent px-4 py-1.5 text-sm font-semibold text-accent-foreground">
-              <HeartPulse className="h-4 w-4 text-secondary" /> {p.eyebrow}
-            </span>
-            <h2 className="mt-5 font-heading text-3xl font-extrabold leading-tight text-foreground sm:text-4xl">
-              {p.title}
-            </h2>
-            <p className="mt-4 text-base leading-relaxed text-muted-foreground">{p.intro}</p>
-
-            <p className="mt-6 text-sm font-semibold text-foreground">{p.suitableTitle}:</p>
-            <ul className="mt-3 grid grid-cols-1 gap-2 sm:grid-cols-2">
-              {p.suitable.map((item) => (
-                <li key={item} className="flex items-center gap-2 text-sm text-muted-foreground">
-                  <CheckCircle2 className="h-4 w-4 shrink-0 text-secondary" />
-                  {item}
-                </li>
-              ))}
-            </ul>
-
-            <div className="mt-8">
-              <Link
-                to="/home-visit"
-                className="ripple inline-flex items-center gap-2 rounded-2xl bg-primary px-6 py-3.5 text-sm font-semibold text-primary-foreground shadow-card transition-transform hover:scale-[1.03]"
-              >
-                {t.actions.bookHomeVisit} <ArrowRight className="h-4 w-4 rtl:rotate-180" />
-              </Link>
-            </div>
-          </Reveal>
+    <section id="home-physio" className="home-section home-section--homevisit scroll-mt-24">
+      <div className="mx-auto grid max-w-7xl gap-8 px-4 sm:px-6 lg:grid-cols-[1.1fr_0.9fr] lg:items-center lg:gap-16 lg:px-8">
+        <div>
+          <p className="home-eyebrow">
+            <span aria-hidden="true" /> Home physiotherapy
+          </p>
+          <h2 className="home-section-title mt-4 max-w-2xl">
+            When getting to the clinic is difficult, ask about care at home.
+          </h2>
+          <p className="mt-5 max-w-2xl text-base leading-7 text-muted-foreground">
+            PainFix offers home physiotherapy visits in Multan. Share your location and needs with
+            the team to discuss whether a home appointment is available and suitable.
+          </p>
+          <Link
+            to="/home-visit"
+            className="mt-7 inline-flex min-h-12 items-center justify-center gap-2 rounded-md bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+          >
+            Ask about a home visit <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
+          </Link>
         </div>
+
+        <aside className="home-homevisit-panel" aria-label="Home physiotherapy information">
+          <div className="flex items-center gap-3 border-b border-white/20 pb-5">
+            <span className="grid h-11 w-11 place-items-center bg-white/10 text-white">
+              <House className="h-5 w-5" aria-hidden="true" />
+            </span>
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-[0.14em] text-white/65">
+                A practical option
+              </p>
+              <p className="mt-1 font-heading text-xl font-semibold text-white">
+                Home visits in Multan
+              </p>
+            </div>
+          </div>
+          <p className="mt-5 text-sm leading-6 text-white/75">
+            Home physiotherapy may be useful to discuss for:
+          </p>
+          <ul className="mt-4 grid gap-3 sm:grid-cols-2">
+            {suitableFor.map((item) => (
+              <li key={item} className="flex items-start gap-2 text-sm text-white/90">
+                <Check className="mt-0.5 h-4 w-4 shrink-0 text-[#48D28F]" aria-hidden="true" />
+                <span>{item}</span>
+              </li>
+            ))}
+          </ul>
+        </aside>
       </div>
     </section>
   );

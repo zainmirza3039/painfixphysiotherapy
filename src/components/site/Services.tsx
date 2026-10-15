@@ -1,133 +1,86 @@
 import { Link } from "@tanstack/react-router";
-import { ArrowRight, MessageCircle } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
+import clinicTreatment from "@/assets/clinic-photo-4.webp";
 import { services } from "@/data/services";
-import { serviceImages, serviceImageAlt, serviceImageAltFallback } from "@/data/serviceImages";
-import { wellnessCards } from "@/data/wellnessCards";
-import { WHATSAPP_CONSULT_URL } from "./constants";
 import { Reveal } from "./Reveal";
-import { SectionHeading } from "./SectionHeading";
 
 export function Services() {
   return (
-    <section id="services" className="py-16 sm:py-24">
+    <section id="services" className="home-section bg-background scroll-mt-24">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <SectionHeading
-          eyebrow="Services"
-          title="Treatments tailored to you"
-          subtitle="A full spectrum of physiotherapy services delivered with precision and care. Learn more or book your appointment in seconds."
-        />
-        <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {services.map((s, i) => {
-            const image = serviceImages[s.slug];
-            return (
-              <Reveal key={s.slug} anim="up" delay={(i % 3) * 80}>
-                <article className="hover-lift group relative flex h-full cursor-pointer flex-col overflow-hidden rounded-[1.75rem] border border-border bg-card shadow-soft transition-shadow hover:border-primary/40 hover:shadow-card focus-within:ring-2 focus-within:ring-primary/50">
-                  {image && (
-                    <div className="aspect-[16/9] overflow-hidden bg-surface">
-                      <img
-                        src={image}
-                        alt={serviceImageAlt[s.slug] ?? serviceImageAltFallback(s.title)}
-                        loading="lazy"
-                        decoding="async"
-                        width={700}
-                        height={394}
-                        className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-                      />
-                    </div>
-                  )}
-                  <div className="flex flex-1 flex-col p-7">
-                    <span className="grid h-14 w-14 place-items-center rounded-2xl bg-gradient-to-br from-primary to-secondary text-primary-foreground transition-transform group-hover:scale-110">
-                      <s.icon className="h-6 w-6" />
-                    </span>
-                    <h3 className="mt-5 font-heading text-lg font-bold text-foreground">
-                      {s.title}
-                    </h3>
-                    <p className="mt-2 flex-1 text-sm leading-relaxed text-muted-foreground">
-                      {s.tagline}
-                    </p>
-                    <div className="mt-5 flex flex-wrap items-center gap-2.5">
-                      <Link
-                        to="/services/$slug"
-                        params={{ slug: s.slug }}
-                        className="inline-flex min-h-11 items-center gap-1.5 rounded-xl border border-primary px-4 py-2 text-sm font-semibold text-primary transition-colors after:absolute after:inset-0 after:rounded-[1.75rem] after:content-[''] hover:bg-primary hover:text-primary-foreground focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
-                        aria-label={`Learn more about ${s.title}`}
-                      >
-                        Learn More <ArrowRight className="h-4 w-4 rtl:rotate-180" />
-                      </Link>
-                      <a
-                        href={WHATSAPP_CONSULT_URL}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="relative z-10 inline-flex min-h-11 items-center gap-1.5 rounded-xl bg-gradient-to-r from-primary to-secondary px-4 py-2 text-sm font-semibold text-primary-foreground shadow-soft transition-opacity hover:opacity-90"
-                        aria-label={`Ask about ${s.title} on WhatsApp`}
-                      >
-                        <MessageCircle className="h-4 w-4" /> WhatsApp
-                      </a>
-                    </div>
-                  </div>
-                </article>
-              </Reveal>
-            );
-          })}
-
-          {/* Wellness offerings on their own routes (Fitness, Diet Plans). */}
-          {wellnessCards.map((c, i) => (
-            <Reveal key={c.to} anim="up" delay={(i % 3) * 80}>
-              <article className="hover-lift group relative flex h-full cursor-pointer flex-col overflow-hidden rounded-[1.75rem] border border-border bg-card shadow-soft transition-shadow hover:border-primary/40 hover:shadow-card focus-within:ring-2 focus-within:ring-primary/50">
-                <div className="relative aspect-[16/9] overflow-hidden bg-surface">
-                  <img
-                    src={c.image}
-                    alt={c.alt}
-                    loading="lazy"
-                    decoding="async"
-                    width={700}
-                    height={394}
-                    className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-                  />
-                  {c.badge && (
-                    <span className="absolute right-3 top-3 z-10 rounded-full bg-secondary px-3 py-1 text-xs font-semibold text-secondary-foreground shadow-soft">
-                      {c.badge}
-                    </span>
-                  )}
-                </div>
-                <div className="flex flex-1 flex-col p-7">
-                  <span className="grid h-14 w-14 place-items-center rounded-2xl bg-gradient-to-br from-primary to-secondary text-primary-foreground transition-transform group-hover:scale-110">
-                    <c.icon className="h-6 w-6" />
-                  </span>
-                  <h3 className="mt-5 font-heading text-lg font-bold text-foreground">{c.title}</h3>
-                  <p className="mt-2 flex-1 text-sm leading-relaxed text-muted-foreground">
-                    {c.tagline}
-                  </p>
-                  <div className="mt-5 flex flex-wrap items-center gap-2.5">
-                    <Link
-                      to={c.to}
-                      className="inline-flex min-h-11 items-center gap-1.5 rounded-xl border border-primary px-4 py-2 text-sm font-semibold text-primary transition-colors after:absolute after:inset-0 after:rounded-[1.75rem] after:content-[''] hover:bg-primary hover:text-primary-foreground focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
-                      aria-label={`Learn more about ${c.title}`}
-                    >
-                      Learn More <ArrowRight className="h-4 w-4 rtl:rotate-180" />
-                    </Link>
-                    <a
-                      href={WHATSAPP_CONSULT_URL}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="relative z-10 inline-flex min-h-11 items-center gap-1.5 rounded-xl bg-gradient-to-r from-primary to-secondary px-4 py-2 text-sm font-semibold text-primary-foreground shadow-soft transition-opacity hover:opacity-90"
-                      aria-label={`Ask about ${c.title} on WhatsApp`}
-                    >
-                      <MessageCircle className="h-4 w-4" /> WhatsApp
-                    </a>
-                  </div>
-                </div>
-              </article>
-            </Reveal>
-          ))}
+        <div className="mb-10 grid gap-5 md:grid-cols-[0.9fr_1.1fr] md:items-end md:gap-12">
+          <div>
+            <p className="home-eyebrow">
+              <span aria-hidden="true" /> How we can help
+            </p>
+            <h2 className="home-section-title mt-4 max-w-xl">
+              Care for movement, strength and recovery.
+            </h2>
+          </div>
+          <div className="md:pb-1">
+            <p className="max-w-2xl text-base leading-7 text-muted-foreground">
+              Treatment begins with understanding what is limiting you. Your physiotherapist can
+              discuss appropriate options after an individual assessment.
+            </p>
+            <Link
+              to="/services"
+              className="mt-5 inline-flex min-h-11 items-center gap-2 border-b border-secondary pb-1 text-sm font-semibold text-primary transition-colors hover:text-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+            >
+              Explore all services <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
+            </Link>
+          </div>
         </div>
-        <div className="mt-10 text-center">
-          <Link
-            to="/services"
-            className="inline-flex items-center gap-2 rounded-2xl border border-secondary px-6 py-3.5 text-sm font-semibold text-secondary transition-colors hover:bg-secondary hover:text-secondary-foreground"
-          >
-            View All Services <ArrowRight className="h-4 w-4 rtl:rotate-180" />
-          </Link>
+
+        <div className="grid gap-8 lg:grid-cols-[0.78fr_1.22fr] lg:gap-14">
+          <Reveal anim="left" className="home-service-photo-wrap">
+            <figure className="home-service-photo">
+              <img
+                src={clinicTreatment}
+                alt="Physiotherapist guiding a patient through a supported movement during a treatment session at PainFix"
+                width={720}
+                height={1280}
+                loading="lazy"
+                decoding="async"
+              />
+              <figcaption>
+                <span className="home-service-photo__index">01 / PERSONAL CARE</span>
+                <span>Movement with purpose.</span>
+              </figcaption>
+            </figure>
+          </Reveal>
+
+          <div className="home-service-list" aria-label="Physiotherapy services">
+            {services.map((service, index) => (
+              <Reveal key={service.slug} anim="up" delay={Math.min(index, 5) * 45}>
+                <Link
+                  to="/services/$slug"
+                  params={{ slug: service.slug }}
+                  className="home-service-row group"
+                >
+                  <span className="home-service-row__number" aria-hidden="true">
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
+                  <span className="min-w-0 flex-1">
+                    <span className="home-service-row__title">{service.shortTitle}</span>
+                    <span className="home-service-row__copy">{service.tagline}</span>
+                  </span>
+                  <ArrowUpRight
+                    className="h-5 w-5 shrink-0 text-primary/60 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-secondary"
+                    aria-hidden="true"
+                  />
+                </Link>
+              </Reveal>
+            ))}
+            <div className="home-service-more">
+              <span>Looking for a particular treatment?</span>
+              <Link
+                to="/services"
+                className="font-semibold text-primary underline-offset-4 hover:text-secondary hover:underline"
+              >
+                View the full service list
+              </Link>
+            </div>
+          </div>
         </div>
       </div>
     </section>

@@ -38,7 +38,7 @@ export function Footer() {
   const articles = latestPosts(4);
 
   return (
-    <footer className="bg-foreground text-background">
+    <footer className="bg-primary text-primary-foreground">
       <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
         <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-6">
           {/* Brand + socials */}

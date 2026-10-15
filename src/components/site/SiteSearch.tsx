@@ -185,7 +185,7 @@ export function SiteSearch({ className = "" }: { className?: string }) {
         onClick={() => setOpen(true)}
         aria-label="Search the website"
         title="Search (Ctrl+K)"
-        className={`grid h-10 w-10 place-items-center rounded-xl border border-border bg-background text-foreground transition-colors hover:bg-accent hover:text-primary ${className}`}
+        className={`grid h-11 w-11 place-items-center rounded-xl border border-border bg-background text-foreground transition-colors hover:bg-accent hover:text-primary ${className}`}
       >
         <Search className="h-5 w-5" aria-hidden="true" />
       </button>

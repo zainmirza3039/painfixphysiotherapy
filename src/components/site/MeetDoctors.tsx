@@ -1,16 +1,13 @@
-import { BadgeCheck, Stethoscope, MessageCircle, ArrowRight } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
+import { ArrowUpRight, BadgeCheck, MessageCircle } from "lucide-react";
 import { listPublishedProfiles } from "@/lib/profiles.functions";
 import { mergeTeam } from "@/lib/doctorProfile";
 import { Reveal } from "./Reveal";
-import { SectionHeading } from "./SectionHeading";
-import { GoogleReviewButton } from "./GoogleReviewButton";
 import { ClinicianPortrait } from "./ClinicianPortrait";
 
 export function MeetDoctors() {
   const listProfiles = useServerFn(listPublishedProfiles);
-  // SSR renders the static team; after publish, admin edits overlay on the client.
   const { data: profiles } = useQuery({
     queryKey: ["public-profiles"],
     queryFn: () => listProfiles(),
@@ -19,73 +16,70 @@ export function MeetDoctors() {
   const team = mergeTeam(profiles);
 
   return (
-    <section id="doctors" className="bg-surface py-16 sm:py-24">
+    <section id="doctors" className="home-section home-section--tint scroll-mt-24">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <SectionHeading
-          eyebrow="Our Specialists"
-          title="Meet Our Doctors"
-          subtitle="Qualified, caring physiotherapists dedicated to evidence-based, personalized recovery for every patient in Multan."
-        />
+        <div className="mb-9 grid gap-4 md:grid-cols-[0.9fr_1.1fr] md:items-end md:gap-12">
+          <div>
+            <p className="home-eyebrow">
+              <span aria-hidden="true" /> The clinicians
+            </p>
+            <h2 className="home-section-title mt-4">Meet the people behind your care.</h2>
+          </div>
+          <p className="max-w-2xl text-base leading-7 text-muted-foreground">
+            PainFix’s clinical team includes Doctors of Physical Therapy working across
+            physiotherapy and rehabilitation in Multan.
+          </p>
+        </div>
 
-        <div className="mt-12 grid gap-6 sm:grid-cols-2 sm:gap-8 lg:grid-cols-3">
-          {team.map((doc, i) => (
-            <Reveal key={doc.initials} anim="up" delay={i * 100}>
-              <article className="group relative flex h-full flex-col overflow-hidden rounded-[2rem] border border-border bg-card shadow-soft transition-shadow hover:border-primary/40 hover:shadow-card focus-within:ring-2 focus-within:ring-primary/50">
-                <div className="relative h-60 shrink-0 overflow-hidden bg-accent/40">
-                  <ClinicianPortrait
-                    photo={doc.photo}
-                    name={doc.name}
-                    role={doc.role}
-                    className="h-full w-full transition-transform duration-500 group-hover:scale-105"
-                  />
-                </div>
-
-                <div className="flex flex-col p-6 sm:p-7">
-                  <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-secondary">
-                    <BadgeCheck className="h-4 w-4" /> {doc.credentials}
-                  </div>
-                  <h3 className="mt-2 font-heading text-xl font-extrabold text-foreground">
+        <div className="home-team-list">
+          {team.map((doc, index) => (
+            <Reveal key={doc.slug} anim="up" delay={index * 45}>
+              <article className="home-team-row">
+                <ClinicianPortrait
+                  photo={doc.photo}
+                  name={doc.name}
+                  role={doc.role}
+                  className="home-team-row__portrait"
+                />
+                <div className="min-w-0">
+                  <p className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-[0.11em] text-secondary">
+                    <BadgeCheck className="h-4 w-4" aria-hidden="true" /> {doc.credentials}
+                  </p>
+                  <h3 className="mt-2 font-heading text-2xl font-semibold leading-tight text-foreground">
                     {doc.fullName}
                   </h3>
-                  <p className="text-sm font-semibold text-primary">{doc.title}</p>
-                  <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{doc.seoBio}</p>
-
+                  <p className="mt-1 text-sm font-medium text-primary">{doc.role}</p>
+                  <p className="mt-3 max-w-2xl text-sm leading-6 text-muted-foreground">
+                    {doc.bio}
+                  </p>
                   {doc.tags.length > 0 && (
-                    <>
-                      <p className="mt-5 text-xs font-bold uppercase tracking-wider text-muted-foreground">
-                        Areas of Expertise
-                      </p>
-                      <ul className="mt-3 flex flex-wrap gap-2">
-                        {doc.tags.map((s) => (
-                          <li
-                            key={s}
-                            className="inline-flex items-center gap-1 rounded-full bg-accent px-3 py-1 text-xs font-medium text-accent-foreground"
-                          >
-                            <Stethoscope className="h-3 w-3 text-secondary" /> {s}
-                          </li>
-                        ))}
-                      </ul>
-                    </>
-                  )}
-
-                  <div className="mt-auto flex flex-wrap items-center gap-3 pt-6">
-                    <a
-                      href={`https://wa.me/${doc.whatsapp}?text=${encodeURIComponent(
-                        `Hi, I'd like a physiotherapy consultation with ${doc.name} at PainFix Physiotherapy Clinic.`,
-                      )}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      aria-label={`Chat with ${doc.name} on WhatsApp (${doc.phoneDisplay})`}
-                      className="ripple relative z-10 inline-flex items-center gap-2 rounded-2xl bg-secondary px-5 py-3 text-sm font-semibold text-secondary-foreground shadow-card transition-transform hover:scale-[1.03]"
+                    <ul
+                      className="mt-3 flex flex-wrap gap-x-4 gap-y-1"
+                      aria-label={`${doc.name} areas of practice`}
                     >
-                      <MessageCircle className="h-4 w-4" /> WhatsApp Consultation
-                    </a>
+                      {doc.tags.slice(0, 3).map((tag) => (
+                        <li key={tag} className="text-xs text-muted-foreground">
+                          {tag}
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                  <div className="mt-4 flex flex-wrap gap-x-5 gap-y-2">
                     <a
                       href={`/${doc.slug}`}
-                      aria-label={`View full profile of ${doc.fullName}, physiotherapist in Multan`}
-                      className="inline-flex items-center gap-2 rounded-2xl border border-primary px-5 py-3 text-sm font-semibold text-primary transition-colors after:absolute after:inset-0 after:rounded-[2rem] after:content-[''] hover:bg-primary hover:text-primary-foreground focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+                      aria-label={`View profile of ${doc.fullName}`}
+                      className="inline-flex min-h-11 items-center gap-1.5 text-sm font-semibold text-primary underline-offset-4 hover:text-secondary hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
                     >
-                      View Profile <ArrowRight className="h-4 w-4" />
+                      View profile <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
+                    </a>
+                    <a
+                      href={`https://wa.me/${doc.whatsapp}?text=${encodeURIComponent(`Hi, I'd like a physiotherapy consultation with ${doc.name} at PainFix Physiotherapy Clinic.`)}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={`Ask about an appointment with ${doc.name} on WhatsApp`}
+                      className="inline-flex min-h-11 items-center gap-1.5 text-sm font-semibold text-primary underline-offset-4 hover:text-secondary hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+                    >
+                      <MessageCircle className="h-4 w-4" aria-hidden="true" /> WhatsApp
                     </a>
                   </div>
                 </div>
@@ -93,13 +87,6 @@ export function MeetDoctors() {
             </Reveal>
           ))}
         </div>
-
-        <Reveal anim="up" className="mt-10 flex flex-col items-center gap-3 text-center">
-          <p className="text-sm text-muted-foreground">
-            Treated by our team? Share your recovery story with others.
-          </p>
-          <GoogleReviewButton variant="outline" />
-        </Reveal>
       </div>
     </section>
   );
