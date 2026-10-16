@@ -2,7 +2,7 @@ import { Link } from "@tanstack/react-router";
 import { Clock, ArrowRight, CalendarClock, BadgeCheck } from "lucide-react";
 import { type BlogPost, blogCategoryMap, readingMinutes } from "@/data/blog";
 import { getTeamMember } from "@/data/team";
-import { conditionImages } from "@/data/conditionImages";
+import { conditionImages, conditionImageFitClass } from "@/data/conditionImages";
 
 const dateFmt = new Intl.DateTimeFormat("en-GB", {
   day: "numeric",
@@ -14,6 +14,9 @@ export function BlogCard({ post }: { post: BlogPost }) {
   const cat = blogCategoryMap[post.category];
   const reviewer = getTeamMember(post.authorKey);
   const image = post.heroImage ?? conditionImages[post.category];
+  const imageFitClass = post.heroImage
+    ? "object-cover"
+    : (conditionImageFitClass[post.category] ?? "object-cover");
   const categoryLabel = cat?.name ?? post.categoryName ?? "Article";
 
   return (
@@ -31,7 +34,7 @@ export function BlogCard({ post }: { post: BlogPost }) {
             decoding="async"
             width={700}
             height={394}
-            className="h-full w-full object-cover motion-safe:transition-transform motion-safe:duration-300 motion-safe:group-hover:scale-[1.02]"
+            className={`h-full w-full ${imageFitClass} motion-safe:transition-transform motion-safe:duration-300 motion-safe:group-hover:scale-[1.02]`}
           />
         </div>
       )}

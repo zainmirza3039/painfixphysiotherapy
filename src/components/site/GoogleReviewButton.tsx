@@ -24,7 +24,7 @@ export function GoogleG({ className = "h-4 w-4" }: { className?: string }) {
   );
 }
 
-type Variant = "solid" | "outline";
+type Variant = "solid" | "outline" | "inverse";
 
 interface Props {
   variant?: Variant;
@@ -41,8 +41,10 @@ export function GoogleReviewButton({
     "inline-flex min-h-11 items-center justify-center gap-2 rounded-md px-4 py-2.5 text-sm font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2";
   const styles =
     variant === "solid"
-      ? "bg-primary text-primary-foreground hover:bg-primary/90"
-      : "border border-border bg-background text-foreground hover:border-primary hover:text-primary";
+      ? "border border-secondary bg-secondary text-secondary-foreground hover:brightness-95"
+      : variant === "inverse"
+        ? "border border-secondary bg-background text-foreground hover:bg-accent hover:text-accent-foreground"
+        : "border border-border bg-background text-foreground hover:border-primary hover:text-primary";
 
   return (
     <a

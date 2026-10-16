@@ -207,10 +207,7 @@ export function Footer() {
               >
                 <MessageCircle className="h-4 w-4" /> WhatsApp
               </a>
-              <GoogleReviewButton
-                variant="outline"
-                className="border-background/20 bg-background/10 text-background hover:bg-background/20"
-              />
+              <GoogleReviewButton variant="inverse" />
             </div>
           </div>
         </div>
