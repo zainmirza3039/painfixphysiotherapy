@@ -50,7 +50,7 @@ const treatmentServices: TreatmentService[] = [
 ];
 
 const cardClassName =
-  "group flex h-full min-h-44 flex-col rounded-2xl border border-border bg-card p-4 shadow-soft transition-all hover:-translate-y-0.5 hover:border-secondary/50 hover:shadow-card focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary sm:p-5";
+  "group flex h-full min-h-44 flex-col rounded-lg border border-border border-t-[3px] border-t-secondary bg-card p-4 transition-colors hover:border-secondary hover:bg-accent/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary sm:p-5";
 
 function TreatmentCardContent({ service }: { service: TreatmentService }) {
   const Icon = service.icon;
