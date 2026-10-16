@@ -50,7 +50,7 @@ function ConditionsIndex() {
                 <Link
                   to="/conditions/$slug"
                   params={{ slug: c.slug }}
-                  className="hover-lift group flex h-full flex-col overflow-hidden rounded-[1.5rem] border border-border bg-card shadow-soft"
+                  className="group flex h-full flex-col overflow-hidden rounded-lg border border-border border-t-2 border-t-brand-green bg-card transition-colors hover:border-secondary/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
                 >
                   <div className="aspect-[4/3] overflow-hidden bg-surface">
                     <img
@@ -60,7 +60,7 @@ function ConditionsIndex() {
                       decoding="async"
                       width={700}
                       height={525}
-                      className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      className="h-full w-full object-cover motion-safe:transition-transform motion-safe:duration-300 motion-safe:group-hover:scale-[1.02]"
                     />
                   </div>
                   <div className="flex flex-1 flex-col p-5">

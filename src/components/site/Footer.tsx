@@ -1,7 +1,7 @@
 import {
   Facebook,
   Instagram,
-  AtSign,
+  Music2,
   MapPin,
   Phone,
   Linkedin,
@@ -27,7 +27,7 @@ import { latestPosts } from "@/data/blog";
 const socials = [
   { icon: Facebook, label: "Facebook", ...SOCIAL_LINKS.facebook },
   { icon: Instagram, label: "Instagram", ...SOCIAL_LINKS.instagram },
-  { icon: AtSign, label: "TikTok", ...SOCIAL_LINKS.tiktok },
+  { icon: Music2, label: "TikTok", ...SOCIAL_LINKS.tiktok },
   { icon: Linkedin, label: "LinkedIn", ...SOCIAL_LINKS.linkedin },
 ];
 

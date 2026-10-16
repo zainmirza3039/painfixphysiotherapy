@@ -57,15 +57,13 @@ function HomeVisitPage() {
       <Navbar />
       <main>
         {/* Hero */}
-        <section className="relative overflow-hidden pt-28 pb-14 sm:pt-36">
-          <div className="pointer-events-none absolute -top-24 right-0 h-[26rem] w-[26rem] rounded-full bg-secondary/15 blur-3xl" />
-          <div className="pointer-events-none absolute -bottom-32 -left-24 h-[24rem] w-[24rem] rounded-full bg-primary/10 blur-3xl" />
+        <section className="overflow-hidden border-b border-border bg-background pt-28 pb-14 sm:pt-36">
           <div className="mx-auto grid max-w-7xl items-center gap-12 px-4 sm:px-6 lg:grid-cols-2 lg:px-8">
             <Reveal anim="up">
-              <span className="inline-flex items-center gap-2 rounded-full bg-accent px-4 py-1.5 text-sm font-semibold text-accent-foreground">
+              <span className="inline-flex items-center gap-2 border-l-2 border-brand-green bg-accent/60 px-3 py-1.5 text-sm font-semibold text-accent-foreground">
                 <HomeIcon className="h-4 w-4 text-secondary" /> {hv.hero.badge}
               </span>
-              <h1 className="mt-6 font-heading text-4xl font-extrabold leading-[1.08] text-foreground sm:text-5xl">
+              <h1 className="mt-6 max-w-[18ch] text-balance font-heading text-[clamp(2.5rem,5.5vw,4rem)] font-semibold leading-[1.03] tracking-[-0.035em] text-foreground">
                 {hv.hero.title}
               </h1>
               <p className="mt-5 max-w-xl text-base leading-relaxed text-muted-foreground sm:text-lg">
@@ -74,7 +72,7 @@ function HomeVisitPage() {
               <div className="mt-8 flex flex-wrap gap-3">
                 <a
                   href="#request"
-                  className="ripple inline-flex items-center gap-2 rounded-2xl bg-primary px-6 py-3.5 text-sm font-semibold text-primary-foreground shadow-card transition-transform hover:scale-[1.03]"
+                  className="inline-flex min-h-12 items-center gap-2 rounded-md bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
                 >
                   <HeartPulse className="h-4 w-4" /> {t.actions.requestVisit}
                 </a>
@@ -82,13 +80,13 @@ function HomeVisitPage() {
                   href={WHATSAPP_URL}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 rounded-2xl border border-secondary bg-background px-6 py-3.5 text-sm font-semibold text-secondary transition-colors hover:bg-secondary hover:text-secondary-foreground"
+                  className="inline-flex min-h-12 items-center gap-2 rounded-md border border-secondary/60 bg-background px-5 py-3 text-sm font-semibold text-secondary transition-colors hover:border-secondary hover:bg-secondary hover:text-secondary-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
                 >
                   <MessageCircle className="h-4 w-4" /> {t.actions.whatsapp}
                 </a>
                 <a
                   href={PHONE_TEL}
-                  className="inline-flex items-center gap-2 rounded-2xl border border-border bg-background px-6 py-3.5 text-sm font-semibold text-foreground transition-colors hover:bg-accent"
+                  className="inline-flex min-h-12 items-center gap-2 rounded-md border border-border bg-background px-5 py-3 text-sm font-semibold text-foreground transition-colors hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
                 >
                   <Phone className="h-4 w-4" /> {t.actions.callNow}
                 </a>
@@ -96,7 +94,7 @@ function HomeVisitPage() {
             </Reveal>
 
             <Reveal anim="right">
-              <div className="overflow-hidden rounded-[2rem] shadow-glow ring-1 ring-border">
+              <div className="overflow-hidden rounded-lg border-l-[5px] border-l-brand-green bg-surface">
                 <img
                   src={homeVisitImg}
                   alt="Home physiotherapy session with a licensed physiotherapist"
