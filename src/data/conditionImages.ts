@@ -10,6 +10,7 @@ import strokeRehabilitation from "@/assets/conditions/stroke-rehabilitation.webp
 import cervicalRadiculopathy from "@/assets/conditions/cervical-radiculopathy.webp";
 import balanceDisorders from "@/assets/conditions/balance-disorders.webp";
 import postSurgicalRehabilitation from "@/assets/conditions/post-surgical-rehabilitation.webp";
+import { conditionImageCover, conditionImageCoverAlt } from "@/data/conditionImageGallery";
 
 /**
  * Maps a condition slug to its optimized, lazy-loaded condition image.
@@ -27,6 +28,7 @@ export const conditionImages: Record<string, string> = {
   "cervical-radiculopathy": cervicalRadiculopathy,
   "balance-disorders": balanceDisorders,
   "post-surgical-rehabilitation": postSurgicalRehabilitation,
+  ...conditionImageCover,
 };
 
 /** Keep the supplied symptom illustrations fully visible instead of cropping them. */
@@ -34,6 +36,10 @@ export const conditionImageFitClass: Record<string, string> = {
   "back-pain": "object-contain",
   "neck-pain": "object-contain",
   sciatica: "object-contain",
+  "frozen-shoulder": "object-contain",
+  "knee-pain": "object-contain",
+  "sports-injuries": "object-contain",
+  "plantar-fasciitis": "object-contain",
 };
 
 /**
@@ -61,6 +67,7 @@ export const conditionImageAlt: Record<string, string> = {
     "Physiotherapist supporting an older patient during balance training at PainFix Physiotherapy Clinic in Multan",
   "post-surgical-rehabilitation":
     "Physiotherapist assisting a patient with guided post-surgical rehabilitation exercises at PainFix Physiotherapy Clinic in Multan",
+  ...conditionImageCoverAlt,
 };
 
 /** Fallback ALT text for any condition without a specific description. */

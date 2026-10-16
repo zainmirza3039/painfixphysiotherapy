@@ -50,21 +50,21 @@ function Index() {
       <Navbar />
       <main>
         <Hero />
-        <HomePhysio />
-        <TrustSignals />
-        <About />
         <Services />
         <Conditions />
+        <HomePhysio />
         <WhyChooseUs />
         <MeetDoctors />
-        <PhysioFitness />
         <GoogleReviews />
+        <TrustSignals />
+        <About />
+        <PhysioFitness />
         <Gallery />
         <HomeBmi />
         <ConsultationFees />
         <FAQ />
-        <CTA />
         <Contact />
+        <CTA />
       </main>
       <Footer />
       <WhatsAppFab />

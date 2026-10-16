@@ -1,86 +1,114 @@
 import { Link } from "@tanstack/react-router";
-import { ArrowUpRight } from "lucide-react";
-import clinicTreatment from "@/assets/clinic-photo-4.webp";
-import { services } from "@/data/services";
+import { Activity, ArrowUpRight, Dumbbell, Hand, HeartPulse, Zap } from "lucide-react";
+import type { LucideIcon } from "lucide-react";
+import { serviceMap } from "@/data/services";
 import { Reveal } from "./Reveal";
+
+type TreatmentService = {
+  title: string;
+  description: string;
+  icon: LucideIcon;
+  action: string;
+} & ({ slug: string; href?: never } | { href: string; slug?: never });
+
+const treatmentServices: TreatmentService[] = [
+  {
+    title: "Manual Therapy",
+    description: serviceMap["manual-therapy"].tagline,
+    icon: Hand,
+    slug: "manual-therapy",
+    action: "Learn more",
+  },
+  {
+    title: "Exercise Therapy",
+    description: serviceMap["exercise-therapy"].tagline,
+    icon: Dumbbell,
+    slug: "exercise-therapy",
+    action: "Learn more",
+  },
+  {
+    title: "Kinesiology Taping",
+    description: "Ask the PainFix team whether taping is suitable for your care plan.",
+    icon: Activity,
+    href: "#contact",
+    action: "Ask our team",
+  },
+  {
+    title: "Electrotherapy",
+    description: serviceMap.electrotherapy.tagline,
+    icon: Zap,
+    slug: "electrotherapy",
+    action: "Learn more",
+  },
+  {
+    title: "Rehabilitation",
+    description: "Explore physiotherapy and rehabilitation options for different recovery goals.",
+    icon: HeartPulse,
+    href: "/services",
+    action: "Browse services",
+  },
+];
+
+const cardClassName =
+  "group flex h-full min-h-44 flex-col rounded-2xl border border-border bg-card p-4 shadow-soft transition-all hover:-translate-y-0.5 hover:border-secondary/50 hover:shadow-card focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary sm:p-5";
+
+function TreatmentCardContent({ service }: { service: TreatmentService }) {
+  const Icon = service.icon;
+  return (
+    <>
+      <span className="grid h-10 w-10 place-items-center rounded-xl bg-accent text-secondary">
+        <Icon className="h-5 w-5" aria-hidden="true" />
+      </span>
+      <span className="mt-3 block font-heading text-base font-semibold leading-snug text-foreground">
+        {service.title}
+      </span>
+      <span className="mt-2 block flex-1 text-xs leading-5 text-muted-foreground sm:text-sm">
+        {service.description}
+      </span>
+      <span className="mt-4 inline-flex items-center gap-1.5 text-xs font-semibold text-primary transition-colors group-hover:text-secondary sm:text-sm">
+        {service.action} <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
+      </span>
+    </>
+  );
+}
 
 export function Services() {
   return (
-    <section id="services" className="home-section bg-background scroll-mt-24">
+    <section id="services" className="home-section scroll-mt-24 bg-background">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="mb-10 grid gap-5 md:grid-cols-[0.9fr_1.1fr] md:items-end md:gap-12">
+        <div className="mb-7 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
           <div>
             <p className="home-eyebrow">
               <span aria-hidden="true" /> How we can help
             </p>
-            <h2 className="home-section-title mt-4 max-w-xl">
-              Care for movement, strength and recovery.
-            </h2>
+            <h2 className="home-section-title mt-4">Treatment Services</h2>
           </div>
-          <div className="md:pb-1">
-            <p className="max-w-2xl text-base leading-7 text-muted-foreground">
-              Treatment begins with understanding what is limiting you. Your physiotherapist can
-              discuss appropriate options after an individual assessment.
-            </p>
-            <Link
-              to="/services"
-              className="mt-5 inline-flex min-h-11 items-center gap-2 border-b border-secondary pb-1 text-sm font-semibold text-primary transition-colors hover:text-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
-            >
-              Explore all services <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
-            </Link>
-          </div>
+          <Link
+            to="/services"
+            className="inline-flex min-h-11 w-fit items-center gap-2 border-b border-secondary pb-1 text-sm font-semibold text-primary transition-colors hover:text-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+          >
+            Explore all services <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
+          </Link>
         </div>
 
-        <div className="grid gap-8 lg:grid-cols-[0.78fr_1.22fr] lg:gap-14">
-          <Reveal anim="left" className="home-service-photo-wrap">
-            <figure className="home-service-photo">
-              <img
-                src={clinicTreatment}
-                alt="Physiotherapist guiding a patient through a supported movement during a treatment session at PainFix"
-                width={720}
-                height={1280}
-                loading="lazy"
-                decoding="async"
-              />
-              <figcaption>
-                <span className="home-service-photo__index">01 / PERSONAL CARE</span>
-                <span>Movement with purpose.</span>
-              </figcaption>
-            </figure>
-          </Reveal>
-
-          <div className="home-service-list" aria-label="Physiotherapy services">
-            {services.map((service, index) => (
-              <Reveal key={service.slug} anim="up" delay={Math.min(index, 5) * 45}>
+        <div className="grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-3 xl:grid-cols-5">
+          {treatmentServices.map((service, index) => (
+            <Reveal key={service.title} anim="up" delay={index * 45}>
+              {service.slug ? (
                 <Link
                   to="/services/$slug"
                   params={{ slug: service.slug }}
-                  className="home-service-row group"
+                  className={cardClassName}
                 >
-                  <span className="home-service-row__number" aria-hidden="true">
-                    {String(index + 1).padStart(2, "0")}
-                  </span>
-                  <span className="min-w-0 flex-1">
-                    <span className="home-service-row__title">{service.shortTitle}</span>
-                    <span className="home-service-row__copy">{service.tagline}</span>
-                  </span>
-                  <ArrowUpRight
-                    className="h-5 w-5 shrink-0 text-primary/60 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-secondary"
-                    aria-hidden="true"
-                  />
+                  <TreatmentCardContent service={service} />
                 </Link>
-              </Reveal>
-            ))}
-            <div className="home-service-more">
-              <span>Looking for a particular treatment?</span>
-              <Link
-                to="/services"
-                className="font-semibold text-primary underline-offset-4 hover:text-secondary hover:underline"
-              >
-                View the full service list
-              </Link>
-            </div>
-          </div>
+              ) : (
+                <a href={service.href} className={cardClassName}>
+                  <TreatmentCardContent service={service} />
+                </a>
+              )}
+            </Reveal>
+          ))}
         </div>
       </div>
     </section>
