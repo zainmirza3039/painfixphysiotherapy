@@ -115,9 +115,9 @@ BEGIN
         ('anon', 'blog_posts', ARRAY['SELECT']::text[]),
         ('anon', 'calculator_settings', ARRAY[]::text[]),
         ('anon', 'clinic_settings', ARRAY[]::text[]),
-        ('anon', 'contact_submissions', ARRAY['INSERT']::text[]),
+        ('anon', 'contact_submissions', ARRAY[]::text[]),
         ('anon', 'fitness_content', ARRAY[]::text[]),
-        ('anon', 'home_visit_requests', ARRAY['INSERT']::text[]),
+        ('anon', 'home_visit_requests', ARRAY[]::text[]),
         ('anon', 'patient_visits', ARRAY[]::text[]),
         ('anon', 'patients', ARRAY[]::text[]),
         ('anon', 'profiles', ARRAY['SELECT']::text[]),
@@ -126,9 +126,9 @@ BEGIN
         ('authenticated', 'blog_posts', ARRAY['SELECT', 'INSERT', 'UPDATE', 'DELETE']::text[]),
         ('authenticated', 'calculator_settings', ARRAY['SELECT', 'INSERT', 'UPDATE']::text[]),
         ('authenticated', 'clinic_settings', ARRAY['SELECT', 'INSERT', 'UPDATE']::text[]),
-        ('authenticated', 'contact_submissions', ARRAY['SELECT', 'INSERT', 'UPDATE', 'DELETE']::text[]),
+        ('authenticated', 'contact_submissions', ARRAY['SELECT', 'DELETE']::text[]),
         ('authenticated', 'fitness_content', ARRAY['SELECT', 'INSERT', 'UPDATE', 'DELETE']::text[]),
-        ('authenticated', 'home_visit_requests', ARRAY['SELECT', 'INSERT', 'UPDATE', 'DELETE']::text[]),
+        ('authenticated', 'home_visit_requests', ARRAY['SELECT', 'DELETE']::text[]),
         ('authenticated', 'patient_visits', ARRAY[]::text[]),
         ('authenticated', 'patients', ARRAY['SELECT', 'INSERT', 'UPDATE', 'DELETE']::text[]),
         ('authenticated', 'profiles', ARRAY['SELECT', 'INSERT', 'UPDATE']::text[]),
@@ -153,6 +153,83 @@ BEGIN
     ) IS DISTINCT FROM (p.privilege_name = ANY(e.allowed))
   ) THEN
     RAISE EXCEPTION 'anon/authenticated table ACLs differ from the approved UI matrix';
+  END IF;
+
+  -- Forms receive INSERT only on submitted fields; authenticated workflow
+  -- updates are limited to status. Check every live column, including extras.
+  IF EXISTS (
+    WITH roles(role_name, table_name) AS (
+      VALUES
+        ('anon', 'contact_submissions'),
+        ('authenticated', 'contact_submissions'),
+        ('anon', 'home_visit_requests'),
+        ('authenticated', 'home_visit_requests')
+    ), allowed(role_name, table_name, column_name) AS (
+      VALUES
+        ('anon', 'contact_submissions', 'name'),
+        ('anon', 'contact_submissions', 'email'),
+        ('anon', 'contact_submissions', 'phone'),
+        ('anon', 'contact_submissions', 'message'),
+        ('authenticated', 'contact_submissions', 'name'),
+        ('authenticated', 'contact_submissions', 'email'),
+        ('authenticated', 'contact_submissions', 'phone'),
+        ('authenticated', 'contact_submissions', 'message'),
+        ('anon', 'home_visit_requests', 'full_name'),
+        ('anon', 'home_visit_requests', 'phone'),
+        ('anon', 'home_visit_requests', 'address'),
+        ('anon', 'home_visit_requests', 'maps_location'),
+        ('anon', 'home_visit_requests', 'patient_age'),
+        ('anon', 'home_visit_requests', 'medical_condition'),
+        ('anon', 'home_visit_requests', 'preferred_date'),
+        ('anon', 'home_visit_requests', 'preferred_time'),
+        ('anon', 'home_visit_requests', 'report_url'),
+        ('anon', 'home_visit_requests', 'notes'),
+        ('authenticated', 'home_visit_requests', 'full_name'),
+        ('authenticated', 'home_visit_requests', 'phone'),
+        ('authenticated', 'home_visit_requests', 'address'),
+        ('authenticated', 'home_visit_requests', 'maps_location'),
+        ('authenticated', 'home_visit_requests', 'patient_age'),
+        ('authenticated', 'home_visit_requests', 'medical_condition'),
+        ('authenticated', 'home_visit_requests', 'preferred_date'),
+        ('authenticated', 'home_visit_requests', 'preferred_time'),
+        ('authenticated', 'home_visit_requests', 'report_url'),
+        ('authenticated', 'home_visit_requests', 'notes')
+    )
+    SELECT 1
+    FROM roles AS r
+    JOIN pg_class AS c
+      ON c.oid = to_regclass(format('public.%I', r.table_name))
+    JOIN pg_attribute AS a
+      ON a.attrelid = c.oid AND a.attnum > 0 AND NOT a.attisdropped
+    WHERE has_column_privilege(r.role_name, a.attrelid, a.attnum, 'INSERT')
+      IS DISTINCT FROM (
+        EXISTS (
+          SELECT 1 FROM allowed AS x
+          WHERE x.role_name = r.role_name
+            AND x.table_name = r.table_name
+            AND x.column_name = a.attname
+        )
+      )
+  ) THEN
+    RAISE EXCEPTION 'Form INSERT column privileges differ from the approved payload matrix';
+  END IF;
+
+  IF EXISTS (
+    WITH role_tables(role_name, table_name) AS (
+      VALUES
+        ('authenticated', 'contact_submissions'),
+        ('authenticated', 'home_visit_requests')
+    )
+    SELECT 1
+    FROM role_tables AS r
+    JOIN pg_class AS c
+      ON c.oid = to_regclass(format('public.%I', r.table_name))
+    JOIN pg_attribute AS a
+      ON a.attrelid = c.oid AND a.attnum > 0 AND NOT a.attisdropped
+    WHERE has_column_privilege(r.role_name, a.attrelid, a.attnum, 'UPDATE')
+      IS DISTINCT FROM (a.attname = 'status')
+  ) THEN
+    RAISE EXCEPTION 'Authenticated UPDATE must be limited to status columns';
   END IF;
 
   -- Future/existing public sequences are not part of any browser workflow.
@@ -262,6 +339,8 @@ $acl_regression$;
 -- status default matches the admin list. No unrelated request data is read.
 SELECT set_config('app.home_visit_security_test_marker', gen_random_uuid()::text, true);
 SELECT set_config('app.contact_security_test_marker', gen_random_uuid()::text, true);
+SELECT set_config('app.auth_home_visit_security_test_marker', 'auth-' || gen_random_uuid()::text, true);
+SELECT set_config('app.auth_contact_security_test_marker', 'auth-' || gen_random_uuid()::text, true);
 SET LOCAL ROLE anon;
 INSERT INTO public.home_visit_requests (full_name, phone, address, medical_condition)
 VALUES (
@@ -277,6 +356,48 @@ VALUES (
   '+923001234567',
   'Disposable local regression fixture'
 );
+DO $anon_status_injection$
+BEGIN
+  BEGIN
+    INSERT INTO public.home_visit_requests
+      (full_name, phone, address, status)
+    VALUES ('Status injection', '+923001234567', 'Disposable fixture', 'contacted');
+  EXCEPTION WHEN insufficient_privilege THEN
+    RETURN;
+  END;
+  RAISE EXCEPTION 'Anonymous user could assign an internal Home Visit status';
+END;
+$anon_status_injection$;
+RESET ROLE;
+
+-- The signed-in public form uses the same field-limited insert contract.
+SET LOCAL ROLE authenticated;
+INSERT INTO public.home_visit_requests (full_name, phone, address, medical_condition)
+VALUES (
+  current_setting('app.auth_home_visit_security_test_marker'),
+  '+923001234568',
+  'Disposable authenticated regression fixture',
+  'Test request'
+);
+INSERT INTO public.contact_submissions (name, email, phone, message)
+VALUES (
+  current_setting('app.auth_contact_security_test_marker'),
+  'authenticated-fixture@example.invalid',
+  '+923001234568',
+  'Disposable authenticated regression fixture'
+);
+DO $authenticated_status_injection$
+BEGIN
+  BEGIN
+    INSERT INTO public.home_visit_requests
+      (full_name, phone, address, status)
+    VALUES ('Authenticated status injection', '+923001234567', 'Disposable fixture', 'contacted');
+  EXCEPTION WHEN insufficient_privilege THEN
+    RETURN;
+  END;
+  RAISE EXCEPTION 'Authenticated user could assign an internal Home Visit status';
+END;
+$authenticated_status_injection$;
 RESET ROLE;
 
 DO $public_persistence$
@@ -287,16 +408,22 @@ DECLARE
 BEGIN
   SELECT count(*), max(status) INTO visit_count, visit_status
   FROM public.home_visit_requests
-  WHERE full_name = current_setting('app.home_visit_security_test_marker');
+  WHERE full_name IN (
+    current_setting('app.home_visit_security_test_marker'),
+    current_setting('app.auth_home_visit_security_test_marker')
+  );
   SELECT count(*) INTO contact_count
   FROM public.contact_submissions
-  WHERE name = current_setting('app.contact_security_test_marker');
+  WHERE name IN (
+    current_setting('app.contact_security_test_marker'),
+    current_setting('app.auth_contact_security_test_marker')
+  );
 
-  IF visit_count <> 1 OR visit_status <> 'new' THEN
-    RAISE EXCEPTION 'Valid Home Visit insert did not persist with its default status';
+  IF visit_count <> 2 OR visit_status <> 'new' THEN
+    RAISE EXCEPTION 'Valid Home Visit inserts did not persist with their default status';
   END IF;
-  IF contact_count <> 1 THEN
-    RAISE EXCEPTION 'Valid public contact insert did not persist';
+  IF contact_count <> 2 THEN
+    RAISE EXCEPTION 'Valid anonymous/authenticated contact inserts did not persist';
   END IF;
 END;
 $public_persistence$;
@@ -382,6 +509,12 @@ BEGIN
   WHERE id = current_setting('app.test_staff_visit_id')::uuid;
   GET DIAGNOSTICS affected = ROW_COUNT;
   IF affected <> 1 THEN RAISE EXCEPTION 'Staff status update was denied'; END IF;
+
+  BEGIN
+    UPDATE public.home_visit_requests SET notes = 'not an allowed staff update'
+    WHERE id = current_setting('app.test_staff_visit_id')::uuid;
+    RAISE EXCEPTION 'Staff changed a non-status Home Visit column';
+  EXCEPTION WHEN insufficient_privilege THEN NULL; END;
 
   DELETE FROM public.home_visit_requests
   WHERE id = current_setting('app.test_admin_visit_id')::uuid;

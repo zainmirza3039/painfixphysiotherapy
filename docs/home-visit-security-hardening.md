@@ -28,7 +28,7 @@ This change reuses the existing `public.home_visit_requests` table and Supabase 
 The main migration is idempotent and guarded by preconditions. It aborts before changes if owners, RLS, table columns, role inheritance, schema access, helper ownership, or default ACL scope differ from the reviewed assumptions.
 
 - Adds `status text NOT NULL DEFAULT 'new'` to the existing Home Visit and contact tables, normalizing only preexisting NULL status values.
-- Replaces public INSERT checks with bounded, trimmed-field validation; adds staff Home Visit update and admin-only Home Visit delete/contact update/contact delete policies. Existing RLS remains enabled.
+- Replaces public INSERT checks with bounded, trimmed-field validation; adds staff Home Visit status-update and admin-only Home Visit delete/contact update/contact delete policies. Existing RLS remains enabled.
 - Removes all direct table/sequence privileges from `PUBLIC`, `anon`, and `authenticated` in `public`, then grants the following exact UI matrix. RLS remains the row-level authorization boundary.
 
 | Table | `anon` | `authenticated` |
@@ -37,15 +37,15 @@ The main migration is idempotent and guarded by preconditions. It aborts before 
 | `blog_posts` | SELECT | SELECT, INSERT, UPDATE, DELETE |
 | `calculator_settings` | None | SELECT, INSERT, UPDATE |
 | `clinic_settings` | None | SELECT, INSERT, UPDATE |
-| `contact_submissions` | INSERT | SELECT, INSERT, UPDATE, DELETE |
+| `contact_submissions` | INSERT (`name`, `email`, `phone`, `message`) | SELECT, INSERT (same form columns), UPDATE (`status`), DELETE |
 | `fitness_content` | None | SELECT, INSERT, UPDATE, DELETE |
-| `home_visit_requests` | INSERT | SELECT, INSERT, UPDATE, DELETE |
+| `home_visit_requests` | INSERT (`full_name`, `phone`, `address`, `maps_location`, `patient_age`, `medical_condition`, `preferred_date`, `preferred_time`, `report_url`, `notes`) | SELECT, INSERT (same form columns), UPDATE (`status`), DELETE |
 | `patient_visits` | None | None |
 | `patients` | None | SELECT, INSERT, UPDATE, DELETE |
 | `profiles` | SELECT | SELECT, INSERT, UPDATE |
 | `user_roles` | None | SELECT |
 
-Anonymous content SELECT is limited to `blog_posts` and `profiles`, the only such direct reads used by the current public frontend. Public RLS policies for calculator/fitness tables remain, but without table grants they do not make those tables queryable by anonymous users. `authenticated` has no `user_roles` DML; role administration remains on the existing server-side `service_role` path. Existing `service_role` grants are not revoked.
+For the two form tables, `anon` and `authenticated` have **column-level** INSERT only for submitted form fields; they cannot set `id`, `status`, or `created_at`. `authenticated` has column-level UPDATE only on `status`, while RLS limits which rows each staff/admin role can see or change. There is no relation-wide INSERT or UPDATE grant for these form tables. Anonymous content SELECT is limited to `blog_posts` and `profiles`, the only such direct reads used by the current public frontend. Public RLS policies for calculator/fitness tables remain, but without table grants they do not make those tables queryable by anonymous users. `authenticated` has no `user_roles` DML; role administration remains on the existing server-side `service_role` path. Existing `service_role` grants are not revoked.
 
 ### Default-ACL authorization boundary
 
@@ -56,7 +56,7 @@ The migration in `supabase/migrations/` changes only public-schema defaults owne
 - **14/14 frontend tests pass:** nine Home Visit tests cover required/age/length validation, payload normalization, upload/insert success and failure, validation rejection, overlapping duplicate suppression, and retry after failure; five existing tests cover report MIME/size/extension validation.
 - **Production build passes** after installing the exact `bun.lock` dependencies with `bun install --frozen-lockfile`. The build reports existing deprecation notices for TanStack `inputValidator` and `vite-tsconfig-paths`; it completes successfully.
 - Targeted ESLint passes for all changed application/test source. `npx tsc --noEmit` remains blocked by one error in the untouched `src/routes/__root.tsx:250` (`ErrorComponentProps.error` is `unknown`, while the existing component declares `Error`); no type-check errors were reported in changed files.
-- **Disposable PostgreSQL 16 regression passes:** the owner step rejects an unauthorized role; the main migration refuses before the owner step and leaves schema/ACL state unchanged; the authorized owner step succeeds; the consolidated migration applies twice; and the rollback-only regression verifies exact table grants, public/global default ACLs, direct PUBLIC grants, sequence access, schema access, service-role/helper preservation, form validation/persistence, and staff/admin/nonstaff RLS operations. All SQL checks ran against a fresh local disposable cluster with synthetic fixtures only; the regression ends with `ROLLBACK`.
+- **Disposable PostgreSQL 16 regression passes:** the owner step rejects an unauthorized role; the main migration refuses before the owner step and leaves schema/ACL state unchanged; the authorized owner step succeeds; the consolidated migration applies twice; and the rollback-only regression verifies exact table and column grants (form-only INSERT, status-only UPDATE), public/global default ACLs, direct PUBLIC grants, sequence access, schema access, service-role/helper preservation, anonymous/authenticated form persistence, status-injection rejection, and staff/admin/nonstaff RLS operations. All SQL checks ran against a fresh local disposable cluster with synthetic fixtures only; the regression ends with `ROLLBACK`.
 - The public [Home Visit page](https://painfixphysiotherapy.com/home-visit) and [homepage](https://painfixphysiotherapy.com/) returned content during read-only checks. No real form submission was sent.
 - No real notification integration was found/configured/tested. The website's “our team will contact you” copy is not evidence that notifications work.
 
@@ -64,4 +64,4 @@ The migration in `supabase/migrations/` changes only public-schema defaults owne
 
 Frontend tests exercise the shared validation/submission helper with mocked adapters; the SQL fixture proves insert persistence and policy behavior in a rollback transaction. Neither proves live PostgREST persistence or a real browser/database round trip. The duplicate guard suppresses **overlapping client submissions**; it does not add server-side idempotency for a later, separately initiated request.
 
-Production deployment and production migration application are intentionally out of scope here. Any future rollout must use the separate owner-authorized step first, followed by the guarded migration through the authorized pipeline, then verify live ACLs and perform controlled form/admin checks with approved test data. Do not apply historical migrations wholesale or restore broad public grants. If the migration fails, correct the precondition and rerun transactionally; after a successful rollout prefer a forward fix, and do not restore broad anon grants or public TRUNCATE.
+Production deployment and production migration application are intentionally out of scope here. Any future rollout requires a current recoverable backup and scoped approval first. Only then may an authorized operator execute the separate `supabase_admin` default-ACL step, followed by the guarded migration through the authorized pipeline; verify live ACLs and perform controlled form/admin checks with approved test data. Do not apply historical migrations wholesale or restore broad public grants. If the migration fails, correct the precondition and rerun transactionally; after a successful rollout prefer a forward fix, and do not restore broad anon grants or public TRUNCATE.

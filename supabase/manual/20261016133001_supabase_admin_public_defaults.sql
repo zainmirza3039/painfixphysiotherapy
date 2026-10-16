@@ -7,6 +7,7 @@
 -- This step is limited to supabase_admin-created objects in schema public.
 -- It does not change defaults in graphql, graphql_public, storage, extensions,
 -- or any other schema. It refuses global ACLs because those affect all schemas.
+-- Run only after a current recoverable backup and scoped approval are confirmed.
 
 BEGIN;
 

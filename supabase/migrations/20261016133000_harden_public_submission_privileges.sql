@@ -341,7 +341,12 @@ REVOKE ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA public
 -- No anonymous SELECT on calculator_settings or fitness_content is granted:
 -- the current public frontend reads neither table directly.
 GRANT SELECT ON TABLE public.blog_posts, public.profiles TO anon;
-GRANT INSERT ON TABLE public.contact_submissions, public.home_visit_requests TO anon;
+GRANT INSERT (name, email, phone, message)
+  ON TABLE public.contact_submissions TO anon;
+GRANT INSERT (
+  full_name, phone, address, maps_location, patient_age, medical_condition,
+  preferred_date, preferred_time, report_url, notes
+) ON TABLE public.home_visit_requests TO anon;
 
 -- Authenticated UI: preserve only the operations confirmed by the direct
 -- Supabase calls in current screens. Unused patient_visits access is revoked.
@@ -354,10 +359,26 @@ TO authenticated;
 
 GRANT SELECT, INSERT, UPDATE, DELETE ON TABLE
   public.blog_posts,
-  public.contact_submissions,
   public.fitness_content,
-  public.home_visit_requests,
   public.patients
+TO authenticated;
+
+-- Form rows can be created only from their public payload columns. Staff can
+-- change only workflow status; RLS separately limits which rows they can see,
+-- update, or delete.
+GRANT INSERT (name, email, phone, message)
+  ON TABLE public.contact_submissions TO authenticated;
+GRANT INSERT (
+  full_name, phone, address, maps_location, patient_age, medical_condition,
+  preferred_date, preferred_time, report_url, notes
+) ON TABLE public.home_visit_requests TO authenticated;
+GRANT SELECT, DELETE ON TABLE
+  public.contact_submissions,
+  public.home_visit_requests
+TO authenticated;
+GRANT UPDATE (status) ON TABLE
+  public.contact_submissions,
+  public.home_visit_requests
 TO authenticated;
 
 -- The browser reads its own role; role assignment/removal stays server-side via
