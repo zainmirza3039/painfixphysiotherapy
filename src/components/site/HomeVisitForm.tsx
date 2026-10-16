@@ -3,6 +3,12 @@ import { Loader2, Send, Upload } from "lucide-react";
 import { toast } from "sonner";
 import { useI18n } from "@/i18n/LanguageProvider";
 import {
+  createHomeVisitSubmissionGate,
+  HOME_VISIT_FIELD_LIMITS,
+  submitHomeVisitRequest,
+  validateHomeVisitForm,
+} from "@/lib/home-visit-form";
+import {
   getMedicalReportExtension,
   MEDICAL_REPORT_ACCEPT,
   validateMedicalReport,
@@ -27,55 +33,70 @@ export function HomeVisitForm() {
   const [file, setFile] = useState<File | null>(null);
   const [company, setCompany] = useState(""); // honeypot — real users leave this empty
   const [submitting, setSubmitting] = useState(false);
+  const [submissionGate] = useState(() => createHomeVisitSubmissionGate());
 
   const set = (key: keyof typeof initial, val: string) => setValues((v) => ({ ...v, [key]: val }));
   const reportErrorMessage = (error: NonNullable<ReturnType<typeof validateMedicalReport>>) =>
     error === "size" ? f.reportTooLarge : error === "empty" ? f.reportEmpty : f.reportInvalidType;
+  const formErrorMessage = (error: NonNullable<ReturnType<typeof validateHomeVisitForm>>) =>
+    error === "required" ? f.required : error === "age" ? f.ageInvalid : f.fieldTooLong;
 
   const onSubmit = async (e: FormEvent) => {
     e.preventDefault();
     // Silently drop bot submissions that fill the hidden honeypot field.
     if (company) return;
-    if (!values.full_name.trim() || !values.phone.trim() || !values.address.trim()) {
-      toast.error(f.required);
+
+    // React state updates after this handler returns. The gate closes that
+    // small race window so two rapid submit events cannot issue two inserts.
+    if (submissionGate.isPending) return;
+    const validationError = validateHomeVisitForm(values);
+    if (validationError) {
+      toast.error(formErrorMessage(validationError));
       return;
     }
     if (file) {
-      const validationError = validateMedicalReport(file);
-      if (validationError) {
-        toast.error(reportErrorMessage(validationError));
+      const reportValidationError = validateMedicalReport(file);
+      if (reportValidationError) {
+        toast.error(reportErrorMessage(reportValidationError));
         return;
       }
     }
     setSubmitting(true);
     try {
-      const { supabase } = await import("@/integrations/supabase/client");
-      let report_url: string | null = null;
+      const result = await submitHomeVisitRequest(
+        values,
+        file,
+        {
+          uploadReport: async (report) => {
+            const { supabase } = await import("@/integrations/supabase/client");
+            const extension = getMedicalReportExtension(report.type);
+            if (!extension) throw new Error("Unsupported medical report MIME type");
+            const path = `${crypto.randomUUID()}.${extension}`;
+            const { error: uploadError } = await supabase.storage
+              .from("medical-reports")
+              .upload(path, report, { contentType: report.type });
+            if (uploadError) throw uploadError;
+            return path;
+          },
+          insertRequest: async (payload) => {
+            const { supabase } = await import("@/integrations/supabase/client");
+            const { error } = await supabase.from("home_visit_requests").insert(payload);
+            if (error) throw error;
+          },
+        },
+        submissionGate,
+      );
 
-      if (file) {
-        const extension = getMedicalReportExtension(file.type);
-        if (!extension) throw new Error("Unsupported medical report MIME type");
-        const path = `${crypto.randomUUID()}.${extension}`;
-        const { error: uploadError } = await supabase.storage
-          .from("medical-reports")
-          .upload(path, file, { contentType: file.type });
-        if (uploadError) throw uploadError;
-        report_url = path;
+      if (result.status === "duplicate") return;
+      if (result.status === "invalid") {
+        toast.error(formErrorMessage(result.reason));
+        return;
       }
-
-      const { error } = await supabase.from("home_visit_requests").insert({
-        full_name: values.full_name.trim(),
-        phone: values.phone.trim(),
-        address: values.address.trim(),
-        maps_location: values.maps_location.trim() || null,
-        patient_age: values.patient_age ? Number(values.patient_age) : null,
-        medical_condition: values.medical_condition.trim() || null,
-        preferred_date: values.preferred_date || null,
-        preferred_time: values.preferred_time.trim() || null,
-        notes: values.notes.trim() || null,
-        report_url,
-      });
-      if (error) throw error;
+      if (result.status === "error") {
+        console.error("Home visit request failed:", result.error);
+        toast.error(f.error);
+        return;
+      }
 
       toast.success(f.success);
       setValues(initial);
@@ -119,6 +140,7 @@ export function HomeVisitForm() {
           className={inputCls}
           value={values.full_name}
           onChange={(e) => set("full_name", e.target.value)}
+          maxLength={HOME_VISIT_FIELD_LIMITS.full_name}
           required
         />
       </div>
@@ -132,6 +154,7 @@ export function HomeVisitForm() {
           className={inputCls}
           value={values.phone}
           onChange={(e) => set("phone", e.target.value)}
+          maxLength={HOME_VISIT_FIELD_LIMITS.phone}
           required
         />
       </div>
@@ -145,6 +168,7 @@ export function HomeVisitForm() {
           className={inputCls}
           value={values.address}
           onChange={(e) => set("address", e.target.value)}
+          maxLength={HOME_VISIT_FIELD_LIMITS.address}
           required
         />
       </div>
@@ -159,6 +183,7 @@ export function HomeVisitForm() {
           placeholder="https://maps.google.com/…"
           value={values.maps_location}
           onChange={(e) => set("maps_location", e.target.value)}
+          maxLength={HOME_VISIT_FIELD_LIMITS.maps_location}
         />
       </div>
 
@@ -171,6 +196,7 @@ export function HomeVisitForm() {
           type="number"
           min={0}
           max={120}
+          step={1}
           className={inputCls}
           value={values.patient_age}
           onChange={(e) => set("patient_age", e.target.value)}
@@ -185,6 +211,7 @@ export function HomeVisitForm() {
           className={inputCls}
           value={values.medical_condition}
           onChange={(e) => set("medical_condition", e.target.value)}
+          maxLength={HOME_VISIT_FIELD_LIMITS.medical_condition}
         />
       </div>
 
@@ -257,6 +284,7 @@ export function HomeVisitForm() {
           className={inputCls}
           value={values.notes}
           onChange={(e) => set("notes", e.target.value)}
+          maxLength={HOME_VISIT_FIELD_LIMITS.notes}
         />
       </div>
 

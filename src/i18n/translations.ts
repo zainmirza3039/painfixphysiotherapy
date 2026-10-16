@@ -165,6 +165,8 @@ export const en = {
       success: "Request received! Our team will contact you shortly.",
       error: "Something went wrong. Please try again or reach us on WhatsApp.",
       required: "Please fill in your name, phone and address.",
+      ageInvalid: "Enter a whole-number patient age from 0 to 120.",
+      fieldTooLong: "One or more fields exceed the allowed length. Please shorten your entries.",
     },
   },
   contact: {
@@ -351,6 +353,8 @@ export const ur: Dict = {
       success: "درخواست موصول ہو گئی! ہماری ٹیم جلد رابطہ کرے گی۔",
       error: "کچھ غلط ہو گیا۔ دوبارہ کوشش کریں یا واٹس ایپ پر رابطہ کریں۔",
       required: "براہِ کرم اپنا نام، فون اور پتہ درج کریں۔",
+      ageInvalid: "مریض کی عمر 0 سے 120 کے درمیان مکمل عدد میں درج کریں۔",
+      fieldTooLong: "ایک یا زیادہ خانے حد سے زیادہ طویل ہیں۔ براہِ کرم عبارت مختصر کریں۔",
     },
   },
   contact: {
