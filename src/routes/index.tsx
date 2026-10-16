@@ -50,13 +50,13 @@ function Index() {
       <Navbar />
       <main>
         <Hero />
+        <HomePhysio />
         <TrustSignals />
         <About />
         <Services />
         <Conditions />
         <WhyChooseUs />
         <MeetDoctors />
-        <HomePhysio />
         <PhysioFitness />
         <GoogleReviews />
         <Gallery />
