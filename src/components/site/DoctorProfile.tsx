@@ -42,7 +42,7 @@ export function DoctorProfile({ doc }: { doc: TeamMember }) {
       <section className="py-14 sm:py-20">
         <div className="mx-auto grid max-w-6xl gap-10 px-4 sm:px-6 lg:grid-cols-[minmax(0,340px)_1fr] lg:px-8">
           <Reveal anim="left">
-            <div className="aspect-square overflow-hidden rounded-[2rem] border border-border bg-card shadow-soft">
+            <div className="aspect-square overflow-hidden rounded-lg border border-border border-l-[5px] border-l-brand-green bg-card">
               <ClinicianPortrait
                 photo={doc.photo}
                 name={doc.fullName}
@@ -98,7 +98,7 @@ export function DoctorProfile({ doc }: { doc: TeamMember }) {
           }`}
         >
           <Reveal anim="left">
-            <div className="h-full rounded-[1.75rem] border border-border bg-card p-8 shadow-soft">
+            <div className="h-full rounded-lg border border-border border-t-2 border-t-brand-green bg-card p-6 shadow-none sm:p-7">
               <h2 className="flex items-center gap-2 font-heading text-xl font-bold text-foreground">
                 <GraduationCap className="h-5 w-5 text-primary" /> Qualifications
               </h2>
@@ -113,7 +113,7 @@ export function DoctorProfile({ doc }: { doc: TeamMember }) {
           </Reveal>
           {doc.profile.expertise.length > 0 && (
             <Reveal anim="right">
-              <div className="h-full rounded-[1.75rem] border border-border bg-card p-8 shadow-soft">
+              <div className="h-full rounded-lg border border-border border-t-2 border-t-brand-green bg-card p-6 shadow-none sm:p-7">
                 <h2 className="flex items-center gap-2 font-heading text-xl font-bold text-foreground">
                   <Stethoscope className="h-5 w-5 text-primary" /> Areas of Expertise
                 </h2>
@@ -149,7 +149,7 @@ export function DoctorProfile({ doc }: { doc: TeamMember }) {
                 {doc.profile.conditionsTreated.map((c) => (
                   <li
                     key={c}
-                    className="flex items-start gap-3 rounded-2xl border border-border bg-card p-4 text-sm text-foreground shadow-soft"
+                    className="flex items-start gap-3 rounded-md border border-border bg-card p-4 text-sm text-foreground"
                   >
                     <HeartPulse className="mt-0.5 h-5 w-5 shrink-0 text-secondary" /> {c}
                   </li>
@@ -182,7 +182,7 @@ export function DoctorProfile({ doc }: { doc: TeamMember }) {
       <section className="py-14 sm:py-20">
         <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
           <Reveal anim="up">
-            <div className="rounded-[1.75rem] border border-border bg-card p-8 shadow-soft">
+            <div className="rounded-lg border border-border border-t-2 border-t-brand-green bg-card p-6 shadow-none sm:p-7">
               <h2 className="font-heading text-xl font-bold text-foreground">Clinic Information</h2>
               <p className="mt-2 text-sm text-muted-foreground">
                 See {doc.fullName} at {CLINIC_NAME}, Multan.

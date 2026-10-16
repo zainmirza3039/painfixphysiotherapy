@@ -44,7 +44,7 @@ function ServicesIndex() {
           <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {services.map((service, i) => (
               <Reveal key={service.slug} anim="up" delay={(i % 3) * 70}>
-                <article className="hover-lift group relative flex h-full cursor-pointer flex-col rounded-[1.75rem] border border-border bg-card p-7 shadow-soft transition-shadow hover:border-primary/40 hover:shadow-card focus-within:ring-2 focus-within:ring-primary/50">
+                <article className="group relative flex h-full flex-col rounded-lg border border-border border-t-2 border-t-brand-green bg-card p-6 transition-colors hover:border-secondary/60 hover:bg-accent/20 focus-within:ring-2 focus-within:ring-primary/50">
                   <span className="grid h-14 w-14 place-items-center rounded-2xl bg-secondary/12 text-secondary">
                     <service.icon className="h-7 w-7" />
                   </span>
@@ -58,7 +58,7 @@ function ServicesIndex() {
                     <Link
                       to="/services/$slug"
                       params={{ slug: service.slug }}
-                      className="inline-flex min-h-11 items-center gap-1.5 rounded-xl border border-primary px-4 py-2 text-sm font-semibold text-primary transition-colors after:absolute after:inset-0 after:rounded-[1.75rem] after:content-[''] hover:bg-primary hover:text-primary-foreground focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+                      className="inline-flex min-h-11 items-center gap-1.5 rounded-md border border-primary/25 px-4 py-2 text-sm font-semibold text-primary transition-colors after:absolute after:inset-0 after:rounded-lg after:content-[''] hover:border-primary hover:bg-primary hover:text-primary-foreground focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
                       aria-label={`Learn more about ${service.title}`}
                     >
                       Learn More <ArrowRight className="h-4 w-4 rtl:rotate-180" />
@@ -67,7 +67,7 @@ function ServicesIndex() {
                       href={WHATSAPP_CONSULT_URL}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="relative z-10 inline-flex min-h-11 items-center gap-1.5 rounded-xl bg-gradient-to-r from-primary to-secondary px-4 py-2 text-sm font-semibold text-primary-foreground shadow-soft transition-opacity hover:opacity-90"
+                      className="relative z-10 inline-flex min-h-11 items-center gap-1.5 rounded-md bg-secondary px-4 py-2 text-sm font-semibold text-secondary-foreground transition-colors hover:bg-secondary/90"
                       aria-label={`Ask about ${service.title} on WhatsApp`}
                     >
                       <MessageCircle className="h-4 w-4" /> WhatsApp
@@ -80,7 +80,7 @@ function ServicesIndex() {
             {/* Wellness offerings on their own routes (Fitness, Diet Plans). */}
             {wellnessCards.map((c, i) => (
               <Reveal key={c.to} anim="up" delay={((services.length + i) % 3) * 70}>
-                <article className="hover-lift group relative flex h-full cursor-pointer flex-col rounded-[1.75rem] border border-border bg-card p-7 shadow-soft transition-shadow hover:border-primary/40 hover:shadow-card focus-within:ring-2 focus-within:ring-primary/50">
+                <article className="group relative flex h-full flex-col rounded-lg border border-border border-t-2 border-t-brand-green bg-card p-6 transition-colors hover:border-secondary/60 hover:bg-accent/20 focus-within:ring-2 focus-within:ring-primary/50">
                   <div className="flex items-start justify-between gap-3">
                     <span className="grid h-14 w-14 place-items-center rounded-2xl bg-secondary/12 text-secondary">
                       <c.icon className="h-7 w-7" />
@@ -98,7 +98,7 @@ function ServicesIndex() {
                   <div className="mt-5 flex flex-wrap items-center gap-2.5">
                     <Link
                       to={c.to}
-                      className="inline-flex min-h-11 items-center gap-1.5 rounded-xl border border-primary px-4 py-2 text-sm font-semibold text-primary transition-colors after:absolute after:inset-0 after:rounded-[1.75rem] after:content-[''] hover:bg-primary hover:text-primary-foreground focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+                      className="inline-flex min-h-11 items-center gap-1.5 rounded-md border border-primary/25 px-4 py-2 text-sm font-semibold text-primary transition-colors after:absolute after:inset-0 after:rounded-lg after:content-[''] hover:border-primary hover:bg-primary hover:text-primary-foreground focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
                       aria-label={`Learn more about ${c.title}`}
                     >
                       Learn More <ArrowRight className="h-4 w-4 rtl:rotate-180" />
@@ -107,7 +107,7 @@ function ServicesIndex() {
                       href={WHATSAPP_CONSULT_URL}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="relative z-10 inline-flex min-h-11 items-center gap-1.5 rounded-xl bg-gradient-to-r from-primary to-secondary px-4 py-2 text-sm font-semibold text-primary-foreground shadow-soft transition-opacity hover:opacity-90"
+                      className="relative z-10 inline-flex min-h-11 items-center gap-1.5 rounded-md bg-secondary px-4 py-2 text-sm font-semibold text-secondary-foreground transition-colors hover:bg-secondary/90"
                       aria-label={`Ask about ${c.title} on WhatsApp`}
                     >
                       <MessageCircle className="h-4 w-4" /> WhatsApp
