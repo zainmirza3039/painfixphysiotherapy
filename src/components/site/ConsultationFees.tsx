@@ -1,7 +1,7 @@
 import { Building2, Calendar, Check, MessageCircle, Video } from "lucide-react";
+import { Link } from "@tanstack/react-router";
 import { Reveal } from "./Reveal";
 import { SectionHeading } from "./SectionHeading";
-import { openCalendlyPopup } from "./calendly";
 import { WHATSAPP_CONSULT_URL } from "./constants";
 
 interface Fee {
@@ -86,13 +86,12 @@ export function ConsultationFees() {
                         <MessageCircle className="h-4 w-4" aria-hidden="true" /> Ask on WhatsApp
                       </a>
                     ) : (
-                      <button
-                        type="button"
-                        onClick={() => openCalendlyPopup()}
+                      <Link
+                        to="/book-appointment"
                         className="inline-flex min-h-11 items-center justify-center gap-2 rounded-md bg-primary px-4 py-2.5 text-sm font-semibold text-primary-foreground hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
                       >
                         <Calendar className="h-4 w-4" aria-hidden="true" /> Book online
-                      </button>
+                      </Link>
                     )}
                   </div>
                 </article>

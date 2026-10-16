@@ -9,7 +9,10 @@ type TreatmentService = {
   description: string;
   icon: LucideIcon;
   action: string;
-} & ({ slug: string; href?: never } | { href: string; slug?: never });
+} & (
+  | { slug: string; href?: never; to?: never }
+  | { to: "/contact" | "/services"; href?: never; slug?: never }
+);
 
 const treatmentServices: TreatmentService[] = [
   {
@@ -30,7 +33,7 @@ const treatmentServices: TreatmentService[] = [
     title: "Kinesiology Taping",
     description: "Ask the PainFix team whether taping is suitable for your care plan.",
     icon: Activity,
-    href: "#contact",
+    to: "/contact",
     action: "Ask our team",
   },
   {
@@ -44,7 +47,7 @@ const treatmentServices: TreatmentService[] = [
     title: "Rehabilitation",
     description: "Explore physiotherapy and rehabilitation options for different recovery goals.",
     icon: HeartPulse,
-    href: "/services",
+    to: "/services",
     action: "Browse services",
   },
 ];
@@ -102,11 +105,11 @@ export function Services() {
                 >
                   <TreatmentCardContent service={service} />
                 </Link>
-              ) : (
-                <a href={service.href} className={cardClassName}>
+              ) : service.to ? (
+                <Link to={service.to} className={cardClassName}>
                   <TreatmentCardContent service={service} />
-                </a>
-              )}
+                </Link>
+              ) : null}
             </Reveal>
           ))}
         </div>

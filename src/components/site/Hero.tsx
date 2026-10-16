@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import type { TouchEvent as ReactTouchEvent } from "react";
+import { Link } from "@tanstack/react-router";
 import {
   CalendarDays,
   ChevronLeft,
@@ -26,7 +27,6 @@ import clinicRehab540 from "@/assets/clinic-rehab-540.webp";
 import clinicRehabImg from "@/assets/clinic-photo-4.webp";
 import userClinicImg from "@/assets/hero-clinic-treatment.webp";
 import { WHATSAPP_CONSULT_URL } from "./constants";
-import { openCalendlyPopup } from "./calendly";
 
 const HERO_SIZES =
   "(min-width: 1280px) 552px, (min-width: 1024px) 42vw, (min-width: 640px) 80vw, 100vw";
@@ -197,13 +197,12 @@ export function Hero() {
           </p>
 
           <div className="mt-8 flex flex-col gap-3 min-[420px]:flex-row">
-            <button
-              type="button"
-              onClick={() => openCalendlyPopup()}
+            <Link
+              to="/book-appointment"
               className="inline-flex min-h-12 items-center justify-center gap-2 rounded-md bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
             >
               <CalendarDays className="h-4 w-4" aria-hidden="true" /> Book an appointment
-            </button>
+            </Link>
             <a
               href={WHATSAPP_CONSULT_URL}
               target="_blank"

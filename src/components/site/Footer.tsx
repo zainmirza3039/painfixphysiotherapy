@@ -98,6 +98,22 @@ export function Footer() {
             <ul className="mt-4 space-y-2 text-sm">
               <li>
                 <Link
+                  to="/about"
+                  className="text-background/70 transition-colors hover:text-secondary"
+                >
+                  About PainFix
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/our-team"
+                  className="text-background/70 transition-colors hover:text-secondary"
+                >
+                  Our Team
+                </Link>
+              </li>
+              <li>
+                <Link
                   to="/services"
                   className="text-background/70 transition-colors hover:text-secondary"
                 >
@@ -142,6 +158,30 @@ export function Footer() {
                   className="text-background/70 transition-colors hover:text-secondary"
                 >
                   Membership
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/gallery"
+                  className="text-background/70 transition-colors hover:text-secondary"
+                >
+                  Clinic Gallery
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/contact"
+                  className="text-background/70 transition-colors hover:text-secondary"
+                >
+                  Contact
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/book-appointment"
+                  className="text-background/70 transition-colors hover:text-secondary"
+                >
+                  Book an Appointment
                 </Link>
               </li>
             </ul>

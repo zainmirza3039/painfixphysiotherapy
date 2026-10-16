@@ -1,7 +1,7 @@
 import { ArrowUpRight, CalendarDays, MessageCircle } from "lucide-react";
+import { Link } from "@tanstack/react-router";
 import { Reveal } from "./Reveal";
 import { WHATSAPP_CONSULT_URL } from "./constants";
-import { openCalendlyPopup } from "./calendly";
 
 export function CTA() {
   return (
@@ -21,13 +21,12 @@ export function CTA() {
               </p>
             </div>
             <div className="flex w-full flex-col gap-3 sm:w-auto sm:min-w-56">
-              <button
-                type="button"
-                onClick={() => openCalendlyPopup()}
+              <Link
+                to="/book-appointment"
                 className="inline-flex min-h-12 items-center justify-center gap-2 rounded-md bg-white px-5 py-3 text-sm font-semibold text-primary transition-colors hover:bg-[#EAF5EF] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-primary"
               >
                 <CalendarDays className="h-4 w-4" aria-hidden="true" /> Book an appointment
-              </button>
+              </Link>
               <a
                 href={WHATSAPP_CONSULT_URL}
                 target="_blank"
