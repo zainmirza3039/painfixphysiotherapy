@@ -9,137 +9,75 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as TermsRouteImport } from './routes/terms'
-import { Route as SuccessStoriesRouteImport } from './routes/success-stories'
-import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
-import { Route as SearchRouteImport } from './routes/search'
-import { Route as ResetPasswordRouteImport } from './routes/reset-password'
-import { Route as PrivacyRouteImport } from './routes/privacy'
-import { Route as PhysiotherapyClinicInMultanRouteImport } from './routes/physiotherapy-clinic-in-multan'
-import { Route as PhysiotherapistInMultanRouteImport } from './routes/physiotherapist-in-multan'
-import { Route as MembershipRouteImport } from './routes/membership'
-import { Route as HomeVisitRouteImport } from './routes/home-visit'
-import { Route as HealthCalculatorsRouteImport } from './routes/health-calculators'
-import { Route as FitnessResourcesRouteImport } from './routes/fitness-resources'
-import { Route as FitnessRehabilitationRouteImport } from './routes/fitness-rehabilitation'
-import { Route as FitnessAssessmentRouteImport } from './routes/fitness-assessment'
-import { Route as DrZainUlAbideenPtMultanRouteImport } from './routes/dr-zain-ul-abideen-pt-multan'
-import { Route as DrJalalUdDinPtMultanRouteImport } from './routes/dr-jalal-ud-din-pt-multan'
-import { Route as DrFatimaIqbalDptMultanRouteImport } from './routes/dr-fatima-iqbal-dpt-multan'
-import { Route as BestPhysiotherapistInMultanRouteImport } from './routes/best-physiotherapist-in-multan'
-import { Route as AuthRouteImport } from './routes/auth'
-import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as ServicesIndexRouteImport } from './routes/services.index'
-import { Route as FitnessIndexRouteImport } from './routes/fitness.index'
-import { Route as DietNutritionIndexRouteImport } from './routes/diet-nutrition.index'
-import { Route as ConditionsIndexRouteImport } from './routes/conditions.index'
-import { Route as BlogIndexRouteImport } from './routes/blog.index'
-import { Route as ServicesSlugRouteImport } from './routes/services.$slug'
-import { Route as FitnessSlugRouteImport } from './routes/fitness.$slug'
-import { Route as DietNutritionSlugRouteImport } from './routes/diet-nutrition.$slug'
-import { Route as ConditionsSlugRouteImport } from './routes/conditions.$slug'
-import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
+import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
+import { Route as AboutRouteImport } from './routes/about'
+import { Route as AuthRouteImport } from './routes/auth'
+import { Route as BestPhysiotherapistInMultanRouteImport } from './routes/best-physiotherapist-in-multan'
+import { Route as BookAppointmentRouteImport } from './routes/book-appointment'
+import { Route as ContactRouteImport } from './routes/contact'
+import { Route as DrFatimaIqbalDptMultanRouteImport } from './routes/dr-fatima-iqbal-dpt-multan'
+import { Route as DrJalalUdDinPtMultanRouteImport } from './routes/dr-jalal-ud-din-pt-multan'
+import { Route as DrZainUlAbideenPtMultanRouteImport } from './routes/dr-zain-ul-abideen-pt-multan'
+import { Route as FitnessAssessmentRouteImport } from './routes/fitness-assessment'
+import { Route as FitnessRehabilitationRouteImport } from './routes/fitness-rehabilitation'
+import { Route as FitnessResourcesRouteImport } from './routes/fitness-resources'
+import { Route as GalleryRouteImport } from './routes/gallery'
+import { Route as HealthCalculatorsRouteImport } from './routes/health-calculators'
+import { Route as HomeVisitRouteImport } from './routes/home-visit'
+import { Route as MembershipRouteImport } from './routes/membership'
+import { Route as OurTeamRouteImport } from './routes/our-team'
+import { Route as PhysiotherapistInMultanRouteImport } from './routes/physiotherapist-in-multan'
+import { Route as PhysiotherapyClinicInMultanRouteImport } from './routes/physiotherapy-clinic-in-multan'
+import { Route as PrivacyRouteImport } from './routes/privacy'
+import { Route as ResetPasswordRouteImport } from './routes/reset-password'
+import { Route as SearchRouteImport } from './routes/search'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
+import { Route as SuccessStoriesRouteImport } from './routes/success-stories'
+import { Route as TermsRouteImport } from './routes/terms'
 import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
+import { Route as BlogIndexRouteImport } from './routes/blog.index'
+import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
+import { Route as ConditionsIndexRouteImport } from './routes/conditions.index'
+import { Route as ConditionsSlugRouteImport } from './routes/conditions.$slug'
+import { Route as DietNutritionIndexRouteImport } from './routes/diet-nutrition.index'
+import { Route as DietNutritionSlugRouteImport } from './routes/diet-nutrition.$slug'
+import { Route as FitnessIndexRouteImport } from './routes/fitness.index'
+import { Route as FitnessSlugRouteImport } from './routes/fitness.$slug'
+import { Route as ServicesIndexRouteImport } from './routes/services.index'
+import { Route as ServicesSlugRouteImport } from './routes/services.$slug'
 import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin.index'
-import { Route as BlogCategoryCategoryRouteImport } from './routes/blog.category.$category'
-import { Route as AuthenticatedAdminUsersRouteImport } from './routes/_authenticated/admin.users'
-import { Route as AuthenticatedAdminSettingsRouteImport } from './routes/_authenticated/admin.settings'
-import { Route as AuthenticatedAdminReportsRouteImport } from './routes/_authenticated/admin.reports'
-import { Route as AuthenticatedAdminProfileRouteImport } from './routes/_authenticated/admin.profile'
-import { Route as AuthenticatedAdminPatientsRouteImport } from './routes/_authenticated/admin.patients'
-import { Route as AuthenticatedAdminMessagesRouteImport } from './routes/_authenticated/admin.messages'
-import { Route as AuthenticatedAdminMediaRouteImport } from './routes/_authenticated/admin.media'
-import { Route as AuthenticatedAdminHomeVisitsRouteImport } from './routes/_authenticated/admin.home-visits'
-import { Route as AuthenticatedAdminFitnessContentRouteImport } from './routes/_authenticated/admin.fitness-content'
-import { Route as AuthenticatedAdminCalculatorsRouteImport } from './routes/_authenticated/admin.calculators'
-import { Route as AuthenticatedAdminBlogRouteImport } from './routes/_authenticated/admin.blog'
 import { Route as AuthenticatedAdminAppointmentsRouteImport } from './routes/_authenticated/admin.appointments'
+import { Route as AuthenticatedAdminBlogRouteImport } from './routes/_authenticated/admin.blog'
+import { Route as AuthenticatedAdminCalculatorsRouteImport } from './routes/_authenticated/admin.calculators'
+import { Route as AuthenticatedAdminFitnessContentRouteImport } from './routes/_authenticated/admin.fitness-content'
+import { Route as AuthenticatedAdminHomeVisitsRouteImport } from './routes/_authenticated/admin.home-visits'
+import { Route as AuthenticatedAdminMediaRouteImport } from './routes/_authenticated/admin.media'
+import { Route as AuthenticatedAdminMessagesRouteImport } from './routes/_authenticated/admin.messages'
+import { Route as AuthenticatedAdminPatientsRouteImport } from './routes/_authenticated/admin.patients'
+import { Route as AuthenticatedAdminProfileRouteImport } from './routes/_authenticated/admin.profile'
+import { Route as AuthenticatedAdminReportsRouteImport } from './routes/_authenticated/admin.reports'
+import { Route as AuthenticatedAdminSettingsRouteImport } from './routes/_authenticated/admin.settings'
+import { Route as AuthenticatedAdminUsersRouteImport } from './routes/_authenticated/admin.users'
+import { Route as BlogCategoryCategoryRouteImport } from './routes/blog.category.$category'
 
-const TermsRoute = TermsRouteImport.update({
-  id: '/terms',
-  path: '/terms',
+const IndexRoute = IndexRouteImport.update({
+  id: '/',
+  path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const SuccessStoriesRoute = SuccessStoriesRouteImport.update({
-  id: '/success-stories',
-  path: '/success-stories',
+const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
+  id: '/_authenticated',
   getParentRoute: () => rootRouteImport,
 } as any)
-const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
-  id: '/sitemap.xml',
-  path: '/sitemap.xml',
+const AboutRoute = AboutRouteImport.update({
+  id: '/about',
+  path: '/about',
   getParentRoute: () => rootRouteImport,
 } as any)
-const SearchRoute = SearchRouteImport.update({
-  id: '/search',
-  path: '/search',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ResetPasswordRoute = ResetPasswordRouteImport.update({
-  id: '/reset-password',
-  path: '/reset-password',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const PrivacyRoute = PrivacyRouteImport.update({
-  id: '/privacy',
-  path: '/privacy',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const PhysiotherapyClinicInMultanRoute =
-  PhysiotherapyClinicInMultanRouteImport.update({
-    id: '/physiotherapy-clinic-in-multan',
-    path: '/physiotherapy-clinic-in-multan',
-    getParentRoute: () => rootRouteImport,
-  } as any)
-const PhysiotherapistInMultanRoute = PhysiotherapistInMultanRouteImport.update({
-  id: '/physiotherapist-in-multan',
-  path: '/physiotherapist-in-multan',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const MembershipRoute = MembershipRouteImport.update({
-  id: '/membership',
-  path: '/membership',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const HomeVisitRoute = HomeVisitRouteImport.update({
-  id: '/home-visit',
-  path: '/home-visit',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const HealthCalculatorsRoute = HealthCalculatorsRouteImport.update({
-  id: '/health-calculators',
-  path: '/health-calculators',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const FitnessResourcesRoute = FitnessResourcesRouteImport.update({
-  id: '/fitness-resources',
-  path: '/fitness-resources',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const FitnessRehabilitationRoute = FitnessRehabilitationRouteImport.update({
-  id: '/fitness-rehabilitation',
-  path: '/fitness-rehabilitation',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const FitnessAssessmentRoute = FitnessAssessmentRouteImport.update({
-  id: '/fitness-assessment',
-  path: '/fitness-assessment',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const DrZainUlAbideenPtMultanRoute = DrZainUlAbideenPtMultanRouteImport.update({
-  id: '/dr-zain-ul-abideen-pt-multan',
-  path: '/dr-zain-ul-abideen-pt-multan',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const DrJalalUdDinPtMultanRoute = DrJalalUdDinPtMultanRouteImport.update({
-  id: '/dr-jalal-ud-din-pt-multan',
-  path: '/dr-jalal-ud-din-pt-multan',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const DrFatimaIqbalDptMultanRoute = DrFatimaIqbalDptMultanRouteImport.update({
-  id: '/dr-fatima-iqbal-dpt-multan',
-  path: '/dr-fatima-iqbal-dpt-multan',
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
   getParentRoute: () => rootRouteImport,
 } as any)
 const BestPhysiotherapistInMultanRoute =
@@ -148,68 +86,110 @@ const BestPhysiotherapistInMultanRoute =
     path: '/best-physiotherapist-in-multan',
     getParentRoute: () => rootRouteImport,
   } as any)
-const AuthRoute = AuthRouteImport.update({
-  id: '/auth',
-  path: '/auth',
+const BookAppointmentRoute = BookAppointmentRouteImport.update({
+  id: '/book-appointment',
+  path: '/book-appointment',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
-  id: '/_authenticated',
+const ContactRoute = ContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
   getParentRoute: () => rootRouteImport,
 } as any)
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
+const DrFatimaIqbalDptMultanRoute = DrFatimaIqbalDptMultanRouteImport.update({
+  id: '/dr-fatima-iqbal-dpt-multan',
+  path: '/dr-fatima-iqbal-dpt-multan',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ServicesIndexRoute = ServicesIndexRouteImport.update({
-  id: '/services/',
-  path: '/services/',
+const DrJalalUdDinPtMultanRoute = DrJalalUdDinPtMultanRouteImport.update({
+  id: '/dr-jalal-ud-din-pt-multan',
+  path: '/dr-jalal-ud-din-pt-multan',
   getParentRoute: () => rootRouteImport,
 } as any)
-const FitnessIndexRoute = FitnessIndexRouteImport.update({
-  id: '/fitness/',
-  path: '/fitness/',
+const DrZainUlAbideenPtMultanRoute = DrZainUlAbideenPtMultanRouteImport.update({
+  id: '/dr-zain-ul-abideen-pt-multan',
+  path: '/dr-zain-ul-abideen-pt-multan',
   getParentRoute: () => rootRouteImport,
 } as any)
-const DietNutritionIndexRoute = DietNutritionIndexRouteImport.update({
-  id: '/diet-nutrition/',
-  path: '/diet-nutrition/',
+const FitnessAssessmentRoute = FitnessAssessmentRouteImport.update({
+  id: '/fitness-assessment',
+  path: '/fitness-assessment',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ConditionsIndexRoute = ConditionsIndexRouteImport.update({
-  id: '/conditions/',
-  path: '/conditions/',
+const FitnessRehabilitationRoute = FitnessRehabilitationRouteImport.update({
+  id: '/fitness-rehabilitation',
+  path: '/fitness-rehabilitation',
   getParentRoute: () => rootRouteImport,
 } as any)
-const BlogIndexRoute = BlogIndexRouteImport.update({
-  id: '/blog/',
-  path: '/blog/',
+const FitnessResourcesRoute = FitnessResourcesRouteImport.update({
+  id: '/fitness-resources',
+  path: '/fitness-resources',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ServicesSlugRoute = ServicesSlugRouteImport.update({
-  id: '/services/$slug',
-  path: '/services/$slug',
+const GalleryRoute = GalleryRouteImport.update({
+  id: '/gallery',
+  path: '/gallery',
   getParentRoute: () => rootRouteImport,
 } as any)
-const FitnessSlugRoute = FitnessSlugRouteImport.update({
-  id: '/fitness/$slug',
-  path: '/fitness/$slug',
+const HealthCalculatorsRoute = HealthCalculatorsRouteImport.update({
+  id: '/health-calculators',
+  path: '/health-calculators',
   getParentRoute: () => rootRouteImport,
 } as any)
-const DietNutritionSlugRoute = DietNutritionSlugRouteImport.update({
-  id: '/diet-nutrition/$slug',
-  path: '/diet-nutrition/$slug',
+const HomeVisitRoute = HomeVisitRouteImport.update({
+  id: '/home-visit',
+  path: '/home-visit',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ConditionsSlugRoute = ConditionsSlugRouteImport.update({
-  id: '/conditions/$slug',
-  path: '/conditions/$slug',
+const MembershipRoute = MembershipRouteImport.update({
+  id: '/membership',
+  path: '/membership',
   getParentRoute: () => rootRouteImport,
 } as any)
-const BlogSlugRoute = BlogSlugRouteImport.update({
-  id: '/blog/$slug',
-  path: '/blog/$slug',
+const OurTeamRoute = OurTeamRouteImport.update({
+  id: '/our-team',
+  path: '/our-team',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PhysiotherapistInMultanRoute = PhysiotherapistInMultanRouteImport.update({
+  id: '/physiotherapist-in-multan',
+  path: '/physiotherapist-in-multan',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PhysiotherapyClinicInMultanRoute =
+  PhysiotherapyClinicInMultanRouteImport.update({
+    id: '/physiotherapy-clinic-in-multan',
+    path: '/physiotherapy-clinic-in-multan',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const PrivacyRoute = PrivacyRouteImport.update({
+  id: '/privacy',
+  path: '/privacy',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ResetPasswordRoute = ResetPasswordRouteImport.update({
+  id: '/reset-password',
+  path: '/reset-password',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SearchRoute = SearchRouteImport.update({
+  id: '/search',
+  path: '/search',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SuccessStoriesRoute = SuccessStoriesRouteImport.update({
+  id: '/success-stories',
+  path: '/success-stories',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TermsRoute = TermsRouteImport.update({
+  id: '/terms',
+  path: '/terms',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthenticatedAdminRoute = AuthenticatedAdminRouteImport.update({
@@ -217,77 +197,59 @@ const AuthenticatedAdminRoute = AuthenticatedAdminRouteImport.update({
   path: '/admin',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const BlogIndexRoute = BlogIndexRouteImport.update({
+  id: '/blog/',
+  path: '/blog/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BlogSlugRoute = BlogSlugRouteImport.update({
+  id: '/blog/$slug',
+  path: '/blog/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ConditionsIndexRoute = ConditionsIndexRouteImport.update({
+  id: '/conditions/',
+  path: '/conditions/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ConditionsSlugRoute = ConditionsSlugRouteImport.update({
+  id: '/conditions/$slug',
+  path: '/conditions/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DietNutritionIndexRoute = DietNutritionIndexRouteImport.update({
+  id: '/diet-nutrition/',
+  path: '/diet-nutrition/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DietNutritionSlugRoute = DietNutritionSlugRouteImport.update({
+  id: '/diet-nutrition/$slug',
+  path: '/diet-nutrition/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FitnessIndexRoute = FitnessIndexRouteImport.update({
+  id: '/fitness/',
+  path: '/fitness/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FitnessSlugRoute = FitnessSlugRouteImport.update({
+  id: '/fitness/$slug',
+  path: '/fitness/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ServicesIndexRoute = ServicesIndexRouteImport.update({
+  id: '/services/',
+  path: '/services/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ServicesSlugRoute = ServicesSlugRouteImport.update({
+  id: '/services/$slug',
+  path: '/services/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AuthenticatedAdminIndexRoute = AuthenticatedAdminIndexRouteImport.update({
   id: '/',
   path: '/',
-  getParentRoute: () => AuthenticatedAdminRoute,
-} as any)
-const BlogCategoryCategoryRoute = BlogCategoryCategoryRouteImport.update({
-  id: '/blog/category/$category',
-  path: '/blog/category/$category',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AuthenticatedAdminUsersRoute = AuthenticatedAdminUsersRouteImport.update({
-  id: '/users',
-  path: '/users',
-  getParentRoute: () => AuthenticatedAdminRoute,
-} as any)
-const AuthenticatedAdminSettingsRoute =
-  AuthenticatedAdminSettingsRouteImport.update({
-    id: '/settings',
-    path: '/settings',
-    getParentRoute: () => AuthenticatedAdminRoute,
-  } as any)
-const AuthenticatedAdminReportsRoute =
-  AuthenticatedAdminReportsRouteImport.update({
-    id: '/reports',
-    path: '/reports',
-    getParentRoute: () => AuthenticatedAdminRoute,
-  } as any)
-const AuthenticatedAdminProfileRoute =
-  AuthenticatedAdminProfileRouteImport.update({
-    id: '/profile',
-    path: '/profile',
-    getParentRoute: () => AuthenticatedAdminRoute,
-  } as any)
-const AuthenticatedAdminPatientsRoute =
-  AuthenticatedAdminPatientsRouteImport.update({
-    id: '/patients',
-    path: '/patients',
-    getParentRoute: () => AuthenticatedAdminRoute,
-  } as any)
-const AuthenticatedAdminMessagesRoute =
-  AuthenticatedAdminMessagesRouteImport.update({
-    id: '/messages',
-    path: '/messages',
-    getParentRoute: () => AuthenticatedAdminRoute,
-  } as any)
-const AuthenticatedAdminMediaRoute = AuthenticatedAdminMediaRouteImport.update({
-  id: '/media',
-  path: '/media',
-  getParentRoute: () => AuthenticatedAdminRoute,
-} as any)
-const AuthenticatedAdminHomeVisitsRoute =
-  AuthenticatedAdminHomeVisitsRouteImport.update({
-    id: '/home-visits',
-    path: '/home-visits',
-    getParentRoute: () => AuthenticatedAdminRoute,
-  } as any)
-const AuthenticatedAdminFitnessContentRoute =
-  AuthenticatedAdminFitnessContentRouteImport.update({
-    id: '/fitness-content',
-    path: '/fitness-content',
-    getParentRoute: () => AuthenticatedAdminRoute,
-  } as any)
-const AuthenticatedAdminCalculatorsRoute =
-  AuthenticatedAdminCalculatorsRouteImport.update({
-    id: '/calculators',
-    path: '/calculators',
-    getParentRoute: () => AuthenticatedAdminRoute,
-  } as any)
-const AuthenticatedAdminBlogRoute = AuthenticatedAdminBlogRouteImport.update({
-  id: '/blog',
-  path: '/blog',
   getParentRoute: () => AuthenticatedAdminRoute,
 } as any)
 const AuthenticatedAdminAppointmentsRoute =
@@ -296,20 +258,93 @@ const AuthenticatedAdminAppointmentsRoute =
     path: '/appointments',
     getParentRoute: () => AuthenticatedAdminRoute,
   } as any)
+const AuthenticatedAdminBlogRoute = AuthenticatedAdminBlogRouteImport.update({
+  id: '/blog',
+  path: '/blog',
+  getParentRoute: () => AuthenticatedAdminRoute,
+} as any)
+const AuthenticatedAdminCalculatorsRoute =
+  AuthenticatedAdminCalculatorsRouteImport.update({
+    id: '/calculators',
+    path: '/calculators',
+    getParentRoute: () => AuthenticatedAdminRoute,
+  } as any)
+const AuthenticatedAdminFitnessContentRoute =
+  AuthenticatedAdminFitnessContentRouteImport.update({
+    id: '/fitness-content',
+    path: '/fitness-content',
+    getParentRoute: () => AuthenticatedAdminRoute,
+  } as any)
+const AuthenticatedAdminHomeVisitsRoute =
+  AuthenticatedAdminHomeVisitsRouteImport.update({
+    id: '/home-visits',
+    path: '/home-visits',
+    getParentRoute: () => AuthenticatedAdminRoute,
+  } as any)
+const AuthenticatedAdminMediaRoute = AuthenticatedAdminMediaRouteImport.update({
+  id: '/media',
+  path: '/media',
+  getParentRoute: () => AuthenticatedAdminRoute,
+} as any)
+const AuthenticatedAdminMessagesRoute =
+  AuthenticatedAdminMessagesRouteImport.update({
+    id: '/messages',
+    path: '/messages',
+    getParentRoute: () => AuthenticatedAdminRoute,
+  } as any)
+const AuthenticatedAdminPatientsRoute =
+  AuthenticatedAdminPatientsRouteImport.update({
+    id: '/patients',
+    path: '/patients',
+    getParentRoute: () => AuthenticatedAdminRoute,
+  } as any)
+const AuthenticatedAdminProfileRoute =
+  AuthenticatedAdminProfileRouteImport.update({
+    id: '/profile',
+    path: '/profile',
+    getParentRoute: () => AuthenticatedAdminRoute,
+  } as any)
+const AuthenticatedAdminReportsRoute =
+  AuthenticatedAdminReportsRouteImport.update({
+    id: '/reports',
+    path: '/reports',
+    getParentRoute: () => AuthenticatedAdminRoute,
+  } as any)
+const AuthenticatedAdminSettingsRoute =
+  AuthenticatedAdminSettingsRouteImport.update({
+    id: '/settings',
+    path: '/settings',
+    getParentRoute: () => AuthenticatedAdminRoute,
+  } as any)
+const AuthenticatedAdminUsersRoute = AuthenticatedAdminUsersRouteImport.update({
+  id: '/users',
+  path: '/users',
+  getParentRoute: () => AuthenticatedAdminRoute,
+} as any)
+const BlogCategoryCategoryRoute = BlogCategoryCategoryRouteImport.update({
+  id: '/blog/category/$category',
+  path: '/blog/category/$category',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
   '/auth': typeof AuthRoute
   '/best-physiotherapist-in-multan': typeof BestPhysiotherapistInMultanRoute
+  '/book-appointment': typeof BookAppointmentRoute
+  '/contact': typeof ContactRoute
   '/dr-fatima-iqbal-dpt-multan': typeof DrFatimaIqbalDptMultanRoute
   '/dr-jalal-ud-din-pt-multan': typeof DrJalalUdDinPtMultanRoute
   '/dr-zain-ul-abideen-pt-multan': typeof DrZainUlAbideenPtMultanRoute
   '/fitness-assessment': typeof FitnessAssessmentRoute
   '/fitness-rehabilitation': typeof FitnessRehabilitationRoute
   '/fitness-resources': typeof FitnessResourcesRoute
+  '/gallery': typeof GalleryRoute
   '/health-calculators': typeof HealthCalculatorsRoute
   '/home-visit': typeof HomeVisitRoute
   '/membership': typeof MembershipRoute
+  '/our-team': typeof OurTeamRoute
   '/physiotherapist-in-multan': typeof PhysiotherapistInMultanRoute
   '/physiotherapy-clinic-in-multan': typeof PhysiotherapyClinicInMultanRoute
   '/privacy': typeof PrivacyRoute
@@ -346,17 +381,22 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
   '/auth': typeof AuthRoute
   '/best-physiotherapist-in-multan': typeof BestPhysiotherapistInMultanRoute
+  '/book-appointment': typeof BookAppointmentRoute
+  '/contact': typeof ContactRoute
   '/dr-fatima-iqbal-dpt-multan': typeof DrFatimaIqbalDptMultanRoute
   '/dr-jalal-ud-din-pt-multan': typeof DrJalalUdDinPtMultanRoute
   '/dr-zain-ul-abideen-pt-multan': typeof DrZainUlAbideenPtMultanRoute
   '/fitness-assessment': typeof FitnessAssessmentRoute
   '/fitness-rehabilitation': typeof FitnessRehabilitationRoute
   '/fitness-resources': typeof FitnessResourcesRoute
+  '/gallery': typeof GalleryRoute
   '/health-calculators': typeof HealthCalculatorsRoute
   '/home-visit': typeof HomeVisitRoute
   '/membership': typeof MembershipRoute
+  '/our-team': typeof OurTeamRoute
   '/physiotherapist-in-multan': typeof PhysiotherapistInMultanRoute
   '/physiotherapy-clinic-in-multan': typeof PhysiotherapyClinicInMultanRoute
   '/privacy': typeof PrivacyRoute
@@ -394,17 +434,22 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
+  '/about': typeof AboutRoute
   '/auth': typeof AuthRoute
   '/best-physiotherapist-in-multan': typeof BestPhysiotherapistInMultanRoute
+  '/book-appointment': typeof BookAppointmentRoute
+  '/contact': typeof ContactRoute
   '/dr-fatima-iqbal-dpt-multan': typeof DrFatimaIqbalDptMultanRoute
   '/dr-jalal-ud-din-pt-multan': typeof DrJalalUdDinPtMultanRoute
   '/dr-zain-ul-abideen-pt-multan': typeof DrZainUlAbideenPtMultanRoute
   '/fitness-assessment': typeof FitnessAssessmentRoute
   '/fitness-rehabilitation': typeof FitnessRehabilitationRoute
   '/fitness-resources': typeof FitnessResourcesRoute
+  '/gallery': typeof GalleryRoute
   '/health-calculators': typeof HealthCalculatorsRoute
   '/home-visit': typeof HomeVisitRoute
   '/membership': typeof MembershipRoute
+  '/our-team': typeof OurTeamRoute
   '/physiotherapist-in-multan': typeof PhysiotherapistInMultanRoute
   '/physiotherapy-clinic-in-multan': typeof PhysiotherapyClinicInMultanRoute
   '/privacy': typeof PrivacyRoute
@@ -443,17 +488,22 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/about'
     | '/auth'
     | '/best-physiotherapist-in-multan'
+    | '/book-appointment'
+    | '/contact'
     | '/dr-fatima-iqbal-dpt-multan'
     | '/dr-jalal-ud-din-pt-multan'
     | '/dr-zain-ul-abideen-pt-multan'
     | '/fitness-assessment'
     | '/fitness-rehabilitation'
     | '/fitness-resources'
+    | '/gallery'
     | '/health-calculators'
     | '/home-visit'
     | '/membership'
+    | '/our-team'
     | '/physiotherapist-in-multan'
     | '/physiotherapy-clinic-in-multan'
     | '/privacy'
@@ -490,17 +540,22 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/about'
     | '/auth'
     | '/best-physiotherapist-in-multan'
+    | '/book-appointment'
+    | '/contact'
     | '/dr-fatima-iqbal-dpt-multan'
     | '/dr-jalal-ud-din-pt-multan'
     | '/dr-zain-ul-abideen-pt-multan'
     | '/fitness-assessment'
     | '/fitness-rehabilitation'
     | '/fitness-resources'
+    | '/gallery'
     | '/health-calculators'
     | '/home-visit'
     | '/membership'
+    | '/our-team'
     | '/physiotherapist-in-multan'
     | '/physiotherapy-clinic-in-multan'
     | '/privacy'
@@ -537,17 +592,22 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/_authenticated'
+    | '/about'
     | '/auth'
     | '/best-physiotherapist-in-multan'
+    | '/book-appointment'
+    | '/contact'
     | '/dr-fatima-iqbal-dpt-multan'
     | '/dr-jalal-ud-din-pt-multan'
     | '/dr-zain-ul-abideen-pt-multan'
     | '/fitness-assessment'
     | '/fitness-rehabilitation'
     | '/fitness-resources'
+    | '/gallery'
     | '/health-calculators'
     | '/home-visit'
     | '/membership'
+    | '/our-team'
     | '/physiotherapist-in-multan'
     | '/physiotherapy-clinic-in-multan'
     | '/privacy'
@@ -586,17 +646,22 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
+  AboutRoute: typeof AboutRoute
   AuthRoute: typeof AuthRoute
   BestPhysiotherapistInMultanRoute: typeof BestPhysiotherapistInMultanRoute
+  BookAppointmentRoute: typeof BookAppointmentRoute
+  ContactRoute: typeof ContactRoute
   DrFatimaIqbalDptMultanRoute: typeof DrFatimaIqbalDptMultanRoute
   DrJalalUdDinPtMultanRoute: typeof DrJalalUdDinPtMultanRoute
   DrZainUlAbideenPtMultanRoute: typeof DrZainUlAbideenPtMultanRoute
   FitnessAssessmentRoute: typeof FitnessAssessmentRoute
   FitnessRehabilitationRoute: typeof FitnessRehabilitationRoute
   FitnessResourcesRoute: typeof FitnessResourcesRoute
+  GalleryRoute: typeof GalleryRoute
   HealthCalculatorsRoute: typeof HealthCalculatorsRoute
   HomeVisitRoute: typeof HomeVisitRoute
   MembershipRoute: typeof MembershipRoute
+  OurTeamRoute: typeof OurTeamRoute
   PhysiotherapistInMultanRoute: typeof PhysiotherapistInMultanRoute
   PhysiotherapyClinicInMultanRoute: typeof PhysiotherapyClinicInMultanRoute
   PrivacyRoute: typeof PrivacyRoute
@@ -620,137 +685,11 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/terms': {
-      id: '/terms'
-      path: '/terms'
-      fullPath: '/terms'
-      preLoaderRoute: typeof TermsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/success-stories': {
-      id: '/success-stories'
-      path: '/success-stories'
-      fullPath: '/success-stories'
-      preLoaderRoute: typeof SuccessStoriesRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/sitemap.xml': {
-      id: '/sitemap.xml'
-      path: '/sitemap.xml'
-      fullPath: '/sitemap.xml'
-      preLoaderRoute: typeof SitemapDotxmlRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/search': {
-      id: '/search'
-      path: '/search'
-      fullPath: '/search'
-      preLoaderRoute: typeof SearchRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/reset-password': {
-      id: '/reset-password'
-      path: '/reset-password'
-      fullPath: '/reset-password'
-      preLoaderRoute: typeof ResetPasswordRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/privacy': {
-      id: '/privacy'
-      path: '/privacy'
-      fullPath: '/privacy'
-      preLoaderRoute: typeof PrivacyRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/physiotherapy-clinic-in-multan': {
-      id: '/physiotherapy-clinic-in-multan'
-      path: '/physiotherapy-clinic-in-multan'
-      fullPath: '/physiotherapy-clinic-in-multan'
-      preLoaderRoute: typeof PhysiotherapyClinicInMultanRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/physiotherapist-in-multan': {
-      id: '/physiotherapist-in-multan'
-      path: '/physiotherapist-in-multan'
-      fullPath: '/physiotherapist-in-multan'
-      preLoaderRoute: typeof PhysiotherapistInMultanRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/membership': {
-      id: '/membership'
-      path: '/membership'
-      fullPath: '/membership'
-      preLoaderRoute: typeof MembershipRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/home-visit': {
-      id: '/home-visit'
-      path: '/home-visit'
-      fullPath: '/home-visit'
-      preLoaderRoute: typeof HomeVisitRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/health-calculators': {
-      id: '/health-calculators'
-      path: '/health-calculators'
-      fullPath: '/health-calculators'
-      preLoaderRoute: typeof HealthCalculatorsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/fitness-resources': {
-      id: '/fitness-resources'
-      path: '/fitness-resources'
-      fullPath: '/fitness-resources'
-      preLoaderRoute: typeof FitnessResourcesRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/fitness-rehabilitation': {
-      id: '/fitness-rehabilitation'
-      path: '/fitness-rehabilitation'
-      fullPath: '/fitness-rehabilitation'
-      preLoaderRoute: typeof FitnessRehabilitationRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/fitness-assessment': {
-      id: '/fitness-assessment'
-      path: '/fitness-assessment'
-      fullPath: '/fitness-assessment'
-      preLoaderRoute: typeof FitnessAssessmentRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/dr-zain-ul-abideen-pt-multan': {
-      id: '/dr-zain-ul-abideen-pt-multan'
-      path: '/dr-zain-ul-abideen-pt-multan'
-      fullPath: '/dr-zain-ul-abideen-pt-multan'
-      preLoaderRoute: typeof DrZainUlAbideenPtMultanRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/dr-jalal-ud-din-pt-multan': {
-      id: '/dr-jalal-ud-din-pt-multan'
-      path: '/dr-jalal-ud-din-pt-multan'
-      fullPath: '/dr-jalal-ud-din-pt-multan'
-      preLoaderRoute: typeof DrJalalUdDinPtMultanRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/dr-fatima-iqbal-dpt-multan': {
-      id: '/dr-fatima-iqbal-dpt-multan'
-      path: '/dr-fatima-iqbal-dpt-multan'
-      fullPath: '/dr-fatima-iqbal-dpt-multan'
-      preLoaderRoute: typeof DrFatimaIqbalDptMultanRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/best-physiotherapist-in-multan': {
-      id: '/best-physiotherapist-in-multan'
-      path: '/best-physiotherapist-in-multan'
-      fullPath: '/best-physiotherapist-in-multan'
-      preLoaderRoute: typeof BestPhysiotherapistInMultanRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/auth': {
-      id: '/auth'
-      path: '/auth'
-      fullPath: '/auth'
-      preLoaderRoute: typeof AuthRouteImport
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_authenticated': {
@@ -760,81 +699,172 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
+    '/about': {
+      id: '/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof AboutRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/services/': {
-      id: '/services/'
-      path: '/services'
-      fullPath: '/services/'
-      preLoaderRoute: typeof ServicesIndexRouteImport
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/fitness/': {
-      id: '/fitness/'
-      path: '/fitness'
-      fullPath: '/fitness/'
-      preLoaderRoute: typeof FitnessIndexRouteImport
+    '/best-physiotherapist-in-multan': {
+      id: '/best-physiotherapist-in-multan'
+      path: '/best-physiotherapist-in-multan'
+      fullPath: '/best-physiotherapist-in-multan'
+      preLoaderRoute: typeof BestPhysiotherapistInMultanRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/diet-nutrition/': {
-      id: '/diet-nutrition/'
-      path: '/diet-nutrition'
-      fullPath: '/diet-nutrition/'
-      preLoaderRoute: typeof DietNutritionIndexRouteImport
+    '/book-appointment': {
+      id: '/book-appointment'
+      path: '/book-appointment'
+      fullPath: '/book-appointment'
+      preLoaderRoute: typeof BookAppointmentRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/conditions/': {
-      id: '/conditions/'
-      path: '/conditions'
-      fullPath: '/conditions/'
-      preLoaderRoute: typeof ConditionsIndexRouteImport
+    '/contact': {
+      id: '/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof ContactRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/blog/': {
-      id: '/blog/'
-      path: '/blog'
-      fullPath: '/blog/'
-      preLoaderRoute: typeof BlogIndexRouteImport
+    '/dr-fatima-iqbal-dpt-multan': {
+      id: '/dr-fatima-iqbal-dpt-multan'
+      path: '/dr-fatima-iqbal-dpt-multan'
+      fullPath: '/dr-fatima-iqbal-dpt-multan'
+      preLoaderRoute: typeof DrFatimaIqbalDptMultanRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/services/$slug': {
-      id: '/services/$slug'
-      path: '/services/$slug'
-      fullPath: '/services/$slug'
-      preLoaderRoute: typeof ServicesSlugRouteImport
+    '/dr-jalal-ud-din-pt-multan': {
+      id: '/dr-jalal-ud-din-pt-multan'
+      path: '/dr-jalal-ud-din-pt-multan'
+      fullPath: '/dr-jalal-ud-din-pt-multan'
+      preLoaderRoute: typeof DrJalalUdDinPtMultanRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/fitness/$slug': {
-      id: '/fitness/$slug'
-      path: '/fitness/$slug'
-      fullPath: '/fitness/$slug'
-      preLoaderRoute: typeof FitnessSlugRouteImport
+    '/dr-zain-ul-abideen-pt-multan': {
+      id: '/dr-zain-ul-abideen-pt-multan'
+      path: '/dr-zain-ul-abideen-pt-multan'
+      fullPath: '/dr-zain-ul-abideen-pt-multan'
+      preLoaderRoute: typeof DrZainUlAbideenPtMultanRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/diet-nutrition/$slug': {
-      id: '/diet-nutrition/$slug'
-      path: '/diet-nutrition/$slug'
-      fullPath: '/diet-nutrition/$slug'
-      preLoaderRoute: typeof DietNutritionSlugRouteImport
+    '/fitness-assessment': {
+      id: '/fitness-assessment'
+      path: '/fitness-assessment'
+      fullPath: '/fitness-assessment'
+      preLoaderRoute: typeof FitnessAssessmentRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/conditions/$slug': {
-      id: '/conditions/$slug'
-      path: '/conditions/$slug'
-      fullPath: '/conditions/$slug'
-      preLoaderRoute: typeof ConditionsSlugRouteImport
+    '/fitness-rehabilitation': {
+      id: '/fitness-rehabilitation'
+      path: '/fitness-rehabilitation'
+      fullPath: '/fitness-rehabilitation'
+      preLoaderRoute: typeof FitnessRehabilitationRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/blog/$slug': {
-      id: '/blog/$slug'
-      path: '/blog/$slug'
-      fullPath: '/blog/$slug'
-      preLoaderRoute: typeof BlogSlugRouteImport
+    '/fitness-resources': {
+      id: '/fitness-resources'
+      path: '/fitness-resources'
+      fullPath: '/fitness-resources'
+      preLoaderRoute: typeof FitnessResourcesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/gallery': {
+      id: '/gallery'
+      path: '/gallery'
+      fullPath: '/gallery'
+      preLoaderRoute: typeof GalleryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/health-calculators': {
+      id: '/health-calculators'
+      path: '/health-calculators'
+      fullPath: '/health-calculators'
+      preLoaderRoute: typeof HealthCalculatorsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/home-visit': {
+      id: '/home-visit'
+      path: '/home-visit'
+      fullPath: '/home-visit'
+      preLoaderRoute: typeof HomeVisitRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/membership': {
+      id: '/membership'
+      path: '/membership'
+      fullPath: '/membership'
+      preLoaderRoute: typeof MembershipRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/our-team': {
+      id: '/our-team'
+      path: '/our-team'
+      fullPath: '/our-team'
+      preLoaderRoute: typeof OurTeamRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/physiotherapist-in-multan': {
+      id: '/physiotherapist-in-multan'
+      path: '/physiotherapist-in-multan'
+      fullPath: '/physiotherapist-in-multan'
+      preLoaderRoute: typeof PhysiotherapistInMultanRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/physiotherapy-clinic-in-multan': {
+      id: '/physiotherapy-clinic-in-multan'
+      path: '/physiotherapy-clinic-in-multan'
+      fullPath: '/physiotherapy-clinic-in-multan'
+      preLoaderRoute: typeof PhysiotherapyClinicInMultanRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/privacy': {
+      id: '/privacy'
+      path: '/privacy'
+      fullPath: '/privacy'
+      preLoaderRoute: typeof PrivacyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/reset-password': {
+      id: '/reset-password'
+      path: '/reset-password'
+      fullPath: '/reset-password'
+      preLoaderRoute: typeof ResetPasswordRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/search': {
+      id: '/search'
+      path: '/search'
+      fullPath: '/search'
+      preLoaderRoute: typeof SearchRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/success-stories': {
+      id: '/success-stories'
+      path: '/success-stories'
+      fullPath: '/success-stories'
+      preLoaderRoute: typeof SuccessStoriesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/terms': {
+      id: '/terms'
+      path: '/terms'
+      fullPath: '/terms'
+      preLoaderRoute: typeof TermsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_authenticated/admin': {
@@ -844,6 +874,76 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/blog/': {
+      id: '/blog/'
+      path: '/blog'
+      fullPath: '/blog/'
+      preLoaderRoute: typeof BlogIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/blog/$slug': {
+      id: '/blog/$slug'
+      path: '/blog/$slug'
+      fullPath: '/blog/$slug'
+      preLoaderRoute: typeof BlogSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/conditions/': {
+      id: '/conditions/'
+      path: '/conditions'
+      fullPath: '/conditions/'
+      preLoaderRoute: typeof ConditionsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/conditions/$slug': {
+      id: '/conditions/$slug'
+      path: '/conditions/$slug'
+      fullPath: '/conditions/$slug'
+      preLoaderRoute: typeof ConditionsSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/diet-nutrition/': {
+      id: '/diet-nutrition/'
+      path: '/diet-nutrition'
+      fullPath: '/diet-nutrition/'
+      preLoaderRoute: typeof DietNutritionIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/diet-nutrition/$slug': {
+      id: '/diet-nutrition/$slug'
+      path: '/diet-nutrition/$slug'
+      fullPath: '/diet-nutrition/$slug'
+      preLoaderRoute: typeof DietNutritionSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/fitness/': {
+      id: '/fitness/'
+      path: '/fitness'
+      fullPath: '/fitness/'
+      preLoaderRoute: typeof FitnessIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/fitness/$slug': {
+      id: '/fitness/$slug'
+      path: '/fitness/$slug'
+      fullPath: '/fitness/$slug'
+      preLoaderRoute: typeof FitnessSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/services/': {
+      id: '/services/'
+      path: '/services'
+      fullPath: '/services/'
+      preLoaderRoute: typeof ServicesIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/services/$slug': {
+      id: '/services/$slug'
+      path: '/services/$slug'
+      fullPath: '/services/$slug'
+      preLoaderRoute: typeof ServicesSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/_authenticated/admin/': {
       id: '/_authenticated/admin/'
       path: '/'
@@ -851,81 +951,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminIndexRouteImport
       parentRoute: typeof AuthenticatedAdminRoute
     }
-    '/blog/category/$category': {
-      id: '/blog/category/$category'
-      path: '/blog/category/$category'
-      fullPath: '/blog/category/$category'
-      preLoaderRoute: typeof BlogCategoryCategoryRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/_authenticated/admin/users': {
-      id: '/_authenticated/admin/users'
-      path: '/users'
-      fullPath: '/admin/users'
-      preLoaderRoute: typeof AuthenticatedAdminUsersRouteImport
-      parentRoute: typeof AuthenticatedAdminRoute
-    }
-    '/_authenticated/admin/settings': {
-      id: '/_authenticated/admin/settings'
-      path: '/settings'
-      fullPath: '/admin/settings'
-      preLoaderRoute: typeof AuthenticatedAdminSettingsRouteImport
-      parentRoute: typeof AuthenticatedAdminRoute
-    }
-    '/_authenticated/admin/reports': {
-      id: '/_authenticated/admin/reports'
-      path: '/reports'
-      fullPath: '/admin/reports'
-      preLoaderRoute: typeof AuthenticatedAdminReportsRouteImport
-      parentRoute: typeof AuthenticatedAdminRoute
-    }
-    '/_authenticated/admin/profile': {
-      id: '/_authenticated/admin/profile'
-      path: '/profile'
-      fullPath: '/admin/profile'
-      preLoaderRoute: typeof AuthenticatedAdminProfileRouteImport
-      parentRoute: typeof AuthenticatedAdminRoute
-    }
-    '/_authenticated/admin/patients': {
-      id: '/_authenticated/admin/patients'
-      path: '/patients'
-      fullPath: '/admin/patients'
-      preLoaderRoute: typeof AuthenticatedAdminPatientsRouteImport
-      parentRoute: typeof AuthenticatedAdminRoute
-    }
-    '/_authenticated/admin/messages': {
-      id: '/_authenticated/admin/messages'
-      path: '/messages'
-      fullPath: '/admin/messages'
-      preLoaderRoute: typeof AuthenticatedAdminMessagesRouteImport
-      parentRoute: typeof AuthenticatedAdminRoute
-    }
-    '/_authenticated/admin/media': {
-      id: '/_authenticated/admin/media'
-      path: '/media'
-      fullPath: '/admin/media'
-      preLoaderRoute: typeof AuthenticatedAdminMediaRouteImport
-      parentRoute: typeof AuthenticatedAdminRoute
-    }
-    '/_authenticated/admin/home-visits': {
-      id: '/_authenticated/admin/home-visits'
-      path: '/home-visits'
-      fullPath: '/admin/home-visits'
-      preLoaderRoute: typeof AuthenticatedAdminHomeVisitsRouteImport
-      parentRoute: typeof AuthenticatedAdminRoute
-    }
-    '/_authenticated/admin/fitness-content': {
-      id: '/_authenticated/admin/fitness-content'
-      path: '/fitness-content'
-      fullPath: '/admin/fitness-content'
-      preLoaderRoute: typeof AuthenticatedAdminFitnessContentRouteImport
-      parentRoute: typeof AuthenticatedAdminRoute
-    }
-    '/_authenticated/admin/calculators': {
-      id: '/_authenticated/admin/calculators'
-      path: '/calculators'
-      fullPath: '/admin/calculators'
-      preLoaderRoute: typeof AuthenticatedAdminCalculatorsRouteImport
+    '/_authenticated/admin/appointments': {
+      id: '/_authenticated/admin/appointments'
+      path: '/appointments'
+      fullPath: '/admin/appointments'
+      preLoaderRoute: typeof AuthenticatedAdminAppointmentsRouteImport
       parentRoute: typeof AuthenticatedAdminRoute
     }
     '/_authenticated/admin/blog': {
@@ -935,12 +965,82 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminBlogRouteImport
       parentRoute: typeof AuthenticatedAdminRoute
     }
-    '/_authenticated/admin/appointments': {
-      id: '/_authenticated/admin/appointments'
-      path: '/appointments'
-      fullPath: '/admin/appointments'
-      preLoaderRoute: typeof AuthenticatedAdminAppointmentsRouteImport
+    '/_authenticated/admin/calculators': {
+      id: '/_authenticated/admin/calculators'
+      path: '/calculators'
+      fullPath: '/admin/calculators'
+      preLoaderRoute: typeof AuthenticatedAdminCalculatorsRouteImport
       parentRoute: typeof AuthenticatedAdminRoute
+    }
+    '/_authenticated/admin/fitness-content': {
+      id: '/_authenticated/admin/fitness-content'
+      path: '/fitness-content'
+      fullPath: '/admin/fitness-content'
+      preLoaderRoute: typeof AuthenticatedAdminFitnessContentRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
+    '/_authenticated/admin/home-visits': {
+      id: '/_authenticated/admin/home-visits'
+      path: '/home-visits'
+      fullPath: '/admin/home-visits'
+      preLoaderRoute: typeof AuthenticatedAdminHomeVisitsRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
+    '/_authenticated/admin/media': {
+      id: '/_authenticated/admin/media'
+      path: '/media'
+      fullPath: '/admin/media'
+      preLoaderRoute: typeof AuthenticatedAdminMediaRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
+    '/_authenticated/admin/messages': {
+      id: '/_authenticated/admin/messages'
+      path: '/messages'
+      fullPath: '/admin/messages'
+      preLoaderRoute: typeof AuthenticatedAdminMessagesRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
+    '/_authenticated/admin/patients': {
+      id: '/_authenticated/admin/patients'
+      path: '/patients'
+      fullPath: '/admin/patients'
+      preLoaderRoute: typeof AuthenticatedAdminPatientsRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
+    '/_authenticated/admin/profile': {
+      id: '/_authenticated/admin/profile'
+      path: '/profile'
+      fullPath: '/admin/profile'
+      preLoaderRoute: typeof AuthenticatedAdminProfileRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
+    '/_authenticated/admin/reports': {
+      id: '/_authenticated/admin/reports'
+      path: '/reports'
+      fullPath: '/admin/reports'
+      preLoaderRoute: typeof AuthenticatedAdminReportsRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
+    '/_authenticated/admin/settings': {
+      id: '/_authenticated/admin/settings'
+      path: '/settings'
+      fullPath: '/admin/settings'
+      preLoaderRoute: typeof AuthenticatedAdminSettingsRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
+    '/_authenticated/admin/users': {
+      id: '/_authenticated/admin/users'
+      path: '/users'
+      fullPath: '/admin/users'
+      preLoaderRoute: typeof AuthenticatedAdminUsersRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
+    '/blog/category/$category': {
+      id: '/blog/category/$category'
+      path: '/blog/category/$category'
+      fullPath: '/blog/category/$category'
+      preLoaderRoute: typeof BlogCategoryCategoryRouteImport
+      parentRoute: typeof rootRouteImport
     }
   }
 }
@@ -994,17 +1094,22 @@ const AuthenticatedRouteRouteWithChildren =
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
+  AboutRoute: AboutRoute,
   AuthRoute: AuthRoute,
   BestPhysiotherapistInMultanRoute: BestPhysiotherapistInMultanRoute,
+  BookAppointmentRoute: BookAppointmentRoute,
+  ContactRoute: ContactRoute,
   DrFatimaIqbalDptMultanRoute: DrFatimaIqbalDptMultanRoute,
   DrJalalUdDinPtMultanRoute: DrJalalUdDinPtMultanRoute,
   DrZainUlAbideenPtMultanRoute: DrZainUlAbideenPtMultanRoute,
   FitnessAssessmentRoute: FitnessAssessmentRoute,
   FitnessRehabilitationRoute: FitnessRehabilitationRoute,
   FitnessResourcesRoute: FitnessResourcesRoute,
+  GalleryRoute: GalleryRoute,
   HealthCalculatorsRoute: HealthCalculatorsRoute,
   HomeVisitRoute: HomeVisitRoute,
   MembershipRoute: MembershipRoute,
+  OurTeamRoute: OurTeamRoute,
   PhysiotherapistInMultanRoute: PhysiotherapistInMultanRoute,
   PhysiotherapyClinicInMultanRoute: PhysiotherapyClinicInMultanRoute,
   PrivacyRoute: PrivacyRoute,
