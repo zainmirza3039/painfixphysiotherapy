@@ -1,9 +1,11 @@
 import { createServerFn } from "@tanstack/react-start";
+import type { SupabaseClient } from "@supabase/supabase-js";
 import { z } from "zod";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
+import type { Database } from "@/integrations/supabase/types";
 import { APP_ROLES } from "@/admin/roles";
 
-async function assertAdmin(context: { supabase: any; userId: string }) {
+async function assertAdmin(context: { supabase: SupabaseClient<Database>; userId: string }) {
   // Admin OR super_admin may manage the team.
   const [{ data: isAdmin }, { data: isSuper }] = await Promise.all([
     context.supabase.rpc("has_role", { _user_id: context.userId, _role: "admin" }),

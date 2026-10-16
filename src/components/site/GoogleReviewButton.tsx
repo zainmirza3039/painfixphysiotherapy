@@ -1,9 +1,9 @@
 import { GOOGLE_REVIEW_URL } from "./constants";
 
-/** Multi-color Google "G" mark (inline SVG, decorative). */
+/** Multi-color Google mark (inline SVG, decorative). */
 export function GoogleG({ className = "h-4 w-4" }: { className?: string }) {
   return (
-    <svg viewBox="0 0 48 48" className={className} aria-hidden focusable="false">
+    <svg viewBox="0 0 48 48" className={className} aria-hidden="true" focusable="false">
       <path
         fill="#FFC107"
         d="M43.611 20.083H42V20H24v8h11.303c-1.649 4.657-6.08 8-11.303 8-6.627 0-12-5.373-12-12s5.373-12 12-12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4 12.955 4 4 12.955 4 24s8.955 20 20 20 20-8.955 20-20c0-1.341-.138-2.65-.389-3.917z"
@@ -32,21 +32,17 @@ interface Props {
   className?: string;
 }
 
-/**
- * Premium "Leave a Google Review" button. Opens the clinic's Google review
- * form in a new tab with secure external-link attributes.
- */
 export function GoogleReviewButton({
   variant = "outline",
   label = "Leave a Google Review",
   className = "",
 }: Props) {
   const base =
-    "ripple inline-flex items-center justify-center gap-2 rounded-2xl px-5 py-3 text-sm font-semibold transition-transform hover:scale-[1.03]";
+    "inline-flex min-h-11 items-center justify-center gap-2 rounded-md px-4 py-2.5 text-sm font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2";
   const styles =
     variant === "solid"
-      ? "bg-primary text-primary-foreground shadow-card"
-      : "border border-border bg-card text-foreground shadow-soft";
+      ? "bg-primary text-primary-foreground hover:bg-primary/90"
+      : "border border-border bg-background text-foreground hover:border-primary hover:text-primary";
 
   return (
     <a

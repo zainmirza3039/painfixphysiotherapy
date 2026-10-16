@@ -1,5 +1,6 @@
 import { getTeamMember } from "@/data/team";
 import { BadgeCheck, Stethoscope, ArrowRight } from "lucide-react";
+import { ClinicianPortrait } from "./ClinicianPortrait";
 
 /**
  * EEAT "Reviewed by" author card shown on blog articles.
@@ -14,59 +15,37 @@ export function AuthorCard({
   medicalReviewer?: string;
   updated?: string;
 }) {
-
-  const member =
-    getTeamMember(medicalReviewer || authorKey) ??
-    getTeamMember("ZA");
+  const member = getTeamMember(medicalReviewer || authorKey) ?? getTeamMember("ZA");
 
   if (!member) return null;
 
   return (
     <div className="group relative cursor-pointer rounded-[1.75rem] border border-border bg-card p-6 shadow-soft transition-shadow hover:border-primary/40 hover:shadow-card focus-within:ring-2 focus-within:ring-primary/50">
-
       <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-secondary">
         <BadgeCheck className="h-4 w-4" />
         Medically Reviewed By
       </div>
 
       <div className="mt-4 flex items-start gap-4">
-
-        <img
-          src={member.photo}
-          alt={`Portrait of ${member.name}, ${member.role} at PainFix Physiotherapy Clinic, Multan`}
-          width={56}
-          height={56}
-          loading="lazy"
-          decoding="async"
-          className="h-14 w-14 shrink-0 rounded-2xl object-cover object-top ring-1 ring-border"
+        <ClinicianPortrait
+          photo={member.photo}
+          name={member.name}
+          role={member.role}
+          className="h-14 w-14 shrink-0 rounded-2xl ring-1 ring-border"
         />
 
         <div className="min-w-0">
+          <p className="font-heading text-lg font-bold text-foreground">{member.name}</p>
 
-          <p className="font-heading text-lg font-bold text-foreground">
-            {member.name}
-          </p>
+          <p className="text-sm font-medium text-secondary">{member.role}</p>
 
-          <p className="text-sm font-medium text-secondary">
-            {member.role}
-          </p>
-
-          <p className="text-xs text-muted-foreground">
-            {member.credentials}
-          </p>
-
+          <p className="text-xs text-muted-foreground">{member.credentials}</p>
         </div>
-
       </div>
 
-
-      <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
-        {member.bio}
-      </p>
-
+      <p className="mt-4 text-sm leading-relaxed text-muted-foreground">{member.bio}</p>
 
       <div className="mt-4 flex flex-wrap gap-2">
-
         {member.specialties.map((s) => (
           <span
             key={s}
@@ -76,9 +55,7 @@ export function AuthorCard({
             {s}
           </span>
         ))}
-
       </div>
-
 
       <a
         href={`/${member.slug}`}
@@ -86,11 +63,8 @@ export function AuthorCard({
         className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-primary after:absolute after:inset-0 after:rounded-[1.75rem] after:content-[''] focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
       >
         View full profile
-
         <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1 rtl:rotate-180" />
-
       </a>
-
 
       {updated && (
         <p className="mt-4 border-t border-border pt-3 text-xs text-muted-foreground">
@@ -102,7 +76,6 @@ export function AuthorCard({
           })}
         </p>
       )}
-
     </div>
   );
 }

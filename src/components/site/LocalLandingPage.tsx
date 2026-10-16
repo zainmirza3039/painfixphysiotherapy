@@ -5,6 +5,7 @@ import { serviceMap } from "@/data/services";
 import { conditionMap } from "@/data/conditions";
 import { blogMap } from "@/data/blog";
 import { team } from "@/data/team";
+import { ClinicianPortrait } from "./ClinicianPortrait";
 import { PageLayout } from "./PageLayout";
 import { PageHero } from "./PageHero";
 import { PageCTA } from "./PageCTA";
@@ -150,13 +151,11 @@ export function LocalLandingPage({ page }: { page: LocalPage }) {
             {team.map((m, i) => (
               <Reveal key={m.name} anim="up" delay={i * 80}>
                 <div className="flex h-full gap-4 rounded-[1.75rem] border border-border bg-card p-6 shadow-soft">
-                  <img
-                    src={m.photo}
-                    alt={`${m.name}, ${m.role} at PainFix Physiotherapy Clinic, Multan`}
-                    width={72}
-                    height={72}
-                    loading="lazy"
-                    className="h-18 w-18 shrink-0 rounded-2xl object-cover"
+                  <ClinicianPortrait
+                    photo={m.photo}
+                    name={m.name}
+                    role={m.role}
+                    className="h-[4.5rem] w-[4.5rem] shrink-0 rounded-2xl"
                   />
                   <div className="min-w-0">
                     <h3 className="font-heading text-lg font-bold text-foreground">{m.name}</h3>

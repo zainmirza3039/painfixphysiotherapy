@@ -1,27 +1,23 @@
 import { createFileRoute } from "@tanstack/react-router";
-import heroAvif480 from "@/assets/hero-480.avif";
-import heroAvif768 from "@/assets/hero-768.avif";
-import heroAvif960 from "@/assets/hero-960.avif";
 import { SITE_URL } from "@/components/site/constants";
 import { faqLd } from "@/lib/seo";
 import { Navbar } from "@/components/site/Navbar";
 import { Hero } from "@/components/site/Hero";
-import { Stats } from "@/components/site/Stats";
-import { WhyChooseUs } from "@/components/site/WhyChooseUs";
-import { HomePhysio } from "@/components/site/HomePhysio";
-import { SymptomNavigator } from "@/components/site/SymptomNavigator";
+import { TrustSignals } from "@/components/site/TrustSignals";
+import { About } from "@/components/site/About";
 import { Services } from "@/components/site/Services";
 import { Conditions } from "@/components/site/Conditions";
-import { About } from "@/components/site/About";
+import { WhyChooseUs } from "@/components/site/WhyChooseUs";
 import { MeetDoctors } from "@/components/site/MeetDoctors";
-import { Process } from "@/components/site/Process";
+import { HomePhysio } from "@/components/site/HomePhysio";
 import { PhysioFitness } from "@/components/site/PhysioFitness";
+import { GoogleReviews } from "@/components/site/GoogleReviews";
+import { Gallery } from "@/components/site/Gallery";
 import { HomeBmi } from "@/components/site/HomeBmi";
 import { ConsultationFees } from "@/components/site/ConsultationFees";
-import { GoogleReviews } from "@/components/site/GoogleReviews";
-import { TrustSignals } from "@/components/site/TrustSignals";
-import { Gallery } from "@/components/site/Gallery";
-import { FAQ, homeFaqs } from "@/components/site/FAQ";
+import { FAQ } from "@/components/site/FAQ";
+import { homeFaqs } from "@/components/site/home-faqs";
+import { CTA } from "@/components/site/CTA";
 import { Contact } from "@/components/site/Contact";
 import { Footer } from "@/components/site/Footer";
 import { WhatsAppFab } from "@/components/site/WhatsAppFab";
@@ -42,18 +38,7 @@ export const Route = createFileRoute("/")({
       { name: "twitter:description", content: DESCRIPTION },
       { name: "twitter:card", content: "summary_large_image" },
     ],
-    links: [
-      { rel: "canonical", href: `${SITE_URL}/` },
-      {
-        rel: "preload",
-        as: "image",
-        type: "image/avif",
-        href: heroAvif480,
-        imageSrcset: `${heroAvif480} 480w, ${heroAvif768} 768w, ${heroAvif960} 960w`,
-        imageSizes: "(min-width: 1024px) 600px, (min-width: 640px) 448px, 90vw",
-        fetchPriority: "high",
-      },
-    ],
+    links: [{ rel: "canonical", href: `${SITE_URL}/` }],
     scripts: [faqLd(homeFaqs.map((f) => ({ q: f.q, a: f.a })))],
   }),
   component: Index,
@@ -61,26 +46,24 @@ export const Route = createFileRoute("/")({
 
 function Index() {
   return (
-    <div className="min-h-screen bg-background">
+    <div className="painfix-home min-h-screen bg-background">
       <Navbar />
       <main>
         <Hero />
-        <HomeBmi />
-        <Stats />
         <TrustSignals />
-        <WhyChooseUs />
-        <SymptomNavigator />
+        <About />
         <Services />
         <Conditions />
-        <HomePhysio />
-        <About />
+        <WhyChooseUs />
         <MeetDoctors />
-        <Process />
+        <HomePhysio />
         <PhysioFitness />
         <GoogleReviews />
         <Gallery />
-        <FAQ />
+        <HomeBmi />
         <ConsultationFees />
+        <FAQ />
+        <CTA />
         <Contact />
       </main>
       <Footer />

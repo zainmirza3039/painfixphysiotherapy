@@ -137,7 +137,10 @@ function AppointmentsPage() {
     },
     onError: (e) => {
       // Extract Supabase error details
-      const error = e as any;
+      const error =
+        e && typeof e === "object"
+          ? (e as { code?: string; message?: string; details?: string; hint?: string })
+          : {};
       const errorCode = error?.code || "UNKNOWN";
       const errorMessage = error?.message || String(e);
       const errorDetails = error?.details || "";
@@ -154,7 +157,7 @@ function AppointmentsPage() {
 
       // Build user-friendly error message
       let displayMessage = errorMessage;
-      
+
       if (errorDetails) {
         displayMessage = errorDetails;
       } else if (errorHint) {

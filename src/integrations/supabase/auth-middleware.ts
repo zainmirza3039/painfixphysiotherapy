@@ -11,9 +11,7 @@ function isNewSupabaseApiKey(value: string): boolean {
 function createSupabaseFetch(supabaseKey: string): typeof fetch {
   return (input, init) => {
     const headers = new Headers(
-      typeof Request !== "undefined" && input instanceof Request
-        ? input.headers
-        : undefined,
+      typeof Request !== "undefined" && input instanceof Request ? input.headers : undefined,
     );
 
     if (init?.headers) {
@@ -51,11 +49,7 @@ export const requireSupabaseAuth = createMiddleware({
     throw new Error("Unauthorized: No request headers available");
   }
 
-  const authHeader =
-    request.headers.get("authorization") ||
-    request.headers.get("Authorization");
-
-  console.log("AUTH HEADER RECEIVED:", authHeader);
+  const authHeader = request.headers.get("authorization") || request.headers.get("Authorization");
 
   if (!authHeader) {
     throw new Error("Unauthorized: No authorization header provided");
@@ -75,23 +69,19 @@ export const requireSupabaseAuth = createMiddleware({
     throw new Error("Unauthorized: Invalid token format");
   }
 
-  const supabase = createClient<Database>(
-    SUPABASE_URL,
-    SUPABASE_PUBLISHABLE_KEY,
-    {
-      global: {
-        fetch: createSupabaseFetch(SUPABASE_PUBLISHABLE_KEY),
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      },
-      auth: {
-        storage: undefined,
-        persistSession: false,
-        autoRefreshToken: false,
+  const supabase = createClient<Database>(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY, {
+    global: {
+      fetch: createSupabaseFetch(SUPABASE_PUBLISHABLE_KEY),
+      headers: {
+        Authorization: `Bearer ${token}`,
       },
     },
-  );
+    auth: {
+      storage: undefined,
+      persistSession: false,
+      autoRefreshToken: false,
+    },
+  });
 
   const { data, error } = await supabase.auth.getUser(token);
 

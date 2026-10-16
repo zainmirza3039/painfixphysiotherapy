@@ -1,0 +1,26 @@
+export const homeFaqs = [
+  {
+    q: "Do I need a doctor's referral to book an appointment?",
+    a: "No referral is required. You can book a physiotherapy assessment directly with us and we'll take care of the rest.",
+  },
+  {
+    q: "How long does each session last?",
+    a: "Initial assessments typically take 45–60 minutes, while follow-up treatment sessions usually last 30–45 minutes depending on your plan.",
+  },
+  {
+    q: "How many sessions will I need?",
+    a: "It varies by condition. After your assessment, we'll provide a clear, personalized treatment plan with an estimated number of sessions.",
+  },
+  {
+    q: "Do you offer home physiotherapy?",
+    a: "Yes. We provide home physiotherapy services for patients who are unable to travel, including post-surgical and stroke rehabilitation.",
+  },
+  {
+    q: "What conditions do you treat?",
+    a: "We treat a wide range of conditions including back and neck pain, sciatica, sports injuries, arthritis, frozen shoulder, and post-surgical rehabilitation.",
+  },
+  {
+    q: "How do I book an appointment?",
+    a: "The easiest way is to tap any 'WhatsApp Consultation' button and message us — we'll answer your questions and confirm a time. You can also call us at 0314-3039582 or use the 'Book Appointment' option on the homepage or contact page.",
+  },
+];

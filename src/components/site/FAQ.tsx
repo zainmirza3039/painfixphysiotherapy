@@ -2,71 +2,45 @@ import { useState } from "react";
 import { Plus } from "lucide-react";
 import { Reveal } from "./Reveal";
 import { SectionHeading } from "./SectionHeading";
-
-export const homeFaqs = [
-  {
-    q: "Do I need a doctor's referral to book an appointment?",
-    a: "No referral is required. You can book a physiotherapy assessment directly with us and we'll take care of the rest.",
-  },
-  {
-    q: "How long does each session last?",
-    a: "Initial assessments typically take 45–60 minutes, while follow-up treatment sessions usually last 30–45 minutes depending on your plan.",
-  },
-  {
-    q: "How many sessions will I need?",
-    a: "It varies by condition. After your assessment, we'll provide a clear, personalized treatment plan with an estimated number of sessions.",
-  },
-  {
-    q: "Do you offer home physiotherapy?",
-    a: "Yes. We provide home physiotherapy services for patients who are unable to travel, including post-surgical and stroke rehabilitation.",
-  },
-  {
-    q: "What conditions do you treat?",
-    a: "We treat a wide range of conditions including back and neck pain, sciatica, sports injuries, arthritis, frozen shoulder, and post-surgical rehabilitation.",
-  },
-  {
-    q: "How do I book an appointment?",
-    a: "The easiest way is to tap any 'WhatsApp Consultation' button and message us — we'll answer your questions and confirm a time. You can also call us at 0314-3039582 or use the 'Book Appointment' option on the homepage or contact page.",
-  },
-];
+import { homeFaqs } from "./home-faqs";
 
 export function FAQ() {
   const [open, setOpen] = useState<number | null>(0);
 
   return (
-    <section id="faq" className="py-16 sm:py-24">
-      <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
-        <SectionHeading eyebrow="FAQ" title="Frequently asked questions" />
-        <div className="mt-12 space-y-3">
-          {homeFaqs.map((f, i) => {
-            const isOpen = open === i;
+    <section id="faq" className="home-section scroll-mt-24">
+      <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+        <SectionHeading eyebrow="Questions, answered" title="Before your first visit." />
+        <div className="mt-10 border-t border-border">
+          {homeFaqs.map((item, index) => {
+            const isOpen = open === index;
+            const answerId = `home-faq-answer-${index}`;
             return (
-              <Reveal key={f.q} anim="up" delay={(i % 4) * 60}>
-                <div className="overflow-hidden rounded-2xl border border-border bg-card shadow-soft">
-                  <button
-                    type="button"
-                    aria-expanded={isOpen}
-                    onClick={() => setOpen(isOpen ? null : i)}
-                    className="flex w-full items-center justify-between gap-4 px-6 py-5 text-left"
-                  >
-                    <span className="font-heading text-base font-semibold text-foreground">
-                      {f.q}
-                    </span>
-                    <Plus
-                      className={`h-5 w-5 shrink-0 text-secondary transition-transform duration-300 ${isOpen ? "rotate-45" : ""}`}
-                    />
-                  </button>
-                  <div
-                    className="grid transition-all duration-300 ease-out"
-                    style={{ gridTemplateRows: isOpen ? "1fr" : "0fr" }}
-                  >
-                    <div className="overflow-hidden">
-                      <p className="px-6 pb-5 text-sm leading-relaxed text-muted-foreground">
-                        {f.a}
-                      </p>
-                    </div>
+              <Reveal key={item.q} anim="up">
+                <article className="border-b border-border">
+                  <h3>
+                    <button
+                      type="button"
+                      aria-expanded={isOpen}
+                      aria-controls={answerId}
+                      onClick={() => setOpen(isOpen ? null : index)}
+                      className="flex min-h-16 w-full items-center justify-between gap-5 py-4 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+                    >
+                      <span className="font-heading text-xl font-semibold leading-snug text-foreground sm:text-2xl">
+                        {item.q}
+                      </span>
+                      <Plus
+                        className={`h-5 w-5 shrink-0 text-secondary transition-transform duration-200 ${isOpen ? "rotate-45" : ""}`}
+                        aria-hidden="true"
+                      />
+                    </button>
+                  </h3>
+                  <div id={answerId} hidden={!isOpen}>
+                    <p className="max-w-3xl pb-5 pr-8 text-sm leading-7 text-muted-foreground">
+                      {item.a}
+                    </p>
                   </div>
-                </div>
+                </article>
               </Reveal>
             );
           })}

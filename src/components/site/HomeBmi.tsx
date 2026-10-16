@@ -51,9 +51,9 @@ export function HomeBmi() {
     <section id="health-tools" className="bg-surface py-16 sm:py-24">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <SectionHeading
-          eyebrow="Free Health Tools"
-          title="Free Health Assessment Tools"
-          subtitle="Check your health indicators instantly using our evidence-based calculators."
+          eyebrow="Health tools"
+          title="Simple tools, with context."
+          subtitle="Explore general health calculators for information. Results are not a diagnosis or a substitute for individual clinical advice."
         />
 
         {/* Tool cards — BMI featured, others link to the Health Tools hub */}

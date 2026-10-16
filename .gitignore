@@ -15,6 +15,10 @@ dist-ssr
 .tanstack/**
 .nitro
 *.local
+# Local environment files can contain credentials. Commit only the template.
+.env
+.env.*
+!.env.example
 
 # Wrangler / Cloudflare
 .wrangler/

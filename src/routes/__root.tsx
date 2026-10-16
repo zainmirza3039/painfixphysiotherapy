@@ -20,9 +20,40 @@ import { SITE_URL } from "@/components/site/constants";
 import type { AuthChangeEvent } from "@supabase/supabase-js";
 
 const FONT_HREF =
-  "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@500;600;700;800&display=swap";
+  "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Newsreader:opsz,wght@6..72,500;6..72,600;6..72,700&display=swap";
 
 const LOGO_URL = SITE_URL + "/painfix-logo.png";
+const CLARITY_HOST = new URL(SITE_URL).hostname.replace(/^www\./, "");
+const CLARITY_SCRIPT = `(function () {
+  var host = window.location.hostname;
+  if (host.indexOf("www.") === 0) host = host.slice(4);
+  if (host !== ${JSON.stringify(CLARITY_HOST)}) return;
+
+  function loadClarity() {
+    (function (c, l, a, r, i, t, y) {
+      c[a] = c[a] || function () { (c[a].q = c[a].q || []).push(arguments); };
+      t = l.createElement(r);
+      t.async = 1;
+      t.src = "https://www.clarity.ms/tag/" + i;
+      y = l.getElementsByTagName(r)[0];
+      y.parentNode.insertBefore(t, y);
+    })(window, document, "clarity", "script", "xkrug632ml");
+  }
+
+  function scheduleClarity() {
+    if ("requestIdleCallback" in window) {
+      window.requestIdleCallback(loadClarity, { timeout: 6000 });
+    } else {
+      window.setTimeout(loadClarity, 3000);
+    }
+  }
+
+  if (document.readyState === "complete") {
+    scheduleClarity();
+  } else {
+    window.addEventListener("load", scheduleClarity, { once: true });
+  }
+})();`;
 
 function NotFoundComponent() {
   return (
@@ -89,7 +120,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { name: "theme-color", content: "#0F4C81" },
+      { name: "theme-color", content: "#032E61" },
       { name: "author", content: "PainFix Physiotherapy Clinic" },
       { name: "google-site-verification", content: "3bV8F81i2VTJdIbqGuC217jQ4AaSTxmLIKHuNJzc16U" },
       { property: "og:type", content: "website" },
@@ -164,8 +195,8 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
             {
               "@type": "OpeningHoursSpecification",
               dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
-              opens: "15:00",
-              closes: "20:00",
+              opens: "11:00",
+              closes: "16:00",
             },
           ],
           medicalSpecialty: "Physiotherapy",
@@ -207,11 +238,9 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         }),
       },
       {
-        // Microsoft Clarity — deferred until the browser is idle after load so
-        // it never competes with hydration or the LCP for main-thread time.
-        // Falls back to a timeout where requestIdleCallback is unsupported.
-        children:
-          '(function(){function l(){(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","xkrug632ml")}function s(){"requestIdleCallback"in window?requestIdleCallback(l,{timeout:6000}):setTimeout(l,3000)}"complete"===document.readyState?s():window.addEventListener("load",s,{once:true})})();',
+        // Microsoft Clarity — load only on the official PainFix host (and its
+        // www alias), never on local or deployment previews. Defer until idle.
+        children: CLARITY_SCRIPT,
       },
     ],
   }),
@@ -228,7 +257,7 @@ function RootShell({ children }: { children: ReactNode }) {
         <HeadContent />
         <script dangerouslySetInnerHTML={{ __html: THEME_INIT_SCRIPT }} />
         {/* Non-render-blocking web fonts: load with media="print" then flip to
-            "all" once the stylesheet arrives, so FCP is never gated on the
+            "all" once the stylesheet arrives, so FCP isn't gated on the
             cross-origin font CSS. The inline script performs the swap (React
             strips string event handlers, so this is more reliable than onload).
             <noscript> keeps fonts for no-JS clients. */}

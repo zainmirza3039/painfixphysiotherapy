@@ -100,7 +100,7 @@ export function Gallery() {
                 type="button"
                 onClick={() => setActive(i)}
                 aria-label={`Open image: ${p.caption}`}
-                className="group relative block h-full w-full overflow-hidden rounded-[1.75rem] shadow-soft ring-1 ring-border focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+                className="group relative block h-full w-full overflow-hidden border border-border focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
               >
                 <img
                   src={p.src}
@@ -111,8 +111,8 @@ export function Gallery() {
                   decoding="async"
                   className={`h-full w-full object-cover transition-transform duration-500 group-hover:scale-110 ${p.pos ?? ""}`}
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-primary/75 via-primary/10 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-                <span className="absolute bottom-4 left-4 translate-y-2 font-heading font-bold text-primary-foreground opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100">
+                <div className="absolute inset-0 bg-gradient-to-t from-primary/80 via-primary/5 to-transparent" />
+                <span className="absolute bottom-4 left-4 font-heading text-lg font-semibold text-primary-foreground">
                   {p.caption}
                 </span>
               </button>
