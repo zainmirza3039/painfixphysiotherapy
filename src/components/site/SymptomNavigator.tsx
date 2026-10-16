@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { ArrowRight } from "lucide-react";
-import { conditionImages, conditionImageAlt } from "@/data/conditionImages";
+import { conditionImages, conditionImageAlt, conditionImageFitClass } from "@/data/conditionImages";
 import { Reveal } from "./Reveal";
 import { SectionHeading } from "./SectionHeading";
 
@@ -52,7 +52,7 @@ export function SymptomNavigator() {
                     decoding="async"
                     width={700}
                     height={525}
-                    className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105 sm:aspect-[4/3]"
+                    className={`h-full w-full ${conditionImageFitClass[s.slug] ?? "object-cover"} transition-transform duration-500 group-hover:scale-105 sm:aspect-[4/3]`}
                   />
                 </div>
                 <span className="flex min-w-0 flex-1 items-center justify-between gap-2 sm:p-4">

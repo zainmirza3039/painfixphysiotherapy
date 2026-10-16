@@ -11,6 +11,7 @@ import {
 } from "lucide-react";
 import { getCondition, type Condition } from "@/data/conditions";
 import { serviceMap } from "@/data/services";
+import { conditionImageGallery } from "@/data/conditionImageGallery";
 import { PageLayout } from "@/components/site/PageLayout";
 import { PageHero } from "@/components/site/PageHero";
 import { FaqAccordion } from "@/components/site/FaqAccordion";
@@ -82,6 +83,7 @@ const blocks = [
 function ConditionDetail() {
   const c: Condition = Route.useLoaderData();
   const related = c.relatedServices.map((s) => serviceMap[s]).filter(Boolean);
+  const visualReferences = conditionImageGallery[c.slug] ?? [];
 
   return (
     <PageLayout>
@@ -110,6 +112,43 @@ function ConditionDetail() {
               ))}
             </div>
           </Reveal>
+
+          {visualReferences.length > 0 && (
+            <div className="mt-12" aria-labelledby="condition-visuals-heading">
+              <h2
+                id="condition-visuals-heading"
+                className="font-heading text-2xl font-extrabold text-foreground sm:text-3xl"
+              >
+                Visual references for {c.title}
+              </h2>
+              <div
+                className={`mt-6 grid gap-4 ${
+                  visualReferences.length === 1
+                    ? "max-w-xl sm:grid-cols-2"
+                    : "sm:grid-cols-2 lg:grid-cols-3"
+                }`}
+              >
+                {visualReferences.map((image) => (
+                  <div
+                    key={image.src}
+                    className="overflow-hidden rounded-[1.25rem] border border-border bg-card shadow-soft"
+                  >
+                    <div className="aspect-[4/3] bg-surface">
+                      <img
+                        src={image.src}
+                        alt={image.alt}
+                        loading="lazy"
+                        decoding="async"
+                        width={image.width}
+                        height={image.height}
+                        className="h-full w-full object-contain"
+                      />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
 
           <div className="mt-12 grid gap-6 sm:grid-cols-2">
             {blocks.map((b, i) => (
