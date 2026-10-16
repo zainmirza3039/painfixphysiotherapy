@@ -1,7 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { ArrowRight } from "lucide-react";
 import { conditionMap } from "@/data/conditions";
-import { conditionImages, conditionImageAlt } from "@/data/conditionImages";
+import { conditionImages, conditionImageAlt, conditionImageFitClass } from "@/data/conditionImages";
 import { Reveal } from "./Reveal";
 
 export function RelatedConditions({
@@ -43,7 +43,7 @@ export function RelatedConditions({
                         decoding="async"
                         width={700}
                         height={394}
-                        className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                        className={`h-full w-full ${conditionImageFitClass[condition.slug] ?? "object-cover"} transition-transform duration-500 group-hover:scale-105`}
                       />
                     </div>
                   )}
