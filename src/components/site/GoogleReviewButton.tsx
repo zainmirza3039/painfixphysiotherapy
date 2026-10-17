@@ -51,7 +51,7 @@ export function GoogleReviewButton({
       href={GOOGLE_REVIEW_URL}
       target="_blank"
       rel="noopener noreferrer"
-      aria-label="Leave a review for PainFix Physiotherapy Clinic on Google (opens in a new tab)"
+      aria-label={`${label} (opens in a new tab)`}
       className={`${base} ${styles} ${className}`}
     >
       <GoogleG className="h-5 w-5" />
