@@ -122,6 +122,15 @@ test("migration does not grant direct table writes or touch staff/patient tables
     migration,
     /CREATE POLICY clinician_profiles_authenticated_read[\s\S]*?public\.is_admin/i,
   );
+  assert.match(migration, /CREATE TABLE public\.clinician_photo_assets[\s\S]*?path_owner_check/i);
+  assert.match(
+    migration,
+    /FOREIGN KEY \(photo_path, id\)[\s\S]*?REFERENCES public\.clinician_photo_assets \(path, clinician_profile_id\)[\s\S]*?ON DELETE RESTRICT/i,
+  );
+  assert.match(
+    migration,
+    /REVOKE ALL ON TABLE public\.clinician_photo_assets FROM PUBLIC, anon, authenticated/i,
+  );
   assert.doesNotMatch(
     migration,
     /(?:ALTER|DROP|TRUNCATE)\s+TABLE\s+public\.(?:profiles|patients|appointments|home_visit_requests|user_roles)/i,

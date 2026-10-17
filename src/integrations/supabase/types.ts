@@ -257,7 +257,41 @@ export type Database = {
           whatsapp_number?: string | null;
           years_experience?: number | null;
         };
-        Relationships: [];
+        Relationships: [
+          {
+            foreignKeyName: "clinician_profiles_photo_asset_fkey";
+            columns: ["photo_path", "id"];
+            isOneToOne: false;
+            referencedRelation: "clinician_photo_assets";
+            referencedColumns: ["path", "clinician_profile_id"];
+          },
+        ];
+      };
+      clinician_photo_assets: {
+        Row: {
+          clinician_profile_id: string;
+          created_at: string;
+          path: string;
+        };
+        Insert: {
+          clinician_profile_id: string;
+          created_at?: string;
+          path: string;
+        };
+        Update: {
+          clinician_profile_id?: string;
+          created_at?: string;
+          path?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "clinician_photo_assets_clinician_profile_id_fkey";
+            columns: ["clinician_profile_id"];
+            isOneToOne: false;
+            referencedRelation: "clinician_profiles";
+            referencedColumns: ["id"];
+          },
+        ];
       };
       contact_submissions: {
         Row: {

@@ -210,14 +210,28 @@ export const createAdminClinicianPhotoUploadUrl = createServerFn({
 
     const extension = extensionForClinicianPhotoType(data.contentType);
     const path = `clinician-profiles/${data.clinicianId}/${crypto.randomUUID()}.${extension}`;
+    const { error: registryError } = await supabaseAdmin
+      .from("clinician_photo_assets")
+      .insert({ path, clinician_profile_id: data.clinicianId });
+    if (registryError) throw new Error("Unable to register clinician photo");
+
     const { data: signed, error } = await supabaseAdmin.storage
       .from(CLINICIAN_PHOTO_BUCKET)
       .createSignedUploadUrl(path, { upsert: false });
-    if (error) throw new Error("Unable to prepare clinician photo upload");
+    if (error) {
+      const { error: cleanupError } = await supabaseAdmin
+        .from("clinician_photo_assets")
+        .delete()
+        .eq("path", path);
+      if (cleanupError) {
+        throw new Error("Unable to prepare or clean up clinician photo upload");
+      }
+      throw new Error("Unable to prepare clinician photo upload");
+    }
     return { bucket: CLINICIAN_PHOTO_BUCKET, path, token: signed.token };
   });
 
-/** Admin-only delete; refuses to remove an object while any profile references it. */
+/** Admin-only delete; the registry FK prevents concurrent attachment during deletion. */
 export const deleteAdminClinicianPhoto = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((input) =>
@@ -232,6 +246,31 @@ export const deleteAdminClinicianPhoto = createServerFn({ method: "POST" })
       throw new Error("Invalid clinician photo path");
     }
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { data: profile, error: profileError } = await supabaseAdmin
+      .from("clinician_profiles")
+      .select("id")
+      .eq("id", data.clinicianId)
+      .maybeSingle();
+    if (profileError) throw new Error("Unable to verify clinician profile");
+    if (!profile) throw new Error("Clinician profile not found");
+
+    // Deleting the registry row is transactionally blocked by the composite FK
+    // whenever a profile references this path. Once deletion succeeds, the FK
+    // also prevents any concurrent update from attaching this path afterward.
+    const { error: registryDeleteError } = await supabaseAdmin
+      .from("clinician_photo_assets")
+      .delete()
+      .eq("path", data.photoPath)
+      .eq("clinician_profile_id", data.clinicianId);
+    if (registryDeleteError?.code === "23503") {
+      throw new Error("Clear or replace the profile photo before deleting its file");
+    }
+    if (registryDeleteError) {
+      throw new Error("Unable to safely remove clinician photo registration");
+    }
+
+    // If a prior attempt removed the registry row but Storage deletion failed,
+    // allow an admin to retry after confirming that no profile references it.
     const { count, error: referenceError } = await supabaseAdmin
       .from("clinician_profiles")
       .select("id", { count: "exact", head: true })
@@ -240,9 +279,14 @@ export const deleteAdminClinicianPhoto = createServerFn({ method: "POST" })
     if ((count ?? 0) > 0) {
       throw new Error("Clear or replace the profile photo before deleting its file");
     }
-    const { error } = await supabaseAdmin.storage
+
+    const { error: storageError } = await supabaseAdmin.storage
       .from(CLINICIAN_PHOTO_BUCKET)
       .remove([data.photoPath]);
-    if (error) throw new Error("Unable to delete clinician photo");
+    if (storageError) {
+      throw new Error(
+        "Photo registration is removed; retry Storage deletion after the error is resolved",
+      );
+    }
     return { path: data.photoPath, deleted: true };
   });

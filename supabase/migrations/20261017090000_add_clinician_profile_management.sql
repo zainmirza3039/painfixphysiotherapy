@@ -77,6 +77,38 @@ COMMENT ON COLUMN public.clinician_profiles.photo_url IS
 CREATE INDEX clinician_profiles_public_order_idx
   ON public.clinician_profiles (display_order, full_name)
   WHERE is_active AND is_published;
+CREATE INDEX clinician_profiles_photo_path_idx
+  ON public.clinician_profiles (photo_path)
+  WHERE photo_path IS NOT NULL;
+
+-- Private asset registry makes photo deletion safe under concurrent admin edits.
+-- The composite FK below both scopes assets to one clinician and locks out new
+-- references as soon as an unused registry row is deleted.
+CREATE TABLE public.clinician_photo_assets (
+  path text PRIMARY KEY,
+  clinician_profile_id uuid NOT NULL
+    REFERENCES public.clinician_profiles(id) ON DELETE RESTRICT,
+  created_at timestamptz NOT NULL DEFAULT now(),
+  CONSTRAINT clinician_photo_assets_path_owner_check CHECK (
+    path LIKE 'clinician-profiles/' || clinician_profile_id::text || '/%'
+    AND path ~ ('^clinician-profiles/' || clinician_profile_id::text || '/[0-9a-f-]{36}[.](jpg|jpeg|png|webp|avif)$')
+  ),
+  CONSTRAINT clinician_photo_assets_path_owner_unique
+    UNIQUE (path, clinician_profile_id)
+);
+
+COMMENT ON TABLE public.clinician_photo_assets IS
+  'Private registry for uploaded clinician portraits; never exposed to anon or authenticated roles.';
+
+ALTER TABLE public.clinician_profiles
+  ADD CONSTRAINT clinician_profiles_photo_asset_fkey
+  FOREIGN KEY (photo_path, id)
+  REFERENCES public.clinician_photo_assets (path, clinician_profile_id)
+  ON DELETE RESTRICT;
+
+ALTER TABLE public.clinician_photo_assets ENABLE ROW LEVEL SECURITY;
+REVOKE ALL ON TABLE public.clinician_photo_assets FROM PUBLIC, anon, authenticated;
+GRANT ALL ON TABLE public.clinician_photo_assets TO service_role;
 
 ALTER TABLE public.clinician_profiles ENABLE ROW LEVEL SECURITY;
 REVOKE ALL ON TABLE public.clinician_profiles FROM PUBLIC, anon, authenticated;
