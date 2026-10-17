@@ -42,7 +42,9 @@ export function doctorProfileHead(doc: TeamMember) {
           ...(image ? { image } : {}),
           jobTitle: doc.role,
           medicalSpecialty: "Physiotherapy",
-          telephone: PHONE_TEL.replace("tel:", ""),
+          telephone: doc.whatsapp
+            ? `+${doc.whatsapp}`
+            : doc.phoneDisplay || PHONE_TEL.replace("tel:", ""),
           knowsAbout: doc.profile.expertise,
           worksFor: {
             "@type": "MedicalClinic",

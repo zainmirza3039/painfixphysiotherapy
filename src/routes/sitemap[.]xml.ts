@@ -2,6 +2,8 @@ import { createFileRoute } from "@tanstack/react-router";
 import type {} from "@tanstack/react-start";
 
 const BASE_URL = "https://painfixphysiotherapy.com";
+const CLINICIAN_SLUG_CACHE_MS = 5 * 60 * 1000;
+let lastSuccessfulClinicianSlugs: { fetchedAt: number; slugs: string[] } | null = null;
 
 interface SitemapEntry {
   path: string;
@@ -18,12 +20,13 @@ export const Route = createFileRoute("/sitemap.xml")({
         const { conditions } = await import("@/data/conditions");
         const { blogPosts, blogCategories } = await import("@/data/blog");
         const { localPages } = await import("@/data/localPages");
-        const { team } = await import("@/data/team");
         const { dietMainPage, dietSubPages, DIET_NUTRITION_ENABLED } =
           await import("@/data/wellness");
         const { fitnessPages } = await import("@/data/fitness");
         const { listPublishedBlogPosts } = await import("@/lib/blog.functions");
         let dbPosts: { slug: string; updated_at: string }[] = [];
+        let clinicianSlugs: string[] = [];
+        let usedStaleClinicianSlugs = false;
         try {
           dbPosts = (await listPublishedBlogPosts()).map((p) => ({
             slug: p.slug,
@@ -31,6 +34,28 @@ export const Route = createFileRoute("/sitemap.xml")({
           }));
         } catch {
           dbPosts = [];
+        }
+        try {
+          const { listPublishedClinicianProfiles } = await import("@/admin/clinicians.functions");
+          clinicianSlugs = (await listPublishedClinicianProfiles()).map((profile) => profile.slug);
+          lastSuccessfulClinicianSlugs = { fetchedAt: Date.now(), slugs: clinicianSlugs };
+        } catch {
+          if (
+            lastSuccessfulClinicianSlugs &&
+            Date.now() - lastSuccessfulClinicianSlugs.fetchedAt < CLINICIAN_SLUG_CACHE_MS
+          ) {
+            clinicianSlugs = lastSuccessfulClinicianSlugs.slugs;
+            usedStaleClinicianSlugs = true;
+          } else {
+            return new Response("Sitemap temporarily unavailable", {
+              status: 503,
+              headers: {
+                "Content-Type": "text/plain; charset=utf-8",
+                "Cache-Control": "no-store",
+                "Retry-After": "60",
+              },
+            });
+          }
         }
         // De-duplicate CMS slugs that also exist in static data.
         const staticSlugs = new Set(blogPosts.map((p) => p.slug));
@@ -74,8 +99,8 @@ export const Route = createFileRoute("/sitemap.xml")({
                 })),
               ]
             : []),
-          ...team.map((m) => ({
-            path: `/${m.slug}`,
+          ...clinicianSlugs.map((slug) => ({
+            path: `/${slug}`,
             changefreq: "monthly" as const,
             priority: "0.8",
           })),
@@ -136,7 +161,7 @@ export const Route = createFileRoute("/sitemap.xml")({
         return new Response(xml, {
           headers: {
             "Content-Type": "application/xml",
-            "Cache-Control": "public, max-age=3600",
+            "Cache-Control": usedStaleClinicianSlugs ? "no-store" : "public, max-age=300",
           },
         });
       },

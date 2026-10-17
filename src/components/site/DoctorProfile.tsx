@@ -25,6 +25,12 @@ import {
 
 /** Dedicated, SEO-optimized profile page for a single physiotherapist. */
 export function DoctorProfile({ doc }: { doc: TeamMember }) {
+  const phoneHref = doc.whatsapp
+    ? `tel:+${doc.whatsapp}`
+    : doc.phoneDisplay
+      ? `tel:${doc.phoneDisplay.replace(/[^0-9+]/g, "")}`
+      : null;
+
   return (
     <PageLayout>
       <PageHero
@@ -66,25 +72,34 @@ export function DoctorProfile({ doc }: { doc: TeamMember }) {
                 </p>
               ))}
             </div>
+            {doc.yearsExperience !== null && doc.yearsExperience !== undefined && (
+              <p className="mt-4 text-sm font-medium text-muted-foreground">
+                {doc.yearsExperience} {doc.yearsExperience === 1 ? "year" : "years"} of experience
+              </p>
+            )}
             <div className="mt-6 flex flex-wrap gap-3">
-              <a
-                href={`https://wa.me/${doc.whatsapp}?text=${encodeURIComponent(
-                  `Hi, I'd like a physiotherapy consultation with ${doc.name} at ${CLINIC_NAME}.`,
-                )}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label={`Chat with ${doc.name} on WhatsApp (${doc.phoneDisplay})`}
-                className="ripple inline-flex items-center gap-2 rounded-2xl bg-secondary px-6 py-3.5 text-sm font-semibold text-secondary-foreground shadow-card transition-transform hover:scale-[1.03]"
-              >
-                <MessageCircle className="h-4 w-4" /> WhatsApp Consultation
-              </a>
-              <a
-                href={`tel:+${doc.whatsapp}`}
-                aria-label={`Call ${doc.name} (${doc.phoneDisplay})`}
-                className="inline-flex items-center gap-2 rounded-2xl border border-primary px-6 py-3.5 text-sm font-semibold text-primary transition-colors hover:bg-primary hover:text-primary-foreground"
-              >
-                <Phone className="h-4 w-4" /> Call Now
-              </a>
+              {doc.whatsapp && (
+                <a
+                  href={`https://wa.me/${doc.whatsapp}?text=${encodeURIComponent(
+                    `Hi, I'd like a physiotherapy consultation with ${doc.name} at ${CLINIC_NAME}.`,
+                  )}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`Chat with ${doc.name} on WhatsApp`}
+                  className="ripple inline-flex items-center gap-2 rounded-2xl bg-secondary px-6 py-3.5 text-sm font-semibold text-secondary-foreground shadow-card transition-transform hover:scale-[1.03]"
+                >
+                  <MessageCircle className="h-4 w-4" /> WhatsApp Consultation
+                </a>
+              )}
+              {phoneHref && (
+                <a
+                  href={phoneHref}
+                  aria-label={`Call ${doc.name}${doc.phoneDisplay ? ` (${doc.phoneDisplay})` : ""}`}
+                  className="inline-flex items-center gap-2 rounded-2xl border border-primary px-6 py-3.5 text-sm font-semibold text-primary transition-colors hover:bg-primary hover:text-primary-foreground"
+                >
+                  <Phone className="h-4 w-4" /> Call Now
+                </a>
+              )}
             </div>
           </Reveal>
         </div>
@@ -209,12 +224,14 @@ export function DoctorProfile({ doc }: { doc: TeamMember }) {
                     ))}
                   </span>
                 </li>
-                <li className="flex items-start gap-3">
-                  <Phone className="mt-0.5 h-5 w-5 shrink-0 text-primary" />
-                  <a href={PHONE_TEL} className="transition-colors hover:text-primary">
-                    {doc.phoneDisplay}
-                  </a>
-                </li>
+                {phoneHref && doc.phoneDisplay && (
+                  <li className="flex items-start gap-3">
+                    <Phone className="mt-0.5 h-5 w-5 shrink-0 text-primary" />
+                    <a href={phoneHref} className="transition-colors hover:text-primary">
+                      {doc.phoneDisplay}
+                    </a>
+                  </li>
+                )}
               </ul>
             </div>
           </Reveal>

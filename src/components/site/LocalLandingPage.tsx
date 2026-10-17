@@ -4,8 +4,9 @@ import type { LocalPage } from "@/data/localPages";
 import { serviceMap } from "@/data/services";
 import { conditionMap } from "@/data/conditions";
 import { blogMap } from "@/data/blog";
-import { team } from "@/data/team";
 import { ClinicianPortrait } from "./ClinicianPortrait";
+import { usePublishedClinicians } from "@/lib/usePublishedClinicians";
+import { toClinicianView } from "@/lib/clinician-view";
 import { PageLayout } from "./PageLayout";
 import { PageHero } from "./PageHero";
 import { PageCTA } from "./PageCTA";
@@ -25,6 +26,8 @@ export function LocalLandingPage({ page }: { page: LocalPage }) {
   const services = page.serviceSlugs.map((s) => serviceMap[s]).filter(Boolean);
   const conditions = page.conditionSlugs.map((c) => conditionMap[c]).filter(Boolean);
   const blogs = page.blogSlugs.map((b) => blogMap[b]).filter(Boolean);
+  const { data: clinicianProfiles, isLoading, isError, refetch } = usePublishedClinicians();
+  const clinicians = (clinicianProfiles ?? []).map(toClinicianView);
 
   return (
     <PageLayout>
@@ -147,24 +150,54 @@ export function LocalLandingPage({ page }: { page: LocalPage }) {
           <h2 className="flex items-center justify-center gap-2 text-center font-heading text-2xl font-extrabold text-foreground sm:text-3xl">
             <Stethoscope className="h-6 w-6 text-primary" /> Meet Your Physiotherapists
           </h2>
-          <div className="mt-10 grid gap-5 sm:grid-cols-2">
-            {team.map((m, i) => (
-              <Reveal key={m.name} anim="up" delay={i * 80}>
-                <div className="flex h-full gap-4 rounded-[1.75rem] border border-border bg-card p-6 shadow-soft">
-                  <ClinicianPortrait
-                    photo={m.photo}
-                    name={m.name}
-                    role={m.role}
-                    className="h-[4.5rem] w-[4.5rem] shrink-0 rounded-2xl"
-                  />
-                  <div className="min-w-0">
-                    <h3 className="font-heading text-lg font-bold text-foreground">{m.name}</h3>
-                    <p className="text-sm font-semibold text-primary">{m.role}</p>
-                    <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{m.bio}</p>
+          <div className="mt-10 grid gap-5 sm:grid-cols-2" aria-live="polite" aria-busy={isLoading}>
+            {isLoading &&
+              Array.from({ length: 2 }).map((_, index) => (
+                <div
+                  key={index}
+                  aria-hidden="true"
+                  className="h-40 animate-pulse rounded-[1.75rem] bg-muted"
+                />
+              ))}
+            {isError && (
+              <div
+                role="alert"
+                className="rounded-[1.75rem] border border-border bg-card p-6 text-sm"
+              >
+                <p className="text-foreground">Clinician information could not be loaded.</p>
+                <button
+                  type="button"
+                  onClick={() => void refetch()}
+                  className="mt-3 min-h-11 font-semibold text-primary underline underline-offset-4"
+                >
+                  Try again
+                </button>
+              </div>
+            )}
+            {!isLoading && !isError && clinicians.length === 0 && (
+              <p className="rounded-[1.75rem] border border-border bg-card p-6 text-sm text-muted-foreground">
+                No clinician profiles are currently published.
+              </p>
+            )}
+            {!isLoading &&
+              !isError &&
+              clinicians.map((m, i) => (
+                <Reveal key={m.name} anim="up" delay={i * 80}>
+                  <div className="flex h-full gap-4 rounded-[1.75rem] border border-border bg-card p-6 shadow-soft">
+                    <ClinicianPortrait
+                      photo={m.photo}
+                      name={m.name}
+                      role={m.role}
+                      className="h-[4.5rem] w-[4.5rem] shrink-0 rounded-2xl"
+                    />
+                    <div className="min-w-0">
+                      <h3 className="font-heading text-lg font-bold text-foreground">{m.name}</h3>
+                      <p className="text-sm font-semibold text-primary">{m.role}</p>
+                      <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{m.bio}</p>
+                    </div>
                   </div>
-                </div>
-              </Reveal>
-            ))}
+                </Reveal>
+              ))}
           </div>
         </div>
       </section>
