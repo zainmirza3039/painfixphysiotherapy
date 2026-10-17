@@ -52,6 +52,20 @@ const NAV: NavItem[] = [
   { to: "/admin/settings", label: "Settings", icon: Settings, gate: "admin" },
 ];
 
+const NAV_SECTIONS = [
+  { label: "Overview", routes: ["/admin"] },
+  {
+    label: "Clinic",
+    routes: ["/admin/patients", "/admin/appointments", "/admin/home-visits", "/admin/messages"],
+  },
+  {
+    label: "Content",
+    routes: ["/admin/fitness-content", "/admin/blog", "/admin/calculators", "/admin/media"],
+  },
+  { label: "My workspace", routes: ["/admin/profile"] },
+  { label: "Administration", routes: ["/admin/reports", "/admin/users", "/admin/settings"] },
+] as const;
+
 function useDarkMode() {
   const [dark, setDark] = useState(false);
 
@@ -137,6 +151,13 @@ export function AdminShell({ children }: { children: ReactNode }) {
     professional: isProfessional,
   };
   const items = NAV.filter((n) => gatePass[n.gate]);
+  const navigation = NAV_SECTIONS.map((section) => ({
+    ...section,
+    items: items.filter((item) => section.routes.some((route) => route === item.to)),
+  })).filter((section) => section.items.length > 0);
+  const activePage = items.find((item) =>
+    item.to === "/admin" ? pathname === item.to : pathname.startsWith(item.to),
+  );
   const panelLabel = isAdmin
     ? "Administrator"
     : isStaff
@@ -147,36 +168,66 @@ export function AdminShell({ children }: { children: ReactNode }) {
 
   const SidebarInner = (
     <div className="flex h-full flex-col">
-      <div className="flex items-center gap-2.5 px-5 py-5">
-        <span className="grid h-9 w-9 place-items-center rounded-xl bg-primary text-primary-foreground">
-          <Activity className="h-5 w-5" />
-        </span>
-        <div className="leading-tight">
-          <p className="font-heading text-sm font-bold text-foreground">PainFix Admin</p>
-          <p className="text-[11px] text-muted-foreground">{panelLabel}</p>
+      <div className="border-b border-border px-5 py-5">
+        <div className="flex items-center gap-3">
+          <span className="relative grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-primary text-primary-foreground shadow-sm">
+            <Activity className="h-5 w-5" />
+            <span
+              aria-hidden="true"
+              className="absolute -bottom-0.5 -right-0.5 h-3 w-3 rounded-full border-2 border-card bg-secondary"
+            />
+          </span>
+          <div className="min-w-0 leading-tight">
+            <p className="font-heading text-base font-semibold tracking-tight text-foreground">
+              PainFix Admin
+            </p>
+            <p className="mt-1 text-[10px] font-semibold uppercase tracking-[0.16em] text-muted-foreground">
+              Clinic workspace
+            </p>
+          </div>
+        </div>
+        <div className="mt-4 flex items-center gap-2 border-t border-border/70 pt-3 text-xs font-medium text-muted-foreground">
+          <span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-secondary" />
+          {panelLabel} access
         </div>
       </div>
-      <nav className="flex-1 space-y-1 overflow-y-auto px-3 py-2">
-        {items.map((item) => {
-          const active =
-            item.to === "/admin" ? pathname === "/admin" : pathname.startsWith(item.to);
-          return (
-            <Link
-              key={item.to}
-              to={item.to}
-              onClick={() => setMobileOpen(false)}
-              className={cn(
-                "flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-colors",
-                active
-                  ? "bg-primary text-primary-foreground shadow-soft"
-                  : "text-foreground/70 hover:bg-muted hover:text-foreground",
-              )}
-            >
-              <item.icon className="h-4.5 w-4.5 shrink-0" />
-              {item.label}
-            </Link>
-          );
-        })}
+      <nav aria-label="Admin navigation" className="flex-1 space-y-5 overflow-y-auto px-3 py-4">
+        {navigation.map((section) => (
+          <div key={section.label} className="space-y-1">
+            <p className="px-3 pb-1 text-[10px] font-semibold uppercase tracking-[0.15em] text-muted-foreground/80">
+              {section.label}
+            </p>
+            {section.items.map((item) => {
+              const active =
+                item.to === "/admin" ? pathname === item.to : pathname.startsWith(item.to);
+              return (
+                <Link
+                  key={item.to}
+                  to={item.to}
+                  onClick={() => setMobileOpen(false)}
+                  aria-current={active ? "page" : undefined}
+                  className={cn(
+                    "group relative flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm outline-none transition-colors focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-card",
+                    active
+                      ? "font-semibold text-primary before:absolute before:inset-y-2 before:left-0 before:w-1 before:rounded-r-full before:bg-secondary"
+                      : "font-medium text-foreground/75 hover:bg-muted hover:text-foreground",
+                  )}
+                >
+                  <item.icon
+                    aria-hidden="true"
+                    className={cn(
+                      "h-[18px] w-[18px] shrink-0",
+                      active
+                        ? "text-secondary"
+                        : "text-muted-foreground group-hover:text-foreground",
+                    )}
+                  />
+                  <span>{item.label}</span>
+                </Link>
+              );
+            })}
+          </div>
+        ))}
       </nav>
       <div className="space-y-1 border-t border-border px-3 py-3">
         <a
@@ -200,35 +251,56 @@ export function AdminShell({ children }: { children: ReactNode }) {
   return (
     <div className="flex min-h-screen bg-surface">
       {/* Desktop sidebar */}
-      <aside className="hidden w-64 shrink-0 border-r border-border bg-card lg:block">
+      <aside
+        aria-label="Admin sidebar"
+        className="hidden w-64 shrink-0 border-r border-border bg-card lg:block"
+      >
         <div className="sticky top-0 h-screen">{SidebarInner}</div>
       </aside>
 
       <div className="flex min-w-0 flex-1 flex-col">
-        <header className="sticky top-0 z-30 flex items-center justify-between gap-3 border-b border-border bg-card/80 px-4 py-3 backdrop-blur-md">
-          <div className="flex items-center gap-2">
+        <header className="sticky top-0 z-30 flex min-h-16 items-center justify-between gap-3 border-b border-border bg-card/90 px-4 py-3 backdrop-blur-md sm:px-6">
+          <div className="flex min-w-0 items-center gap-3">
             <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
               <SheetTrigger asChild>
-                <Button variant="ghost" size="icon" className="lg:hidden">
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="shrink-0 lg:hidden"
+                  aria-label="Open admin navigation"
+                >
                   <Menu className="h-5 w-5" />
                 </Button>
               </SheetTrigger>
-              <SheetContent side="left" className="w-64 p-0">
-                <SheetTitle className="sr-only">Navigation</SheetTitle>
+              <SheetContent side="left" className="w-72 p-0">
+                <SheetTitle className="sr-only">Admin navigation</SheetTitle>
                 {SidebarInner}
               </SheetContent>
             </Sheet>
-            <span className="text-sm font-medium text-muted-foreground">{panelLabel} panel</span>
+            <div className="min-w-0">
+              <p className="truncate text-sm font-semibold text-foreground">
+                {activePage?.label ?? "Admin panel"}
+              </p>
+              <p className="hidden text-xs text-muted-foreground sm:block">
+                PainFix Clinic Workspace
+              </p>
+            </div>
           </div>
-          <div className="flex items-center gap-2">
+          <div className="flex shrink-0 items-center gap-2 sm:gap-3">
+            <span className="hidden max-w-[220px] truncate text-sm text-muted-foreground md:inline">
+              {user?.email}
+            </span>
+            <span aria-hidden="true" className="hidden h-6 w-px bg-border sm:block" />
+            <span className="hidden rounded-full border border-border px-2.5 py-1 text-xs font-medium text-muted-foreground sm:inline-flex">
+              {panelLabel}
+            </span>
             <Button variant="ghost" size="icon" onClick={toggle} aria-label="Toggle theme">
               {dark ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
             </Button>
-            <span className="hidden text-sm text-muted-foreground sm:inline">{user?.email}</span>
           </div>
         </header>
 
-        <main className="flex-1 p-4 sm:p-6 lg:p-8">
+        <main className="flex-1 px-4 py-5 sm:px-6 sm:py-7 xl:px-8">
           <div className="mx-auto max-w-7xl">{children}</div>
         </main>
       </div>
