@@ -1,83 +1,62 @@
 import { useState, type FormEvent } from "react";
-import { Loader2, Send, Upload } from "lucide-react";
+import { Loader2, Send } from "lucide-react";
 import { toast } from "sonner";
 import { useI18n } from "@/i18n/LanguageProvider";
 import {
   createHomeVisitSubmissionGate,
+  getLocalDateInputValue,
   HOME_VISIT_FIELD_LIMITS,
   submitHomeVisitRequest,
   validateHomeVisitForm,
+  type HomeVisitFormValues,
+  type HomeVisitValidationError,
 } from "@/lib/home-visit-form";
-import {
-  getMedicalReportExtension,
-  MEDICAL_REPORT_ACCEPT,
-  validateMedicalReport,
-} from "@/lib/medical-report";
 
-const initial = {
+const createInitialValues = (): HomeVisitFormValues => ({
   full_name: "",
   phone: "",
   address: "",
-  maps_location: "",
-  patient_age: "",
   medical_condition: "",
   preferred_date: "",
   preferred_time: "",
   notes: "",
-};
+});
 
 export function HomeVisitForm() {
   const { t } = useI18n();
   const f = t.homeVisit.form;
-  const [values, setValues] = useState(initial);
-  const [file, setFile] = useState<File | null>(null);
-  const [company, setCompany] = useState(""); // honeypot — real users leave this empty
+  const [values, setValues] = useState<HomeVisitFormValues>(createInitialValues);
+  const [company, setCompany] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [submissionGate] = useState(() => createHomeVisitSubmissionGate());
+  const today = getLocalDateInputValue();
 
-  const set = (key: keyof typeof initial, val: string) => setValues((v) => ({ ...v, [key]: val }));
-  const reportErrorMessage = (error: NonNullable<ReturnType<typeof validateMedicalReport>>) =>
-    error === "size" ? f.reportTooLarge : error === "empty" ? f.reportEmpty : f.reportInvalidType;
-  const formErrorMessage = (error: NonNullable<ReturnType<typeof validateHomeVisitForm>>) =>
-    error === "required" ? f.required : error === "age" ? f.ageInvalid : f.fieldTooLong;
+  const set = (key: keyof HomeVisitFormValues, value: string) =>
+    setValues((current) => ({ ...current, [key]: value }));
 
-  const onSubmit = async (e: FormEvent) => {
-    e.preventDefault();
-    // Silently drop bot submissions that fill the hidden honeypot field.
-    if (company) return;
+  const validationMessages: Record<HomeVisitValidationError, string> = {
+    required: f.required,
+    phone: f.phoneInvalid,
+    date: f.dateInvalid,
+    length: f.fieldTooLong,
+  };
 
-    // React state updates after this handler returns. The gate closes that
-    // small race window so two rapid submit events cannot issue two inserts.
-    if (submissionGate.isPending) return;
-    const validationError = validateHomeVisitForm(values);
+  const onSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    if (company || submissionGate.isPending) return;
+
+    const validationError = validateHomeVisitForm(values, today);
     if (validationError) {
-      toast.error(formErrorMessage(validationError));
+      toast.error(validationMessages[validationError]);
       return;
     }
-    if (file) {
-      const reportValidationError = validateMedicalReport(file);
-      if (reportValidationError) {
-        toast.error(reportErrorMessage(reportValidationError));
-        return;
-      }
-    }
+
     setSubmitting(true);
     try {
       const result = await submitHomeVisitRequest(
         values,
-        file,
+        today,
         {
-          uploadReport: async (report) => {
-            const { supabase } = await import("@/integrations/supabase/client");
-            const extension = getMedicalReportExtension(report.type);
-            if (!extension) throw new Error("Unsupported medical report MIME type");
-            const path = `${crypto.randomUUID()}.${extension}`;
-            const { error: uploadError } = await supabase.storage
-              .from("medical-reports")
-              .upload(path, report, { contentType: report.type });
-            if (uploadError) throw uploadError;
-            return path;
-          },
           insertRequest: async (payload) => {
             const { supabase } = await import("@/integrations/supabase/client");
             const { error } = await supabase.from("home_visit_requests").insert(payload);
@@ -89,7 +68,7 @@ export function HomeVisitForm() {
 
       if (result.status === "duplicate") return;
       if (result.status === "invalid") {
-        toast.error(formErrorMessage(result.reason));
+        toast.error(validationMessages[result.reason]);
         return;
       }
       if (result.status === "error") {
@@ -99,192 +78,144 @@ export function HomeVisitForm() {
       }
 
       toast.success(f.success);
-      setValues(initial);
-      setFile(null);
-    } catch (err) {
-      console.error("Home visit request failed:", err);
+      setValues(createInitialValues());
+    } catch (error) {
+      console.error("Home visit request failed:", error);
       toast.error(f.error);
     } finally {
       setSubmitting(false);
     }
   };
 
-  const inputCls =
+  const inputClassName =
     "w-full rounded-xl border border-border bg-background px-4 py-3 text-sm text-foreground outline-none transition-colors placeholder:text-muted-foreground focus:border-primary focus:ring-2 focus:ring-primary/20";
-  const labelCls = "mb-1.5 block text-sm font-semibold text-foreground";
+  const labelClassName = "mb-1.5 block text-sm font-semibold text-foreground";
 
   return (
-    <form onSubmit={onSubmit} className="grid gap-4 sm:grid-cols-2">
-      {/* Honeypot: visually hidden, ignored by humans, filled by bots */}
-      <div
-        aria-hidden
-        className="absolute left-[-9999px] top-[-9999px] h-0 w-0 overflow-hidden"
-        tabIndex={-1}
-      >
-        <label htmlFor="hv-company">Company</label>
-        <input
-          id="hv-company"
-          type="text"
-          tabIndex={-1}
-          autoComplete="off"
-          value={company}
-          onChange={(e) => setCompany(e.target.value)}
-        />
-      </div>
-      <div className="sm:col-span-1">
-        <label className={labelCls} htmlFor="full_name">
+    <form onSubmit={onSubmit} aria-busy={submitting} className="grid gap-4 sm:grid-cols-2">
+      <div>
+        <label className={labelClassName} htmlFor="full_name">
           {f.fullName} *
         </label>
         <input
           id="full_name"
-          className={inputCls}
-          value={values.full_name}
-          onChange={(e) => set("full_name", e.target.value)}
+          name="full_name"
+          autoComplete="name"
           maxLength={HOME_VISIT_FIELD_LIMITS.full_name}
+          className={inputClassName}
+          value={values.full_name}
+          onChange={(event) => set("full_name", event.target.value)}
           required
         />
       </div>
-      <div className="sm:col-span-1">
-        <label className={labelCls} htmlFor="phone">
+      <div>
+        <label className={labelClassName} htmlFor="phone">
           {f.phone} *
         </label>
         <input
           id="phone"
+          name="phone"
           type="tel"
-          className={inputCls}
-          value={values.phone}
-          onChange={(e) => set("phone", e.target.value)}
+          inputMode="tel"
+          autoComplete="tel"
           maxLength={HOME_VISIT_FIELD_LIMITS.phone}
+          className={inputClassName}
+          value={values.phone}
+          onChange={(event) => set("phone", event.target.value)}
           required
         />
       </div>
 
       <div className="sm:col-span-2">
-        <label className={labelCls} htmlFor="address">
+        <label className={labelClassName} htmlFor="address">
           {f.address} *
         </label>
         <input
           id="address"
-          className={inputCls}
-          value={values.address}
-          onChange={(e) => set("address", e.target.value)}
+          name="address"
+          autoComplete="address-line1"
           maxLength={HOME_VISIT_FIELD_LIMITS.address}
+          placeholder={f.addressHint}
+          className={inputClassName}
+          value={values.address}
+          onChange={(event) => set("address", event.target.value)}
           required
         />
       </div>
 
       <div className="sm:col-span-2">
-        <label className={labelCls} htmlFor="maps_location">
-          {f.maps}
-        </label>
-        <input
-          id="maps_location"
-          className={inputCls}
-          placeholder="https://maps.google.com/…"
-          value={values.maps_location}
-          onChange={(e) => set("maps_location", e.target.value)}
-          maxLength={HOME_VISIT_FIELD_LIMITS.maps_location}
-        />
-      </div>
-
-      <div>
-        <label className={labelCls} htmlFor="patient_age">
-          {f.age}
-        </label>
-        <input
-          id="patient_age"
-          type="number"
-          min={0}
-          max={120}
-          step={1}
-          className={inputCls}
-          value={values.patient_age}
-          onChange={(e) => set("patient_age", e.target.value)}
-        />
-      </div>
-      <div>
-        <label className={labelCls} htmlFor="medical_condition">
-          {f.condition}
+        <label className={labelClassName} htmlFor="medical_condition">
+          {f.condition} *
         </label>
         <input
           id="medical_condition"
-          className={inputCls}
-          value={values.medical_condition}
-          onChange={(e) => set("medical_condition", e.target.value)}
+          name="medical_condition"
           maxLength={HOME_VISIT_FIELD_LIMITS.medical_condition}
+          className={inputClassName}
+          value={values.medical_condition}
+          onChange={(event) => set("medical_condition", event.target.value)}
+          required
         />
       </div>
 
       <div>
-        <label className={labelCls} htmlFor="preferred_date">
-          {f.date}
+        <label className={labelClassName} htmlFor="preferred_date">
+          {f.date} *
         </label>
         <input
           id="preferred_date"
+          name="preferred_date"
           type="date"
-          className={inputCls}
+          min={today}
+          className={inputClassName}
           value={values.preferred_date}
-          onChange={(e) => set("preferred_date", e.target.value)}
+          onChange={(event) => set("preferred_date", event.target.value)}
+          required
         />
       </div>
       <div>
-        <label className={labelCls} htmlFor="preferred_time">
-          {f.time}
+        <label className={labelClassName} htmlFor="preferred_time">
+          {f.time} *
         </label>
         <input
           id="preferred_time"
+          name="preferred_time"
           type="time"
-          className={inputCls}
+          className={inputClassName}
           value={values.preferred_time}
-          onChange={(e) => set("preferred_time", e.target.value)}
+          onChange={(event) => set("preferred_time", event.target.value)}
+          required
         />
       </div>
 
       <div className="sm:col-span-2">
-        <label className={labelCls} htmlFor="report">
-          {f.report}
-        </label>
-        <label
-          htmlFor="report"
-          className="flex cursor-pointer items-center gap-3 rounded-xl border border-dashed border-border bg-background px-4 py-3 text-sm text-muted-foreground transition-colors hover:border-primary"
-        >
-          <Upload className="h-4 w-4 shrink-0 text-primary" />
-          <span className="truncate">{file ? file.name : f.reportHint}</span>
-        </label>
-        <input
-          id="report"
-          type="file"
-          accept={MEDICAL_REPORT_ACCEPT}
-          className="hidden"
-          onChange={(e) => {
-            const selected = e.target.files?.[0] ?? null;
-            if (!selected) {
-              setFile(null);
-              return;
-            }
-            const validationError = validateMedicalReport(selected);
-            if (validationError) {
-              setFile(null);
-              e.target.value = "";
-              toast.error(reportErrorMessage(validationError));
-              return;
-            }
-            setFile(selected);
-          }}
-        />
-      </div>
-
-      <div className="sm:col-span-2">
-        <label className={labelCls} htmlFor="notes">
+        <label className={labelClassName} htmlFor="notes">
           {f.notes}
         </label>
         <textarea
           id="notes"
+          name="notes"
           rows={3}
-          className={inputCls}
-          value={values.notes}
-          onChange={(e) => set("notes", e.target.value)}
           maxLength={HOME_VISIT_FIELD_LIMITS.notes}
+          className={inputClassName}
+          value={values.notes}
+          onChange={(event) => set("notes", event.target.value)}
+        />
+      </div>
+
+      <div
+        aria-hidden="true"
+        className="absolute left-[-9999px] top-[-9999px] h-0 w-0 overflow-hidden"
+      >
+        <label htmlFor="company">Company</label>
+        <input
+          id="company"
+          name="company"
+          type="text"
+          tabIndex={-1}
+          autoComplete="off"
+          value={company}
+          onChange={(event) => setCompany(event.target.value)}
         />
       </div>
 
@@ -292,15 +223,15 @@ export function HomeVisitForm() {
         <button
           type="submit"
           disabled={submitting}
-          className="ripple inline-flex w-full items-center justify-center gap-2 rounded-2xl bg-primary px-6 py-3.5 text-sm font-semibold text-primary-foreground shadow-card transition-transform hover:scale-[1.02] disabled:cursor-not-allowed disabled:opacity-70 sm:w-auto"
+          className="ripple inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-2xl bg-primary px-6 py-3.5 text-sm font-semibold text-primary-foreground shadow-card transition-colors hover:bg-primary/90 disabled:cursor-not-allowed disabled:opacity-70 sm:w-auto"
         >
           {submitting ? (
             <>
-              <Loader2 className="h-4 w-4 animate-spin" /> {t.actions.submitting}
+              <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" /> {t.actions.submitting}
             </>
           ) : (
             <>
-              <Send className="h-4 w-4" /> {t.actions.submit}
+              <Send className="h-4 w-4" aria-hidden="true" /> {t.actions.submit}
             </>
           )}
         </button>

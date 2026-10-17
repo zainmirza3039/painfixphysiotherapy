@@ -2,7 +2,6 @@ export const HOME_VISIT_FIELD_LIMITS = {
   full_name: 200,
   phone: 40,
   address: 1000,
-  maps_location: 2048,
   medical_condition: 200,
   preferred_time: 20,
   notes: 5000,
@@ -12,27 +11,22 @@ export type HomeVisitFormValues = {
   full_name: string;
   phone: string;
   address: string;
-  maps_location: string;
-  patient_age: string;
   medical_condition: string;
   preferred_date: string;
   preferred_time: string;
   notes: string;
 };
 
-export type HomeVisitValidationError = "required" | "age" | "length";
+export type HomeVisitValidationError = "required" | "phone" | "date" | "length";
 
 export type HomeVisitRequestPayload = {
   full_name: string;
   phone: string;
   address: string;
-  maps_location: string | null;
-  patient_age: number | null;
-  medical_condition: string | null;
-  preferred_date: string | null;
-  preferred_time: string | null;
+  medical_condition: string;
+  preferred_date: string;
+  preferred_time: string;
   notes: string | null;
-  report_url: string | null;
 };
 
 export type HomeVisitSubmissionResult =
@@ -52,30 +46,34 @@ export interface HomeVisitSubmissionGate {
 }
 
 export interface HomeVisitSubmissionAdapter {
-  uploadReport(file: File): Promise<string>;
   insertRequest(payload: HomeVisitRequestPayload): Promise<void>;
+}
+
+export function getLocalDateInputValue(date = new Date()): string {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
+  return `${year}-${month}-${day}`;
 }
 
 export function validateHomeVisitForm(
   values: HomeVisitFormValues,
+  today: string,
 ): HomeVisitValidationError | null {
-  if (!values.full_name.trim() || !values.phone.trim() || !values.address.trim()) {
-    return "required";
-  }
-
-  const age = values.patient_age.trim();
-  if (age) {
-    const parsedAge = Number(age);
-    if (!/^\d+$/.test(age) || !Number.isInteger(parsedAge) || parsedAge < 0 || parsedAge > 120) {
-      return "age";
-    }
-  }
+  const requiredValues = [
+    values.full_name,
+    values.phone,
+    values.address,
+    values.medical_condition,
+    values.preferred_date,
+    values.preferred_time,
+  ];
+  if (requiredValues.some((value) => !value.trim())) return "required";
 
   if (
     values.full_name.trim().length > HOME_VISIT_FIELD_LIMITS.full_name ||
     values.phone.trim().length > HOME_VISIT_FIELD_LIMITS.phone ||
     values.address.trim().length > HOME_VISIT_FIELD_LIMITS.address ||
-    values.maps_location.trim().length > HOME_VISIT_FIELD_LIMITS.maps_location ||
     values.medical_condition.trim().length > HOME_VISIT_FIELD_LIMITS.medical_condition ||
     values.preferred_time.trim().length > HOME_VISIT_FIELD_LIMITS.preferred_time ||
     values.notes.trim().length > HOME_VISIT_FIELD_LIMITS.notes
@@ -83,24 +81,22 @@ export function validateHomeVisitForm(
     return "length";
   }
 
+  const phoneDigits = values.phone.replace(/\D/g, "");
+  if (phoneDigits.length < 7 || phoneDigits.length > 15) return "phone";
+  if (values.preferred_date < today) return "date";
+
   return null;
 }
 
-export function toHomeVisitRequestPayload(
-  values: HomeVisitFormValues,
-  reportUrl: string | null,
-): HomeVisitRequestPayload {
+export function toHomeVisitRequestPayload(values: HomeVisitFormValues): HomeVisitRequestPayload {
   return {
     full_name: values.full_name.trim(),
     phone: values.phone.trim(),
     address: values.address.trim(),
-    maps_location: values.maps_location.trim() || null,
-    patient_age: values.patient_age.trim() ? Number(values.patient_age.trim()) : null,
-    medical_condition: values.medical_condition.trim() || null,
-    preferred_date: values.preferred_date || null,
-    preferred_time: values.preferred_time.trim() || null,
+    medical_condition: values.medical_condition.trim(),
+    preferred_date: values.preferred_date,
+    preferred_time: values.preferred_time.trim(),
     notes: values.notes.trim() || null,
-    report_url: reportUrl,
   };
 }
 
@@ -127,17 +123,14 @@ export function createHomeVisitSubmissionGate(): HomeVisitSubmissionGate {
 
 export async function submitHomeVisitRequest(
   values: HomeVisitFormValues,
-  file: File | null,
+  today: string,
   adapter: HomeVisitSubmissionAdapter,
   gate: HomeVisitSubmissionGate,
 ): Promise<HomeVisitSubmissionResult> {
-  const validationError = validateHomeVisitForm(values);
+  const validationError = validateHomeVisitForm(values, today);
   if (validationError) return { status: "invalid", reason: validationError };
 
-  const result = await gate.run(async () => {
-    const reportUrl = file ? await adapter.uploadReport(file) : null;
-    await adapter.insertRequest(toHomeVisitRequestPayload(values, reportUrl));
-  });
+  const result = await gate.run(() => adapter.insertRequest(toHomeVisitRequestPayload(values)));
 
   if (result.status === "success") return { status: "success" };
   return result;

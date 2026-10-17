@@ -1,6 +1,5 @@
 import {
   AtSign,
-  CalendarClock,
   Clock3,
   Facebook,
   Instagram,
@@ -12,7 +11,6 @@ import {
 } from "lucide-react";
 import { Reveal } from "./Reveal";
 import { SectionHeading } from "./SectionHeading";
-import { CalendlyInline } from "./CalendlyInline";
 import { ContactForm } from "./ContactForm";
 import { GoogleReviewButton } from "./GoogleReviewButton";
 import {
@@ -43,7 +41,7 @@ export function Contact() {
         <SectionHeading
           eyebrow="Visit or get in touch"
           title="PainFix Physiotherapy Clinic, Multan"
-          subtitle="Find the clinic, call or message the team, send an enquiry, or choose an appointment time."
+          subtitle="Find the clinic, call or message the team, or send an enquiry."
         />
 
         <div className="mt-10 grid gap-7 lg:grid-cols-[0.82fr_1.18fr] lg:gap-10">
@@ -164,7 +162,7 @@ export function Contact() {
           </Reveal>
         </div>
 
-        <div className="mt-8 grid gap-5 lg:grid-cols-2">
+        <div className="mt-8 max-w-3xl">
           <Reveal anim="left" className="home-contact-form-panel">
             <h3 className="font-heading text-2xl font-semibold text-foreground">Send an enquiry</h3>
             <p className="mt-2 text-sm leading-6 text-muted-foreground">
@@ -172,26 +170,6 @@ export function Contact() {
             </p>
             <div className="mt-5">
               <ContactForm />
-            </div>
-          </Reveal>
-
-          <Reveal anim="right" className="home-contact-form-panel">
-            <div id="book" className="scroll-mt-24">
-              <div className="mb-5 flex items-start gap-3">
-                <CalendarClock
-                  className="mt-1 h-5 w-5 shrink-0 text-secondary"
-                  aria-hidden="true"
-                />
-                <div>
-                  <h3 className="font-heading text-2xl font-semibold text-foreground">
-                    Choose an appointment time
-                  </h3>
-                  <p className="mt-2 text-sm leading-6 text-muted-foreground">
-                    Appointments are confirmed through the existing booking service.
-                  </p>
-                </div>
-              </div>
-              <CalendlyInline />
             </div>
           </Reveal>
         </div>

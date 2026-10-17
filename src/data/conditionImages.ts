@@ -1,6 +1,6 @@
-import backPain from "@/assets/conditions/back-pain.webp";
-import neckPain from "@/assets/conditions/neck-pain.webp";
-import sciatica from "@/assets/conditions/sciatica.webp";
+import backPain from "@/assets/conditions/back-pain-symptom.webp";
+import neckPain from "@/assets/conditions/neck-pain-symptom.webp";
+import sciatica from "@/assets/conditions/sciatica-distribution.webp";
 import frozenShoulder from "@/assets/conditions/frozen-shoulder.webp";
 import kneePain from "@/assets/conditions/knee-pain.webp";
 import osteoarthritis from "@/assets/conditions/osteoarthritis.webp";
@@ -10,10 +10,10 @@ import strokeRehabilitation from "@/assets/conditions/stroke-rehabilitation.webp
 import cervicalRadiculopathy from "@/assets/conditions/cervical-radiculopathy.webp";
 import balanceDisorders from "@/assets/conditions/balance-disorders.webp";
 import postSurgicalRehabilitation from "@/assets/conditions/post-surgical-rehabilitation.webp";
+import { conditionImageCover, conditionImageCoverAlt } from "@/data/conditionImageGallery";
 
 /**
- * Maps a condition slug to its optimized, lazy-loaded medical photograph.
- * All images are realistic clinical physiotherapy photos (4:3, WebP, ~800x600).
+ * Maps a condition slug to its optimized, lazy-loaded condition image.
  */
 export const conditionImages: Record<string, string> = {
   "back-pain": backPain,
@@ -28,19 +28,27 @@ export const conditionImages: Record<string, string> = {
   "cervical-radiculopathy": cervicalRadiculopathy,
   "balance-disorders": balanceDisorders,
   "post-surgical-rehabilitation": postSurgicalRehabilitation,
+  ...conditionImageCover,
+};
+
+/** Keep the supplied symptom illustrations fully visible instead of cropping them. */
+export const conditionImageFitClass: Record<string, string> = {
+  "back-pain": "object-contain",
+  "neck-pain": "object-contain",
+  sciatica: "object-contain",
+  "frozen-shoulder": "object-contain",
+  "knee-pain": "object-contain",
+  "sports-injuries": "object-contain",
+  "plantar-fasciitis": "object-contain",
 };
 
 /**
- * SEO-friendly, condition-specific ALT text for each medical photograph.
- * Describes the treatment shown and reinforces local (Multan) relevance.
+ * Descriptive ALT text for each condition image.
  */
 export const conditionImageAlt: Record<string, string> = {
-  "back-pain":
-    "Physiotherapist assessing a patient's lower back during back pain treatment at PainFix Physiotherapy Clinic in Multan",
-  "neck-pain":
-    "Physiotherapist examining a patient's neck during neck pain treatment at PainFix Physiotherapy Clinic in Multan",
-  sciatica:
-    "Physiotherapist treating the lower back and hip to relieve sciatica nerve pain at PainFix Physiotherapy Clinic in Multan",
+  "back-pain": "Image showing pain highlighted around the lower back and lumbar spine.",
+  "neck-pain": "Image showing pain highlighted across the neck and upper shoulders.",
+  sciatica: "Medical illustration tracing the sciatic nerve and radiating pain down the leg.",
   "frozen-shoulder":
     "Physiotherapist mobilising a patient's shoulder joint during frozen shoulder treatment at PainFix Physiotherapy Clinic in Multan",
   "knee-pain":
@@ -59,6 +67,7 @@ export const conditionImageAlt: Record<string, string> = {
     "Physiotherapist supporting an older patient during balance training at PainFix Physiotherapy Clinic in Multan",
   "post-surgical-rehabilitation":
     "Physiotherapist assisting a patient with guided post-surgical rehabilitation exercises at PainFix Physiotherapy Clinic in Multan",
+  ...conditionImageCoverAlt,
 };
 
 /** Fallback ALT text for any condition without a specific description. */

@@ -2,7 +2,7 @@ import { Link } from "@tanstack/react-router";
 import { Clock, ArrowRight, CalendarClock, BadgeCheck } from "lucide-react";
 import { type BlogPost, blogCategoryMap, readingMinutes } from "@/data/blog";
 import { getTeamMember } from "@/data/team";
-import { conditionImages } from "@/data/conditionImages";
+import { conditionImages, conditionImageFitClass } from "@/data/conditionImages";
 
 const dateFmt = new Intl.DateTimeFormat("en-GB", {
   day: "numeric",
@@ -14,13 +14,16 @@ export function BlogCard({ post }: { post: BlogPost }) {
   const cat = blogCategoryMap[post.category];
   const reviewer = getTeamMember(post.authorKey);
   const image = post.heroImage ?? conditionImages[post.category];
+  const imageFitClass = post.heroImage
+    ? "object-cover"
+    : (conditionImageFitClass[post.category] ?? "object-cover");
   const categoryLabel = cat?.name ?? post.categoryName ?? "Article";
 
   return (
     <Link
       to="/blog/$slug"
       params={{ slug: post.slug }}
-      className="hover-lift group flex h-full flex-col overflow-hidden rounded-[1.75rem] border border-border bg-card shadow-soft transition-shadow hover:border-primary/40 hover:shadow-card focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+      className="group flex h-full flex-col overflow-hidden rounded-lg border border-border bg-card transition-colors hover:border-secondary/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
     >
       {image && (
         <div className="aspect-[16/9] overflow-hidden bg-surface">
@@ -31,13 +34,13 @@ export function BlogCard({ post }: { post: BlogPost }) {
             decoding="async"
             width={700}
             height={394}
-            className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+            className={`h-full w-full ${imageFitClass} motion-safe:transition-transform motion-safe:duration-300 motion-safe:group-hover:scale-[1.02]`}
           />
         </div>
       )}
-      <div className="flex flex-1 flex-col p-6">
+      <div className="flex flex-1 flex-col p-5 sm:p-6">
         <div className="flex flex-wrap items-center gap-2 text-xs font-semibold">
-          <span className="rounded-full bg-secondary/12 px-3 py-1 text-secondary">
+          <span className="rounded-sm bg-accent px-2.5 py-1 text-accent-foreground">
             {categoryLabel}
           </span>
           <span className="inline-flex items-center gap-1 text-muted-foreground">

@@ -1,7 +1,7 @@
 import {
   Facebook,
   Instagram,
-  AtSign,
+  Music2,
   MapPin,
   Phone,
   Linkedin,
@@ -20,19 +20,14 @@ import {
   OPENING_HOURS,
 } from "./constants";
 import { GoogleReviewButton } from "./GoogleReviewButton";
-import { services } from "@/data/services";
-import { conditions } from "@/data/conditions";
 import { latestPosts } from "@/data/blog";
 
 const socials = [
   { icon: Facebook, label: "Facebook", ...SOCIAL_LINKS.facebook },
   { icon: Instagram, label: "Instagram", ...SOCIAL_LINKS.instagram },
-  { icon: AtSign, label: "TikTok", ...SOCIAL_LINKS.tiktok },
+  { icon: Music2, label: "TikTok", ...SOCIAL_LINKS.tiktok },
   { icon: Linkedin, label: "LinkedIn", ...SOCIAL_LINKS.linkedin },
 ];
-
-const topServices = services.slice(0, 6);
-const topConditions = conditions.slice(0, 6);
 
 export function Footer() {
   const articles = latestPosts(4);
@@ -40,7 +35,7 @@ export function Footer() {
   return (
     <footer className="bg-primary text-primary-foreground">
       <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
-        <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-6">
+        <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-5">
           {/* Brand + socials */}
           <div className="lg:col-span-2">
             <div className="flex items-center gap-2.5">
@@ -95,23 +90,44 @@ export function Footer() {
             </div>
           </div>
 
-          {/* Top Services */}
+          {/* Explore */}
           <div>
             <h3 className="font-heading text-sm font-bold uppercase tracking-wider text-background/90">
-              Top Services
+              Explore
             </h3>
             <ul className="mt-4 space-y-2 text-sm">
-              {topServices.map((s) => (
-                <li key={s.slug}>
-                  <Link
-                    to="/services/$slug"
-                    params={{ slug: s.slug }}
-                    className="text-background/70 transition-colors hover:text-secondary"
-                  >
-                    {s.shortTitle}
-                  </Link>
-                </li>
-              ))}
+              <li>
+                <Link
+                  to="/about"
+                  className="text-background/70 transition-colors hover:text-secondary"
+                >
+                  About PainFix
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/our-team"
+                  className="text-background/70 transition-colors hover:text-secondary"
+                >
+                  Our Team
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/services"
+                  className="text-background/70 transition-colors hover:text-secondary"
+                >
+                  All Services
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/conditions"
+                  className="text-background/70 transition-colors hover:text-secondary"
+                >
+                  All Conditions
+                </Link>
+              </li>
               <li>
                 <Link
                   to="/fitness-rehabilitation"
@@ -146,38 +162,26 @@ export function Footer() {
               </li>
               <li>
                 <Link
-                  to="/services"
-                  className="inline-flex items-center gap-1 font-semibold text-secondary-glow"
+                  to="/gallery"
+                  className="text-background/70 transition-colors hover:text-secondary"
                 >
-                  All Services <ArrowRight className="h-3.5 w-3.5" />
+                  Clinic Gallery
                 </Link>
               </li>
-            </ul>
-          </div>
-
-          {/* Top Conditions */}
-          <div>
-            <h3 className="font-heading text-sm font-bold uppercase tracking-wider text-background/90">
-              Top Conditions
-            </h3>
-            <ul className="mt-4 space-y-2 text-sm">
-              {topConditions.map((c) => (
-                <li key={c.slug}>
-                  <Link
-                    to="/conditions/$slug"
-                    params={{ slug: c.slug }}
-                    className="text-background/70 transition-colors hover:text-secondary"
-                  >
-                    {c.title}
-                  </Link>
-                </li>
-              ))}
               <li>
                 <Link
-                  to="/conditions"
-                  className="inline-flex items-center gap-1 font-semibold text-secondary-glow"
+                  to="/contact"
+                  className="text-background/70 transition-colors hover:text-secondary"
                 >
-                  All Conditions <ArrowRight className="h-3.5 w-3.5" />
+                  Contact
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/book-appointment"
+                  className="text-background/70 transition-colors hover:text-secondary"
+                >
+                  Book an Appointment
                 </Link>
               </li>
             </ul>
@@ -243,10 +247,7 @@ export function Footer() {
               >
                 <MessageCircle className="h-4 w-4" /> WhatsApp
               </a>
-              <GoogleReviewButton
-                variant="outline"
-                className="border-background/20 bg-background/10 text-background hover:bg-background/20"
-              />
+              <GoogleReviewButton variant="inverse" />
             </div>
           </div>
         </div>

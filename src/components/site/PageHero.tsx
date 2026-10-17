@@ -23,29 +23,27 @@ export function PageHero({
   showActions = true,
 }: PageHeroProps) {
   return (
-    <section className="relative overflow-hidden border-b border-border bg-surface pt-28 pb-12 sm:pt-36 sm:pb-16">
-      <div className="pointer-events-none absolute -top-24 right-0 h-[24rem] w-[24rem] rounded-full bg-secondary/12 blur-3xl" />
-      <div className="pointer-events-none absolute -bottom-28 -left-24 h-[22rem] w-[22rem] rounded-full bg-primary/10 blur-3xl" />
-      <div className="relative mx-auto max-w-4xl px-4 text-center sm:px-6 lg:px-8">
+    <section className="border-b border-border bg-background pt-28 pb-12 sm:pt-36 sm:pb-16">
+      <div className="mx-auto max-w-5xl px-4 text-center sm:px-6 lg:px-8">
         <div className="flex justify-center">
           <Breadcrumbs items={crumbs} />
         </div>
         <Reveal anim="up">
           {icon && (
-            <span className="mx-auto mt-6 grid h-16 w-16 place-items-center rounded-2xl bg-secondary/12 text-secondary">
+            <span className="mx-auto mt-6 grid h-14 w-14 place-items-center rounded-lg bg-accent text-secondary">
               {icon}
             </span>
           )}
           {eyebrow && (
-            <span className="mt-6 inline-flex items-center gap-2 rounded-full bg-accent px-4 py-1.5 text-xs font-bold uppercase tracking-wider text-accent-foreground">
+            <span className="mt-6 inline-flex items-center border-l-2 border-brand-green pl-3 text-xs font-bold uppercase tracking-[0.14em] text-secondary">
               {eyebrow}
             </span>
           )}
-          <h1 className="mt-4 font-heading text-3xl font-extrabold leading-tight text-foreground sm:text-4xl lg:text-5xl">
+          <h1 className="mx-auto mt-5 max-w-[22ch] text-balance font-heading text-[clamp(2.35rem,5.4vw,4rem)] font-semibold leading-[1.03] tracking-[-0.035em] text-foreground">
             {title}
           </h1>
           {subtitle && (
-            <p className="mx-auto mt-5 max-w-2xl text-base leading-relaxed text-muted-foreground sm:text-lg">
+            <p className="mx-auto mt-4 max-w-2xl text-base leading-7 text-muted-foreground sm:text-lg sm:leading-8">
               {subtitle}
             </p>
           )}
@@ -55,13 +53,13 @@ export function PageHero({
                 href={WHATSAPP_CONSULT_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="ripple inline-flex items-center gap-2 rounded-2xl bg-secondary px-6 py-3.5 text-sm font-semibold text-secondary-foreground shadow-card transition-transform hover:scale-[1.03]"
+                className="inline-flex min-h-12 items-center gap-2 rounded-md bg-secondary px-5 py-3 text-sm font-semibold text-secondary-foreground transition-colors hover:bg-secondary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
               >
                 <MessageCircle className="h-4 w-4" /> WhatsApp Consultation
               </a>
               <a
                 href={PHONE_TEL}
-                className="inline-flex items-center gap-2 rounded-2xl border border-primary bg-background px-6 py-3.5 text-sm font-semibold text-primary transition-colors hover:bg-primary hover:text-primary-foreground"
+                className="inline-flex min-h-12 items-center gap-2 rounded-md border border-primary/25 bg-background px-5 py-3 text-sm font-semibold text-primary transition-colors hover:border-primary hover:bg-primary hover:text-primary-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
               >
                 <Phone className="h-4 w-4" /> Call Now
               </a>

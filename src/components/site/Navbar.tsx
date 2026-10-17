@@ -24,7 +24,7 @@ import {
   Activity,
   type LucideIcon,
 } from "lucide-react";
-import { Link, useNavigate } from "@tanstack/react-router";
+import { Link, useNavigate, useRouterState } from "@tanstack/react-router";
 import { SERVICES_MENU, CONDITIONS_MENU, WHATSAPP_CONSULT_URL, CALENDLY_URL } from "./constants";
 
 // NOTE: LanguageToggle intentionally not rendered in the public header.
@@ -237,6 +237,13 @@ export function Navbar() {
   const accountRef = useRef<HTMLDivElement>(null);
   const { signedIn, isAdmin } = useAuthState();
   const navigate = useNavigate();
+  const pathname = useRouterState({ select: (state) => state.location.pathname });
+  const isRouteActive = (path: string) =>
+    path === "/" ? pathname === "/" : pathname === path || pathname.startsWith(`${path}/`);
+  const navClass = (path: string) =>
+    `${linkClass} ${isRouteActive(path) ? "bg-accent text-primary" : ""}`;
+  const mobileNavClass = (path: string) =>
+    `rounded-xl px-4 py-3.5 text-base font-medium transition-colors ${isRouteActive(path) ? "bg-accent text-primary" : "text-foreground/85 hover:bg-accent hover:text-primary"}`;
 
   /* Sticky smart header: show near top, hide on scroll down, reveal on scroll up. */
   useEffect(() => {
@@ -334,10 +341,11 @@ export function Navbar() {
           aria-label="Primary"
           className="mx-auto flex max-w-7xl items-center justify-between gap-2 px-4 sm:px-6 lg:px-8"
         >
-          <a
-            href="/#home"
+          <Link
+            to="/"
             className="flex min-w-0 items-center gap-2.5"
             aria-label="PainFix Physiotherapy Clinic home"
+            aria-current={pathname === "/" ? "page" : undefined}
           >
             <span className="grid h-11 w-11 shrink-0 place-items-center overflow-hidden rounded-xl bg-background shadow-soft ring-1 ring-border">
               <img
@@ -356,16 +364,24 @@ export function Navbar() {
                 Physiotherapy Clinic
               </span>
             </span>
-          </a>
+          </Link>
 
           {/* ---------- Desktop navigation ---------- */}
           <div className="hidden items-center gap-0.5 xl:flex">
-            <a href="/#home" className={linkClass}>
+            <Link
+              to="/"
+              className={navClass("/")}
+              aria-current={pathname === "/" ? "page" : undefined}
+            >
               Home
-            </a>
-            <a href="/#about" className={linkClass}>
+            </Link>
+            <Link
+              to="/about"
+              className={navClass("/about")}
+              aria-current={isRouteActive("/about") ? "page" : undefined}
+            >
               About
-            </a>
+            </Link>
 
             {/* Services dropdown */}
             <div
@@ -373,18 +389,28 @@ export function Navbar() {
               onMouseEnter={() => setMenu("services")}
               onMouseLeave={() => setMenu(null)}
             >
-              <button
-                type="button"
-                aria-haspopup="menu"
-                aria-expanded={menu === "services"}
-                onClick={() => setMenu((m) => (m === "services" ? null : "services"))}
-                className={`inline-flex items-center gap-1 ${linkClass}`}
-              >
-                Services
-                <ChevronDown
-                  className={`h-3.5 w-3.5 transition-transform ${menu === "services" ? "rotate-180" : ""}`}
-                />
-              </button>
+              <div className="flex items-center">
+                <Link
+                  to="/services"
+                  onClick={() => setMenu(null)}
+                  className={navClass("/services")}
+                  aria-current={isRouteActive("/services") ? "page" : undefined}
+                >
+                  Services
+                </Link>
+                <button
+                  type="button"
+                  aria-label={menu === "services" ? "Close services menu" : "Open services menu"}
+                  aria-haspopup="menu"
+                  aria-expanded={menu === "services"}
+                  onClick={() => setMenu((m) => (m === "services" ? null : "services"))}
+                  className="inline-flex h-9 w-7 items-center justify-center rounded-md text-foreground/80 transition-colors hover:bg-accent hover:text-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+                >
+                  <ChevronDown
+                    className={`h-3.5 w-3.5 transition-transform ${menu === "services" ? "rotate-180" : ""}`}
+                  />
+                </button>
+              </div>
               {menu === "services" && (
                 <div className="absolute left-1/2 top-full z-50 -translate-x-1/2 pt-2">
                   <div
@@ -468,18 +494,30 @@ export function Navbar() {
               onMouseEnter={() => setMenu("conditions")}
               onMouseLeave={() => setMenu(null)}
             >
-              <button
-                type="button"
-                aria-haspopup="menu"
-                aria-expanded={menu === "conditions"}
-                onClick={() => setMenu((m) => (m === "conditions" ? null : "conditions"))}
-                className={`inline-flex items-center gap-1 ${linkClass}`}
-              >
-                Conditions
-                <ChevronDown
-                  className={`h-3.5 w-3.5 transition-transform ${menu === "conditions" ? "rotate-180" : ""}`}
-                />
-              </button>
+              <div className="flex items-center">
+                <Link
+                  to="/conditions"
+                  onClick={() => setMenu(null)}
+                  className={navClass("/conditions")}
+                  aria-current={isRouteActive("/conditions") ? "page" : undefined}
+                >
+                  Conditions
+                </Link>
+                <button
+                  type="button"
+                  aria-label={
+                    menu === "conditions" ? "Close conditions menu" : "Open conditions menu"
+                  }
+                  aria-haspopup="menu"
+                  aria-expanded={menu === "conditions"}
+                  onClick={() => setMenu((m) => (m === "conditions" ? null : "conditions"))}
+                  className="inline-flex h-9 w-7 items-center justify-center rounded-md text-foreground/80 transition-colors hover:bg-accent hover:text-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+                >
+                  <ChevronDown
+                    className={`h-3.5 w-3.5 transition-transform ${menu === "conditions" ? "rotate-180" : ""}`}
+                  />
+                </button>
+              </div>
               {menu === "conditions" && (
                 <div className="absolute left-1/2 top-full z-50 -translate-x-1/2 pt-2">
                   <div
@@ -513,12 +551,34 @@ export function Navbar() {
               )}
             </div>
 
-            <Link to="/home-visit" className={linkClass}>
+            <Link
+              to="/home-visit"
+              className={navClass("/home-visit")}
+              aria-current={isRouteActive("/home-visit") ? "page" : undefined}
+            >
               Home Visits
             </Link>
-            <a href="/#contact" className={linkClass}>
+            <Link
+              to="/our-team"
+              className={navClass("/our-team")}
+              aria-current={isRouteActive("/our-team") ? "page" : undefined}
+            >
+              Our Team
+            </Link>
+            <Link
+              to="/blog"
+              className={navClass("/blog")}
+              aria-current={isRouteActive("/blog") ? "page" : undefined}
+            >
+              Blog
+            </Link>
+            <Link
+              to="/contact"
+              className={navClass("/contact")}
+              aria-current={isRouteActive("/contact") ? "page" : undefined}
+            >
               Contact
-            </a>
+            </Link>
           </div>
 
           {/* ---------- Right controls ---------- */}
@@ -652,33 +712,45 @@ export function Navbar() {
 
           <div className="flex-1 overflow-y-auto px-4 py-4">
             <div className="grid gap-1">
-              <a
-                href="/#home"
+              <Link
+                to="/"
                 onClick={closeMobile}
-                className="rounded-xl px-4 py-3.5 text-base font-medium text-foreground/85 hover:bg-accent hover:text-primary"
+                className={mobileNavClass("/")}
+                aria-current={pathname === "/" ? "page" : undefined}
               >
                 Home
-              </a>
-              <a
-                href="/#about"
+              </Link>
+              <Link
+                to="/about"
                 onClick={closeMobile}
-                className="rounded-xl px-4 py-3.5 text-base font-medium text-foreground/85 hover:bg-accent hover:text-primary"
+                className={mobileNavClass("/about")}
+                aria-current={isRouteActive("/about") ? "page" : undefined}
               >
                 About
-              </a>
+              </Link>
 
               {/* Services accordion */}
-              <button
-                type="button"
-                aria-expanded={mobileServices}
-                onClick={() => setMobileServices((v) => !v)}
-                className="flex items-center justify-between rounded-xl px-4 py-3.5 text-base font-medium text-foreground/85 hover:bg-accent hover:text-primary"
-              >
-                Services
-                <ChevronDown
-                  className={`h-4 w-4 transition-transform ${mobileServices ? "rotate-180" : ""}`}
-                />
-              </button>
+              <div className="flex items-center gap-1">
+                <Link
+                  to="/services"
+                  onClick={closeMobile}
+                  className={`${mobileNavClass("/services")} flex-1`}
+                  aria-current={isRouteActive("/services") ? "page" : undefined}
+                >
+                  Services
+                </Link>
+                <button
+                  type="button"
+                  aria-label={mobileServices ? "Close services submenu" : "Open services submenu"}
+                  aria-expanded={mobileServices}
+                  onClick={() => setMobileServices((v) => !v)}
+                  className="grid h-11 w-11 place-items-center rounded-xl text-foreground/80 hover:bg-accent hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+                >
+                  <ChevronDown
+                    className={`h-4 w-4 transition-transform ${mobileServices ? "rotate-180" : ""}`}
+                  />
+                </button>
+              </div>
               {mobileServices && (
                 <div className="animate-fade-in ml-3 grid gap-0.5 border-l border-border pl-3">
                   {SERVICES_MENU.map((item) => (
@@ -700,17 +772,29 @@ export function Navbar() {
               )}
 
               {/* Conditions accordion */}
-              <button
-                type="button"
-                aria-expanded={mobileConditions}
-                onClick={() => setMobileConditions((v) => !v)}
-                className="flex items-center justify-between rounded-xl px-4 py-3.5 text-base font-medium text-foreground/85 hover:bg-accent hover:text-primary"
-              >
-                Conditions
-                <ChevronDown
-                  className={`h-4 w-4 transition-transform ${mobileConditions ? "rotate-180" : ""}`}
-                />
-              </button>
+              <div className="flex items-center gap-1">
+                <Link
+                  to="/conditions"
+                  onClick={closeMobile}
+                  className={`${mobileNavClass("/conditions")} flex-1`}
+                  aria-current={isRouteActive("/conditions") ? "page" : undefined}
+                >
+                  Conditions
+                </Link>
+                <button
+                  type="button"
+                  aria-label={
+                    mobileConditions ? "Close conditions submenu" : "Open conditions submenu"
+                  }
+                  aria-expanded={mobileConditions}
+                  onClick={() => setMobileConditions((v) => !v)}
+                  className="grid h-11 w-11 place-items-center rounded-xl text-foreground/80 hover:bg-accent hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+                >
+                  <ChevronDown
+                    className={`h-4 w-4 transition-transform ${mobileConditions ? "rotate-180" : ""}`}
+                  />
+                </button>
+              </div>
               {mobileConditions && (
                 <div className="animate-fade-in ml-3 grid gap-0.5 border-l border-border pl-3">
                   {CONDITIONS_MENU.map((item) => (
@@ -734,38 +818,51 @@ export function Navbar() {
               <Link
                 to="/home-visit"
                 onClick={closeMobile}
-                className="rounded-xl px-4 py-3.5 text-base font-medium text-foreground/85 hover:bg-accent hover:text-primary"
+                className={mobileNavClass("/home-visit")}
+                aria-current={isRouteActive("/home-visit") ? "page" : undefined}
               >
                 Home Physiotherapy
               </Link>
               <Link
+                to="/our-team"
+                onClick={closeMobile}
+                className={mobileNavClass("/our-team")}
+                aria-current={isRouteActive("/our-team") ? "page" : undefined}
+              >
+                Our Team
+              </Link>
+              <Link
                 to="/fitness"
                 onClick={closeMobile}
-                className="rounded-xl px-4 py-3.5 text-base font-medium text-foreground/85 hover:bg-accent hover:text-primary"
+                className={mobileNavClass("/fitness")}
+                aria-current={isRouteActive("/fitness") ? "page" : undefined}
               >
                 Fitness
               </Link>
               <Link
                 to="/blog"
                 onClick={closeMobile}
-                className="rounded-xl px-4 py-3.5 text-base font-medium text-foreground/85 hover:bg-accent hover:text-primary"
+                className={mobileNavClass("/blog")}
+                aria-current={isRouteActive("/blog") ? "page" : undefined}
               >
                 Blog
               </Link>
-              <a
-                href="/#gallery"
+              <Link
+                to="/gallery"
                 onClick={closeMobile}
-                className="rounded-xl px-4 py-3.5 text-base font-medium text-foreground/85 hover:bg-accent hover:text-primary"
+                className={mobileNavClass("/gallery")}
+                aria-current={isRouteActive("/gallery") ? "page" : undefined}
               >
                 Gallery
-              </a>
-              <a
-                href="/#contact"
+              </Link>
+              <Link
+                to="/contact"
                 onClick={closeMobile}
-                className="rounded-xl px-4 py-3.5 text-base font-medium text-foreground/85 hover:bg-accent hover:text-primary"
+                className={mobileNavClass("/contact")}
+                aria-current={isRouteActive("/contact") ? "page" : undefined}
               >
                 Contact
-              </a>
+              </Link>
 
               {/* Auth (mobile) */}
               <div className="my-2 border-t border-border" />
@@ -822,7 +919,15 @@ export function Navbar() {
           </div>
 
           {/* Single primary CTA pinned to the bottom */}
-          <div className="border-t border-border p-4">
+          <div className="grid gap-2 border-t border-border p-4">
+            <Link
+              to="/book-appointment"
+              onClick={closeMobile}
+              className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-primary px-4 py-3.5 text-base font-semibold text-primary-foreground shadow-soft"
+              aria-current={isRouteActive("/book-appointment") ? "page" : undefined}
+            >
+              <CalendarCheck className="h-5 w-5" /> Book an appointment
+            </Link>
             <a
               href={WHATSAPP_CONSULT_URL}
               target="_blank"

@@ -24,7 +24,6 @@ export const CALENDLY_URL = "https://calendly.com/zainimirza30396";
 
 // Google Business Profile — review + profile links (NAP consistency)
 export const GOOGLE_REVIEW_URL = "https://g.page/r/Cc48O8FLSLh3EBE/review";
-export const GOOGLE_PLACE_ID = "ChIJhSmMfwDrPDkRzjw7wUtIuHc";
 // Public Google Maps business profile (also used for "View all reviews")
 export const GOOGLE_BUSINESS_PROFILE_URL = "https://maps.google.com/?cid=8626724576429817038";
 
@@ -68,25 +67,30 @@ export const SOCIAL_LINKS = {
 };
 
 export const NAV_LINKS = [
-  { label: "Home", href: "/#home" },
-  { label: "About", href: "/#about" },
-  { label: "Services", href: "/#services" },
-  { label: "Conditions", href: "/#conditions" },
-  { label: "Gallery", href: "/#gallery" },
-  { label: "Testimonials", href: "/#testimonials" },
-  { label: "FAQ", href: "/#faq" },
-  { label: "Contact", href: "/#contact" },
+  { label: "Home", href: "/" },
+  { label: "About", href: "/about" },
+  { label: "Services", href: "/services" },
+  { label: "Conditions", href: "/conditions" },
+  { label: "Home Visits", href: "/home-visit" },
+  { label: "Our Team", href: "/our-team" },
+  { label: "Blog", href: "/blog" },
+  { label: "Gallery", href: "/gallery" },
+  { label: "Contact", href: "/contact" },
+  { label: "Book an Appointment", href: "/book-appointment" },
 ];
 
 // Route-based navigation used across all inner pages (type-safe TanStack routes).
 export const SITE_NAV = [
   { label: "Home", to: "/" },
+  { label: "About", to: "/about" },
   { label: "Services", to: "/services" },
   { label: "Conditions", to: "/conditions" },
   { label: "Home Visit", to: "/home-visit" },
-  { label: "About", to: "/about" },
+  { label: "Our Team", to: "/our-team" },
   { label: "Blog", to: "/blog" },
+  { label: "Gallery", to: "/gallery" },
   { label: "Contact", to: "/contact" },
+  { label: "Book Appointment", to: "/book-appointment" },
 ] as const;
 
 // Footer patient-resource links.

@@ -2,7 +2,7 @@
 
 ## Scope and production boundary
 
-This change reuses the existing `public.home_visit_requests` table and Supabase API. It creates no duplicate table, endpoint, or notification service. The Home Visit form retains its existing request flow and now has explicit validation plus a synchronous single-flight submission guard.
+This change reuses the existing `public.home_visit_requests` table and Supabase API. It creates no duplicate table, endpoint, or notification service. The current Home Visit form retains its existing request flow and adds explicit validation plus a synchronous single-flight submission guard.
 
 **No production changes were made.** Live Supabase work was catalog-only: no request/patient rows were read, and there were no production inserts, DDL, ACL updates, deployments, or form submissions. The concurrent homepage/form worktree was left unchanged. This branch is not deployed.
 
@@ -18,10 +18,10 @@ This change reuses the existing `public.home_visit_requests` table and Supabase 
 
 ### Home Visit form
 
-- Added pure client validation for required nonblank name/phone/address, integer patient ages from 0–120, and the same field-length bounds enforced by the database policy. The relevant fields now also have matching browser `maxLength` constraints.
-- Extracted payload normalization: trims user-entered strings, maps blank optional values to `null`, preserves age `0`, and sends the generated report-storage path.
+- Added pure client validation for the current required name, phone, address, condition, date, and time fields; phone digit count (7–15); non-past dates; and the same text-length bounds enforced by the database policy. Text inputs use matching browser `maxLength` constraints.
+- Extracted payload normalization: trims user-entered strings, maps blank optional notes to `null`, and constructs an allowlisted form payload that excludes internal fields such as `id`, `status`, and `created_at`.
 - Added a synchronous single-flight gate. Unlike the former state-only disabled button, the gate closes before the lazy Supabase import or any other asynchronous operation, so overlapping submit events issue at most one insert. The gate releases on success and error, allowing a retry.
-- Success/error outcomes remain explicit: successful inserts show the existing success toast and clear the form/file; upload or insert failures show the existing error toast and preserve the entered data. Age and length validation messages are localized in English and Urdu.
+- Success/error outcomes remain explicit: successful inserts show the existing success toast and clear the form; insert failures show the existing error toast and preserve entered data. Phone, date, and length validation messages are localized in English and Urdu. The SQL migration retains bounds for optional age/report columns, but the current form does not submit those fields.
 
 ### Database migration and grants
 
@@ -53,7 +53,7 @@ The migration in `supabase/migrations/` changes only public-schema defaults owne
 
 ## Verification
 
-- **14/14 frontend tests pass:** nine Home Visit tests cover required/age/length validation, payload normalization, upload/insert success and failure, validation rejection, overlapping duplicate suppression, and retry after failure; five existing tests cover report MIME/size/extension validation.
+- **16/16 frontend tests pass:** eleven Home Visit tests cover required fields, phone/date/length validation, allowlisted payload normalization, insert success/failure, invalid-input rejection, overlapping duplicate suppression, and retry after failure; five existing tests cover report MIME/size/extension validation.
 - **Production build passes** after installing the exact `bun.lock` dependencies with `bun install --frozen-lockfile`. The build reports existing deprecation notices for TanStack `inputValidator` and `vite-tsconfig-paths`; it completes successfully.
 - Targeted ESLint passes for all changed application/test source. `npx tsc --noEmit` remains blocked by one error in the untouched `src/routes/__root.tsx:250` (`ErrorComponentProps.error` is `unknown`, while the existing component declares `Error`); no type-check errors were reported in changed files.
 - **Disposable PostgreSQL 16 regression passes:** the owner step rejects an unauthorized role; the main migration refuses before the owner step and leaves schema/ACL state unchanged; the authorized owner step succeeds; the consolidated migration applies twice; and the rollback-only regression verifies exact table and column grants (form-only INSERT, status-only UPDATE), public/global default ACLs, direct PUBLIC grants, sequence access, schema access, service-role/helper preservation, anonymous/authenticated form persistence, status-injection rejection, and staff/admin/nonstaff RLS operations. All SQL checks ran against a fresh local disposable cluster with synthetic fixtures only; the regression ends with `ROLLBACK`.

@@ -4,21 +4,17 @@ import { faqLd } from "@/lib/seo";
 import { Navbar } from "@/components/site/Navbar";
 import { Hero } from "@/components/site/Hero";
 import { TrustSignals } from "@/components/site/TrustSignals";
-import { About } from "@/components/site/About";
 import { Services } from "@/components/site/Services";
 import { Conditions } from "@/components/site/Conditions";
 import { WhyChooseUs } from "@/components/site/WhyChooseUs";
-import { MeetDoctors } from "@/components/site/MeetDoctors";
 import { HomePhysio } from "@/components/site/HomePhysio";
 import { PhysioFitness } from "@/components/site/PhysioFitness";
 import { GoogleReviews } from "@/components/site/GoogleReviews";
-import { Gallery } from "@/components/site/Gallery";
 import { HomeBmi } from "@/components/site/HomeBmi";
 import { ConsultationFees } from "@/components/site/ConsultationFees";
 import { FAQ } from "@/components/site/FAQ";
 import { homeFaqs } from "@/components/site/home-faqs";
 import { CTA } from "@/components/site/CTA";
-import { Contact } from "@/components/site/Contact";
 import { Footer } from "@/components/site/Footer";
 import { WhatsAppFab } from "@/components/site/WhatsAppFab";
 
@@ -50,21 +46,17 @@ function Index() {
       <Navbar />
       <main>
         <Hero />
-        <TrustSignals />
-        <About />
         <Services />
         <Conditions />
-        <WhyChooseUs />
-        <MeetDoctors />
         <HomePhysio />
-        <PhysioFitness />
+        <WhyChooseUs />
         <GoogleReviews />
-        <Gallery />
+        <TrustSignals />
+        <PhysioFitness />
         <HomeBmi />
         <ConsultationFees />
         <FAQ />
         <CTA />
-        <Contact />
       </main>
       <Footer />
       <WhatsAppFab />

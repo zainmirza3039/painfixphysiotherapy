@@ -362,7 +362,7 @@ export async function buildSearchIndex(): Promise<SearchItem[]> {
       title: "Clinic Gallery",
       subtitle: "Photos of our Multan physiotherapy clinic",
       category: "Resources",
-      href: "/#gallery",
+      href: "/gallery",
       keywords: "gallery photos clinic images treatment rooms equipment multan",
     },
   );
@@ -414,7 +414,7 @@ export async function buildSearchIndex(): Promise<SearchItem[]> {
       title: "Contact & Directions",
       subtitle: "Address, phone, WhatsApp & map",
       category: "Pages",
-      href: "/#contact",
+      href: "/contact",
       keywords: "contact address phone whatsapp map directions location multan",
     },
     {
@@ -422,7 +422,7 @@ export async function buildSearchIndex(): Promise<SearchItem[]> {
       title: "Book an Appointment",
       subtitle: "Schedule your assessment",
       category: "Pages",
-      href: "/#book",
+      href: "/book-appointment",
       keywords: "book appointment schedule booking consultation",
     },
     {
@@ -430,8 +430,16 @@ export async function buildSearchIndex(): Promise<SearchItem[]> {
       title: "About PainFix",
       subtitle: "Our clinic and approach",
       category: "Pages",
-      href: "/#about",
+      href: "/about",
       keywords: "about clinic story mission team approach",
+    },
+    {
+      id: "page-team",
+      title: "Our Physiotherapy Team",
+      subtitle: "Meet the PainFix clinicians",
+      category: "Pages",
+      href: "/our-team",
+      keywords: "team clinicians physiotherapists doctors profiles",
     },
   );
 
