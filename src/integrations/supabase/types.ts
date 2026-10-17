@@ -166,6 +166,133 @@ export type Database = {
         };
         Relationships: [];
       };
+      clinician_profiles: {
+        Row: {
+          approach: string[];
+          bio: string | null;
+          conditions_treated: string[];
+          created_at: string;
+          credentials: string;
+          designation: string;
+          display_order: number;
+          expertise: string[];
+          full_name: string;
+          id: string;
+          intro: string[];
+          is_active: boolean;
+          is_published: boolean;
+          meta_description: string | null;
+          meta_title: string | null;
+          name: string;
+          photo_path: string | null;
+          photo_url: string | null;
+          phone_display: string | null;
+          professional_title: string;
+          qualifications: string[];
+          seo_bio: string | null;
+          slug: string;
+          specialties: string[];
+          tags: string[];
+          updated_at: string;
+          whatsapp_number: string | null;
+          years_experience: number | null;
+        };
+        Insert: {
+          approach?: string[];
+          bio?: string | null;
+          conditions_treated?: string[];
+          created_at?: string;
+          credentials?: string;
+          designation: string;
+          display_order?: number;
+          expertise?: string[];
+          full_name: string;
+          id?: string;
+          intro?: string[];
+          is_active?: boolean;
+          is_published?: boolean;
+          meta_description?: string | null;
+          meta_title?: string | null;
+          name: string;
+          photo_path?: string | null;
+          photo_url?: string | null;
+          phone_display?: string | null;
+          professional_title: string;
+          qualifications?: string[];
+          seo_bio?: string | null;
+          slug: string;
+          specialties?: string[];
+          tags?: string[];
+          updated_at?: string;
+          whatsapp_number?: string | null;
+          years_experience?: number | null;
+        };
+        Update: {
+          approach?: string[];
+          bio?: string | null;
+          conditions_treated?: string[];
+          created_at?: string;
+          credentials?: string;
+          designation?: string;
+          display_order?: number;
+          expertise?: string[];
+          full_name?: string;
+          id?: string;
+          intro?: string[];
+          is_active?: boolean;
+          is_published?: boolean;
+          meta_description?: string | null;
+          meta_title?: string | null;
+          name?: string;
+          photo_path?: string | null;
+          photo_url?: string | null;
+          phone_display?: string | null;
+          professional_title?: string;
+          qualifications?: string[];
+          seo_bio?: string | null;
+          slug?: string;
+          specialties?: string[];
+          tags?: string[];
+          updated_at?: string;
+          whatsapp_number?: string | null;
+          years_experience?: number | null;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "clinician_profiles_photo_asset_fkey";
+            columns: ["photo_path", "id"];
+            isOneToOne: false;
+            referencedRelation: "clinician_photo_assets";
+            referencedColumns: ["path", "clinician_profile_id"];
+          },
+        ];
+      };
+      clinician_photo_assets: {
+        Row: {
+          clinician_profile_id: string;
+          created_at: string;
+          path: string;
+        };
+        Insert: {
+          clinician_profile_id: string;
+          created_at?: string;
+          path: string;
+        };
+        Update: {
+          clinician_profile_id?: string;
+          created_at?: string;
+          path?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "clinician_photo_assets_clinician_profile_id_fkey";
+            columns: ["clinician_profile_id"];
+            isOneToOne: false;
+            referencedRelation: "clinician_profiles";
+            referencedColumns: ["id"];
+          },
+        ];
+      };
       contact_submissions: {
         Row: {
           created_at: string;
