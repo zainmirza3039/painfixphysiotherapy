@@ -136,7 +136,8 @@ export function DoctorProfile({ doc }: { doc: TeamMember }) {
             <Reveal anim="right">
               <div className="h-full rounded-lg border border-border border-t-2 border-t-brand-green bg-card p-6 shadow-none sm:p-7">
                 <h2 className="flex items-center gap-2 font-heading text-xl font-bold text-foreground">
-                  <Stethoscope className="h-5 w-5 text-primary" /> Areas of Expertise
+                  <Stethoscope className="h-5 w-5 text-primary" />{" "}
+                  {onlineOnly ? "Clinical Skills" : "Areas of Expertise"}
                 </h2>
                 <ul className="mt-5 flex flex-wrap gap-2">
                   {doc.profile.expertise.map((e) => (
@@ -216,6 +217,12 @@ export function DoctorProfile({ doc }: { doc: TeamMember }) {
                   <h2 className="font-heading text-2xl font-extrabold text-foreground">
                     {heading}
                   </h2>
+                  {onlineOnly && heading === "Clinical Experience" && (
+                    <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+                      Internships and clinical rotations listed below describe supervised clinical
+                      exposure, not independent specialist qualifications.
+                    </p>
+                  )}
                   <ul className="mt-5 space-y-4">
                     {items.map((item) => (
                       <li
