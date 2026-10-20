@@ -14,7 +14,12 @@ const optionalText = (max: number) => z.string().trim().max(max).nullable();
 const textList = (maxItems: number, maxLength: number) =>
   z.array(z.string().trim().min(1).max(maxLength)).max(maxItems);
 export type JsonValue =
-  string | number | boolean | null | JsonValue[] | { [key: string]: JsonValue };
+  | string
+  | number
+  | boolean
+  | null
+  | JsonValue[]
+  | { [key: string]: JsonValue };
 const jsonValue: z.ZodType<JsonValue> = z.lazy(() =>
   z.union([z.string(), z.number(), z.boolean(), z.null(), z.array(jsonValue), z.record(jsonValue)]),
 );
