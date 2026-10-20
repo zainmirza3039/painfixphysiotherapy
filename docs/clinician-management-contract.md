@@ -1,60 +1,63 @@
 # Clinician management backend contract
 
-## Why a separate table
+## Existing architecture stays intact
 
-The existing `public.profiles` table is keyed by `user_id` and references `auth.users`; it is the signed-in professional's profile workflow. Public clinician content must exist without a login, so this feature leaves `profiles`, `/admin/profile`, and `/admin/users` unchanged and adds `public.clinician_profiles`. No login account is created or deleted when a clinician profile is added, deactivated, or removed from public display. No optional account link is introduced because it is not needed for this workflow.
+Public clinician content remains in `public.clinician_profiles`, separate from the auth-linked `public.profiles` table, staff roles, and accounts. Creating or publishing a public clinician does not create a login. This change does not modify existing RLS, grants, auth, storage, patient/request data, or medical-report behavior.
 
-The migration seeds the three clinicians currently shown by `src/data/team.ts` so the first database-backed release retains the existing names, biographies, specialties, ordering, contact links, qualifications, and profile-page copy. The two existing portrait files are copied to stable `/clinicians/` asset paths; subsequent uploads use the dedicated Storage bucket below.
+The existing clinician server actions, admin authorization, portrait-upload flow, and soft-unpublish behavior remain unchanged. No separate management system or email field is introduced.
 
-## Database contract
+## Service and CV fields
 
-`public.clinician_profiles` fields:
+The additive migration extends the existing clinician table:
 
-- Identity and routing: `id` (UUID), unique validated `slug`, `name`, `full_name`.
-- Public role and content: `designation`, `professional_title`, `credentials`, `bio`, `seo_bio`, `specialties[]`, `tags[]`, `years_experience`, `qualifications[]`, `intro[]`, `expertise[]`, `conditions_treated[]`, `approach[]`, `meta_title`, and `meta_description`.
-- Public contact and photo: `phone_display`, `whatsapp_number`, `photo_url` (legacy same-site portrait only), and `photo_path` (object key for new uploads).
-- Publication and ordering: `is_active`, `is_published`, `display_order`, `created_at`, and `updated_at`.
+| Field          | Database contract                                                            | Application validation                                                         |
+| -------------- | ---------------------------------------------------------------------------- | ------------------------------------------------------------------------------ |
+| `service_mode` | `text NOT NULL DEFAULT 'clinic'`; CHECK allows only `clinic` / `online_only` | Same two values                                                                |
+| `city`         | `text NOT NULL DEFAULT 'Multan'`                                             | Trimmed, nonempty, at most 160 characters; database also checks trimmed length |
+| `experience`   | `text[] NOT NULL DEFAULT '{}'::text[]`                                       | At most 40 nonempty trimmed entries, each at most 500 characters               |
+| `training`     | Same array contract                                                          | Same list limits                                                               |
+| `research`     | Same array contract                                                          | Same list limits                                                               |
 
-There are no patient/staff-only fields and no `auth.users` foreign key. Constraints validate slugs, required names/designations, nonnegative experience/order, WhatsApp digits, and photo object paths. A partial `(display_order, full_name)` index supports the public active/published list. An update trigger reuses the already-present `public.update_updated_at_column()` function.
+`qualifications` continues to hold education. `expertise` continues to hold grouped clinical skills. Training and supervised exposure are not independent specialist certifications. No years-of-experience estimate is derived from internships.
 
-`public.clinician_photo_assets` is a private registry for uploaded object paths and their owning clinician. The composite foreign key from `(clinician_profiles.photo_path, clinician_profiles.id)` to `(clinician_photo_assets.path, clinician_photo_assets.clinician_profile_id)` prevents cross-profile reuse. Deleting a registry row is transactionally blocked while any profile references it; after that row is deleted, the same foreign key prevents a concurrent update from reattaching it.
+The generated Supabase Row/Insert/Update contracts and public/admin TypeScript contracts include all five fields. The shared Zod schema accepts them; omitted new fields use the same clinic/Multan/empty-array defaults for legacy payloads. New frontend forms should always send the five fields explicitly to preserve online-only settings on edits.
 
-## Access contract
+## Existing server API
 
-- `anon`: `SELECT` only; RLS exposes rows only when `is_active = true AND is_published = true`.
-- `authenticated`: `SELECT` only through PostgREST; RLS exposes published active rows, plus all rows to `admin`/`super_admin` using the database-backed `public.is_admin(auth.uid())` helper.
-- `anon` and `authenticated` receive no direct `INSERT`, `UPDATE`, `DELETE`, or `TRUNCATE` table grants and there are no direct-write RLS policies.
-- `clinician_photo_assets` has RLS enabled, no public read policy, and no grants to `anon` or `authenticated`; only server-side `service_role` code can register or remove paths.
-- `service_role` has table access only for server-side functions. Every management function first verifies the bearer token with `requireSupabaseAuth`, then checks `is_admin` using the authenticated Supabase client. The service-role key remains server-only.
-- Removing a clinician is a reversible soft operation (`is_active = false`, `is_published = false`); reactivation/publishing is an admin update. No staff account or related records are deleted.
+Import functions from `@/admin/clinicians.functions`:
 
-## Server API for the frontend
+- `listPublishedClinicianProfiles()` and `getPublishedClinicianProfileBySlug(...)` keep the active/published filters and explicit public projection, now including all five fields. Portrait resolution is unchanged.
+- `listAdminClinicianProfiles()` keeps verified bearer-token and database-backed admin/super-admin authorization.
+- `saveAdminClinicianProfile(...)` continues using the parsed shared payload for insert/update, so the five fields travel through the existing write path. No auth accounts are created.
+- Remove/unpublish, clear portrait, signed photo upload, and unused-photo removal actions are unchanged.
 
-Import these server functions from `@/admin/clinicians.functions`:
+Shared types and photo constants remain in `@/admin/clinician-profile.contract`. Publication, routing, directory rendering, WhatsApp links, and shared UI are frontend responsibilities; this backend-only branch changes no UI files.
 
-- `listPublishedClinicianProfiles()` → public rows ordered by `display_order`, then `full_name`; only active/published profiles, explicit safe projection, resolved `photo_url`.
-- `getPublishedClinicianProfileBySlug({ slug })` → one public row or `null`; inactive/unpublished profiles behave as missing.
-- `listAdminClinicianProfiles()` → all rows, including drafts/inactive, only after verified admin/super-admin authorization.
-- `saveAdminClinicianProfile(payload)` → creates when `id` is omitted, otherwise updates. Payload is `ClinicianProfileInput`: `id?`, `slug`, `name`, `full_name`, `designation`, `professional_title`, `credentials`, `bio`, `seo_bio`, `specialties[]`, `tags[]`, `years_experience`, `qualifications[]`, `photo_path`, `phone_display`, `whatsapp_number`, `meta_title`, `meta_description`, `intro[]`, `expertise[]`, `conditions_treated[]`, `approach[]`, `is_active`, `is_published`, and `display_order`. `photo_url` is not writable through this API; initial same-site asset paths are seeded by migration and uploaded images use `photo_path`.
-- `removeAdminClinicianProfile({ id })` → unpublishes/deactivates without deleting the row or image.
-- `clearAdminClinicianPhoto({ id })` → clears the photo reference; does not delete the image object.
-- `createAdminClinicianPhotoUploadUrl({ clinicianId, contentType, sizeBytes })` → registers a unique path for the clinician, then returns `{ bucket, path, token }` for a one-object signed upload after admin authorization. Upload the file with `supabase.storage.from(bucket).uploadToSignedUrl(path, token, file, { contentType })`, then save the returned `path` into `photo_path`.
-- `deleteAdminClinicianPhoto({ clinicianId, photoPath })` → admin-only removal of an uploaded bucket object. It deletes the private registry row first; the composite foreign key prevents deletion while referenced and prevents a concurrent profile update from reattaching the path. If Storage deletion fails after registry removal, an admin may retry; the function rechecks references. It cannot delete the initial bundled `/clinicians/` assets.
+## Reviewable Ariba seed
 
-Use the shared exports from `@/admin/clinician-profile.contract`: `ClinicianProfileInput`, `PublicClinicianProfile`, `AdminClinicianProfile`, `CLINICIAN_PHOTO_BUCKET`, `CLINICIAN_PHOTO_MIME_TYPES`, and `MAX_CLINICIAN_PHOTO_BYTES`. Query keys and UI states remain a frontend concern.
+`supabase/seeds/ariba-babar.sql` is separate from schema migration. It inserts root slug `ariba-babar` with `service_mode='online_only'`, city `Rahim Yar Khan, Pakistan`, WhatsApp `923120102560`, active/published flags, explicit SEO title/description, and null photo fields. Years of experience remain null. An initials placeholder is a frontend concern.
 
-## Photo storage
+Only the owner-provided CV details are included. Education, four internship entries, training/volunteer work, and research remain separate. Dry needling appears in training, not as certification. No public email or invented physical branch is added.
 
-Production currently has only a private `medical-reports` bucket; it is not appropriate for public clinician portraits and is not changed by this migration. The migration adds a separate public-read `clinician-photos` bucket, 5 MiB maximum object size, and MIME allowlist `image/jpeg`, `image/png`, `image/webp`, and `image/avif`. No anonymous or authenticated upload/delete policy is added. Uploads are granted only by a server-issued signed token after an admin role check. The private registry and composite FK enforce ownership and prevent deleting an attached image under concurrent edits. Public pages derive the public URL from the stored object path. Clearing/replacing a photo leaves the old object intact until an admin explicitly deletes it after it becomes unreferenced.
+`ON CONFLICT (slug) DO NOTHING` makes reruns non-destructive: existing clinicians and later owner edits, publication changes, contact changes, and photos are not overwritten. A conflicting existing slug must be reviewed rather than silently replaced.
 
-## Migration, impact, rollback, and verification
+## Production prerequisites: do not blindly push migrations
 
-The proposed migration only creates the public clinician table, private photo-path registry and FK, indexes, RLS/grants/policies, the dedicated public portrait bucket, and seeds the three current public team records. It does not alter `profiles`, roles, auth, patient/appointment/home-visit data, clinic settings, or the existing medical-report bucket. It must remain unapplied until the owner separately reviews and approves the exact production change.
+Owner-confirmed project `vagsksstptqqcloccavs` has four existing clinician rows, no Ariba slug, and none of the five new columns. Its live migration ledger contains:
 
-The verified live production migration ledger differs from checked-in migrations, and the live `medical-reports` bucket configuration also differs from the checked-in hardening migration. Do not run `supabase db push` or apply this migration until migration-history drift is reconciled against the live schema and backup/PITR availability is confirmed. No production migration, permission, auth, storage operation, or deployment has been performed here.
+- `20261020163455_create_clinician_management_tables_only`
+- `20261020163839_create_clinician_photos_storage_bucket`
 
-Rollback is additive and does not require touching old tables. If rolled back before use, the application can be reverted and the new objects removed after verifying the bucket contains no objects. Once profiles or portrait files exist, do not drop the table or bucket: revert/disable the application integration and preserve the new data/assets for an explicitly reviewed cleanup. No existing records are dropped or rewritten.
+Those live-only setup migrations are absent from repository main. The older checked-in `20261017090000_add_clinician_profile_management.sql` is an object-creation proposal and must **not** be replayed against the existing production objects. Do not run `supabase db push` against this unreconciled history. Existing access/storage descriptions in older proposals are not evidence of current production configuration.
 
-## Test boundary
+Before a separately approved rollout: reconcile the ledger with an authorized owner, verify backup/PITR availability without assuming a backup exists, review the exact additive SQL and seed, and test compatible frontend/backend changes together in staging. Then coordinate the additive schema extension before code that selects the new columns, with the separately approved content seed in the controlled release sequence.
 
-Automated tests cover profile input validation, slug and contact constraints, upload MIME/size/path checks, and migration privilege/policy shape. The proposed SQL is also executed in a temporary local PostgreSQL cluster with synthetic roles to verify anonymous/admin RLS visibility, write denial, bucket settings, and FK-safe asset removal/re-attachment. Build/lint/test results are reported with the PR. No production login, patient/request row read, migration, storage upload, or live write is part of the test plan; end-to-end authorization and upload checks require a safe staging Supabase environment before production approval.
+`20261021000000_add_clinician_service_and_cv_fields.sql` changes only the existing clinician table's five columns, related checks, and column comments. It creates no tables, policies, grants, buckets, roles, or triggers. No production SQL, migration, seed, merge, or deployment was executed by this task.
+
+If an application rollback is necessary, preserve added columns and content; do not drop the clinician table, storage bucket, or existing records. Any destructive cleanup requires a separate reviewed plan.
+
+## Tests
+
+`npm test`, `npm run lint`, `./node_modules/.bin/tsc --noEmit`, and `npm run build` validate the backend-only patch. New unit tests cover service/city/list boundaries, exact SQL defaults, additive scope, and seed safety.
+
+`node tests/clinician-migration-smoke.mjs` requires local PostgreSQL binaries and creates a disposable Unix-socket-only cluster. It tests migration and seed reruns, exact legacy defaults, constraint failures, preservation of four synthetic existing rows and their RLS/policy/grant metadata, correct Ariba CV/contact/SEO/photo fields, and preservation of owner edits after a seed rerun. It never reads production database settings. This does not establish production RLS behavior or substitute for staging authorization/upload tests.

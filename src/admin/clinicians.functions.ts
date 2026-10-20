@@ -16,7 +16,7 @@ import {
 } from "@/admin/clinician-profile.contract";
 
 const PUBLIC_COLUMNS =
-  "id, slug, name, full_name, designation, professional_title, credentials, bio, seo_bio, specialties, tags, years_experience, qualifications, photo_path, photo_url, phone_display, whatsapp_number, meta_title, meta_description, intro, expertise, conditions_treated, approach, display_order";
+  "id, slug, name, full_name, designation, professional_title, credentials, bio, seo_bio, specialties, tags, years_experience, qualifications, photo_path, photo_url, phone_display, whatsapp_number, service_mode, city, experience, training, research, meta_title, meta_description, intro, expertise, conditions_treated, approach, display_order";
 
 function publicClient() {
   const url = process.env.SUPABASE_URL;

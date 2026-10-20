@@ -39,6 +39,11 @@ export const clinicianProfileInputSchema = z
     qualifications: textList(40, 240),
     photo_path: z.string().regex(photoPathPattern).nullable(),
     phone_display: nullableText(40),
+    service_mode: z.enum(["clinic", "online_only"]).default("clinic"),
+    city: z.string().trim().min(1).max(160).default("Multan"),
+    experience: textList(40, 500).default([]),
+    training: textList(40, 500).default([]),
+    research: textList(40, 500).default([]),
     whatsapp_number: z
       .string()
       .regex(/^[0-9]{8,15}$/)
