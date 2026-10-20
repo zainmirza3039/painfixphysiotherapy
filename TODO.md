@@ -25,3 +25,9 @@
 - [ ] Public route manifest and route metadata stay synchronized with source routes.
 - [ ] Tests, typecheck, lint, production build, direct route smoke tests, and responsive/accessibility review are run and reported with actual results.
 - [ ] Changes remain in a reviewable branch/PR until release approval.
+
+## Global visual refinement
+
+- [ ] The public site uses a deliberate Manrope interface / Newsreader display pairing with the existing non-blocking font loading pattern.
+- [ ] Light and dark themes use a warmer, calmer clinical palette with readable foreground, control, focus, inverse-panel, and footer contrast.
+- [ ] The pending PR remains open; these visual changes do not merge, deploy, mutate Supabase data, or alter booking behavior.

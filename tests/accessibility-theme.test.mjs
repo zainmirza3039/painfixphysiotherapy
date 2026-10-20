@@ -62,11 +62,11 @@ for (const [name, theme] of Object.entries({ light, dark })) {
 }
 
 test("inverse footer text, accents, and focus meet AA on fixed navy", () => {
-  const navy = rgb("#032e61");
+  const navy = rgb("#123b5a");
   for (const alpha of [0.75, 0.8, 0.95, 1])
     meets(blend(rgb("#ffffff"), navy, alpha), navy, 4.5, `white/${alpha}`);
-  meets(rgb("#8ce8b5"), navy, 4.5, "inverse accent and focus");
-  meets(rgb("#091b2d"), rgb("#00a859"), 4.5, "home-visit green hover");
+  meets(rgb("#9be6c0"), navy, 4.5, "inverse accent and focus");
+  meets(rgb("#091b2d"), rgb("#2ea66a"), 4.5, "home-visit green hover");
 });
 
 test("featured badge remains readable on its tinted surface", () => {
@@ -103,43 +103,43 @@ test("public calculator and newsletter fields use the verified input boundary to
 
 test("light-mode palette and gradients remain unchanged by the dark theme", () => {
   assert.deepEqual(light, {
-    background: "#fafaf7",
-    foreground: "#16324a",
-    surface: "#f0f4f1",
+    background: "#fcfbf8",
+    foreground: "#173248",
+    surface: "#f1f5f2",
     card: "#ffffff",
-    "card-foreground": "#16324a",
+    "card-foreground": "#173248",
     popover: "#ffffff",
-    "popover-foreground": "#16324a",
-    primary: "#032e61",
+    "popover-foreground": "#173248",
+    primary: "#123b5a",
     "primary-foreground": "#ffffff",
-    "primary-glow": "#0b4f87",
-    secondary: "#007a43",
+    "primary-glow": "#2a6284",
+    secondary: "#0b764b",
     "secondary-foreground": "#ffffff",
-    "secondary-glow": "#00a859",
-    "brand-green": "#00a859",
-    muted: "#eef2ef",
-    "muted-foreground": "#526477",
-    accent: "#e7f2eb",
-    "accent-foreground": "#032e61",
+    "secondary-glow": "#2ea66a",
+    "brand-green": "#2ea66a",
+    muted: "#edf2ef",
+    "muted-foreground": "#536a78",
+    accent: "#e5f1ea",
+    "accent-foreground": "#123b5a",
     destructive: "#b42318",
     "destructive-foreground": "#ffffff",
-    border: "#d7e1de",
-    input: "#718579",
-    ring: "#007a43",
+    border: "#d6e0db",
+    input: "#718b82",
+    ring: "#0b764b",
   });
   const root = css.match(/:root \{([^}]+)\}/)[1];
   for (const declaration of [
-    "--gradient-hero: linear-gradient(110deg, #032e61, #007a43);",
-    "--gradient-blue: linear-gradient(135deg, #032e61, #0b4f87);",
-    "--gradient-teal: linear-gradient(135deg, #007a43, #00a859);",
+    "--gradient-hero: linear-gradient(110deg, #123b5a, #0b764b);",
+    "--gradient-blue: linear-gradient(135deg, #123b5a, #2a6284);",
+    "--gradient-teal: linear-gradient(135deg, #0b764b, #2ea66a);",
     "--gradient-brand-soft: linear-gradient(135deg, #edf4f1, #f5f7f4);",
   ])
     assert.ok(root.includes(declaration), declaration);
 });
 
 test("dark brand accents, secondary/80 hover, and raised surfaces retain contrast", () => {
-  assert.equal(dark["brand-green"], "#00a859");
-  assert.equal(dark["primary-foreground"], "#032e61");
+  assert.equal(dark["brand-green"], "#2ea66a");
+  assert.equal(dark["primary-foreground"], "#123b5a");
   assert.notEqual(dark.background, dark.surface);
   assert.notEqual(dark.surface, dark.card);
   for (const surface of ["background", "surface", "card", "muted", "accent", "popover"]) {
@@ -167,10 +167,10 @@ test("dark text gradients and inverse navy panels keep readable labels", () => {
         meets(rgb(stop), rgb(dark[surface]), 4.5, `${gradient} stop ${stop} on ${surface}`);
   }
   const panel = css.match(/\.dark \.bg-gradient-to-br\.from-primary\.to-secondary \{([^}]+)\}/)[1];
-  assert.ok(panel.includes("background-color: #032e61;"));
+  assert.ok(panel.includes("background-color: #123b5a;"));
   assert.ok(panel.includes("background-image: none;"));
   assert.ok(panel.includes("--primary-foreground: #f5f8f7;"));
-  const navy = rgb("#032e61");
+  const navy = rgb("#123b5a");
   meets(rgb("#f5f8f7"), navy, 4.5, "inverse panel label");
   meets(blend(rgb("#f5f8f7"), navy, 0.75), navy, 4.5, "inverse panel muted label");
   meets(rgb(dark.ring), navy, 3, "inverse panel focus");

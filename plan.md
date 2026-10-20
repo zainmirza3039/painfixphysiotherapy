@@ -44,3 +44,7 @@ Three possible directions were considered: **editorial clinical calm** (0.68), *
 ## Release boundary
 
 This redesign is implemented on a reviewable branch and PR. Existing production data, migrations, credentials, and admin permissions remain unchanged. Production release requires the normal CI/build checks and explicit merge/deploy approval.
+
+## Visual refinement addendum
+
+The pending PR remains the review boundary. The follow-up pass improves the overall system rather than adding new functionality: Manrope becomes the interface font for a warmer, more contemporary clinical feel; Newsreader remains the editorial display face; the light palette moves toward warm ivory, ink navy, soft sage, and a more legible green; and the dark palette receives equivalent contrast-safe values. Existing booking, internship, admin, and route behavior remains unchanged.

@@ -36,11 +36,11 @@
   --color-ring: var(--ring);
   --color-surface: var(--surface);
 
-  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Manrope", ui-sans-serif, system-ui, sans-serif;
   --font-heading: "Newsreader", Georgia, serif;
   --color-brand-green: var(--brand-green);
-  --color-brand-navy: #032e61;
-  --color-inverse-accent: #8ce8b5;
+  --color-brand-navy: #123b5a;
+  --color-inverse-accent: #9be6c0;
 
   --shadow-soft: 0 4px 20px -6px color-mix(in oklab, var(--primary) 16%, transparent);
   --shadow-card: 0 12px 40px -12px color-mix(in oklab, var(--primary) 24%, transparent);
@@ -79,7 +79,7 @@
 
   ::selection {
     background: color-mix(in oklab, var(--secondary) 25%, white);
-    color: #16324a;
+    color: #173248;
   }
 }
 
@@ -232,73 +232,73 @@
 /* PainFix homepage art direction: editorial type, real clinic imagery, precise rules and quiet surfaces. */
 :root {
   --radius: 0.75rem;
-  --background: #fafaf7;
-  --foreground: #16324a;
-  --surface: #f0f4f1;
+  --background: #fcfbf8;
+  --foreground: #173248;
+  --surface: #f1f5f2;
   --card: #ffffff;
-  --card-foreground: #16324a;
+  --card-foreground: #173248;
   --popover: #ffffff;
-  --popover-foreground: #16324a;
-  --primary: #032e61;
+  --popover-foreground: #173248;
+  --primary: #123b5a;
   --primary-foreground: #ffffff;
-  --primary-glow: #0b4f87;
-  --secondary: #007a43;
+  --primary-glow: #2a6284;
+  --secondary: #0b764b;
   --secondary-foreground: #ffffff;
-  --secondary-glow: #00a859;
-  --brand-green: #00a859;
-  --muted: #eef2ef;
-  --muted-foreground: #526477;
-  --accent: #e7f2eb;
-  --accent-foreground: #032e61;
+  --secondary-glow: #2ea66a;
+  --brand-green: #2ea66a;
+  --muted: #edf2ef;
+  --muted-foreground: #536a78;
+  --accent: #e5f1ea;
+  --accent-foreground: #123b5a;
   --destructive: #b42318;
   --destructive-foreground: #ffffff;
-  --border: #d7e1de;
+  --border: #d6e0db;
   /* Control boundaries must remain distinct from decorative dividers. */
-  --input: #718579;
-  --ring: #007a43;
-  --gradient-hero: linear-gradient(110deg, #032e61, #007a43);
-  --gradient-blue: linear-gradient(135deg, #032e61, #0b4f87);
-  --gradient-teal: linear-gradient(135deg, #007a43, #00a859);
+  --input: #718b82;
+  --ring: #0b764b;
+  --gradient-hero: linear-gradient(110deg, #123b5a, #0b764b);
+  --gradient-blue: linear-gradient(135deg, #123b5a, #2a6284);
+  --gradient-teal: linear-gradient(135deg, #0b764b, #2ea66a);
   --gradient-brand-soft: linear-gradient(135deg, #edf4f1, #f5f7f4);
 }
 
 .dark {
-  --background: #0b1622;
-  --foreground: #f5f8f7;
-  --surface: #101f2c;
-  --card: #152434;
-  --card-foreground: #f5f8f7;
-  --popover: #152434;
-  --popover-foreground: #f5f8f7;
+  --background: #0d1b26;
+  --foreground: #f3f7f6;
+  --surface: #122432;
+  --card: #172b3a;
+  --card-foreground: #f3f7f6;
+  --popover: #172b3a;
+  --popover-foreground: #f3f7f6;
   /* A restrained tint of brand navy for links and controls, not a new cyan identity. */
-  --primary: #b3c9e1;
-  --primary-foreground: #032e61;
-  --primary-glow: #8daed1;
-  --secondary: #65d6a2;
+  --primary: #b9d5e8;
+  --primary-foreground: #123b5a;
+  --primary-glow: #8fbad2;
+  --secondary: #74d7a9;
   --secondary-foreground: #09261a;
-  --secondary-glow: #8ce8b5;
+  --secondary-glow: #9be6c0;
   /* Keep the exact brand green on rules and markers; use secondary for text. */
-  --brand-green: #00a859;
+  --brand-green: #2ea66a;
   --destructive: #ff8a80;
-  --destructive-foreground: #0b1622;
-  --muted: #1c3042;
-  --muted-foreground: #adbdca;
-  --accent: #12382f;
+  --destructive-foreground: #0d1b26;
+  --muted: #1d3444;
+  --muted-foreground: #b5c5ce;
+  --accent: #163d34;
   --accent-foreground: #f5f8f7;
   /* Decorative dividers stay quiet; input and focus tokens carry UI contrast. */
-  --border: #3b5063;
-  --input: #8296a6;
-  --ring: #8ce8b5;
-  --gradient-hero: linear-gradient(110deg, #b3c9e1, #65d6a2);
-  --gradient-blue: linear-gradient(135deg, #032e61, #123e58);
-  --gradient-teal: linear-gradient(135deg, #65d6a2, #8ce8b5);
-  --gradient-brand-soft: linear-gradient(135deg, #152434, #12382f);
+  --border: #3c5868;
+  --input: #87a0ad;
+  --ring: #9be6c0;
+  --gradient-hero: linear-gradient(110deg, #b9d5e8, #74d7a9);
+  --gradient-blue: linear-gradient(135deg, #123b5a, #1b5069);
+  --gradient-teal: linear-gradient(135deg, #74d7a9, #9be6c0);
+  --gradient-brand-soft: linear-gradient(135deg, #172b3a, #163d34);
 }
 
 /* These inverse panels need light labels, unlike ordinary pale filled controls. */
 .dark .bg-gradient-to-br.from-primary.to-secondary {
   --primary-foreground: #f5f8f7;
-  background-color: #032e61;
+  background-color: #123b5a;
   background-image: none;
 }
 
@@ -320,8 +320,8 @@
 
 .site-footer {
   --ring: var(--color-inverse-accent);
-  --background: #032e61;
-  background: #032e61;
+  --background: #123b5a;
+  background: #123b5a;
   color: #ffffff;
   padding-bottom: calc(6rem + env(safe-area-inset-bottom, 0px));
 }
@@ -349,7 +349,7 @@
 }
 
 .home-section--navy {
-  background: #032e61;
+  background: #123b5a;
   color: #ffffff;
 }
 
@@ -916,7 +916,7 @@
 }
 
 .home-homevisit-panel {
-  background: #032e61;
+  background: #123b5a;
   padding: clamp(1.4rem, 3vw, 2.5rem);
   color: #ffffff;
 }
@@ -966,7 +966,7 @@
   justify-content: space-between;
   gap: 2rem;
   border-left: 6px solid var(--brand-green);
-  background: #032e61;
+  background: #123b5a;
   padding: clamp(1.5rem, 5vw, 4rem);
 }
 
