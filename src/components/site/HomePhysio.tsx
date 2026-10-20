@@ -22,7 +22,6 @@ export function HomePhysio() {
         <div className="overflow-hidden rounded-2xl border border-border bg-background shadow-soft">
           <Link
             to="/home-visit"
-            aria-label={t.actions.requestVisit}
             className="group grid text-start focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-inset md:grid-cols-[1.1fr_0.9fr]"
           >
             <div className="flex flex-col items-start justify-center p-6 sm:p-8 lg:p-10">

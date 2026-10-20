@@ -512,7 +512,7 @@ export const conditions: Condition[] = [
     title: "Stroke Rehabilitation",
     summary: "Regain movement, strength and independence after a stroke.",
     icon: "🧠",
-    metaTitle: "Stroke Rehabilitation in Multan | Neuro Physiotherapy — PainFix",
+    metaTitle: "Stroke Rehabilitation: Symptoms & Recovery in Multan | PainFix",
     metaDescription:
       "Stroke rehabilitation in Multan. Regain movement, balance and independence after stroke with specialised neuro-physiotherapy at PainFix.",
     intro: [

@@ -344,13 +344,12 @@ export function Navbar() {
           <Link
             to="/"
             className="flex min-w-0 items-center gap-2.5"
-            aria-label="PainFix Physiotherapy Clinic home"
             aria-current={pathname === "/" ? "page" : undefined}
           >
             <span className="grid h-11 w-11 shrink-0 place-items-center overflow-hidden rounded-xl bg-background shadow-soft ring-1 ring-border">
               <img
                 src="/painfix-logo-96.webp"
-                alt="PainFix Physiotherapy Clinic logo"
+                alt=""
                 width={44}
                 height={44}
                 className="h-full w-full object-contain p-0.5"
