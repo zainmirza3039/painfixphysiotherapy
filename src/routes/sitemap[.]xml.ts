@@ -24,6 +24,7 @@ export const Route = createFileRoute("/sitemap.xml")({
         const { listPublishedBlogPosts } = await import("@/lib/blog.functions");
         let dbPosts: { slug: string; updated_at: string }[] = [];
         let clinicianSlugs: string[] = [];
+        let internshipEntries: SitemapEntry[] = [];
         try {
           dbPosts = (await listPublishedBlogPosts()).map((p) => ({
             slug: p.slug,
@@ -37,6 +38,27 @@ export const Route = createFileRoute("/sitemap.xml")({
           clinicianSlugs = (await listPublishedClinicianProfiles()).map((profile) => profile.slug);
         } catch {
           // Do not re-advertise a previously published profile after unpublication.
+          return new Response("Sitemap temporarily unavailable", {
+            status: 503,
+            headers: {
+              "Content-Type": "text/plain; charset=utf-8",
+              "Cache-Control": "no-store",
+              "Retry-After": "60",
+            },
+          });
+        }
+        try {
+          const { listInternshipPrograms } = await import("@/lib/internships.functions");
+          internshipEntries = (await listInternshipPrograms())
+            .filter((program) => program.status === "published")
+            .map((program) => ({
+              path: `/internships/${program.slug}`,
+              lastmod: program.updated_at,
+              changefreq: "weekly" as const,
+              priority: "0.7",
+            }));
+        } catch {
+          // Fail closed rather than serving stale or unverified program URLs.
           return new Response("Sitemap temporarily unavailable", {
             status: 503,
             headers: {
@@ -77,6 +99,9 @@ export const Route = createFileRoute("/sitemap.xml")({
           { path: "/blog", changefreq: "weekly", priority: "0.9" },
           { path: "/privacy", changefreq: "yearly", priority: "0.3" },
           { path: "/terms", changefreq: "yearly", priority: "0.3" },
+          { path: "/internships", changefreq: "weekly", priority: "0.7" },
+          { path: "/certificates", changefreq: "monthly", priority: "0.6" },
+          ...internshipEntries,
           // Diet & Nutrition is only listed once a qualified dietitian officially joins.
           ...(DIET_NUTRITION_ENABLED
             ? [
