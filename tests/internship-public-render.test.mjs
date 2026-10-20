@@ -27,6 +27,9 @@ async function componentUrl(file, overrides = {}) {
   const imports = {
     "@/lib/internships.functions": boundary,
     "@/lib/internships.contract": contractUrl,
+    "@/components/site/constants": dataModule(
+      'export const WHATSAPP_URL = "https://wa.me/923143039582";',
+    ),
     "@/lib/internship-application-form": new URL(
       "../src/lib/internship-application-form.ts",
       import.meta.url,

@@ -1,6 +1,7 @@
-import { Check, ClipboardList, GraduationCap, ShieldCheck } from "lucide-react";
+import { Check, ClipboardList, GraduationCap, MessageCircle, ShieldCheck } from "lucide-react";
 import type { Program } from "@/lib/internships.contract";
 import { isApplicationOpen } from "@/lib/internships.contract";
+import { WHATSAPP_URL } from "@/components/site/constants";
 import { ApplicationForm } from "./ApplicationForm";
 
 const notConfirmed = (value: string | number | null | undefined) =>
@@ -103,6 +104,24 @@ export function ProgramDetail({
               assigned supervisor.
             </p>
           </div>
+          {isClinicalInternship && !disableApplication && (
+            <div className="mt-5 border-t border-border pt-5">
+              <p className="text-sm font-semibold text-foreground">Need the next intake details?</p>
+              <p className="mt-1 text-sm leading-6 text-muted-foreground">
+                Message PainFix on WhatsApp to confirm current batch dates and availability. We do
+                not publish unconfirmed deadlines or seat counts.
+              </p>
+              <a
+                href={`${WHATSAPP_URL}?text=${encodeURIComponent("Hi PainFix, I would like to ask about current dates and availability for the Clinical Physiotherapy Internship.")}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-4 inline-flex min-h-11 items-center gap-2 rounded-md bg-primary px-4 py-2.5 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+              >
+                <MessageCircle className="h-4 w-4" aria-hidden="true" />
+                Ask about current dates
+              </a>
+            </div>
+          )}
         </aside>
       </section>
       <section className="mx-auto grid max-w-6xl gap-10 px-4 pb-16 sm:px-6 lg:grid-cols-2 lg:px-8">

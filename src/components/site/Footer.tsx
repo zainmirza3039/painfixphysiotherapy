@@ -35,7 +35,7 @@ export function Footer({ hideClinicDetails = false }: { hideClinicDetails?: bool
   return (
     <footer className="site-footer">
       <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
-        <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-5">
+        <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-6">
           {/* Brand + socials */}
           <div className="lg:col-span-2">
             <div className="flex items-center gap-2.5">
@@ -214,6 +214,35 @@ export function Footer({ hideClinicDetails = false }: { hideClinicDetails?: bool
             </ul>
           </div>
 
+          {/* Locations + contact */}
+          <div>
+            <h3 className="font-heading text-sm font-bold uppercase tracking-wider text-white/95">
+              Locations
+            </h3>
+            {!hideClinicDetails ? (
+              <>
+                <p className="mt-4 text-sm font-semibold text-white">Multan clinic</p>
+                <a
+                  href={MAP_PLACE_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-2 flex items-start gap-2 text-sm leading-6 text-white/80 transition-colors hover:text-inverse-accent hover:underline"
+                >
+                  <MapPin className="mt-1 h-4 w-4 shrink-0 text-inverse-accent" />
+                  <span>{CLINIC_ADDRESS}</span>
+                </a>
+                <p className="mt-5 text-sm font-semibold text-white">Rahim Yar Khan</p>
+                <p className="mt-2 text-sm leading-6 text-white/80">
+                  Online physiotherapy only. No PainFix physical branch is represented here.
+                </p>
+              </>
+            ) : (
+              <p className="mt-4 text-sm leading-6 text-white/80">
+                Online consultations are booked directly with your clinician.
+              </p>
+            )}
+          </div>
+
           {/* Latest Articles + Contact */}
           <div className="sm:col-span-2 lg:col-span-2">
             <h3 className="font-heading text-sm font-bold uppercase tracking-wider text-white/95">
@@ -247,17 +276,6 @@ export function Footer({ hideClinicDetails = false }: { hideClinicDetails?: bool
                   Get in Touch
                 </h3>
                 <ul className="mt-4 space-y-3 text-sm text-white/80">
-                  <li>
-                    <a
-                      href={MAP_PLACE_URL}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-start gap-2.5 transition-colors hover:text-inverse-accent hover:underline"
-                    >
-                      <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-inverse-accent" />
-                      <span>{CLINIC_ADDRESS}</span>
-                    </a>
-                  </li>
                   <li>
                     <a
                       href={PHONE_TEL}

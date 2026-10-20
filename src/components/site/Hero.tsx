@@ -190,27 +190,64 @@ export function Hero() {
             <span className="home-hero__accent">Live Pain-Free.</span>
           </h1>
           <p className="mt-6 max-w-xl text-base leading-7 text-muted-foreground sm:text-lg sm:leading-8">
-            Choose clinic appointments or home visits in Multan, or online physiotherapy with Ariba
-            Babar, DPT, in Rahim Yar Khan. Thoughtful assessments and recovery plans built around
-            you.
+            Personalised physiotherapy and rehabilitation support from PainFix, with a clear way to
+            begin care in Multan or online from Rahim Yar Khan.
           </p>
 
-          <div className="mt-8 grid gap-3 sm:grid-cols-2">
-            <a
-              href="/book-appointment?city=multan&service=clinic"
-              className="inline-flex min-h-12 items-center justify-center gap-2 rounded-md bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
-            >
-              <CalendarDays className="h-4 w-4" aria-hidden="true" /> Multan clinic appointment
-            </a>
-            <a
-              href="/book-appointment?city=rahim-yar-khan&service=online"
-              className="inline-flex min-h-12 items-center justify-center gap-2 rounded-md border border-primary/25 bg-background px-5 py-3 text-sm font-semibold text-primary transition-colors hover:border-secondary hover:text-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
-            >
-              <Video className="h-4 w-4 shrink-0" aria-hidden="true" /> Rahim Yar Khan · Online
-            </a>
+          <div className="home-hero__city-choice" aria-labelledby="hero-city-heading">
+            <div className="flex items-center justify-between gap-4">
+              <p id="hero-city-heading" className="home-hero__choice-label">
+                Choose your city
+              </p>
+              <span className="hidden text-xs text-muted-foreground sm:inline">Start here</span>
+            </div>
+            <div className="home-hero__city-grid">
+              <a
+                href="/book-appointment?city=multan&service=clinic"
+                className="home-hero__city-card home-hero__city-card--primary"
+              >
+                <span className="home-hero__city-card-top">
+                  <span className="home-hero__city-card-icon" aria-hidden="true">
+                    <MapPin className="h-4 w-4" />
+                  </span>
+                  <span className="home-hero__city-card-arrow" aria-hidden="true">
+                    ↗
+                  </span>
+                </span>
+                <span className="mt-5 block font-heading text-2xl font-semibold">Multan</span>
+                <span className="mt-2 block text-sm leading-6 text-current/75">
+                  Clinic appointments and eligible home physiotherapy visits.
+                </span>
+                <span className="mt-5 inline-flex items-center gap-2 text-sm font-semibold">
+                  Explore Multan services <CalendarDays className="h-4 w-4" aria-hidden="true" />
+                </span>
+              </a>
+              <a
+                href="/book-appointment?city=rahim-yar-khan&service=online"
+                className="home-hero__city-card"
+              >
+                <span className="home-hero__city-card-top">
+                  <span className="home-hero__city-card-icon" aria-hidden="true">
+                    <Video className="h-4 w-4" />
+                  </span>
+                  <span className="home-hero__city-card-arrow" aria-hidden="true">
+                    ↗
+                  </span>
+                </span>
+                <span className="mt-5 block font-heading text-2xl font-semibold">
+                  Rahim Yar Khan
+                </span>
+                <span className="mt-2 block text-sm leading-6 text-current/75">
+                  Online physiotherapy and appointment enquiries with Ariba Babar DPT.
+                </span>
+                <span className="mt-5 inline-flex items-center gap-2 text-sm font-semibold">
+                  Explore online care <Video className="h-4 w-4" aria-hidden="true" />
+                </span>
+              </a>
+            </div>
             <a
               href="/book-appointment?city=multan&service=home_visit"
-              className="inline-flex min-h-11 items-center justify-center gap-2 rounded-md text-sm font-semibold text-primary underline underline-offset-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary sm:col-span-2"
+              className="mt-4 inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-primary underline underline-offset-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
             >
               <MapPin className="h-4 w-4" aria-hidden="true" /> Need a home visit in Multan?
             </a>

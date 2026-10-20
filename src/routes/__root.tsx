@@ -19,7 +19,7 @@ import { SITE_URL } from "@/components/site/constants";
 import type { AuthChangeEvent } from "@supabase/supabase-js";
 
 const FONT_HREF =
-  "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Newsreader:opsz,wght@6..72,500;6..72,600;6..72,700&display=swap";
+  "https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Newsreader:opsz,wght@6..72,500;6..72,600;6..72,700&display=swap";
 
 const LOGO_URL = SITE_URL + "/painfix-logo.png";
 const CLARITY_HOST = new URL(SITE_URL).hostname.replace(/^www\./, "");
@@ -116,7 +116,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { name: "theme-color", content: "#032E61" },
+      { name: "theme-color", content: "#123B5A" },
       { name: "author", content: "PainFix Physiotherapy Clinic" },
       { name: "google-site-verification", content: "3bV8F81i2VTJdIbqGuC217jQ4AaSTxmLIKHuNJzc16U" },
       { property: "og:type", content: "website" },
