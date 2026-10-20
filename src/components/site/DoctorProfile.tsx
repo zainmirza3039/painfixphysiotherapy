@@ -83,7 +83,7 @@ export function DoctorProfile({ doc }: { doc: TeamMember }) {
 
       {/* Intro + portrait */}
       <section className="py-14 sm:py-20">
-        <div className="mx-auto grid max-w-6xl gap-10 px-4 sm:px-6 lg:grid-cols-[minmax(0,340px)_1fr] lg:px-8">
+        <div className="mx-auto grid max-w-6xl grid-cols-1 gap-10 px-4 sm:px-6 lg:grid-cols-[minmax(0,340px)_1fr] lg:px-8">
           <Reveal anim="left">
             <div className="aspect-square overflow-hidden rounded-lg border border-border border-l-[5px] border-l-brand-green bg-card">
               <ClinicianPortrait
@@ -105,7 +105,7 @@ export function DoctorProfile({ doc }: { doc: TeamMember }) {
             <p className="mt-3 text-sm font-semibold text-primary">{clinicianServiceLabel(doc)}</p>
             <div className="mt-5 space-y-4">
               {doc.profile.intro.map((p) => (
-                <p key={p} className="text-base leading-relaxed text-muted-foreground">
+                <p key={p} className="break-words text-base leading-relaxed text-muted-foreground">
                   {p}
                 </p>
               ))}
