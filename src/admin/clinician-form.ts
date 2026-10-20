@@ -5,6 +5,8 @@ import type {
 
 export interface ClinicianFormState {
   id?: string;
+  service_mode: "clinic" | "online_only";
+  city: string;
   slug: string;
   name: string;
   full_name: string;
@@ -17,6 +19,9 @@ export interface ClinicianFormState {
   tagsText: string;
   years_experience: string;
   qualificationsText: string;
+  experienceText: string;
+  trainingText: string;
+  researchText: string;
   phone_display: string;
   whatsapp_number: string;
   meta_title: string;
@@ -32,6 +37,8 @@ export interface ClinicianFormState {
 
 export function emptyClinicianForm(): ClinicianFormState {
   return {
+    service_mode: "clinic",
+    city: "Multan",
     slug: "",
     name: "",
     full_name: "",
@@ -44,6 +51,9 @@ export function emptyClinicianForm(): ClinicianFormState {
     tagsText: "",
     years_experience: "",
     qualificationsText: "",
+    experienceText: "",
+    trainingText: "",
+    researchText: "",
     phone_display: "",
     whatsapp_number: "",
     meta_title: "",
@@ -63,6 +73,8 @@ const joinLines = (values: string[] | null | undefined) => (values ?? []).join("
 export function clinicianProfileToForm(profile: AdminClinicianProfile): ClinicianFormState {
   return {
     id: profile.id,
+    service_mode: profile.service_mode === "online_only" ? "online_only" : "clinic",
+    city: profile.city?.trim() || "Multan",
     slug: profile.slug,
     name: profile.name,
     full_name: profile.full_name,
@@ -75,6 +87,9 @@ export function clinicianProfileToForm(profile: AdminClinicianProfile): Clinicia
     tagsText: joinLines(profile.tags),
     years_experience: profile.years_experience === null ? "" : String(profile.years_experience),
     qualificationsText: joinLines(profile.qualifications),
+    experienceText: joinLines(profile.experience),
+    trainingText: joinLines(profile.training),
+    researchText: joinLines(profile.research),
     phone_display: profile.phone_display ?? "",
     whatsapp_number: profile.whatsapp_number ?? "",
     meta_title: profile.meta_title ?? "",
@@ -103,6 +118,8 @@ export function clinicianFormToInput(
 ): ClinicianProfileInput {
   return {
     ...(form.id ? { id: form.id } : {}),
+    service_mode: form.service_mode === "online_only" ? "online_only" : "clinic",
+    city: form.city.trim(),
     slug: form.slug.trim(),
     name: form.name.trim(),
     full_name: form.full_name.trim(),
@@ -115,6 +132,9 @@ export function clinicianFormToInput(
     tags: splitLines(form.tagsText),
     years_experience: form.years_experience.trim() ? Number(form.years_experience) : null,
     qualifications: splitLines(form.qualificationsText),
+    experience: splitLines(form.experienceText),
+    training: splitLines(form.trainingText),
+    research: splitLines(form.researchText),
     photo_path: photoPath,
     phone_display: nullable(form.phone_display),
     whatsapp_number: form.whatsapp_number.replace(/\D/g, "") || null,

@@ -19,6 +19,9 @@ export interface TeamMember {
   /** URL slug for the dedicated doctor profile page. */
   slug: string;
   photo: string | null;
+  /** Managed service mode; legacy static profiles remain clinic-based. */
+  serviceMode?: "clinic" | "online_only";
+  city?: string;
   /** Display phone number for this clinician. */
   phoneDisplay: string;
   /** Digits-only international number used for wa.me WhatsApp links. */
@@ -34,6 +37,9 @@ export interface TeamMember {
     expertise: string[];
     conditionsTreated: string[];
     approach: string[];
+    experience?: string[];
+    training?: string[];
+    research?: string[];
   };
 }
 

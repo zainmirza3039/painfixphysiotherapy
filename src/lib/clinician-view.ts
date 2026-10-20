@@ -12,6 +12,7 @@ export function toClinicianView(
   if ("fullName" in profile) return profile;
   const photo = "resolved_photo_url" in profile ? profile.resolved_photo_url : profile.photo_url;
   const fullName = profile.full_name;
+  const onlineOnly = profile.service_mode === "online_only";
 
   return {
     name: profile.name,
@@ -31,11 +32,17 @@ export function toClinicianView(
       .join(""),
     slug: profile.slug,
     photo,
+    serviceMode: profile.service_mode ?? "clinic",
+    city: profile.city ?? "Multan",
     phoneDisplay: profile.phone_display ?? "",
     whatsapp: profile.whatsapp_number ?? "",
     yearsExperience: profile.years_experience,
     profile: {
-      metaTitle: profile.meta_title ?? `${fullName} | PainFix Physiotherapy Clinic`,
+      metaTitle:
+        profile.meta_title ??
+        (onlineOnly
+          ? `${fullName} — Online Physiotherapy${profile.city ? ` in ${profile.city}` : ""} | PainFix`
+          : `${fullName} | PainFix Physiotherapy Clinic`),
       metaDescription:
         profile.meta_description ??
         profile.seo_bio ??
@@ -46,6 +53,9 @@ export function toClinicianView(
       expertise: profile.expertise ?? [],
       conditionsTreated: profile.conditions_treated ?? [],
       approach: profile.approach ?? [],
+      experience: profile.experience ?? [],
+      training: profile.training ?? [],
+      research: profile.research ?? [],
     },
   };
 }

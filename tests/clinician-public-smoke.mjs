@@ -16,6 +16,11 @@ const profile = (slug, extra = {}) => ({
   credentials: "DPT",
   bio: "SYNTHETIC_BIOGRAPHY_VISIBLE_ON_PROFILE",
   seo_bio: null,
+  service_mode: "clinic",
+  city: "Multan",
+  experience: [],
+  training: [],
+  research: [],
   specialties: ["Fixture rehabilitation"],
   tags: ["Fixture care"],
   years_experience: 0,
@@ -40,6 +45,22 @@ let fixtures = [
   profile("dr-zain-ul-abideen-pt-multan", {
     name: "Legacy fixture",
     full_name: "Legacy Fixture PT",
+  }),
+  profile("ariba-babar", {
+    name: "Ariba Babar",
+    full_name: "ARIBA BABAR, DPT",
+    service_mode: "online_only",
+    city: "Rahim Yar Khan, Pakistan",
+    phone_display: "+92 312 0102560",
+    whatsapp_number: "923120102560",
+    years_experience: null,
+    conditions_treated: ["Synthetic online-care condition"],
+    experience: ["Supervised hospital internship"],
+    training: ["Dry needling training"],
+    research: ["Observational cross-sectional study"],
+    meta_title: "Ariba Babar DPT — Online Physiotherapy in Rahim Yar Khan | PainFix",
+    meta_description:
+      "Online physiotherapy enquiries with Ariba Babar, DPT, based in Rahim Yar Khan, Pakistan.",
   }),
   profile("dr-fixture-draft", { full_name: "HIDDEN_DRAFT_FIXTURE", is_published: false }),
   profile("dr-fixture-inactive", { full_name: "HIDDEN_INACTIVE_FIXTURE", is_active: false }),
@@ -196,6 +217,52 @@ try {
   assert.match(legacy.html, /Legacy Fixture PT/);
   console.log("PASS: normal legacy route reads the managed API contract");
 
+  const online = await get("/ariba-babar");
+  assert.equal(online.response.status, 200);
+  const onlineMain = online.html.match(/<main>([\s\S]*?)<\/main>/)?.[1];
+  assert.ok(onlineMain);
+  assert.match(onlineMain, /Online physiotherapy · Rahim Yar Khan, Pakistan/);
+  assert.match(onlineMain, />AB<\/span>/);
+  assert.match(onlineMain, /Clinical Experience/);
+  assert.match(onlineMain, /Supervised hospital internship/);
+  assert.match(onlineMain, /Dry needling training/);
+  assert.match(onlineMain, /Observational cross-sectional study/);
+  assert.doesNotMatch(
+    onlineMain,
+    /Multan|Clinic Information|Usman Raja|Opening Hours|maps\.google/,
+  );
+  const onlineLinks = [...onlineMain.matchAll(/href="(https:\/\/wa\.me\/[^\"]+)"/g)].map(
+    (match) => match[1],
+  );
+  assert.equal(onlineLinks.length, 2);
+  for (const link of onlineLinks) {
+    const url = new URL(link.replace(/&amp;/g, "&").replace(/&#x27;|&#39;/g, "'"));
+    assert.equal(url.pathname, "/923120102560");
+    assert.match(
+      url.searchParams.get("text"),
+      /online physiotherapy consultation with Ariba Babar/,
+    );
+  }
+  assert.match(
+    online.html,
+    /rel="canonical"[^>]+href="https:\/\/painfixphysiotherapy.com\/ariba-babar"/,
+  );
+  const onlineSchemas = [
+    ...online.html.matchAll(/<script[^>]+type="application\/ld\+json"[^>]*>([\s\S]*?)<\/script>/g),
+  ].map((match) => JSON.parse(match[1]));
+  const person = onlineSchemas.find((schema) => schema.name === "ARIBA BABAR, DPT");
+  assert.ok(person);
+  assert.equal(person["@type"], "Person");
+  assert.equal(person.address, undefined);
+  assert.equal(person.areaServed, undefined);
+  assert.equal(person.homeLocation.name, "Rahim Yar Khan, Pakistan");
+  assert.equal(person.telephone, "+923120102560");
+  assert.match(directory.html, /href="\/ariba-babar"/);
+  assert.match(directory.html, /Online physiotherapy · Rahim Yar Khan, Pakistan/);
+  console.log(
+    "PASS: online-only profile has AB placeholder, CV sections, direct WhatsApp, canonical and address-free Person metadata; clinic content is excluded",
+  );
+
   for (const slug of ["dr-fixture-draft", "dr-fixture-inactive", "dr-fixture-missing"]) {
     const missing = await get(`/${slug}`);
     assert.equal(missing.response.status, 404, slug);
@@ -242,11 +309,13 @@ try {
   const sitemap = await get("/sitemap.xml");
   assert.equal(sitemap.response.status, 200);
   assert.match(sitemap.html, /\/dr-fixture-pt<\/loc>/);
+  assert.match(sitemap.html, /\/ariba-babar<\/loc>/);
   assert.doesNotMatch(sitemap.html, /dr-fixture-draft|dr-fixture-inactive/);
 
   fixtures = fixtures.map((row) => ({ ...row, is_published: false }));
   const unpublished = await get("/dr-fixture-pt");
   assert.equal(unpublished.response.status, 404);
+  assert.equal((await get("/ariba-babar")).response.status, 404);
   directory = await get("/our-team");
   assert.equal(directory.response.status, 200);
   assert.match(directory.html, /No clinician profiles are currently published/);
