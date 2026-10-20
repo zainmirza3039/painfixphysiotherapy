@@ -1,11 +1,12 @@
-import { useRef, useState, type FormEvent } from "react";
+import { useState, type FormEvent } from "react";
 import { Loader2, Send } from "lucide-react";
 import { toast } from "sonner";
 import { useI18n } from "@/i18n/LanguageProvider";
 import {
-  createSingleSubmissionGuard,
+  createHomeVisitSubmissionGate,
   getLocalDateInputValue,
-  persistHomeVisitRequest,
+  HOME_VISIT_FIELD_LIMITS,
+  submitHomeVisitRequest,
   validateHomeVisitForm,
   type HomeVisitFormValues,
   type HomeVisitValidationError,
@@ -27,7 +28,7 @@ export function HomeVisitForm() {
   const [values, setValues] = useState<HomeVisitFormValues>(createInitialValues);
   const [company, setCompany] = useState("");
   const [submitting, setSubmitting] = useState(false);
-  const submissionGuard = useRef(createSingleSubmissionGuard());
+  const [submissionGate] = useState(() => createHomeVisitSubmissionGate());
   const today = getLocalDateInputValue();
 
   const set = (key: keyof HomeVisitFormValues, value: string) =>
@@ -37,26 +38,44 @@ export function HomeVisitForm() {
     required: f.required,
     phone: f.phoneInvalid,
     date: f.dateInvalid,
+    length: f.fieldTooLong,
   };
 
   const onSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (company || !submissionGuard.current.enter()) return;
+    if (company || submissionGate.isPending) return;
 
     const validationError = validateHomeVisitForm(values, today);
     if (validationError) {
       toast.error(validationMessages[validationError]);
-      submissionGuard.current.release();
       return;
     }
 
     setSubmitting(true);
     try {
-      const { supabase } = await import("@/integrations/supabase/client");
-      await persistHomeVisitRequest(
-        (payload) => supabase.from("home_visit_requests").insert(payload),
+      const result = await submitHomeVisitRequest(
         values,
+        today,
+        {
+          insertRequest: async (payload) => {
+            const { supabase } = await import("@/integrations/supabase/client");
+            const { error } = await supabase.from("home_visit_requests").insert(payload);
+            if (error) throw error;
+          },
+        },
+        submissionGate,
       );
+
+      if (result.status === "duplicate") return;
+      if (result.status === "invalid") {
+        toast.error(validationMessages[result.reason]);
+        return;
+      }
+      if (result.status === "error") {
+        console.error("Home visit request failed:", result.error);
+        toast.error(f.error);
+        return;
+      }
 
       toast.success(f.success);
       setValues(createInitialValues());
@@ -64,7 +83,6 @@ export function HomeVisitForm() {
       console.error("Home visit request failed:", error);
       toast.error(f.error);
     } finally {
-      submissionGuard.current.release();
       setSubmitting(false);
     }
   };
@@ -83,7 +101,7 @@ export function HomeVisitForm() {
           id="full_name"
           name="full_name"
           autoComplete="name"
-          maxLength={120}
+          maxLength={HOME_VISIT_FIELD_LIMITS.full_name}
           className={inputClassName}
           value={values.full_name}
           onChange={(event) => set("full_name", event.target.value)}
@@ -100,7 +118,7 @@ export function HomeVisitForm() {
           type="tel"
           inputMode="tel"
           autoComplete="tel"
-          maxLength={24}
+          maxLength={HOME_VISIT_FIELD_LIMITS.phone}
           className={inputClassName}
           value={values.phone}
           onChange={(event) => set("phone", event.target.value)}
@@ -116,7 +134,7 @@ export function HomeVisitForm() {
           id="address"
           name="address"
           autoComplete="address-line1"
-          maxLength={200}
+          maxLength={HOME_VISIT_FIELD_LIMITS.address}
           placeholder={f.addressHint}
           className={inputClassName}
           value={values.address}
@@ -132,7 +150,7 @@ export function HomeVisitForm() {
         <input
           id="medical_condition"
           name="medical_condition"
-          maxLength={200}
+          maxLength={HOME_VISIT_FIELD_LIMITS.medical_condition}
           className={inputClassName}
           value={values.medical_condition}
           onChange={(event) => set("medical_condition", event.target.value)}
@@ -178,7 +196,7 @@ export function HomeVisitForm() {
           id="notes"
           name="notes"
           rows={3}
-          maxLength={1000}
+          maxLength={HOME_VISIT_FIELD_LIMITS.notes}
           className={inputClassName}
           value={values.notes}
           onChange={(event) => set("notes", event.target.value)}

@@ -169,6 +169,8 @@ export const en = {
       required: "Please complete all required fields.",
       phoneInvalid: "Enter a valid contact number.",
       dateInvalid: "Choose today or a future date.",
+      ageInvalid: "Enter a whole-number patient age from 0 to 120.",
+      fieldTooLong: "One or more fields exceed the allowed length. Please shorten your entries.",
     },
   },
   contact: {
@@ -359,6 +361,8 @@ export const ur: Dict = {
       required: "براہِ کرم تمام ضروری خانے مکمل کریں۔",
       phoneInvalid: "براہِ کرم درست رابطہ نمبر درج کریں۔",
       dateInvalid: "آج یا مستقبل کی تاریخ منتخب کریں۔",
+      ageInvalid: "مریض کی عمر 0 سے 120 کے درمیان مکمل عدد میں درج کریں۔",
+      fieldTooLong: "ایک یا زیادہ خانے حد سے زیادہ طویل ہیں۔ براہِ کرم عبارت مختصر کریں۔",
     },
   },
   contact: {
