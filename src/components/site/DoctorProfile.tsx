@@ -16,6 +16,11 @@ import { PageCTA } from "./PageCTA";
 import { Reveal } from "./Reveal";
 import { ClinicianPortrait } from "./ClinicianPortrait";
 import {
+  clinicianServiceLabel,
+  clinicianWhatsAppUrl,
+  isOnlineClinician,
+} from "@/lib/clinician-service";
+import {
   CLINIC_NAME,
   CLINIC_ADDRESS,
   MAP_DIRECTIONS_URL,
@@ -25,6 +30,8 @@ import {
 
 /** Dedicated, SEO-optimized profile page for a single physiotherapist. */
 export function DoctorProfile({ doc }: { doc: TeamMember }) {
+  const onlineOnly = isOnlineClinician(doc);
+  const whatsappUrl = clinicianWhatsAppUrl(doc);
   const phoneHref = doc.whatsapp
     ? `tel:+${doc.whatsapp}`
     : doc.phoneDisplay
@@ -32,7 +39,7 @@ export function DoctorProfile({ doc }: { doc: TeamMember }) {
       : null;
 
   return (
-    <PageLayout>
+    <PageLayout onlineClinician={onlineOnly ? doc : undefined}>
       <PageHero
         eyebrow="Meet Our Doctors"
         title={doc.fullName}
@@ -44,9 +51,39 @@ export function DoctorProfile({ doc }: { doc: TeamMember }) {
         showActions={false}
       />
 
+      {onlineOnly && (
+        <section className="border-b border-border bg-surface py-8 sm:py-10">
+          <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+            <div className="rounded-lg border border-secondary/30 bg-card p-5 sm:p-6">
+              <p className="text-xs font-bold uppercase tracking-wider text-secondary">
+                Online-only service · {doc.city || "Pakistan"}
+              </p>
+              <h2 className="mt-2 font-heading text-2xl font-extrabold text-foreground sm:text-3xl">
+                Online Physiotherapy Consultation
+              </h2>
+              <p className="mt-2 max-w-3xl text-sm leading-relaxed text-muted-foreground">
+                Consult with {doc.fullName} remotely from {doc.city || "Pakistan"}. Message on
+                WhatsApp to ask about availability and whether online care is suitable for you.
+              </p>
+              {whatsappUrl && (
+                <a
+                  href={whatsappUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`Start an online physiotherapy consultation with ${doc.name} on WhatsApp`}
+                  className="ripple mt-4 inline-flex items-center gap-2 rounded-2xl bg-secondary px-5 py-3 text-sm font-semibold text-secondary-foreground shadow-card transition-transform hover:scale-[1.03]"
+                >
+                  <MessageCircle className="h-4 w-4" /> Start on WhatsApp
+                </a>
+              )}
+            </div>
+          </div>
+        </section>
+      )}
+
       {/* Intro + portrait */}
       <section className="py-14 sm:py-20">
-        <div className="mx-auto grid max-w-6xl gap-10 px-4 sm:px-6 lg:grid-cols-[minmax(0,340px)_1fr] lg:px-8">
+        <div className="mx-auto grid max-w-6xl grid-cols-1 gap-10 px-4 sm:px-6 lg:grid-cols-[minmax(0,340px)_1fr] lg:px-8">
           <Reveal anim="left">
             <div className="aspect-square overflow-hidden rounded-lg border border-border border-l-[5px] border-l-brand-green bg-card">
               <ClinicianPortrait
@@ -65,9 +102,10 @@ export function DoctorProfile({ doc }: { doc: TeamMember }) {
             <h2 className="mt-3 font-heading text-2xl font-extrabold text-foreground sm:text-3xl">
               About {doc.fullName}
             </h2>
+            <p className="mt-3 text-sm font-semibold text-primary">{clinicianServiceLabel(doc)}</p>
             <div className="mt-5 space-y-4">
               {doc.profile.intro.map((p) => (
-                <p key={p} className="text-base leading-relaxed text-muted-foreground">
+                <p key={p} className="break-words text-base leading-relaxed text-muted-foreground">
                   {p}
                 </p>
               ))}
@@ -78,11 +116,9 @@ export function DoctorProfile({ doc }: { doc: TeamMember }) {
               </p>
             )}
             <div className="mt-6 flex flex-wrap gap-3">
-              {doc.whatsapp && (
+              {whatsappUrl && (
                 <a
-                  href={`https://wa.me/${doc.whatsapp}?text=${encodeURIComponent(
-                    `Hi, I'd like a physiotherapy consultation with ${doc.name} at ${CLINIC_NAME}.`,
-                  )}`}
+                  href={whatsappUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={`Chat with ${doc.name} on WhatsApp`}
@@ -130,7 +166,8 @@ export function DoctorProfile({ doc }: { doc: TeamMember }) {
             <Reveal anim="right">
               <div className="h-full rounded-lg border border-border border-t-2 border-t-brand-green bg-card p-6 shadow-none sm:p-7">
                 <h2 className="flex items-center gap-2 font-heading text-xl font-bold text-foreground">
-                  <Stethoscope className="h-5 w-5 text-primary" /> Areas of Expertise
+                  <Stethoscope className="h-5 w-5 text-primary" />{" "}
+                  {onlineOnly ? "Clinical Skills" : "Areas of Expertise"}
                 </h2>
                 <ul className="mt-5 flex flex-wrap gap-2">
                   {doc.profile.expertise.map((e) => (
@@ -157,8 +194,9 @@ export function DoctorProfile({ doc }: { doc: TeamMember }) {
                 <ClipboardList className="h-6 w-6 text-primary" /> Conditions Treated
               </h2>
               <p className="mt-3 text-sm text-muted-foreground">
-                {doc.fullName} treats a wide range of conditions with evidence-based physiotherapy
-                in Multan.
+                {onlineOnly
+                  ? `${doc.fullName} offers online physiotherapy guidance following an individual assessment of suitability.`
+                  : `${doc.fullName} treats a wide range of conditions with evidence-based physiotherapy in Multan.`}
               </p>
               <ul className="mt-6 grid gap-3 sm:grid-cols-2">
                 {doc.profile.conditionsTreated.map((c) => (
@@ -193,54 +231,133 @@ export function DoctorProfile({ doc }: { doc: TeamMember }) {
         </div>
       </section>
 
-      {/* Clinic information */}
-      <section className="py-14 sm:py-20">
-        <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
-          <Reveal anim="up">
-            <div className="rounded-lg border border-border border-t-2 border-t-brand-green bg-card p-6 shadow-none sm:p-7">
-              <h2 className="font-heading text-xl font-bold text-foreground">Clinic Information</h2>
-              <p className="mt-2 text-sm text-muted-foreground">
-                See {doc.fullName} at {CLINIC_NAME}, Multan.
-              </p>
-              <ul className="mt-6 space-y-4 text-sm text-foreground">
-                <li className="flex items-start gap-3">
-                  <MapPin className="mt-0.5 h-5 w-5 shrink-0 text-primary" />
-                  <a
-                    href={MAP_DIRECTIONS_URL}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="transition-colors hover:text-primary"
-                  >
-                    {CLINIC_ADDRESS}
-                  </a>
-                </li>
-                <li className="flex items-start gap-3">
-                  <Clock className="mt-0.5 h-5 w-5 shrink-0 text-primary" />
-                  <span>
-                    {OPENING_HOURS.map((h) => (
-                      <span key={h.days} className="block">
-                        <span className="font-medium">{h.days}:</span> {h.time}
-                      </span>
+      {(
+        [
+          ["Clinical Experience", doc.profile.experience],
+          [onlineOnly ? "Supervised Training" : "Training & Volunteer Work", doc.profile.training],
+          ["Research", doc.profile.research],
+        ] as const
+      ).map(
+        ([heading, items]) =>
+          items &&
+          items.length > 0 && (
+            <section key={heading} className="py-10 sm:py-14">
+              <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+                <Reveal anim="up">
+                  <h2 className="font-heading text-2xl font-extrabold text-foreground">
+                    {heading}
+                  </h2>
+                  {onlineOnly &&
+                    (heading === "Clinical Experience" || heading === "Supervised Training") && (
+                      <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+                        The details below describe supervised clinical exposure, not independent
+                        specialist qualifications or in-person treatment at PainFix.
+                      </p>
+                    )}
+                  <ul className="mt-5 space-y-4">
+                    {items.map((item) => (
+                      <li
+                        key={item}
+                        className="rounded-lg border border-border bg-card p-4 text-sm leading-relaxed text-muted-foreground"
+                      >
+                        {item}
+                      </li>
                     ))}
-                  </span>
-                </li>
-                {phoneHref && doc.phoneDisplay && (
+                  </ul>
+                </Reveal>
+              </div>
+            </section>
+          ),
+      )}
+
+      {/* Clinic information */}
+      {onlineOnly ? (
+        <section className="py-14 sm:py-20">
+          <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+            <Reveal anim="up">
+              <div className="rounded-lg border border-border border-t-2 border-t-brand-green bg-card p-6 sm:p-7">
+                <h2 className="font-heading text-xl font-bold text-foreground">
+                  Online Consultation Information
+                </h2>
+                <p className="mt-3 text-sm font-semibold text-primary">
+                  {clinicianServiceLabel(doc)}
+                </p>
+                <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+                  Consultations with {doc.name} are online only. Message her directly on WhatsApp to
+                  discuss availability and whether remote care is suitable. No physical PainFix
+                  clinic or walk-in appointments are offered at this location.
+                </p>
+                <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+                  Hands-on techniques and supervised hospital experience describe clinical training,
+                  not treatments delivered online. An in-person assessment may be recommended when
+                  needed.
+                </p>
+              </div>
+            </Reveal>
+          </div>
+        </section>
+      ) : (
+        <section className="py-14 sm:py-20">
+          <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+            <Reveal anim="up">
+              <div className="rounded-lg border border-border border-t-2 border-t-brand-green bg-card p-6 shadow-none sm:p-7">
+                <h2 className="font-heading text-xl font-bold text-foreground">
+                  Clinic Information
+                </h2>
+                <p className="mt-2 text-sm text-muted-foreground">
+                  See {doc.fullName} at {CLINIC_NAME}, Multan.
+                </p>
+                <ul className="mt-6 space-y-4 text-sm text-foreground">
                   <li className="flex items-start gap-3">
-                    <Phone className="mt-0.5 h-5 w-5 shrink-0 text-primary" />
-                    <a href={phoneHref} className="transition-colors hover:text-primary">
-                      {doc.phoneDisplay}
+                    <MapPin className="mt-0.5 h-5 w-5 shrink-0 text-primary" />
+                    <a
+                      href={MAP_DIRECTIONS_URL}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="transition-colors hover:text-primary"
+                    >
+                      {CLINIC_ADDRESS}
                     </a>
                   </li>
-                )}
-              </ul>
-            </div>
-          </Reveal>
-        </div>
-      </section>
+                  <li className="flex items-start gap-3">
+                    <Clock className="mt-0.5 h-5 w-5 shrink-0 text-primary" />
+                    <span>
+                      {OPENING_HOURS.map((h) => (
+                        <span key={h.days} className="block">
+                          <span className="font-medium">{h.days}:</span> {h.time}
+                        </span>
+                      ))}
+                    </span>
+                  </li>
+                  {phoneHref && doc.phoneDisplay && (
+                    <li className="flex items-start gap-3">
+                      <Phone className="mt-0.5 h-5 w-5 shrink-0 text-primary" />
+                      <a href={phoneHref} className="transition-colors hover:text-primary">
+                        {doc.phoneDisplay}
+                      </a>
+                    </li>
+                  )}
+                </ul>
+              </div>
+            </Reveal>
+          </div>
+        </section>
+      )}
 
       <PageCTA
-        title={`Book an appointment with ${doc.fullName}`}
-        subtitle={`Get evidence-based physiotherapy in Multan with ${doc.name}. Book online, message on WhatsApp or call the clinic today.`}
+        title={
+          onlineOnly
+            ? `Enquire about online physiotherapy with ${doc.fullName}`
+            : `Book an appointment with ${doc.fullName}`
+        }
+        subtitle={
+          onlineOnly
+            ? `Contact ${doc.name} directly on WhatsApp for online physiotherapy availability and booking. Based in ${doc.city || "Pakistan"}; online consultations only.`
+            : `Get evidence-based physiotherapy in Multan with ${doc.name}. Book online, message on WhatsApp or call the clinic today.`
+        }
+        {...(onlineOnly
+          ? { whatsappUrl, phoneHref, phoneDisplay: doc.phoneDisplay, contactName: doc.name }
+          : {})}
       />
     </PageLayout>
   );

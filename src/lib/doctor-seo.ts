@@ -1,6 +1,7 @@
 import { pageMeta, canonical, breadcrumbLd } from "@/lib/seo";
 import { SITE_URL, CLINIC_NAME, PHONE_TEL } from "@/components/site/constants";
 import type { TeamMember } from "@/data/team";
+import { isOnlineClinician } from "@/lib/clinician-service";
 
 /**
  * Builds the full head() payload (meta, canonical, breadcrumb + Physician JSON-LD)
@@ -10,6 +11,16 @@ import type { TeamMember } from "@/data/team";
 export function doctorProfileHead(doc: TeamMember) {
   const path = `/${doc.slug}`;
   const url = `${SITE_URL}${path}`;
+  const onlineOnly = isOnlineClinician(doc);
+  const city = doc.city || "Pakistan";
+  const metaTitle =
+    onlineOnly && !doc.profile.metaTitle.includes(city)
+      ? `${doc.fullName} — Online Physiotherapy in ${city} | PainFix`
+      : doc.profile.metaTitle;
+  const metaDescription =
+    onlineOnly && !doc.profile.metaDescription.includes(city)
+      ? `Online physiotherapy consultation enquiries with ${doc.fullName}, based in ${city}.`
+      : doc.profile.metaDescription;
   // Static imports are root-relative paths; admin-uploaded photos may be absolute URLs.
   const image = doc.photo
     ? /^https?:\/\//.test(doc.photo)
@@ -19,8 +30,8 @@ export function doctorProfileHead(doc: TeamMember) {
 
   return {
     meta: pageMeta({
-      title: doc.profile.metaTitle,
-      description: doc.profile.metaDescription,
+      title: metaTitle,
+      description: metaDescription,
       path,
       type: "article",
       image,
@@ -35,16 +46,20 @@ export function doctorProfileHead(doc: TeamMember) {
         type: "application/ld+json",
         children: JSON.stringify({
           "@context": "https://schema.org",
-          "@type": "Physician",
+          "@type": onlineOnly ? "Person" : "Physician",
           name: doc.fullName,
           alternateName: doc.name,
           url,
           ...(image ? { image } : {}),
           jobTitle: doc.role,
-          medicalSpecialty: "Physiotherapy",
-          telephone: doc.whatsapp
-            ? `+${doc.whatsapp}`
-            : doc.phoneDisplay || PHONE_TEL.replace("tel:", ""),
+          ...(!onlineOnly ? { medicalSpecialty: "Physiotherapy" } : {}),
+          ...(doc.whatsapp || doc.phoneDisplay || !onlineOnly
+            ? {
+                telephone: doc.whatsapp
+                  ? `+${doc.whatsapp}`
+                  : doc.phoneDisplay || PHONE_TEL.replace("tel:", ""),
+              }
+            : {}),
           knowsAbout: doc.profile.expertise,
           worksFor: {
             "@type": "MedicalClinic",
@@ -52,14 +67,21 @@ export function doctorProfileHead(doc: TeamMember) {
             name: CLINIC_NAME,
             url: SITE_URL,
           },
-          areaServed: { "@type": "City", name: "Multan" },
-          address: {
-            "@type": "PostalAddress",
-            streetAddress: "Usman Raja Market, Near Khair Ul Maarif School, Shalimar Colony",
-            addressLocality: "Multan",
-            addressRegion: "Punjab",
-            addressCountry: "PK",
-          },
+          ...(onlineOnly
+            ? {
+                homeLocation: { "@type": "Place", name: doc.city || "Pakistan" },
+                description: `Online-only physiotherapy consultations. Based in ${doc.city || "Pakistan"}; no physical clinic at this location.`,
+              }
+            : {
+                areaServed: { "@type": "City", name: "Multan" },
+                address: {
+                  "@type": "PostalAddress",
+                  streetAddress: "Usman Raja Market, Near Khair Ul Maarif School, Shalimar Colony",
+                  addressLocality: "Multan",
+                  addressRegion: "Punjab",
+                  addressCountry: "PK",
+                },
+              }),
         }),
       },
     ],

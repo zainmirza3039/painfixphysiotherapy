@@ -195,6 +195,11 @@ export type Database = {
           tags: string[];
           updated_at: string;
           whatsapp_number: string | null;
+          service_mode: "clinic" | "online_only";
+          city: string;
+          experience: string[];
+          training: string[];
+          research: string[];
           years_experience: number | null;
         };
         Insert: {
@@ -225,6 +230,11 @@ export type Database = {
           tags?: string[];
           updated_at?: string;
           whatsapp_number?: string | null;
+          service_mode?: "clinic" | "online_only";
+          city?: string;
+          experience?: string[];
+          training?: string[];
+          research?: string[];
           years_experience?: number | null;
         };
         Update: {
@@ -255,6 +265,11 @@ export type Database = {
           tags?: string[];
           updated_at?: string;
           whatsapp_number?: string | null;
+          service_mode?: "clinic" | "online_only";
+          city?: string;
+          experience?: string[];
+          training?: string[];
+          research?: string[];
           years_experience?: number | null;
         };
         Relationships: [

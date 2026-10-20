@@ -11,12 +11,11 @@ import {
   extensionForClinicianPhotoType,
   isClinicianPhotoPathForId,
   type AdminClinicianProfile,
-  type ClinicianProfileInput,
   type PublicClinicianProfile,
 } from "@/admin/clinician-profile.contract";
 
 const PUBLIC_COLUMNS =
-  "id, slug, name, full_name, designation, professional_title, credentials, bio, seo_bio, specialties, tags, years_experience, qualifications, photo_path, photo_url, phone_display, whatsapp_number, meta_title, meta_description, intro, expertise, conditions_treated, approach, display_order";
+  "id, slug, name, full_name, designation, professional_title, credentials, bio, seo_bio, specialties, tags, years_experience, qualifications, photo_path, photo_url, phone_display, whatsapp_number, service_mode, city, experience, training, research, meta_title, meta_description, intro, expertise, conditions_treated, approach, display_order";
 
 function publicClient() {
   const url = process.env.SUPABASE_URL;
@@ -128,7 +127,7 @@ export const saveAdminClinicianProfile = createServerFn({ method: "POST" })
   .handler(async ({ data, context }) => {
     await assertAdmin(context);
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
-    const { id, ...values } = data as ClinicianProfileInput;
+    const { id, ...values } = data;
     if (id && values.photo_path && !isClinicianPhotoPathForId(values.photo_path, id)) {
       throw new Error("The selected photo does not belong to this clinician");
     }

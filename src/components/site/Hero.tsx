@@ -1,13 +1,12 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import type { TouchEvent as ReactTouchEvent } from "react";
-import { Link } from "@tanstack/react-router";
 import {
   CalendarDays,
   ChevronLeft,
   ChevronRight,
   Clock3,
   MapPin,
-  MessageCircle,
+  Video,
   Pause,
   Play,
 } from "lucide-react";
@@ -26,7 +25,6 @@ import clinicRehab480 from "@/assets/clinic-rehab-480.webp";
 import clinicRehab540 from "@/assets/clinic-rehab-540.webp";
 import clinicRehabImg from "@/assets/clinic-photo-4.webp";
 import userClinicImg from "@/assets/hero-clinic-treatment.webp";
-import { WHATSAPP_CONSULT_URL } from "./constants";
 
 const HERO_SIZES =
   "(min-width: 1280px) 552px, (min-width: 1024px) 42vw, (min-width: 640px) 80vw, 100vw";
@@ -179,11 +177,11 @@ export function Hero() {
       <div className="mx-auto grid max-w-7xl items-center gap-10 px-4 pb-14 pt-28 sm:px-6 sm:pb-20 sm:pt-32 lg:grid-cols-[1fr_0.92fr] lg:gap-16 lg:px-8 lg:pb-24 lg:pt-36">
         <div className="max-w-2xl">
           <p className="home-eyebrow">
-            <span aria-hidden="true" /> Physiotherapy in Multan
+            <span aria-hidden="true" /> Physiotherapy in Multan and Rahim Yar Khan
           </p>
           <h1
             id="home-heading"
-            className="mt-6 font-heading text-[clamp(2.8rem,7.2vw,5.6rem)] font-bold leading-[0.98] tracking-[-0.045em] text-foreground"
+            className="mt-6 font-heading text-[clamp(2.6rem,5.2vw,4.25rem)] font-bold leading-[0.98] tracking-[-0.045em] text-foreground"
           >
             Move Better.
             <br />
@@ -192,24 +190,29 @@ export function Hero() {
             <span className="home-hero__accent">Live Pain-Free.</span>
           </h1>
           <p className="mt-6 max-w-xl text-base leading-7 text-muted-foreground sm:text-lg sm:leading-8">
-            Start with a thoughtful assessment. Our physiotherapy team will help you understand your
-            options and build a recovery plan around your needs, movement and goals.
+            Choose clinic appointments or home visits in Multan, or online physiotherapy with Ariba
+            Babar, DPT, in Rahim Yar Khan. Thoughtful assessments and recovery plans built around
+            you.
           </p>
 
-          <div className="mt-8 flex flex-col gap-3 min-[420px]:flex-row">
-            <Link
-              to="/book-appointment"
+          <div className="mt-8 grid gap-3 sm:grid-cols-2">
+            <a
+              href="/book-appointment?city=multan&service=clinic"
               className="inline-flex min-h-12 items-center justify-center gap-2 rounded-md bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
             >
-              <CalendarDays className="h-4 w-4" aria-hidden="true" /> Book an appointment
-            </Link>
+              <CalendarDays className="h-4 w-4" aria-hidden="true" /> Multan clinic appointment
+            </a>
             <a
-              href={WHATSAPP_CONSULT_URL}
-              target="_blank"
-              rel="noopener noreferrer"
+              href="/book-appointment?city=rahim-yar-khan&service=online"
               className="inline-flex min-h-12 items-center justify-center gap-2 rounded-md border border-primary/25 bg-background px-5 py-3 text-sm font-semibold text-primary transition-colors hover:border-secondary hover:text-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
             >
-              <MessageCircle className="h-4 w-4" aria-hidden="true" /> Ask us on WhatsApp
+              <Video className="h-4 w-4 shrink-0" aria-hidden="true" /> Rahim Yar Khan · Online
+            </a>
+            <a
+              href="/book-appointment?city=multan&service=home_visit"
+              className="inline-flex min-h-11 items-center justify-center gap-2 rounded-md text-sm font-semibold text-primary underline underline-offset-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary sm:col-span-2"
+            >
+              <MapPin className="h-4 w-4" aria-hidden="true" /> Need a home visit in Multan?
             </a>
           </div>
 

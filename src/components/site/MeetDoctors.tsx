@@ -4,6 +4,7 @@ import { toClinicianView } from "@/lib/clinician-view";
 import { Reveal } from "./Reveal";
 import { ClinicianPortrait } from "./ClinicianPortrait";
 import type { PublicClinicianContent } from "@/lib/clinician-view";
+import { clinicianServiceLabel, clinicianWhatsAppUrl } from "@/lib/clinician-service";
 
 export function MeetDoctors({ initialProfiles }: { initialProfiles?: PublicClinicianContent[] }) {
   const { data: profiles, isLoading, isError, refetch } = usePublishedClinicians(initialProfiles);
@@ -20,8 +21,9 @@ export function MeetDoctors({ initialProfiles }: { initialProfiles?: PublicClini
             <h2 className="home-section-title mt-4">Meet the people behind your care.</h2>
           </div>
           <p className="max-w-2xl text-base leading-7 text-muted-foreground">
-            PainFix’s clinical team includes Doctors of Physical Therapy working across
-            physiotherapy and rehabilitation in Multan.
+            PainFix’s clinical team includes Doctors of Physical Therapy working across clinic-based
+            and online physiotherapy and rehabilitation. Check each profile for service mode and
+            location.
           </p>
         </div>
 
@@ -76,6 +78,9 @@ export function MeetDoctors({ initialProfiles }: { initialProfiles?: PublicClini
                       {doc.fullName}
                     </h3>
                     <p className="mt-1 text-sm font-medium text-primary">{doc.role}</p>
+                    <p className="mt-1 text-sm font-semibold text-primary">
+                      {clinicianServiceLabel(doc)}
+                    </p>
                     {doc.yearsExperience !== null && doc.yearsExperience !== undefined && (
                       <p className="mt-1 text-xs text-muted-foreground">
                         {doc.yearsExperience} {doc.yearsExperience === 1 ? "year" : "years"} of
@@ -107,7 +112,7 @@ export function MeetDoctors({ initialProfiles }: { initialProfiles?: PublicClini
                       </a>
                       {doc.whatsapp && (
                         <a
-                          href={`https://wa.me/${doc.whatsapp}?text=${encodeURIComponent(`Hi, I'd like a physiotherapy consultation with ${doc.name} at PainFix Physiotherapy Clinic.`)}`}
+                          href={clinicianWhatsAppUrl(doc) ?? undefined}
                           target="_blank"
                           rel="noopener noreferrer"
                           aria-label={`Ask about an appointment with ${doc.name} on WhatsApp`}
