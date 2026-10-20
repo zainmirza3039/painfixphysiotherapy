@@ -78,3 +78,25 @@ test("featured badge remains readable on its tinted surface", () => {
       "featured badge",
     );
 });
+
+test("public calculator and newsletter fields use the verified input boundary token", () => {
+  for (const component of [
+    "BmiCalculator",
+    "HealthCalculators",
+    "FitnessAssessmentTools",
+    "Newsletter",
+  ]) {
+    const source = readFileSync(
+      new URL(`../src/components/site/${component}.tsx`, import.meta.url),
+      "utf8",
+    );
+    assert.ok(
+      source.includes("w-full rounded-xl border border-input bg-background px-4 py-2.5"),
+      `${component} uses border-input`,
+    );
+    assert.ok(
+      !source.includes("w-full rounded-xl border border-border bg-background px-4 py-2.5"),
+      `${component} does not use decorative field boundaries`,
+    );
+  }
+});

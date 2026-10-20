@@ -19,7 +19,7 @@ export function Newsletter() {
           id="newsletter-email"
           type="email"
           placeholder="you@example.com"
-          className="w-full rounded-xl border border-border bg-background px-4 py-2.5 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
+          className="w-full rounded-xl border border-input bg-background px-4 py-2.5 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
         />
         <button
           type="submit"

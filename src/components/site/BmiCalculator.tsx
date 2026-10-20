@@ -40,7 +40,7 @@ export function BmiCalculator({ compact = false }: { compact?: boolean }) {
   const activeColor = result ? BMI_BANDS.find((b) => b.key === result.category)?.color : undefined;
 
   const inputClass =
-    "w-full rounded-xl border border-border bg-background px-4 py-2.5 text-sm text-foreground outline-none transition-colors focus:border-primary focus:ring-2 focus:ring-primary/30";
+    "w-full rounded-xl border border-input bg-background px-4 py-2.5 text-sm text-foreground outline-none transition-colors focus:border-primary focus:ring-2 focus:ring-primary/30";
 
   return (
     <div
