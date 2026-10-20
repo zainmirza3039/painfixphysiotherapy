@@ -36,9 +36,7 @@ export type HomeVisitSubmissionResult =
   | { status: "error"; error: unknown };
 
 export type HomeVisitGateResult<T> =
-  | { status: "duplicate" }
-  | { status: "success"; value: T }
-  | { status: "error"; error: unknown };
+  { status: "duplicate" } | { status: "success"; value: T } | { status: "error"; error: unknown };
 
 export interface HomeVisitSubmissionGate {
   readonly isPending: boolean;

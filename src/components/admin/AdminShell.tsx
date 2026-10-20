@@ -82,7 +82,17 @@ const NAV_SECTIONS = [
   { label: "My workspace", routes: ["/admin/profile"] },
   {
     label: "Administration",
-    routes: ["/admin/reports", "/admin/users", "/admin/clinicians", "/admin/settings"],
+    routes: [
+      "/admin/reports",
+      "/admin/users",
+      "/admin/clinicians",
+      "/admin/internships",
+      "/admin/internship-applications",
+      "/admin/internship-participants",
+      "/admin/experience-records",
+      "/admin/certificates",
+      "/admin/settings",
+    ],
   },
 ] as const;
 

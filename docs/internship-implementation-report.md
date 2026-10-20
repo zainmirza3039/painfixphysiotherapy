@@ -12,7 +12,7 @@ Admins can create, edit, preview, publish/unpublish, close and archive programs;
 
 ## 2. Database
 
-Prepared `supabase/migrations/20261021000000_internship_certificates.sql`, adding eight dedicated tables: programs, applications, participants, professional experience records, certificates, certificate events, admin audit events and request-rate counters. It includes foreign keys, status/date constraints, indexes, immutable snapshots, approval stamps and transactional RPCs.
+Prepared `supabase/migrations/20261021022000_internship_certificates.sql`, adding eight dedicated tables: programs, applications, participants, professional experience records, certificates, certificate events, admin audit events and request-rate counters. It includes foreign keys, status/date constraints, indexes, immutable snapshots, approval stamps and transactional RPCs.
 
 **Applied only to new isolated local PostgreSQL test databases. Not applied to production or a remote Supabase project.** The final migration and lifecycle suite passed in `painfix_internship_test_release_20261021`. Existing production migration history/drift could not be compared without production access. No existing migration or medical-report security was changed.
 
@@ -31,7 +31,7 @@ Verification returns an exact eight-field allowlist with a privacy-conscious rec
 - `/certificates` — eligibility, issuance, limitations and verification information.
 - `/verify-certificate` — number/token verification with valid, revoked, not-found and unavailable states.
 
-No real programs, fees, schedules, applicants or credentials were seeded or published.
+The reviewed content migration publishes the confirmed programme details (including PKR 6,000 fee and 40-working-day schedule); no applicants or credentials are seeded.
 
 ## 5. Admin pages
 

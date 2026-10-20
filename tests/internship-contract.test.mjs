@@ -11,7 +11,7 @@ import {
 
 const root = path.resolve(import.meta.dirname, "..");
 const migration = fs.readFileSync(
-  path.join(root, "supabase/migrations/20261021000000_internship_certificates.sql"),
+  path.join(root, "supabase/migrations/20261021022000_internship_certificates.sql"),
   "utf8",
 );
 const verifyRoute = fs.readFileSync(path.join(root, "src/routes/verify-certificate.tsx"), "utf8");

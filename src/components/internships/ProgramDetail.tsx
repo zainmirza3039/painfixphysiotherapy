@@ -40,6 +40,7 @@ export function ProgramDetail({
 }) {
   const open = isApplicationOpen(program) && !disableApplication;
   const isDraftPreview = disableApplication || program.status === "draft";
+  const isClinicalInternship = program.slug === "clinical-physiotherapy-internship";
   const details: Array<[string, string]> = [
     ["Duration", notConfirmed(program.duration)],
     ["Location", notConfirmed(program.location)],
@@ -105,7 +106,10 @@ export function ProgramDetail({
         </aside>
       </section>
       <section className="mx-auto grid max-w-6xl gap-10 px-4 pb-16 sm:px-6 lg:grid-cols-2 lg:px-8">
-        <List title="Learning objectives" items={program.objectives} />
+        <List
+          title={isClinicalInternship ? "40-day learning roadmap" : "Learning objectives"}
+          items={program.objectives}
+        />
         <List title="Requirements" items={program.requirements} />
         <List
           title="Required documents"

@@ -10,7 +10,7 @@ The protected admin routes are `/admin/internships`, `/admin/internship-applicat
 
 ## Database review and release order
 
-The additive migration is `supabase/migrations/20261021000000_internship_certificates.sql`. It depends on the existing `auth.users`, `public.is_admin(uuid)` helper and Supabase roles. The existing clinician migration and `docs/clinician-management-contract.md` were reviewed for the project's service-function/RLS conventions. They are not replaced or changed.
+The additive migration is `supabase/migrations/20261021022000_internship_certificates.sql`. It depends on the existing `auth.users`, `public.is_admin(uuid)` helper and Supabase roles. The existing clinician migration and `docs/clinician-management-contract.md` were reviewed for the project's service-function/RLS conventions. They are not replaced or changed.
 
 The migration creates internship programs, private applications, participants, professional experience records, immutable issued certificate snapshots, audit events, and private request-rate-limit data. Certificate numbers and verification tokens are randomly generated rather than sequential. Issuance, revocation, and documented replacements run as database transactions.
 

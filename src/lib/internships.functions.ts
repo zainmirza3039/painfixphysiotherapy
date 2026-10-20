@@ -200,8 +200,7 @@ export const verifyCertificate = createServerFn({ method: "POST" })
         return unavailable(error);
       }
       const row = (Array.isArray(rows) ? rows[0] : rows) as
-        | { status?: string; certificate?: VerificationResult["certificate"] | null }
-        | undefined;
+        { status?: string; certificate?: VerificationResult["certificate"] | null } | undefined;
       if (!row || !["valid", "revoked", "not_found", "unavailable"].includes(row.status ?? ""))
         return { status: "not_found" };
       if (row.status === "valid" || row.status === "revoked") {
