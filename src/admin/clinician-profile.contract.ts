@@ -60,7 +60,8 @@ export const clinicianProfileInputSchema = z
   })
   .strict();
 
-export type ClinicianProfileInput = z.infer<typeof clinicianProfileInputSchema>;
+// Defaulted fields are optional at the API boundary and present after parsing.
+export type ClinicianProfileInput = z.input<typeof clinicianProfileInputSchema>;
 export type ClinicianProfileRecord = Tables<"clinician_profiles">;
 export type ClinicianPhotoContentType = (typeof CLINICIAN_PHOTO_MIME_TYPES)[number];
 
