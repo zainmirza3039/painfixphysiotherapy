@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useId, useState } from "react";
 import { Plus, Minus } from "lucide-react";
 import type { Faq } from "@/data/services";
 
 export function FaqAccordion({ faqs }: { faqs: Faq[] }) {
+  const id = useId();
   const [open, setOpen] = useState<number | null>(0);
   return (
     <div className="mx-auto max-w-3xl divide-y divide-border rounded-[1.75rem] border border-border bg-card shadow-soft">
@@ -14,6 +15,8 @@ export function FaqAccordion({ faqs }: { faqs: Faq[] }) {
               type="button"
               onClick={() => setOpen(isOpen ? null : i)}
               aria-expanded={isOpen}
+              aria-controls={`${id}-panel-${i}`}
+              id={`${id}-trigger-${i}`}
               className="flex w-full items-center justify-between gap-4 px-6 py-5 text-left"
             >
               <span className="font-heading font-semibold text-foreground">{faq.q}</span>
@@ -22,7 +25,14 @@ export function FaqAccordion({ faqs }: { faqs: Faq[] }) {
               </span>
             </button>
             {isOpen && (
-              <div className="px-6 pb-5 text-sm leading-relaxed text-muted-foreground">{faq.a}</div>
+              <div
+                id={`${id}-panel-${i}`}
+                role="region"
+                aria-labelledby={`${id}-trigger-${i}`}
+                className="px-6 pb-5 text-sm leading-relaxed text-muted-foreground"
+              >
+                {faq.a}
+              </div>
             )}
           </div>
         );

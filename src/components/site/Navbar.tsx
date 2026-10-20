@@ -403,6 +403,7 @@ export function Navbar() {
                   aria-label={menu === "services" ? "Close services menu" : "Open services menu"}
                   aria-haspopup="menu"
                   aria-expanded={menu === "services"}
+                  aria-controls="desktop-services-menu"
                   onClick={() => setMenu((m) => (m === "services" ? null : "services"))}
                   className="inline-flex h-9 w-7 items-center justify-center rounded-md text-foreground/80 transition-colors hover:bg-accent hover:text-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
                 >
@@ -414,6 +415,7 @@ export function Navbar() {
               {menu === "services" && (
                 <div className="absolute left-1/2 top-full z-50 -translate-x-1/2 pt-2">
                   <div
+                    id="desktop-services-menu"
                     role="menu"
                     className="grid w-[46rem] grid-cols-[1.4fr_1fr] gap-2 overflow-hidden rounded-2xl border border-border bg-card p-3 shadow-card animate-fade-in"
                   >
@@ -510,6 +512,7 @@ export function Navbar() {
                   }
                   aria-haspopup="menu"
                   aria-expanded={menu === "conditions"}
+                  aria-controls="desktop-conditions-menu"
                   onClick={() => setMenu((m) => (m === "conditions" ? null : "conditions"))}
                   className="inline-flex h-9 w-7 items-center justify-center rounded-md text-foreground/80 transition-colors hover:bg-accent hover:text-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
                 >
@@ -522,6 +525,7 @@ export function Navbar() {
                 <div className="absolute left-1/2 top-full z-50 -translate-x-1/2 pt-2">
                   <div
                     role="menu"
+                    id="desktop-conditions-menu"
                     className="w-[34rem] overflow-hidden rounded-2xl border border-border bg-card p-3 shadow-card animate-fade-in"
                   >
                     <p className="px-2 pb-1.5 text-[11px] font-bold uppercase tracking-wide text-muted-foreground">
@@ -743,6 +747,7 @@ export function Navbar() {
                   type="button"
                   aria-label={mobileServices ? "Close services submenu" : "Open services submenu"}
                   aria-expanded={mobileServices}
+                  aria-controls="mobile-services-submenu"
                   onClick={() => setMobileServices((v) => !v)}
                   className="grid h-11 w-11 place-items-center rounded-xl text-foreground/80 hover:bg-accent hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
                 >
@@ -752,7 +757,10 @@ export function Navbar() {
                 </button>
               </div>
               {mobileServices && (
-                <div className="animate-fade-in ml-3 grid gap-0.5 border-l border-border pl-3">
+                <div
+                  id="mobile-services-submenu"
+                  className="animate-fade-in ml-3 grid gap-0.5 border-l border-border pl-3"
+                >
                   {SERVICES_MENU.map((item) => (
                     <ServiceLink
                       key={item.label}
@@ -787,6 +795,7 @@ export function Navbar() {
                     mobileConditions ? "Close conditions submenu" : "Open conditions submenu"
                   }
                   aria-expanded={mobileConditions}
+                  aria-controls="mobile-conditions-submenu"
                   onClick={() => setMobileConditions((v) => !v)}
                   className="grid h-11 w-11 place-items-center rounded-xl text-foreground/80 hover:bg-accent hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
                 >
@@ -796,7 +805,10 @@ export function Navbar() {
                 </button>
               </div>
               {mobileConditions && (
-                <div className="animate-fade-in ml-3 grid gap-0.5 border-l border-border pl-3">
+                <div
+                  id="mobile-conditions-submenu"
+                  className="animate-fade-in ml-3 grid gap-0.5 border-l border-border pl-3"
+                >
                   {CONDITIONS_MENU.map((item) => (
                     <ConditionLink
                       key={item.slug}

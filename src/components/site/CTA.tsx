@@ -23,7 +23,7 @@ export function CTA() {
             <div className="flex w-full flex-col gap-3 sm:w-auto sm:min-w-56">
               <Link
                 to="/book-appointment"
-                className="inline-flex min-h-12 items-center justify-center gap-2 rounded-md bg-white px-5 py-3 text-sm font-semibold text-primary transition-colors hover:bg-[#EAF5EF] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-primary"
+                className="inline-flex min-h-12 items-center justify-center gap-2 rounded-md bg-white px-5 py-3 text-sm font-semibold text-brand-navy transition-colors hover:bg-[#EAF5EF] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-brand-navy"
               >
                 <CalendarDays className="h-4 w-4" aria-hidden="true" /> Book an appointment
               </Link>
