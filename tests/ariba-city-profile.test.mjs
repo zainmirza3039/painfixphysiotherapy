@@ -39,3 +39,9 @@ test("online profile source does not add email or clinic address fields", async 
   const onlineBranch = profile.slice(onlineStart, onlineEnd);
   assert.doesNotMatch(onlineBranch, /email|CLINIC_ADDRESS|MAP_DIRECTIONS_URL/);
 });
+
+test("profile intro constrains its mobile grid and wraps long managed biography words", async () => {
+  const profile = await source("src/components/site/DoctorProfile.tsx");
+  assert.match(profile, /grid-cols-1 gap-10/);
+  assert.match(profile, /className="break-words text-base leading-relaxed text-muted-foreground"/);
+});
