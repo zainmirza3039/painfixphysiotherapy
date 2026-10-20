@@ -191,6 +191,31 @@ const assertStaticProfile = (html, name, slug) => {
   );
 };
 
+const headerHtml = (html) => html.split("<main>")[0];
+const floatingHtml = (html) =>
+  html.match(/<div class="fab-safe-area[^\"]*">([\s\S]*?)<\/div>/)?.[1];
+const whatsappLinks = (html) =>
+  [...html.matchAll(/href="(https:\/\/wa\.me\/[^\"]+)"/g)].map(
+    (match) => new URL(match[1].replace(/&amp;/g, "&").replace(/&#x27;|&#39;/g, "'")),
+  );
+const assertDefaultSharedBooking = (html) => {
+  const header = headerHtml(html);
+  const floating = floatingHtml(html);
+  assert.ok(floating);
+  assert.match(header, /href="\/book-appointment"/);
+  assert.match(header, /href="\/home-visit"/);
+  const links = whatsappLinks(header);
+  assert.equal(links.length, 2, "desktop and mobile retain their default WhatsApp CTA");
+  for (const link of [...links, ...whatsappLinks(floating)]) {
+    assert.equal(link.pathname, "/923143039582");
+    assert.equal(
+      link.searchParams.get("text"),
+      "Hi PainFix Physiotherapy, I'd like a consultation. Can you help me with my condition?",
+    );
+  }
+  assert.match(floating, /href="tel:\+923143039582"/);
+};
+
 try {
   await startApp();
   let directory = await get("/our-team");
@@ -215,10 +240,34 @@ try {
   const legacy = await get("/dr-zain-ul-abideen-pt-multan");
   assert.equal(legacy.response.status, 200);
   assert.match(legacy.html, /Legacy Fixture PT/);
+  assertDefaultSharedBooking(legacy.html);
+  assertDefaultSharedBooking(directory.html);
   console.log("PASS: normal legacy route reads the managed API contract");
 
   const online = await get("/ariba-babar");
   assert.equal(online.response.status, 200);
+  const onlineHeader = headerHtml(online.html);
+  const onlineFloating = floatingHtml(online.html);
+  assert.ok(onlineFloating, "online profiles retain a contextual floating WhatsApp CTA");
+  assert.doesNotMatch(
+    onlineHeader,
+    /href="\/(?:book-appointment|home-visit)"|href="https:\/\/calendly\.com|Home Visits|Home Physiotherapy/,
+  );
+  assert.doesNotMatch(onlineFloating, /href="tel:|923143039582|clinic/i);
+  assert.match(onlineHeader, /Online Physiotherapy Enquiry/);
+  const sharedOnlineLinks = [...whatsappLinks(onlineHeader), ...whatsappLinks(onlineFloating)];
+  assert.equal(sharedOnlineLinks.length, 3, "desktop header, mobile header, and floating CTA");
+  for (const link of sharedOnlineLinks) {
+    assert.equal(link.pathname, "/923120102560");
+    assert.match(
+      link.searchParams.get("text"),
+      /online physiotherapy consultation with Ariba Babar/,
+    );
+    assert.doesNotMatch(link.searchParams.get("text"), /clinic|home visits|Multan/i);
+  }
+  console.log(
+    "PASS: online desktop/mobile header and floating CTAs contact Ariba directly; clinic and directory defaults are unchanged",
+  );
   const onlineMain = online.html.match(/<main>([\s\S]*?)<\/main>/)?.[1];
   assert.ok(onlineMain);
   assert.match(onlineMain, /Online physiotherapy · Rahim Yar Khan, Pakistan/);
