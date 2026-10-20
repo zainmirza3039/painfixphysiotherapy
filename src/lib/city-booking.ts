@@ -1,5 +1,19 @@
 import { getLocalDateInputValue, type HomeVisitFormValues } from "./home-visit-form.ts";
 
+export function createSingleSubmissionGuard() {
+  let submitted = false;
+  return {
+    enter() {
+      if (submitted) return false;
+      submitted = true;
+      return true;
+    },
+    release() {
+      submitted = false;
+    },
+  };
+}
+
 export const BOOKING_CITIES = [
   { value: "multan", label: "Multan" },
   { value: "rahim-yar-khan", label: "Rahim Yar Khan" },

@@ -8,15 +8,12 @@ import {
   bookingServices,
   bookingWhatsAppUrl,
   clinicCalendarUrl,
+  createSingleSubmissionGuard,
   validateBookingDetails,
   type BookingCity,
   type BookingService,
 } from "@/lib/city-booking";
-import {
-  createSingleSubmissionGuard,
-  getLocalDateInputValue,
-  type HomeVisitFormValues,
-} from "@/lib/home-visit-form";
+import { getLocalDateInputValue, type HomeVisitFormValues } from "@/lib/home-visit-form";
 
 const inputClass =
   "min-h-12 w-full min-w-0 rounded-xl border border-input bg-background px-4 py-3 text-sm text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary";

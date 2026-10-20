@@ -101,6 +101,6 @@ test("booking delegates Multan home visits to existing form and never inserts on
     new URL("../src/components/site/HomeVisitForm.tsx", import.meta.url),
     "utf8",
   );
-  assert.match(home, /persistHomeVisitRequest/);
+  assert.match(home, /submitHomeVisitRequest/);
   assert.match(home, /home_visit_requests/);
 });
