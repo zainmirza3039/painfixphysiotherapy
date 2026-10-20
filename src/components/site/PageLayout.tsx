@@ -13,10 +13,10 @@ export function PageLayout({
 }) {
   return (
     <div className="min-h-screen bg-background">
-      <Navbar />
+      <Navbar onlineClinician={onlineClinician} />
       <main>{children}</main>
       <Footer hideClinicDetails={Boolean(onlineClinician)} />
-      {!onlineClinician && <ConversionFab />}
+      <ConversionFab onlineClinician={onlineClinician} />
     </div>
   );
 }
