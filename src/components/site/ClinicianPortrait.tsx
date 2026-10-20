@@ -18,7 +18,7 @@ export function ClinicianPortrait({
     return (
       <img
         src={photo}
-        alt={`Professional portrait of ${name}, ${role} at PainFix Physiotherapy Clinic, Multan`}
+        alt={`Professional portrait of ${name}, ${role} at PainFix Physiotherapy`}
         loading={loading}
         decoding="async"
         className={`object-cover object-top ${className}`}
