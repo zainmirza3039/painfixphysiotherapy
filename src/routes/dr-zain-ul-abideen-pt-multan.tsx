@@ -1,5 +1,5 @@
 import { createFileRoute, notFound } from "@tanstack/react-router";
-import { getPublishedClinicianProfileBySlug } from "@/admin/clinicians.functions";
+import { getPublicClinicianBySlug } from "@/lib/public-clinicians";
 import {
   ClinicianProfileNotFound,
   PublishedClinicianProfile,
@@ -10,7 +10,7 @@ const SLUG = "dr-zain-ul-abideen-pt-multan";
 
 export const Route = createFileRoute("/dr-zain-ul-abideen-pt-multan")({
   loader: async () => {
-    const profile = await getPublishedClinicianProfileBySlug({ data: { slug: SLUG } });
+    const profile = await getPublicClinicianBySlug(SLUG);
     if (!profile) throw notFound();
     return profile;
   },

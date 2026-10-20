@@ -1,8 +1,8 @@
-import type { PublicClinicianProfile } from "@/admin/clinician-profile.contract";
+import type { PublicClinicianContent } from "@/lib/clinician-view";
 import { toClinicianView } from "@/lib/clinician-view";
 import { doctorProfileHead } from "@/lib/doctor-seo";
 
-export function publishedClinicianHead(profile?: PublicClinicianProfile) {
+export function publishedClinicianHead(profile?: PublicClinicianContent) {
   if (profile) return doctorProfileHead(toClinicianView(profile));
   return {
     meta: [

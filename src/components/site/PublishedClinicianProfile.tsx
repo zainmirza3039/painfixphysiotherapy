@@ -1,10 +1,10 @@
 import { Link } from "@tanstack/react-router";
-import type { PublicClinicianProfile } from "@/admin/clinician-profile.contract";
+import type { PublicClinicianContent } from "@/lib/clinician-view";
 import { DoctorProfile } from "@/components/site/DoctorProfile";
 import { PageLayout } from "@/components/site/PageLayout";
 import { toClinicianView } from "@/lib/clinician-view";
 
-export function PublishedClinicianProfile({ profile }: { profile: PublicClinicianProfile }) {
+export function PublishedClinicianProfile({ profile }: { profile: PublicClinicianContent }) {
   return <DoctorProfile doc={toClinicianView(profile)} />;
 }
 

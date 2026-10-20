@@ -3,9 +3,9 @@ import { usePublishedClinicians } from "@/lib/usePublishedClinicians";
 import { toClinicianView } from "@/lib/clinician-view";
 import { Reveal } from "./Reveal";
 import { ClinicianPortrait } from "./ClinicianPortrait";
-import type { PublicClinicianProfile } from "@/admin/clinician-profile.contract";
+import type { PublicClinicianContent } from "@/lib/clinician-view";
 
-export function MeetDoctors({ initialProfiles }: { initialProfiles?: PublicClinicianProfile[] }) {
+export function MeetDoctors({ initialProfiles }: { initialProfiles?: PublicClinicianContent[] }) {
   const { data: profiles, isLoading, isError, refetch } = usePublishedClinicians(initialProfiles);
   const clinicians = (profiles ?? []).map(toClinicianView);
 

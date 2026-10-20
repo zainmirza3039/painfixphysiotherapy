@@ -4,9 +4,12 @@ import type {
 } from "@/admin/clinician-profile.contract";
 import type { TeamMember } from "@/data/team";
 
+export type PublicClinicianContent = PublicClinicianProfile | TeamMember;
+
 export function toClinicianView(
-  profile: PublicClinicianProfile | AdminClinicianProfile,
+  profile: PublicClinicianContent | AdminClinicianProfile,
 ): TeamMember {
+  if ("fullName" in profile) return profile;
   const photo = "resolved_photo_url" in profile ? profile.resolved_photo_url : profile.photo_url;
   const fullName = profile.full_name;
 

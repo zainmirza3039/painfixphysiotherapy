@@ -101,13 +101,21 @@ test("public search uses only active/published clinician API results, not static
   assert.match(page, /Try again/);
 });
 
-test("public clinician routes use published-profile lookups and do not fall back to static profiles", async () => {
-  const [directory, detail] = await Promise.all([
+test("public clinician fallback is isolated from admin CRUD and uses only existing static records", async () => {
+  const [directory, detail, boundary, admin] = await Promise.all([
     readFile(new URL("src/components/site/MeetDoctors.tsx", repo), "utf8"),
     readFile(new URL("src/routes/dr-zain-ul-abideen-pt-multan.tsx", repo), "utf8"),
+    readFile(new URL("src/lib/public-clinicians.ts", repo), "utf8"),
+    readFile(new URL("src/routes/_authenticated/admin.clinicians.tsx", repo), "utf8"),
   ]);
   assert.match(directory, /usePublishedClinicians/);
-  assert.match(detail, /getPublishedClinicianProfileBySlug/);
+  assert.match(detail, /getPublicClinicianBySlug/);
+  assert.match(boundary, /listPublishedClinicianProfiles/);
+  assert.match(boundary, /getPublishedClinicianProfileBySlug/);
+  assert.match(boundary, /\(\) => team/);
+  assert.match(boundary, /getTeamMemberBySlug\(slug\) \?\? null/);
+  assert.doesNotMatch(admin, /withPublicClinicianFallback|public-clinicians/);
+  assert.match(admin, /profilesQuery\.isError/);
   assert.doesNotMatch(detail, /getTeamMemberBySlug|mergeDoctor/);
 });
 
@@ -195,10 +203,11 @@ test("team directory seeds SSR cards from the current published-profile loader",
     readFile(new URL("src/components/site/MeetDoctors.tsx", repo), "utf8"),
     readFile(new URL("src/lib/usePublishedClinicians.ts", repo), "utf8"),
   ]);
-  assert.match(route, /loader: \(\) => listPublishedClinicianProfiles\(\)/);
+  assert.match(route, /loader: \(\) => listPublicClinicians\(\)/);
   assert.match(route, /initialProfiles=\{profiles\}/);
   assert.match(directory, /usePublishedClinicians\(initialProfiles\)/);
   assert.match(query, /initialData: initialProfiles/);
+  assert.match(query, /queryFn: \(\) => listPublicClinicians\(\)/);
 });
 
 test("admin save locks edits and rejects concurrent profile/photo actions until settlement", async () => {

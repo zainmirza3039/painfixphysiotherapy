@@ -1,5 +1,5 @@
 import { createFileRoute, notFound } from "@tanstack/react-router";
-import { getPublishedClinicianProfileBySlug } from "@/admin/clinicians.functions";
+import { getPublicClinicianBySlug } from "@/lib/public-clinicians";
 import {
   ClinicianProfileNotFound,
   PublishedClinicianProfile,
@@ -8,7 +8,7 @@ import { publishedClinicianHead } from "@/lib/clinician-seo";
 
 export const Route = createFileRoute("/$slug")({
   loader: async ({ params }) => {
-    const profile = await getPublishedClinicianProfileBySlug({ data: { slug: params.slug } });
+    const profile = await getPublicClinicianBySlug(params.slug);
     if (!profile) throw notFound();
     return profile;
   },

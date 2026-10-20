@@ -1,13 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
-import { useServerFn } from "@tanstack/react-start";
-import { listPublishedClinicianProfiles } from "@/admin/clinicians.functions";
-import type { PublicClinicianProfile } from "@/admin/clinician-profile.contract";
+import { listPublicClinicians } from "@/lib/public-clinicians";
+import type { PublicClinicianContent } from "@/lib/clinician-view";
 
-export function usePublishedClinicians(initialProfiles?: PublicClinicianProfile[]) {
-  const listClinicians = useServerFn(listPublishedClinicianProfiles);
+export function usePublishedClinicians(initialProfiles?: PublicClinicianContent[]) {
   return useQuery({
     queryKey: ["public-clinician-profiles"],
-    queryFn: () => listClinicians(),
+    queryFn: () => listPublicClinicians(),
     initialData: initialProfiles,
     staleTime: 5 * 60_000,
   });
