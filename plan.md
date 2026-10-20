@@ -15,11 +15,11 @@ Three possible directions were considered: **editorial clinical calm** (0.68), *
 - **Signature elements:** thin green location rule, small uppercase service labels, and paired city panels that make service availability explicit.
 - **Interaction philosophy:** every action explains the next step and preserves city/service query state; hover and focus effects remain subtle and keyboard-visible.
 - **Animation:** retain restrained reveal/carousel motion; respect reduced-motion preferences; no decorative looping motion in the city decision area.
-- **Typography system:** Newsreader for editorial headlines, Inter for navigation, body copy, controls, and service metadata.
+- **Typography system:** Newsreader for editorial headlines, Manrope for navigation, body copy, controls, and service metadata.
 - **Brand essence:** evidence-based movement care for people in Multan and online patients connected to Rahim Yar Khan; calm, precise, human.
 - **Brand voice:** confident and specific. Example: “Choose the right way to begin.” / “Online care for Rahim Yar Khan — no physical branch is implied.”
 - **Wordmark & logo:** preserve the supplied PainFix logo and existing wordmark treatment.
-- **Signature brand color:** PainFix navy `#032E61`, with brand green `#00A859` used only as an action/wayfinding accent.
+- **Signature brand color:** PainFix ink navy `#123B5A`, with accessible care green `#2EA66A` used for action/wayfinding accents and a darker `#0B764B` semantic link green.
 
 ## Implementation approach
 

@@ -28,6 +28,6 @@
 
 ## Global visual refinement
 
-- [ ] The public site uses a deliberate Manrope interface / Newsreader display pairing with the existing non-blocking font loading pattern.
-- [ ] Light and dark themes use a warmer, calmer clinical palette with readable foreground, control, focus, inverse-panel, and footer contrast.
-- [ ] The pending PR remains open; these visual changes do not merge, deploy, mutate Supabase data, or alter booking behavior.
+- [x] The public site uses a deliberate Manrope interface / Newsreader display pairing with the existing non-blocking font loading pattern.
+- [x] Light and dark themes use a warmer, calmer clinical palette with readable foreground, control, focus, inverse-panel, and footer contrast.
+- [x] The pending PR remains open; these visual changes do not merge, deploy, mutate Supabase data, or alter booking behavior.
