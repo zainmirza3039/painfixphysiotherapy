@@ -295,7 +295,7 @@ try {
   const onlineLinks = [...onlineMain.matchAll(/href="(https:\/\/wa\.me\/[^\"]+)"/g)].map(
     (match) => match[1],
   );
-  assert.equal(onlineLinks.length, 2);
+  assert.equal(onlineLinks.length, 3, "consultation summary, intro and final online CTA");
   for (const link of onlineLinks) {
     const url = new URL(link.replace(/&amp;/g, "&").replace(/&#x27;|&#39;/g, "'"));
     assert.equal(url.pathname, "/923120102560");
