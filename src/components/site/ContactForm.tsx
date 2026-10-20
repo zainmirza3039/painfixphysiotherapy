@@ -46,7 +46,7 @@ export function ContactForm() {
   };
 
   const inputCls =
-    "w-full rounded-xl border border-border bg-background px-4 py-3 text-sm text-foreground outline-none transition-colors placeholder:text-muted-foreground focus:border-primary focus:ring-2 focus:ring-primary/20";
+    "w-full rounded-xl border border-input bg-background px-4 py-3 text-sm text-foreground outline-none transition-colors placeholder:text-muted-foreground focus:border-primary focus:ring-2 focus:ring-primary/20";
   const labelCls = "mb-1.5 block text-sm font-semibold text-foreground";
 
   if (submitted) {

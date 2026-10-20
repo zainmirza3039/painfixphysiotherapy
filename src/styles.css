@@ -37,80 +37,14 @@
   --color-surface: var(--surface);
 
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
-  --font-heading: "Poppins", ui-sans-serif, system-ui, sans-serif;
+  --font-heading: "Newsreader", Georgia, serif;
+  --color-brand-green: var(--brand-green);
+  --color-brand-navy: #032e61;
+  --color-inverse-accent: #8ce8b5;
 
   --shadow-soft: 0 4px 20px -6px color-mix(in oklab, var(--primary) 16%, transparent);
   --shadow-card: 0 12px 40px -12px color-mix(in oklab, var(--primary) 24%, transparent);
   --shadow-glow: 0 20px 60px -16px color-mix(in oklab, var(--secondary) 40%, transparent);
-}
-
-:root {
-  --radius: 1.25rem;
-
-  --background: oklch(0.988 0.006 96);
-  --foreground: oklch(0.27 0.04 257);
-  --surface: oklch(0.975 0.012 145);
-
-  --card: oklch(0.998 0.002 96);
-  --card-foreground: oklch(0.27 0.04 257);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.27 0.04 257);
-
-  /* Logo blue #0058A0 */
-  --primary: oklch(0.458 0.136 251.9);
-  --primary-foreground: oklch(0.99 0 0);
-  /* Lighter logo blue #0070C8 for gradients/glow */
-  --primary-glow: oklch(0.541 0.16 251.7);
-
-  /* Logo green, darkened to #008045 so it meets WCAG AA (4.5:1) as text/fills on white while keeping the brand hue */
-  --secondary: oklch(0.52 0.146 157.2);
-  --secondary-foreground: oklch(0.99 0 0);
-  /* Lighter logo green #02C078 for gradients/glow */
-  --secondary-glow: oklch(0.711 0.167 157.8);
-
-  --muted: oklch(0.965 0.009 96);
-  --muted-foreground: oklch(0.5 0.03 257);
-
-  /* Soft green-tinted accent derived from logo green */
-  --accent: oklch(0.95 0.035 157);
-  --accent-foreground: oklch(0.458 0.136 251.9);
-
-  --destructive: oklch(0.577 0.245 27.325);
-  --destructive-foreground: oklch(0.99 0 0);
-
-  --border: oklch(0.91 0.012 96);
-  --input: oklch(0.91 0.012 96);
-  --ring: oklch(0.618 0.146 157.2);
-
-  /* Gradients built only from logo blue + green */
-  --gradient-hero: linear-gradient(135deg, oklch(0.458 0.136 251.9), oklch(0.618 0.146 157.2));
-  --gradient-blue: linear-gradient(135deg, oklch(0.458 0.136 251.9), oklch(0.541 0.16 251.7));
-  --gradient-teal: linear-gradient(135deg, oklch(0.618 0.146 157.2), oklch(0.711 0.167 157.8));
-  --gradient-brand-soft: linear-gradient(135deg, oklch(0.95 0.03 251.9), oklch(0.95 0.035 157));
-}
-
-.dark {
-  --background: oklch(0.21 0.04 257);
-  --foreground: oklch(0.98 0.003 247);
-  --surface: oklch(0.26 0.04 257);
-  --card: oklch(0.26 0.04 257);
-  --card-foreground: oklch(0.98 0.003 247);
-  --popover: oklch(0.26 0.04 257);
-  --popover-foreground: oklch(0.98 0.003 247);
-  /* Brighter logo blue for dark surfaces */
-  --primary: oklch(0.62 0.15 251.7);
-  --primary-foreground: oklch(0.99 0 0);
-  --primary-glow: oklch(0.7 0.15 251.7);
-  --secondary: oklch(0.711 0.167 157.8);
-  --secondary-foreground: oklch(0.21 0.04 257);
-  --secondary-glow: oklch(0.78 0.16 157.8);
-  --muted: oklch(0.3 0.04 257);
-  --muted-foreground: oklch(0.7 0.03 257);
-  --accent: oklch(0.32 0.05 157);
-  --accent-foreground: oklch(0.98 0.003 247);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.711 0.167 157.8);
 }
 
 @layer base {
@@ -127,6 +61,7 @@
     background-color: var(--color-background);
     color: var(--color-foreground);
     font-family: var(--font-sans);
+    line-height: 1.6;
     -webkit-font-smoothing: antialiased;
   }
 
@@ -134,14 +69,17 @@
   h2,
   h3,
   h4,
-  h5 {
+  h5,
+  h6 {
+    overflow-wrap: break-word;
+    text-wrap: balance;
     font-family: var(--font-heading);
     letter-spacing: -0.02em;
   }
 
   ::selection {
     background: color-mix(in oklab, var(--secondary) 25%, white);
-    color: var(--foreground);
+    color: #16324a;
   }
 }
 
@@ -278,18 +216,20 @@
     opacity: 1 !important;
     animation: none !important;
   }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
   .animate-float {
     animation: none;
   }
 }
 
 /* PainFix homepage art direction: editorial type, real clinic imagery, precise rules and quiet surfaces. */
-@theme inline {
-  --color-brand-green: var(--brand-green);
-  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
-  --font-heading: "Newsreader", Georgia, serif;
-}
-
 :root {
   --radius: 0.75rem;
   --background: #fafaf7;
@@ -313,7 +253,8 @@
   --destructive: #b42318;
   --destructive-foreground: #ffffff;
   --border: #d7e1de;
-  --input: #c7d4d2;
+  /* Control boundaries must remain distinct from decorative dividers. */
+  --input: #718579;
   --ring: #007a43;
   --gradient-hero: linear-gradient(110deg, #032e61, #007a43);
   --gradient-blue: linear-gradient(135deg, #032e61, #0b4f87);
@@ -329,22 +270,24 @@
   --card-foreground: #f5f8f7;
   --popover: #10263b;
   --popover-foreground: #f5f8f7;
-  --primary: #3d8bd0;
-  --primary-foreground: #ffffff;
+  --primary: #66a9e0;
+  --primary-foreground: #091b2d;
   --primary-glow: #66a9e0;
   --secondary: #54c58c;
   --secondary-foreground: #09261a;
   --secondary-glow: #73e0a9;
   --brand-green: #00a859;
+  --destructive: #ff8a80;
+  --destructive-foreground: #091b2d;
   --muted: #17314a;
   --muted-foreground: #b0c0cb;
   --accent: #193b33;
   --accent-foreground: #f5f8f7;
   --border: #254159;
-  --input: #304e65;
+  --input: #71899b;
   --ring: #73e0a9;
-  --gradient-hero: linear-gradient(110deg, #3d8bd0, #54c58c);
-  --gradient-blue: linear-gradient(135deg, #3d8bd0, #66a9e0);
+  --gradient-hero: linear-gradient(110deg, #66a9e0, #54c58c);
+  --gradient-blue: linear-gradient(135deg, #66a9e0, #66a9e0);
   --gradient-teal: linear-gradient(135deg, #54c58c, #73e0a9);
   --gradient-brand-soft: linear-gradient(135deg, #19314a, #193b33);
 }
@@ -354,15 +297,33 @@
   overflow-x: clip;
 }
 
-.painfix-home :is(a, button, input, textarea, select):focus-visible {
-  outline: 3px solid var(--brand-green);
+/* Two-tone keyboard focus stays visible on both light and inverse surfaces. */
+:is(a, button, input, textarea, select, summary, [tabindex]):focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 3px;
+  box-shadow: 0 0 0 3px var(--background);
+}
+
+.site-footer {
+  --ring: var(--color-inverse-accent);
+  --background: #032e61;
+  background: #032e61;
+  color: #ffffff;
+  padding-bottom: calc(6rem + env(safe-area-inset-bottom, 0px));
+}
+
+.site-footer a {
+  scroll-margin-block: 7rem 10rem;
+  text-underline-offset: 0.2em;
+}
+
+.site-footer a:focus-visible {
+  outline: 3px solid var(--ring);
   outline-offset: 3px;
 }
 
-header :is(a, button):focus-visible,
-aside[aria-label="Mobile navigation"] :is(a, button):focus-visible {
-  outline: 3px solid var(--brand-green);
-  outline-offset: 3px;
+.site-footer a:active {
+  text-decoration: underline;
 }
 
 .home-section {
@@ -385,7 +346,7 @@ aside[aria-label="Mobile navigation"] :is(a, button):focus-visible {
   font-size: clamp(2.25rem, 4.6vw, 4rem);
   font-weight: 600;
   letter-spacing: -0.035em;
-  line-height: 0.99;
+  line-height: 1.08;
   text-wrap: balance;
 }
 
@@ -398,9 +359,9 @@ aside[aria-label="Mobile navigation"] :is(a, button):focus-visible {
   align-items: center;
   gap: 0.65rem;
   color: var(--secondary);
-  font-size: 0.72rem;
+  font-size: 0.75rem;
   font-weight: 700;
-  letter-spacing: 0.15em;
+  letter-spacing: 0.1em;
   line-height: 1.4;
   text-transform: uppercase;
 }
@@ -551,7 +512,7 @@ aside[aria-label="Mobile navigation"] :is(a, button):focus-visible {
   place-items: center;
   border: 1px solid var(--border);
   background: var(--background);
-  color: var(--brand-navy);
+  color: var(--primary);
   transition:
     border-color 160ms ease,
     background-color 160ms ease,
@@ -559,7 +520,7 @@ aside[aria-label="Mobile navigation"] :is(a, button):focus-visible {
 }
 
 .home-hero__control:hover:not(:disabled) {
-  border-color: var(--brand-navy);
+  border-color: var(--primary);
   background: var(--surface);
 }
 
@@ -570,7 +531,7 @@ aside[aria-label="Mobile navigation"] :is(a, button):focus-visible {
 
 .home-hero__control:focus-visible,
 .home-hero__indicator:focus-visible {
-  outline: 2px solid var(--brand-green);
+  outline: 2px solid var(--ring);
   outline-offset: 2px;
 }
 
@@ -588,7 +549,7 @@ aside[aria-label="Mobile navigation"] :is(a, button):focus-visible {
   width: 0.45rem;
   height: 0.45rem;
   border-radius: 999px;
-  background: var(--border);
+  background: var(--muted-foreground);
   content: "";
   transition:
     width 180ms ease,
@@ -597,7 +558,7 @@ aside[aria-label="Mobile navigation"] :is(a, button):focus-visible {
 
 .home-hero__indicator[aria-pressed="true"]::before {
   width: 1.25rem;
-  background: var(--brand-green);
+  background: var(--secondary);
 }
 
 .home-trust-strip {
@@ -656,7 +617,7 @@ aside[aria-label="Mobile navigation"] :is(a, button):focus-visible {
   flex-direction: column;
   gap: 0.35rem;
   padding: 1.25rem;
-  background: linear-gradient(transparent, rgb(3 46 97 / 88%));
+  background: rgb(3 46 97 / 90%);
   color: #ffffff;
   font-family: var(--font-heading);
   font-size: 1.5rem;
@@ -854,7 +815,7 @@ aside[aria-label="Mobile navigation"] :is(a, button):focus-visible {
 }
 
 .home-homevisit-panel {
-  background: var(--primary);
+  background: #032e61;
   padding: clamp(1.4rem, 3vw, 2.5rem);
   color: #ffffff;
 }
@@ -904,7 +865,7 @@ aside[aria-label="Mobile navigation"] :is(a, button):focus-visible {
   justify-content: space-between;
   gap: 2rem;
   border-left: 6px solid var(--brand-green);
-  background: var(--primary);
+  background: #032e61;
   padding: clamp(1.5rem, 5vw, 4rem);
 }
 
@@ -940,15 +901,6 @@ a.home-contact-item:hover .home-contact-item__label {
   border: 1px solid var(--border);
   background: var(--card);
   padding: clamp(1rem, 3vw, 1.75rem);
-}
-
-.painfix-home footer .text-secondary {
-  color: #8ce8b5;
-}
-
-.painfix-home footer .bg-secondary {
-  background: var(--brand-green);
-  color: #032e61;
 }
 
 @media (min-width: 768px) {

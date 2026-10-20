@@ -76,7 +76,7 @@ export function HomeBmi() {
                     <Icon className="h-5 w-5" aria-hidden="true" />
                   </span>
                   {tool.featured && (
-                    <span className="inline-flex items-center gap-1 rounded-full bg-secondary/15 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wide text-secondary">
+                    <span className="inline-flex items-center gap-1 rounded-full bg-secondary/10 px-2.5 py-1 text-xs font-bold uppercase tracking-wide text-secondary">
                       <Star className="h-3 w-3 fill-current" aria-hidden="true" /> Featured
                     </span>
                   )}

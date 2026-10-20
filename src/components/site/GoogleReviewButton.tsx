@@ -38,12 +38,12 @@ export function GoogleReviewButton({
   className = "",
 }: Props) {
   const base =
-    "inline-flex min-h-11 items-center justify-center gap-2 rounded-md px-4 py-2.5 text-sm font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2";
+    "inline-flex min-h-11 items-center justify-center gap-2 rounded-md px-4 py-2.5 text-sm font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2";
   const styles =
     variant === "solid"
       ? "border border-secondary bg-secondary text-secondary-foreground hover:brightness-95"
       : variant === "inverse"
-        ? "border border-secondary bg-background text-foreground hover:bg-accent hover:text-accent-foreground"
+        ? "border border-white/60 bg-transparent text-white hover:bg-white/10"
         : "border border-border bg-background text-foreground hover:border-primary hover:text-primary";
 
   return (

@@ -160,7 +160,7 @@ function HomeVisitPage() {
                 return (
                   <Reveal anim="up" key={step.title}>
                     <div className="hover-lift relative h-full rounded-[1.75rem] border border-border bg-card p-6 shadow-soft">
-                      <span className="absolute end-5 top-5 font-heading text-4xl font-extrabold text-primary/10">
+                      <span className="absolute end-5 top-5 font-heading text-4xl font-extrabold text-primary/70">
                         {i + 1}
                       </span>
                       <span className="grid h-12 w-12 place-items-center rounded-2xl bg-primary/12 text-primary">
