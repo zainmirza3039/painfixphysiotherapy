@@ -23,6 +23,8 @@ export interface TeamMember {
   phoneDisplay: string;
   /** Digits-only international number used for wa.me WhatsApp links. */
   whatsapp: string;
+  /** Years of professional experience when supplied by the managed profile. */
+  yearsExperience?: number | null;
   /** Profile-page content. */
   profile: {
     metaTitle: string;

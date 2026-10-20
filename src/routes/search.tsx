@@ -53,22 +53,37 @@ function SearchPage() {
   const navigate = useNavigate({ from: PATH });
 
   const [items, setItems] = useState<SearchItem[] | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [loadError, setLoadError] = useState(false);
+  const [retryCount, setRetryCount] = useState(0);
   const [input, setInput] = useState(q);
   const [recent, setRecent] = useState<string[]>([]);
 
   // Keep the local input in sync when the URL query changes (e.g. from a chip).
   useEffect(() => setInput(q), [q]);
 
-  // Load the index once on mount.
+  // Load the index and make a failed public clinician fetch visible and retryable.
   useEffect(() => {
     let cancelled = false;
-    buildSearchIndex().then((idx) => {
-      if (!cancelled) setItems(idx);
-    });
+    setLoading(true);
+    setLoadError(false);
+    buildSearchIndex()
+      .then((idx) => {
+        if (!cancelled) setItems(idx);
+      })
+      .catch(() => {
+        if (!cancelled) {
+          setItems(null);
+          setLoadError(true);
+        }
+      })
+      .finally(() => {
+        if (!cancelled) setLoading(false);
+      });
     return () => {
       cancelled = true;
     };
-  }, []);
+  }, [retryCount]);
 
   useEffect(() => setRecent(getRecentSearches()), []);
 
@@ -105,7 +120,7 @@ function SearchPage() {
   }
 
   const hasQuery = q.trim() !== "";
-  const noResults = hasQuery && items !== null && allResults.length === 0;
+  const noResults = hasQuery && !loading && !loadError && items !== null && allResults.length === 0;
 
   return (
     <PageLayout>
@@ -165,6 +180,27 @@ function SearchPage() {
             </button>
           </form>
 
+          {loading && (
+            <p role="status" className="mt-4 text-sm text-muted-foreground">
+              Loading search…
+            </p>
+          )}
+          {loadError && (
+            <div
+              role="alert"
+              className="mt-4 rounded-2xl border border-rose-500/30 bg-rose-500/5 p-4 text-sm"
+            >
+              <p className="text-foreground">Search is temporarily unavailable.</p>
+              <button
+                type="button"
+                onClick={() => setRetryCount((count) => count + 1)}
+                className="mt-2 min-h-11 font-semibold text-primary underline underline-offset-4"
+              >
+                Try again
+              </button>
+            </div>
+          )}
+
           {/* Empty state: recent + popular */}
           {!hasQuery && (
             <div className="mt-8 space-y-6">
@@ -218,7 +254,7 @@ function SearchPage() {
           )}
 
           {/* Results */}
-          {hasQuery && !noResults && (
+          {hasQuery && !loading && !loadError && !noResults && (
             <div className="mt-8">
               {/* Filters + sort */}
               <div className="flex flex-wrap items-center justify-between gap-4">
