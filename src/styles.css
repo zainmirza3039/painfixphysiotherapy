@@ -263,33 +263,47 @@
 }
 
 .dark {
-  --background: #091b2d;
+  --background: #0b1622;
   --foreground: #f5f8f7;
-  --surface: #10263b;
-  --card: #10263b;
+  --surface: #101f2c;
+  --card: #152434;
   --card-foreground: #f5f8f7;
-  --popover: #10263b;
+  --popover: #152434;
   --popover-foreground: #f5f8f7;
-  --primary: #66a9e0;
-  --primary-foreground: #091b2d;
-  --primary-glow: #66a9e0;
-  --secondary: #54c58c;
+  /* A restrained tint of brand navy for links and controls, not a new cyan identity. */
+  --primary: #b3c9e1;
+  --primary-foreground: #032e61;
+  --primary-glow: #8daed1;
+  --secondary: #65d6a2;
   --secondary-foreground: #09261a;
-  --secondary-glow: #73e0a9;
+  --secondary-glow: #8ce8b5;
+  /* Keep the exact brand green on rules and markers; use secondary for text. */
   --brand-green: #00a859;
   --destructive: #ff8a80;
-  --destructive-foreground: #091b2d;
-  --muted: #17314a;
-  --muted-foreground: #b0c0cb;
-  --accent: #193b33;
+  --destructive-foreground: #0b1622;
+  --muted: #1c3042;
+  --muted-foreground: #adbdca;
+  --accent: #12382f;
   --accent-foreground: #f5f8f7;
-  --border: #254159;
-  --input: #71899b;
-  --ring: #73e0a9;
-  --gradient-hero: linear-gradient(110deg, #66a9e0, #54c58c);
-  --gradient-blue: linear-gradient(135deg, #66a9e0, #66a9e0);
-  --gradient-teal: linear-gradient(135deg, #54c58c, #73e0a9);
-  --gradient-brand-soft: linear-gradient(135deg, #19314a, #193b33);
+  /* Decorative dividers stay quiet; input and focus tokens carry UI contrast. */
+  --border: #3b5063;
+  --input: #8296a6;
+  --ring: #8ce8b5;
+  --gradient-hero: linear-gradient(110deg, #b3c9e1, #65d6a2);
+  --gradient-blue: linear-gradient(135deg, #032e61, #123e58);
+  --gradient-teal: linear-gradient(135deg, #65d6a2, #8ce8b5);
+  --gradient-brand-soft: linear-gradient(135deg, #152434, #12382f);
+}
+
+/* These inverse panels need light labels, unlike ordinary pale filled controls. */
+.dark .bg-gradient-to-br.from-primary.to-secondary {
+  --primary-foreground: #f5f8f7;
+  background-color: #032e61;
+  background-image: none;
+}
+
+.dark .home-team-row__portrait[role="img"] {
+  background: var(--gradient-brand-soft);
 }
 
 .painfix-home {
