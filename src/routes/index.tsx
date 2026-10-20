@@ -3,6 +3,7 @@ import { SITE_URL } from "@/components/site/constants";
 import { faqLd } from "@/lib/seo";
 import { Navbar } from "@/components/site/Navbar";
 import { Hero } from "@/components/site/Hero";
+import { CityServices } from "@/components/site/CityServices";
 import { TrustSignals } from "@/components/site/TrustSignals";
 import { Services } from "@/components/site/Services";
 import { Conditions } from "@/components/site/Conditions";
@@ -18,9 +19,9 @@ import { CTA } from "@/components/site/CTA";
 import { Footer } from "@/components/site/Footer";
 import { WhatsAppFab } from "@/components/site/WhatsAppFab";
 
-const TITLE = "PainFix Physiotherapy Multan | Move Better, Recover Faster";
+const TITLE = "PainFix Physiotherapy in Multan & Rahim Yar Khan | Online and In-Person Care";
 const DESCRIPTION =
-  "Evidence-based physiotherapy in Multan. Personalized treatment for back pain, sports injuries, and lasting recovery. Book your appointment today.";
+  "Evidence-based physiotherapy in Multan, with clinic and home visits, plus online-only physiotherapy for Rahim Yar Khan with Ariba Babar DPT. Book today.";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -46,6 +47,7 @@ function Index() {
       <Navbar />
       <main>
         <Hero />
+        <CityServices />
         <Services />
         <Conditions />
         <HomePhysio />

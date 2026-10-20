@@ -51,6 +51,36 @@ export function DoctorProfile({ doc }: { doc: TeamMember }) {
         showActions={false}
       />
 
+      {onlineOnly && (
+        <section className="border-b border-border bg-surface py-8 sm:py-10">
+          <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+            <div className="rounded-lg border border-secondary/30 bg-card p-5 sm:p-6">
+              <p className="text-xs font-bold uppercase tracking-wider text-secondary">
+                Online-only service · {doc.city || "Pakistan"}
+              </p>
+              <h2 className="mt-2 font-heading text-2xl font-extrabold text-foreground sm:text-3xl">
+                Online Physiotherapy Consultation
+              </h2>
+              <p className="mt-2 max-w-3xl text-sm leading-relaxed text-muted-foreground">
+                Consult with {doc.fullName} remotely from {doc.city || "Pakistan"}. Message on
+                WhatsApp to ask about availability and whether online care is suitable for you.
+              </p>
+              {whatsappUrl && (
+                <a
+                  href={whatsappUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`Start an online physiotherapy consultation with ${doc.name} on WhatsApp`}
+                  className="ripple mt-4 inline-flex items-center gap-2 rounded-2xl bg-secondary px-5 py-3 text-sm font-semibold text-secondary-foreground shadow-card transition-transform hover:scale-[1.03]"
+                >
+                  <MessageCircle className="h-4 w-4" /> Start on WhatsApp
+                </a>
+              )}
+            </div>
+          </div>
+        </section>
+      )}
+
       {/* Intro + portrait */}
       <section className="py-14 sm:py-20">
         <div className="mx-auto grid max-w-6xl gap-10 px-4 sm:px-6 lg:grid-cols-[minmax(0,340px)_1fr] lg:px-8">
@@ -204,7 +234,7 @@ export function DoctorProfile({ doc }: { doc: TeamMember }) {
       {(
         [
           ["Clinical Experience", doc.profile.experience],
-          ["Training & Volunteer Work", doc.profile.training],
+          [onlineOnly ? "Supervised Training" : "Training & Volunteer Work", doc.profile.training],
           ["Research", doc.profile.research],
         ] as const
       ).map(
@@ -217,12 +247,13 @@ export function DoctorProfile({ doc }: { doc: TeamMember }) {
                   <h2 className="font-heading text-2xl font-extrabold text-foreground">
                     {heading}
                   </h2>
-                  {onlineOnly && heading === "Clinical Experience" && (
-                    <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-                      Internships and clinical rotations listed below describe supervised clinical
-                      exposure, not independent specialist qualifications.
-                    </p>
-                  )}
+                  {onlineOnly &&
+                    (heading === "Clinical Experience" || heading === "Supervised Training") && (
+                      <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+                        The details below describe supervised clinical exposure, not independent
+                        specialist qualifications or in-person treatment at PainFix.
+                      </p>
+                    )}
                   <ul className="mt-5 space-y-4">
                     {items.map((item) => (
                       <li

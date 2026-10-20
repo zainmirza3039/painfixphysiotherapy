@@ -1,21 +1,16 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { ArrowUpRight, CalendarCheck, MessageCircle, Phone } from "lucide-react";
-import { CalendlyInline } from "@/components/site/CalendlyInline";
+import { CalendarCheck, Phone } from "lucide-react";
+import { CityBookingForm } from "@/components/site/CityBookingForm";
 import { PageHero } from "@/components/site/PageHero";
 import { PageLayout } from "@/components/site/PageLayout";
-import {
-  CALENDLY_URL,
-  PHONE_DISPLAY,
-  PHONE_TEL,
-  WHATSAPP_CONSULT_URL,
-} from "@/components/site/constants";
+import { PHONE_DISPLAY, PHONE_TEL, WHATSAPP_CONSULT_URL } from "@/components/site/constants";
+import { parseBookingSearch } from "@/lib/city-booking";
 import { breadcrumbLd, canonical, pageMeta } from "@/lib/seo";
-
-const TITLE = "Book a Physiotherapy Appointment in Multan | PainFix";
+const TITLE = "Book Physiotherapy | Multan & Rahim Yar Khan Online | PainFix";
 const DESCRIPTION =
-  "Choose an appointment time with PainFix Physiotherapy Clinic in Multan using our existing online booking service, or contact the clinic directly.";
-
+  "Request Multan clinic appointments or home visits, or enquire about online physiotherapy with Ariba Babar in Rahim Yar Khan. Availability is confirmed by the team.";
 export const Route = createFileRoute("/book-appointment")({
+  validateSearch: parseBookingSearch,
   head: () => ({
     meta: pageMeta({ title: TITLE, description: DESCRIPTION, path: "/book-appointment" }),
     links: canonical("/book-appointment"),
@@ -28,14 +23,14 @@ export const Route = createFileRoute("/book-appointment")({
   }),
   component: BookAppointmentPage,
 });
-
 function BookAppointmentPage() {
+  const { city, service } = Route.useSearch();
   return (
     <PageLayout>
       <PageHero
-        eyebrow="Appointments"
-        title="Choose a time to speak with PainFix."
-        subtitle="Use the clinic’s existing online booking calendar to select an appointment time."
+        eyebrow="Find the right care"
+        title="Your city. Your way to better movement."
+        subtitle="Multan clinic appointments and home visits. Online physiotherapy with Ariba Babar, DPT, in Rahim Yar Khan. Start by choosing your city."
         icon={<CalendarCheck className="h-7 w-7" aria-hidden="true" />}
         crumbs={[
           { label: "Home", path: "/" },
@@ -43,44 +38,33 @@ function BookAppointmentPage() {
         ]}
         showActions={false}
       />
-      <section className="py-12 sm:py-16">
-        <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+      <section className="py-10 sm:py-14">
+        <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
           <div className="rounded-xl border border-border bg-card p-4 shadow-soft sm:p-7">
-            <h2 className="font-heading text-xl font-semibold text-foreground sm:text-2xl">
-              Appointment calendar
-            </h2>
-            <p className="mt-2 text-sm leading-6 text-muted-foreground">
-              Select an available time in the calendar. If it does not load, open the booking page
-              directly or contact the clinic.
-            </p>
-            <div className="mt-5 min-h-[680px]">
-              <CalendlyInline />
-            </div>
-            <div className="flex flex-wrap gap-3 border-t border-border pt-5">
-              <a
-                href={CALENDLY_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex min-h-11 items-center gap-2 rounded-md bg-primary px-4 py-2.5 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
-              >
-                Open booking calendar <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
-              </a>
-              <a
-                href={WHATSAPP_CONSULT_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex min-h-11 items-center gap-2 rounded-md border border-secondary/50 px-4 py-2.5 text-sm font-semibold text-secondary transition-colors hover:bg-secondary hover:text-secondary-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
-              >
-                <MessageCircle className="h-4 w-4" aria-hidden="true" /> WhatsApp the clinic
-              </a>
-              <a
-                href={PHONE_TEL}
-                className="inline-flex min-h-11 items-center gap-2 rounded-md border border-border px-4 py-2.5 text-sm font-semibold text-foreground transition-colors hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
-              >
-                <Phone className="h-4 w-4" aria-hidden="true" /> Call {PHONE_DISPLAY}
-              </a>
-            </div>
+            <CityBookingForm
+              key={`${city ?? ""}-${service ?? ""}`}
+              initialCity={city}
+              initialService={service}
+            />
           </div>
+          <aside className="mt-6 flex flex-wrap items-center gap-4 text-sm">
+            <span>Need help choosing?</span>
+            <a
+              href={WHATSAPP_CONSULT_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex min-h-11 items-center font-semibold text-primary underline"
+            >
+              WhatsApp the PainFix clinic
+            </a>
+            <a
+              href={PHONE_TEL}
+              className="inline-flex min-h-11 items-center gap-2 font-semibold text-primary underline"
+            >
+              <Phone className="h-4 w-4" aria-hidden="true" />
+              {PHONE_DISPLAY}
+            </a>
+          </aside>
         </div>
       </section>
     </PageLayout>
