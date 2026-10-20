@@ -263,33 +263,36 @@
 }
 
 .dark {
-  --background: #091b2d;
-  --foreground: #f5f8f7;
-  --surface: #10263b;
-  --card: #10263b;
-  --card-foreground: #f5f8f7;
-  --popover: #10263b;
-  --popover-foreground: #f5f8f7;
-  --primary: #66a9e0;
-  --primary-foreground: #091b2d;
-  --primary-glow: #66a9e0;
-  --secondary: #54c58c;
-  --secondary-foreground: #09261a;
-  --secondary-glow: #73e0a9;
-  --brand-green: #00a859;
-  --destructive: #ff8a80;
-  --destructive-foreground: #091b2d;
-  --muted: #17314a;
-  --muted-foreground: #b0c0cb;
-  --accent: #193b33;
-  --accent-foreground: #f5f8f7;
-  --border: #254159;
-  --input: #71899b;
-  --ring: #73e0a9;
-  --gradient-hero: linear-gradient(110deg, #66a9e0, #54c58c);
-  --gradient-blue: linear-gradient(135deg, #66a9e0, #66a9e0);
-  --gradient-teal: linear-gradient(135deg, #54c58c, #73e0a9);
-  --gradient-brand-soft: linear-gradient(135deg, #19314a, #193b33);
+  /* Deep navy surfaces keep the clinic identity without turning the page black. */
+  --background: #071a2b;
+  --foreground: #f4f7f5;
+  --surface: #0d2438;
+  --card: #122b42;
+  --card-foreground: #f4f7f5;
+  --popover: #122b42;
+  --popover-foreground: #f4f7f5;
+  /* Soft clinical blue is reserved for interactive text and controls. */
+  --primary: #8fb9d8;
+  --primary-foreground: #071a2b;
+  --primary-glow: #6f9fbe;
+  /* Green remains recognisably PainFix, but is calm rather than neon. */
+  --secondary: #66d39a;
+  --secondary-foreground: #062319;
+  --secondary-glow: #8be2b3;
+  --brand-green: #4fc98a;
+  --destructive: #ff9b91;
+  --destructive-foreground: #2a0b09;
+  --muted: #19354b;
+  --muted-foreground: #c2ced6;
+  --accent: #1a3b3a;
+  --accent-foreground: #f4f7f5;
+  --border: #31516a;
+  --input: #88a6b8;
+  --ring: #8be2b3;
+  --gradient-hero: linear-gradient(115deg, #0d2c48, #17483f);
+  --gradient-blue: linear-gradient(135deg, #123452, #24506b);
+  --gradient-teal: linear-gradient(135deg, #17483f, #286e55);
+  --gradient-brand-soft: linear-gradient(135deg, #142f48, #1a3b3a);
 }
 
 .painfix-home {
