@@ -4,12 +4,14 @@ import { PageCTA } from "@/components/site/PageCTA";
 import { PageHero } from "@/components/site/PageHero";
 import { PageLayout } from "@/components/site/PageLayout";
 import { breadcrumbLd, canonical, pageMeta } from "@/lib/seo";
+import { listPublishedClinicianProfiles } from "@/admin/clinicians.functions";
 
 const TITLE = "Our Physiotherapy Team in Multan | PainFix";
 const DESCRIPTION =
   "Meet the physiotherapists and Doctors of Physical Therapy at PainFix Physiotherapy Clinic in Multan.";
 
 export const Route = createFileRoute("/our-team")({
+  loader: () => listPublishedClinicianProfiles(),
   head: () => ({
     meta: pageMeta({ title: TITLE, description: DESCRIPTION, path: "/our-team" }),
     links: canonical("/our-team"),
@@ -24,6 +26,7 @@ export const Route = createFileRoute("/our-team")({
 });
 
 function OurTeamPage() {
+  const profiles = Route.useLoaderData();
   return (
     <PageLayout>
       <PageHero
@@ -35,7 +38,7 @@ function OurTeamPage() {
           { label: "Our Team", path: "/our-team" },
         ]}
       />
-      <MeetDoctors />
+      <MeetDoctors initialProfiles={profiles} />
       <PageCTA title="Talk with the PainFix team." />
     </PageLayout>
   );
