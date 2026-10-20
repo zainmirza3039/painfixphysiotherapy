@@ -33,4 +33,4 @@ INSERT INTO auth.users(id, email) VALUES
 INSERT INTO public.user_roles VALUES
  ('00000000-0000-0000-0000-000000000001','admin'),
  ('00000000-0000-0000-0000-000000000002','super_admin');
-\ir ../supabase/migrations/20261021000000_internship_certificates.sql
+\ir ../supabase/migrations/20261021022000_internship_certificates.sql

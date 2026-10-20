@@ -12,9 +12,9 @@ Admins can create, edit, preview, publish/unpublish, close and archive programs;
 
 ## 2. Database
 
-Prepared `supabase/migrations/20261021000000_internship_certificates.sql`, adding eight dedicated tables: programs, applications, participants, professional experience records, certificates, certificate events, admin audit events and request-rate counters. It includes foreign keys, status/date constraints, indexes, immutable snapshots, approval stamps and transactional RPCs.
+Prepared `supabase/migrations/20261021022000_internship_certificates.sql`, adding eight dedicated tables: programs, applications, participants, professional experience records, certificates, certificate events, admin audit events and request-rate counters. It includes foreign keys, status/date constraints, indexes, immutable snapshots, approval stamps and transactional RPCs. Only its filename/version changed from the initial implementation; the SQL is byte-for-byte unchanged. Its version is unique and follows the preserved clinician migration `20261021000000_add_clinician_service_and_cv_fields.sql`.
 
-**Applied only to new isolated local PostgreSQL test databases. Not applied to production or a remote Supabase project.** The final migration and lifecycle suite passed in `painfix_internship_test_release_20261021`. Existing production migration history/drift could not be compared without production access. No existing migration or medical-report security was changed.
+**Applied only to new isolated local PostgreSQL test databases. Not applied to production or a remote Supabase project.** In addition to the initial security suite, both migrations passed together in `painfix_internship_test_baseline_20261021`, in release order. Explicit before/after assertions confirmed unchanged clinician records, RLS, table grants and policy. Read-only production ledger inspection found history through `20261020163839`, with neither new migration recorded; complete deployed-target/schema reconciliation remains a release gate. No inherited migration or medical-report security was changed.
 
 ## 3. Security
 
@@ -43,9 +43,11 @@ No real programs, fees, schedules, applicants or credentials were seeded or publ
 
 ## 6. Tests
 
-`npm test`: **80 passed, 0 failed, 0 skipped**. Coverage includes existing regressions, real React component rendering for program/application/verification states, the actual browser-to-server payload normalizer, strict validation, legal decisions, replacement selection, PDF generation and independent QR decoding.
+`npm test`: **86 passed, 0 failed, 0 skipped** on the combined live-baseline and internship branch. Coverage includes the preserved clinician contract tests, migration-version/order checks, existing regressions, real React component rendering for program/application/verification states, the actual browser-to-server payload normalizer, strict validation, legal decisions, replacement selection, PDF generation and independent QR decoding.
 
 The guarded PostgreSQL bootstrap and transactional security suite passed against the final migration. Checks cover unsafe default grants, published-only visibility, private access denial, malformed/duplicate/closed applications, ordinary-user issuance/revocation denial, completion/evidence gates, source associations, redacted verification, immediate revocation, replacement chains with equal timestamps, immutable facts/events, retention and rate admission. Test records are rolled back.
+
+The inherited clinician smoke test passed unchanged in its own temporary local PostgreSQL cluster, including preservation of pre-existing profiles/security and later owner edits. The combined migration-order fixture also passed the internship lifecycle suite after verifying clinician data and security were unchanged. New migration-version regression tests reject duplicate version prefixes and require the internship migration to follow the clinician migration. These are isolated local database tests, not production or staging JWT/browser tests.
 
 A generated certificate was visually inspected, and the QR was also successfully decoded from a rendered PDF page. Local browser checks confirmed a labelled verification input, empty-input validation, unavailable-service feedback, canonical/noindex metadata, and no overflow on the certificate information page at a 390-pixel iframe viewport. This mobile CSS check is not a physical-device test.
 
@@ -60,7 +62,7 @@ A generated certificate was visually inspected, and the QR was also successfully
 
 ## 8. Remaining release work
 
-An authorized operator must review deployed migration history/helper definitions, approve and apply the migration, confirm server environment variables, and run representative Supabase/PostgREST and real authenticated administrator/ordinary-user staging browser tests before production release. The local PostgreSQL fixtures do not prove production configuration or remote JWT integration.
+The user has authorized release and preservation of the live baseline. Before production mutation, an authorized operator must finish reconciling deployed migration history/helper definitions and the actual database target, confirm server environment variables, and run representative Supabase/PostgREST and real authenticated administrator/ordinary-user staging browser tests. The local PostgreSQL fixtures do not prove production configuration or remote JWT integration. The repository project ID differs from the authorized project/integration, so no target is silently assumed. Vercel access was restored, but environment metadata showed no `INTERNSHIP_RATE_LIMIT_SECRET`; preview compilation and a skipped Supabase Preview check do not prove integration readiness.
 
 No approved email service was found, so confirmation is on-screen and decisions are reviewed in admin. Document upload was intentionally replaced by a secure-contact workflow, not a public bucket. The clinic still needs to approve its retention period and real program/signatory details. Configure a strong server-only `INTERNSHIP_RATE_LIMIT_SECRET`; non-Vercel deployments use a conservative shared client bucket until a trusted proxy adapter is reviewed. Admin lists have a documented 10,000-record safety cap per dataset; larger installations need server-side filters/paginated UI.
 
@@ -68,7 +70,7 @@ Operational instructions and exact local SQL commands are in `docs/internship-ce
 
 ## 9. Git
 
-Dedicated feature branch: `feat/internship-certificates-20261021`. The implementation is isolated from the original pre-existing workspace and unrelated local changes. Commit and pull-request publication details are provided with the delivery; no changes were merged into `main`.
+Dedicated feature branch: `feat/internship-certificates-20261021`, [PR #24](https://github.com/zainmirza3039/painfixphysiotherapy/pull/24). It now contains the complete verified live baseline `861815a8496a3c05756b7a319cb4e0c63c30cc4c`, including all three clinician commits from PR #22, through a non-rewriting merge. All eight inherited clinician files were compared byte-for-byte with that baseline and are unchanged. The original internship commit `2d9d8ec` remains in history. PR #22 was not separately merged/closed, and `main` was not changed.
 
 ## 10. Deployment
 
