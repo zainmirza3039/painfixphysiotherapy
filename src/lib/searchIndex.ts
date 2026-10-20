@@ -5,6 +5,7 @@
 
 import { serviceImages } from "@/data/serviceImages";
 import { conditionImages } from "@/data/conditionImages";
+import type { PublicClinicianProfile } from "@/admin/clinician-profile.contract";
 import { expandQuery, stemVariants, normalize } from "./searchSynonyms";
 
 export type SearchCategory =
@@ -55,16 +56,17 @@ export const CATEGORY_ORDER: SearchCategory[] = [
 ];
 
 let cache: SearchItem[] | null = null;
+let cacheCreatedAt = 0;
+const SEARCH_INDEX_CACHE_MS = 5 * 60 * 1000;
 
 /** Build (and memoize) the full search index from the content data files. */
 export async function buildSearchIndex(): Promise<SearchItem[]> {
-  if (cache) return cache;
+  if (cache && Date.now() - cacheCreatedAt < SEARCH_INDEX_CACHE_MS) return cache;
 
   const [
     { services },
     { conditions },
     { blogPosts, blogCategories },
-    { team },
     { localPages },
     { fitnessPages, FITNESS_GROUPS },
     { MEMBERSHIP_PLANS },
@@ -73,7 +75,6 @@ export async function buildSearchIndex(): Promise<SearchItem[]> {
     import("@/data/services"),
     import("@/data/conditions"),
     import("@/data/blog"),
-    import("@/data/team"),
     import("@/data/localPages"),
     import("@/data/fitness"),
     import("@/data/membership"),
@@ -81,6 +82,10 @@ export async function buildSearchIndex(): Promise<SearchItem[]> {
   ]);
 
   const items: SearchItem[] = [];
+
+  // Published clinicians are read from the dedicated public profile API; drafts and inactive rows stay hidden.
+  const { listPublishedClinicianProfiles } = await import("@/admin/clinicians.functions");
+  const clinicians: PublicClinicianProfile[] = await listPublishedClinicianProfiles();
 
   // Services + their FAQs
   for (const s of services) {
@@ -128,16 +133,18 @@ export async function buildSearchIndex(): Promise<SearchItem[]> {
     }
   }
 
-  // Doctors — link to each clinician's dedicated profile page.
-  for (const m of team) {
+  // Doctors — link to each currently published clinician profile.
+  for (const m of clinicians) {
     items.push({
       id: `doctor-${m.slug}`,
       title: m.name,
-      subtitle: m.title,
+      subtitle: m.professional_title,
       category: "Doctors",
       href: `/${m.slug}`,
-      thumbnail: m.photo ?? undefined,
-      keywords: [...m.specialties, ...m.tags, m.credentials, m.seoBio].join(" "),
+      thumbnail: m.photo_url ?? undefined,
+      keywords: [...m.specialties, ...m.tags, m.credentials, m.seo_bio ?? "", m.bio ?? ""].join(
+        " ",
+      ),
     });
   }
 
@@ -444,6 +451,7 @@ export async function buildSearchIndex(): Promise<SearchItem[]> {
   );
 
   cache = items;
+  cacheCreatedAt = Date.now();
   return items;
 }
 

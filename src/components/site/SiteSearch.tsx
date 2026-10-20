@@ -89,7 +89,10 @@ export function SiteSearch({ className = "" }: { className?: string }) {
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState("");
   const [items, setItems] = useState<SearchItem[] | null>(null);
+  const [itemsLoadedAt, setItemsLoadedAt] = useState(0);
   const [loading, setLoading] = useState(false);
+  const [loadError, setLoadError] = useState(false);
+  const [retryCount, setRetryCount] = useState(0);
   const [recent, setRecent] = useState<string[]>([]);
   const navigate = useNavigate();
   const debounced = useRef(query);
@@ -114,12 +117,23 @@ export function SiteSearch({ className = "" }: { className?: string }) {
 
   // Lazy-load the index the first time the dialog opens.
   useEffect(() => {
-    if (!open || items) return;
+    if (!open || loadError || (itemsLoadedAt > 0 && Date.now() - itemsLoadedAt < 5 * 60 * 1000))
+      return;
     let cancelled = false;
     setLoading(true);
+    setLoadError(false);
     buildSearchIndex()
       .then((idx) => {
-        if (!cancelled) setItems(idx);
+        if (!cancelled) {
+          setItems(idx);
+          setItemsLoadedAt(Date.now());
+        }
+      })
+      .catch(() => {
+        if (!cancelled) {
+          setItems(null);
+          setLoadError(true);
+        }
       })
       .finally(() => {
         if (!cancelled) setLoading(false);
@@ -127,7 +141,7 @@ export function SiteSearch({ className = "" }: { className?: string }) {
     return () => {
       cancelled = true;
     };
-  }, [open, items]);
+  }, [open, itemsLoadedAt, loadError, retryCount]);
 
   // Debounce the query (150ms) so we only rank on settled input.
   useEffect(() => {
@@ -217,6 +231,20 @@ export function SiteSearch({ className = "" }: { className?: string }) {
                 <div className="flex items-center justify-center gap-2 py-8 text-sm text-muted-foreground">
                   <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" /> Loading search…
                 </div>
+              ) : loadError ? (
+                <div role="alert" className="px-4 py-6 text-center text-sm">
+                  <p className="text-foreground">Search is temporarily unavailable.</p>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setLoadError(false);
+                      setRetryCount((count) => count + 1);
+                    }}
+                    className="mt-3 min-h-11 font-semibold text-primary underline underline-offset-4"
+                  >
+                    Try again
+                  </button>
+                </div>
               ) : !hasQuery ? (
                 <div className="px-2 py-3">
                   {recent.length > 0 && (
@@ -281,7 +309,7 @@ export function SiteSearch({ className = "" }: { className?: string }) {
                       aria-hidden="true"
                     />
                   </CommandItem>
-                  <CommandEmpty>No results for “{query}”.</CommandEmpty>
+                  {!loading && !loadError && <CommandEmpty>No results for “{query}”.</CommandEmpty>}
                   {grouped.map((group) => {
                     const Icon = CATEGORY_ICON[group.category];
                     return (

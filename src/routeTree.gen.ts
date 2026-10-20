@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as SlugRouteImport } from './routes/$slug'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as AuthRouteImport } from './routes/auth'
@@ -50,6 +51,7 @@ import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authentic
 import { Route as AuthenticatedAdminAppointmentsRouteImport } from './routes/_authenticated/admin.appointments'
 import { Route as AuthenticatedAdminBlogRouteImport } from './routes/_authenticated/admin.blog'
 import { Route as AuthenticatedAdminCalculatorsRouteImport } from './routes/_authenticated/admin.calculators'
+import { Route as AuthenticatedAdminCliniciansRouteImport } from './routes/_authenticated/admin.clinicians'
 import { Route as AuthenticatedAdminFitnessContentRouteImport } from './routes/_authenticated/admin.fitness-content'
 import { Route as AuthenticatedAdminHomeVisitsRouteImport } from './routes/_authenticated/admin.home-visits'
 import { Route as AuthenticatedAdminMediaRouteImport } from './routes/_authenticated/admin.media'
@@ -64,6 +66,11 @@ import { Route as BlogCategoryCategoryRouteImport } from './routes/blog.category
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SlugRoute = SlugRouteImport.update({
+  id: '/$slug',
+  path: '/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
@@ -269,6 +276,12 @@ const AuthenticatedAdminCalculatorsRoute =
     path: '/calculators',
     getParentRoute: () => AuthenticatedAdminRoute,
   } as any)
+const AuthenticatedAdminCliniciansRoute =
+  AuthenticatedAdminCliniciansRouteImport.update({
+    id: '/clinicians',
+    path: '/clinicians',
+    getParentRoute: () => AuthenticatedAdminRoute,
+  } as any)
 const AuthenticatedAdminFitnessContentRoute =
   AuthenticatedAdminFitnessContentRouteImport.update({
     id: '/fitness-content',
@@ -329,6 +342,7 @@ const BlogCategoryCategoryRoute = BlogCategoryCategoryRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/$slug': typeof SlugRoute
   '/about': typeof AboutRoute
   '/auth': typeof AuthRoute
   '/best-physiotherapist-in-multan': typeof BestPhysiotherapistInMultanRoute
@@ -367,6 +381,7 @@ export interface FileRoutesByFullPath {
   '/admin/appointments': typeof AuthenticatedAdminAppointmentsRoute
   '/admin/blog': typeof AuthenticatedAdminBlogRoute
   '/admin/calculators': typeof AuthenticatedAdminCalculatorsRoute
+  '/admin/clinicians': typeof AuthenticatedAdminCliniciansRoute
   '/admin/fitness-content': typeof AuthenticatedAdminFitnessContentRoute
   '/admin/home-visits': typeof AuthenticatedAdminHomeVisitsRoute
   '/admin/media': typeof AuthenticatedAdminMediaRoute
@@ -381,6 +396,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/$slug': typeof SlugRoute
   '/about': typeof AboutRoute
   '/auth': typeof AuthRoute
   '/best-physiotherapist-in-multan': typeof BestPhysiotherapistInMultanRoute
@@ -418,6 +434,7 @@ export interface FileRoutesByTo {
   '/admin/appointments': typeof AuthenticatedAdminAppointmentsRoute
   '/admin/blog': typeof AuthenticatedAdminBlogRoute
   '/admin/calculators': typeof AuthenticatedAdminCalculatorsRoute
+  '/admin/clinicians': typeof AuthenticatedAdminCliniciansRoute
   '/admin/fitness-content': typeof AuthenticatedAdminFitnessContentRoute
   '/admin/home-visits': typeof AuthenticatedAdminHomeVisitsRoute
   '/admin/media': typeof AuthenticatedAdminMediaRoute
@@ -434,6 +451,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
+  '/$slug': typeof SlugRoute
   '/about': typeof AboutRoute
   '/auth': typeof AuthRoute
   '/best-physiotherapist-in-multan': typeof BestPhysiotherapistInMultanRoute
@@ -472,6 +490,7 @@ export interface FileRoutesById {
   '/_authenticated/admin/appointments': typeof AuthenticatedAdminAppointmentsRoute
   '/_authenticated/admin/blog': typeof AuthenticatedAdminBlogRoute
   '/_authenticated/admin/calculators': typeof AuthenticatedAdminCalculatorsRoute
+  '/_authenticated/admin/clinicians': typeof AuthenticatedAdminCliniciansRoute
   '/_authenticated/admin/fitness-content': typeof AuthenticatedAdminFitnessContentRoute
   '/_authenticated/admin/home-visits': typeof AuthenticatedAdminHomeVisitsRoute
   '/_authenticated/admin/media': typeof AuthenticatedAdminMediaRoute
@@ -488,6 +507,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/$slug'
     | '/about'
     | '/auth'
     | '/best-physiotherapist-in-multan'
@@ -526,6 +546,7 @@ export interface FileRouteTypes {
     | '/admin/appointments'
     | '/admin/blog'
     | '/admin/calculators'
+    | '/admin/clinicians'
     | '/admin/fitness-content'
     | '/admin/home-visits'
     | '/admin/media'
@@ -540,6 +561,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/$slug'
     | '/about'
     | '/auth'
     | '/best-physiotherapist-in-multan'
@@ -577,6 +599,7 @@ export interface FileRouteTypes {
     | '/admin/appointments'
     | '/admin/blog'
     | '/admin/calculators'
+    | '/admin/clinicians'
     | '/admin/fitness-content'
     | '/admin/home-visits'
     | '/admin/media'
@@ -592,6 +615,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/_authenticated'
+    | '/$slug'
     | '/about'
     | '/auth'
     | '/best-physiotherapist-in-multan'
@@ -630,6 +654,7 @@ export interface FileRouteTypes {
     | '/_authenticated/admin/appointments'
     | '/_authenticated/admin/blog'
     | '/_authenticated/admin/calculators'
+    | '/_authenticated/admin/clinicians'
     | '/_authenticated/admin/fitness-content'
     | '/_authenticated/admin/home-visits'
     | '/_authenticated/admin/media'
@@ -646,6 +671,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
+  SlugRoute: typeof SlugRoute
   AboutRoute: typeof AboutRoute
   AuthRoute: typeof AuthRoute
   BestPhysiotherapistInMultanRoute: typeof BestPhysiotherapistInMultanRoute
@@ -690,6 +716,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/$slug': {
+      id: '/$slug'
+      path: '/$slug'
+      fullPath: '/$slug'
+      preLoaderRoute: typeof SlugRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_authenticated': {
@@ -972,6 +1005,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminCalculatorsRouteImport
       parentRoute: typeof AuthenticatedAdminRoute
     }
+    '/_authenticated/admin/clinicians': {
+      id: '/_authenticated/admin/clinicians'
+      path: '/clinicians'
+      fullPath: '/admin/clinicians'
+      preLoaderRoute: typeof AuthenticatedAdminCliniciansRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
     '/_authenticated/admin/fitness-content': {
       id: '/_authenticated/admin/fitness-content'
       path: '/fitness-content'
@@ -1049,6 +1089,7 @@ interface AuthenticatedAdminRouteChildren {
   AuthenticatedAdminAppointmentsRoute: typeof AuthenticatedAdminAppointmentsRoute
   AuthenticatedAdminBlogRoute: typeof AuthenticatedAdminBlogRoute
   AuthenticatedAdminCalculatorsRoute: typeof AuthenticatedAdminCalculatorsRoute
+  AuthenticatedAdminCliniciansRoute: typeof AuthenticatedAdminCliniciansRoute
   AuthenticatedAdminFitnessContentRoute: typeof AuthenticatedAdminFitnessContentRoute
   AuthenticatedAdminHomeVisitsRoute: typeof AuthenticatedAdminHomeVisitsRoute
   AuthenticatedAdminMediaRoute: typeof AuthenticatedAdminMediaRoute
@@ -1065,6 +1106,7 @@ const AuthenticatedAdminRouteChildren: AuthenticatedAdminRouteChildren = {
   AuthenticatedAdminAppointmentsRoute: AuthenticatedAdminAppointmentsRoute,
   AuthenticatedAdminBlogRoute: AuthenticatedAdminBlogRoute,
   AuthenticatedAdminCalculatorsRoute: AuthenticatedAdminCalculatorsRoute,
+  AuthenticatedAdminCliniciansRoute: AuthenticatedAdminCliniciansRoute,
   AuthenticatedAdminFitnessContentRoute: AuthenticatedAdminFitnessContentRoute,
   AuthenticatedAdminHomeVisitsRoute: AuthenticatedAdminHomeVisitsRoute,
   AuthenticatedAdminMediaRoute: AuthenticatedAdminMediaRoute,
@@ -1094,6 +1136,7 @@ const AuthenticatedRouteRouteWithChildren =
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
+  SlugRoute: SlugRoute,
   AboutRoute: AboutRoute,
   AuthRoute: AuthRoute,
   BestPhysiotherapistInMultanRoute: BestPhysiotherapistInMultanRoute,

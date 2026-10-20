@@ -12,6 +12,7 @@ import {
   BarChart3,
   Settings,
   ShieldCheck,
+  Stethoscope,
   UserCircle,
   Moon,
   Sun,
@@ -49,6 +50,7 @@ const NAV: NavItem[] = [
   { to: "/admin/media", label: "Media Library", icon: ImageIcon, gate: "content" },
   { to: "/admin/reports", label: "Reports", icon: BarChart3, gate: "admin" },
   { to: "/admin/users", label: "Team & Roles", icon: ShieldCheck, gate: "admin" },
+  { to: "/admin/clinicians", label: "Clinician Profiles", icon: Stethoscope, gate: "admin" },
   { to: "/admin/settings", label: "Settings", icon: Settings, gate: "admin" },
 ];
 
