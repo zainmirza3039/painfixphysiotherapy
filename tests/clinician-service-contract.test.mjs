@@ -7,7 +7,6 @@ const migrationPath = new URL(
   "../supabase/migrations/20261021000000_add_clinician_service_and_cv_fields.sql",
   import.meta.url,
 );
-const seedPath = new URL("../supabase/seeds/ariba-babar.sql", import.meta.url);
 
 const base = {
   slug: "ariba-babar",
@@ -93,8 +92,15 @@ test("migration is additive, exact-defaulted, and does not replay old setup or a
   );
 });
 
-test("Ariba seed is reviewable, idempotent, and contains no email or unsupported certification claim", async () => {
-  const sql = await readFile(seedPath, "utf8");
+test("Ariba insert is transactional, idempotent, and contains no email or unsupported certification claim", async () => {
+  const migration = await readFile(migrationPath, "utf8");
+  const sql = migration.slice(migration.indexOf("INSERT INTO public.clinician_profiles"));
+  assert.match(
+    migration,
+    /BEGIN;[\s\S]*ALTER TABLE[\s\S]*INSERT INTO public\.clinician_profiles[\s\S]*ON CONFLICT \(slug\) DO NOTHING;[\s\S]*COMMIT;/i,
+  );
+  assert.equal((migration.match(/^BEGIN;/gm) ?? []).length, 1);
+  assert.equal((migration.match(/^COMMIT;/gm) ?? []).length, 1);
   assert.match(sql, /slug, name, full_name/);
   assert.match(sql, /'ariba-babar'/);
   assert.match(sql, /'online_only'/);
