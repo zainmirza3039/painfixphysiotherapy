@@ -51,6 +51,21 @@ const NAV: NavItem[] = [
   { to: "/admin/reports", label: "Reports", icon: BarChart3, gate: "admin" },
   { to: "/admin/users", label: "Team & Roles", icon: ShieldCheck, gate: "admin" },
   { to: "/admin/clinicians", label: "Clinician Profiles", icon: Stethoscope, gate: "admin" },
+  { to: "/admin/internships", label: "Internship Programs", icon: Newspaper, gate: "admin" },
+  {
+    to: "/admin/internship-applications",
+    label: "Internship Applications",
+    icon: Users,
+    gate: "admin",
+  },
+  {
+    to: "/admin/internship-participants",
+    label: "Participants & Completion",
+    icon: CalendarClock,
+    gate: "admin",
+  },
+  { to: "/admin/experience-records", label: "Experience Records", icon: UserCircle, gate: "admin" },
+  { to: "/admin/certificates", label: "Certificates", icon: ShieldCheck, gate: "admin" },
   { to: "/admin/settings", label: "Settings", icon: Settings, gate: "admin" },
 ];
 
@@ -67,7 +82,17 @@ const NAV_SECTIONS = [
   { label: "My workspace", routes: ["/admin/profile"] },
   {
     label: "Administration",
-    routes: ["/admin/reports", "/admin/users", "/admin/clinicians", "/admin/settings"],
+    routes: [
+      "/admin/reports",
+      "/admin/users",
+      "/admin/clinicians",
+      "/admin/internships",
+      "/admin/internship-applications",
+      "/admin/internship-participants",
+      "/admin/experience-records",
+      "/admin/certificates",
+      "/admin/settings",
+    ],
   },
 ] as const;
 
