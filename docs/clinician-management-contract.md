@@ -33,11 +33,11 @@ Import functions from `@/admin/clinicians.functions`:
 
 Shared types and photo constants remain in `@/admin/clinician-profile.contract`. Publication, routing, directory rendering, WhatsApp links, and shared UI are frontend responsibilities; this backend-only branch changes no UI files.
 
-## Reviewable Ariba seed
+## Transactional Ariba profile insert
 
-`supabase/seeds/ariba-babar.sql` is separate from schema migration. It inserts root slug `ariba-babar` with `service_mode='online_only'`, city `Rahim Yar Khan, Pakistan`, WhatsApp `923120102560`, active/published flags, explicit SEO title/description, and null photo fields. Years of experience remain null. An initials placeholder is a frontend concern.
+`20261021000000_add_clinician_service_and_cv_fields.sql` adds the columns and inserts Ariba in one `BEGIN`/`COMMIT` transaction. No separately configured seed mechanism is required. The standalone seed file has been removed to avoid duplicate content sources. The insert uses root slug `ariba-babar` with `service_mode='online_only'`, city `Rahim Yar Khan, Pakistan`, WhatsApp `923120102560`, active/published flags, explicit SEO title/description, and null photo fields. Years of experience remain null. An initials placeholder is a frontend concern.
 
-Only the owner-provided CV details are included. Education, four internship entries, training/volunteer work, and research remain separate. Dry needling appears in training, not as certification. No public email or invented physical branch is added.
+Only the owner-provided CV details are included. Education, four internship entries, training/volunteer work, and research remain separate. `specialties` is empty; `expertise` holds the eight CV skill groups rather than specialist claims, with supervised exposure explicit in biography and experience. Dry needling appears in training, not as certification. No public email or invented physical branch is added.
 
 `ON CONFLICT (slug) DO NOTHING` makes reruns non-destructive: existing clinicians and later owner edits, publication changes, contact changes, and photos are not overwritten. A conflicting existing slug must be reviewed rather than silently replaced.
 
@@ -50,9 +50,9 @@ Owner-confirmed project `vagsksstptqqcloccavs` has four existing clinician rows,
 
 Those live-only setup migrations are absent from repository main. The older checked-in `20261017090000_add_clinician_profile_management.sql` is an object-creation proposal and must **not** be replayed against the existing production objects. Do not run `supabase db push` against this unreconciled history. Existing access/storage descriptions in older proposals are not evidence of current production configuration.
 
-Before a separately approved rollout: reconcile the ledger with an authorized owner, verify backup/PITR availability without assuming a backup exists, review the exact additive SQL and seed, and test compatible frontend/backend changes together in staging. Then coordinate the additive schema extension before code that selects the new columns, with the separately approved content seed in the controlled release sequence.
+Before a separately approved rollout: reconcile the ledger with an authorized owner, verify backup/PITR availability without assuming a backup exists, review the exact combined schema/content SQL, and test compatible frontend/backend changes together in staging. Then coordinate the combined migration before code that selects the new columns. `supabase/config.toml` retains its existing stale project ref unchanged; it is not a safe production target selector.
 
-`20261021000000_add_clinician_service_and_cv_fields.sql` changes only the existing clinician table's five columns, related checks, and column comments. It creates no tables, policies, grants, buckets, roles, or triggers. No production SQL, migration, seed, merge, or deployment was executed by this task.
+`20261021000000_add_clinician_service_and_cv_fields.sql` adds only the existing clinician table's five columns, related checks and column comments, and inserts the single Ariba row without updating conflicting rows. It creates no tables, policies, grants, buckets, roles, or triggers. No production SQL, migration, seed, merge, or deployment was executed by this task.
 
 If an application rollback is necessary, preserve added columns and content; do not drop the clinician table, storage bucket, or existing records. Any destructive cleanup requires a separate reviewed plan.
 
@@ -60,4 +60,4 @@ If an application rollback is necessary, preserve added columns and content; do 
 
 `npm test`, `npm run lint`, `./node_modules/.bin/tsc --noEmit`, and `npm run build` validate the backend-only patch. New unit tests cover service/city/list boundaries, exact SQL defaults, additive scope, and seed safety.
 
-`node tests/clinician-migration-smoke.mjs` requires local PostgreSQL binaries and creates a disposable Unix-socket-only cluster. It tests migration and seed reruns, exact legacy defaults, constraint failures, preservation of four synthetic existing rows and their RLS/policy/grant metadata, correct Ariba CV/contact/SEO/photo fields, and preservation of owner edits after a seed rerun. It never reads production database settings. This does not establish production RLS behavior or substitute for staging authorization/upload tests.
+`node tests/clinician-migration-smoke.mjs` requires local PostgreSQL binaries and creates a disposable Unix-socket-only cluster. It tests transaction rollback and full migration reruns, exact legacy defaults, constraint failures, preservation of four synthetic existing rows and their RLS/policy/grant metadata, correct Ariba CV/contact/SEO/photo fields, and preservation of owner edits after a migration rerun. It never reads production database settings. This does not establish production RLS behavior or substitute for staging authorization/upload tests.
