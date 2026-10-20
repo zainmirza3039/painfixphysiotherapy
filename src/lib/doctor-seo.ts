@@ -12,6 +12,15 @@ export function doctorProfileHead(doc: TeamMember) {
   const path = `/${doc.slug}`;
   const url = `${SITE_URL}${path}`;
   const onlineOnly = isOnlineClinician(doc);
+  const city = doc.city || "Pakistan";
+  const metaTitle =
+    onlineOnly && !doc.profile.metaTitle.includes(city)
+      ? `${doc.fullName} — Online Physiotherapy in ${city} | PainFix`
+      : doc.profile.metaTitle;
+  const metaDescription =
+    onlineOnly && !doc.profile.metaDescription.includes(city)
+      ? `Online physiotherapy consultation enquiries with ${doc.fullName}, based in ${city}.`
+      : doc.profile.metaDescription;
   // Static imports are root-relative paths; admin-uploaded photos may be absolute URLs.
   const image = doc.photo
     ? /^https?:\/\//.test(doc.photo)
@@ -21,8 +30,8 @@ export function doctorProfileHead(doc: TeamMember) {
 
   return {
     meta: pageMeta({
-      title: doc.profile.metaTitle,
-      description: doc.profile.metaDescription,
+      title: metaTitle,
+      description: metaDescription,
       path,
       type: "article",
       image,
