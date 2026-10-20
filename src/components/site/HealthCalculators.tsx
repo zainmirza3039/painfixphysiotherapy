@@ -13,7 +13,7 @@ import {
 import { Reveal } from "./Reveal";
 
 const inputClass =
-  "w-full rounded-xl border border-border bg-background px-4 py-2.5 text-sm text-foreground outline-none transition-colors focus:border-primary focus:ring-2 focus:ring-primary/30";
+  "w-full rounded-xl border border-input bg-background px-4 py-2.5 text-sm text-foreground outline-none transition-colors focus:border-primary focus:ring-2 focus:ring-primary/30";
 const labelClass = "mb-1.5 block text-xs font-semibold text-muted-foreground";
 
 function CalcCard({
