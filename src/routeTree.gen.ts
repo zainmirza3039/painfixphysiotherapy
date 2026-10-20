@@ -16,6 +16,7 @@ import { Route as AboutRouteImport } from './routes/about'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as BestPhysiotherapistInMultanRouteImport } from './routes/best-physiotherapist-in-multan'
 import { Route as BookAppointmentRouteImport } from './routes/book-appointment'
+import { Route as CertificatesRouteImport } from './routes/certificates'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as DrFatimaIqbalDptMultanRouteImport } from './routes/dr-fatima-iqbal-dpt-multan'
 import { Route as DrJalalUdDinPtMultanRouteImport } from './routes/dr-jalal-ud-din-pt-multan'
@@ -36,6 +37,7 @@ import { Route as SearchRouteImport } from './routes/search'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as SuccessStoriesRouteImport } from './routes/success-stories'
 import { Route as TermsRouteImport } from './routes/terms'
+import { Route as VerifyCertificateRouteImport } from './routes/verify-certificate'
 import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
 import { Route as BlogIndexRouteImport } from './routes/blog.index'
 import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
@@ -45,15 +47,22 @@ import { Route as DietNutritionIndexRouteImport } from './routes/diet-nutrition.
 import { Route as DietNutritionSlugRouteImport } from './routes/diet-nutrition.$slug'
 import { Route as FitnessIndexRouteImport } from './routes/fitness.index'
 import { Route as FitnessSlugRouteImport } from './routes/fitness.$slug'
+import { Route as InternshipsIndexRouteImport } from './routes/internships.index'
+import { Route as InternshipsSlugRouteImport } from './routes/internships.$slug'
 import { Route as ServicesIndexRouteImport } from './routes/services.index'
 import { Route as ServicesSlugRouteImport } from './routes/services.$slug'
 import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin.index'
 import { Route as AuthenticatedAdminAppointmentsRouteImport } from './routes/_authenticated/admin.appointments'
 import { Route as AuthenticatedAdminBlogRouteImport } from './routes/_authenticated/admin.blog'
 import { Route as AuthenticatedAdminCalculatorsRouteImport } from './routes/_authenticated/admin.calculators'
+import { Route as AuthenticatedAdminCertificatesRouteImport } from './routes/_authenticated/admin.certificates'
 import { Route as AuthenticatedAdminCliniciansRouteImport } from './routes/_authenticated/admin.clinicians'
+import { Route as AuthenticatedAdminExperienceRecordsRouteImport } from './routes/_authenticated/admin.experience-records'
 import { Route as AuthenticatedAdminFitnessContentRouteImport } from './routes/_authenticated/admin.fitness-content'
 import { Route as AuthenticatedAdminHomeVisitsRouteImport } from './routes/_authenticated/admin.home-visits'
+import { Route as AuthenticatedAdminInternshipApplicationsRouteImport } from './routes/_authenticated/admin.internship-applications'
+import { Route as AuthenticatedAdminInternshipParticipantsRouteImport } from './routes/_authenticated/admin.internship-participants'
+import { Route as AuthenticatedAdminInternshipsRouteImport } from './routes/_authenticated/admin.internships'
 import { Route as AuthenticatedAdminMediaRouteImport } from './routes/_authenticated/admin.media'
 import { Route as AuthenticatedAdminMessagesRouteImport } from './routes/_authenticated/admin.messages'
 import { Route as AuthenticatedAdminPatientsRouteImport } from './routes/_authenticated/admin.patients'
@@ -96,6 +105,11 @@ const BestPhysiotherapistInMultanRoute =
 const BookAppointmentRoute = BookAppointmentRouteImport.update({
   id: '/book-appointment',
   path: '/book-appointment',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CertificatesRoute = CertificatesRouteImport.update({
+  id: '/certificates',
+  path: '/certificates',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ContactRoute = ContactRouteImport.update({
@@ -199,6 +213,11 @@ const TermsRoute = TermsRouteImport.update({
   path: '/terms',
   getParentRoute: () => rootRouteImport,
 } as any)
+const VerifyCertificateRoute = VerifyCertificateRouteImport.update({
+  id: '/verify-certificate',
+  path: '/verify-certificate',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AuthenticatedAdminRoute = AuthenticatedAdminRouteImport.update({
   id: '/admin',
   path: '/admin',
@@ -244,6 +263,16 @@ const FitnessSlugRoute = FitnessSlugRouteImport.update({
   path: '/fitness/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const InternshipsIndexRoute = InternshipsIndexRouteImport.update({
+  id: '/internships/',
+  path: '/internships/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const InternshipsSlugRoute = InternshipsSlugRouteImport.update({
+  id: '/internships/$slug',
+  path: '/internships/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ServicesIndexRoute = ServicesIndexRouteImport.update({
   id: '/services/',
   path: '/services/',
@@ -276,10 +305,22 @@ const AuthenticatedAdminCalculatorsRoute =
     path: '/calculators',
     getParentRoute: () => AuthenticatedAdminRoute,
   } as any)
+const AuthenticatedAdminCertificatesRoute =
+  AuthenticatedAdminCertificatesRouteImport.update({
+    id: '/certificates',
+    path: '/certificates',
+    getParentRoute: () => AuthenticatedAdminRoute,
+  } as any)
 const AuthenticatedAdminCliniciansRoute =
   AuthenticatedAdminCliniciansRouteImport.update({
     id: '/clinicians',
     path: '/clinicians',
+    getParentRoute: () => AuthenticatedAdminRoute,
+  } as any)
+const AuthenticatedAdminExperienceRecordsRoute =
+  AuthenticatedAdminExperienceRecordsRouteImport.update({
+    id: '/experience-records',
+    path: '/experience-records',
     getParentRoute: () => AuthenticatedAdminRoute,
   } as any)
 const AuthenticatedAdminFitnessContentRoute =
@@ -292,6 +333,24 @@ const AuthenticatedAdminHomeVisitsRoute =
   AuthenticatedAdminHomeVisitsRouteImport.update({
     id: '/home-visits',
     path: '/home-visits',
+    getParentRoute: () => AuthenticatedAdminRoute,
+  } as any)
+const AuthenticatedAdminInternshipApplicationsRoute =
+  AuthenticatedAdminInternshipApplicationsRouteImport.update({
+    id: '/internship-applications',
+    path: '/internship-applications',
+    getParentRoute: () => AuthenticatedAdminRoute,
+  } as any)
+const AuthenticatedAdminInternshipParticipantsRoute =
+  AuthenticatedAdminInternshipParticipantsRouteImport.update({
+    id: '/internship-participants',
+    path: '/internship-participants',
+    getParentRoute: () => AuthenticatedAdminRoute,
+  } as any)
+const AuthenticatedAdminInternshipsRoute =
+  AuthenticatedAdminInternshipsRouteImport.update({
+    id: '/internships',
+    path: '/internships',
     getParentRoute: () => AuthenticatedAdminRoute,
   } as any)
 const AuthenticatedAdminMediaRoute = AuthenticatedAdminMediaRouteImport.update({
@@ -347,6 +406,7 @@ export interface FileRoutesByFullPath {
   '/auth': typeof AuthRoute
   '/best-physiotherapist-in-multan': typeof BestPhysiotherapistInMultanRoute
   '/book-appointment': typeof BookAppointmentRoute
+  '/certificates': typeof CertificatesRoute
   '/contact': typeof ContactRoute
   '/dr-fatima-iqbal-dpt-multan': typeof DrFatimaIqbalDptMultanRoute
   '/dr-jalal-ud-din-pt-multan': typeof DrJalalUdDinPtMultanRoute
@@ -367,23 +427,31 @@ export interface FileRoutesByFullPath {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/success-stories': typeof SuccessStoriesRoute
   '/terms': typeof TermsRoute
+  '/verify-certificate': typeof VerifyCertificateRoute
   '/admin': typeof AuthenticatedAdminRouteWithChildren
   '/blog/$slug': typeof BlogSlugRoute
   '/conditions/$slug': typeof ConditionsSlugRoute
   '/diet-nutrition/$slug': typeof DietNutritionSlugRoute
   '/fitness/$slug': typeof FitnessSlugRoute
+  '/internships/$slug': typeof InternshipsSlugRoute
   '/services/$slug': typeof ServicesSlugRoute
   '/blog/': typeof BlogIndexRoute
   '/conditions/': typeof ConditionsIndexRoute
   '/diet-nutrition/': typeof DietNutritionIndexRoute
   '/fitness/': typeof FitnessIndexRoute
+  '/internships/': typeof InternshipsIndexRoute
   '/services/': typeof ServicesIndexRoute
   '/admin/appointments': typeof AuthenticatedAdminAppointmentsRoute
   '/admin/blog': typeof AuthenticatedAdminBlogRoute
   '/admin/calculators': typeof AuthenticatedAdminCalculatorsRoute
+  '/admin/certificates': typeof AuthenticatedAdminCertificatesRoute
   '/admin/clinicians': typeof AuthenticatedAdminCliniciansRoute
+  '/admin/experience-records': typeof AuthenticatedAdminExperienceRecordsRoute
   '/admin/fitness-content': typeof AuthenticatedAdminFitnessContentRoute
   '/admin/home-visits': typeof AuthenticatedAdminHomeVisitsRoute
+  '/admin/internship-applications': typeof AuthenticatedAdminInternshipApplicationsRoute
+  '/admin/internship-participants': typeof AuthenticatedAdminInternshipParticipantsRoute
+  '/admin/internships': typeof AuthenticatedAdminInternshipsRoute
   '/admin/media': typeof AuthenticatedAdminMediaRoute
   '/admin/messages': typeof AuthenticatedAdminMessagesRoute
   '/admin/patients': typeof AuthenticatedAdminPatientsRoute
@@ -401,6 +469,7 @@ export interface FileRoutesByTo {
   '/auth': typeof AuthRoute
   '/best-physiotherapist-in-multan': typeof BestPhysiotherapistInMultanRoute
   '/book-appointment': typeof BookAppointmentRoute
+  '/certificates': typeof CertificatesRoute
   '/contact': typeof ContactRoute
   '/dr-fatima-iqbal-dpt-multan': typeof DrFatimaIqbalDptMultanRoute
   '/dr-jalal-ud-din-pt-multan': typeof DrJalalUdDinPtMultanRoute
@@ -421,22 +490,30 @@ export interface FileRoutesByTo {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/success-stories': typeof SuccessStoriesRoute
   '/terms': typeof TermsRoute
+  '/verify-certificate': typeof VerifyCertificateRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/conditions/$slug': typeof ConditionsSlugRoute
   '/diet-nutrition/$slug': typeof DietNutritionSlugRoute
   '/fitness/$slug': typeof FitnessSlugRoute
+  '/internships/$slug': typeof InternshipsSlugRoute
   '/services/$slug': typeof ServicesSlugRoute
   '/blog': typeof BlogIndexRoute
   '/conditions': typeof ConditionsIndexRoute
   '/diet-nutrition': typeof DietNutritionIndexRoute
   '/fitness': typeof FitnessIndexRoute
+  '/internships': typeof InternshipsIndexRoute
   '/services': typeof ServicesIndexRoute
   '/admin/appointments': typeof AuthenticatedAdminAppointmentsRoute
   '/admin/blog': typeof AuthenticatedAdminBlogRoute
   '/admin/calculators': typeof AuthenticatedAdminCalculatorsRoute
+  '/admin/certificates': typeof AuthenticatedAdminCertificatesRoute
   '/admin/clinicians': typeof AuthenticatedAdminCliniciansRoute
+  '/admin/experience-records': typeof AuthenticatedAdminExperienceRecordsRoute
   '/admin/fitness-content': typeof AuthenticatedAdminFitnessContentRoute
   '/admin/home-visits': typeof AuthenticatedAdminHomeVisitsRoute
+  '/admin/internship-applications': typeof AuthenticatedAdminInternshipApplicationsRoute
+  '/admin/internship-participants': typeof AuthenticatedAdminInternshipParticipantsRoute
+  '/admin/internships': typeof AuthenticatedAdminInternshipsRoute
   '/admin/media': typeof AuthenticatedAdminMediaRoute
   '/admin/messages': typeof AuthenticatedAdminMessagesRoute
   '/admin/patients': typeof AuthenticatedAdminPatientsRoute
@@ -456,6 +533,7 @@ export interface FileRoutesById {
   '/auth': typeof AuthRoute
   '/best-physiotherapist-in-multan': typeof BestPhysiotherapistInMultanRoute
   '/book-appointment': typeof BookAppointmentRoute
+  '/certificates': typeof CertificatesRoute
   '/contact': typeof ContactRoute
   '/dr-fatima-iqbal-dpt-multan': typeof DrFatimaIqbalDptMultanRoute
   '/dr-jalal-ud-din-pt-multan': typeof DrJalalUdDinPtMultanRoute
@@ -476,23 +554,31 @@ export interface FileRoutesById {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/success-stories': typeof SuccessStoriesRoute
   '/terms': typeof TermsRoute
+  '/verify-certificate': typeof VerifyCertificateRoute
   '/_authenticated/admin': typeof AuthenticatedAdminRouteWithChildren
   '/blog/$slug': typeof BlogSlugRoute
   '/conditions/$slug': typeof ConditionsSlugRoute
   '/diet-nutrition/$slug': typeof DietNutritionSlugRoute
   '/fitness/$slug': typeof FitnessSlugRoute
+  '/internships/$slug': typeof InternshipsSlugRoute
   '/services/$slug': typeof ServicesSlugRoute
   '/blog/': typeof BlogIndexRoute
   '/conditions/': typeof ConditionsIndexRoute
   '/diet-nutrition/': typeof DietNutritionIndexRoute
   '/fitness/': typeof FitnessIndexRoute
+  '/internships/': typeof InternshipsIndexRoute
   '/services/': typeof ServicesIndexRoute
   '/_authenticated/admin/appointments': typeof AuthenticatedAdminAppointmentsRoute
   '/_authenticated/admin/blog': typeof AuthenticatedAdminBlogRoute
   '/_authenticated/admin/calculators': typeof AuthenticatedAdminCalculatorsRoute
+  '/_authenticated/admin/certificates': typeof AuthenticatedAdminCertificatesRoute
   '/_authenticated/admin/clinicians': typeof AuthenticatedAdminCliniciansRoute
+  '/_authenticated/admin/experience-records': typeof AuthenticatedAdminExperienceRecordsRoute
   '/_authenticated/admin/fitness-content': typeof AuthenticatedAdminFitnessContentRoute
   '/_authenticated/admin/home-visits': typeof AuthenticatedAdminHomeVisitsRoute
+  '/_authenticated/admin/internship-applications': typeof AuthenticatedAdminInternshipApplicationsRoute
+  '/_authenticated/admin/internship-participants': typeof AuthenticatedAdminInternshipParticipantsRoute
+  '/_authenticated/admin/internships': typeof AuthenticatedAdminInternshipsRoute
   '/_authenticated/admin/media': typeof AuthenticatedAdminMediaRoute
   '/_authenticated/admin/messages': typeof AuthenticatedAdminMessagesRoute
   '/_authenticated/admin/patients': typeof AuthenticatedAdminPatientsRoute
@@ -512,6 +598,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/best-physiotherapist-in-multan'
     | '/book-appointment'
+    | '/certificates'
     | '/contact'
     | '/dr-fatima-iqbal-dpt-multan'
     | '/dr-jalal-ud-din-pt-multan'
@@ -532,23 +619,31 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/success-stories'
     | '/terms'
+    | '/verify-certificate'
     | '/admin'
     | '/blog/$slug'
     | '/conditions/$slug'
     | '/diet-nutrition/$slug'
     | '/fitness/$slug'
+    | '/internships/$slug'
     | '/services/$slug'
     | '/blog/'
     | '/conditions/'
     | '/diet-nutrition/'
     | '/fitness/'
+    | '/internships/'
     | '/services/'
     | '/admin/appointments'
     | '/admin/blog'
     | '/admin/calculators'
+    | '/admin/certificates'
     | '/admin/clinicians'
+    | '/admin/experience-records'
     | '/admin/fitness-content'
     | '/admin/home-visits'
+    | '/admin/internship-applications'
+    | '/admin/internship-participants'
+    | '/admin/internships'
     | '/admin/media'
     | '/admin/messages'
     | '/admin/patients'
@@ -566,6 +661,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/best-physiotherapist-in-multan'
     | '/book-appointment'
+    | '/certificates'
     | '/contact'
     | '/dr-fatima-iqbal-dpt-multan'
     | '/dr-jalal-ud-din-pt-multan'
@@ -586,22 +682,30 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/success-stories'
     | '/terms'
+    | '/verify-certificate'
     | '/blog/$slug'
     | '/conditions/$slug'
     | '/diet-nutrition/$slug'
     | '/fitness/$slug'
+    | '/internships/$slug'
     | '/services/$slug'
     | '/blog'
     | '/conditions'
     | '/diet-nutrition'
     | '/fitness'
+    | '/internships'
     | '/services'
     | '/admin/appointments'
     | '/admin/blog'
     | '/admin/calculators'
+    | '/admin/certificates'
     | '/admin/clinicians'
+    | '/admin/experience-records'
     | '/admin/fitness-content'
     | '/admin/home-visits'
+    | '/admin/internship-applications'
+    | '/admin/internship-participants'
+    | '/admin/internships'
     | '/admin/media'
     | '/admin/messages'
     | '/admin/patients'
@@ -620,6 +724,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/best-physiotherapist-in-multan'
     | '/book-appointment'
+    | '/certificates'
     | '/contact'
     | '/dr-fatima-iqbal-dpt-multan'
     | '/dr-jalal-ud-din-pt-multan'
@@ -640,23 +745,31 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/success-stories'
     | '/terms'
+    | '/verify-certificate'
     | '/_authenticated/admin'
     | '/blog/$slug'
     | '/conditions/$slug'
     | '/diet-nutrition/$slug'
     | '/fitness/$slug'
+    | '/internships/$slug'
     | '/services/$slug'
     | '/blog/'
     | '/conditions/'
     | '/diet-nutrition/'
     | '/fitness/'
+    | '/internships/'
     | '/services/'
     | '/_authenticated/admin/appointments'
     | '/_authenticated/admin/blog'
     | '/_authenticated/admin/calculators'
+    | '/_authenticated/admin/certificates'
     | '/_authenticated/admin/clinicians'
+    | '/_authenticated/admin/experience-records'
     | '/_authenticated/admin/fitness-content'
     | '/_authenticated/admin/home-visits'
+    | '/_authenticated/admin/internship-applications'
+    | '/_authenticated/admin/internship-participants'
+    | '/_authenticated/admin/internships'
     | '/_authenticated/admin/media'
     | '/_authenticated/admin/messages'
     | '/_authenticated/admin/patients'
@@ -676,6 +789,7 @@ export interface RootRouteChildren {
   AuthRoute: typeof AuthRoute
   BestPhysiotherapistInMultanRoute: typeof BestPhysiotherapistInMultanRoute
   BookAppointmentRoute: typeof BookAppointmentRoute
+  CertificatesRoute: typeof CertificatesRoute
   ContactRoute: typeof ContactRoute
   DrFatimaIqbalDptMultanRoute: typeof DrFatimaIqbalDptMultanRoute
   DrJalalUdDinPtMultanRoute: typeof DrJalalUdDinPtMultanRoute
@@ -696,15 +810,18 @@ export interface RootRouteChildren {
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   SuccessStoriesRoute: typeof SuccessStoriesRoute
   TermsRoute: typeof TermsRoute
+  VerifyCertificateRoute: typeof VerifyCertificateRoute
   BlogSlugRoute: typeof BlogSlugRoute
   ConditionsSlugRoute: typeof ConditionsSlugRoute
   DietNutritionSlugRoute: typeof DietNutritionSlugRoute
   FitnessSlugRoute: typeof FitnessSlugRoute
+  InternshipsSlugRoute: typeof InternshipsSlugRoute
   ServicesSlugRoute: typeof ServicesSlugRoute
   BlogIndexRoute: typeof BlogIndexRoute
   ConditionsIndexRoute: typeof ConditionsIndexRoute
   DietNutritionIndexRoute: typeof DietNutritionIndexRoute
   FitnessIndexRoute: typeof FitnessIndexRoute
+  InternshipsIndexRoute: typeof InternshipsIndexRoute
   ServicesIndexRoute: typeof ServicesIndexRoute
   BlogCategoryCategoryRoute: typeof BlogCategoryCategoryRoute
 }
@@ -758,6 +875,13 @@ declare module '@tanstack/react-router' {
       path: '/book-appointment'
       fullPath: '/book-appointment'
       preLoaderRoute: typeof BookAppointmentRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/certificates': {
+      id: '/certificates'
+      path: '/certificates'
+      fullPath: '/certificates'
+      preLoaderRoute: typeof CertificatesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/contact': {
@@ -900,6 +1024,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TermsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/verify-certificate': {
+      id: '/verify-certificate'
+      path: '/verify-certificate'
+      fullPath: '/verify-certificate'
+      preLoaderRoute: typeof VerifyCertificateRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/_authenticated/admin': {
       id: '/_authenticated/admin'
       path: '/admin'
@@ -963,6 +1094,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof FitnessSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/internships/': {
+      id: '/internships/'
+      path: '/internships'
+      fullPath: '/internships/'
+      preLoaderRoute: typeof InternshipsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/internships/$slug': {
+      id: '/internships/$slug'
+      path: '/internships/$slug'
+      fullPath: '/internships/$slug'
+      preLoaderRoute: typeof InternshipsSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/services/': {
       id: '/services/'
       path: '/services'
@@ -1005,11 +1150,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminCalculatorsRouteImport
       parentRoute: typeof AuthenticatedAdminRoute
     }
+    '/_authenticated/admin/certificates': {
+      id: '/_authenticated/admin/certificates'
+      path: '/certificates'
+      fullPath: '/admin/certificates'
+      preLoaderRoute: typeof AuthenticatedAdminCertificatesRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
     '/_authenticated/admin/clinicians': {
       id: '/_authenticated/admin/clinicians'
       path: '/clinicians'
       fullPath: '/admin/clinicians'
       preLoaderRoute: typeof AuthenticatedAdminCliniciansRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
+    '/_authenticated/admin/experience-records': {
+      id: '/_authenticated/admin/experience-records'
+      path: '/experience-records'
+      fullPath: '/admin/experience-records'
+      preLoaderRoute: typeof AuthenticatedAdminExperienceRecordsRouteImport
       parentRoute: typeof AuthenticatedAdminRoute
     }
     '/_authenticated/admin/fitness-content': {
@@ -1024,6 +1183,27 @@ declare module '@tanstack/react-router' {
       path: '/home-visits'
       fullPath: '/admin/home-visits'
       preLoaderRoute: typeof AuthenticatedAdminHomeVisitsRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
+    '/_authenticated/admin/internship-applications': {
+      id: '/_authenticated/admin/internship-applications'
+      path: '/internship-applications'
+      fullPath: '/admin/internship-applications'
+      preLoaderRoute: typeof AuthenticatedAdminInternshipApplicationsRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
+    '/_authenticated/admin/internship-participants': {
+      id: '/_authenticated/admin/internship-participants'
+      path: '/internship-participants'
+      fullPath: '/admin/internship-participants'
+      preLoaderRoute: typeof AuthenticatedAdminInternshipParticipantsRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
+    '/_authenticated/admin/internships': {
+      id: '/_authenticated/admin/internships'
+      path: '/internships'
+      fullPath: '/admin/internships'
+      preLoaderRoute: typeof AuthenticatedAdminInternshipsRouteImport
       parentRoute: typeof AuthenticatedAdminRoute
     }
     '/_authenticated/admin/media': {
@@ -1089,9 +1269,14 @@ interface AuthenticatedAdminRouteChildren {
   AuthenticatedAdminAppointmentsRoute: typeof AuthenticatedAdminAppointmentsRoute
   AuthenticatedAdminBlogRoute: typeof AuthenticatedAdminBlogRoute
   AuthenticatedAdminCalculatorsRoute: typeof AuthenticatedAdminCalculatorsRoute
+  AuthenticatedAdminCertificatesRoute: typeof AuthenticatedAdminCertificatesRoute
   AuthenticatedAdminCliniciansRoute: typeof AuthenticatedAdminCliniciansRoute
+  AuthenticatedAdminExperienceRecordsRoute: typeof AuthenticatedAdminExperienceRecordsRoute
   AuthenticatedAdminFitnessContentRoute: typeof AuthenticatedAdminFitnessContentRoute
   AuthenticatedAdminHomeVisitsRoute: typeof AuthenticatedAdminHomeVisitsRoute
+  AuthenticatedAdminInternshipApplicationsRoute: typeof AuthenticatedAdminInternshipApplicationsRoute
+  AuthenticatedAdminInternshipParticipantsRoute: typeof AuthenticatedAdminInternshipParticipantsRoute
+  AuthenticatedAdminInternshipsRoute: typeof AuthenticatedAdminInternshipsRoute
   AuthenticatedAdminMediaRoute: typeof AuthenticatedAdminMediaRoute
   AuthenticatedAdminMessagesRoute: typeof AuthenticatedAdminMessagesRoute
   AuthenticatedAdminPatientsRoute: typeof AuthenticatedAdminPatientsRoute
@@ -1106,9 +1291,17 @@ const AuthenticatedAdminRouteChildren: AuthenticatedAdminRouteChildren = {
   AuthenticatedAdminAppointmentsRoute: AuthenticatedAdminAppointmentsRoute,
   AuthenticatedAdminBlogRoute: AuthenticatedAdminBlogRoute,
   AuthenticatedAdminCalculatorsRoute: AuthenticatedAdminCalculatorsRoute,
+  AuthenticatedAdminCertificatesRoute: AuthenticatedAdminCertificatesRoute,
   AuthenticatedAdminCliniciansRoute: AuthenticatedAdminCliniciansRoute,
+  AuthenticatedAdminExperienceRecordsRoute:
+    AuthenticatedAdminExperienceRecordsRoute,
   AuthenticatedAdminFitnessContentRoute: AuthenticatedAdminFitnessContentRoute,
   AuthenticatedAdminHomeVisitsRoute: AuthenticatedAdminHomeVisitsRoute,
+  AuthenticatedAdminInternshipApplicationsRoute:
+    AuthenticatedAdminInternshipApplicationsRoute,
+  AuthenticatedAdminInternshipParticipantsRoute:
+    AuthenticatedAdminInternshipParticipantsRoute,
+  AuthenticatedAdminInternshipsRoute: AuthenticatedAdminInternshipsRoute,
   AuthenticatedAdminMediaRoute: AuthenticatedAdminMediaRoute,
   AuthenticatedAdminMessagesRoute: AuthenticatedAdminMessagesRoute,
   AuthenticatedAdminPatientsRoute: AuthenticatedAdminPatientsRoute,
@@ -1141,6 +1334,7 @@ const rootRouteChildren: RootRouteChildren = {
   AuthRoute: AuthRoute,
   BestPhysiotherapistInMultanRoute: BestPhysiotherapistInMultanRoute,
   BookAppointmentRoute: BookAppointmentRoute,
+  CertificatesRoute: CertificatesRoute,
   ContactRoute: ContactRoute,
   DrFatimaIqbalDptMultanRoute: DrFatimaIqbalDptMultanRoute,
   DrJalalUdDinPtMultanRoute: DrJalalUdDinPtMultanRoute,
@@ -1161,15 +1355,18 @@ const rootRouteChildren: RootRouteChildren = {
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   SuccessStoriesRoute: SuccessStoriesRoute,
   TermsRoute: TermsRoute,
+  VerifyCertificateRoute: VerifyCertificateRoute,
   BlogSlugRoute: BlogSlugRoute,
   ConditionsSlugRoute: ConditionsSlugRoute,
   DietNutritionSlugRoute: DietNutritionSlugRoute,
   FitnessSlugRoute: FitnessSlugRoute,
+  InternshipsSlugRoute: InternshipsSlugRoute,
   ServicesSlugRoute: ServicesSlugRoute,
   BlogIndexRoute: BlogIndexRoute,
   ConditionsIndexRoute: ConditionsIndexRoute,
   DietNutritionIndexRoute: DietNutritionIndexRoute,
   FitnessIndexRoute: FitnessIndexRoute,
+  InternshipsIndexRoute: InternshipsIndexRoute,
   ServicesIndexRoute: ServicesIndexRoute,
   BlogCategoryCategoryRoute: BlogCategoryCategoryRoute,
 }

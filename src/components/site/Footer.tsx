@@ -101,6 +101,30 @@ export function Footer({ hideClinicDetails = false }: { hideClinicDetails?: bool
             <ul className="mt-4 space-y-2 text-sm">
               <li>
                 <Link
+                  to="/internships"
+                  className="text-white/80 transition-colors hover:text-inverse-accent hover:underline"
+                >
+                  Internship Programs
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/certificates"
+                  className="text-white/80 transition-colors hover:text-inverse-accent hover:underline"
+                >
+                  Certificates
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/verify-certificate"
+                  className="text-white/80 transition-colors hover:text-inverse-accent hover:underline"
+                >
+                  Verify a Certificate
+                </Link>
+              </li>
+              <li>
+                <Link
                   to="/about"
                   className="text-white/80 transition-colors hover:text-inverse-accent hover:underline"
                 >
