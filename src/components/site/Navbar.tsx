@@ -396,6 +396,9 @@ export function Navbar({ onlineClinician }: { onlineClinician?: TeamMember }) {
             >
               Home
             </Link>
+            <a href="/#city-services" className={linkClass}>
+              Locations
+            </a>
             <Link
               to="/about"
               className={navClass("/about")}
@@ -749,6 +752,9 @@ export function Navbar({ onlineClinician }: { onlineClinician?: TeamMember }) {
               >
                 Home
               </Link>
+              <a href="/#city-services" onClick={closeMobile} className={mobileNavClass("/")}>
+                Locations
+              </a>
               <Link
                 to="/about"
                 onClick={closeMobile}
