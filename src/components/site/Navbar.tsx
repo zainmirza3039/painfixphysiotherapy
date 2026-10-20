@@ -371,7 +371,7 @@ export function Navbar({ onlineClinician }: { onlineClinician?: TeamMember }) {
             <span className="grid h-11 w-11 shrink-0 place-items-center overflow-hidden rounded-xl bg-background shadow-soft ring-1 ring-border">
               <img
                 src="/painfix-logo-96.webp"
-                alt=""
+                alt="PainFix Physiotherapy Clinic logo"
                 width={44}
                 height={44}
                 className="h-full w-full object-contain p-0.5"
