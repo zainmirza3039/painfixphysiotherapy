@@ -45,6 +45,7 @@ let fixtures = [
   profile("dr-zain-ul-abideen-pt-multan", {
     name: "Legacy fixture",
     full_name: "Legacy Fixture PT",
+    expertise: ["Fixture clinical practice"],
   }),
   profile("ariba-babar", {
     name: "Ariba Babar",
@@ -54,6 +55,8 @@ let fixtures = [
     phone_display: "+92 312 0102560",
     whatsapp_number: "923120102560",
     years_experience: null,
+    specialties: [],
+    expertise: ["Assessment, rehabilitation planning and patient education"],
     conditions_treated: ["Synthetic online-care condition"],
     experience: ["Supervised hospital internship"],
     training: ["Dry needling training"],
@@ -240,6 +243,8 @@ try {
   const legacy = await get("/dr-zain-ul-abideen-pt-multan");
   assert.equal(legacy.response.status, 200);
   assert.match(legacy.html, /Legacy Fixture PT/);
+  assert.match(legacy.html, /Areas of Expertise/);
+  assert.doesNotMatch(legacy.html, /Clinical Skills|not independent specialist qualifications/);
   assertDefaultSharedBooking(legacy.html);
   assertDefaultSharedBooking(directory.html);
   console.log("PASS: normal legacy route reads the managed API contract");
@@ -272,6 +277,13 @@ try {
   assert.ok(onlineMain);
   assert.match(onlineMain, /Online physiotherapy · Rahim Yar Khan, Pakistan/);
   assert.match(onlineMain, />AB<\/span>/);
+  assert.match(onlineMain, /Clinical Skills/);
+  assert.doesNotMatch(onlineMain, /Areas of Expertise/);
+  assert.match(onlineMain, /Assessment, rehabilitation planning and patient education/);
+  assert.match(
+    onlineMain,
+    /supervised clinical exposure, not independent specialist qualifications/,
+  );
   assert.match(onlineMain, /Clinical Experience/);
   assert.match(onlineMain, /Supervised hospital internship/);
   assert.match(onlineMain, /Dry needling training/);
