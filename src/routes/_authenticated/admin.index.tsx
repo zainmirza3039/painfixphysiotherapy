@@ -51,88 +51,126 @@ function DashboardPage() {
   }
 
   return (
-    <div>
+    <div className="space-y-8">
       <AdminPageHeader
         title="Dashboard"
         description="Overview of patients, appointments and enquiries."
       />
 
-      {isLoading ? (
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {Array.from({ length: 4 }).map((_, i) => (
-            <Skeleton key={i} className="h-28" />
-          ))}
+      <section aria-labelledby="dashboard-snapshot-heading">
+        <div className="mb-3">
+          <h2
+            id="dashboard-snapshot-heading"
+            className="font-heading text-lg font-semibold tracking-tight text-foreground"
+          >
+            At a glance
+          </h2>
+          <p className="mt-0.5 text-sm text-muted-foreground">
+            Current counts from clinic records.
+          </p>
         </div>
-      ) : (
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          <StatCard
-            label="Total Patients"
-            value={data?.patientCount ?? 0}
-            icon={<Users className="h-5 w-5" />}
-            accent="primary"
-          />
-          <StatCard
-            label="Appointments Today"
-            value={todayAppts.length}
-            icon={<CalendarClock className="h-5 w-5" />}
-            accent="secondary"
-            hint={`${data?.appointments.length ?? 0} total`}
-          />
-          <StatCard
-            label="New Home Visits"
-            value={newVisits.length}
-            icon={<Home className="h-5 w-5" />}
-            accent="amber"
-            hint={`${data?.visits.length ?? 0} total`}
-          />
-          <StatCard
-            label="Unread Messages"
-            value={unreadMessages.length}
-            icon={<MessageSquare className="h-5 w-5" />}
-            accent="rose"
-            hint={`${data?.messages.length ?? 0} total`}
-          />
+        {isLoading ? (
+          <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
+            {Array.from({ length: 4 }).map((_, i) => (
+              <Skeleton key={i} className="h-32 rounded-xl" />
+            ))}
+          </div>
+        ) : (
+          <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
+            <StatCard
+              label="Total Patients"
+              value={data?.patientCount ?? 0}
+              icon={<Users aria-hidden="true" className="h-4.5 w-4.5" />}
+              accent="primary"
+            />
+            <StatCard
+              label="Appointments Today"
+              value={todayAppts.length}
+              icon={<CalendarClock aria-hidden="true" className="h-4.5 w-4.5" />}
+              accent="secondary"
+              hint={`${data?.appointments.length ?? 0} total`}
+            />
+            <StatCard
+              label="New Home Visits"
+              value={newVisits.length}
+              icon={<Home aria-hidden="true" className="h-4.5 w-4.5" />}
+              accent="amber"
+              hint={`${data?.visits.length ?? 0} total`}
+            />
+            <StatCard
+              label="Unread Messages"
+              value={unreadMessages.length}
+              icon={<MessageSquare aria-hidden="true" className="h-4.5 w-4.5" />}
+              accent="rose"
+              hint={`${data?.messages.length ?? 0} total`}
+            />
+          </div>
+        )}
+      </section>
+
+      <section aria-labelledby="dashboard-activity-heading" className="space-y-4">
+        <div>
+          <h2
+            id="dashboard-activity-heading"
+            className="font-heading text-lg font-semibold tracking-tight text-foreground"
+          >
+            Recent activity
+          </h2>
+          <p className="mt-0.5 text-sm text-muted-foreground">
+            Latest home visit requests and incoming messages.
+          </p>
         </div>
-      )}
+        <div className="grid gap-4 lg:grid-cols-2">
+          <Panel title="Latest Home Visit Requests" to="/admin/home-visits">
+            {(data?.visits ?? []).slice(0, 5).map((v) => (
+              <li
+                key={v.id}
+                className="flex min-w-0 flex-col gap-1 py-3 text-sm sm:flex-row sm:items-center sm:justify-between sm:gap-3"
+              >
+                <span className="truncate font-medium text-foreground">{v.full_name}</span>
+                <span className="text-xs text-muted-foreground sm:shrink-0">
+                  {fmtDateTime(v.created_at)}
+                </span>
+              </li>
+            ))}
+            {!data?.visits.length && <Empty />}
+          </Panel>
 
-      <div className="mt-8 grid gap-6 lg:grid-cols-2">
-        <Panel title="Latest Home Visit Requests" to="/admin/home-visits">
-          {(data?.visits ?? []).slice(0, 5).map((v) => (
-            <li key={v.id} className="flex items-center justify-between py-2.5 text-sm">
-              <span className="font-medium text-foreground">{v.full_name}</span>
-              <span className="text-muted-foreground">{fmtDateTime(v.created_at)}</span>
-            </li>
-          ))}
-          {!data?.visits.length && <Empty />}
-        </Panel>
-
-        <Panel title="Recent Messages" to="/admin/messages">
-          {(data?.messages ?? []).slice(0, 5).map((m) => (
-            <li key={m.id} className="flex items-center justify-between gap-3 py-2.5 text-sm">
-              <span className="truncate font-medium text-foreground">{m.name}</span>
-              <span className="shrink-0 text-muted-foreground">{fmtDateTime(m.created_at)}</span>
-            </li>
-          ))}
-          {!data?.messages.length && <Empty />}
-        </Panel>
-      </div>
+          <Panel title="Recent Messages" to="/admin/messages">
+            {(data?.messages ?? []).slice(0, 5).map((m) => (
+              <li
+                key={m.id}
+                className="flex min-w-0 flex-col gap-1 py-3 text-sm sm:flex-row sm:items-center sm:justify-between sm:gap-3"
+              >
+                <span className="truncate font-medium text-foreground">{m.name}</span>
+                <span className="text-xs text-muted-foreground sm:shrink-0">
+                  {fmtDateTime(m.created_at)}
+                </span>
+              </li>
+            ))}
+            {!data?.messages.length && <Empty />}
+          </Panel>
+        </div>
+      </section>
     </div>
   );
 }
 
 function Panel({ title, to, children }: { title: string; to: string; children: React.ReactNode }) {
   return (
-    <div className="rounded-2xl border border-border bg-card p-5 shadow-soft">
-      <div className="mb-2 flex items-center justify-between">
-        <h2 className="font-heading text-base font-bold text-foreground">{title}</h2>
+    <div className="min-w-0 rounded-xl border border-border bg-card p-4 shadow-sm sm:p-5">
+      <div className="mb-1 flex items-center justify-between gap-3 border-b border-border pb-3">
+        <h3 className="font-heading text-base font-semibold leading-snug text-foreground">
+          {title}
+        </h3>
         <Link
           to={to}
-          className="inline-flex items-center gap-1 text-sm font-medium text-primary hover:underline"
+          className="inline-flex shrink-0 items-center gap-1 rounded-sm text-xs font-semibold text-primary outline-none hover:underline focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-card sm:text-sm"
         >
-          View all <ArrowRight className="h-3.5 w-3.5" />
+          View all <ArrowRight aria-hidden="true" className="h-3.5 w-3.5" />
         </Link>
       </div>
-      <ul className="divide-y divide-border">{children}</ul>
+      <ul className="divide-y divide-border/80">{children}</ul>
     </div>
   );
 }
