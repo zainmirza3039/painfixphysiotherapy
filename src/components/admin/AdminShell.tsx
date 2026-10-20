@@ -65,7 +65,10 @@ const NAV_SECTIONS = [
     routes: ["/admin/fitness-content", "/admin/blog", "/admin/calculators", "/admin/media"],
   },
   { label: "My workspace", routes: ["/admin/profile"] },
-  { label: "Administration", routes: ["/admin/reports", "/admin/users", "/admin/clinicians", "/admin/settings"] },
+  {
+    label: "Administration",
+    routes: ["/admin/reports", "/admin/users", "/admin/clinicians", "/admin/settings"],
+  },
 ] as const;
 
 function useDarkMode() {
