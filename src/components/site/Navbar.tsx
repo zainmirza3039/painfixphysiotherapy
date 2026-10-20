@@ -26,6 +26,8 @@ import {
 } from "lucide-react";
 import { Link, useNavigate, useRouterState } from "@tanstack/react-router";
 import { SERVICES_MENU, CONDITIONS_MENU, WHATSAPP_CONSULT_URL, CALENDLY_URL } from "./constants";
+import type { TeamMember } from "@/data/team";
+import { clinicianWhatsAppUrl, isOnlineClinician } from "@/lib/clinician-service";
 
 // NOTE: LanguageToggle intentionally not rendered in the public header.
 // The i18n architecture (LanguageProvider, translations, LanguageToggle) is kept
@@ -222,7 +224,27 @@ function ConditionLink({
   );
 }
 
-export function Navbar() {
+export function Navbar({ onlineClinician }: { onlineClinician?: TeamMember }) {
+  const onlineOnly = Boolean(onlineClinician && isOnlineClinician(onlineClinician));
+  const bookingUrl =
+    onlineOnly && onlineClinician ? clinicianWhatsAppUrl(onlineClinician) : WHATSAPP_CONSULT_URL;
+  const bookingLabel = onlineOnly ? "Online Physiotherapy Enquiry" : "WhatsApp Consultation";
+  const featuredServices: FeaturedItem[] = onlineOnly
+    ? bookingUrl
+      ? [
+          {
+            label: "Online Physiotherapy Enquiry",
+            desc: `Contact ${onlineClinician?.name} directly on WhatsApp`,
+            icon: MessageCircle,
+            href: bookingUrl,
+            external: true,
+          },
+        ]
+      : []
+    : FEATURED_SERVICES;
+  const servicesMenu = onlineOnly
+    ? SERVICES_MENU.filter((item) => item.label !== "Home Physiotherapy")
+    : SERVICES_MENU;
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false); // mobile menu
   const [hidden, setHidden] = useState(false);
@@ -425,7 +447,7 @@ export function Navbar() {
                         Core Services
                       </p>
                       <div className="grid grid-cols-1 gap-0.5">
-                        {SERVICES_MENU.map((item) => (
+                        {servicesMenu.map((item) => (
                           <ServiceLink
                             key={item.label}
                             item={item}
@@ -443,7 +465,7 @@ export function Navbar() {
                         Featured
                       </p>
                       <div className="grid grid-cols-1 gap-0.5">
-                        {FEATURED_SERVICES.map((f) => {
+                        {featuredServices.map((f) => {
                           const inner = (
                             <>
                               <span className="grid h-9 w-9 shrink-0 place-items-center rounded-lg bg-background text-primary shadow-soft transition-colors group-hover:bg-primary group-hover:text-primary-foreground">
@@ -555,13 +577,15 @@ export function Navbar() {
               )}
             </div>
 
-            <Link
-              to="/home-visit"
-              className={navClass("/home-visit")}
-              aria-current={isRouteActive("/home-visit") ? "page" : undefined}
-            >
-              Home Visits
-            </Link>
+            {!onlineOnly && (
+              <Link
+                to="/home-visit"
+                className={navClass("/home-visit")}
+                aria-current={isRouteActive("/home-visit") ? "page" : undefined}
+              >
+                Home Visits
+              </Link>
+            )}
             <Link
               to="/our-team"
               className={navClass("/our-team")}
@@ -655,14 +679,16 @@ export function Navbar() {
             )}
 
             {/* Single primary CTA */}
-            <a
-              href={WHATSAPP_CONSULT_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hidden min-h-10 items-center gap-2 rounded-md bg-primary px-3.5 py-2.5 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 sm:inline-flex"
-            >
-              <MessageCircle className="h-4 w-4" /> WhatsApp Consultation
-            </a>
+            {bookingUrl && (
+              <a
+                href={bookingUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hidden min-h-10 items-center gap-2 rounded-md bg-primary px-3.5 py-2.5 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 sm:inline-flex"
+              >
+                <MessageCircle className="h-4 w-4" /> {bookingLabel}
+              </a>
+            )}
 
             <button
               ref={mobileMenuButtonRef}
@@ -761,7 +787,7 @@ export function Navbar() {
                   id="mobile-services-submenu"
                   className="animate-fade-in ml-3 grid gap-0.5 border-l border-border pl-3"
                 >
-                  {SERVICES_MENU.map((item) => (
+                  {servicesMenu.map((item) => (
                     <ServiceLink
                       key={item.label}
                       item={item}
@@ -827,14 +853,16 @@ export function Navbar() {
                 </div>
               )}
 
-              <Link
-                to="/home-visit"
-                onClick={closeMobile}
-                className={mobileNavClass("/home-visit")}
-                aria-current={isRouteActive("/home-visit") ? "page" : undefined}
-              >
-                Home Physiotherapy
-              </Link>
+              {!onlineOnly && (
+                <Link
+                  to="/home-visit"
+                  onClick={closeMobile}
+                  className={mobileNavClass("/home-visit")}
+                  aria-current={isRouteActive("/home-visit") ? "page" : undefined}
+                >
+                  Home Physiotherapy
+                </Link>
+              )}
               <Link
                 to="/our-team"
                 onClick={closeMobile}
@@ -932,23 +960,27 @@ export function Navbar() {
 
           {/* Single primary CTA pinned to the bottom */}
           <div className="grid gap-2 border-t border-border p-4">
-            <Link
-              to="/book-appointment"
-              onClick={closeMobile}
-              className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-primary px-4 py-3.5 text-base font-semibold text-primary-foreground shadow-soft"
-              aria-current={isRouteActive("/book-appointment") ? "page" : undefined}
-            >
-              <CalendarCheck className="h-5 w-5" /> Book an appointment
-            </Link>
-            <a
-              href={WHATSAPP_CONSULT_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={closeMobile}
-              className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-secondary px-4 py-3.5 text-base font-semibold text-secondary-foreground shadow-soft"
-            >
-              <MessageCircle className="h-5 w-5" /> WhatsApp Consultation
-            </a>
+            {!onlineOnly && (
+              <Link
+                to="/book-appointment"
+                onClick={closeMobile}
+                className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-primary px-4 py-3.5 text-base font-semibold text-primary-foreground shadow-soft"
+                aria-current={isRouteActive("/book-appointment") ? "page" : undefined}
+              >
+                <CalendarCheck className="h-5 w-5" /> Book an appointment
+              </Link>
+            )}
+            {bookingUrl && (
+              <a
+                href={bookingUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={closeMobile}
+                className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-secondary px-4 py-3.5 text-base font-semibold text-secondary-foreground shadow-soft"
+              >
+                <MessageCircle className="h-5 w-5" /> {bookingLabel}
+              </a>
+            )}
           </div>
         </aside>
       </div>

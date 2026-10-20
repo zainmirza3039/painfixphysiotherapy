@@ -336,7 +336,14 @@ function CliniciansPage() {
   const profiles = profilesQuery.data ?? [];
   const normalizedSearch = search.trim().toLocaleLowerCase();
   const filteredProfiles = profiles.filter((profile) =>
-    [profile.full_name, profile.name, profile.designation, profile.slug]
+    [
+      profile.full_name,
+      profile.name,
+      profile.designation,
+      profile.slug,
+      profile.city,
+      profile.service_mode === "online_only" ? "online-only online only" : "clinic clinic-based",
+    ]
       .join(" ")
       .toLocaleLowerCase()
       .includes(normalizedSearch),
@@ -467,7 +474,7 @@ function CliniciansPage() {
             value={search}
             onChange={(event) => setSearch(event.target.value)}
             aria-label="Search clinician profiles"
-            placeholder="Search name, role, or URL"
+            placeholder="Search name, role, city, or URL"
             className="pl-9"
           />
         </div>
@@ -579,6 +586,13 @@ function CliniciansPage() {
                             </p>
                             <p className="truncate text-xs text-muted-foreground">
                               {profile.designation}
+                            </p>
+                            <p className="truncate text-xs text-muted-foreground">
+                              {profile.service_mode === "online_only"
+                                ? "Online-only"
+                                : "Clinic-based"}
+                              {" · "}
+                              {profile.city?.trim() || "Multan"}
                             </p>
                           </div>
                         </div>
@@ -754,6 +768,33 @@ function CliniciansPage() {
                     maxLength={240}
                     placeholder="DPT (Doctor of Physical Therapy)"
                   />
+                  <div className="space-y-1.5">
+                    <Label htmlFor="clinician-service-mode">Service mode *</Label>
+                    <select
+                      id="clinician-service-mode"
+                      value={form.service_mode}
+                      onChange={(event) =>
+                        updateForm({
+                          service_mode:
+                            event.target.value === "online_only" ? "online_only" : "clinic",
+                        })
+                      }
+                      required
+                      className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                    >
+                      <option value="clinic">Clinic-based</option>
+                      <option value="online_only">Online-only</option>
+                    </select>
+                  </div>
+                  <TextField
+                    id="clinician-city"
+                    label="City"
+                    required
+                    value={form.city}
+                    onChange={(value) => updateForm({ city: value })}
+                    maxLength={120}
+                    placeholder="Multan"
+                  />
                   <TextField
                     id="clinician-years"
                     label="Years of experience"
@@ -804,6 +845,25 @@ function CliniciansPage() {
                     label="Qualifications"
                     value={form.qualificationsText}
                     onChange={(value) => updateForm({ qualificationsText: value })}
+                  />
+                  <ListField
+                    id="clinician-experience"
+                    label="Experience"
+                    value={form.experienceText}
+                    onChange={(value) => updateForm({ experienceText: value })}
+                  />
+                  <ListField
+                    id="clinician-training"
+                    label="Training"
+                    value={form.trainingText}
+                    onChange={(value) => updateForm({ trainingText: value })}
+                    hint="Include relevant training such as dry needling, one item per line."
+                  />
+                  <ListField
+                    id="clinician-research"
+                    label="Research"
+                    value={form.researchText}
+                    onChange={(value) => updateForm({ researchText: value })}
                   />
                   <ListField
                     id="clinician-expertise"

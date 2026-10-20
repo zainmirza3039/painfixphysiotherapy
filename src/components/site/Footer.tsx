@@ -29,7 +29,7 @@ const socials = [
   { icon: Linkedin, label: "LinkedIn", ...SOCIAL_LINKS.linkedin },
 ];
 
-export function Footer() {
+export function Footer({ hideClinicDetails = false }: { hideClinicDetails?: boolean }) {
   const articles = latestPosts(4);
 
   return (
@@ -55,24 +55,27 @@ export function Footer() {
               </div>
             </div>
             <p className="mt-5 max-w-sm text-sm leading-relaxed text-white/80">
-              Evidence-based physiotherapy and rehabilitation in Multan. Helping you move better,
-              recover faster, and live pain-free.
+              {hideClinicDetails
+                ? "PainFix physiotherapy and rehabilitation. Online consultations are booked directly with your clinician."
+                : "Evidence-based physiotherapy and rehabilitation in Multan. Helping you move better, recover faster, and live pain-free."}
             </p>
 
             {/* Working hours */}
-            <div className="mt-6">
-              <h3 className="flex items-center gap-2 font-heading text-sm font-bold uppercase tracking-wider text-white/95">
-                <Clock className="h-4 w-4 text-inverse-accent" /> Working Hours
-              </h3>
-              <ul className="mt-3 space-y-1.5 text-sm text-white/80">
-                {OPENING_HOURS.map((h) => (
-                  <li key={h.days} className="flex justify-between gap-4">
-                    <span>{h.days}</span>
-                    <span className="font-medium text-white/95">{h.time}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
+            {!hideClinicDetails && (
+              <div className="mt-6">
+                <h3 className="flex items-center gap-2 font-heading text-sm font-bold uppercase tracking-wider text-white/95">
+                  <Clock className="h-4 w-4 text-inverse-accent" /> Working Hours
+                </h3>
+                <ul className="mt-3 space-y-1.5 text-sm text-white/80">
+                  {OPENING_HOURS.map((h) => (
+                    <li key={h.days} className="flex justify-between gap-4">
+                      <span>{h.days}</span>
+                      <span className="font-medium text-white/95">{h.time}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
 
             <div className="mt-6 flex gap-3">
               {socials.map((s) => (
@@ -96,6 +99,30 @@ export function Footer() {
               Explore
             </h3>
             <ul className="mt-4 space-y-2 text-sm">
+              <li>
+                <Link
+                  to="/internships"
+                  className="text-white/80 transition-colors hover:text-inverse-accent hover:underline"
+                >
+                  Internship Programs
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/certificates"
+                  className="text-white/80 transition-colors hover:text-inverse-accent hover:underline"
+                >
+                  Certificates
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/verify-certificate"
+                  className="text-white/80 transition-colors hover:text-inverse-accent hover:underline"
+                >
+                  Verify a Certificate
+                </Link>
+              </li>
               <li>
                 <Link
                   to="/about"
@@ -214,41 +241,45 @@ export function Footer() {
               </li>
             </ul>
 
-            <h3 className="mt-8 font-heading text-sm font-bold uppercase tracking-wider text-white/95">
-              Get in Touch
-            </h3>
-            <ul className="mt-4 space-y-3 text-sm text-white/80">
-              <li>
-                <a
-                  href={MAP_PLACE_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-start gap-2.5 transition-colors hover:text-inverse-accent hover:underline"
-                >
-                  <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-inverse-accent" />
-                  <span>{CLINIC_ADDRESS}</span>
-                </a>
-              </li>
-              <li>
-                <a
-                  href={PHONE_TEL}
-                  className="flex items-center gap-2.5 transition-colors hover:text-inverse-accent hover:underline"
-                >
-                  <Phone className="h-4 w-4 shrink-0 text-inverse-accent" /> {PHONE_DISPLAY}
-                </a>
-              </li>
-            </ul>
-            <div className="mt-4 flex flex-wrap gap-3">
-              <a
-                href={WHATSAPP_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 rounded-full min-h-11 bg-white px-4 py-2 text-sm font-semibold text-brand-navy transition-transform hover:scale-105"
-              >
-                <MessageCircle className="h-4 w-4" /> WhatsApp
-              </a>
-              <GoogleReviewButton variant="inverse" />
-            </div>
+            {!hideClinicDetails && (
+              <>
+                <h3 className="mt-8 font-heading text-sm font-bold uppercase tracking-wider text-white/95">
+                  Get in Touch
+                </h3>
+                <ul className="mt-4 space-y-3 text-sm text-white/80">
+                  <li>
+                    <a
+                      href={MAP_PLACE_URL}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-start gap-2.5 transition-colors hover:text-inverse-accent hover:underline"
+                    >
+                      <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-inverse-accent" />
+                      <span>{CLINIC_ADDRESS}</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href={PHONE_TEL}
+                      className="flex items-center gap-2.5 transition-colors hover:text-inverse-accent hover:underline"
+                    >
+                      <Phone className="h-4 w-4 shrink-0 text-inverse-accent" /> {PHONE_DISPLAY}
+                    </a>
+                  </li>
+                </ul>
+                <div className="mt-4 flex flex-wrap gap-3">
+                  <a
+                    href={WHATSAPP_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 rounded-full min-h-11 bg-white px-4 py-2 text-sm font-semibold text-brand-navy transition-transform hover:scale-105"
+                  >
+                    <MessageCircle className="h-4 w-4" /> WhatsApp
+                  </a>
+                  <GoogleReviewButton variant="inverse" />
+                </div>
+              </>
+            )}
           </div>
         </div>
 
