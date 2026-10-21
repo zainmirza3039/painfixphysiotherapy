@@ -410,6 +410,15 @@ export async function buildSearchIndex(): Promise<SearchItem[]> {
         "internship intern clinical placement physiotherapy training programme DPT students eligibility application objectives requirements",
     },
     {
+      id: "resource-ryk-online-physiotherapy",
+      title: "Online Physiotherapy in Rahim Yar Khan",
+      subtitle: "Online-only video physiotherapy enquiries with Ariba Babar, DPT",
+      category: "Pages",
+      href: "/physiotherapy-in-rahim-yar-khan",
+      keywords:
+        "Rahim Yar Khan RYK online physiotherapy video consultation Ariba Babar DPT remote assessment rehabilitation suitability availability no clinic no home visit",
+    },
+    {
       id: "resource-certificate-verification",
       title: "Certificate Verification",
       subtitle: "Verify an issued PainFix certificate by reference number",

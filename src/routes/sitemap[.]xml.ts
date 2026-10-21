@@ -89,6 +89,11 @@ export const Route = createFileRoute("/sitemap.xml")({
           { path: "/gallery", changefreq: "monthly", priority: "0.6" },
           { path: "/contact", changefreq: "yearly", priority: "0.6" },
           { path: "/book-appointment", changefreq: "monthly", priority: "0.8" },
+          {
+            path: "/physiotherapy-in-rahim-yar-khan",
+            changefreq: "monthly",
+            priority: "0.8",
+          },
           { path: "/fitness-rehabilitation", changefreq: "monthly", priority: "0.8" },
           { path: "/fitness", changefreq: "monthly", priority: "0.8" },
           { path: "/fitness-assessment", changefreq: "monthly", priority: "0.7" },

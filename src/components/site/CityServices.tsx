@@ -102,6 +102,13 @@ export function CityServices() {
                 Meet Ariba Babar DPT
               </a>
             </div>
+            <a
+              href="/physiotherapy-in-rahim-yar-khan"
+              className="mt-4 inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-primary underline decoration-primary/30 underline-offset-4 transition-colors hover:text-secondary"
+            >
+              Learn about online RYK physiotherapy{" "}
+              <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
+            </a>
           </article>
         </div>
       </div>
