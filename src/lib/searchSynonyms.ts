@@ -39,6 +39,8 @@ const SYNONYM_GROUPS: string[][] = [
   ["mobility", "flexibility", "stretching", "range of motion"],
   ["membership", "packages", "plans", "pricing", "subscription"],
   ["appointment", "booking", "book", "consultation", "schedule"],
+  ["internship", "intern", "clinical placement", "student placement", "training programme"],
+  ["verify", "verification", "validate", "validation", "certificate check"],
 ];
 
 /** Lower-case, trim and collapse whitespace. */

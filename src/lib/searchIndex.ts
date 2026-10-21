@@ -191,6 +191,42 @@ export async function buildSearchIndex(): Promise<SearchItem[]> {
     // Search still works from static content if the CMS fetch fails.
   }
 
+  // Published internship programmes — public fields only. Keep a static landing
+  // page entry below as a resilient fallback when the programme service is down.
+  try {
+    const { listInternshipPrograms } = await import("@/lib/internships.functions");
+    const programs = await listInternshipPrograms();
+    for (const program of programs) {
+      items.push({
+        id: `internship-${program.slug}`,
+        title: program.title,
+        subtitle: `${program.discipline} · ${program.duration}`,
+        category: "Programmes",
+        href: `/internships/${program.slug}`,
+        keywords: [
+          "internship intern clinical placement physiotherapy training programme",
+          program.description,
+          program.discipline,
+          program.eligibility,
+          ...program.objectives,
+          ...program.requirements,
+        ].join(" "),
+      });
+      for (const [i, faq] of program.faqs.entries()) {
+        items.push({
+          id: `internship-${program.slug}-faq-${i}`,
+          title: faq.q,
+          subtitle: `${program.title} · FAQ`,
+          category: "FAQs",
+          href: `/internships/${program.slug}`,
+          keywords: faq.a,
+        });
+      }
+    }
+  } catch {
+    // The static internship landing entry remains searchable if the service is unavailable.
+  }
+
   // Blog categories
   for (const c of blogCategories) {
     items.push({
@@ -363,6 +399,24 @@ export async function buildSearchIndex(): Promise<SearchItem[]> {
       category: "Calculators",
       href: "/health-calculators",
       keywords: "health tools calculators bmi calorie water protein ideal weight",
+    },
+    {
+      id: "resource-internships",
+      title: "Internship Programs",
+      subtitle: "Clinical physiotherapy training and application information",
+      category: "Programmes",
+      href: "/internships",
+      keywords:
+        "internship intern clinical placement physiotherapy training programme DPT students eligibility application objectives requirements",
+    },
+    {
+      id: "resource-certificate-verification",
+      title: "Certificate Verification",
+      subtitle: "Verify an issued PainFix certificate by reference number",
+      category: "Resources",
+      href: "/verify-certificate",
+      keywords:
+        "certificate verification verify validation method methods issued certificate reference number authenticity internship certificate check credential",
     },
     {
       id: "resource-gallery",
