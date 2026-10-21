@@ -16,7 +16,7 @@ test("home-visit card and clinic home link derive their names from visible conte
   assert.ok(!card.includes("aria-label={t.actions.requestVisit}"));
   const navbar = source("components/site/Navbar.tsx");
   assert.ok(!navbar.includes('aria-label="PainFix Physiotherapy Clinic home"'));
-  assert.match(navbar, /src="\/painfix-logo-96\.webp"\s+alt=""/);
+  assert.match(navbar, /src="\/painfix-logo-96\.webp"\s+alt="PainFix Physiotherapy Clinic logo"/);
 });
 
 test("Google review accessible name includes its configurable visible label", () => {

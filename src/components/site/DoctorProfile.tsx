@@ -59,11 +59,13 @@ export function DoctorProfile({ doc }: { doc: TeamMember }) {
                 Online-only service · {doc.city || "Pakistan"}
               </p>
               <h2 className="mt-2 font-heading text-2xl font-extrabold text-foreground sm:text-3xl">
-                Online Physiotherapy Consultation
+                Online Video Physiotherapy Consultation
               </h2>
               <p className="mt-2 max-w-3xl text-sm leading-relaxed text-muted-foreground">
-                Consult with {doc.fullName} remotely from {doc.city || "Pakistan"}. Message on
-                WhatsApp to ask about availability and whether online care is suitable for you.
+                Consult with {doc.fullName} through an online video consultation from{" "}
+                {doc.city || "Pakistan"}. If you are looking for an online physiotherapist in{" "}
+                {doc.city || "Pakistan"}, message on WhatsApp to ask about availability and whether
+                remote care is suitable for you.
               </p>
               {whatsappUrl && (
                 <a
@@ -283,7 +285,8 @@ export function DoctorProfile({ doc }: { doc: TeamMember }) {
                   {clinicianServiceLabel(doc)}
                 </p>
                 <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-                  Consultations with {doc.name} are online only. Message her directly on WhatsApp to
+                  Consultations with {doc.name} are online only and are arranged as video
+                  consultations where clinically suitable. Message her directly on WhatsApp to
                   discuss availability and whether remote care is suitable. No physical PainFix
                   clinic or walk-in appointments are offered at this location.
                 </p>
