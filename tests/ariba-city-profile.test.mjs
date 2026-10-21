@@ -10,7 +10,9 @@ async function source(path) {
 
 test("online-only doctor profile has a scannable consultation and evidence sections", async () => {
   const profile = await source("src/components/site/DoctorProfile.tsx");
-  assert.match(profile, /Online Physiotherapy Consultation/);
+  assert.match(profile, /Online Video Physiotherapy Consultation/);
+  assert.match(profile, /online video consultation/);
+  assert.match(profile, /online physiotherapist in/);
   assert.match(
     profile,
     /Start an online physiotherapy consultation with \$\{doc\.name\} on WhatsApp/,
@@ -30,6 +32,12 @@ test("online SEO keeps the root slug canonical and derives city metadata when ne
   assert.match(seo, /canonical\(path\)/);
   assert.match(seo, /Online Physiotherapy in \$\{city\}/);
   assert.match(seo, /based in \$\{city\}/);
+  assert.match(
+    seo,
+    /Online Video Physiotherapy Consultation|online video physiotherapy consultation/i,
+  );
+  assert.match(seo, /makesOffer/);
+  assert.match(seo, /areaServed/);
 });
 
 test("online profile source does not add email or clinic address fields", async () => {

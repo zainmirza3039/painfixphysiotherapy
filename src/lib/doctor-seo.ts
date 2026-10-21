@@ -13,14 +13,18 @@ export function doctorProfileHead(doc: TeamMember) {
   const url = `${SITE_URL}${path}`;
   const onlineOnly = isOnlineClinician(doc);
   const city = doc.city || "Pakistan";
-  const metaTitle =
-    onlineOnly && !doc.profile.metaTitle.includes(city)
-      ? `${doc.fullName} — Online Physiotherapy in ${city} | PainFix`
-      : doc.profile.metaTitle;
-  const metaDescription =
-    onlineOnly && !doc.profile.metaDescription.includes(city)
-      ? `Online physiotherapy consultation enquiries with ${doc.fullName}, based in ${city}.`
-      : doc.profile.metaDescription;
+  const metaTitle = onlineOnly
+    ? doc.slug === "ariba-babar"
+      ? "Ariba Babar DPT | Online Physiotherapist in Rahim Yar Khan"
+      : `${doc.fullName} — Online Physiotherapy in ${city} | PainFix`
+    : doc.profile.metaTitle;
+  const metaDescription = onlineOnly
+    ? doc.slug === "ariba-babar"
+      ? "Book an online video consultation with Ariba Babar, DPT, an online physiotherapist serving Rahim Yar Khan. Ask about availability and suitability via WhatsApp."
+      : doc.profile.metaDescription.includes(city)
+        ? doc.profile.metaDescription
+        : `Online physiotherapy consultation enquiries with ${doc.fullName}, based in ${city}.`
+    : doc.profile.metaDescription;
   // Static imports are root-relative paths; admin-uploaded photos may be absolute URLs.
   const image = doc.photo
     ? /^https?:\/\//.test(doc.photo)
@@ -70,7 +74,17 @@ export function doctorProfileHead(doc: TeamMember) {
           ...(onlineOnly
             ? {
                 homeLocation: { "@type": "Place", name: doc.city || "Pakistan" },
-                description: `Online-only physiotherapy consultations. Based in ${doc.city || "Pakistan"}; no physical clinic at this location.`,
+                areaServed: { "@type": "City", name: doc.city || "Pakistan" },
+                makesOffer: {
+                  "@type": "Offer",
+                  itemOffered: {
+                    "@type": "Service",
+                    name: "Online video physiotherapy consultation",
+                    serviceType: "Online physiotherapy",
+                    areaServed: { "@type": "City", name: doc.city || "Pakistan" },
+                  },
+                },
+                description: `Online-only video physiotherapy consultations. Based in ${doc.city || "Pakistan"}; no physical clinic at this location.`,
               }
             : {
                 areaServed: { "@type": "City", name: "Multan" },
