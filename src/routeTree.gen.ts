@@ -31,6 +31,7 @@ import { Route as MembershipRouteImport } from './routes/membership'
 import { Route as OurTeamRouteImport } from './routes/our-team'
 import { Route as PhysiotherapistInMultanRouteImport } from './routes/physiotherapist-in-multan'
 import { Route as PhysiotherapyClinicInMultanRouteImport } from './routes/physiotherapy-clinic-in-multan'
+import { Route as PhysiotherapyInRahimYarKhanRouteImport } from './routes/physiotherapy-in-rahim-yar-khan'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as SearchRouteImport } from './routes/search'
@@ -181,6 +182,12 @@ const PhysiotherapyClinicInMultanRoute =
   PhysiotherapyClinicInMultanRouteImport.update({
     id: '/physiotherapy-clinic-in-multan',
     path: '/physiotherapy-clinic-in-multan',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const PhysiotherapyInRahimYarKhanRoute =
+  PhysiotherapyInRahimYarKhanRouteImport.update({
+    id: '/physiotherapy-in-rahim-yar-khan',
+    path: '/physiotherapy-in-rahim-yar-khan',
     getParentRoute: () => rootRouteImport,
   } as any)
 const PrivacyRoute = PrivacyRouteImport.update({
@@ -421,6 +428,7 @@ export interface FileRoutesByFullPath {
   '/our-team': typeof OurTeamRoute
   '/physiotherapist-in-multan': typeof PhysiotherapistInMultanRoute
   '/physiotherapy-clinic-in-multan': typeof PhysiotherapyClinicInMultanRoute
+  '/physiotherapy-in-rahim-yar-khan': typeof PhysiotherapyInRahimYarKhanRoute
   '/privacy': typeof PrivacyRoute
   '/reset-password': typeof ResetPasswordRoute
   '/search': typeof SearchRoute
@@ -484,6 +492,7 @@ export interface FileRoutesByTo {
   '/our-team': typeof OurTeamRoute
   '/physiotherapist-in-multan': typeof PhysiotherapistInMultanRoute
   '/physiotherapy-clinic-in-multan': typeof PhysiotherapyClinicInMultanRoute
+  '/physiotherapy-in-rahim-yar-khan': typeof PhysiotherapyInRahimYarKhanRoute
   '/privacy': typeof PrivacyRoute
   '/reset-password': typeof ResetPasswordRoute
   '/search': typeof SearchRoute
@@ -548,6 +557,7 @@ export interface FileRoutesById {
   '/our-team': typeof OurTeamRoute
   '/physiotherapist-in-multan': typeof PhysiotherapistInMultanRoute
   '/physiotherapy-clinic-in-multan': typeof PhysiotherapyClinicInMultanRoute
+  '/physiotherapy-in-rahim-yar-khan': typeof PhysiotherapyInRahimYarKhanRoute
   '/privacy': typeof PrivacyRoute
   '/reset-password': typeof ResetPasswordRoute
   '/search': typeof SearchRoute
@@ -613,6 +623,7 @@ export interface FileRouteTypes {
     | '/our-team'
     | '/physiotherapist-in-multan'
     | '/physiotherapy-clinic-in-multan'
+    | '/physiotherapy-in-rahim-yar-khan'
     | '/privacy'
     | '/reset-password'
     | '/search'
@@ -676,6 +687,7 @@ export interface FileRouteTypes {
     | '/our-team'
     | '/physiotherapist-in-multan'
     | '/physiotherapy-clinic-in-multan'
+    | '/physiotherapy-in-rahim-yar-khan'
     | '/privacy'
     | '/reset-password'
     | '/search'
@@ -739,6 +751,7 @@ export interface FileRouteTypes {
     | '/our-team'
     | '/physiotherapist-in-multan'
     | '/physiotherapy-clinic-in-multan'
+    | '/physiotherapy-in-rahim-yar-khan'
     | '/privacy'
     | '/reset-password'
     | '/search'
@@ -804,6 +817,7 @@ export interface RootRouteChildren {
   OurTeamRoute: typeof OurTeamRoute
   PhysiotherapistInMultanRoute: typeof PhysiotherapistInMultanRoute
   PhysiotherapyClinicInMultanRoute: typeof PhysiotherapyClinicInMultanRoute
+  PhysiotherapyInRahimYarKhanRoute: typeof PhysiotherapyInRahimYarKhanRoute
   PrivacyRoute: typeof PrivacyRoute
   ResetPasswordRoute: typeof ResetPasswordRoute
   SearchRoute: typeof SearchRoute
@@ -980,6 +994,13 @@ declare module '@tanstack/react-router' {
       path: '/physiotherapy-clinic-in-multan'
       fullPath: '/physiotherapy-clinic-in-multan'
       preLoaderRoute: typeof PhysiotherapyClinicInMultanRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/physiotherapy-in-rahim-yar-khan': {
+      id: '/physiotherapy-in-rahim-yar-khan'
+      path: '/physiotherapy-in-rahim-yar-khan'
+      fullPath: '/physiotherapy-in-rahim-yar-khan'
+      preLoaderRoute: typeof PhysiotherapyInRahimYarKhanRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/privacy': {
@@ -1349,6 +1370,7 @@ const rootRouteChildren: RootRouteChildren = {
   OurTeamRoute: OurTeamRoute,
   PhysiotherapistInMultanRoute: PhysiotherapistInMultanRoute,
   PhysiotherapyClinicInMultanRoute: PhysiotherapyClinicInMultanRoute,
+  PhysiotherapyInRahimYarKhanRoute: PhysiotherapyInRahimYarKhanRoute,
   PrivacyRoute: PrivacyRoute,
   ResetPasswordRoute: ResetPasswordRoute,
   SearchRoute: SearchRoute,
