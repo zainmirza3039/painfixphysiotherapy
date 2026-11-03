@@ -21,7 +21,7 @@ import { WhatsAppFab } from "@/components/site/WhatsAppFab";
 
 const TITLE = "PainFix Physiotherapy in Multan & Rahim Yar Khan | Online and In-Person Care";
 const DESCRIPTION =
-  "Evidence-based physiotherapy in Multan, with clinic and home visits, plus online-only physiotherapy for Rahim Yar Khan with Ariba Babar DPT. Book today.";
+  "Evidence-based physiotherapy in Multan, with clinic and home visits, plus online-only physiotherapy for Rahim Yar Khan. Book today.";
 
 export const Route = createFileRoute("/")({
   head: () => ({

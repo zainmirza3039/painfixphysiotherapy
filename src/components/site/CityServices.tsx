@@ -23,8 +23,7 @@ export function CityServices() {
           </h2>
           <p className="mt-4 max-w-2xl text-sm leading-7 text-primary-foreground/75 sm:text-base">
             Choose the right way to start care. Multan patients can visit our clinic or request a
-            home visit; Rahim Yar Khan patients can connect with Ariba Babar DPT for online
-            physiotherapy.
+            home visit; Rahim Yar Khan patients can connect with our physiotherapy team online.
           </p>
         </div>
 
@@ -73,7 +72,7 @@ export function CityServices() {
                   Rahim Yar Khan
                 </p>
                 <h3 className="mt-2 font-heading text-2xl font-bold text-primary">
-                  Online physiotherapy
+                  Online physiotherapy from home
                 </h3>
               </div>
               <span
@@ -84,9 +83,8 @@ export function CityServices() {
               </span>
             </div>
             <p className="mt-3 flex-1 text-sm leading-6 text-muted-foreground">
-              Rahim Yar Khan appointments are online only with Ariba Babar DPT. Get personalised
-              physiotherapy guidance from your own home. No clinic visit or local home visit is
-              offered.
+              For Rahim Yar Khan, get personalised physiotherapy guidance from your own home through
+              an online appointment. No clinic visit or local home visit is offered.
             </p>
             <div className="mt-6 flex flex-col gap-3 min-[420px]:flex-row">
               <a
@@ -99,7 +97,7 @@ export function CityServices() {
                 href="/ariba-babar"
                 className="inline-flex min-h-11 items-center justify-center gap-2 rounded-md border border-primary/20 px-4 py-2.5 text-sm font-semibold text-primary transition-colors hover:border-secondary hover:text-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
               >
-                Meet Ariba Babar DPT
+                Meet the physiotherapist
               </a>
             </div>
             <a

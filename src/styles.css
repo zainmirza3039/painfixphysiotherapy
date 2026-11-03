@@ -393,7 +393,18 @@
 .home-hero {
   position: relative;
   border-bottom: 1px solid var(--border);
-  background: var(--background);
+  overflow: hidden;
+  background:
+    radial-gradient(
+      circle at 82% 22%,
+      color-mix(in oklab, var(--secondary) 9%, transparent),
+      transparent 24rem
+    ),
+    linear-gradient(
+      180deg,
+      color-mix(in oklab, var(--background) 84%, var(--accent)),
+      var(--background)
+    );
 }
 
 .home-hero__accent {
@@ -411,8 +422,11 @@
   position: relative;
   aspect-ratio: 0.9;
   overflow: hidden;
+  border: 1px solid color-mix(in oklab, var(--primary) 16%, var(--border));
   border-left: 6px solid var(--brand-green);
+  border-radius: 0 1.5rem 1.5rem 0;
   background: var(--surface);
+  box-shadow: 1.25rem 1.25rem 0 color-mix(in oklab, var(--secondary) 8%, transparent);
 }
 
 .home-hero__image-frame img {

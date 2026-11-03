@@ -16,8 +16,9 @@ test("city section presents Multan clinic and home visits plus RYK online-only c
   assert.match(source, /Clinic and home physiotherapy/);
   assert.match(source, /Rahim Yar Khan/);
   assert.match(source, /Online physiotherapy/);
-  assert.match(source, /online only/i);
-  assert.match(source, /Ariba Babar DPT/);
+  assert.match(source, /online appointment/i);
+  assert.match(source, /Meet the physiotherapist/);
+  assert.doesNotMatch(source, /Ariba Babar/);
   assert.doesNotMatch(source, /Rahim Yar Khan (clinic|branch)/i);
 });
 
@@ -41,9 +42,9 @@ test("homepage hero and metadata mention both cities", async () => {
     read("src/components/site/Hero.tsx"),
     read("src/routes/index.tsx"),
   ]);
-  assert.match(hero, /Physiotherapy in Multan and Rahim Yar Khan/);
+  assert.match(hero, /Physiotherapy in Multan · Online care for Rahim Yar Khan/);
   assert.match(route, /PainFix Physiotherapy in Multan & Rahim Yar Khan/);
-  assert.match(route, /Ariba Babar DPT/);
+  assert.doesNotMatch(route, /Ariba Babar/);
 });
 
 test("city palette stays on the requested navy and green tokens", async () => {

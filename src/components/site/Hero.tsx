@@ -177,7 +177,7 @@ export function Hero() {
       <div className="mx-auto grid max-w-7xl items-center gap-10 px-4 pb-14 pt-28 sm:px-6 sm:pb-20 sm:pt-32 lg:grid-cols-[1fr_0.92fr] lg:gap-16 lg:px-8 lg:pb-24 lg:pt-36">
         <div className="max-w-2xl">
           <p className="home-eyebrow">
-            <span aria-hidden="true" /> Physiotherapy in Multan and Rahim Yar Khan
+            <span aria-hidden="true" /> Physiotherapy in Multan · Online care for Rahim Yar Khan
           </p>
           <h1
             id="home-heading"
@@ -190,9 +190,8 @@ export function Hero() {
             <span className="home-hero__accent">Live Pain-Free.</span>
           </h1>
           <p className="mt-6 max-w-xl text-base leading-7 text-muted-foreground sm:text-lg sm:leading-8">
-            Choose clinic appointments or home visits in Multan, or online physiotherapy with Ariba
-            Babar, DPT, in Rahim Yar Khan. Thoughtful assessments and recovery plans built around
-            you.
+            Choose a clinic appointment or home visit in Multan, or start online care from Rahim Yar
+            Khan. Thoughtful assessments and recovery plans built around you.
           </p>
 
           <div className="mt-8 grid gap-3 sm:grid-cols-2">
