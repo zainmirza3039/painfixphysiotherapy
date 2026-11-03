@@ -24,7 +24,7 @@ export interface PublicDbPost {
 }
 
 const PUBLIC_COLUMNS =
-  "slug, title, excerpt, content, seo_title, meta_description, featured_image, category, tags, author, publish_at, created_at, updated_at";
+  "slug, title, excerpt, content, seo_title, meta_description, featured_image, category, tags, author, medical_reviewer_key, publish_at, created_at, updated_at";
 
 /**
  * Read-only, anon-scoped Supabase client for public data.
