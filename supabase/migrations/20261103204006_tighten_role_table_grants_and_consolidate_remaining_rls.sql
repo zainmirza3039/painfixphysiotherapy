@@ -15,6 +15,15 @@ grant all privileges on table
   public.professional_experience_records
 to service_role;
 
+create policy "service role only" on public.certificate_events for all to service_role using (true) with check (true);
+create policy "service role only" on public.certificates for all to service_role using (true) with check (true);
+create policy "service role only" on public.clinician_photo_assets for all to service_role using (true) with check (true);
+create policy "service role only" on public.internship_applications for all to service_role using (true) with check (true);
+create policy "service role only" on public.internship_audit_events for all to service_role using (true) with check (true);
+create policy "service role only" on public.internship_participants for all to service_role using (true) with check (true);
+create policy "service role only" on public.internship_public_rate_limits for all to service_role using (true) with check (true);
+create policy "service role only" on public.professional_experience_records for all to service_role using (true) with check (true);
+
 drop policy if exists "staff read appointments" on public.appointments;
 drop policy if exists "staff read patients" on public.patients;
 
