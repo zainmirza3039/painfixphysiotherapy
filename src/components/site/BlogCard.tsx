@@ -55,9 +55,7 @@ export function BlogCard({ post }: { post: BlogPost }) {
             <CalendarClock className="h-3.5 w-3.5" /> Updated{" "}
             {dateFmt.format(new Date(post.updated))}
           </span>
-          {post.authorName && (
-            <span>By {post.authorName}</span>
-          )}
+          {post.authorName && <span>By {post.authorName}</span>}
           {reviewer && (
             <span className="inline-flex items-center gap-1">
               <BadgeCheck className="h-3.5 w-3.5 text-secondary" /> Reviewed by {reviewer.name}
