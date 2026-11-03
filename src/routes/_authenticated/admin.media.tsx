@@ -48,7 +48,12 @@ function MediaPage() {
   const prefix = isAdmin ? "" : (user?.id ?? "");
   const withPrefix = (name: string) => (prefix ? `${prefix}/${name}` : name);
 
-  const { data: files, isLoading, error: filesError, refetch } = useQuery({
+  const {
+    data: files,
+    isLoading,
+    error: filesError,
+    refetch,
+  } = useQuery({
     queryKey: ["admin", "media", prefix],
     enabled: isAdmin || !!user?.id,
     queryFn: async (): Promise<MediaFile[]> => {
@@ -104,9 +109,7 @@ function MediaPage() {
     );
 
     if (invalid) {
-      toast.error(
-        `${invalid.name}: upload a JPG, PNG, WebP, GIF or AVIF image up to 10 MB.`,
-      );
+      toast.error(`${invalid.name}: upload a JPG, PNG, WebP, GIF or AVIF image up to 10 MB.`);
       if (fileInput.current) fileInput.current.value = "";
       return;
     }
