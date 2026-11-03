@@ -1,75 +1,55 @@
 import backPain from "@/assets/conditions/back-pain-symptom.webp";
 import neckPain from "@/assets/conditions/neck-pain-symptom.webp";
 import sciatica from "@/assets/conditions/sciatica-distribution.webp";
-import frozenShoulder from "@/assets/conditions/frozen-shoulder.webp";
-import kneePain from "@/assets/conditions/knee-pain.webp";
-import osteoarthritis from "@/assets/conditions/osteoarthritis.webp";
-import plantarFasciitis from "@/assets/conditions/plantar-fasciitis.webp";
-import sportsInjuries from "@/assets/conditions/sports-injuries.webp";
-import strokeRehabilitation from "@/assets/conditions/stroke-rehabilitation.webp";
-import cervicalRadiculopathy from "@/assets/conditions/cervical-radiculopathy.webp";
-import balanceDisorders from "@/assets/conditions/balance-disorders.webp";
-import postSurgicalRehabilitation from "@/assets/conditions/post-surgical-rehabilitation.webp";
-import { conditionImageCover, conditionImageCoverAlt } from "@/data/conditionImageGallery";
+import { serviceImages } from "@/data/serviceImages";
 
 /**
- * Maps a condition slug to its optimized, lazy-loaded condition image.
+ * Medical diagrams remain local. Treatment photographs use the verified
+ * representative stock-photo set in serviceImages; they are not PainFix cases.
  */
 export const conditionImages: Record<string, string> = {
   "back-pain": backPain,
   "neck-pain": neckPain,
-  sciatica: sciatica,
-  "frozen-shoulder": frozenShoulder,
-  "knee-pain": kneePain,
-  osteoarthritis: osteoarthritis,
-  "plantar-fasciitis": plantarFasciitis,
-  "sports-injuries": sportsInjuries,
-  "stroke-rehabilitation": strokeRehabilitation,
-  "cervical-radiculopathy": cervicalRadiculopathy,
-  "balance-disorders": balanceDisorders,
-  "post-surgical-rehabilitation": postSurgicalRehabilitation,
-  ...conditionImageCover,
+  sciatica,
+  "frozen-shoulder": serviceImages["exercise-therapy"],
+  "knee-pain": serviceImages.electrotherapy,
+  osteoarthritis: serviceImages["home-physiotherapy"],
+  "plantar-fasciitis": serviceImages["post-surgical-rehabilitation"],
+  "sports-injuries": serviceImages["sports-rehabilitation"],
+  "stroke-rehabilitation": serviceImages["stroke-rehabilitation"],
+  "cervical-radiculopathy": serviceImages["manual-therapy"],
+  "balance-disorders": serviceImages["home-physiotherapy"],
+  "post-surgical-rehabilitation": serviceImages["post-surgical-rehabilitation"],
 };
 
-/** Keep the supplied symptom illustrations fully visible instead of cropping them. */
+/** Diagrams are fully visible; photographic treatment images use a cover crop. */
 export const conditionImageFitClass: Record<string, string> = {
   "back-pain": "object-contain",
   "neck-pain": "object-contain",
   sciatica: "object-contain",
-  "frozen-shoulder": "object-contain",
-  "knee-pain": "object-contain",
-  "sports-injuries": "object-contain",
-  "plantar-fasciitis": "object-contain",
+  "frozen-shoulder": "object-cover",
+  "knee-pain": "object-cover",
+  "sports-injuries": "object-cover",
+  "plantar-fasciitis": "object-cover",
 };
 
-/**
- * Descriptive ALT text for each condition image.
- */
+const representative = (description: string) =>
+  `Representative stock photograph: ${description}. Not a PainFix patient or clinic photograph.`;
+
 export const conditionImageAlt: Record<string, string> = {
-  "back-pain": "Image showing pain highlighted around the lower back and lumbar spine.",
-  "neck-pain": "Image showing pain highlighted across the neck and upper shoulders.",
+  "back-pain": "Medical illustration highlighting the lower-back region and lumbar spine.",
+  "neck-pain": "Medical illustration highlighting the neck and upper shoulder region.",
   sciatica: "Medical illustration tracing the sciatic nerve and radiating pain down the leg.",
-  "frozen-shoulder":
-    "Physiotherapist mobilising a patient's shoulder joint during frozen shoulder treatment at PainFix Physiotherapy Clinic in Multan",
-  "knee-pain":
-    "Physiotherapist examining a patient's knee during knee pain rehabilitation at PainFix Physiotherapy Clinic in Multan",
-  osteoarthritis:
-    "Physiotherapist assessing an older patient's knee during osteoarthritis treatment at PainFix Physiotherapy Clinic in Multan",
-  "plantar-fasciitis":
-    "Physiotherapist massaging the sole of a patient's foot during plantar fasciitis treatment at PainFix Physiotherapy Clinic in Multan",
-  "sports-injuries":
-    "Physiotherapist taping an athlete's leg during sports injury rehabilitation at PainFix Physiotherapy Clinic in Multan",
-  "stroke-rehabilitation":
-    "Physiotherapist guiding a patient through hand and arm exercises during stroke rehabilitation at PainFix Physiotherapy Clinic in Multan",
-  "cervical-radiculopathy":
-    "Physiotherapist assessing a patient's neck and upper spine during cervical radiculopathy treatment at PainFix Physiotherapy Clinic in Multan",
-  "balance-disorders":
-    "Physiotherapist supporting an older patient during balance training at PainFix Physiotherapy Clinic in Multan",
-  "post-surgical-rehabilitation":
-    "Physiotherapist assisting a patient with guided post-surgical rehabilitation exercises at PainFix Physiotherapy Clinic in Multan",
-  ...conditionImageCoverAlt,
+  "frozen-shoulder": representative("a patient being guided through therapeutic upper-limb exercise"),
+  "knee-pain": representative("electrotherapy electrodes placed around the knee during rehabilitation"),
+  osteoarthritis: representative("an older adult practising assisted mobility exercise at home"),
+  "plantar-fasciitis": representative("a therapist assisting a patient with lower-limb stretching"),
+  "sports-injuries": representative("a physiotherapist applying kinesiology tape during sports rehabilitation"),
+  "stroke-rehabilitation": representative("therapist-assisted upper-limb rehabilitation"),
+  "cervical-radiculopathy": representative("a physiotherapist performing a hands-on neck treatment"),
+  "balance-disorders": representative("an older adult practising supported mobility exercise at home"),
+  "post-surgical-rehabilitation": representative("a physiotherapist assisting a patient with lower-limb stretching"),
 };
 
-/** Fallback ALT text for any condition without a specific description. */
 export const conditionImageAltFallback = (title: string) =>
-  `Physiotherapy treatment for ${title} at PainFix Physiotherapy Clinic in Multan`;
+  `Representative stock photograph related to ${title}; not a PainFix clinic photograph.`;
