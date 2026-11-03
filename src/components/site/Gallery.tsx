@@ -1,4 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { supabase } from "@/integrations/supabase/client";
 import { X, ChevronLeft, ChevronRight, ZoomIn, ZoomOut } from "lucide-react";
 import photo1 from "@/assets/clinic-photo-1.webp";
 import photo2 from "@/assets/clinic-photo-2.webp";
@@ -22,7 +24,7 @@ type Photo = {
   h: number;
 };
 
-const photos: Photo[] = [
+const fallbackPhotos: Photo[] = [
   {
     src: exteriorImg,
     alt: "Storefront exterior of PainFix Physiotherapy Clinic with signage in Shalimar Colony, Multan",
@@ -84,6 +86,30 @@ const photos: Photo[] = [
 
 export function Gallery() {
   const [active, setActive] = useState<number | null>(null);
+  const { data: managedPhotos = [] } = useQuery({
+    queryKey: ["public", "site-gallery"],
+    queryFn: async (): Promise<Photo[]> => {
+      const { data, error } = await supabase
+        .from("site_gallery")
+        .select("storage_path, caption, alt_text")
+        .eq("is_active", true)
+        .order("display_order", { ascending: true });
+      if (error) throw error;
+      return (data ?? []).map((item, index) => {
+        const { data: asset } = supabase.storage.from("site-media").getPublicUrl(item.storage_path);
+        return {
+          src: asset.publicUrl,
+          alt: item.alt_text,
+          caption: item.caption,
+          span: index === 0 ? "col-span-2 row-span-2" : index === 1 ? "col-span-2 lg:col-span-1 lg:row-span-2" : "col-span-1",
+          w: 1200,
+          h: 900,
+        };
+      });
+    },
+    retry: false,
+  });
+  const photos = managedPhotos.length > 0 ? managedPhotos : fallbackPhotos;
 
   return (
     <section id="gallery" className="bg-surface py-16 sm:py-24">
