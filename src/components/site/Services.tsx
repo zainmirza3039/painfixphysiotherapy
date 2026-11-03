@@ -2,6 +2,7 @@ import { Link } from "@tanstack/react-router";
 import { Activity, ArrowUpRight, Dumbbell, Hand, HeartPulse, Zap } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { serviceMap } from "@/data/services";
+import { serviceImages } from "@/data/serviceImages";
 import { Reveal } from "./Reveal";
 
 type TreatmentService = {
@@ -57,8 +58,17 @@ const cardClassName =
 
 function TreatmentCardContent({ service }: { service: TreatmentService }) {
   const Icon = service.icon;
+  const image = service.slug
+    ? serviceImages[service.slug]
+    : service.title === "Kinesiology Taping"
+      ? serviceImages["sports-rehabilitation"]
+      : serviceImages["exercise-therapy"];
+  const imageAlt = `${service.title} at PainFix Physiotherapy Clinic in Multan`;
   return (
     <>
+      <span className="-mx-4 -mt-4 mb-1 block aspect-[4/3] overflow-hidden rounded-t-md bg-surface sm:-mx-5 sm:-mt-5">
+        <img src={image} alt={imageAlt} width={640} height={480} loading="lazy" decoding="async" className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]" />
+      </span>
       <span className="grid h-10 w-10 place-items-center rounded-xl bg-accent text-secondary">
         <Icon className="h-5 w-5" aria-hidden="true" />
       </span>
