@@ -19,21 +19,26 @@ import { CTA } from "@/components/site/CTA";
 import { Footer } from "@/components/site/Footer";
 import { WhatsAppFab } from "@/components/site/WhatsAppFab";
 
-const TITLE = "PainFix Physiotherapy in Multan & Rahim Yar Khan | Online and In-Person Care";
+const TITLE = "Physiotherapy in Multan | PainFix Clinic & Online RYK Care";
 const DESCRIPTION =
-  "Evidence-based physiotherapy in Multan, with clinic and home visits, plus online-only physiotherapy for Rahim Yar Khan. Book today.";
+  "Physiotherapy in Multan with clinic and home visits, plus online care for Rahim Yar Khan. Choose PainFix for thoughtful, evidence-based care.";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
       { title: TITLE },
       { name: "description", content: DESCRIPTION },
+      { property: "og:type", content: "website" },
+      { property: "og:site_name", content: "PainFix Physiotherapy Clinic" },
       { property: "og:title", content: TITLE },
       { property: "og:description", content: DESCRIPTION },
       { property: "og:url", content: `${SITE_URL}/` },
+      { property: "og:image", content: `${SITE_URL}/painfix-logo.png` },
+      { property: "og:image:alt", content: "PainFix Physiotherapy Clinic logo" },
       { name: "twitter:title", content: TITLE },
       { name: "twitter:description", content: DESCRIPTION },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:image", content: `${SITE_URL}/painfix-logo.png` },
     ],
     links: [{ rel: "canonical", href: `${SITE_URL}/` }],
     scripts: [faqLd(homeFaqs.map((f) => ({ q: f.q, a: f.a })))],
