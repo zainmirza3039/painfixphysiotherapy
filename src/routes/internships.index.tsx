@@ -6,6 +6,7 @@ import { PageCTA } from "@/components/site/PageCTA";
 import { InternshipCard } from "@/components/internships/InternshipCard";
 import { listInternshipPrograms } from "@/lib/internships.functions";
 import { canonical, pageMeta } from "@/lib/seo";
+import { serviceImages } from "@/data/serviceImages";
 
 export const Route = createFileRoute("/internships/")({
   headers: () => ({ "Cache-Control": "no-store, max-age=0" }),
@@ -38,6 +39,8 @@ function InternshipsPage() {
       <PageHero
         eyebrow="PainFix learning opportunities"
         title="Internship programs"
+        image={serviceImages["exercise-therapy"]}
+        imageAlt="Physiotherapist guiding a supervised therapeutic exercise session"
         subtitle="Review the programs currently published by PainFix. Details, eligibility and application status are shown from our program records."
         crumbs={[
           { label: "Home", path: "/" },
