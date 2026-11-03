@@ -53,7 +53,8 @@ export const Route = createFileRoute("/blog/$slug")({
     }
     const post = loaderData;
     const path = `/blog/${params.slug}`;
-    const author = getTeamMember(post.authorKey);
+    const reviewerKey = post.source === "cms" ? post.medicalReviewerKey : post.authorKey;
+    const reviewer = reviewerKey ? getTeamMember(reviewerKey) : undefined;
     return {
       meta: pageMeta({
         title: post.seoTitle,
@@ -80,16 +81,23 @@ export const Route = createFileRoute("/blog/$slug")({
             dateModified: post.updated,
             url: `${SITE_URL}${path}`,
             mainEntityOfPage: `${SITE_URL}${path}`,
-            author: author
-              ? {
-                  "@type": "Person",
-                  name: author.name,
-                  jobTitle: author.role,
-                  description: author.credentials,
-                }
-              : { "@type": "Organization", name: "PainFix Physiotherapy Clinic" },
-            reviewedBy: author
-              ? { "@type": "Person", name: author.name, jobTitle: author.role }
+            author: post.source === "cms"
+              ? post.authorName
+                ? { "@type": "Person", name: post.authorName }
+                : { "@type": "Organization", name: "PainFix Physiotherapy Clinic" }
+              : (() => {
+                  const staticAuthor = getTeamMember(post.authorKey);
+                  return staticAuthor
+                    ? {
+                        "@type": "Person",
+                        name: staticAuthor.name,
+                        jobTitle: staticAuthor.role,
+                        description: staticAuthor.credentials,
+                      }
+                    : { "@type": "Organization", name: "PainFix Physiotherapy Clinic" };
+                })(),
+            reviewedBy: reviewer
+              ? { "@type": "Person", name: reviewer.name, jobTitle: reviewer.role }
               : undefined,
             publisher: {
               "@type": "MedicalClinic",
@@ -280,7 +288,12 @@ function BlogArticle() {
 
           {/* Sidebar */}
           <aside className="space-y-6 lg:sticky lg:top-24 lg:self-start">
-            <AuthorCard authorKey={post.authorKey} updated={post.updated} />
+            <AuthorCard
+              authorKey={post.authorKey}
+              medicalReviewerKey={post.medicalReviewerKey}
+              source={post.source}
+              updated={post.updated}
+            />
 
             {/* Share */}
             <div className="rounded-[1.75rem] border border-border bg-card p-6 shadow-soft">

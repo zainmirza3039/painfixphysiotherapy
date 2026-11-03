@@ -4,18 +4,21 @@ import { ClinicianPortrait } from "./ClinicianPortrait";
 
 /**
  * EEAT "Reviewed by" author card shown on blog articles.
- * Uses medicalReviewer from Supabase, falls back to authorKey, then Dr. Zain.
+ * CMS articles render this card only when an explicit medical reviewer is assigned.
  */
 export function AuthorCard({
   authorKey,
-  medicalReviewer,
+  medicalReviewerKey,
+  source,
   updated,
 }: {
   authorKey: string;
-  medicalReviewer?: string;
+  medicalReviewerKey?: string;
+  source?: "static" | "cms";
   updated?: string;
 }) {
-  const member = getTeamMember(medicalReviewer || authorKey) ?? getTeamMember("ZA");
+  const reviewerKey = source === "cms" ? medicalReviewerKey : authorKey;
+  const member = reviewerKey ? getTeamMember(reviewerKey) : undefined;
 
   if (!member) return null;
 

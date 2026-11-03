@@ -67,6 +67,7 @@ export type Database = {
       blog_posts: {
         Row: {
           author: string | null;
+          medical_reviewer_key: string | null;
           author_id: string | null;
           category: string | null;
           content: string | null;
@@ -86,6 +87,7 @@ export type Database = {
         };
         Insert: {
           author?: string | null;
+          medical_reviewer_key?: string | null;
           author_id?: string | null;
           category?: string | null;
           content?: string | null;
@@ -105,6 +107,7 @@ export type Database = {
         };
         Update: {
           author?: string | null;
+          medical_reviewer_key?: string | null;
           author_id?: string | null;
           category?: string | null;
           content?: string | null;

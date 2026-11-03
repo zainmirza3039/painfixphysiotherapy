@@ -19,6 +19,8 @@ export interface BlogPost {
   date: string; // published (ISO)
   updated: string; // last updated (ISO)
   authorKey: string; // maps to team member initials ("ZA" | "JD")
+  /** Explicit clinician who medically reviewed a CMS article; never inferred from its author. */
+  medicalReviewerKey?: string;
   featured?: boolean;
   popular?: boolean;
   sections: BlogSection[];

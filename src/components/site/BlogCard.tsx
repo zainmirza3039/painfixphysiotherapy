@@ -12,7 +12,8 @@ const dateFmt = new Intl.DateTimeFormat("en-GB", {
 
 export function BlogCard({ post }: { post: BlogPost }) {
   const cat = blogCategoryMap[post.category];
-  const reviewer = getTeamMember(post.authorKey);
+  const reviewerKey = post.source === "cms" ? post.medicalReviewerKey : post.authorKey;
+  const reviewer = reviewerKey ? getTeamMember(reviewerKey) : undefined;
   const image = post.heroImage ?? conditionImages[post.category];
   const imageFitClass = post.heroImage
     ? "object-cover"
@@ -57,6 +58,9 @@ export function BlogCard({ post }: { post: BlogPost }) {
             <CalendarClock className="h-3.5 w-3.5" /> Updated{" "}
             {dateFmt.format(new Date(post.updated))}
           </span>
+          {post.authorName && (
+            <span>By {post.authorName}</span>
+          )}
           {reviewer && (
             <span className="inline-flex items-center gap-1">
               <BadgeCheck className="h-3.5 w-3.5 text-secondary" /> Reviewed by {reviewer.name}
