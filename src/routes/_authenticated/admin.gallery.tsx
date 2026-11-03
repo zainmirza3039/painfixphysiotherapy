@@ -32,7 +32,7 @@ type MediaAsset = {
 };
 
 function GalleryManagerPage() {
-  const qc = useQueryClient();
+  const queryClient = useQueryClient();
 
   const galleryQuery = useQuery({
     queryKey: ["admin", "site-gallery"],
@@ -53,6 +53,7 @@ function GalleryManagerPage() {
         .from("site-media")
         .list("", { limit: 200, sortBy: { column: "created_at", order: "desc" } });
       if (error) throw error;
+
       return (data ?? [])
         .filter((file) => file.id !== null && /\.(jpe?g|png|webp|gif|avif)$/i.test(file.name))
         .map((file) => {
@@ -62,18 +63,25 @@ function GalleryManagerPage() {
     },
   });
 
+  const refreshGallery = async () => {
+    await queryClient.invalidateQueries({ queryKey: ["admin", "site-gallery"] });
+    await queryClient.invalidateQueries({ queryKey: ["public", "site-gallery"] });
+  };
+
   const addMutation = useMutation({
     mutationFn: async (asset: MediaAsset) => {
       const current = galleryQuery.data ?? [];
       if (current.some((item) => item.storage_path === asset.name)) {
         throw new Error("This image is already in the website gallery.");
       }
+
       const caption = asset.name
         .replace(/^.*\//, "")
         .replace(/^[0-9a-f-]{20,}-/i, "")
         .replace(/\.[^.]+$/, "")
         .replace(/[-_]+/g, " ")
         .trim();
+
       const { error } = await supabase.from("site_gallery").insert({
         storage_path: asset.name,
         caption: caption || "PainFix Clinic",
@@ -84,11 +92,12 @@ function GalleryManagerPage() {
       if (error) throw error;
     },
     onSuccess: async () => {
-      await qc.invalidateQueries({ queryKey: ["admin", "site-gallery"] });
-      await qc.invalidateQueries({ queryKey: ["public", "site-gallery"] });
+      await refreshGallery();
       toast.success("Image added to website gallery");
     },
-    onError: (error) => toast.error(error instanceof Error ? error.message : "Unable to add image"),
+    onError: (error) => {
+      toast.error(error instanceof Error ? error.message : "Unable to add image");
+    },
   });
 
   const removeMutation = useMutation({
@@ -97,11 +106,12 @@ function GalleryManagerPage() {
       if (error) throw error;
     },
     onSuccess: async () => {
-      await qc.invalidateQueries({ queryKey: ["admin", "site-gallery"] });
-      await qc.invalidateQueries({ queryKey: ["public", "site-gallery"] });
+      await refreshGallery();
       toast.success("Image removed from gallery. The Media Library file was kept.");
     },
-    onError: (error) => toast.error(error instanceof Error ? error.message : "Unable to remove image"),
+    onError: (error) => {
+      toast.error(error instanceof Error ? error.message : "Unable to remove image");
+    },
   });
 
   const updateMutation = useMutation({
@@ -112,12 +122,10 @@ function GalleryManagerPage() {
         .eq("id", item.id);
       if (error) throw error;
     },
-    onSuccess: async () => {
-      await qc.invalidateQueries({ queryKey: ["admin", "site-gallery"] });
-      await qc.invalidateQueries({ queryKey: ["public", "site-gallery"] });
-      toast.success("Gallery details saved");
+    onSuccess: refreshGallery,
+    onError: (error) => {
+      toast.error(error instanceof Error ? error.message : "Unable to save gallery details");
     },
-    onError: (error) => toast.error(error instanceof Error ? error.message : "Unable to save details"),
   });
 
   const reorderMutation = useMutation({
@@ -127,17 +135,17 @@ function GalleryManagerPage() {
         .update({ display_order: second.display_order })
         .eq("id", first.id);
       if (firstError) throw firstError;
+
       const { error: secondError } = await supabase
         .from("site_gallery")
         .update({ display_order: first.display_order })
         .eq("id", second.id);
       if (secondError) throw secondError;
     },
-    onSuccess: async () => {
-      await qc.invalidateQueries({ queryKey: ["admin", "site-gallery"] });
-      await qc.invalidateQueries({ queryKey: ["public", "site-gallery"] });
+    onSuccess: refreshGallery,
+    onError: (error) => {
+      toast.error(error instanceof Error ? error.message : "Unable to reorder gallery");
     },
-    onError: (error) => toast.error(error instanceof Error ? error.message : "Unable to reorder gallery"),
   });
 
   const items = galleryQuery.data ?? [];
@@ -152,18 +160,26 @@ function GalleryManagerPage() {
 
       <section className="space-y-3">
         <div>
-          <h2 className="font-heading text-lg font-semibold text-foreground">Current website gallery</h2>
+          <h2 className="font-heading text-lg font-semibold text-foreground">
+            Current website gallery
+          </h2>
           <p className="text-sm text-muted-foreground">
-            Removing an image here only removes it from the website gallery. It does not delete the original Media Library file.
+            Removing an image here only removes it from the website gallery. It does not delete the
+            original Media Library file.
           </p>
         </div>
+
         {galleryQuery.isLoading ? (
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {Array.from({ length: 3 }).map((_, index) => <Skeleton key={index} className="h-64" />)}
+            {Array.from({ length: 3 }).map((_, index) => (
+              <Skeleton key={index} className="h-64" />
+            ))}
           </div>
         ) : galleryQuery.error ? (
           <p className="rounded-xl border border-destructive/30 p-4 text-sm text-destructive">
-            {galleryQuery.error instanceof Error ? galleryQuery.error.message : "Unable to load gallery. Apply the site gallery database migration first."}
+            {galleryQuery.error instanceof Error
+              ? galleryQuery.error.message
+              : "Unable to load gallery. Apply the site gallery database migration first."}
           </p>
         ) : items.length === 0 ? (
           <p className="rounded-xl border border-dashed border-border p-8 text-center text-sm text-muted-foreground">
@@ -172,36 +188,85 @@ function GalleryManagerPage() {
         ) : (
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {items.map((item, index) => {
-              const { data: image } = supabase.storage.from("site-media").getPublicUrl(item.storage_path);
+              const { data: image } = supabase.storage
+                .from("site-media")
+                .getPublicUrl(item.storage_path);
+
               return (
-                <article key={item.id} className="overflow-hidden rounded-xl border border-border bg-card">
-                  <img src={image.publicUrl} alt={item.alt_text} className="h-48 w-full object-cover" loading="lazy" />
+                <article
+                  key={item.id}
+                  className="overflow-hidden rounded-xl border border-border bg-card"
+                >
+                  <img
+                    src={image.publicUrl}
+                    alt={item.alt_text}
+                    className="h-48 w-full object-cover"
+                    loading="lazy"
+                  />
                   <div className="space-y-3 p-4">
                     <div className="space-y-1.5">
                       <Label htmlFor={"caption-" + item.id}>Gallery caption</Label>
-                      <Input id={"caption-" + item.id} defaultValue={item.caption} key={item.id + item.caption} onBlur={(event) => {
-                        const caption = event.currentTarget.value.trim();
-                        if (caption && caption !== item.caption) updateMutation.mutate({ ...item, caption });
-                      }} />
+                      <Input
+                        id={"caption-" + item.id}
+                        defaultValue={item.caption}
+                        key={item.id + item.caption}
+                        onBlur={(event) => {
+                          const caption = event.currentTarget.value.trim();
+                          if (caption && caption !== item.caption) {
+                            updateMutation.mutate({ ...item, caption });
+                          }
+                        }}
+                      />
                     </div>
+
                     <div className="space-y-1.5">
                       <Label htmlFor={"alt-" + item.id}>Image description (alt text)</Label>
-                      <Input id={"alt-" + item.id} defaultValue={item.alt_text} key={item.id + item.alt_text} onBlur={(event) => {
-                        const alt_text = event.currentTarget.value.trim();
-                        if (alt_text && alt_text !== item.alt_text) updateMutation.mutate({ ...item, alt_text });
-                      }} />
+                      <Input
+                        id={"alt-" + item.id}
+                        defaultValue={item.alt_text}
+                        key={item.id + item.alt_text}
+                        onBlur={(event) => {
+                          const alt_text = event.currentTarget.value.trim();
+                          if (alt_text && alt_text !== item.alt_text) {
+                            updateMutation.mutate({ ...item, alt_text });
+                          }
+                        }}
+                      />
                     </div>
+
                     <div className="flex items-center justify-between gap-2">
                       <div className="flex gap-1">
-                        <Button size="icon" variant="outline" aria-label="Move image up" disabled={index === 0 || reorderMutation.isPending} onClick={() => reorderMutation.mutate({ first: item, second: items[index - 1]! })}>
+                        <Button
+                          size="icon"
+                          variant="outline"
+                          aria-label="Move image up"
+                          disabled={index === 0 || reorderMutation.isPending}
+                          onClick={() =>
+                            reorderMutation.mutate({ first: item, second: items[index - 1]! })
+                          }
+                        >
                           <ArrowUp className="h-4 w-4" />
                         </Button>
-                        <Button size="icon" variant="outline" aria-label="Move image down" disabled={index === items.length - 1 || reorderMutation.isPending} onClick={() => reorderMutation.mutate({ first: item, second: items[index + 1]! })}>
+                        <Button
+                          size="icon"
+                          variant="outline"
+                          aria-label="Move image down"
+                          disabled={index === items.length - 1 || reorderMutation.isPending}
+                          onClick={() =>
+                            reorderMutation.mutate({ first: item, second: items[index + 1]! })
+                          }
+                        >
                           <ArrowDown className="h-4 w-4" />
                         </Button>
                       </div>
-                      <Button size="sm" variant="destructive" disabled={removeMutation.isPending} onClick={() => removeMutation.mutate(item.id)}>
-                        <Trash2 className="mr-1.5 h-4 w-4" /> Remove
+                      <Button
+                        size="sm"
+                        variant="destructive"
+                        disabled={removeMutation.isPending}
+                        onClick={() => removeMutation.mutate(item.id)}
+                      >
+                        <Trash2 className="mr-1.5 h-4 w-4" />
+                        Remove
                       </Button>
                     </div>
                   </div>
@@ -214,28 +279,60 @@ function GalleryManagerPage() {
 
       <section className="space-y-3">
         <div>
-          <h2 className="font-heading text-lg font-semibold text-foreground">Add from Media Library</h2>
-          <p className="text-sm text-muted-foreground">Upload your real clinic photos in Media Library first, then add them here.</p>
+          <h2 className="font-heading text-lg font-semibold text-foreground">
+            Add from Media Library
+          </h2>
+          <p className="text-sm text-muted-foreground">
+            Upload your real clinic photos in Media Library first, then add them here.
+          </p>
         </div>
+
         {mediaQuery.isLoading ? (
           <div className="grid gap-4 sm:grid-cols-3 lg:grid-cols-4">
-            {Array.from({ length: 4 }).map((_, index) => <Skeleton key={index} className="h-48" />)}
+            {Array.from({ length: 4 }).map((_, index) => (
+              <Skeleton key={index} className="h-48" />
+            ))}
           </div>
         ) : mediaQuery.error ? (
           <p className="rounded-xl border border-destructive/30 p-4 text-sm text-destructive">
-            {mediaQuery.error instanceof Error ? mediaQuery.error.message : "Unable to load Media Library files."}
+            {mediaQuery.error instanceof Error
+              ? mediaQuery.error.message
+              : "Unable to load Media Library files."}
           </p>
         ) : mediaQuery.data?.length ? (
           <div className="grid gap-4 sm:grid-cols-3 lg:grid-cols-4">
             {mediaQuery.data.map((asset) => {
               const selected = selectedPaths.has(asset.name);
+
               return (
-                <article key={asset.name} className="overflow-hidden rounded-xl border border-border bg-card">
-                  <img src={asset.url} alt={asset.name} className="h-36 w-full object-cover" loading="lazy" />
+                <article
+                  key={asset.name}
+                  className="overflow-hidden rounded-xl border border-border bg-card"
+                >
+                  <img
+                    src={asset.url}
+                    alt={asset.name}
+                    className="h-36 w-full object-cover"
+                    loading="lazy"
+                  />
                   <div className="p-3">
-                    <p className="truncate text-xs font-medium text-foreground" title={asset.name}>{asset.name}</p>
-                    <Button className="mt-3 w-full" size="sm" variant={selected ? "secondary" : "default"} disabled={selected || addMutation.isPending} onClick={() => addMutation.mutate(asset)}>
-                      {addMutation.isPending && addMutation.variables?.name === asset.name ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : selected ? <Check className="mr-2 h-4 w-4" /> : <ImagePlus className="mr-2 h-4 w-4" />}
+                    <p className="truncate text-xs font-medium text-foreground" title={asset.name}>
+                      {asset.name}
+                    </p>
+                    <Button
+                      className="mt-3 w-full"
+                      size="sm"
+                      variant={selected ? "secondary" : "default"}
+                      disabled={selected || addMutation.isPending}
+                      onClick={() => addMutation.mutate(asset)}
+                    >
+                      {addMutation.isPending && addMutation.variables?.name === asset.name ? (
+                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                      ) : selected ? (
+                        <Check className="mr-2 h-4 w-4" />
+                      ) : (
+                        <ImagePlus className="mr-2 h-4 w-4" />
+                      )}
                       {selected ? "In gallery" : "Add to gallery"}
                     </Button>
                   </div>
@@ -245,7 +342,8 @@ function GalleryManagerPage() {
           </div>
         ) : (
           <p className="rounded-xl border border-dashed border-border p-8 text-center text-sm text-muted-foreground">
-            No images found in the root of Media Library. Upload clinic images as an administrator to make them available here.
+            No images found in the root of Media Library. Upload clinic images as an administrator
+            to make them available here.
           </p>
         )}
       </section>
