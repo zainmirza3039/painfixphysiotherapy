@@ -26,7 +26,7 @@ export const DEFAULT_SITE_CUSTOMIZATION: SiteCustomization = {
   heroDescription: "Choose a clinic appointment or home visit in Multan, or start online care from Rahim Yar Khan. Thoughtful assessments and recovery plans built around you.",
   primaryCta: "Multan clinic appointment",
   secondaryCta: "Rahim Yar Khan · Online",
-  clinicHours: "Mon–Sat, 11:00 AM–4:00 PM · Sunday by appointment",
+  clinicHours: "Daily, 11:00 AM–4:00 PM",
   footerDescription: "Evidence-based physiotherapy and rehabilitation in Multan. Helping you move better, recover faster, and live pain-free.",
 };
 
@@ -56,10 +56,9 @@ export function useSiteCustomization() {
   const query = useQuery({
     queryKey: ["public-site-customization"],
     queryFn: async () => {
-      const { data, error } = await supabase.from("clinic_settings").select("value").eq("key", "site_customization").maybeSingle();
+      const { data, error } = await supabase.from("site_customization_public").select("config").eq("id", "published").maybeSingle();
       if (error) throw error;
-      const value = data?.value as { published?: Partial<SiteCustomization> } | null;
-      return { ...DEFAULT_SITE_CUSTOMIZATION, ...(value?.published ?? {}) };
+      return { ...DEFAULT_SITE_CUSTOMIZATION, ...((data?.config ?? {}) as Partial<SiteCustomization>) };
     },
     staleTime: 60_000,
   });
