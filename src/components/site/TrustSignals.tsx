@@ -9,11 +9,11 @@ const signals = [
 
 export function TrustSignals() {
   return (
-    <section aria-label="How PainFix approaches care" className="home-trust-strip">
+    <section aria-label="How PainFix approaches care" className="home-trust-strip border-y border-border/70 bg-surface/70">
       <div className="mx-auto grid max-w-7xl grid-cols-2 divide-x divide-y divide-border px-4 sm:px-6 lg:grid-cols-4 lg:divide-y-0 lg:px-8">
         {signals.map(({ icon: Icon, title, note }) => (
-          <div key={title} className="flex items-start gap-3 px-3 py-4 sm:px-5 lg:py-6">
-            <Icon className="mt-0.5 h-5 w-5 shrink-0 text-secondary" aria-hidden="true" />
+          <div key={title} className="flex items-start gap-3 px-3 py-5 transition-colors duration-200 hover:bg-card/70 sm:px-5 lg:py-7">
+            <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-secondary/10"><Icon className="h-5 w-5 text-secondary" aria-hidden="true" /></span>
             <div className="min-w-0">
               <p className="text-sm font-semibold text-foreground">{title}</p>
               <p className="mt-1 text-xs leading-5 text-muted-foreground">{note}</p>
