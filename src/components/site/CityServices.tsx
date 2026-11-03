@@ -1,7 +1,7 @@
 import { ArrowUpRight, Home, MapPin, Video } from "lucide-react";
 
 const cardClassName =
-  "group flex h-full flex-col rounded-2xl border border-border/80 bg-card p-5 shadow-soft transition-all hover:-translate-y-0.5 hover:border-secondary hover:shadow-card focus-within:outline-none focus-within:ring-2 focus-within:ring-primary sm:p-6";
+  "group flex h-full flex-col rounded-3xl border border-border/70 bg-card p-5 shadow-soft transition-[transform,border-color,box-shadow] duration-300 ease-out hover:-translate-y-1 hover:border-secondary/70 hover:shadow-card focus-within:outline-none focus-within:ring-2 focus-within:ring-primary sm:p-7";
 
 export function CityServices() {
   return (
@@ -28,7 +28,7 @@ export function CityServices() {
           </p>
         </div>
 
-        <div className="mt-8 grid gap-4 lg:grid-cols-2">
+        <div className="mt-10 grid items-stretch gap-5 lg:grid-cols-2">
           <article className={`${cardClassName} text-foreground`}>
             <div className="flex items-start justify-between gap-4">
               <div>
@@ -40,7 +40,7 @@ export function CityServices() {
                 </h3>
               </div>
               <span
-                className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-[#00A859]/10 text-[#00A859]"
+                className="grid h-12 w-12 shrink-0 place-items-center rounded-2xl bg-[#00A859]/10 text-[#00A859] transition-transform duration-300 group-hover:scale-105"
                 aria-hidden="true"
               >
                 <MapPin className="h-5 w-5" />
