@@ -78,7 +78,13 @@ const NAV_SECTIONS = [
   },
   {
     label: "Content",
-    routes: ["/admin/fitness-content", "/admin/blog", "/admin/calculators", "/admin/media", "/admin/gallery"],
+    routes: [
+      "/admin/fitness-content",
+      "/admin/blog",
+      "/admin/calculators",
+      "/admin/media",
+      "/admin/gallery",
+    ],
   },
   { label: "My workspace", routes: ["/admin/profile"] },
   {
