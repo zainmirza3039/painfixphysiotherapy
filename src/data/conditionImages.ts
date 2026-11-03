@@ -1,11 +1,16 @@
 import backPain from "@/assets/conditions/back-pain-symptom.webp";
 import neckPain from "@/assets/conditions/neck-pain-symptom.webp";
 import sciatica from "@/assets/conditions/sciatica-distribution.webp";
+import {
+  conditionImageCover,
+  conditionImageCoverAlt,
+} from "@/data/conditionImageGallery";
 import { serviceImages } from "@/data/serviceImages";
 
 /**
- * Medical diagrams remain local. Treatment photographs use the verified
- * representative stock-photo set in serviceImages; they are not PainFix cases.
+ * Anatomy/symptom illustrations remain local and are preferred where supplied.
+ * Other treatment photographs use the representative stock-photo set in
+ * serviceImages; they are not PainFix patient or clinic photographs.
  */
 export const conditionImages: Record<string, string> = {
   "back-pain": backPain,
@@ -20,17 +25,18 @@ export const conditionImages: Record<string, string> = {
   "cervical-radiculopathy": serviceImages["manual-therapy"],
   "balance-disorders": serviceImages["home-physiotherapy"],
   "post-surgical-rehabilitation": serviceImages["post-surgical-rehabilitation"],
+  ...conditionImageCover,
 };
 
-/** Diagrams are fully visible; photographic treatment images use a cover crop. */
+/** Keep diagrams fully visible; photographic treatment images use a cover crop. */
 export const conditionImageFitClass: Record<string, string> = {
   "back-pain": "object-contain",
   "neck-pain": "object-contain",
   sciatica: "object-contain",
-  "frozen-shoulder": "object-cover",
-  "knee-pain": "object-cover",
-  "sports-injuries": "object-cover",
-  "plantar-fasciitis": "object-cover",
+  "frozen-shoulder": "object-contain",
+  "knee-pain": "object-contain",
+  "sports-injuries": "object-contain",
+  "plantar-fasciitis": "object-contain",
 };
 
 const representative = (description: string) =>
@@ -49,6 +55,7 @@ export const conditionImageAlt: Record<string, string> = {
   "cervical-radiculopathy": representative("a physiotherapist performing a hands-on neck treatment"),
   "balance-disorders": representative("an older adult practising supported mobility exercise at home"),
   "post-surgical-rehabilitation": representative("a physiotherapist assisting a patient with lower-limb stretching"),
+  ...conditionImageCoverAlt,
 };
 
 export const conditionImageAltFallback = (title: string) =>
