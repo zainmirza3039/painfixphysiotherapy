@@ -6,6 +6,7 @@ import { PageLayout } from "@/components/site/PageLayout";
 import { PHONE_DISPLAY, PHONE_TEL, WHATSAPP_CONSULT_URL } from "@/components/site/constants";
 import { parseBookingSearch } from "@/lib/city-booking";
 import { breadcrumbLd, canonical, pageMeta } from "@/lib/seo";
+import { serviceImages } from "@/data/serviceImages";
 const TITLE = "Book Physiotherapy | Multan & Rahim Yar Khan Online | PainFix";
 const DESCRIPTION =
   "Request Multan clinic appointments or home visits, or enquire about online physiotherapy with Ariba Babar in Rahim Yar Khan. Availability is confirmed by the team.";
@@ -30,6 +31,8 @@ function BookAppointmentPage() {
       <PageHero
         eyebrow="Find the right care"
         title="Your city. Your way to better movement."
+        image={serviceImages["home-physiotherapy"]}
+        imageAlt="Physiotherapist delivering an individualised physiotherapy session"
         subtitle="Multan clinic appointments and home visits. Online physiotherapy with Ariba Babar, DPT, in Rahim Yar Khan. Start by choosing your city."
         icon={<CalendarCheck className="h-7 w-7" aria-hidden="true" />}
         crumbs={[
