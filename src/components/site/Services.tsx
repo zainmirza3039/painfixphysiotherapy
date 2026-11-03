@@ -54,7 +54,7 @@ const treatmentServices: TreatmentService[] = [
 ];
 
 const cardClassName =
-  "group flex h-full min-h-[20rem] flex-col overflow-hidden rounded-xl border border-border/80 border-t-[3px] border-t-secondary bg-card p-4 shadow-[0_2px_12px_rgba(3,46,97,0.035)] transition-all duration-300 hover:-translate-y-1 hover:border-secondary/70 hover:shadow-[0_14px_34px_rgba(3,46,97,0.11)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary sm:p-5";
+  "group flex h-full flex-col border-b border-border bg-transparent pb-4 text-left transition-colors duration-200 hover:border-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary";
 
 function TreatmentCardContent({ service }: { service: TreatmentService }) {
   const Icon = service.icon;
@@ -66,7 +66,7 @@ function TreatmentCardContent({ service }: { service: TreatmentService }) {
   const imageAlt = `${service.title} at PainFix Physiotherapy Clinic in Multan`;
   return (
     <>
-      <span className="-mx-4 -mt-4 mb-1 block aspect-[4/3] overflow-hidden rounded-t-md bg-surface sm:-mx-5 sm:-mt-5">
+      <span className="mb-1 block aspect-[4/3] overflow-hidden bg-surface">
         <img
           src={image}
           alt={imageAlt}
@@ -74,13 +74,13 @@ function TreatmentCardContent({ service }: { service: TreatmentService }) {
           height={480}
           loading="lazy"
           decoding="async"
-          className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+          className="h-full w-full object-cover"
         />
       </span>
-      <span className="grid h-10 w-10 place-items-center rounded-xl bg-accent text-secondary">
+      <span className="mt-3 inline-flex h-8 w-8 items-center justify-center border border-border text-secondary">
         <Icon className="h-5 w-5" aria-hidden="true" />
       </span>
-      <span className="mt-3 block font-heading text-base font-semibold leading-snug text-foreground">
+      <span className="mt-2 block font-heading text-lg font-semibold leading-snug text-foreground">
         {service.title}
       </span>
       <span className="mt-2 block flex-1 text-xs leading-5 text-muted-foreground sm:text-sm">
