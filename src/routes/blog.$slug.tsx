@@ -14,6 +14,7 @@ import { serviceMap } from "@/data/services";
 import { conditionMap } from "@/data/conditions";
 import { getPublishedBlogPostBySlug } from "@/lib/blog.functions";
 import { dbPostToBlogPost } from "@/lib/dbBlog";
+import { getBlogVisual } from "@/data/blogImages";
 import { PageLayout } from "@/components/site/PageLayout";
 import { PageHero } from "@/components/site/PageHero";
 import { FaqAccordion } from "@/components/site/FaqAccordion";
@@ -142,12 +143,15 @@ function BlogArticle() {
   const services = post.relatedServices.map((s) => serviceMap[s]).filter(Boolean);
   const conditions = post.relatedConditions.map((c) => conditionMap[c]).filter(Boolean);
   const shareUrl = `${SITE_URL}/blog/${post.slug}`;
+  const visual = getBlogVisual(post.category, post.heroImage);
 
   return (
     <PageLayout>
       <PageHero
         eyebrow={cat?.name ?? post.categoryName ?? "Article"}
         title={post.title}
+        image={visual.src}
+        imageAlt={visual.alt}
         crumbs={[
           { label: "Home", path: "/" },
           { label: "Blog", path: "/blog" },
