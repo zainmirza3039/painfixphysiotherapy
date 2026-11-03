@@ -30,7 +30,7 @@ const PRESENTATION_PARTS = [
     title: "Clinical Understanding & Assessment",
     description:
       "A structured overview of chronic non-specific low back pain, clinical reasoning, red-flag screening, history taking, physical examination, imaging considerations and patient communication.",
-    filename: "chronic-low-back-pain-part-1-assessment.pdf",
+    filename: "chronic-low-back-pain-part-1-assessment.pdf.pdf",
     topics: ["Clinical assessment", "Red flags", "Biopsychosocial approach"],
   },
   {
@@ -38,7 +38,7 @@ const PRESENTATION_PARTS = [
     title: "Treatment & Rehabilitation",
     description:
       "An overview of evidence-informed management, including manual therapy as an adjunct, exercise prescription, graded activity, education, self-management and outcome-based reassessment.",
-    filename: "chronic-low-back-pain-part-2-rehabilitation.pdf",
+    filename: "chronic-low-back-pain-part-2-rehabilitation.pdf.pdf",
     topics: ["Treatment planning", "Exercise rehabilitation", "Reassessment"],
   },
 ];
