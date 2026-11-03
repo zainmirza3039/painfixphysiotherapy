@@ -42,9 +42,9 @@ export function WhyChooseUs() {
               recovery and know what the next step is.
             </p>
           </div>
-          <ol className="home-principles rounded-3xl border border-white/10 bg-white/[0.04] p-4 sm:p-6">
+          <ol className="home-principles">
             {principles.map(({ number, icon: Icon, title, description }, index) => (
-              <Reveal key={number} anim="up" delay={index * 70} as="li" className="home-principle rounded-2xl px-2 py-3 transition-colors duration-200 hover:bg-white/[0.04] sm:px-3">
+              <Reveal key={number} anim="up" delay={index * 70} as="li" className="home-principle">
                 <span className="home-principle__number">{number}</span>
                 <span className="home-principle__icon">
                   <Icon className="h-5 w-5" aria-hidden="true" />
