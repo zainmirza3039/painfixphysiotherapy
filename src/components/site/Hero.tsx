@@ -223,7 +223,7 @@ export function Hero() {
             </span>
             <span className="inline-flex items-center gap-2">
               <Clock3 className="h-4 w-4 shrink-0 text-secondary" aria-hidden="true" />
-              Mon–Sat, 11:00 AM–4:00 PM
+              Monday–Saturday: 11:00 AM–4:00 PM
             </span>
           </div>
           <p className="mt-2 hidden pl-6 text-xs text-muted-foreground sm:block">
