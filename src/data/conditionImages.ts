@@ -50,15 +50,17 @@ export const conditionImageAlt: Record<string, string> = {
     "electrotherapy electrodes placed around the knee during rehabilitation",
   ),
   osteoarthritis: representative("an older adult practising assisted mobility exercise at home"),
-  "plantar-fasciitis": representative(
-    "a therapist assisting a patient with lower-limb stretching",
-  ),
+  "plantar-fasciitis": representative("a therapist assisting a patient with lower-limb stretching"),
   "sports-injuries": representative(
     "a physiotherapist applying kinesiology tape during sports rehabilitation",
   ),
   "stroke-rehabilitation": representative("therapist-assisted upper-limb rehabilitation"),
-  "cervical-radiculopathy": representative("a physiotherapist performing a hands-on neck treatment"),
-  "balance-disorders": representative("an older adult practising supported mobility exercise at home"),
+  "cervical-radiculopathy": representative(
+    "a physiotherapist performing a hands-on neck treatment",
+  ),
+  "balance-disorders": representative(
+    "an older adult practising supported mobility exercise at home",
+  ),
   "post-surgical-rehabilitation": representative(
     "a physiotherapist assisting a patient with lower-limb stretching",
   ),
