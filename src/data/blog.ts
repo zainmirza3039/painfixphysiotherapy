@@ -3030,6 +3030,407 @@ export const blogPosts: BlogPost[] = [
       "balance-disorders",
     ],
   },
+  {
+    slug: "kamar-dard-kab-serious-hota-hai",
+    title: "Kamar Dard Kab Serious Hota Hai? Causes, Red Flags and Next Steps",
+    seoTitle: "Kamar Dard Ki Wajahen & Red Flags | PainFix",
+    metaDescription:
+      "Kamar dard ki wajahen samjhein, ghar par kya note karein, aur red flags jaaniye jo doctor ya urgent medical assessment mangte hain.",
+    category: "back-pain",
+    tags: ["kamar dard", "red flags", "back pain causes", "self-triage", "Roman Urdu"],
+    excerpt:
+      "Har kamar dard slipped disc nahi hota. Yeh English aur Roman Urdu guide symptoms ko samajhne, red flags pehchanne aur sahi next step choose karne mein madad karti hai.",
+    quickAnswer:
+      "Kamar dard muscle strain, joint irritation, nerve symptoms, work load, or another medical problem se related ho sakta hai. New bladder or bowel changes, saddle numbness, progressive leg weakness, major trauma, fever with severe pain, or unexplained weight loss need urgent medical assessment. Symptoms alone cannot confirm a diagnosis.",
+    date: "2026-11-03",
+    updated: "2026-11-03",
+    authorKey: "ZA",
+    medicalReviewerKey: "JD",
+    sections: [
+      {
+        paragraphs: [
+          "Kamar dard ki wajahen bohat mukhtalif ho sakti hain. Kabhi dard achanak weight uthane, zyada activity, ya ek awkward movement ke baad hota hai. Kabhi prolonged sitting, poor sleep, stress, weak muscles, joint irritation, ya nerve-related symptoms role play karte hain. Is liye har dard ko slipped disc kehna sahi nahi.",
+          "Is article ka maqsad khud diagnosis karna nahi. Maqsad yeh hai ke aap location, timing, triggers aur saath aane wali symptoms note kar saken, phir decide karen ke kuch din gentle care aur monitoring theek hai ya physiotherapist/doctor se appointment zaroori hai.",
+        ],
+      },
+      {
+        heading: "Aam kamar dard: muscle strain ya mechanical pain",
+        paragraphs: [
+          "Aam low back pain mein stiffness, local ache, movement ke saath discomfort, ya lifting ke baad khinchao ho sakta hai. Mechanical pain ka matlab yeh nahi ke problem sirf posture hai. Body load, sleep, stress, activity level aur previous episodes sab symptoms ko influence kar sakte hain.",
+          "Agar symptoms mild hain aur gradually behtar ho rahe hain, comfortable walking, normal daily movement, heat if helpful, aur heavy lifting ko temporarily reduce karna useful ho sakta hai. Bed rest ko default solution na banayein; zyada inactivity se stiffness aur weakness barh sakti hai.",
+        ],
+      },
+      {
+        heading: "Kamar dard ki khatarnak alamat: red flags",
+        paragraphs: [
+          "Foran urgent medical help lein agar kamar dard ke saath naya bladder ya bowel control problem, urine pass na kar pana, groin/saddle area mein numbness, ya rapidly worsening leg weakness ho. Yeh routine physiotherapy booking ke liye wait karne wali symptoms nahi hain.",
+          "Prompt medical review bhi zaroori hai agar pain major trauma ke baad ho, fever ya acute illness ke saath ho, unexplained weight loss ho, cancer history ho, osteoporosis ya long-term steroid use ho, ya pain raat ko consistently jagaye aur improve na ho.",
+        ],
+      },
+      {
+        heading: "Apni symptoms ka short record banayein",
+        paragraphs: [
+          "Appointment se pehle note karein: dard kab shuru hua, kahan rehta hai, leg tak jata hai ya nahi, kis movement se barhta/ghatta hai, sleep aur work par kya asar hai, aur numbness ya weakness hai ya nahi. Apni medicines, recent injury aur previous back episodes bhi batayein.",
+          "Agar symptoms persistent, recurrent, worsening, ya daily life ko limit kar rahe hain to qualified physiotherapist ya doctor se assessment lein. Assessment ka maqsad sirf pain score dekhna nahi, balkay movement, function aur safe recovery plan samajhna hota hai.",
+        ],
+      },
+    ],
+    faqs: [
+      {
+        q: "Kamar dard ki sab se aam wajah kya hoti hai?",
+        a: "Aksar low back pain non-specific hota hai aur muscles, joints, load, activity, sleep aur stress ke mix se related ho sakta hai. Symptoms se exact cause confirm nahi hota.",
+      },
+      {
+        q: "Kya har kamar dard slipped disc hota hai?",
+        a: "Nahi. Slipped disc sirf ek possibility hai, aur disc changes kabhi symptoms ke baghair bhi ho sakte hain. Diagnosis ke liye clinical assessment zaroori hoti hai.",
+      },
+      {
+        q: "Kamar dard kab doctor ko dikhana chahiye?",
+        a: "Worsening, persistent, recurrent, function-limiting pain, leg weakness, numbness, fever, major trauma, cancer history, ya bladder/bowel changes mein medical assessment zaroori hai.",
+      },
+      {
+        q: "Kamar dard ki emergency alamat kaun si hain?",
+        a: "New bladder/bowel control changes, urine pass na kar pana, saddle numbness, rapidly progressive leg weakness, ya major trauma ke baad severe symptoms emergency assessment mangte hain.",
+      },
+    ],
+    keyTakeaways: [
+      "Har kamar dard slipped disc nahi hota; symptoms overlap kar sakti hain.",
+      "Location, timing, triggers, leg symptoms aur function ka record assessment ko useful banata hai.",
+      "Bladder/bowel changes, saddle numbness aur progressive weakness urgent red flags hain.",
+      "Persistent ya recurrent pain ke liye diagnosis guess karne ke bajaye assessment karwayein.",
+    ],
+    relatedServices: ["exercise-therapy", "manual-therapy"],
+    relatedConditions: ["back-pain", "sciatica"],
+  },
+  {
+    slug: "safe-kamar-dard-exercises",
+    title: "Safe Lower-Back Exercises: Kamar Dard Mein Kya Karein?",
+    seoTitle: "Safe Lower-Back Exercises: Kamar Dard Guide",
+    metaDescription:
+      "Kamar dard ki safe exercises ke basic rules, gentle movement steps, stop signals aur physiotherapy advice kab leni hai — English + Roman Urdu.",
+    category: "exercise-therapy",
+    tags: [
+      "kamar dard ki exercise",
+      "lower back exercises",
+      "safe movement",
+      "Roman Urdu",
+      "rehabilitation",
+    ],
+    excerpt:
+      "Kamar dard mein har exercise har person ke liye safe nahi hoti. Yeh guide gentle movement, stop signals aur safe progression par focus karti hai.",
+    quickAnswer:
+      "Gentle walking and small-range movement may suit some people with uncomplicated low back pain, but exercise choice depends on symptoms, health history, pregnancy, recent injury and neurological signs. Stop if pain sharply worsens, spreads further down the leg, or numbness or weakness increases. Red flags need medical assessment, not an online exercise routine.",
+    date: "2026-11-03",
+    updated: "2026-11-03",
+    authorKey: "JD",
+    medicalReviewerKey: "JD",
+    sections: [
+      {
+        paragraphs: [
+          "Kamar dard ki exercise ka goal pain ko forcefully stretch karna nahi. Goal hai body ko comfortable movement dena, confidence rebuild karna, aur gradually strength/tolerance improve karna. Jo exercise ek person ko suit karti hai woh doosray ke liye symptoms barha sakti hai.",
+          "Agar recent major injury, pregnancy, surgery, known neurological condition, severe leg symptoms, ya red flags hain to pehle qualified clinician se mashwara karein. Neechay diye gaye ideas general education hain, personalised prescription nahi.",
+        ],
+      },
+      {
+        heading: "Pehle safety check: kin symptoms mein exercise rok dein",
+        paragraphs: [
+          "New bladder/bowel control changes, saddle numbness, rapidly progressive leg weakness, inability to walk safely, major trauma, fever with severe pain, ya feeling acutely unwell ho to exercise routine start na karein. Urgent medical help lein.",
+          "Routine assessment bhi arrange karein agar pain persistent, worsening, recurrent, ya work/sleep ko significantly affect kar raha ho. Pair mein numbness, tingling ya weakness ho to exercise ko test karne ke bajaye assessment better next step hai.",
+        ],
+      },
+      {
+        heading: "Gentle movement se start karein",
+        paragraphs: [
+          "Slow walking ek practical starting option ho sakti hai, agar walking symptoms ko clearly worse na kare. Chhoti duration se start karein, normal breathing rakhein, aur activity ko din mein manageable blocks mein divide karein. Long bed rest se stiffness aur deconditioning barh sakti hai.",
+          "Pelvic tilts ya cat-cow jaisi small-range mobility sirf comfortable range mein karein. Movement smooth ho, breath hold na karein, aur end range ko force na karein. Mild effort aur sharp/electric pain ek jaisi cheezen nahi.",
+        ],
+      },
+      {
+        heading: "Exercise ke dauran dard barhe to kya karein?",
+        paragraphs: [
+          "Agar dard halka aur short-lived ho to range, repetitions ya speed reduce karke response observe kiya ja sakta hai. Lekin sharp pain, leg mein symptoms ka neeche spread hona, increasing numbness/tingling, ya weakness exercise rokne aur professional advice lene ka signal hai.",
+          "Universal repetitions ya fixed recovery timeline har person ke liye safe nahi hoti. Progress tab karein jab current level comfortable ho aur daily function stable rahe. Physiotherapist aap ke symptoms aur goals ke mutabiq plan modify kar sakta hai.",
+        ],
+      },
+      {
+        heading: "Common mistakes se bachein",
+        paragraphs: [
+          "Kamar dard mein log aksar zor se stretching, breath holding, pain ko ignore karna, ya ek hi din mein bohat zyada exercise karna start kar dete hain. Better approach gradual exposure hai: comfortable movement, regular breaks, aur symptoms ka response note karna.",
+          "Exercise ko slipped disc, sciatica ya chronic pain ka guaranteed cure na samjhein. Agar aap unsure hain ke kaunsi movement safe hai, assessment lein instead of random online routines follow karne ke.",
+        ],
+      },
+    ],
+    faqs: [
+      {
+        q: "Kya kamar dard mein exercise karna safe hai?",
+        a: "Kuch logon ke liye gentle movement helpful ho sakti hai, lekin safety symptoms, cause, health history aur recent injury par depend karti hai. Red flags mein pehle medical assessment zaroori hai.",
+      },
+      {
+        q: "Kamar dard ki exercise se dard barhe to kya karna chahiye?",
+        a: "Range ya intensity reduce karein aur sharp, spreading, numbness ya weakness wali symptoms mein exercise rok kar qualified clinician se advice lein.",
+      },
+      {
+        q: "Kya walk karna kamar dard ke liye behtar hai?",
+        a: "Comfortable walking kuch people ke liye useful starting activity ho sakti hai, magar agar walking pain ya neurological symptoms ko clearly worse kare to assessment lein.",
+      },
+      {
+        q: "Kamar dard ke liye physiotherapist se kab milna chahiye?",
+        a: "Persistent, recurrent, worsening ya function-limiting pain, leg symptoms, uncertainty about exercises, recent injury, ya slow progress mein assessment consider karein.",
+      },
+    ],
+    keyTakeaways: [
+      "Exercise ka maqsad gentle movement aur gradual capacity build karna hai, pain ko force karna nahi.",
+      "Sharp spreading pain, increasing numbness ya weakness stop signals hain.",
+      "Red flags mein online routine ke bajaye urgent medical assessment zaroori hai.",
+      "A personalised plan random universal exercise list se safer hota hai.",
+    ],
+    relatedServices: ["exercise-therapy", "manual-therapy"],
+    relatedConditions: ["back-pain", "sciatica"],
+  },
+  {
+    slug: "kamar-dard-vs-sciatica-slipped-disc-nishaniyan",
+    title: "Low Back Pain vs Sciatica and Slipped Disc: Kya Farq Hai?",
+    seoTitle: "Low Back Pain vs Sciatica: Key Differences Explained",
+    metaDescription:
+      "Low back pain, sciatica aur slipped disc ki symptoms ka farq samjhein. English + Roman Urdu guide with red flags and safe next steps.",
+    category: "sciatica",
+    tags: ["low back pain vs sciatica", "slipped disc", "nas dabna", "nerve pain", "Roman Urdu"],
+    excerpt:
+      "Kamar dard, sciatica aur slipped disc ek hi cheez nahi. Location, leg symptoms, numbness aur weakness ko samajhne ke liye yeh simple comparison guide parhein.",
+    quickAnswer:
+      "Low back pain may stay around the lower back, while sciatica describes nerve-related pain that travels from the back or buttock into the leg. A slipped disc is a possible structural cause, not a symptom label, and may cause no symptoms. A clinical assessment is needed to interpret the pattern safely.",
+    date: "2026-11-03",
+    updated: "2026-11-03",
+    authorKey: "JD",
+    medicalReviewerKey: "JD",
+    sections: [
+      {
+        paragraphs: [
+          "Kamar dard, sciatica aur slipped disc ko log aksar interchangeably use karte hain, lekin in terms ka matlab different hai. Low back pain ek symptom/experience hai. Sciatica nerve-related leg pain ka pattern hai. Slipped disc ek possible spinal finding ya cause ho sakta hai, lekin har disc change pain nahi deta.",
+          "Is comparison ko diagnosis tool na banayein. Symptoms overlap kar sakti hain, aur examination ke baghair exact cause confirm nahi hota. Is guide ka purpose yeh samajhna hai ke kab routine assessment aur kab urgent medical help zaroori hai.",
+        ],
+      },
+      {
+        heading: "Low back pain: dard aksar kahan rehta hai?",
+        paragraphs: [
+          "Low back pain mein discomfort lower back ke aas paas, ek side, ya central area mein reh sakta hai. Stiffness, movement-related ache, ya lifting ke baad khinchao ho sakta hai. Dard buttock mein refer bhi ho sakta hai bina true nerve pain ke.",
+          "Location akelay diagnosis nahi karti. Pain intensity bhi cause confirm nahi karti. History, movement, strength, sensation aur function ko mila kar clinician next step decide karta hai.",
+        ],
+      },
+      {
+        heading: "Sciatica: kamar se tang tak nerve pain",
+        paragraphs: [
+          "Sciatica mein pain buttock se tang ke pichlay hissay ya neeche ki taraf travel kar sakta hai. Burning, electric shock, pins and needles, numbness ya weakness bhi ho sakti hai. Roman Urdu mein log isay nas dabna keh sakte hain.",
+          "Har leg pain sciatica nahi hota, aur sciatica ka matlab hamesha slipped disc nahi. Symptoms barh rahe hon, walking affect ho, ya weakness ho to assessment delay na karein.",
+        ],
+      },
+      {
+        heading: "Slipped disc: possibility, automatic diagnosis nahi",
+        paragraphs: [
+          "Slipped disc, disc herniation ya disc bulge spinal disc ki shape/position se related terms hain. Kuch disc changes symptoms ke baghair bhi hotay hain. Is liye online symptom list ya MRI report ko context ke baghair read karke khud final diagnosis na banayein.",
+          "Imaging har low back pain episode mein automatically zaroori nahi. Doctor ya qualified clinician history, examination aur red flags dekh kar decide karta hai ke imaging ya referral ki need hai.",
+        ],
+      },
+      {
+        heading: "Emergency red flags",
+        paragraphs: [
+          "New bladder or bowel control changes, urine pass na kar pana, saddle/groin numbness, rapidly progressive weakness, severe difficulty walking, or major trauma ke baad symptoms mein immediate hospital/urgent medical assessment chahiye.",
+          "Fever ke saath severe back pain, feeling acutely unwell, unexplained weight loss, cancer history, or significant infection risk mein bhi prompt medical review zaroori hai. Routine exercise ya massage ke liye wait na karein.",
+        ],
+      },
+    ],
+    faqs: [
+      {
+        q: "Kya har kamar se tang mein jane wala dard sciatica hota hai?",
+        a: "Nahi. Leg pain ki different causes ho sakti hain. Nerve-related pattern possible hai, lekin symptoms aur examination ko mila kar interpretation hoti hai.",
+      },
+      {
+        q: "Kya sciatica ka matlab hamesha slipped disc hota hai?",
+        a: "Nahi. Slipped disc ek possible cause hai, lekin sciatica other nerve or spinal factors se bhi related ho sakti hai.",
+      },
+      {
+        q: "Kamar dard ke saath tang mein kamzori ho to kya karein?",
+        a: "New, worsening ya significant weakness mein prompt medical assessment lein. Progressive weakness ya walking difficulty urgent concern ho sakti hai.",
+      },
+      {
+        q: "Kya MRI ke baghair slipped disc ka pata chal sakta hai?",
+        a: "Clinical assessment se symptoms aur neurological signs evaluate kiye ja sakte hain. Imaging ka decision clinician red flags aur examination ke basis par karta hai.",
+      },
+    ],
+    keyTakeaways: [
+      "Low back pain, sciatica aur slipped disc related but different terms hain.",
+      "Leg pain, numbness aur weakness nerve involvement ka signal ho sakte hain, diagnosis ka proof nahi.",
+      "Slipped disc ka label symptoms ya MRI ko context ke baghair dekh kar apply na karein.",
+      "Bladder/bowel changes, saddle numbness aur progressive weakness emergency red flags hain.",
+    ],
+    relatedServices: ["exercise-therapy", "manual-therapy"],
+    relatedConditions: ["back-pain", "sciatica"],
+  },
+  {
+    slug: "low-back-pain-physio-clinic-multan-options",
+    title: "Low Back Pain Treatment in Multan: Choosing a Physiotherapy Clinic",
+    seoTitle: "Low Back Pain Treatment in Multan | PainFix",
+    metaDescription:
+      "Multan mein kamar dard ke liye physiotherapy options, first assessment, treatment planning aur urgent medical red flags ko samjhein.",
+    category: "back-pain",
+    tags: [
+      "low back pain treatment Multan",
+      "kamar dard ka ilaj",
+      "physiotherapy clinic",
+      "Multan",
+      "Roman Urdu",
+    ],
+    excerpt:
+      "Multan mein kamar dard ke liye physiotherapy clinic choose karte waqt assessment, communication, treatment plan aur safety ko compare karein.",
+    quickAnswer:
+      "A good low back pain physiotherapy appointment in Multan should start with a history and movement assessment, explain likely contributors without overpromising, and set functional goals. Treatment may include education, progressive exercise, manual techniques or work advice when suitable. Urgent red flags should be assessed medically rather than sent to routine physiotherapy.",
+    date: "2026-11-03",
+    updated: "2026-11-03",
+    authorKey: "ZA",
+    medicalReviewerKey: "JD",
+    sections: [
+      {
+        paragraphs: [
+          "Multan mein kamar dard ke liye physiotherapy choose karte waqt sirf best treatment ya guaranteed cure ke claims par rely na karein. Achi care ka pehla step proper assessment hota hai: symptoms ki history, movement, strength, function, work demands aur aap ke goals ko samajhna.",
+          "Roman Urdu mein simple baat: pehlay yeh samjha jata hai ke dard aap ki daily life ko kaise affect kar raha hai, phir aap ke liye safe aur realistic plan banaya jata hai. Har person ke liye ek hi exercise ya same session plan suitable nahi hota.",
+        ],
+      },
+      {
+        heading: "Kis physiotherapy clinic ko choose karein?",
+        paragraphs: [
+          "Clinic aap ko assessment findings samjhaye, questions ka jawab de, consent aur comfort ka khayal rakhe, aur progress ko review kare. Treatment ka naam se zyada important yeh hai ke plan aap ke symptoms, function aur goals se linked ho.",
+          "Aap pooch sakte hain: assessment mein kya hoga? Mera goal kaise measure hoga? Ghar par kya karna hoga? Agar symptoms worse hon to kis se contact karna hai? Kya mujhe doctor ya imaging referral ki zaroorat ho sakti hai?",
+        ],
+      },
+      {
+        heading: "First appointment mein kya expect karein?",
+        paragraphs: [
+          "First visit mein physiotherapist symptoms ka onset, location, triggers, leg symptoms, sleep, work, previous injuries aur health history discuss kar sakta hai. Movement aur function ko observe karke safe starting plan set kiya ja sakta hai.",
+          "Treatment mein education, graded exercise, manual techniques, movement practice, work advice ya home programme shamil ho sakta hai. Treatment choice assessment par depend karti hai; koi single technique har patient ke liye best nahi hoti.",
+        ],
+      },
+      {
+        heading: "Kab routine physiotherapy ke bajaye doctor ko dikhana chahiye?",
+        paragraphs: [
+          "New bladder/bowel control changes, saddle numbness, progressive leg weakness, inability to walk safely, major trauma, fever with severe pain, unexplained weight loss, cancer history, or rapidly worsening neurological symptoms mein urgent medical assessment lein.",
+          "Routine appointment bhi delay na karein agar pain persistent, recurrent, worsening, work/sleep ko limit kar raha ho, ya aap exercises ki safety ke bare mein unsure hon. Imaging har case mein required nahi hoti; decision clinician karta hai.",
+        ],
+      },
+      {
+        heading: "PainFix Multan mein assessment ke liye tayyari",
+        paragraphs: [
+          "Appointment se pehle apni symptoms ka short record banayein: start date, dard ki location, leg symptoms, aggravating activities, sleep/work impact, previous treatment, medicines aur recent injury. Is se consultation focused reh sakti hai.",
+          "PainFix Physiotherapy Clinic Shalimar Colony, Multan mein clinic appointments aur selected home-visit care provide karta hai. Booking se pehle apni symptoms aur service needs share karein taake appropriate next step discuss ho sake.",
+        ],
+      },
+    ],
+    faqs: [
+      {
+        q: "Is physiotherapy a suitable first option for low back pain in Multan?",
+        a: "Many people may benefit from physiotherapy assessment and rehabilitation, but suitability depends on symptoms, health history, neurological signs and red flags. Some cases need medical referral first.",
+      },
+      {
+        q: "What happens at the first low back pain appointment?",
+        a: "The physiotherapist usually discusses history and goals, checks movement and function, explains likely contributors, and agrees a safe starting plan or referral if needed.",
+      },
+      {
+        q: "Will I need an MRI before physiotherapy?",
+        a: "Not automatically. A doctor or qualified clinician decides about imaging based on history, examination and red flags.",
+      },
+      {
+        q: "How many sessions will I need?",
+        a: "There is no safe universal number. Session needs depend on symptoms, function, progress, home practice and whether referral or shared care is appropriate.",
+      },
+    ],
+    keyTakeaways: [
+      "Clinic choose karte waqt assessment, communication, safety aur progress review dekhein.",
+      "First appointment ka goal sirf massage nahi, balkay symptoms aur function ko samajhna hai.",
+      "Fixed session count ya guaranteed cure professional claim nahi samjha jana chahiye.",
+      "Red flags mein routine booking ke bajaye urgent medical assessment zaroori hai.",
+    ],
+    relatedServices: ["exercise-therapy", "manual-therapy", "home-physiotherapy"],
+    relatedConditions: ["back-pain", "sciatica", "osteoarthritis"],
+  },
+  {
+    slug: "office-back-pain-movement-breaks-multan",
+    title:
+      "Office and Work-Related Low Back Pain: Movement Breaks and Prevention | Office mein kamar dard",
+    seoTitle: "Office Back Pain: Movement Breaks | PainFix Multan",
+    metaDescription:
+      "Office mein kamar dard ke liye movement breaks, workday habits aur safe red-flag guidance. Multan workers ke liye English + Roman Urdu guide.",
+    category: "posture",
+    tags: ["office back pain", "movement breaks", "work-related pain", "desk work", "Roman Urdu"],
+    excerpt:
+      "Office mein kamar dard sirf posture ka masla nahi. Workday movement, task variety, workload aur gradual activity ko practical tareeqay se manage karein.",
+    quickAnswer:
+      "Office-related low back pain is often influenced by long static postures, limited movement variety, workload, stress, sleep and individual health factors rather than one bad posture. Short comfortable movement breaks, alternating tasks, a workable desk setup and gradual activity may help. Persistent or neurological symptoms need clinical assessment.",
+    date: "2026-11-03",
+    updated: "2026-11-03",
+    authorKey: "JD",
+    medicalReviewerKey: "JD",
+    sections: [
+      {
+        paragraphs: [
+          "Office mein kamar dard ko sirf kursi ya posture ka result kehna oversimplification hai. Long sitting, same position, low movement, workload, stress, poor sleep, commute aur previous injury mil kar symptoms ko influence kar sakte hain. Har person ko perfectly straight baithna zaroori nahi; position change karna zyada practical target hai.",
+          "Yeh guide desk setup ke complete replacement nahi. Is ka focus workday ke andar movement variety, short breaks, pacing aur safe next steps par hai — yani kaam ke duran kamar ki hifazat ko realistic banana.",
+        ],
+      },
+      {
+        heading: "Workday movement-break plan",
+        paragraphs: [
+          "Screen task ke darmiyan short position changes add karein: phone call par kharay hona, pani lene chalna, meeting ke baad thori walking, ya ek task ko standing position mein karna agar comfortable ho. Break ko punishment ya rigid prescription na banayein; goal prolonged static posture ko todna hai.",
+          "Agar aap har movement ko perfect banane ki koshish karenge to routine sustainable nahi rahega. Chhoti, repeatable changes choose karein jo aap ke workload aur workplace mein realistically possible hon.",
+        ],
+      },
+      {
+        heading: "Sitting, standing aur walking ko alternate karein",
+        paragraphs: [
+          "Ek hi posture mein rehna zaroori nahi. Chair, standing, short walking aur gentle mobility ko alternate karna body ko different loads deta hai. Standing desk bhi automatic solution nahi; standing ko bhi movement aur comfortable setup ke saath use karein.",
+          "Agar commute ya home-based work mein sitting bohat zyada hai to din ke start ya end mein short walk aur manageable strengthening add ki ja sakti hai, provided symptoms clearly worse na hon. Intensity ko gradual rakhein.",
+        ],
+      },
+      {
+        heading: "Kamar dard ke saath kaam kab modify karein?",
+        paragraphs: [
+          "Work task, sitting duration ya commute se dard barhta ho to temporary modification discuss karein: task rotation, micro-breaks, alternate input method, ya heavy lifting reduce karna. Pain ko ignore karke continuously push karna aur completely inactive rehna dono extremes ho sakte hain.",
+          "Leg pain, tingling, numbness, weakness, walking change, persistent night pain, fever, major trauma, ya symptoms ka worsening clinical assessment mangta hai. Bladder/bowel changes ya saddle numbness mein urgent help lein.",
+        ],
+      },
+      {
+        heading: "Office ergonomics se aagay: whole-day habits",
+        paragraphs: [
+          "Monitor height aur chair setup useful hain, lekin low back pain ko sirf workstation se explain na karein. Sleep, recovery, physical activity, workload, stress aur health history ko bhi consider karein. Aap ka aim perfect posture nahi, varied movement aur manageable load hona chahiye.",
+          "Agar symptoms recurring hain ya work ko limit kar rahe hain to physiotherapist se assessment lein. Individual plan mein exercise, work advice, movement confidence aur safe progression shamil ho sakti hai.",
+        ],
+      },
+    ],
+    faqs: [
+      {
+        q: "Office mein kamar dard ke liye movement break kitni baar lena chahiye?",
+        a: "Koi universal fixed number sab ke liye zaroori nahi. Practical goal yeh hai ke long static posture ko regular, comfortable position changes aur short movement se break kiya jaye.",
+      },
+      {
+        q: "Kya standing desk office-related pain ko rok sakta hai?",
+        a: "Standing desk kuch logon ke liye position variety de sakta hai, lekin standing alone guarantee nahi. Comfortable setup, movement aur gradual tolerance zyada important hain.",
+      },
+      {
+        q: "Kya poor posture hi kamar dard ki wajah hoti hai?",
+        a: "Poor posture ko single definite cause kehna sahi nahi. Workload, prolonged static positions, sleep, stress, activity aur individual factors bhi role play kar sakte hain.",
+      },
+      {
+        q: "Kamar dard ke saath kaam kab rok kar doctor se rabta karna chahiye?",
+        a: "Progressive weakness, major trauma, fever with severe pain, bladder/bowel changes, saddle numbness, or severe worsening symptoms mein urgent medical care lein.",
+      },
+    ],
+    keyTakeaways: [
+      "Office mein kamar dard sirf posture nahi; whole-day load aur movement variety bhi matter karti hai.",
+      "Short, repeatable position changes rigid perfect-posture rules se zyada practical hoti hain.",
+      "Standing desk automatic cure nahi; sitting, standing aur walking ko comfortable tareeqay se alternate karein.",
+      "Persistent, neurological ya red-flag symptoms mein assessment zaroori hai.",
+    ],
+    relatedServices: ["exercise-therapy", "manual-therapy"],
+    relatedConditions: ["back-pain", "sciatica", "neck-pain"],
+  },
 ];
 
 export const blogMap = Object.fromEntries(blogPosts.map((p) => [p.slug, p]));
