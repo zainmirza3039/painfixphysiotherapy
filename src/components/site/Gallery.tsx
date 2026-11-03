@@ -96,9 +96,7 @@ export function Gallery() {
         .order("display_order", { ascending: true });
       if (error) throw error;
       return (data ?? []).map((item, index) => {
-        const { data: asset } = supabase.storage
-          .from("site-media")
-          .getPublicUrl(item.storage_path);
+        const { data: asset } = supabase.storage.from("site-media").getPublicUrl(item.storage_path);
         return {
           src: asset.publicUrl,
           alt: item.alt_text,
