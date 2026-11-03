@@ -1,10 +1,7 @@
 import backPain from "@/assets/conditions/back-pain-symptom.webp";
 import neckPain from "@/assets/conditions/neck-pain-symptom.webp";
 import sciatica from "@/assets/conditions/sciatica-distribution.webp";
-import {
-  conditionImageCover,
-  conditionImageCoverAlt,
-} from "@/data/conditionImageGallery";
+import { conditionImageCover, conditionImageCoverAlt } from "@/data/conditionImageGallery";
 import { serviceImages } from "@/data/serviceImages";
 
 /**
@@ -46,15 +43,25 @@ export const conditionImageAlt: Record<string, string> = {
   "back-pain": "Medical illustration highlighting the lower-back region and lumbar spine.",
   "neck-pain": "Medical illustration highlighting the neck and upper shoulder region.",
   sciatica: "Medical illustration tracing the sciatic nerve and radiating pain down the leg.",
-  "frozen-shoulder": representative("a patient being guided through therapeutic upper-limb exercise"),
-  "knee-pain": representative("electrotherapy electrodes placed around the knee during rehabilitation"),
+  "frozen-shoulder": representative(
+    "a patient being guided through therapeutic upper-limb exercise",
+  ),
+  "knee-pain": representative(
+    "electrotherapy electrodes placed around the knee during rehabilitation",
+  ),
   osteoarthritis: representative("an older adult practising assisted mobility exercise at home"),
-  "plantar-fasciitis": representative("a therapist assisting a patient with lower-limb stretching"),
-  "sports-injuries": representative("a physiotherapist applying kinesiology tape during sports rehabilitation"),
+  "plantar-fasciitis": representative(
+    "a therapist assisting a patient with lower-limb stretching",
+  ),
+  "sports-injuries": representative(
+    "a physiotherapist applying kinesiology tape during sports rehabilitation",
+  ),
   "stroke-rehabilitation": representative("therapist-assisted upper-limb rehabilitation"),
   "cervical-radiculopathy": representative("a physiotherapist performing a hands-on neck treatment"),
   "balance-disorders": representative("an older adult practising supported mobility exercise at home"),
-  "post-surgical-rehabilitation": representative("a physiotherapist assisting a patient with lower-limb stretching"),
+  "post-surgical-rehabilitation": representative(
+    "a physiotherapist assisting a patient with lower-limb stretching",
+  ),
   ...conditionImageCoverAlt,
 };
 
