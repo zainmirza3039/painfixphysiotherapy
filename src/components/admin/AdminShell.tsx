@@ -286,61 +286,90 @@ export function AdminShell({ children }: { children: ReactNode }) {
   );
 
   return (
-    <div className="flex min-h-screen bg-surface">
-      {/* Desktop sidebar */}
-      <aside
-        aria-label="Admin sidebar"
-        className="hidden w-64 shrink-0 border-r border-border bg-card lg:block"
-      >
-        <div className="sticky top-0 h-screen">{SidebarInner}</div>
-      </aside>
-
-      <div className="flex min-w-0 flex-1 flex-col">
-        <header className="sticky top-0 z-30 flex min-h-16 items-center justify-between gap-3 border-b border-border bg-card/90 px-4 py-3 backdrop-blur-md sm:px-6">
+    <div className="min-h-screen bg-surface">
+      <header className="sticky top-0 z-40 border-b border-border bg-card/95 shadow-sm backdrop-blur">
+        <div className="mx-auto flex min-h-[68px] max-w-[1600px] items-center justify-between gap-4 px-4 sm:px-6 xl:px-8">
           <div className="flex min-w-0 items-center gap-3">
+            <span className="relative grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-primary text-primary-foreground">
+              <Activity className="h-5 w-5" />
+              <span aria-hidden="true" className="absolute -bottom-0.5 -right-0.5 h-3 w-3 rounded-full border-2 border-card bg-secondary" />
+            </span>
+            <div className="min-w-0">
+              <p className="truncate font-heading text-base font-semibold tracking-tight text-foreground">PainFix Admin</p>
+              <p className="mt-0.5 text-[10px] font-semibold uppercase tracking-[0.14em] text-muted-foreground">{panelLabel} workspace</p>
+            </div>
+          </div>
+
+          <div className="flex shrink-0 items-center gap-2">
+            <span className="hidden max-w-[220px] truncate text-sm text-muted-foreground xl:inline">{user?.email}</span>
+            <span aria-hidden="true" className="hidden h-6 w-px bg-border xl:block" />
+            <Button variant="ghost" size="icon" onClick={toggle} aria-label="Toggle theme">
+              {dark ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
+            </Button>
+            <Button variant="outline" size="sm" onClick={signOut} className="hidden sm:inline-flex">
+              <LogOut className="mr-2 h-4 w-4" /> Sign out
+            </Button>
             <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
               <SheetTrigger asChild>
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  className="shrink-0 lg:hidden"
-                  aria-label="Open admin navigation"
-                >
+                <Button variant="ghost" size="icon" className="lg:hidden" aria-label="Open admin navigation">
                   <Menu className="h-5 w-5" />
                 </Button>
               </SheetTrigger>
-              <SheetContent side="left" className="w-72 p-0">
+              <SheetContent side="right" className="w-80 p-0">
                 <SheetTitle className="sr-only">Admin navigation</SheetTitle>
                 {SidebarInner}
               </SheetContent>
             </Sheet>
-            <div className="min-w-0">
-              <p className="truncate text-sm font-semibold text-foreground">
-                {activePage?.label ?? "Admin panel"}
-              </p>
-              <p className="hidden text-xs text-muted-foreground sm:block">
-                PainFix Clinic Workspace
-              </p>
-            </div>
           </div>
-          <div className="flex shrink-0 items-center gap-2 sm:gap-3">
-            <span className="hidden max-w-[220px] truncate text-sm text-muted-foreground md:inline">
-              {user?.email}
-            </span>
-            <span aria-hidden="true" className="hidden h-6 w-px bg-border sm:block" />
-            <span className="hidden rounded-full border border-border px-2.5 py-1 text-xs font-medium text-muted-foreground sm:inline-flex">
-              {panelLabel}
-            </span>
-            <Button variant="ghost" size="icon" onClick={toggle} aria-label="Toggle theme">
-              {dark ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
-            </Button>
-          </div>
-        </header>
+        </div>
 
-        <main className="flex-1 px-4 py-5 sm:px-6 sm:py-7 xl:px-8">
-          <div className="mx-auto max-w-7xl">{children}</div>
-        </main>
-      </div>
+        <nav aria-label="Admin navigation" className="hidden border-t border-border/70 lg:block">
+          <div className="mx-auto flex max-w-[1600px] flex-wrap items-center gap-x-5 gap-y-2 px-4 py-2.5 sm:px-6 xl:px-8">
+            {navigation.map((section) => (
+              <div key={section.label} className="flex min-w-0 items-center gap-1.5">
+                <span className="mr-1 whitespace-nowrap text-[9px] font-bold uppercase tracking-[0.12em] text-muted-foreground/70">
+                  {section.label}
+                </span>
+                {section.items.map((item) => {
+                  const active = item.to === "/admin" ? pathname === item.to : pathname.startsWith(item.to);
+                  return (
+                    <Link
+                      key={item.to}
+                      to={item.to}
+                      aria-current={active ? "page" : undefined}
+                      className={cn(
+                        "inline-flex min-h-9 items-center gap-1.5 whitespace-nowrap rounded-lg px-2.5 text-xs font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
+                        active
+                          ? "bg-primary/10 font-semibold text-primary"
+                          : "text-foreground/70 hover:bg-muted hover:text-foreground",
+                      )}
+                    >
+                      <item.icon className={cn("h-3.5 w-3.5 shrink-0", active ? "text-secondary" : "text-muted-foreground")} aria-hidden="true" />
+                      {item.label}
+                    </Link>
+                  );
+                })}
+              </div>
+            ))}
+            <a href="/" target="_blank" rel="noreferrer" className="ml-auto inline-flex min-h-9 items-center gap-1.5 whitespace-nowrap rounded-lg px-2.5 text-xs font-medium text-muted-foreground hover:bg-muted hover:text-foreground">
+              <ExternalLink className="h-3.5 w-3.5" /> Website
+            </a>
+          </div>
+        </nav>
+      </header>
+
+      <main className="mx-auto w-full max-w-[1600px] px-4 py-5 sm:px-6 sm:py-7 xl:px-8">
+        {activePage && (
+          <div className="mb-5 flex items-center justify-between border-b border-border/70 pb-4">
+            <div>
+              <p className="text-xs font-medium text-muted-foreground">PainFix Clinic Workspace</p>
+              <h1 className="mt-1 font-heading text-xl font-semibold tracking-tight text-foreground">{activePage.label}</h1>
+            </div>
+            <span className="hidden rounded-full border border-border bg-card px-3 py-1 text-xs font-medium text-muted-foreground sm:inline-flex">{panelLabel}</span>
+          </div>
+        )}
+        <div className="min-w-0">{children}</div>
+      </main>
     </div>
   );
 }
