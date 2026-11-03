@@ -96,12 +96,19 @@ export function Gallery() {
         .order("display_order", { ascending: true });
       if (error) throw error;
       return (data ?? []).map((item, index) => {
-        const { data: asset } = supabase.storage.from("site-media").getPublicUrl(item.storage_path);
+        const { data: asset } = supabase.storage
+          .from("site-media")
+          .getPublicUrl(item.storage_path);
         return {
           src: asset.publicUrl,
           alt: item.alt_text,
           caption: item.caption,
-          span: index === 0 ? "col-span-2 row-span-2" : index === 1 ? "col-span-2 lg:col-span-1 lg:row-span-2" : "col-span-1",
+          span:
+            index === 0
+              ? "col-span-2 row-span-2"
+              : index === 1
+                ? "col-span-2 lg:col-span-1 lg:row-span-2"
+                : "col-span-1",
           w: 1200,
           h: 900,
         };
