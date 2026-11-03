@@ -4,6 +4,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { Plus, Search, Pencil, Trash2, Loader2, Newspaper, Eye } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
+import { team } from "@/data/team";
 import type { Database } from "@/integrations/supabase/types";
 import { AdminPageHeader } from "@/components/admin/AdminPageHeader";
 import { ContentOnly } from "@/components/admin/ContentOnly";
@@ -66,6 +67,7 @@ const empty = {
   category: "",
   tags: "",
   author: "",
+  medical_reviewer_key: "",
   featured_image: "",
   seo_title: "",
   meta_description: "",
@@ -119,6 +121,7 @@ function BlogPage() {
           .map((t) => t.trim())
           .filter(Boolean),
         author: form.author.trim() || null,
+        medical_reviewer_key: form.medical_reviewer_key || null,
         featured_image: form.featured_image.trim() || null,
         seo_title: form.seo_title.trim() || null,
         meta_description: form.meta_description.trim() || null,
@@ -174,6 +177,7 @@ function BlogPage() {
       category: p.category ?? "",
       tags: (p.tags ?? []).join(", "),
       author: p.author ?? "",
+      medical_reviewer_key: p.medical_reviewer_key ?? "",
       featured_image: p.featured_image ?? "",
       seo_title: p.seo_title ?? "",
       meta_description: p.meta_description ?? "",
@@ -350,6 +354,30 @@ function BlogPage() {
                   value={form.author}
                   onChange={(e) => setForm({ ...form, author: e.target.value })}
                 />
+              </div>
+              <div className="space-y-1.5">
+                <Label>Medical reviewer (optional)</Label>
+                <Select
+                  value={form.medical_reviewer_key || "__none__"}
+                  onValueChange={(v) =>
+                    setForm({ ...form, medical_reviewer_key: v === "__none__" ? "" : v })
+                  }
+                >
+                  <SelectTrigger>
+                    <SelectValue placeholder="No medical reviewer assigned" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="__none__">Not assigned</SelectItem>
+                    {team.map((member) => (
+                      <SelectItem key={member.initials} value={member.initials}>
+                        {member.name} — {member.credentials}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+                <p className="text-xs text-muted-foreground">
+                  Only select a clinician who has actually reviewed this article.
+                </p>
               </div>
               <div className="space-y-1.5">
                 <Label>Tags (comma separated)</Label>
