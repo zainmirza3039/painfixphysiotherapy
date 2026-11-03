@@ -530,18 +530,18 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: "best-exercises-for-neck-pain",
-    title: "Best Exercises for Neck Pain | Gardan Ke Dard Ki Exercises",
-    seoTitle: "Neck Pain Exercises | Gardan Ke Dard Ka Ilaj — PainFix",
+    title: "Gardan Dard Ki Exercises | Neck Pain Ke Liye Safe Movements",
+    seoTitle: "Gardan Dard Ki Exercises | Neck Pain — PainFix Multan",
     metaDescription:
-      "Relieve neck pain (gardan ka dard) with these physiotherapist-recommended exercises. Simple, safe movements to reduce stiffness, improve posture and prevent 'tech neck'.",
+      "Gardan dard ki exercises: chin tuck, gentle neck rotation aur shoulder blade control. Safe technique, repetitions aur warning signs ke saath simple physiotherapy guide.",
     category: "neck-pain",
-    tags: ["neck pain", "gardan ka dard", "exercises", "stretches", "posture"],
+    tags: ["gardan dard ki exercises", "gardan ka dard", "neck pain exercises", "neck pain treatment Multan", "chin tuck", "tech neck"],
     excerpt:
-      "A few minutes of the right exercises each day can dramatically reduce neck pain (gardan ka dard) and stiffness. Here are the ones we recommend.",
+      "Gardan dard aur stiffness ke liye gentle exercises movement aur muscle control improve kar sakti hain. Learn safe technique and when to get assessed.",
     quickAnswer:
-      "The best exercises for neck pain (gardan ke dard ka ilaj) include chin tucks, gentle neck rotations, shoulder blade squeezes, upper trapezius stretches and levator scapulae stretches. Performed daily and pain-free, they reduce stiffness, strengthen the deep neck muscles and correct the forward-head posture that drives most neck pain.",
+      "Gardan dard ki exercises may include gentle cervical rotations, chin tucks and shoulder-blade control drills, selected according to the cause and symptom response. Start with a comfortable range and low repetitions; do not force a stretch or continue through worsening pain, dizziness or spreading arm symptoms. Persistent pain, numbness, tingling or weakness needs an assessment rather than a generic exercise routine.",
     date: "2026-06-18",
-    updated: "2026-07-04",
+    updated: "2026-11-03",
     authorKey: "JD",
     popular: true,
     sections: [
@@ -551,7 +551,7 @@ export const blogPosts: BlogPost[] = [
         ],
       },
       {
-        heading: "Chin tucks",
+        heading: "Gardan Dard Ke Liye Chin Tucks",
         paragraphs: [
           "Sitting tall, gently draw your chin straight back (making a 'double chin') without tipping your head. Hold for 5 seconds and repeat 10 times. This activates the deep neck flexors that support your cervical spine.",
         ],
@@ -580,11 +580,11 @@ export const blogPosts: BlogPost[] = [
     ],
     faqs: [
       {
-        q: "How often should I do neck exercises?",
+        q: "Gardan dard ki exercises din mein kitni dafa karni chahiye?",
         a: "Once or twice daily is usually ideal. Little and often works better than occasional long sessions.",
       },
       {
-        q: "Can exercises make neck pain worse?",
+        q: "Kya neck exercises se gardan ka dard barh sakta hai?",
         a: "Gentle, pain-free movement helps. If an exercise sharply increases pain or causes arm symptoms, stop and get assessed.",
       },
       {
@@ -699,18 +699,18 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: "home-physiotherapy-benefits",
-    title: "Benefits of Home Physiotherapy",
-    seoTitle: "Benefits of Home Physiotherapy in Multan — PainFix",
+    title: "Ghar Par Physiotherapy Ke Fawaid | Home Physiotherapy in Multan",
+    seoTitle: "Ghar Par Physiotherapy | Home Visit in Multan — PainFix",
     metaDescription:
-      "Home physiotherapy brings expert care to your door. Discover the benefits, who it suits best, and what to expect from a home visit in Multan.",
+      "Ghar par physiotherapy ke fawaid jaaniye. Home physiotherapy in Multan for elderly, post-surgery, stroke and mobility-limited patients. Learn what to expect from a home visit.",
     category: "home-physiotherapy",
-    tags: ["home visit", "Multan", "elderly", "post-surgery"],
+    tags: ["ghar par physiotherapy", "home physiotherapy Multan", "home visit physiotherapist", "elderly care", "post-surgery rehab", "stroke rehabilitation"],
     excerpt:
-      "Home physiotherapy delivers the same expert care as the clinic — in the comfort of your own home. Here's who benefits most.",
+      "Ghar par physiotherapy un patients ke liye practical option hai jinhein clinic tak aana mushkil ho. Learn who benefits and what a home visit includes.",
     quickAnswer:
-      "Home physiotherapy delivers professional, one-on-one treatment in your own home. It benefits elderly patients, those recovering from surgery, stroke survivors and anyone who finds travel difficult. Benefits include personalized care in a familiar environment, no travel stress, real-world functional training, and family involvement in recovery.",
+      "Ghar par physiotherapy means a qualified physiotherapist assesses and treats you in your own home. It can suit elderly patients, people recovering after surgery or stroke, and anyone with mobility or transport difficulties. In Multan, a home visit can include movement assessment, pain management, functional training, an exercise plan and family education. The programme should be based on your diagnosis and goals.",
     date: "2026-06-12",
-    updated: "2026-07-02",
+    updated: "2026-11-03",
     authorKey: "JD",
     sections: [
       {
@@ -719,7 +719,7 @@ export const blogPosts: BlogPost[] = [
         ],
       },
       {
-        heading: "Key benefits",
+        heading: "Ghar Par Physiotherapy Ke Key Benefits",
         paragraphs: ["Treatment in your own environment offers distinct advantages."],
         list: [
           "One-on-one, undivided attention",
@@ -749,11 +749,11 @@ export const blogPosts: BlogPost[] = [
     ],
     faqs: [
       {
-        q: "Is home physiotherapy as effective as clinic treatment?",
+        q: "Multan mein ghar par physiotherapy kin patients ke liye hoti hai?",
         a: "Yes. For many conditions it is equally effective, and functional training in your own home can be an advantage.",
       },
       {
-        q: "Who should choose home physiotherapy?",
+        q: "Kya home physiotherapy clinic treatment jitni effective hoti hai?",
         a: "Elderly, post-surgical, stroke and mobility-limited patients, and anyone who finds travel difficult.",
       },
       {
@@ -792,18 +792,18 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: "how-many-physiotherapy-sessions-needed",
-    title: "How Many Physiotherapy Sessions Do You Need?",
-    seoTitle: "How Many Physiotherapy Sessions Do You Need? — PainFix",
+    title: "Physiotherapy Ke Kitne Sessions Chahiye? | Treatment Guide",
+    seoTitle: "Physiotherapy Ke Kitne Sessions? | PainFix Multan",
     metaDescription:
-      "How many physiotherapy sessions will you need? Learn typical session counts by condition and the factors that speed up or slow down your recovery.",
+      "Physiotherapy ke kitne sessions chahiye? Back pain, neck pain, frozen shoulder aur surgery ke baad recovery ke general ranges aur session frequency samjhein.",
     category: "patient-education",
-    tags: ["sessions", "recovery", "treatment plan"],
+    tags: ["physiotherapy ke kitne sessions", "physiotherapy sessions Multan", "treatment duration", "recovery time", "back pain", "frozen shoulder"],
     excerpt:
-      "One of the most common questions we hear. The honest answer depends on your condition — here's a realistic guide.",
+      "Physiotherapy ke kitne sessions chahiye? The answer depends on your diagnosis, severity, goals and progress — not a fixed package.",
     quickAnswer:
-      "Most patients need between 4 and 12 physiotherapy sessions, depending on the condition and its severity. Simple muscular problems may resolve in 3–6 sessions, while post-surgical or neurological rehabilitation can take longer. Your physiotherapist estimates a realistic number after assessment and reviews progress regularly.",
+      "Physiotherapy ke sessions ki tadaad diagnosis, symptoms ki duration, severity, functional goals and response to treatment par depend karti hai. Some uncomplicated problems may need only a few visits, while post-surgical or neurological rehabilitation can require a longer programme. Your physiotherapist should estimate a range after assessment, review progress at agreed intervals and reduce visits as you become independent with your home programme.",
     date: "2026-06-10",
-    updated: "2026-07-03",
+    updated: "2026-11-03",
     authorKey: "ZA",
     popular: true,
     sections: [
@@ -813,7 +813,7 @@ export const blogPosts: BlogPost[] = [
         ],
       },
       {
-        heading: "Typical ranges by condition",
+        heading: "Aam Conditions Mein Kitne Physiotherapy Sessions?",
         paragraphs: ["These are general guides; your plan is individualized."],
         list: [
           "Acute muscle strain: 3–6 sessions",
@@ -842,11 +842,11 @@ export const blogPosts: BlogPost[] = [
     ],
     faqs: [
       {
-        q: "How many physiotherapy sessions for back pain?",
+        q: "Back pain ke liye physiotherapy ke kitne sessions chahiye?",
         a: "Typically 6–10 sessions, though many people improve sooner with consistent home exercises.",
       },
       {
-        q: "Will I need physiotherapy forever?",
+        q: "Physiotherapy haftay mein kitni dafa karwani chahiye?",
         a: "No. The goal is to make you independent with a home programme so you no longer need regular sessions.",
       },
       {
@@ -877,18 +877,18 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: "frozen-shoulder-recovery-timeline",
-    title: "Frozen Shoulder Recovery Timeline | Kandhe Ki Jakadan Ka Ilaj",
-    seoTitle: "Frozen Shoulder | Kandhe Ki Jakadan Ka Ilaj — PainFix Multan",
+    title: "Frozen Shoulder Ka Ilaj | Kandhe Ki Jakran Aur Recovery",
+    seoTitle: "Frozen Shoulder Ka Ilaj | Kandhe Ki Jakran — PainFix",
     metaDescription:
-      "Understand the frozen shoulder (kandhe ki jakadan) recovery timeline — the freezing, frozen and thawing stages — and how physiotherapy speeds recovery and restores movement.",
+      "Frozen shoulder (kandhe ki jakran) ke stages, symptoms aur recovery timeline samjhein. Physiotherapy pain control aur shoulder movement/function improve karne mein kaise madad karti hai.",
     category: "frozen-shoulder",
-    tags: ["frozen shoulder", "kandhe ka dard", "adhesive capsulitis", "recovery"],
+    tags: ["frozen shoulder ka ilaj", "kandhe ki jakran", "kandhe ka dard", "adhesive capsulitis", "frozen shoulder physiotherapy Multan"],
     excerpt:
-      "Frozen shoulder (kandhe ki jakadan) recovers in three stages. Knowing where you are helps set expectations — and physiotherapy shortens the journey.",
+      "Kandhe ki jakran aur frozen shoulder mein movement dheere dheere restrict hoti hai. Understand the stages, realistic recovery and physiotherapy options.",
     quickAnswer:
-      "Frozen shoulder (kandhe ki jakadan ka ilaj) recovers in three stages: freezing (painful, 2–9 months), frozen (stiff, 4–12 months) and thawing (movement returns, 6–24 months). Total recovery can take 1–3 years without treatment, but physiotherapy — with manual therapy, stretching and strengthening — significantly reduces pain and speeds the return of movement.",
+      "Frozen shoulder (adhesive capsulitis / kandhe ki jakran) usually progresses through painful, stiff and recovery phases, but duration varies considerably between people. Symptoms commonly include shoulder pain and restriction of both active and passive movement, especially external rotation. Physiotherapy is tailored to the irritability and stage: pain-limited mobility and education early on, then progressive mobility, stretching and strengthening as tolerance improves. Forceful stretching can aggravate a highly painful shoulder.",
     date: "2026-06-08",
-    updated: "2026-07-01",
+    updated: "2026-11-03",
     authorKey: "JD",
     sections: [
       {
@@ -897,7 +897,7 @@ export const blogPosts: BlogPost[] = [
         ],
       },
       {
-        heading: "Stage 1 — Freezing (painful)",
+        heading: "Frozen Shoulder Ke 3 Stages",
         paragraphs: [
           "Lasting roughly 2–9 months, this stage is dominated by pain, especially at night, with gradually reducing movement. Treatment focuses on pain relief, gentle movement and protecting range of motion.",
         ],
@@ -917,11 +917,11 @@ export const blogPosts: BlogPost[] = [
     ],
     faqs: [
       {
-        q: "How long does frozen shoulder last?",
+        q: "Frozen shoulder kitne arsay mein theek hota hai?",
         a: "Without treatment it can last 1–3 years. Physiotherapy reduces pain and speeds the return of movement.",
       },
       {
-        q: "Can physiotherapy cure frozen shoulder?",
+        q: "Kya frozen shoulder mein zor se stretching karni chahiye?",
         a: "Physiotherapy is the mainstay of treatment and helps most people regain function and relieve pain across all stages.",
       },
       {
@@ -952,18 +952,18 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: "knee-pain-after-walking",
-    title: "Knee Pain After Walking | Ghutno Ke Dard Ka Ilaj",
-    seoTitle: "Knee Pain Treatment | Ghutno Ke Dard Ka Ilaj — PainFix Multan",
+    title: "Chalne Ke Baad Ghutne Mein Dard | Knee Pain Treatment",
+    seoTitle: "Chalne Se Ghutne Mein Dard | Ghutno Ka Ilaj — PainFix",
     metaDescription:
-      "Why does your knee hurt after walking? Learn the common causes of knee pain (ghutno ka dard) and how physiotherapy in Multan relieves it and gets you moving again.",
+      "Chalne ke baad ghutne mein dard kyun hota hai? Ghutno ke dard ki common causes, warning signs aur Multan mein physiotherapy se recovery ka evidence-based plan jaaniye.",
     category: "knee-pain",
-    tags: ["knee pain", "ghutno ka dard", "walking", "osteoarthritis", "runner's knee"],
+    tags: ["chalne se ghutne mein dard", "ghutno ka dard", "knee pain after walking", "knee pain treatment Multan", "osteoarthritis", "runner knee"],
     excerpt:
-      "Knee pain after walking (ghutno ka dard) is common and usually treatable. Here's what causes it and how to fix it for good.",
+      "Chalne ke baad ghutne mein dard common hai, lekin cause samajhna zaroori hai. Learn the likely reasons and how physiotherapy rebuilds knee capacity.",
     quickAnswer:
-      "Knee pain after walking (ghutno ke dard ka ilaj) is most often caused by osteoarthritis, patellofemoral pain (runner's knee), weak hip and thigh muscles, or overuse. Physiotherapy relieves it through targeted strengthening, movement retraining, manual therapy and load management. Most people improve within a few weeks of a personalized programme.",
+      "Chalne ke baad ghutne mein dard osteoarthritis, patellofemoral pain, tendon irritation, recent activity increase or reduced hip and thigh capacity ki wajah se ho sakta hai. Exact cause symptoms and examination se identify hota hai. Physiotherapy may include progressive quadriceps and hip strengthening, load adjustment, gait or movement advice and hands-on treatment when appropriate. Persistent swelling, locking or giving way needs clinical assessment.",
     date: "2026-06-05",
-    updated: "2026-06-30",
+    updated: "2026-11-03",
     authorKey: "ZA",
     sections: [
       {
@@ -972,7 +972,7 @@ export const blogPosts: BlogPost[] = [
         ],
       },
       {
-        heading: "Common causes",
+        heading: "Chalne Se Ghutne Mein Dard Ki Common Wajuhat",
         paragraphs: ["Several issues can cause knee pain with walking."],
         list: [
           "Osteoarthritis (wear-related joint changes)",
@@ -1004,11 +1004,11 @@ export const blogPosts: BlogPost[] = [
     ],
     faqs: [
       {
-        q: "Why does my knee hurt after walking?",
+        q: "Chalne ke baad ghutne mein dard kyun hota hai?",
         a: "Usually because the knee is loaded more than the supporting muscles can handle — often from osteoarthritis, kneecap tracking or weakness.",
       },
       {
-        q: "Should I stop walking if my knee hurts?",
+        q: "Ghutne ke dard mein walk band kar deni chahiye?",
         a: "Not entirely. Reduce distance and let physiotherapy guide a gradual, structured return rather than complete rest.",
       },
       {
