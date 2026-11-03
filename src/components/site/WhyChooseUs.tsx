@@ -29,7 +29,7 @@ export function WhyChooseUs() {
   return (
     <section className="home-section home-section--navy">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="grid gap-10 lg:grid-cols-[0.72fr_1.28fr] lg:gap-20">
+        <div className="grid gap-10 lg:grid-cols-[0.72fr_1.28fr] lg:items-start lg:gap-20">
           <div>
             <p className="home-eyebrow home-eyebrow--light">
               <span aria-hidden="true" /> How care works
@@ -42,9 +42,9 @@ export function WhyChooseUs() {
               recovery and know what the next step is.
             </p>
           </div>
-          <ol className="home-principles">
+          <ol className="home-principles rounded-3xl border border-white/10 bg-white/[0.04] p-4 sm:p-6">
             {principles.map(({ number, icon: Icon, title, description }, index) => (
-              <Reveal key={number} anim="up" delay={index * 70} as="li" className="home-principle">
+              <Reveal key={number} anim="up" delay={index * 70} as="li" className="home-principle rounded-2xl px-2 py-3 transition-colors duration-200 hover:bg-white/[0.04] sm:px-3">
                 <span className="home-principle__number">{number}</span>
                 <span className="home-principle__icon">
                   <Icon className="h-5 w-5" aria-hidden="true" />
