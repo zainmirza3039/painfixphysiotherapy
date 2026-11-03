@@ -87,7 +87,7 @@ test("real program details render published, closed and read-only draft states",
   const supervised = render(ProgramDetail, {
     program: { ...program, supervisor: "Dr. Zain Ul Abideen, PT" },
   });
-  assert.match(supervised, /Dr\\. Zain Ul Abideen, PT/);
+  assert.ok(supervised.includes("Dr. Zain Ul Abideen, PT"));
   const closed = render(ProgramDetail, { program: { ...program, applications_open: false } });
   assert.match(closed, /Applications are closed/);
   assert.doesNotMatch(closed, /<form/);
