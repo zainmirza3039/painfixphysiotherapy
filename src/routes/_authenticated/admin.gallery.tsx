@@ -193,10 +193,10 @@ function GalleryManagerPage() {
                     </div>
                     <div className="flex items-center justify-between gap-2">
                       <div className="flex gap-1">
-                        <Button size="icon" variant="outline" aria-label="Move image up" disabled={index === 0 || reorderMutation.isPending} onClick={() => reorderMutation.mutate({ first: item, second: items[index - 1] })}>
+                        <Button size="icon" variant="outline" aria-label="Move image up" disabled={index === 0 || reorderMutation.isPending} onClick={() => reorderMutation.mutate({ first: item, second: items[index - 1]! })}>
                           <ArrowUp className="h-4 w-4" />
                         </Button>
-                        <Button size="icon" variant="outline" aria-label="Move image down" disabled={index === items.length - 1 || reorderMutation.isPending} onClick={() => reorderMutation.mutate({ first: item, second: items[index + 1] })}>
+                        <Button size="icon" variant="outline" aria-label="Move image down" disabled={index === items.length - 1 || reorderMutation.isPending} onClick={() => reorderMutation.mutate({ first: item, second: items[index + 1]! })}>
                           <ArrowDown className="h-4 w-4" />
                         </Button>
                       </div>
