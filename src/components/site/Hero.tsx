@@ -179,7 +179,7 @@ export function Hero() {
       <div className="mx-auto grid max-w-7xl items-center gap-10 px-4 pb-14 pt-28 sm:px-6 sm:pb-20 sm:pt-32 lg:grid-cols-[1fr_0.92fr] lg:gap-16 lg:px-8 lg:pb-24 lg:pt-36">
         <div className="max-w-2xl">
           <p className="home-eyebrow">
-            <span aria-hidden="true" /> Physiotherapy in Multan · Online care for Rahim Yar Khan
+            <span aria-hidden="true" /> {site.heroEyebrow}
           </p>
           <h1
             id="home-heading"
@@ -198,13 +198,13 @@ export function Hero() {
               href="/book-appointment?city=multan&service=clinic"
               className="inline-flex min-h-12 items-center justify-center gap-2 rounded-md bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
             >
-              <CalendarDays className="h-4 w-4" aria-hidden="true" /> Multan clinic appointment
+              <CalendarDays className="h-4 w-4" aria-hidden="true" /> {site.primaryCta}
             </a>
             <a
               href="/book-appointment?city=rahim-yar-khan&service=online"
               className="inline-flex min-h-12 items-center justify-center gap-2 rounded-md border border-primary/25 bg-background px-5 py-3 text-sm font-semibold text-primary transition-colors hover:border-secondary hover:text-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
             >
-              <Video className="h-4 w-4 shrink-0" aria-hidden="true" /> Rahim Yar Khan · Online
+              <Video className="h-4 w-4 shrink-0" aria-hidden="true" /> {site.secondaryCta}
             </a>
             <a
               href="/book-appointment?city=multan&service=home_visit"
