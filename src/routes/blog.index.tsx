@@ -19,6 +19,7 @@ import { listPublishedBlogPosts } from "@/lib/blog.functions";
 import { dbPostToBlogPost, mergeBlogPosts } from "@/lib/dbBlog";
 import { pageMeta, canonical, breadcrumbLd } from "@/lib/seo";
 import { SITE_URL } from "@/components/site/constants";
+import { serviceImages } from "@/data/serviceImages";
 
 export const Route = createFileRoute("/blog/")({
   head: () => {
@@ -85,6 +86,8 @@ function BlogIndex() {
       <PageHero
         eyebrow="Physiotherapy Blog"
         title="Expert Physiotherapy Advice & Recovery Guides"
+        image={serviceImages["exercise-therapy"]}
+        imageAlt="Physiotherapist guiding a patient through a therapeutic exercise session"
         subtitle="Evidence-based articles on pain relief, injury recovery and healthy movement — written and reviewed by our physiotherapists in Multan."
         crumbs={[
           { label: "Home", path: "/" },
