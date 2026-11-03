@@ -186,7 +186,7 @@ export function Hero() {
             className="mt-6 font-heading text-[clamp(2.6rem,5.2vw,4.25rem)] font-bold leading-[0.98] tracking-[-0.045em] text-foreground"
           >
             {site.heroTitle.split(". ").map((part, index, all) => (
-              <span key={part}>{part}{index < all.length - 1 ? "." : ""}{index < all.length - 1 ? <br /> : null}</span>
+              <span key={part} className={index === all.length - 1 ? "home-hero__accent" : undefined}>{part}{index < all.length - 1 ? "." : ""}{index < all.length - 1 ? <br /> : null}</span>
             ))}
           </h1>
           <p className="mt-6 max-w-xl text-base leading-7 text-muted-foreground sm:text-lg sm:leading-8">
