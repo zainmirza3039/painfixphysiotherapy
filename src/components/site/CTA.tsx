@@ -8,7 +8,7 @@ export function CTA() {
     <section className="home-cta-section">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <Reveal anim="up">
-          <div className="home-cta">
+          <div className="home-cta rounded-[2rem] shadow-card">
             <div className="max-w-2xl">
               <p className="home-eyebrow home-eyebrow--light">
                 <span aria-hidden="true" /> Your next step
