@@ -18,6 +18,7 @@ export interface PublicDbPost {
   category: string | null;
   tags: string[];
   author: string | null;
+  medical_reviewer_key: string | null;
   publish_at: string | null;
   created_at: string;
   updated_at: string;
