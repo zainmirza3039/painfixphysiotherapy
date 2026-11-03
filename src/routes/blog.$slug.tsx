@@ -82,21 +82,22 @@ export const Route = createFileRoute("/blog/$slug")({
             dateModified: post.updated,
             url: `${SITE_URL}${path}`,
             mainEntityOfPage: `${SITE_URL}${path}`,
-            author: post.source === "cms"
-              ? post.authorName
-                ? { "@type": "Person", name: post.authorName }
-                : { "@type": "Organization", name: "PainFix Physiotherapy Clinic" }
-              : (() => {
-                  const staticAuthor = getTeamMember(post.authorKey);
-                  return staticAuthor
-                    ? {
-                        "@type": "Person",
-                        name: staticAuthor.name,
-                        jobTitle: staticAuthor.role,
-                        description: staticAuthor.credentials,
-                      }
-                    : { "@type": "Organization", name: "PainFix Physiotherapy Clinic" };
-                })(),
+            author:
+              post.source === "cms"
+                ? post.authorName
+                  ? { "@type": "Person", name: post.authorName }
+                  : { "@type": "Organization", name: "PainFix Physiotherapy Clinic" }
+                : (() => {
+                    const staticAuthor = getTeamMember(post.authorKey);
+                    return staticAuthor
+                      ? {
+                          "@type": "Person",
+                          name: staticAuthor.name,
+                          jobTitle: staticAuthor.role,
+                          description: staticAuthor.credentials,
+                        }
+                      : { "@type": "Organization", name: "PainFix Physiotherapy Clinic" };
+                  })(),
             reviewedBy: reviewer
               ? { "@type": "Person", name: reviewer.name, jobTitle: reviewer.role }
               : undefined,
