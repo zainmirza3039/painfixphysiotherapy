@@ -11,7 +11,7 @@ export function FAQ() {
     <section id="faq" className="home-section scroll-mt-24">
       <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
         <SectionHeading eyebrow="Questions, answered" title="Before your first visit." />
-        <div className="mt-10 overflow-hidden rounded-2xl border border-border bg-card px-4 sm:px-6">
+        <div className="mt-10 border-t border-border">
           {homeFaqs.map((item, index) => {
             const isOpen = open === index;
             const answerId = `home-faq-answer-${index}`;
