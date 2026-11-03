@@ -21,6 +21,7 @@ import {
 } from "./constants";
 import { GoogleReviewButton } from "./GoogleReviewButton";
 import { latestPosts } from "@/data/blog";
+import { useSiteCustomization } from "./useSiteCustomization";
 
 const socials = [
   { icon: Facebook, label: "Facebook", ...SOCIAL_LINKS.facebook },
@@ -30,6 +31,7 @@ const socials = [
 ];
 
 export function Footer({ hideClinicDetails = false }: { hideClinicDetails?: boolean }) {
+  const site = useSiteCustomization();
   const articles = latestPosts(4);
 
   return (
@@ -50,14 +52,14 @@ export function Footer({ hideClinicDetails = false }: { hideClinicDetails?: bool
                 />
               </span>
               <div className="leading-tight">
-                <div className="font-heading text-lg font-bold">PainFix</div>
-                <div className="text-sm text-white/75">Physiotherapy Clinic</div>
+                <div className="font-heading text-lg font-bold">{site.brandName}</div>
+                <div className="text-sm text-white/75">{site.tagline}</div>
               </div>
             </div>
             <p className="mt-5 max-w-sm text-sm leading-relaxed text-white/80">
               {hideClinicDetails
                 ? "PainFix physiotherapy and rehabilitation. Online consultations are booked directly with your clinician."
-                : "Evidence-based physiotherapy and rehabilitation in Multan. Helping you move better, recover faster, and live pain-free."}
+                : "{site.footerDescription}"}
             </p>
 
             {/* Working hours */}
