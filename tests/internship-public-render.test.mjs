@@ -5,6 +5,7 @@ import ts from "typescript";
 import React from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 import { applicationFormToPayload } from "../src/lib/internship-application-form.ts";
+import { OPENING_HOURS } from "../src/components/site/constants.ts";
 
 const dataModule = (source) =>
   `data:text/javascript;base64,${Buffer.from(source).toString("base64")}`;
@@ -83,6 +84,10 @@ test("real program details render published, closed and read-only draft states",
   assert.match(open, /Required documents/);
   assert.match(open, /Minimum attendance/);
   assert.match(open, /Not yet confirmed/);
+  const supervised = render(ProgramDetail, {
+    program: { ...program, supervisor: "Dr. Zain Ul Abideen, PT" },
+  });
+  assert.ok(supervised.includes("Dr. Zain Ul Abideen, PT"));
   const closed = render(ProgramDetail, { program: { ...program, applications_open: false } });
   assert.match(closed, /Applications are closed/);
   assert.doesNotMatch(closed, /<form/);
@@ -175,3 +180,10 @@ for (const [status, expected] of [
     if (status === "revoked") assert.match(html, /not currently valid/);
   });
 }
+
+test("site-wide clinic hours remain consistent", () => {
+  assert.deepEqual(OPENING_HOURS, [
+    { days: "Monday – Saturday", time: "11:00 AM – 4:00 PM" },
+    { days: "Sunday", time: "By Appointment" },
+  ]);
+});
