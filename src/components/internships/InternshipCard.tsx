@@ -2,11 +2,24 @@ import { ArrowRight, CalendarDays, MapPin, Users } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 import type { Program } from "@/lib/internships.contract";
 import { isApplicationOpen } from "@/lib/internships.contract";
+import { serviceImages } from "@/data/serviceImages";
 
 export function InternshipCard({ program }: { program: Program }) {
   const open = isApplicationOpen(program);
   return (
-    <article className="flex h-full flex-col rounded-[1.5rem] border border-border bg-card p-6 shadow-soft">
+    <article className="flex h-full flex-col overflow-hidden rounded-[1.5rem] border border-border bg-card shadow-soft">
+      <div className="aspect-[16/8] overflow-hidden bg-surface">
+        <img
+          src={serviceImages["exercise-therapy"]}
+          alt="Physiotherapist demonstrating a therapeutic exercise during supervised clinical learning"
+          width={800}
+          height={400}
+          loading="lazy"
+          decoding="async"
+          className="h-full w-full object-cover"
+        />
+      </div>
+      <div className="flex flex-1 flex-col p-6">
       <div className="flex items-start justify-between gap-3">
         <span className="rounded-full bg-accent px-3 py-1 text-xs font-bold uppercase tracking-wide text-secondary">
           {program.discipline}
@@ -45,6 +58,7 @@ export function InternshipCard({ program }: { program: Program }) {
       >
         View program <ArrowRight className="h-4 w-4" />
       </Link>
+      </div>
     </article>
   );
 }
