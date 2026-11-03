@@ -537,7 +537,14 @@ export const blogPosts: BlogPost[] = [
     metaDescription:
       "Gardan dard ki exercises: chin tuck, gentle neck rotation aur shoulder blade control. Safe technique, repetitions aur warning signs ke saath simple physiotherapy guide.",
     category: "neck-pain",
-    tags: ["gardan dard ki exercises", "gardan ka dard", "neck pain exercises", "neck pain treatment Multan", "chin tuck", "tech neck"],
+    tags: [
+      "gardan dard ki exercises",
+      "gardan ka dard",
+      "neck pain exercises",
+      "neck pain treatment Multan",
+      "chin tuck",
+      "tech neck",
+    ],
     excerpt:
       "Gardan dard aur stiffness ke liye gentle exercises movement aur muscle control improve kar sakti hain. Learn safe technique and when to get assessed.",
     quickAnswer:
@@ -706,7 +713,14 @@ export const blogPosts: BlogPost[] = [
     metaDescription:
       "Ghar par physiotherapy ke fawaid jaaniye. Home physiotherapy in Multan for elderly, post-surgery, stroke and mobility-limited patients. Learn what to expect from a home visit.",
     category: "home-physiotherapy",
-    tags: ["ghar par physiotherapy", "home physiotherapy Multan", "home visit physiotherapist", "elderly care", "post-surgery rehab", "stroke rehabilitation"],
+    tags: [
+      "ghar par physiotherapy",
+      "home physiotherapy Multan",
+      "home visit physiotherapist",
+      "elderly care",
+      "post-surgery rehab",
+      "stroke rehabilitation",
+    ],
     excerpt:
       "Ghar par physiotherapy un patients ke liye practical option hai jinhein clinic tak aana mushkil ho. Learn who benefits and what a home visit includes.",
     quickAnswer:
@@ -799,7 +813,14 @@ export const blogPosts: BlogPost[] = [
     metaDescription:
       "Physiotherapy ke kitne sessions chahiye? Back pain, neck pain, frozen shoulder aur surgery ke baad recovery ke general ranges aur session frequency samjhein.",
     category: "patient-education",
-    tags: ["physiotherapy ke kitne sessions", "physiotherapy sessions Multan", "treatment duration", "recovery time", "back pain", "frozen shoulder"],
+    tags: [
+      "physiotherapy ke kitne sessions",
+      "physiotherapy sessions Multan",
+      "treatment duration",
+      "recovery time",
+      "back pain",
+      "frozen shoulder",
+    ],
     excerpt:
       "Physiotherapy ke kitne sessions chahiye? The answer depends on your diagnosis, severity, goals and progress — not a fixed package.",
     quickAnswer:
@@ -884,7 +905,13 @@ export const blogPosts: BlogPost[] = [
     metaDescription:
       "Frozen shoulder (kandhe ki jakran) ke stages, symptoms aur recovery timeline samjhein. Physiotherapy pain control aur shoulder movement/function improve karne mein kaise madad karti hai.",
     category: "frozen-shoulder",
-    tags: ["frozen shoulder ka ilaj", "kandhe ki jakran", "kandhe ka dard", "adhesive capsulitis", "frozen shoulder physiotherapy Multan"],
+    tags: [
+      "frozen shoulder ka ilaj",
+      "kandhe ki jakran",
+      "kandhe ka dard",
+      "adhesive capsulitis",
+      "frozen shoulder physiotherapy Multan",
+    ],
     excerpt:
       "Kandhe ki jakran aur frozen shoulder mein movement dheere dheere restrict hoti hai. Understand the stages, realistic recovery and physiotherapy options.",
     quickAnswer:
@@ -959,7 +986,14 @@ export const blogPosts: BlogPost[] = [
     metaDescription:
       "Chalne ke baad ghutne mein dard kyun hota hai? Ghutno ke dard ki common causes, warning signs aur Multan mein physiotherapy se recovery ka evidence-based plan jaaniye.",
     category: "knee-pain",
-    tags: ["chalne se ghutne mein dard", "ghutno ka dard", "knee pain after walking", "knee pain treatment Multan", "osteoarthritis", "runner knee"],
+    tags: [
+      "chalne se ghutne mein dard",
+      "ghutno ka dard",
+      "knee pain after walking",
+      "knee pain treatment Multan",
+      "osteoarthritis",
+      "runner knee",
+    ],
     excerpt:
       "Chalne ke baad ghutne mein dard common hai, lekin cause samajhna zaroori hai. Learn the likely reasons and how physiotherapy rebuilds knee capacity.",
     quickAnswer:
