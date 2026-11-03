@@ -5,6 +5,7 @@ import { PageHero } from "@/components/site/PageHero";
 import { ProgramDetail } from "@/components/internships/ProgramDetail";
 import { getInternshipProgram } from "@/lib/internships.functions";
 import { canonical, pageMeta } from "@/lib/seo";
+import { serviceImages } from "@/data/serviceImages";
 
 export const Route = createFileRoute("/internships/$slug")({
   headers: () => ({ "Cache-Control": "no-store, max-age=0" }),
@@ -89,6 +90,8 @@ function InternshipDetailPage() {
       <PageHero
         eyebrow={program.discipline}
         title={program.title}
+        image={serviceImages["exercise-therapy"]}
+        imageAlt="Physiotherapist demonstrating a therapeutic exercise during supervised clinical learning"
         subtitle="Published program information from PainFix Physiotherapy Clinic."
         crumbs={[
           { label: "Home", path: "/" },
