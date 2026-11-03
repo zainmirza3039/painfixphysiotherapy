@@ -21,7 +21,7 @@ export function GoogleReviews() {
         </div>
 
         <Reveal anim="up">
-          <div className="home-review-summary rounded-3xl border border-border/70 bg-card p-5 shadow-soft transition-shadow duration-300 hover:shadow-card sm:p-7">
+          <div className="home-review-summary">
             <div className="flex items-center gap-4">
               <GoogleG className="h-10 w-10 shrink-0" />
               <div>
