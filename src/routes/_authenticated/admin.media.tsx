@@ -44,7 +44,7 @@ function MediaPage() {
   const [deleteName, setDeleteName] = useState<string | null>(null);
 
   // Admins manage the shared root; content professionals are scoped to their
-  // own private folder so they only ever see and touch their own files.
+  // own folder. This bucket contains public website assets only.
   const prefix = isAdmin ? "" : (user?.id ?? "");
   const withPrefix = (name: string) => (prefix ? `${prefix}/${name}` : name);
 
@@ -57,7 +57,7 @@ function MediaPage() {
         .list(prefix, { limit: 200, sortBy: { column: "created_at", order: "desc" } });
       if (error) throw error;
       const items = (data ?? []).filter((f) => f.id !== null);
-      const signed = await Promise.all(
+      const mediaFiles = await Promise.all(
         items.map(async (f) => {
           const fullPath = withPrefix(f.name);
           const { data: publicAsset } = supabase.storage.from("site-media").getPublicUrl(fullPath);
@@ -67,11 +67,11 @@ function MediaPage() {
             label: f.name,
             size: f.metadata?.size ?? 0,
             url: publicAsset.publicUrl,
-            isImage: ["jpg", "jpeg", "png", "gif", "webp", "svg", "avif"].includes(ext),
+            isImage: ["jpg", "jpeg", "png", "gif", "webp", "avif"].includes(ext),
           };
         }),
       );
-      return signed;
+      return mediaFiles;
     },
   });
 
@@ -117,7 +117,7 @@ function MediaPage() {
 
     try {
       for (const file of selected) {
-        const safeName = file.name.replace(/[^a-zA-Z0-9.\\-_]/g, "_");
+        const safeName = file.name.replace(/[^a-zA-Z0-9._-]/g, "_");
         const objectPath = withPrefix(`${crypto.randomUUID()}-${safeName}`);
 
         try {
