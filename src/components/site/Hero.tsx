@@ -198,13 +198,13 @@ export function Hero() {
           <div className="mt-8 grid gap-3 sm:grid-cols-2 sm:gap-3.5">
             <a
               href="/book-appointment?city=multan&service=clinic"
-              className="inline-flex min-h-12 items-center justify-center gap-2 rounded-xl bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground shadow-soft transition-[transform,background-color,box-shadow] duration-200 hover:-translate-y-0.5 hover:bg-primary/90 hover:shadow-card focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+              className="inline-flex min-h-12 items-center justify-center gap-2 rounded-sm bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground transition-colors duration-150 hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
             >
               <CalendarDays className="h-4 w-4" aria-hidden="true" /> Multan clinic appointment
             </a>
             <a
               href="/book-appointment?city=rahim-yar-khan&service=online"
-              className="inline-flex min-h-12 items-center justify-center gap-2 rounded-xl border border-primary/25 bg-background px-5 py-3 text-sm font-semibold text-primary transition-[transform,border-color,color] duration-200 hover:-translate-y-0.5 hover:border-secondary hover:text-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+              className="inline-flex min-h-12 items-center justify-center gap-2 rounded-sm border border-primary/40 bg-background px-5 py-3 text-sm font-semibold text-primary transition-colors duration-150 hover:border-secondary hover:text-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
             >
               <Video className="h-4 w-4 shrink-0" aria-hidden="true" /> Rahim Yar Khan · Online
             </a>
