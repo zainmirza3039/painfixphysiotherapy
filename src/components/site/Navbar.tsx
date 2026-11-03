@@ -34,6 +34,7 @@ import { clinicianWhatsAppUrl, isOnlineClinician } from "@/lib/clinician-service
 // so an Urdu switch can be re-enabled once a complete Urdu version is ready.
 import { ThemeToggle } from "./ThemeToggle";
 import { SiteSearch } from "./SiteSearch";
+import { useSiteCustomization } from "./useSiteCustomization";
 
 type ServicesMenuItem = (typeof SERVICES_MENU)[number];
 type ConditionsMenuItem = (typeof CONDITIONS_MENU)[number];
@@ -225,6 +226,7 @@ function ConditionLink({
 }
 
 export function Navbar({ onlineClinician }: { onlineClinician?: TeamMember }) {
+  const site = useSiteCustomization();
   const onlineOnly = Boolean(onlineClinician && isOnlineClinician(onlineClinician));
   const bookingUrl =
     onlineOnly && onlineClinician ? clinicianWhatsAppUrl(onlineClinician) : WHATSAPP_CONSULT_URL;
@@ -379,7 +381,7 @@ export function Navbar({ onlineClinician }: { onlineClinician?: TeamMember }) {
             </span>
             <span className="flex min-w-0 flex-col leading-tight">
               <span className="truncate font-heading text-base font-bold text-foreground sm:text-lg">
-                PainFix
+                {site.brandName}
               </span>
               <span className="truncate text-[11px] font-medium text-muted-foreground">
                 Physiotherapy Clinic
