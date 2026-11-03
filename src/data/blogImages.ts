@@ -6,11 +6,14 @@ export interface BlogVisual {
   alt: string;
 }
 
-/** Category-specific imagery with a relevant clinical fallback for every article. */
+const stockAlt = (description: string) =>
+  `Representative stock photograph of ${description}; not a PainFix patient or clinic photograph.`;
+
+/** Category-specific visuals; diagrams are retained for anatomy-led topics. */
 const categoryVisuals: Record<string, BlogVisual> = {
   "back-pain": {
     src: conditionImages["back-pain"],
-    alt: "Medical illustration highlighting the lower-back region",
+    alt: "Medical illustration highlighting the lower-back region and lumbar spine",
   },
   "neck-pain": {
     src: conditionImages["neck-pain"],
@@ -22,84 +25,84 @@ const categoryVisuals: Record<string, BlogVisual> = {
   },
   "frozen-shoulder": {
     src: conditionImages["frozen-shoulder"],
-    alt: "Shoulder pain illustration for frozen shoulder education",
+    alt: stockAlt("a patient being guided through therapeutic upper-limb exercise"),
   },
   "knee-pain": {
     src: conditionImages["knee-pain"],
-    alt: "Medical illustration of the knee joint",
+    alt: stockAlt("electrotherapy electrodes placed around the knee during rehabilitation"),
   },
   "sports-injuries": {
     src: conditionImages["sports-injuries"],
-    alt: "Sports injury illustration showing an ankle injury",
+    alt: stockAlt("a physiotherapist applying kinesiology tape during sports rehabilitation"),
   },
   "stroke-rehabilitation": {
     src: conditionImages["stroke-rehabilitation"],
-    alt: "Physiotherapy-led stroke rehabilitation",
+    alt: stockAlt("therapist-assisted upper-limb rehabilitation"),
   },
   "neurological-rehabilitation": {
     src: conditionImages["stroke-rehabilitation"],
-    alt: "Physiotherapy-led neurological rehabilitation",
+    alt: stockAlt("therapist-assisted upper-limb rehabilitation"),
   },
   "elderly-care": {
     src: conditionImages["balance-disorders"],
-    alt: "Physiotherapist supporting balance and mobility training",
+    alt: stockAlt("an older adult practising supported mobility exercise at home"),
   },
   posture: {
     src: serviceImages["posture-ergonomic-assessment"],
-    alt: "Physiotherapist assessing posture and spinal alignment",
+    alt: stockAlt("a physiotherapist assessing a patient's posture"),
   },
   "exercise-therapy": {
     src: serviceImages["exercise-therapy"],
-    alt: "Physiotherapist guiding a therapeutic exercise session",
+    alt: stockAlt("a physiotherapist instructing a patient in therapeutic exercise"),
   },
   "manual-therapy": {
     src: serviceImages["manual-therapy"],
-    alt: "Physiotherapist performing hands-on manual therapy",
+    alt: stockAlt("a physiotherapist performing a hands-on neck treatment"),
   },
   electrotherapy: {
     src: serviceImages.electrotherapy,
-    alt: "Physiotherapist applying electrotherapy during rehabilitation",
+    alt: stockAlt("electrotherapy electrodes applied during knee rehabilitation"),
   },
   "home-physiotherapy": {
     src: serviceImages["home-physiotherapy"],
-    alt: "Physiotherapist providing a home physiotherapy session",
+    alt: stockAlt("an older adult practising assisted mobility exercise at home"),
   },
   "pediatric-physiotherapy": {
     src: serviceImages["exercise-therapy"],
-    alt: "Physiotherapist guiding an individual through therapeutic exercise",
+    alt: stockAlt("a physiotherapist instructing a patient in therapeutic exercise"),
   },
   "womens-health": {
     src: serviceImages["exercise-therapy"],
-    alt: "Physiotherapist guiding a patient through therapeutic exercise",
+    alt: stockAlt("a physiotherapist instructing a patient in therapeutic exercise"),
   },
   "sports-performance": {
     src: serviceImages["sports-rehabilitation"],
-    alt: "Sports physiotherapist supervising rehabilitation exercise",
+    alt: stockAlt("a physiotherapist applying kinesiology tape during sports rehabilitation"),
   },
   "recovery-tips": {
     src: serviceImages["exercise-therapy"],
-    alt: "Guided therapeutic exercise for recovery",
+    alt: stockAlt("a physiotherapist instructing a patient in therapeutic exercise"),
   },
   "patient-education": {
     src: serviceImages["posture-ergonomic-assessment"],
-    alt: "Physiotherapist assessing movement and posture",
+    alt: stockAlt("a physiotherapist assessing a patient's posture"),
   },
   hijama: {
     src: serviceImages["hijama-cupping-therapy"],
-    alt: "Hijama cupping therapy treatment",
+    alt: stockAlt("cupping therapy being applied by a practitioner"),
   },
 };
 
 const defaultVisual: BlogVisual = {
   src: serviceImages["exercise-therapy"],
-  alt: "Physiotherapist guiding a therapeutic exercise session",
+  alt: stockAlt("a physiotherapist instructing a patient in therapeutic exercise"),
 };
 
 export function getBlogVisual(category: string, uploadedImage?: string): BlogVisual {
   if (uploadedImage) {
     return {
       src: uploadedImage,
-      alt: "Featured image for this PainFix physiotherapy article",
+      alt: "Featured image uploaded for this PainFix physiotherapy article",
     };
   }
   return categoryVisuals[category] ?? defaultVisual;
