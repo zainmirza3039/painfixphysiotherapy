@@ -67,7 +67,15 @@ function TreatmentCardContent({ service }: { service: TreatmentService }) {
   return (
     <>
       <span className="-mx-4 -mt-4 mb-1 block aspect-[4/3] overflow-hidden rounded-t-md bg-surface sm:-mx-5 sm:-mt-5">
-        <img src={image} alt={imageAlt} width={640} height={480} loading="lazy" decoding="async" className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]" />
+        <img
+          src={image}
+          alt={imageAlt}
+          width={640}
+          height={480}
+          loading="lazy"
+          decoding="async"
+          className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+        />
       </span>
       <span className="grid h-10 w-10 place-items-center rounded-xl bg-accent text-secondary">
         <Icon className="h-5 w-5" aria-hidden="true" />
