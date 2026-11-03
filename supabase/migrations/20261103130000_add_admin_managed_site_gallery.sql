@@ -26,9 +26,15 @@ GRANT SELECT ON public.site_gallery TO anon, authenticated;
 GRANT INSERT, UPDATE, DELETE ON public.site_gallery TO authenticated;
 
 DROP POLICY IF EXISTS "Public can read active clinic gallery" ON public.site_gallery;
+DROP POLICY IF EXISTS "Authenticated can read clinic gallery" ON public.site_gallery;
 CREATE POLICY "Public can read active clinic gallery"
   ON public.site_gallery
-  FOR SELECT TO anon, authenticated
+  FOR SELECT TO anon
+  USING (is_active = true);
+
+CREATE POLICY "Authenticated can read clinic gallery"
+  ON public.site_gallery
+  FOR SELECT TO authenticated
   USING (is_active = true OR public.is_admin(auth.uid()));
 
 DROP POLICY IF EXISTS "Admins can insert clinic gallery items" ON public.site_gallery;
