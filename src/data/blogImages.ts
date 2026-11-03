@@ -1,4 +1,4 @@
-import { conditionImages } from "@/data/conditionImages";
+import { conditionImageAlt, conditionImages } from "@/data/conditionImages";
 import { serviceImages } from "@/data/serviceImages";
 
 export interface BlogVisual {
@@ -9,43 +9,43 @@ export interface BlogVisual {
 const stockAlt = (description: string) =>
   `Representative stock photograph of ${description}; not a PainFix patient or clinic photograph.`;
 
-/** Category-specific visuals; diagrams are retained for anatomy-led topics. */
+/** Category-specific visuals; anatomy-led topics retain their original diagrams. */
 const categoryVisuals: Record<string, BlogVisual> = {
   "back-pain": {
     src: conditionImages["back-pain"],
-    alt: "Medical illustration highlighting the lower-back region and lumbar spine",
+    alt: conditionImageAlt["back-pain"],
   },
   "neck-pain": {
     src: conditionImages["neck-pain"],
-    alt: "Medical illustration highlighting the neck and upper shoulder region",
+    alt: conditionImageAlt["neck-pain"],
   },
   sciatica: {
     src: conditionImages.sciatica,
-    alt: "Medical illustration tracing the sciatic nerve down the leg",
+    alt: conditionImageAlt.sciatica,
   },
   "frozen-shoulder": {
     src: conditionImages["frozen-shoulder"],
-    alt: stockAlt("a patient being guided through therapeutic upper-limb exercise"),
+    alt: conditionImageAlt["frozen-shoulder"],
   },
   "knee-pain": {
     src: conditionImages["knee-pain"],
-    alt: stockAlt("electrotherapy electrodes placed around the knee during rehabilitation"),
+    alt: conditionImageAlt["knee-pain"],
   },
   "sports-injuries": {
     src: conditionImages["sports-injuries"],
-    alt: stockAlt("a physiotherapist applying kinesiology tape during sports rehabilitation"),
+    alt: conditionImageAlt["sports-injuries"],
   },
   "stroke-rehabilitation": {
     src: conditionImages["stroke-rehabilitation"],
-    alt: stockAlt("therapist-assisted upper-limb rehabilitation"),
+    alt: conditionImageAlt["stroke-rehabilitation"],
   },
   "neurological-rehabilitation": {
     src: conditionImages["stroke-rehabilitation"],
-    alt: stockAlt("therapist-assisted upper-limb rehabilitation"),
+    alt: conditionImageAlt["stroke-rehabilitation"],
   },
   "elderly-care": {
     src: conditionImages["balance-disorders"],
-    alt: stockAlt("an older adult practising supported mobility exercise at home"),
+    alt: conditionImageAlt["balance-disorders"],
   },
   posture: {
     src: serviceImages["posture-ergonomic-assessment"],
