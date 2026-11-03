@@ -4,7 +4,7 @@ BEGIN;
 
 CREATE TABLE IF NOT EXISTS public.site_gallery (
   id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
-  storage_path text NOT NULL,
+  storage_path text NOT NULL UNIQUE,
   caption text NOT NULL,
   alt_text text NOT NULL,
   display_order integer NOT NULL DEFAULT 0,
