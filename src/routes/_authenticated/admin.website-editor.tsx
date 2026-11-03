@@ -57,6 +57,13 @@ function WebsiteEditor() {
       const next = { draft, published: publish ? draft : published, updated_at: new Date().toISOString() };
       const { error } = await supabase.from("clinic_settings").upsert({ key: "site_customization", value: next as unknown as Json }, { onConflict: "key" });
       if (error) throw error;
+      if (publish) {
+        const { error: publishError } = await supabase.from("site_customization_public").upsert(
+          { id: "published", config: draft as unknown as Json, updated_at: next.updated_at },
+          { onConflict: "id" },
+        );
+        if (publishError) throw publishError;
+      }
       return next;
     },
     onSuccess: async (next, publish) => {
@@ -86,7 +93,7 @@ function WebsiteEditor() {
             <Label>{field.label}</Label>
             {field.multiline ? <Textarea rows={4} value={draft[field.key]} onChange={(event) => update(field.key, event.target.value)} /> : <div className="flex gap-2"><Input value={draft[field.key]} onChange={(event) => update(field.key, event.target.value)} />{isDesign(field.key) && <input aria-label={field.label + " picker"} type="color" value={draft[field.key]} onChange={(event) => update(field.key, event.target.value)} className="h-10 w-12 rounded border bg-transparent p-1" />}</div>}
           </div>)}
-          {tab === "content" && <div className="sm:col-span-2 rounded-xl bg-muted/50 p-3 text-sm text-muted-foreground">Booking button destinations and service routes remain protected and unchanged. Clinic hours text here controls the homepage display only; other pages keep their existing verified clinic details.</div>}
+          {tab === "content" && <div className="sm:col-span-2 rounded-xl bg-muted/50 p-3 text-sm text-muted-foreground">Booking button destinations and service routes remain protected and unchanged. Clinic hours are displayed on the homepage. Keep all public hours accurate before publishing.</div>}
         </div>
         <div className="mt-6 flex flex-wrap justify-between gap-2 border-t pt-5">
           <Button variant="outline" onClick={() => setDraft(DEFAULT_SITE_CUSTOMIZATION)}><RotateCcw className="mr-2 h-4 w-4" /> Reset editor</Button>
