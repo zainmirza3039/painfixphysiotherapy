@@ -32,7 +32,7 @@ export function BlogCard({ post }: { post: BlogPost }) {
             decoding="async"
             width={700}
             height={394}
-            className={`h-full w-full ${imageFitClass} motion-safe:transition-transform motion-safe:duration-300 motion-safe:group-hover:scale-[1.02]`}
+            className={`h-full w-full object-cover motion-safe:transition-transform motion-safe:duration-300 motion-safe:group-hover:scale-[1.02]`}
           />
         </div>
       )}
