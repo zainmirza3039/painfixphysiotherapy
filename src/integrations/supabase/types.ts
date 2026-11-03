@@ -341,6 +341,12 @@ export type Database = {
         };
         Relationships: [];
       };
+      site_customization_public: {
+        Row: { config: Json; id: string; updated_at: string };
+        Insert: { config?: Json; id?: string; updated_at?: string };
+        Update: { config?: Json; id?: string; updated_at?: string };
+        Relationships: [];
+      };
       site_gallery: {
         Row: {
           alt_text: string;
