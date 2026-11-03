@@ -48,6 +48,7 @@ const NAV: NavItem[] = [
   { to: "/admin/blog", label: "Blog CMS", icon: Newspaper, gate: "content" },
   { to: "/admin/calculators", label: "Calculators", icon: Calculator, gate: "content" },
   { to: "/admin/media", label: "Media Library", icon: ImageIcon, gate: "content" },
+  { to: "/admin/gallery", label: "Website Gallery", icon: ImageIcon, gate: "admin" },
   { to: "/admin/reports", label: "Reports", icon: BarChart3, gate: "admin" },
   { to: "/admin/users", label: "Team & Roles", icon: ShieldCheck, gate: "admin" },
   { to: "/admin/clinicians", label: "Clinician Profiles", icon: Stethoscope, gate: "admin" },
@@ -77,7 +78,7 @@ const NAV_SECTIONS = [
   },
   {
     label: "Content",
-    routes: ["/admin/fitness-content", "/admin/blog", "/admin/calculators", "/admin/media"],
+    routes: ["/admin/fitness-content", "/admin/blog", "/admin/calculators", "/admin/media", "/admin/gallery"],
   },
   { label: "My workspace", routes: ["/admin/profile"] },
   {
