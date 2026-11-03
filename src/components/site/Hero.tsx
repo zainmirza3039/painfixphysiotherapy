@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from "react";
+import { useSiteCustomization } from "./useSiteCustomization";
 import type { TouchEvent as ReactTouchEvent } from "react";
 import {
   CalendarDays,
@@ -115,6 +116,7 @@ function HeroSlideImage({
 }
 
 export function Hero() {
+  const site = useSiteCustomization();
   const [activeSlide, setActiveSlide] = useState(0);
   const [userPaused, setUserPaused] = useState(false);
   const [pointerHovering, setPointerHovering] = useState(false);
@@ -183,15 +185,12 @@ export function Hero() {
             id="home-heading"
             className="mt-6 font-heading text-[clamp(2.6rem,5.2vw,4.25rem)] font-bold leading-[0.98] tracking-[-0.045em] text-foreground"
           >
-            Move Better.
-            <br />
-            Recover Faster.
-            <br />
-            <span className="home-hero__accent">Live Pain-Free.</span>
+            {site.heroTitle.split(". ").map((part, index, all) => (
+              <span key={part}>{part}{index < all.length - 1 ? "." : ""}{index < all.length - 1 ? <br /> : null}</span>
+            ))}
           </h1>
           <p className="mt-6 max-w-xl text-base leading-7 text-muted-foreground sm:text-lg sm:leading-8">
-            Choose a clinic appointment or home visit in Multan, or start online care from Rahim Yar
-            Khan. Thoughtful assessments and recovery plans built around you.
+            {site.heroDescription}
           </p>
 
           <div className="mt-8 grid gap-3 sm:grid-cols-2">
@@ -222,7 +221,7 @@ export function Hero() {
             </span>
             <span className="inline-flex items-center gap-2">
               <Clock3 className="h-4 w-4 shrink-0 text-secondary" aria-hidden="true" />
-              Mon–Sat, 11:00 AM–4:00 PM
+              {site.clinicHours}
             </span>
           </div>
           <p className="mt-2 hidden pl-6 text-xs text-muted-foreground sm:block">
