@@ -84,12 +84,26 @@ function BlogEditorPage() {
         seo_title: form.seo_title.trim() || null, meta_description: form.meta_description.trim() || null,
         status: form.status, publish_at: form.publish_at ? new Date(form.publish_at).toISOString() : null,
       };
+      if (!user?.id) {
+        throw new Error("Your login session is missing. Sign out, sign in again, and retry.");
+      }
+
       if (postId) {
-        const { error } = await supabase.from("blog_posts").update(payload).eq("id", postId);
+        let query = supabase.from("blog_posts").update(payload).eq("id", postId);
+        if (!isAdmin) query = query.eq("author_id", user.id);
+        const { data, error } = await query.select("id").maybeSingle();
         if (error) throw error;
+        if (!data) {
+          throw new Error("This article was not updated. Check that your account has content-editor permission and owns this article.");
+        }
       } else {
-        const { error } = await supabase.from("blog_posts").insert({ ...payload, author_id: user?.id ?? null });
+        const { data, error } = await supabase
+          .from("blog_posts")
+          .insert({ ...payload, author_id: user.id })
+          .select("id")
+          .single();
         if (error) throw error;
+        if (!data?.id) throw new Error("The database did not confirm that the article was saved.");
       }
     },
     onSuccess: async () => {
