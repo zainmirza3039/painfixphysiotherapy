@@ -160,31 +160,11 @@ function BlogPage() {
   });
 
   function openNew() {
-    setEditing(null);
-    setForm({ ...empty });
-    setSlugTouched(false);
-    setDialogOpen(true);
+    window.location.assign("/admin/blog-editor");
   }
 
   function openEdit(p: Post) {
-    setEditing(p);
-    setSlugTouched(true);
-    setForm({
-      title: p.title ?? "",
-      slug: p.slug ?? "",
-      excerpt: p.excerpt ?? "",
-      content: p.content ?? "",
-      category: p.category ?? "",
-      tags: (p.tags ?? []).join(", "),
-      author: p.author ?? "",
-      medical_reviewer_key: p.medical_reviewer_key ?? "",
-      featured_image: p.featured_image ?? "",
-      seo_title: p.seo_title ?? "",
-      meta_description: p.meta_description ?? "",
-      status: p.status ?? "draft",
-      publish_at: p.publish_at ? new Date(p.publish_at).toISOString().slice(0, 10) : "",
-    });
-    setDialogOpen(true);
+    window.location.assign(`/admin/blog-editor?postId=${encodeURIComponent(p.id)}`);
   }
 
   return (
