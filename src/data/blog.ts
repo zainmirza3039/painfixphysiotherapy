@@ -1875,81 +1875,106 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: "best-exercises-for-lower-back-pain",
-    title: "Best Exercises for Lower Back Pain | Kamar Dard Ki Exercises",
-    seoTitle: "Lower Back Pain Exercises | Kamar Dard Ki Exercises — PainFix",
+    title: "Kamar Dard Ki Exercise: 6 Safe Lower Back Pain Exercises",
+    seoTitle: "Kamar Dard Ki Exercise | Lower Back Pain — PainFix",
     metaDescription:
-      "Ease lower back pain (kamar dard) with these physiotherapist-approved exercises. Safe, effective movements to relieve pain, build core strength and prevent recurrence.",
+      "Kamar dard ki exercise: 6 gentle mobility and strengthening options for lower back pain, with safe reps, progression and warning signs. PainFix Multan.",
     category: "exercise-therapy",
-    tags: ["lower back pain", "kamar dard", "exercises", "core", "stretches"],
+    tags: [
+      "kamar dard ki exercise",
+      "kamar dard exercise",
+      "kamar dard",
+      "lower back pain",
+      "lower back pain exercises",
+      "back pain exercises",
+      "physiotherapy",
+      "Multan",
+    ],
     excerpt:
-      "The right exercises are one of the most powerful treatments for lower back pain (kamar dard). Here are the ones we recommend.",
+      "Kamar dard mein kaunsi exercise madad kar sakti hai? Explore six practical mobility and strengthening options, with simple guidance on how to start safely.",
     quickAnswer:
-      "The best exercises for lower back pain (kamar dard ki exercises) include the pelvic tilt, bird-dog, glute bridge, knee-to-chest stretch and cat-cow. Done regularly and pain-free, they relieve stiffness, strengthen the core and improve mobility. Combine gentle mobility work with progressive strengthening for lasting relief and fewer flare-ups.",
+      "Kamar dard ki exercise ka selection symptoms aur movement tolerance ke mutabiq hona chahiye. Gentle pelvic tilts, cat-cow, comfortable knee-to-chest movement, glute bridges, bird-dog and walking are useful starting options for many people with uncomplicated lower back pain. Start easy, monitor your response and build gradually.",
     date: "2026-05-02",
-    updated: "2026-06-08",
+    updated: "2026-11-03",
     authorKey: "ZA",
     sections: [
       {
         paragraphs: [
-          "Exercise is one of the most effective treatments for lower back pain — more effective than rest for most people. The goal is to restore movement and build the strength and endurance that protect your spine. Move within comfort and progress gradually.",
+          "Agar aap kamar dard (lower back pain) ke liye exercise dhoond rahe hain, to pehle gentle movement se start karein. Har patient ke liye ek hi exercise best nahi hoti: jo movement symptoms ko ease kare aur daily activity ko improve kare, usay gradually build kiya ja sakta hai. Exercise should be adjusted if pain spreads further down the leg or neurological symptoms appear.",
         ],
       },
       {
-        heading: "Mobility exercises",
-        paragraphs: ["Gentle movement relieves stiffness and eases pain."],
-        list: [
-          "Cat-cow: slowly arch and round the back",
-          "Knee-to-chest: gently draw each knee toward the chest",
-          "Pelvic tilts: gently flatten and arch the lower back",
-        ],
-      },
-      {
-        heading: "Strengthening exercises",
-        paragraphs: ["Strengthening builds the support your spine needs."],
-        list: [
-          "Glute bridge: lift the hips, squeezing the glutes",
-          "Bird-dog: extend opposite arm and leg, keeping the trunk still",
-          "Dead bug: controlled opposite arm and leg lowering",
-        ],
-      },
-      {
-        heading: "How to progress safely",
+        heading: "Kamar dard ki gentle mobility exercises",
         paragraphs: [
-          "Start with 1–2 sets of gentle repetitions daily. Increase gradually as you get stronger. Mild muscle fatigue is fine; sharp or worsening pain is a signal to ease off. If pain persists or radiates into the leg, book an assessment for a tailored programme.",
+          "In movements ka maqsad lower back aur hips ki comfortable mobility maintain karna hai. Range chhoti rakhein; movement ko force na karein.",
+        ],
+        list: [
+          "Pelvic tilts: knees bent aur feet flat rakh kar lower back ko gently floor ki taraf flatten karein, phir relax karein. 8–12 controlled repetitions.",
+          "Cat-cow: hands and knees position mein spine ko gently round aur arch karein. 6–10 slow repetitions, pain-free range mein.",
+          "Single knee-to-chest: let kar ek knee ko gently chest ki taraf laayein, 5–10 seconds hold karein, phir side change karein. 3–5 repetitions per side; only if it feels comfortable.",
+        ],
+      },
+      {
+        heading: "Kamar aur core ko strengthen karne wali exercises",
+        paragraphs: [
+          "Strengthening ko tab add karein jab basic movement comfortable ho. Quality aur control repetitions ki quantity se zyada important hain.",
+        ],
+        list: [
+          "Glute bridge: knees bent rakh kar hips ko lift karein, ribs ko flare na hone dein. 8–12 repetitions.",
+          "Bird-dog: hands and knees position mein opposite arm aur leg ko extend karein; pelvis ko level rakhein. 5–8 repetitions per side.",
+          "Dead bug: back par let kar arms up aur hips/knees bent rakhein; opposite arm aur leg ko slowly lower karein, lower back ko controlled position mein rakhein. 5–8 repetitions per side.",
+        ],
+      },
+      {
+        heading: "Walking and daily movement",
+        paragraphs: [
+          "Walking aksar low-impact starting option hoti hai. 5–10 minutes se shuru karein aur tolerance ke mutabiq duration barhayein. Prolonged bed rest se bachain; din bhar position change karte rahna aur normal activities ko gradually resume karna recovery ka hissa hai.",
+        ],
+      },
+      {
+        heading: "How to start and progress safely",
+        paragraphs: [
+          "Pehle 1 set se start karein; comfortable hon to 1–2 sets tak progress karein. Mobility daily ki ja sakti hai, jabke strengthening ko aam tor par haftay mein 2–3 din se start kiya ja sakta hai. Exercise ke dauran mild muscular effort acceptable hai, lekin sharp pain, symptoms ka leg mein aur neeche spread hona, nayi numbness ya weakness aane par exercise rok kar assessment karwayein. Agle din symptoms noticeably worse hon to range, repetitions ya load kam karein.",
+        ],
+      },
+      {
+        heading: "When back pain needs medical assessment",
+        paragraphs: [
+          "Bladder ya bowel control mein nayi difficulty, saddle area numbness, rapidly progressive leg weakness, major trauma ke baad severe pain, fever ke saath back pain, ya unexplained weight loss ke saath persistent pain ho to urgent medical assessment zaroori hai. Persistent pain, leg symptoms ya repeated flare-ups mein individualized physiotherapy assessment karwayein. PainFix Physiotherapy Clinic in Shalimar Colony, Multan can assess your movement, strength and symptom response before selecting a programme.",
         ],
       },
     ],
     faqs: [
       {
-        q: "What is the best exercise for lower back pain?",
-        a: "There is no single best exercise, but the glute bridge, bird-dog and gentle mobility work are highly effective for most people.",
+        q: "Kamar dard ki exercise konsi best hai?",
+        a: "Ek universal best exercise nahi hoti. Pelvic tilts, cat-cow, glute bridge aur bird-dog common starting options hain, lekin selection aapke symptoms, examination aur movement response ke mutabiq honi chahiye.",
       },
       {
-        q: "Is it safe to exercise with back pain?",
-        a: "Yes — gentle, guided exercise is one of the most effective treatments. Avoid sharp pain and progress gradually.",
+        q: "Kya kamar dard mein exercise karni chahiye?",
+        a: "Aksar uncomplicated lower back pain mein gentle activity aur graded exercise helpful hoti hai. Bed rest se bachain, lekin sharp pain ya leg symptoms barhne par exercise modify karein aur assessment karwayein.",
       },
       {
-        q: "How often should I do back exercises?",
-        a: "Daily gentle mobility and strengthening 3–4 times a week works well for most people.",
+        q: "Kamar dard ki exercise kitni baar karni chahiye?",
+        a: "Gentle mobility daily ki ja sakti hai. Strengthening ko 2–3 din per week se start karein aur recovery, tolerance aur programme ke mutabiq progress karein.",
       },
       {
-        q: "Should I stretch or strengthen for back pain?",
-        a: "Both. Mobility relieves stiffness while strengthening builds lasting support for the spine.",
+        q: "Kya knee-to-chest exercise har kamar dard mein safe hai?",
+        a: "Nahi. Ye kuch logon ko comfortable lagti hai, lekin agar is se pain ya leg symptoms barhein to isay avoid karein. Exercise selection individual assessment par depend karti hai.",
       },
       {
-        q: "When should I avoid back exercises?",
-        a: "Stop and seek assessment if exercise causes leg pain, numbness, weakness or sharply worsening symptoms.",
+        q: "Kya kamar dard mein walk kar sakte hain?",
+        a: "Aksar log short, comfortable walks se start kar sakte hain. 5–10 minutes se shuru karein aur symptoms ke mutabiq duration gradually barhayein.",
       },
       {
-        q: "How long until exercises reduce my back pain?",
-        a: "Many people notice improvement within 1–2 weeks of consistent, correct exercise.",
+        q: "Kamar dard mein exercise kab rokni chahiye?",
+        a: "Sharp ya worsening pain, leg mein neeche spread hota pain, new numbness ya weakness par exercise rok kar clinical assessment lein. Bladder/bowel changes ya saddle numbness emergency warning signs hain.",
       },
     ],
     keyTakeaways: [
-      "Exercise beats rest for most lower back pain.",
-      "Combine mobility with progressive strengthening.",
-      "Move within comfort and progress gradually.",
-      "Leg symptoms need professional assessment.",
+      "Kamar dard ki exercise symptoms aur tolerance ke mutabiq select karein.",
+      "Gentle mobility ke saath gradual strengthening combine karein.",
+      "Start with low repetitions and progress only when symptoms remain settled.",
+      "New weakness, saddle numbness or bladder/bowel changes need urgent medical care.",
     ],
     relatedServices: ["exercise-therapy", "manual-therapy", "pain-management"],
     relatedConditions: ["back-pain", "sciatica"],
