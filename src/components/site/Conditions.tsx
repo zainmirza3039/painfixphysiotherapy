@@ -44,7 +44,7 @@ export function Conditions() {
       className="home-section home-section--navy scroll-mt-24"
     >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="mb-9 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+        <div className="mb-10 flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
           <div>
             <p className="home-eyebrow home-eyebrow--light">
               <span aria-hidden="true" /> Find a starting point
@@ -91,9 +91,9 @@ export function Conditions() {
                   to="/conditions/$slug"
                   params={{ slug: featured.conditionSlug }}
                   aria-label={`Learn more about ${featured.title}${featured.title === "Slip Disc" ? " in the existing Back Pain guide" : ""}`}
-                  className="group flex h-full flex-col overflow-hidden rounded-2xl border border-white/20 bg-card shadow-soft transition-all hover:-translate-y-0.5 hover:border-secondary/60 hover:shadow-card focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary focus-visible:ring-offset-2 focus-visible:ring-offset-[#032e61]"
+                  className="group flex h-full min-h-full flex-col overflow-hidden rounded-3xl border border-white/15 bg-card shadow-soft transition-[transform,border-color,box-shadow] duration-300 ease-out hover:-translate-y-1 hover:border-secondary/70 hover:shadow-card focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary focus-visible:ring-offset-2 focus-visible:ring-offset-[#032e61]"
                 >
-                  <div className="aspect-[4/3] overflow-hidden bg-surface p-2 sm:p-3">
+                  <div className="aspect-[5/4] overflow-hidden bg-surface p-2.5 sm:p-3.5">
                     {image && (
                       <img
                         src={image}
@@ -102,7 +102,7 @@ export function Conditions() {
                         decoding="async"
                         width={700}
                         height={525}
-                        className={`h-full w-full transition-transform duration-500 group-hover:scale-[1.02] ${imageFitClass}`}
+                        className={`h-full w-full rounded-xl transition-transform duration-500 ease-out group-hover:scale-[1.035] ${imageFitClass}`}
                       />
                     )}
                   </div>
