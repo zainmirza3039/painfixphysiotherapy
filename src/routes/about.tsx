@@ -5,6 +5,7 @@ import { PageCTA } from "@/components/site/PageCTA";
 import { PageHero } from "@/components/site/PageHero";
 import { PageLayout } from "@/components/site/PageLayout";
 import { breadcrumbLd, canonical, pageMeta } from "@/lib/seo";
+import { serviceImages } from "@/data/serviceImages";
 
 const TITLE = "About PainFix Physiotherapy Clinic in Multan";
 const DESCRIPTION =
@@ -30,6 +31,8 @@ function AboutPage() {
       <PageHero
         eyebrow="About PainFix"
         title="Care shaped around your movement and goals."
+        image={serviceImages["manual-therapy"]}
+        imageAlt="Physiotherapist providing hands-on manual therapy in a clinical setting"
         subtitle="Physiotherapy and rehabilitation in Multan, with time to understand what has changed and discuss the next steps with you."
         crumbs={[
           { label: "Home", path: "/" },

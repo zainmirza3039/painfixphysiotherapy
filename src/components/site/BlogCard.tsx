@@ -2,7 +2,7 @@ import { Link } from "@tanstack/react-router";
 import { Clock, ArrowRight, CalendarClock, BadgeCheck } from "lucide-react";
 import { type BlogPost, blogCategoryMap, readingMinutes } from "@/data/blog";
 import { getTeamMember } from "@/data/team";
-import { conditionImages, conditionImageFitClass } from "@/data/conditionImages";
+import { getBlogVisual } from "@/data/blogImages";
 
 const dateFmt = new Intl.DateTimeFormat("en-GB", {
   day: "numeric",
@@ -14,10 +14,7 @@ export function BlogCard({ post }: { post: BlogPost }) {
   const cat = blogCategoryMap[post.category];
   const reviewerKey = post.source === "cms" ? post.medicalReviewerKey : post.authorKey;
   const reviewer = reviewerKey ? getTeamMember(reviewerKey) : undefined;
-  const image = post.heroImage ?? conditionImages[post.category];
-  const imageFitClass = post.heroImage
-    ? "object-cover"
-    : (conditionImageFitClass[post.category] ?? "object-cover");
+  const visual = getBlogVisual(post.category, post.heroImage);
   const categoryLabel = cat?.name ?? post.categoryName ?? "Article";
 
   return (
@@ -26,16 +23,16 @@ export function BlogCard({ post }: { post: BlogPost }) {
       params={{ slug: post.slug }}
       className="group flex h-full flex-col overflow-hidden rounded-lg border border-border bg-card transition-colors hover:border-secondary/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
     >
-      {image && (
+      {visual.src && (
         <div className="aspect-[16/9] overflow-hidden bg-surface">
           <img
-            src={image}
-            alt={`${post.title} — physiotherapy guidance from PainFix Clinic, Multan`}
+            src={visual.src}
+            alt={visual.alt}
             loading="lazy"
             decoding="async"
             width={700}
             height={394}
-            className={`h-full w-full ${imageFitClass} motion-safe:transition-transform motion-safe:duration-300 motion-safe:group-hover:scale-[1.02]`}
+            className={`h-full w-full object-cover motion-safe:transition-transform motion-safe:duration-300 motion-safe:group-hover:scale-[1.02]`}
           />
         </div>
       )}
@@ -58,9 +55,7 @@ export function BlogCard({ post }: { post: BlogPost }) {
             <CalendarClock className="h-3.5 w-3.5" /> Updated{" "}
             {dateFmt.format(new Date(post.updated))}
           </span>
-          {post.authorName && (
-            <span>By {post.authorName}</span>
-          )}
+          {post.authorName && <span>By {post.authorName}</span>}
           {reviewer && (
             <span className="inline-flex items-center gap-1">
               <BadgeCheck className="h-3.5 w-3.5 text-secondary" /> Reviewed by {reviewer.name}

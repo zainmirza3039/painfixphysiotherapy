@@ -8,6 +8,7 @@ import { PageHero } from "@/components/site/PageHero";
 import { PageCTA } from "@/components/site/PageCTA";
 import { Reveal } from "@/components/site/Reveal";
 import { pageMeta, canonical, breadcrumbLd } from "@/lib/seo";
+import { serviceImages } from "@/data/serviceImages";
 
 const TITLE = "Physiotherapy Services in Multan | PainFix Clinic";
 const DESCRIPTION =
@@ -33,6 +34,8 @@ function ServicesIndex() {
       <PageHero
         eyebrow="Our Services"
         title="Comprehensive Physiotherapy Services"
+        image={serviceImages["exercise-therapy"]}
+        imageAlt="Physiotherapist guiding a patient through a supervised therapeutic exercise"
         subtitle="Evidence-based treatment for pain, injury and recovery — delivered by experienced physiotherapists in Multan."
         crumbs={[
           { label: "Home", path: "/" },
@@ -45,6 +48,17 @@ function ServicesIndex() {
             {services.map((service, i) => (
               <Reveal key={service.slug} anim="up" delay={(i % 3) * 70}>
                 <article className="group relative flex h-full flex-col rounded-lg border border-border border-t-2 border-t-brand-green bg-card p-6 transition-colors hover:border-secondary/60 hover:bg-accent/20 focus-within:ring-2 focus-within:ring-primary/50">
+                  <div className="mb-4 aspect-[4/3] overflow-hidden rounded-md bg-surface">
+                    <img
+                      src={serviceImages[service.slug]}
+                      alt={`${service.title} treatment at PainFix Physiotherapy Clinic in Multan`}
+                      width={700}
+                      height={525}
+                      loading="lazy"
+                      decoding="async"
+                      className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                    />
+                  </div>
                   <span className="grid h-14 w-14 place-items-center rounded-2xl bg-secondary/12 text-secondary">
                     <service.icon className="h-7 w-7" />
                   </span>

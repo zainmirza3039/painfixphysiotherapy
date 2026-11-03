@@ -11,6 +11,8 @@ interface PageHeroProps {
   subtitle?: string;
   crumbs: Crumb[];
   icon?: ReactNode;
+  image?: string;
+  imageAlt?: string;
   showActions?: boolean;
 }
 
@@ -20,6 +22,8 @@ export function PageHero({
   subtitle,
   crumbs,
   icon,
+  image,
+  imageAlt = "",
   showActions = true,
 }: PageHeroProps) {
   return (
@@ -29,6 +33,19 @@ export function PageHero({
           <Breadcrumbs items={crumbs} />
         </div>
         <Reveal anim="up">
+          {image && (
+            <div className="mx-auto mb-8 aspect-[16/6] w-full max-w-5xl overflow-hidden rounded-2xl border border-border bg-surface shadow-soft sm:aspect-[16/5]">
+              <img
+                src={image}
+                alt={imageAlt}
+                width={1440}
+                height={450}
+                loading="eager"
+                decoding="async"
+                className="h-full w-full object-cover"
+              />
+            </div>
+          )}
           {icon && (
             <span className="mx-auto mt-6 grid h-14 w-14 place-items-center rounded-lg bg-accent text-secondary">
               {icon}

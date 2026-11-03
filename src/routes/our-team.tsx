@@ -5,6 +5,7 @@ import { PageHero } from "@/components/site/PageHero";
 import { PageLayout } from "@/components/site/PageLayout";
 import { breadcrumbLd, canonical, pageMeta } from "@/lib/seo";
 import { listPublicClinicians } from "@/lib/public-clinicians";
+import { serviceImages } from "@/data/serviceImages";
 
 const TITLE = "Our Physiotherapy Team in Multan | PainFix";
 const DESCRIPTION =
@@ -32,6 +33,8 @@ function OurTeamPage() {
       <PageHero
         eyebrow="The clinicians"
         title="Meet the people behind your care."
+        image={serviceImages["manual-therapy"]}
+        imageAlt="Physiotherapist working with a patient during a clinical assessment and treatment session"
         subtitle="Get to know the PainFix clinicians and view each physiotherapist’s profile, experience and areas of practice."
         crumbs={[
           { label: "Home", path: "/" },
