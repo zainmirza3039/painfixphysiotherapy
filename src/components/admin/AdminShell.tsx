@@ -11,6 +11,7 @@ import {
   Image as ImageIcon,
   BarChart3,
   Settings,
+  Palette,
   ShieldCheck,
   Stethoscope,
   UserCircle,
@@ -67,6 +68,7 @@ const NAV: NavItem[] = [
   },
   { to: "/admin/experience-records", label: "Experience Records", icon: UserCircle, gate: "admin" },
   { to: "/admin/certificates", label: "Certificates", icon: ShieldCheck, gate: "admin" },
+  { to: "/admin/website-editor", label: "Website Customization", icon: Palette, gate: "admin" },
   { to: "/admin/settings", label: "Settings", icon: Settings, gate: "admin" },
 ];
 
@@ -98,6 +100,7 @@ const NAV_SECTIONS = [
       "/admin/internship-participants",
       "/admin/experience-records",
       "/admin/certificates",
+      "/admin/website-editor",
       "/admin/settings",
     ],
   },
