@@ -384,7 +384,7 @@ export function Navbar({ onlineClinician }: { onlineClinician?: TeamMember }) {
                 {site.brandName}
               </span>
               <span className="truncate text-[11px] font-medium text-muted-foreground">
-                Physiotherapy Clinic
+                {site.tagline}
               </span>
             </span>
           </Link>
