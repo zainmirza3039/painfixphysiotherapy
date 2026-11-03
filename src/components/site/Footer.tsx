@@ -125,6 +125,14 @@ export function Footer({ hideClinicDetails = false }: { hideClinicDetails?: bool
               </li>
               <li>
                 <Link
+                  to="/clinical-resources"
+                  className="text-white/80 transition-colors hover:text-inverse-accent hover:underline"
+                >
+                  Clinical Resources
+                </Link>
+              </li>
+              <li>
+                <Link
                   to="/about"
                   className="text-white/80 transition-colors hover:text-inverse-accent hover:underline"
                 >
