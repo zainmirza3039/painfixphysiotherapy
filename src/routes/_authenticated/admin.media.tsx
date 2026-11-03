@@ -44,42 +44,45 @@ function MediaPage() {
   const [deleteName, setDeleteName] = useState<string | null>(null);
 
   // Admins manage the shared root; content professionals are scoped to their
-  // own private folder so they only ever see and touch their own files.
+  // own folder. This bucket contains public website assets only.
   const prefix = isAdmin ? "" : (user?.id ?? "");
   const withPrefix = (name: string) => (prefix ? `${prefix}/${name}` : name);
 
-  const { data: files, isLoading } = useQuery({
+  const {
+    data: files,
+    isLoading,
+    error: filesError,
+    refetch,
+  } = useQuery({
     queryKey: ["admin", "media", prefix],
     enabled: isAdmin || !!user?.id,
     queryFn: async (): Promise<MediaFile[]> => {
       const { data, error } = await supabase.storage
-        .from("media")
+        .from("site-media")
         .list(prefix, { limit: 200, sortBy: { column: "created_at", order: "desc" } });
       if (error) throw error;
       const items = (data ?? []).filter((f) => f.id !== null);
-      const signed = await Promise.all(
+      const mediaFiles = await Promise.all(
         items.map(async (f) => {
           const fullPath = withPrefix(f.name);
-          const { data: s } = await supabase.storage
-            .from("media")
-            .createSignedUrl(fullPath, 60 * 60 * 24 * 7);
+          const { data: publicAsset } = supabase.storage.from("site-media").getPublicUrl(fullPath);
           const ext = f.name.split(".").pop()?.toLowerCase() ?? "";
           return {
             name: fullPath,
             label: f.name,
             size: f.metadata?.size ?? 0,
-            url: s?.signedUrl ?? "",
-            isImage: ["jpg", "jpeg", "png", "gif", "webp", "svg", "avif"].includes(ext),
+            url: publicAsset.publicUrl,
+            isImage: ["jpg", "jpeg", "png", "gif", "webp", "avif"].includes(ext),
           };
         }),
       );
-      return signed;
+      return mediaFiles;
     },
   });
 
   const deleteMutation = useMutation({
     mutationFn: async (name: string) => {
-      const { error } = await supabase.storage.from("media").remove([name]);
+      const { error } = await supabase.storage.from("site-media").remove([name]);
       if (error) throw error;
     },
     onSuccess: () => {
@@ -93,20 +96,60 @@ function MediaPage() {
   async function handleUpload(e: React.ChangeEvent<HTMLInputElement>) {
     const selected = Array.from(e.target.files ?? []);
     if (!selected.length) return;
+
+    const allowedTypes = new Set([
+      "image/jpeg",
+      "image/png",
+      "image/webp",
+      "image/gif",
+      "image/avif",
+    ]);
+    const invalid = selected.find(
+      (file) => !allowedTypes.has(file.type) || file.size <= 0 || file.size > 10 * 1024 * 1024,
+    );
+
+    if (invalid) {
+      toast.error(`${invalid.name}: upload a JPG, PNG, WebP, GIF or AVIF image up to 10 MB.`);
+      if (fileInput.current) fileInput.current.value = "";
+      return;
+    }
+
     setUploading(true);
+    let uploaded = 0;
+    const failures: string[] = [];
+
     try {
       for (const file of selected) {
-        const safe = `${Date.now()}-${file.name.replace(/[^a-zA-Z0-9.\-_]/g, "_")}`;
-        const { error } = await supabase.storage.from("media").upload(withPrefix(safe), file, {
-          cacheControl: "3600",
-          upsert: false,
-        });
-        if (error) throw error;
+        const safeName = file.name.replace(/[^a-zA-Z0-9._-]/g, "_");
+        const objectPath = withPrefix(`${crypto.randomUUID()}-${safeName}`);
+
+        try {
+          const { error } = await supabase.storage.from("site-media").upload(objectPath, file, {
+            cacheControl: "31536000",
+            upsert: false,
+          });
+          if (error) throw error;
+          uploaded += 1;
+        } catch (error) {
+          failures.push(
+            `${file.name}: ${error instanceof Error ? error.message : "Upload failed"}`,
+          );
+        }
       }
-      toast.success("Upload complete");
-      qc.invalidateQueries({ queryKey: ["admin", "media"] });
-    } catch (err) {
-      toast.error(err instanceof Error ? err.message : "Upload failed");
+
+      if (uploaded > 0) {
+        await qc.invalidateQueries({ queryKey: ["admin", "media"] });
+      }
+
+      if (failures.length > 0) {
+        toast.error(
+          uploaded > 0
+            ? `${uploaded} uploaded; ${failures.length} failed. ${failures[0]}`
+            : failures[0],
+        );
+      } else {
+        toast.success(`${uploaded} image${uploaded === 1 ? "" : "s"} uploaded`);
+      }
     } finally {
       setUploading(false);
       if (fileInput.current) fileInput.current.value = "";
@@ -117,14 +160,14 @@ function MediaPage() {
     <div>
       <AdminPageHeader
         title="Media Library"
-        description="Upload and manage images and documents."
+        description="Upload public website images (maximum 10 MB). Never upload patient records here."
         actions={
           <>
             <input
               ref={fileInput}
               type="file"
               multiple
-              accept="image/*,.pdf"
+              accept=".jpg,.jpeg,.png,.webp,.gif,.avif"
               className="hidden"
               onChange={handleUpload}
             />
@@ -145,6 +188,15 @@ function MediaPage() {
           {Array.from({ length: 8 }).map((_, i) => (
             <Skeleton key={i} className="h-40" />
           ))}
+        </div>
+      ) : filesError ? (
+        <div className="rounded-2xl border border-destructive/30 bg-card p-6 text-center">
+          <p className="text-sm text-destructive">
+            {filesError instanceof Error ? filesError.message : "Unable to load media."}
+          </p>
+          <Button className="mt-3" variant="outline" size="sm" onClick={() => void refetch()}>
+            Retry
+          </Button>
         </div>
       ) : !files?.length ? (
         <div className="flex flex-col items-center gap-2 rounded-2xl border border-border bg-card py-20 text-muted-foreground">
@@ -217,7 +269,7 @@ function MediaCard({ file, onDelete }: { file: MediaFile; onDelete: () => void }
             onClick={() => {
               navigator.clipboard.writeText(file.url);
               setCopied(true);
-              toast.success("Signed URL copied");
+              toast.success("Public image URL copied");
             }}
           >
             <Copy className="mr-1 h-3.5 w-3.5" /> {copied ? "Copied" : "Copy URL"}
