@@ -54,7 +54,7 @@ const treatmentServices: TreatmentService[] = [
 ];
 
 const cardClassName =
-  "group flex h-full min-h-44 flex-col rounded-lg border border-border border-t-[3px] border-t-secondary bg-card p-4 transition-colors hover:border-secondary hover:bg-accent/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary sm:p-5";
+  "group flex h-full min-h-[20rem] flex-col overflow-hidden rounded-xl border border-border/80 border-t-[3px] border-t-secondary bg-card p-4 shadow-[0_2px_12px_rgba(3,46,97,0.035)] transition-all duration-300 hover:-translate-y-1 hover:border-secondary/70 hover:shadow-[0_14px_34px_rgba(3,46,97,0.11)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary sm:p-5";
 
 function TreatmentCardContent({ service }: { service: TreatmentService }) {
   const Icon = service.icon;
@@ -97,7 +97,7 @@ export function Services() {
   return (
     <section id="services" className="home-section scroll-mt-24 bg-background">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="mb-7 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+        <div className="mb-9 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
           <div>
             <p className="home-eyebrow">
               <span aria-hidden="true" /> How we can help
@@ -112,7 +112,7 @@ export function Services() {
           </Link>
         </div>
 
-        <div className="grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-3 xl:grid-cols-5">
+        <div className="grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-3 xl:grid-cols-6 xl:[&>*:nth-child(4)]:col-start-2 xl:[&>*:nth-child(5)]:col-start-4">
           {treatmentServices.map((service, index) => (
             <Reveal key={service.title} anim="up" delay={index * 45}>
               {service.slug ? (
