@@ -8,6 +8,7 @@ import { PageHero } from "@/components/site/PageHero";
 import { PageCTA } from "@/components/site/PageCTA";
 import { Reveal } from "@/components/site/Reveal";
 import { pageMeta, canonical, breadcrumbLd } from "@/lib/seo";
+import { serviceImages } from "@/data/serviceImages";
 
 const TITLE = "Physiotherapy Services in Multan | PainFix Clinic";
 const DESCRIPTION =
@@ -33,6 +34,8 @@ function ServicesIndex() {
       <PageHero
         eyebrow="Our Services"
         title="Comprehensive Physiotherapy Services"
+        image={serviceImages["exercise-therapy"]}
+        imageAlt="Physiotherapist guiding a patient through a supervised therapeutic exercise"
         subtitle="Evidence-based treatment for pain, injury and recovery — delivered by experienced physiotherapists in Multan."
         crumbs={[
           { label: "Home", path: "/" },
