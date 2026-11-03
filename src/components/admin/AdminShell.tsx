@@ -359,15 +359,6 @@ export function AdminShell({ children }: { children: ReactNode }) {
       </header>
 
       <main className="mx-auto w-full max-w-[1600px] px-4 py-5 sm:px-6 sm:py-7 xl:px-8">
-        {activePage && (
-          <div className="mb-5 flex items-center justify-between border-b border-border/70 pb-4">
-            <div>
-              <p className="text-xs font-medium text-muted-foreground">PainFix Clinic Workspace</p>
-              <h1 className="mt-1 font-heading text-xl font-semibold tracking-tight text-foreground">{activePage.label}</h1>
-            </div>
-            <span className="hidden rounded-full border border-border bg-card px-3 py-1 text-xs font-medium text-muted-foreground sm:inline-flex">{panelLabel}</span>
-          </div>
-        )}
         <div className="min-w-0">{children}</div>
       </main>
     </div>
