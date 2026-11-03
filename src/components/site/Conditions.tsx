@@ -91,9 +91,9 @@ export function Conditions() {
                   to="/conditions/$slug"
                   params={{ slug: featured.conditionSlug }}
                   aria-label={`Learn more about ${featured.title}${featured.title === "Slip Disc" ? " in the existing Back Pain guide" : ""}`}
-                  className="group flex h-full min-h-full flex-col overflow-hidden rounded-3xl border border-white/15 bg-card shadow-soft transition-[transform,border-color,box-shadow] duration-300 ease-out hover:-translate-y-1 hover:border-secondary/70 hover:shadow-card focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary focus-visible:ring-offset-2 focus-visible:ring-offset-[#032e61]"
+                  className="group flex h-full flex-col border-b border-white/20 pb-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary"
                 >
-                  <div className="aspect-[5/4] overflow-hidden bg-surface p-2.5 sm:p-3.5">
+                  <div className="aspect-[5/4] overflow-hidden bg-[#0b3b69]">
                     {image && (
                       <img
                         src={image}
@@ -102,11 +102,11 @@ export function Conditions() {
                         decoding="async"
                         width={700}
                         height={525}
-                        className={`h-full w-full rounded-xl transition-transform duration-500 ease-out group-hover:scale-[1.035] ${imageFitClass}`}
+                        className={`h-full w-full ${imageFitClass}`}
                       />
                     )}
                   </div>
-                  <div className="flex flex-1 flex-col p-3 sm:p-5">
+                  <div className="flex flex-1 flex-col pt-3">
                     <h3 className="font-heading text-sm font-bold leading-snug text-foreground sm:text-lg">
                       {featured.title}
                     </h3>
