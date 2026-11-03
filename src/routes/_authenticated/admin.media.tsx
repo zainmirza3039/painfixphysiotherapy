@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
@@ -163,6 +163,12 @@ function MediaPage() {
         description="Upload public website images (maximum 10 MB). Never upload patient records here."
         actions={
           <>
+            <Link
+              to="/admin/gallery"
+              className="inline-flex h-9 items-center rounded-md border border-border bg-card px-3 text-sm font-medium text-foreground hover:bg-muted"
+            >
+              Manage website gallery
+            </Link>
             <input
               ref={fileInput}
               type="file"

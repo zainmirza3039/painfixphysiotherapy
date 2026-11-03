@@ -341,6 +341,39 @@ export type Database = {
         };
         Relationships: [];
       };
+      site_gallery: {
+        Row: {
+          alt_text: string;
+          caption: string;
+          created_at: string;
+          display_order: number;
+          id: string;
+          is_active: boolean;
+          storage_path: string;
+          updated_at: string;
+        };
+        Insert: {
+          alt_text: string;
+          caption: string;
+          created_at?: string;
+          display_order?: number;
+          id?: string;
+          is_active?: boolean;
+          storage_path: string;
+          updated_at?: string;
+        };
+        Update: {
+          alt_text?: string;
+          caption?: string;
+          created_at?: string;
+          display_order?: number;
+          id?: string;
+          is_active?: boolean;
+          storage_path?: string;
+          updated_at?: string;
+        };
+        Relationships: [];
+      };
       fitness_content: {
         Row: {
           author_id: string;
