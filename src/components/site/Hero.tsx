@@ -225,7 +225,7 @@ export function Hero() {
             </span>
           </div>
           <p className="mt-2 hidden pl-6 text-xs text-muted-foreground sm:block">
-            Sunday by appointment
+            Open daily
           </p>
         </div>
 
@@ -346,7 +346,7 @@ export function Hero() {
             </span>
             <span>
               <Clock3 className="h-4 w-4 shrink-0 text-secondary" aria-hidden="true" />
-              Mon–Sat, 11:00 AM–4:00 PM
+              11:00 AM–4:00 PM daily
             </span>
             <span>Sunday by appointment</span>
           </div>
