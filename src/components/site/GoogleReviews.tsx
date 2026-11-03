@@ -7,7 +7,7 @@ export function GoogleReviews() {
   return (
     <section id="testimonials" className="home-section scroll-mt-24">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="mb-9 grid gap-4 md:grid-cols-[0.9fr_1.1fr] md:items-end md:gap-12">
+        <div className="mb-10 grid gap-5 md:grid-cols-[0.9fr_1.1fr] md:items-end md:gap-12">
           <div>
             <p className="home-eyebrow">
               <span aria-hidden="true" /> Patient feedback
@@ -21,7 +21,7 @@ export function GoogleReviews() {
         </div>
 
         <Reveal anim="up">
-          <div className="home-review-summary">
+          <div className="home-review-summary rounded-3xl border border-border/70 bg-card p-5 shadow-soft transition-shadow duration-300 hover:shadow-card sm:p-7">
             <div className="flex items-center gap-4">
               <GoogleG className="h-10 w-10 shrink-0" />
               <div>
@@ -31,7 +31,7 @@ export function GoogleReviews() {
                 </p>
               </div>
             </div>
-            <div className="flex flex-wrap gap-3">
+            <div className="flex flex-wrap gap-3 sm:justify-end">
               <a
                 href={GOOGLE_BUSINESS_PROFILE_URL}
                 target="_blank"
