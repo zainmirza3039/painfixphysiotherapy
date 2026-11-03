@@ -59,7 +59,7 @@ export function Footer({ hideClinicDetails = false }: { hideClinicDetails?: bool
             <p className="mt-5 max-w-sm text-sm leading-relaxed text-white/80">
               {hideClinicDetails
                 ? "PainFix physiotherapy and rehabilitation. Online consultations are booked directly with your clinician."
-                : "{site.footerDescription}"}
+                : site.footerDescription}
             </p>
 
             {/* Working hours */}
