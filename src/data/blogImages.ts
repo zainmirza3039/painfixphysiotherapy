@@ -44,7 +44,7 @@ const categoryVisuals: Record<string, BlogVisual> = {
     src: conditionImages["balance-disorders"],
     alt: "Physiotherapist supporting balance and mobility training",
   },
-  "posture": {
+  posture: {
     src: serviceImages["posture-ergonomic-assessment"],
     alt: "Physiotherapist assessing posture and spinal alignment",
   },
