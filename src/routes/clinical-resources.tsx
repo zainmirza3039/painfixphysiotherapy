@@ -30,7 +30,7 @@ const PRESENTATION_PARTS = [
     title: "Clinical Understanding & Assessment",
     description:
       "A structured overview of chronic non-specific low back pain, clinical reasoning, red-flag screening, history taking, physical examination, imaging considerations and patient communication.",
-    filename: "chronic-low-back-pain-part-1-assessment.pdf.pdf",
+    filename: "chronic-low-back-pain-part-1-assessment.pdf",
     topics: ["Clinical assessment", "Red flags", "Biopsychosocial approach"],
   },
   {
@@ -38,7 +38,7 @@ const PRESENTATION_PARTS = [
     title: "Treatment & Rehabilitation",
     description:
       "An overview of evidence-informed management, including manual therapy as an adjunct, exercise prescription, graded activity, education, self-management and outcome-based reassessment.",
-    filename: "chronic-low-back-pain-part-2-rehabilitation.pdf.pdf",
+    filename: "chronic-low-back-pain-part-2-rehabilitation.pdf",
     topics: ["Treatment planning", "Exercise rehabilitation", "Reassessment"],
   },
 ];
@@ -107,13 +107,15 @@ function ClinicalResourcesPage() {
                     </li>
                   ))}
                 </ul>
-                <div className="mt-6 flex items-center gap-2 border-t border-border pt-4 text-sm font-medium text-muted-foreground">
+                <a
+                  href={`/resources/${part.filename}`}
+                  download
+                  className="mt-6 inline-flex min-h-11 items-center justify-center gap-2 rounded-lg bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                  aria-label={`Download PDF: ${part.title}`}
+                >
                   <Download className="h-4 w-4" />
-                  PDF upload pending
-                </div>
-                <p className="mt-2 text-xs text-muted-foreground">
-                  File location: <code>public/resources/{part.filename}</code>
-                </p>
+                  Download PDF
+                </a>
               </article>
             ))}
           </div>
