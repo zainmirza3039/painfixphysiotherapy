@@ -11,7 +11,7 @@ test("RYK landing route uses the online-only SEO page and avoids clinic schema",
     read("src/components/site/RykOnlineLandingPage.tsx"),
   ]);
   assert.match(route, /createFileRoute\("\/physiotherapy-in-rahim-yar-khan"\)/);
-  assert.match(route, /Online Physiotherapy in Rahim Yar Khan/);
+  assert.match(route, /Online Video Physiotherapy in Rahim Yar Khan/);
   assert.match(route, /MedicalTherapy/);
   assert.match(route, /Rahim Yar Khan/);
   assert.doesNotMatch(route, /MedicalClinic/);
@@ -24,7 +24,7 @@ test("RYK landing route uses the online-only SEO page and avoids clinic schema",
 test("RYK homepage card links to the dedicated online-only landing page", async () => {
   const source = await read("src/components/site/CityServices.tsx");
   assert.match(source, /physiotherapy-in-rahim-yar-khan/);
-  assert.match(source, /online only/i);
+  assert.match(source, /online physiotherapy/i);
   assert.doesNotMatch(source, /Rahim Yar Khan (clinic|branch)/i);
 });
 
