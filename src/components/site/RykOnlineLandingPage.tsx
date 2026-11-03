@@ -44,13 +44,20 @@ const steps = [
   ],
 ];
 
+const suitableTopics = [
+  ["Back pain", "back-pain"],
+  ["Neck pain", "neck-pain"],
+  ["Mobility and balance", "balance-disorders"],
+  ["Rehabilitation follow-up", "stroke-rehabilitation"],
+] as const;
+
 export function RykOnlineLandingPage() {
   return (
     <PageLayout>
       <PageHero
         eyebrow="Online physiotherapy for Rahim Yar Khan"
-        title="Online Physiotherapy in Rahim Yar Khan"
-        subtitle="Enquire about online video physiotherapy with Ariba Babar, DPT — with suitability and availability confirmed before booking."
+        title="Online Video Physiotherapy in Rahim Yar Khan"
+        subtitle="Enquire about online physiotherapy with Ariba Babar, DPT. Suitability and availability are confirmed before booking."
         crumbs={[
           { label: "Home", path: "/" },
           {
@@ -169,6 +176,36 @@ export function RykOnlineLandingPage() {
         </div>
       </section>
 
+      <section className="py-14 sm:py-20">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+          <div className="max-w-2xl">
+            <p className="home-eyebrow">
+              <span aria-hidden="true" /> Online care topics
+            </p>
+            <h2 className="mt-4 font-heading text-3xl font-extrabold text-foreground sm:text-4xl">
+              What online physiotherapy can help you plan
+            </h2>
+            <p className="mt-4 text-base leading-7 text-muted-foreground">
+              Online guidance may support education, exercise selection and rehabilitation planning
+              for some conditions. Your symptoms and goals are reviewed first to decide whether
+              video care is suitable.
+            </p>
+          </div>
+          <div className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+            {suitableTopics.map(([label, slug]) => (
+              <Link
+                key={slug}
+                to="/conditions/$slug"
+                params={{ slug }}
+                className="rounded-xl border border-border bg-card p-5 text-sm font-semibold text-primary shadow-soft transition-colors hover:border-secondary hover:text-secondary"
+              >
+                {label} <ArrowRight className="ml-1 inline h-4 w-4" aria-hidden="true" />
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
       <section className="bg-surface py-14 sm:py-20">
         <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
           <h2 className="font-heading text-3xl font-extrabold text-foreground sm:text-4xl">
@@ -180,7 +217,10 @@ export function RykOnlineLandingPage() {
         </div>
       </section>
 
-      <PageCTA />
+      <PageCTA
+        title="Ask about online physiotherapy in Rahim Yar Khan"
+        subtitle="Start with a suitability enquiry. We will discuss your symptoms, goals and the right next step before booking."
+      />
     </PageLayout>
   );
 }
