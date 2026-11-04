@@ -5,6 +5,7 @@ import {
   clinicianServiceLabel,
   clinicianWhatsAppUrl,
   isOnlineClinician,
+  isClinicClinicianInCity,
 } from "../src/lib/clinician-service.ts";
 import {
   clinicianFormToInput,
@@ -76,4 +77,18 @@ test("admin conversion round-trips service mode and all CV lists without inventi
   assert.equal(roundTrip.service_mode, "online_only");
   assert.equal(roundTrip.trainingText, "Dry needling training");
   assert.equal(clinicianProfileToForm({}).city, "Multan");
+});
+
+test("Multan local pages include only in-person clinicians based in Multan", () => {
+  const onlineRyk = toClinicianView(profile);
+  const onlineMultan = { ...onlineRyk, serviceMode: "online_only", city: "Multan" };
+  const clinicRyk = { ...onlineRyk, serviceMode: "clinic", city: "Rahim Yar Khan, Pakistan" };
+  const clinicMultan = { ...onlineRyk, serviceMode: "clinic", city: "Multan, Punjab, Pakistan" };
+  const legacyMultan = { ...onlineRyk, serviceMode: undefined, city: undefined };
+
+  assert.equal(isClinicClinicianInCity(onlineRyk, "Multan"), false);
+  assert.equal(isClinicClinicianInCity(onlineMultan, "Multan"), false);
+  assert.equal(isClinicClinicianInCity(clinicRyk, "Multan"), false);
+  assert.equal(isClinicClinicianInCity(clinicMultan, "Multan"), true);
+  assert.equal(isClinicClinicianInCity(legacyMultan, "Multan"), true);
 });

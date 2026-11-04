@@ -292,16 +292,25 @@ export function AdminShell({ children }: { children: ReactNode }) {
           <div className="flex min-w-0 items-center gap-3">
             <span className="relative grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-primary text-primary-foreground">
               <Activity className="h-5 w-5" />
-              <span aria-hidden="true" className="absolute -bottom-0.5 -right-0.5 h-3 w-3 rounded-full border-2 border-card bg-secondary" />
+              <span
+                aria-hidden="true"
+                className="absolute -bottom-0.5 -right-0.5 h-3 w-3 rounded-full border-2 border-card bg-secondary"
+              />
             </span>
             <div className="min-w-0">
-              <p className="truncate font-heading text-base font-semibold tracking-tight text-foreground">PainFix Admin</p>
-              <p className="mt-0.5 text-[10px] font-semibold uppercase tracking-[0.14em] text-muted-foreground">{panelLabel} workspace</p>
+              <p className="truncate font-heading text-base font-semibold tracking-tight text-foreground">
+                PainFix Admin
+              </p>
+              <p className="mt-0.5 text-[10px] font-semibold uppercase tracking-[0.14em] text-muted-foreground">
+                {panelLabel} workspace
+              </p>
             </div>
           </div>
 
           <div className="flex shrink-0 items-center gap-2">
-            <span className="hidden max-w-[220px] truncate text-sm text-muted-foreground xl:inline">{user?.email}</span>
+            <span className="hidden max-w-[220px] truncate text-sm text-muted-foreground xl:inline">
+              {user?.email}
+            </span>
             <span aria-hidden="true" className="hidden h-6 w-px bg-border xl:block" />
             <Button variant="ghost" size="icon" onClick={toggle} aria-label="Toggle theme">
               {dark ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
@@ -311,7 +320,12 @@ export function AdminShell({ children }: { children: ReactNode }) {
             </Button>
             <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
               <SheetTrigger asChild>
-                <Button variant="ghost" size="icon" className="lg:hidden" aria-label="Open admin navigation">
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="lg:hidden"
+                  aria-label="Open admin navigation"
+                >
                   <Menu className="h-5 w-5" />
                 </Button>
               </SheetTrigger>
@@ -331,7 +345,8 @@ export function AdminShell({ children }: { children: ReactNode }) {
                   {section.label}
                 </span>
                 {section.items.map((item) => {
-                  const active = item.to === "/admin" ? pathname === item.to : pathname.startsWith(item.to);
+                  const active =
+                    item.to === "/admin" ? pathname === item.to : pathname.startsWith(item.to);
                   return (
                     <Link
                       key={item.to}
@@ -344,14 +359,25 @@ export function AdminShell({ children }: { children: ReactNode }) {
                           : "text-foreground/70 hover:bg-muted hover:text-foreground",
                       )}
                     >
-                      <item.icon className={cn("h-3.5 w-3.5 shrink-0", active ? "text-secondary" : "text-muted-foreground")} aria-hidden="true" />
+                      <item.icon
+                        className={cn(
+                          "h-3.5 w-3.5 shrink-0",
+                          active ? "text-secondary" : "text-muted-foreground",
+                        )}
+                        aria-hidden="true"
+                      />
                       {item.label}
                     </Link>
                   );
                 })}
               </div>
             ))}
-            <a href="/" target="_blank" rel="noreferrer" className="ml-auto inline-flex min-h-9 items-center gap-1.5 whitespace-nowrap rounded-lg px-2.5 text-xs font-medium text-muted-foreground hover:bg-muted hover:text-foreground">
+            <a
+              href="/"
+              target="_blank"
+              rel="noreferrer"
+              className="ml-auto inline-flex min-h-9 items-center gap-1.5 whitespace-nowrap rounded-lg px-2.5 text-xs font-medium text-muted-foreground hover:bg-muted hover:text-foreground"
+            >
               <ExternalLink className="h-3.5 w-3.5" /> Website
             </a>
           </div>

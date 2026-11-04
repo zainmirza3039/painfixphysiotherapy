@@ -71,8 +71,8 @@ function ClinicalResourcesPage() {
               Evidence-Based Physiotherapy for Chronic Non-Specific Low Back Pain
             </h2>
             <p className="mt-3 text-sm leading-7 text-muted-foreground sm:text-base">
-              A clinical education presentation covering assessment through rehabilitation.
-              The two parts are organised separately so readers can access the topic they need.
+              A clinical education presentation covering assessment through rehabilitation. The two
+              parts are organised separately so readers can access the topic they need.
             </p>
           </div>
 
