@@ -27,7 +27,7 @@ test("slipped-disc page includes cauda equina emergency guidance", async () => {
 test("new condition pages have matching visual references and existing service links", async () => {
   const gallery = await read("src/data/conditionImageGallery.ts");
   const services = await read("src/data/services.ts");
-  assert.match(gallery, /"slipped-disc": \\[slippedDiscVisual\\]/);
+  assert.ok(gallery.includes('"slipped-disc": [slippedDiscVisual]'));
   assert.match(gallery, /"shoulder-pain":/);
   for (const slug of ["manual-therapy", "exercise-therapy", "pain-management", "posture-ergonomic-assessment"]) {
     assert.ok(services.includes(`slug: "${slug}"`));
