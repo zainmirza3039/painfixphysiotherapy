@@ -12,6 +12,11 @@ export default defineConfig(({ command }) => ({
   plugins: [
     tailwindcss(),
     tanstackStart({
+      // Split route UI into on-demand chunks so a visitor downloads only
+      // the active route instead of every public and admin screen.
+      tsr: {
+        autoCodeSplitting: true,
+      },
       importProtection: {
         behavior: "error",
         client: {
