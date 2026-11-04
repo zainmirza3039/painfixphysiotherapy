@@ -38,11 +38,14 @@ export const Route = createFileRoute("/blog/category/$category")({
     const { category } = loaderData;
     const path = `/blog/category/${params.category}`;
     return {
-      meta: pageMeta({
-        title: `${category.name} Articles | Physiotherapy Blog — PainFix Multan`,
-        description: category.description,
-        path,
-      }),
+      meta: [
+        ...pageMeta({
+          title: `${category.name} Articles | Physiotherapy Blog — PainFix Multan`,
+          description: category.description,
+          path,
+        }),
+        ...(loaderData.posts.length < 3 ? [{ name: "robots", content: "noindex,follow" }] : []),
+      ],
       links: canonical(path),
       scripts: [
         breadcrumbLd([
