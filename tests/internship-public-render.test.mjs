@@ -183,7 +183,21 @@ for (const [status, expected] of [
 
 test("site-wide clinic hours remain consistent", () => {
   assert.deepEqual(OPENING_HOURS, [
-    { days: "Monday – Saturday", time: "11:00 AM – 4:00 PM" },
+    { days: "Monday – Saturday", time: "11:00 AM – 9:00 PM" },
     { days: "Sunday", time: "By Appointment" },
   ]);
+});
+
+
+test("local business SEO facts stay aligned with the verified business profile", async () => {
+  const [constants, localPages, root] = await Promise.all([
+    readFile(new URL("../src/components/site/constants.ts", import.meta.url), "utf8"),
+    readFile(new URL("../src/data/localPages.ts", import.meta.url), "utf8"),
+    readFile(new URL("../src/routes/__root.tsx", import.meta.url), "utf8"),
+  ]);
+  assert.match(constants, /time: "11:00 AM – 9:00 PM"/);
+  assert.doesNotMatch(localPages, /11:00 AM.{0,20}4:00 PM/);
+  assert.doesNotMatch(localPages, /31 reviews/);
+  assert.doesNotMatch(root, /aggregateRating|reviewCount/);
+  assert.match(root, /closes: "21:00"/);
 });
