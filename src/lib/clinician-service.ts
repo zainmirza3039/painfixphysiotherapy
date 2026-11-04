@@ -8,8 +8,7 @@ export function isOnlineClinician(doc: TeamMember): boolean {
 export function isClinicClinicianInCity(doc: TeamMember, city: string): boolean {
   if (isOnlineClinician(doc)) return false;
 
-  const normalizeCity = (value: string) =>
-    value.split(",")[0]?.trim().toLocaleLowerCase() ?? "";
+  const normalizeCity = (value: string) => value.split(",")[0]?.trim().toLocaleLowerCase() ?? "";
 
   return normalizeCity(doc.city || "Multan") === normalizeCity(city);
 }
