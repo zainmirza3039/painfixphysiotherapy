@@ -7,6 +7,7 @@ import { blogMap } from "@/data/blog";
 import { ClinicianPortrait } from "./ClinicianPortrait";
 import { usePublishedClinicians } from "@/lib/usePublishedClinicians";
 import { toClinicianView } from "@/lib/clinician-view";
+import { isClinicClinicianInCity } from "@/lib/clinician-service";
 import { PageLayout } from "./PageLayout";
 import { PageHero } from "./PageHero";
 import { PageCTA } from "./PageCTA";
@@ -27,7 +28,9 @@ export function LocalLandingPage({ page }: { page: LocalPage }) {
   const conditions = page.conditionSlugs.map((c) => conditionMap[c]).filter(Boolean);
   const blogs = page.blogSlugs.map((b) => blogMap[b]).filter(Boolean);
   const { data: clinicianProfiles, isLoading, isError, refetch } = usePublishedClinicians();
-  const clinicians = (clinicianProfiles ?? []).map(toClinicianView);
+  const clinicians = (clinicianProfiles ?? [])
+    .map(toClinicianView)
+    .filter((clinician) => isClinicClinicianInCity(clinician, "Multan"));
 
   return (
     <PageLayout>
