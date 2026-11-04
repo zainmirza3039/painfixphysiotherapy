@@ -22,13 +22,14 @@ export const Route = createFileRoute("/sitemap.xml")({
           await import("@/data/wellness");
         const { fitnessPages } = await import("@/data/fitness");
         const { listPublishedBlogPosts } = await import("@/lib/blog.functions");
-        let dbPosts: { slug: string; updated_at: string }[] = [];
+        let dbPosts: { slug: string; updated_at: string; category: string | null }[] = [];
         let clinicianSlugs: string[] = [];
         let internshipEntries: SitemapEntry[] = [];
         try {
           dbPosts = (await listPublishedBlogPosts()).map((p) => ({
             slug: p.slug,
             updated_at: p.updated_at,
+            category: p.category,
           }));
         } catch {
           dbPosts = [];
@@ -70,6 +71,13 @@ export const Route = createFileRoute("/sitemap.xml")({
         }
         // De-duplicate CMS slugs that also exist in static data.
         const staticSlugs = new Set(blogPosts.map((p) => p.slug));
+        const categoryPostCounts = new Map<string, number>();
+        for (const post of blogPosts) {
+          categoryPostCounts.set(post.category, (categoryPostCounts.get(post.category) ?? 0) + 1);
+        }
+        for (const post of dbPosts.filter((p) => !staticSlugs.has(p.slug) && p.category)) {
+          categoryPostCounts.set(post.category!, (categoryPostCounts.get(post.category!) ?? 0) + 1);
+        }
         const cmsBlogEntries = dbPosts
           .filter((p) => !staticSlugs.has(p.slug))
           .map((p) => ({
@@ -144,11 +152,15 @@ export const Route = createFileRoute("/sitemap.xml")({
             changefreq: "monthly" as const,
             priority: "0.7",
           })),
-          ...blogCategories.map((c) => ({
-            path: `/blog/category/${c.slug}`,
-            changefreq: "weekly" as const,
-            priority: "0.6",
-          })),
+          // Category archives are useful navigation, but only advertise them to search
+          // engines once they contain enough distinct articles to stand alone.
+          ...blogCategories
+            .filter((c) => (categoryPostCounts.get(c.slug) ?? 0) >= 3)
+            .map((c) => ({
+              path: `/blog/category/${c.slug}`,
+              changefreq: "weekly" as const,
+              priority: "0.6",
+            })),
           ...blogPosts.map((p) => ({
             path: `/blog/${p.slug}`,
             lastmod: p.updated,

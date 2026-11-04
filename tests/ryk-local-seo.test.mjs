@@ -24,7 +24,8 @@ test("RYK landing route uses the online-only SEO page and avoids clinic schema",
 test("RYK homepage card links to the dedicated online-only landing page", async () => {
   const source = await read("src/components/site/CityServices.tsx");
   assert.match(source, /physiotherapy-in-rahim-yar-khan/);
-  assert.match(source, /online physiotherapy/i);
+  assert.match(source, /online appointment/i);
+  assert.match(source, /No clinic visit or local home visit is offered/i);
   assert.doesNotMatch(source, /Rahim Yar Khan (clinic|branch)/i);
 });
 
