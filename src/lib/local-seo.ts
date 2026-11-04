@@ -60,7 +60,7 @@ export function localPageHead(page: LocalPage) {
               "@type": "OpeningHoursSpecification",
               dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
               opens: "11:00",
-              closes: "16:00",
+              closes: "21:00",
             },
           ],
           hasMap: GOOGLE_BUSINESS_PROFILE_URL,
