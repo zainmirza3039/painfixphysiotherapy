@@ -1,144 +1,78 @@
 # PainFix Physiotherapy Clinic
 
-> PainFix Physiotherapy Clinic is an evidence-based physiotherapy and rehabilitation clinic in Multan, Punjab, Pakistan. The clinic provides manual therapy, exercise rehabilitation, sports injury treatment, pain management, post-surgical rehabilitation, stroke rehabilitation, and home physiotherapy services.
+> PainFix Physiotherapy Clinic is an evidence-based physiotherapy and rehabilitation clinic in Multan, Punjab, Pakistan. Services include in-clinic physiotherapy, home visits in Multan, manual therapy, exercise rehabilitation, sports injury care, pain management, post-surgical rehabilitation and neurological rehabilitation.
 
-## About
+## Official website and key pages
 
-PainFix Physiotherapy Clinic helps patients recover from musculoskeletal pain, injuries, mobility limitations, and neurological conditions through personalized physiotherapy programs.
+- [Homepage](https://painfixphysiotherapy.com/)
+- [About PainFix](https://painfixphysiotherapy.com/about)
+- [Our clinical team](https://painfixphysiotherapy.com/our-team)
+- [Physiotherapy services](https://painfixphysiotherapy.com/services)
+- [Conditions treated](https://painfixphysiotherapy.com/conditions)
+- [Home physiotherapy in Multan](https://painfixphysiotherapy.com/home-visit)
+- [Book an appointment](https://painfixphysiotherapy.com/book-appointment)
+- [Contact PainFix](https://painfixphysiotherapy.com/contact)
+- [Patient education and articles](https://painfixphysiotherapy.com/blog)
+- [Clinical resources](https://painfixphysiotherapy.com/clinical-resources)
+- [Clinic gallery](https://painfixphysiotherapy.com/gallery)
+- [Health calculators](https://painfixphysiotherapy.com/health-calculators)
+- [Certificates and verification](https://painfixphysiotherapy.com/certificates)
+- [Verify a certificate](https://painfixphysiotherapy.com/verify-certificate)
 
-Clinic Location:
-Multan, Punjab, Pakistan
+## About the clinic
 
-Services are available:
-- In-clinic physiotherapy
-- Home physiotherapy visits in Multan
+PainFix provides individualized physiotherapy assessment and rehabilitation for musculoskeletal pain, injuries, mobility limitations and selected neurological conditions. Treatment plans may combine education, manual therapy, therapeutic exercise and functional rehabilitation according to clinical findings and patient goals.
 
-## Clinical Team
+**Location:** Usman Raja Market, near Khair Ul Maarif School, Shalimar Colony, Multan, Punjab, Pakistan.
 
-### Dr. Zain Ul Abideen PT
+**Clinic hours:** Monday to Saturday, 11:00 AM–4:00 PM. Sunday by appointment.
 
-Qualification:
-Doctor of Physical Therapy (DPT)
+**Service availability:**
+- In-clinic physiotherapy in Multan.
+- Home physiotherapy visits in Multan, subject to service-area availability.
+- Online physiotherapy consultation where clinically appropriate.
 
-Role:
-Physiotherapist at PainFix Physiotherapy Clinic, Multan.
+## Clinical team
 
-Specialties:
-- Musculoskeletal rehabilitation
-- Manual therapy
-- Exercise-based rehabilitation
-- Back pain and neck pain management
-- Sciatica rehabilitation
-- Posture correction
-- Functional recovery programs
+### Dr. Zain Ul Abideen, DPT
 
-Profile:
-https://painfixphysiotherapy.com/dr-zain-ul-abideen-pt-multan
-
-
-### Dr. Jalal Ud Din PT
-
-Qualification:
-Doctor of Physical Therapy (DPT)
-
-Role:
 Clinical Physiotherapist at PainFix Physiotherapy Clinic, Multan.
 
-Specialties:
-- Musculoskeletal physiotherapy
-- Pain management
-- Sports injury rehabilitation
-- Joint and soft tissue rehabilitation
-- Mobility improvement
-- Functional rehabilitation programs
+Areas of practice include musculoskeletal rehabilitation, manual therapy, exercise-based rehabilitation, back and neck pain, sciatica, posture-related concerns and functional recovery.
 
-Profile:
-https://painfixphysiotherapy.com/dr-jalal-ud-din-pt-multan
+[Dr. Zain Ul Abideen's profile](https://painfixphysiotherapy.com/dr-zain-ul-abideen-pt-multan)
 
-## Main Pages
+### Dr. Jalal Ud Din, DPT
 
-- Home:
-https://painfixphysiotherapy.com/
+Clinical Physiotherapist at PainFix Physiotherapy Clinic, Multan.
 
-- Services:
-https://painfixphysiotherapy.com/services
+Areas of practice include musculoskeletal physiotherapy, pain management, sports injury rehabilitation, joint and soft-tissue rehabilitation, mobility and functional rehabilitation.
 
-- Conditions:
-https://painfixphysiotherapy.com/conditions
+[Dr. Jalal Ud Din's profile](https://painfixphysiotherapy.com/dr-jalal-ud-din-pt-multan)
 
-- Home Physiotherapy:
-https://painfixphysiotherapy.com/home-visit
+## Physiotherapy services
 
-- Blog:
-https://painfixphysiotherapy.com/blog
+- [Manual therapy](https://painfixphysiotherapy.com/services/manual-therapy)
+- [Exercise therapy](https://painfixphysiotherapy.com/services/exercise-therapy)
+- [Sports rehabilitation](https://painfixphysiotherapy.com/services/sports-rehabilitation)
+- [Post-surgical rehabilitation](https://painfixphysiotherapy.com/services/post-surgical-rehabilitation)
+- [Pain management](https://painfixphysiotherapy.com/services/pain-management)
+- [Home physiotherapy](https://painfixphysiotherapy.com/services/home-physiotherapy)
 
-## Physiotherapy Services
+## Conditions and patient education
 
-- Manual Therapy:
-https://painfixphysiotherapy.com/services/manual-therapy
+PainFix publishes general educational information about back pain, neck pain, sciatica, disc-related symptoms, frozen shoulder, knee pain, sports injuries, muscle and ligament injuries, post-surgical recovery, stroke rehabilitation, posture and mobility.
 
-- Exercise Therapy:
-https://painfixphysiotherapy.com/services/exercise-therapy
+Browse the [conditions library](https://painfixphysiotherapy.com/conditions) and [patient education articles](https://painfixphysiotherapy.com/blog).
 
-- Sports Rehabilitation:
-https://painfixphysiotherapy.com/services/sports-rehabilitation
+## Appointments and contact
 
-- Post-Surgical Rehabilitation:
-https://painfixphysiotherapy.com/services/post-surgical-rehabilitation
+For appointment availability, service-area confirmation and current fees, use the [appointment page](https://painfixphysiotherapy.com/book-appointment) or [contact PainFix](https://painfixphysiotherapy.com/contact).
 
-- Pain Management:
-https://painfixphysiotherapy.com/services/pain-management
+## Service area
 
-- Home Physiotherapy:
-https://painfixphysiotherapy.com/services/home-physiotherapy
+The clinic is based in Multan, Punjab, Pakistan. In-clinic care and home visits are provided in Multan; online consultations may be available for patients outside the local service area.
 
-## Conditions Treated
+## Medical information disclaimer
 
-PainFix Physiotherapy Clinic provides rehabilitation for:
-
-- Back pain
-- Neck pain
-- Sciatica
-- Slip disc and disc-related pain
-- Frozen shoulder
-- Knee pain
-- Sports injuries
-- Muscle and ligament injuries
-- Post-surgical recovery
-- Stroke rehabilitation
-- Postural problems
-- Mobility limitations
-
-## Local Search Topics
-
-- Physiotherapist in Multan
-- Physiotherapist near me
-- Best physiotherapist in Multan
-- Physiotherapy clinic in Multan
-- Home physiotherapy in Multan
-- Back pain treatment in Multan
-- Neck pain treatment in Multan
-- Sciatica treatment in Multan
-- Knee pain physiotherapy in Multan
-
-## Patient Information
-
-Patients can explore physiotherapy education articles, rehabilitation guidance, and treatment information through the PainFix blog.
-
-Blog:
-https://painfixphysiotherapy.com/blog
-
-## Appointment
-
-Patients can contact PainFix Physiotherapy Clinic for physiotherapy consultations, personalized rehabilitation programs, and home physiotherapy appointments in Multan.
-
-Website:
-https://painfixphysiotherapy.com/
-
-## Service Area
-
-PainFix Physiotherapy Clinic provides physiotherapy services in Multan and nearby areas, including clinic-based and home visit rehabilitation.
-
-## Disclaimer
-
-Information on this website is for physiotherapy education and general guidance. Assessment by a qualified physiotherapist is recommended for individual treatment decisions.
+Website content is for general education and does not establish a diagnosis or replace an individualized assessment. Treatment suitability depends on the patient's history, examination findings, goals and clinical presentation.
