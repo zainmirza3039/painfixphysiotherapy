@@ -18,6 +18,9 @@ import { homeFaqs } from "@/components/site/home-faqs";
 import { CTA } from "@/components/site/CTA";
 import { Footer } from "@/components/site/Footer";
 import { WhatsAppFab } from "@/components/site/WhatsAppFab";
+import heroAvif480 from "@/assets/hero-480.avif";
+import heroAvif768 from "@/assets/hero-768.avif";
+import heroAvif960 from "@/assets/hero-960.avif";
 
 const TITLE = "Physiotherapy in Multan | PainFix Clinic & Online RYK Care";
 const DESCRIPTION =
@@ -40,7 +43,18 @@ export const Route = createFileRoute("/")({
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:image", content: `${SITE_URL}/painfix-logo.png` },
     ],
-    links: [{ rel: "canonical", href: `${SITE_URL}/` }],
+    links: [
+      { rel: "canonical", href: `${SITE_URL}/` },
+      {
+        rel: "preload",
+        as: "image",
+        type: "image/avif",
+        imageSrcSet: `${heroAvif480} 480w, ${heroAvif768} 768w, ${heroAvif960} 960w`,
+        imageSizes:
+          "(min-width: 1280px) 552px, (min-width: 1024px) 42vw, (min-width: 640px) 80vw, 100vw",
+        fetchPriority: "high",
+      },
+    ],
     scripts: [faqLd(homeFaqs.map((f) => ({ q: f.q, a: f.a })))],
   }),
   component: Index,
