@@ -756,7 +756,8 @@ export const conditions: Condition[] = [
     summary: "Understand disc-related back or leg pain and get an assessment-led recovery plan.",
     icon: "🦴",
     metaTitle: "Slipped Disc Treatment in Multan | Physiotherapy — PainFix",
-    metaDescription: "Physiotherapy for slipped disc and herniated disc symptoms in Multan. Assessment-led care for back pain, sciatica and movement limitations at PainFix.",
+    metaDescription:
+      "Physiotherapy for slipped disc and herniated disc symptoms in Multan. Assessment-led care for back pain, sciatica and movement limitations at PainFix.",
     intro: [
       "A slipped disc, more accurately called a herniated or prolapsed disc, occurs when disc material extends beyond its usual boundary. It may irritate a nearby nerve, but a scan finding does not automatically explain a person's pain or mean that surgery is needed.",
       "At PainFix in Shalimar Colony, Multan, assessment focuses on your symptoms, neurological function, movement tolerance and daily limitations. Treatment is selected according to the clinical findings rather than the scan label alone.",
@@ -795,14 +796,30 @@ export const conditions: Condition[] = [
       "Progressive trunk, hip and limb strengthening with graded return to activity",
       "Education on lifting, pacing and self-management; referral when red flags or progressive neurological signs are present",
     ],
-    recovery: "Recovery varies with symptom severity, neurological involvement and activity demands. Many people improve without surgery, but persistent or progressive neurological deficits need timely medical review. Progress is monitored by pain, function and neurological findings—not imaging alone.",
-    urgentWarning: "Emergency warning: new difficulty passing urine, loss of bladder or bowel control, numbness around the groin/saddle area, or rapidly worsening leg weakness requires urgent emergency assessment. Do not wait for a routine physiotherapy appointment.",
+    recovery:
+      "Recovery varies with symptom severity, neurological involvement and activity demands. Many people improve without surgery, but persistent or progressive neurological deficits need timely medical review. Progress is monitored by pain, function and neurological findings—not imaging alone.",
+    urgentWarning:
+      "Emergency warning: new difficulty passing urine, loss of bladder or bowel control, numbness around the groin/saddle area, or rapidly worsening leg weakness requires urgent emergency assessment. Do not wait for a routine physiotherapy appointment.",
     faqs: [
-      { q: "Does every slipped disc need surgery?", a: "No. Many people improve with appropriate conservative care. Surgery is considered by a specialist when symptoms, neurological findings and response to treatment justify it." },
-      { q: "Does an MRI prove that the disc is causing my pain?", a: "Not by itself. Disc changes can be present in people without symptoms, so scan findings must be interpreted alongside the history and physical examination." },
-      { q: "Can physiotherapy help a herniated disc?", a: "Physiotherapy can help many people manage symptoms and restore function through education, graded movement and progressive exercise. The programme must be adapted if neurological signs are present." },
+      {
+        q: "Does every slipped disc need surgery?",
+        a: "No. Many people improve with appropriate conservative care. Surgery is considered by a specialist when symptoms, neurological findings and response to treatment justify it.",
+      },
+      {
+        q: "Does an MRI prove that the disc is causing my pain?",
+        a: "Not by itself. Disc changes can be present in people without symptoms, so scan findings must be interpreted alongside the history and physical examination.",
+      },
+      {
+        q: "Can physiotherapy help a herniated disc?",
+        a: "Physiotherapy can help many people manage symptoms and restore function through education, graded movement and progressive exercise. The programme must be adapted if neurological signs are present.",
+      },
     ],
-    relatedServices: ["manual-therapy", "exercise-therapy", "pain-management", "home-physiotherapy"],
+    relatedServices: [
+      "manual-therapy",
+      "exercise-therapy",
+      "pain-management",
+      "home-physiotherapy",
+    ],
   },
   {
     slug: "shoulder-pain",
@@ -810,7 +827,8 @@ export const conditions: Condition[] = [
     summary: "Assessment and rehabilitation for painful or restricted shoulder movement.",
     icon: "💪",
     metaTitle: "Shoulder Pain Treatment in Multan | Physiotherapy — PainFix",
-    metaDescription: "Shoulder pain physiotherapy in Multan for painful movement, rotator cuff-related pain and stiffness. Get an individual assessment and rehabilitation plan at PainFix.",
+    metaDescription:
+      "Shoulder pain physiotherapy in Multan for painful movement, rotator cuff-related pain and stiffness. Get an individual assessment and rehabilitation plan at PainFix.",
     intro: [
       "Shoulder pain can arise from several structures and conditions, including rotator cuff-related pain, tendon irritation, joint stiffness, instability or referred pain from the neck. Pain during overhead activity does not identify one diagnosis on its own.",
       "PainFix provides assessment-led shoulder rehabilitation in Multan. The examination considers pain behaviour, active and passive movement, strength, neck contribution and the activities you need to regain.",
@@ -850,15 +868,29 @@ export const conditions: Condition[] = [
       "Graded exposure to reaching, lifting and sport-specific tasks",
       "Home exercise, load modification and measurable reassessment",
     ],
-    recovery: "Recovery depends on the underlying cause, symptom irritability and how long movement has been limited. Rotator cuff-related pain often responds to progressive exercise, while frozen shoulder usually follows a longer, variable course. Treatment is adjusted to the diagnosis and response.",
+    recovery:
+      "Recovery depends on the underlying cause, symptom irritability and how long movement has been limited. Rotator cuff-related pain often responds to progressive exercise, while frozen shoulder usually follows a longer, variable course. Treatment is adjusted to the diagnosis and response.",
     faqs: [
-      { q: "Is all shoulder pain caused by frozen shoulder?", a: "No. Rotator cuff-related pain, tendon disorders, instability, joint problems and neck-related pain can produce similar symptoms. Examination helps distinguish them." },
-      { q: "Should I stop using my painful shoulder?", a: "Complete rest is rarely the long-term answer. Activity is modified to a tolerable level, then progressively restored according to symptoms and function." },
-      { q: "Can exercise make shoulder pain worse?", a: "An exercise that is too heavy or poorly dosed can flare symptoms. A graded programme starts at a tolerable level and progresses using your response." },
+      {
+        q: "Is all shoulder pain caused by frozen shoulder?",
+        a: "No. Rotator cuff-related pain, tendon disorders, instability, joint problems and neck-related pain can produce similar symptoms. Examination helps distinguish them.",
+      },
+      {
+        q: "Should I stop using my painful shoulder?",
+        a: "Complete rest is rarely the long-term answer. Activity is modified to a tolerable level, then progressively restored according to symptoms and function.",
+      },
+      {
+        q: "Can exercise make shoulder pain worse?",
+        a: "An exercise that is too heavy or poorly dosed can flare symptoms. A graded programme starts at a tolerable level and progresses using your response.",
+      },
     ],
-    relatedServices: ["manual-therapy", "exercise-therapy", "pain-management", "posture-ergonomic-assessment"],
+    relatedServices: [
+      "manual-therapy",
+      "exercise-therapy",
+      "pain-management",
+      "posture-ergonomic-assessment",
+    ],
   },
-
 ];
 
 export const conditionMap = Object.fromEntries(conditions.map((c) => [c.slug, c]));
