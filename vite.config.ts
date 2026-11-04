@@ -11,12 +11,9 @@ const projectRoot = fileURLToPath(new URL(".", import.meta.url));
 export default defineConfig(({ command }) => ({
   plugins: [
     tailwindcss(),
+    // TanStack Start installs its route code-splitter internally.
+    // The legacy tsr.autoCodeSplitting option is not part of this plugin API.
     tanstackStart({
-      // Split route UI into on-demand chunks so a visitor downloads only
-      // the active route instead of every public and admin screen.
-      tsr: {
-        autoCodeSplitting: true,
-      },
       importProtection: {
         behavior: "error",
         client: {
