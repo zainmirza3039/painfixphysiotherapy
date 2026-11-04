@@ -213,8 +213,8 @@ export function Hero() {
       <div className="mx-auto grid max-w-7xl items-center gap-10 px-4 pb-14 pt-28 sm:px-6 sm:pb-20 sm:pt-32 lg:grid-cols-[1fr_0.92fr] lg:gap-16 lg:px-8 lg:pb-24 lg:pt-36">
         <div className="max-w-2xl">
           <p className="home-eyebrow">
-            <span aria-hidden="true" />{" "}
-            Best Physiotherapy in Multan · DPT-led assessment and rehabilitation
+            <span aria-hidden="true" /> Best Physiotherapy in Multan · DPT-led assessment and
+            rehabilitation
           </p>
           <h1
             id="home-heading"
@@ -225,10 +225,10 @@ export function Hero() {
             in <span className="home-hero__accent">Multan.</span>
           </h1>
           <p className="mt-6 max-w-xl text-base leading-7 text-muted-foreground sm:text-lg sm:leading-8">
-            Looking for a physiotherapy clinic in Multan? PainFix provides DPT-led clinical assessment,
-            hands-on treatment and progressive rehabilitation at our Shalimar Colony clinic, with
-            selected home visits across Multan. Your plan starts with understanding your condition
-            and goals—not a one-size-fits-all treatment.
+            Looking for a physiotherapy clinic in Multan? PainFix provides DPT-led clinical
+            assessment, hands-on treatment and progressive rehabilitation at our Shalimar Colony
+            clinic, with selected home visits across Multan. Your plan starts with understanding
+            your condition and goals—not a one-size-fits-all treatment.
           </p>
 
           <div className="mt-8 grid gap-3 sm:grid-cols-2">
