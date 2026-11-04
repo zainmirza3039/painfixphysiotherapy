@@ -24,6 +24,15 @@ export const slippedDiscVisual: ConditionImage = {
 
 /** User-supplied visual references grouped under the site's existing condition pages. */
 export const conditionImageGallery: Record<string, ConditionImage[]> = {
+  "slipped-disc": [slippedDiscVisual],
+  "shoulder-pain": [
+    {
+      src: shoulderPain,
+      alt: "Illustration of a person holding a painful shoulder, with the shoulder area highlighted in red.",
+      width: 678,
+      height: 452,
+    },
+  ],
   "back-pain": [
     {
       src: backPain,

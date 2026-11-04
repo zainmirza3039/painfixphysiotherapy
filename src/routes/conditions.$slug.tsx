@@ -172,6 +172,21 @@ function ConditionDetail() {
             ))}
           </div>
 
+          {c.urgentWarning && (
+            <div
+              role="alert"
+              className="mt-6 rounded-2xl border border-destructive/30 bg-destructive/5 p-5"
+            >
+              <h3 className="flex items-center gap-2 font-semibold text-foreground">
+                <AlertCircle className="h-5 w-5 text-destructive" />
+                When to seek urgent medical care
+              </h3>
+              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                {c.urgentWarning}
+              </p>
+            </div>
+          )}
+
           <Reveal anim="up">
             <div className="mt-6 rounded-[1.75rem] border border-border bg-accent/50 p-7 shadow-soft">
               <h3 className="flex items-center gap-2 font-heading text-lg font-bold text-foreground">
