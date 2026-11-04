@@ -213,7 +213,8 @@ export function Hero() {
       <div className="mx-auto grid max-w-7xl items-center gap-10 px-4 pb-14 pt-28 sm:px-6 sm:pb-20 sm:pt-32 lg:grid-cols-[1fr_0.92fr] lg:gap-16 lg:px-8 lg:pb-24 lg:pt-36">
         <div className="max-w-2xl">
           <p className="home-eyebrow">
-            <span aria-hidden="true" /> Best Physiotherapy in Multan · DPT-led assessment and rehabilitation
+            <span aria-hidden="true" />{" "}
+            Best Physiotherapy in Multan · DPT-led assessment and rehabilitation
           </p>
           <h1
             id="home-heading"
