@@ -188,8 +188,7 @@ test("site-wide clinic hours remain consistent", () => {
   ]);
 });
 
-
-test("local business SEO facts stay aligned with the verified business profile", async () => {
+test("local business SEO stay aligned with the verified business profile", async () => {
   const [constants, localPages, root, localSeo, hero, llms] = await Promise.all([
     readFile(new URL("../src/components/site/constants.ts", import.meta.url), "utf8"),
     readFile(new URL("../src/data/localPages.ts", import.meta.url), "utf8"),
