@@ -136,9 +136,12 @@ export function Hero() {
         cancelIdleCallback?: (handle: number) => void;
       };
       if (scheduleIdle.requestIdleCallback) {
-        idleHandle = scheduleIdle.requestIdleCallback(() => {
-          if (!cancelled) setLoadedSlides((loaded) => new Set(loaded).add(1));
-        }, { timeout: 2000 });
+        idleHandle = scheduleIdle.requestIdleCallback(
+          () => {
+            if (!cancelled) setLoadedSlides((loaded) => new Set(loaded).add(1));
+          },
+          { timeout: 2000 },
+        );
       } else {
         timeoutHandle = window.setTimeout(() => {
           if (!cancelled) setLoadedSlides((loaded) => new Set(loaded).add(1));
