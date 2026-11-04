@@ -94,7 +94,7 @@ function HeroSlideImage({
       style={{ objectPosition: slide.objectPosition }}
       fetchPriority={priority ? "high" : "low"}
       loading="eager"
-      decoding="async"
+      decoding={priority ? "sync" : "async"}
       draggable={false}
     />
   );
@@ -119,10 +119,43 @@ export function Hero() {
   const [userPaused, setUserPaused] = useState(false);
   const [pointerHovering, setPointerHovering] = useState(false);
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
-  // Load the first image and only the next slide; additional slides load as they approach.
-  const [loadedSlides, setLoadedSlides] = useState<Set<number>>(() => new Set([0, 1]));
+  // Keep secondary carousel images out of the initial request burst; load them after the page load in idle time.
+  const [loadedSlides, setLoadedSlides] = useState<Set<number>>(() => new Set([0]));
   const touchStart = useRef<{ x: number; y: number } | null>(null);
   const autoRotating = !userPaused && !pointerHovering && !prefersReducedMotion;
+
+  useEffect(() => {
+    let idleHandle: number | undefined;
+    let timeoutHandle: number | undefined;
+    let cancelled = false;
+
+    const preloadNextSlide = () => {
+      if (cancelled) return;
+      const scheduleIdle = window as Window & {
+        requestIdleCallback?: (callback: () => void, options?: { timeout: number }) => number;
+        cancelIdleCallback?: (handle: number) => void;
+      };
+      if (scheduleIdle.requestIdleCallback) {
+        idleHandle = scheduleIdle.requestIdleCallback(() => {
+          if (!cancelled) setLoadedSlides((loaded) => new Set(loaded).add(1));
+        }, { timeout: 2000 });
+      } else {
+        timeoutHandle = window.setTimeout(() => {
+          if (!cancelled) setLoadedSlides((loaded) => new Set(loaded).add(1));
+        }, 1200);
+      }
+    };
+
+    if (document.readyState === "complete") preloadNextSlide();
+    else window.addEventListener("load", preloadNextSlide, { once: true });
+
+    return () => {
+      cancelled = true;
+      window.removeEventListener("load", preloadNextSlide);
+      if (idleHandle !== undefined) window.cancelIdleCallback?.(idleHandle);
+      if (timeoutHandle !== undefined) window.clearTimeout(timeoutHandle);
+    };
+  }, []);
 
   useEffect(() => {
     const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
