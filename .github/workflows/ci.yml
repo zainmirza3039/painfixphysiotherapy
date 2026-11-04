@@ -4,7 +4,6 @@ on:
   push:
     branches: [main]
   pull_request:
-  workflow_dispatch:
 
 permissions:
   contents: read
@@ -27,5 +26,5 @@ jobs:
         run: bun run test
       - name: Lint
         run: bun run lint
-      - name: Build
+      - name: Build production bundle
         run: bun run build
