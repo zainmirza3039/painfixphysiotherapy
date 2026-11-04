@@ -29,7 +29,12 @@ test("new condition pages have matching visual references and existing service l
   const services = await read("src/data/services.ts");
   assert.ok(gallery.includes('"slipped-disc": [slippedDiscVisual]'));
   assert.match(gallery, /"shoulder-pain":/);
-  for (const slug of ["manual-therapy", "exercise-therapy", "pain-management", "posture-ergonomic-assessment"]) {
+  for (const slug of [
+    "manual-therapy",
+    "exercise-therapy",
+    "pain-management",
+    "posture-ergonomic-assessment",
+  ]) {
     assert.ok(services.includes(`slug: "${slug}"`));
   }
 });
