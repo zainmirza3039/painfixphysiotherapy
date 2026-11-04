@@ -12,11 +12,8 @@ export default defineConfig(({ command }) => ({
   plugins: [
     tailwindcss(),
     tanstackStart({
-      // Split route UI into on-demand chunks so a visitor downloads only
-      // the active route instead of every public and admin screen.
-      tsr: {
-        autoCodeSplitting: true,
-      },
+      // TanStack Start installs its route code-splitter internally.
+      // The legacy tsr.autoCodeSplitting option is not part of this plugin API.
       importProtection: {
         behavior: "error",
         client: {
