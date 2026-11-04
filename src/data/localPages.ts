@@ -126,7 +126,7 @@ export const localPages: LocalPage[] = [
       "Every plan starts with a detailed clinical assessment",
       "Evidence-based treatment focused on long-term recovery",
       "Clinic visits and home physiotherapy across Multan",
-      "Open Monday–Saturday, 11:00 AM – 4:00 PM",
+      "Open Monday–Saturday, 11:00 AM – 9:00 PM",
     ],
     sections: [
       {
@@ -206,7 +206,7 @@ export const localPages: LocalPage[] = [
     heroSubtitle:
       "Rated 4.9★ by patients on Google — DPT-led, evidence-based physiotherapy built around your recovery, not quick fixes.",
     quickAnswer:
-      "PainFix Physiotherapy Clinic is one of the best-rated physiotherapists in Multan, holding a 4.9★ Google rating from 31 reviews. Care is led by Dr. Zain Ul Abideen (DPT) and Dr. Jalal Ud Din (Clinical Physiotherapist), who use evidence-based assessment and personalized treatment plans to deliver lasting results. Book on 0314-3039582.",
+      "PainFix Physiotherapy Clinic is one of the best-rated physiotherapists in Multan, with a 4.9★ rating on Google. Care is led by Dr. Zain Ul Abideen (DPT) and Dr. Jalal Ud Din (Clinical Physiotherapist), who use evidence-based assessment and personalized treatment plans to deliver lasting results. Book on 0314-3039582.",
     keyTakeaways: [
       "4.9★ Google rating from real, verified patients",
       "Led by a Doctor of Physical Therapy (DPT)",
@@ -218,7 +218,7 @@ export const localPages: LocalPage[] = [
       {
         heading: "What makes PainFix one of the best physiotherapy clinics in Multan?",
         paragraphs: [
-          'Being the "best" physiotherapist is about outcomes, not slogans. PainFix is chosen by patients across Multan because every treatment plan is grounded in evidence, tailored to the individual, and focused on restoring lasting function — supported by a 4.9★ Google rating from genuine patients.',
+          'Being the "best" physiotherapist is about outcomes, not slogans. PainFix is chosen by patients across Multan because every treatment plan is grounded in evidence, tailored to the individual, and focused on restoring lasting function — supported by positive feedback from patients on Google.',
         ],
         list: [
           "DPT-qualified clinicians with real clinical experience",
@@ -265,7 +265,7 @@ export const localPages: LocalPage[] = [
     faqs: [
       {
         q: "Why is PainFix considered among the best physiotherapists in Multan?",
-        a: "PainFix combines DPT-qualified clinicians, evidence-based treatment and personalized care, backed by a 4.9★ Google rating from 31 verified patient reviews — a strong signal of consistent, quality outcomes.",
+        a: "PainFix combines DPT-qualified clinicians, evidence-based treatment and personalized care, with a 4.9★ Google rating. Patients can read the feedback directly on our Google Business Profile.",
       },
       {
         q: "Multan mein sab se acha physiotherapist kaun hai?",
@@ -291,13 +291,13 @@ export const localPages: LocalPage[] = [
     heroSubtitle:
       "A modern, fully equipped physiotherapy clinic in Shalimar Colony, Multan — complete assessment, treatment and rehabilitation under one roof.",
     quickAnswer:
-      "PainFix Physiotherapy Clinic is located at Usman Raja Market, near Khair Ul Maarif School, Shalimar Colony, Multan. The clinic offers complete physiotherapy under one roof — manual therapy, exercise therapy, electrotherapy, sports and post-surgical rehab — plus home physiotherapy. Open Monday–Saturday, 11:00 AM–4:00 PM. Call 0314-3039582.",
+      "PainFix Physiotherapy Clinic is located at Usman Raja Market, near Khair Ul Maarif School, Shalimar Colony, Multan. The clinic offers complete physiotherapy under one roof — manual therapy, exercise therapy, electrotherapy, sports and post-surgical rehab — plus home physiotherapy. Open Monday–Saturday, 11:00 AM–9:00 PM. Call 0314-3039582.",
     keyTakeaways: [
       "Central location in Shalimar Colony, Multan",
       "Complete physiotherapy services under one roof",
       "Modern, hygienic, comfortable treatment facilities",
       "Clinic appointments and home visits available",
-      "Open Monday–Saturday, 11:00 AM – 4:00 PM",
+      "Open Monday–Saturday, 11:00 AM – 9:00 PM",
     ],
     sections: [
       {
@@ -316,7 +316,7 @@ export const localPages: LocalPage[] = [
       {
         heading: "Clinic timings and booking",
         paragraphs: [
-          "The clinic is open Monday to Saturday, 11:00 AM to 4:00 PM, with Sunday appointments by arrangement. Book online, call or WhatsApp 0314-3039582 to schedule your assessment.",
+          "The clinic is open Monday to Saturday, 11:00 AM to 9:00 PM, with Sunday appointments by arrangement. Book online, call or WhatsApp 0314-3039582 to schedule your assessment.",
         ],
       },
       {
@@ -350,7 +350,7 @@ export const localPages: LocalPage[] = [
       },
       {
         q: "What are the clinic timings?",
-        a: "PainFix is open Monday to Saturday, 11:00 AM to 4:00 PM. Sunday appointments are available by arrangement — call or WhatsApp 0314-3039582 to book.",
+        a: "PainFix is open Monday to Saturday, 11:00 AM to 9:00 PM. Sunday appointments are available by arrangement — call or WhatsApp 0314-3039582 to book.",
       },
       {
         q: "Ghar per physiotherapy Multan mein milti hai?",
