@@ -1,5 +1,11 @@
 import { pageMeta, canonical, breadcrumbLd, faqLd } from "@/lib/seo";
-import { SITE_URL, CLINIC_NAME } from "@/components/site/constants";
+import {
+  SITE_URL,
+  CLINIC_NAME,
+  CLINIC_ADDRESS,
+  GOOGLE_BUSINESS_PROFILE_URL,
+  SOCIAL_LINKS,
+} from "@/components/site/constants";
 import type { LocalPage } from "@/data/localPages";
 
 /**
@@ -12,7 +18,12 @@ export function localPageHead(page: LocalPage) {
   const url = `${SITE_URL}${path}`;
 
   return {
-    meta: pageMeta({ title: page.metaTitle, description: page.metaDescription, path }),
+    meta: pageMeta({
+      title: page.metaTitle,
+      description: page.metaDescription,
+      path,
+      image: `${SITE_URL}/painfix-logo.png`,
+    }),
     links: canonical(path),
     scripts: [
       breadcrumbLd([
@@ -28,15 +39,31 @@ export function localPageHead(page: LocalPage) {
           "@id": SITE_URL + "/#clinic",
           name: CLINIC_NAME,
           url: SITE_URL,
+          image: `${SITE_URL}/painfix-logo.png`,
+          logo: `${SITE_URL}/painfix-logo.png`,
           medicalSpecialty: "Physiotherapy",
           telephone: "+92-314-3039582",
           address: {
             "@type": "PostalAddress",
-            streetAddress: "Usman Raja Market, Near Khair Ul Maarif School, Shalimar Colony",
+            streetAddress: CLINIC_ADDRESS,
             addressLocality: "Multan",
             addressRegion: "Punjab",
             addressCountry: "PK",
           },
+          geo: {
+            "@type": "GeoCoordinates",
+            latitude: 30.239469,
+            longitude: 71.4856386,
+          },
+          openingHoursSpecification: [
+            {
+              "@type": "OpeningHoursSpecification",
+              dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+              opens: "11:00",
+              closes: "16:00",
+            },
+          ],
+          hasMap: GOOGLE_BUSINESS_PROFILE_URL,
           areaServed: {
             "@type": "City",
             name: "Multan",
@@ -46,6 +73,7 @@ export function localPageHead(page: LocalPage) {
             name: "Dr. Zain Ul Abideen",
             jobTitle: "Doctor of Physical Therapy",
           },
+          sameAs: Object.values(SOCIAL_LINKS).map((profile) => profile.url),
         }),
       },
       {
@@ -66,9 +94,10 @@ export function localPageHead(page: LocalPage) {
               "@type": "City",
               name: "Multan",
             },
+            image: `${SITE_URL}/painfix-logo.png`,
             address: {
               "@type": "PostalAddress",
-              streetAddress: "Usman Raja Market, Near Khair Ul Maarif School, Shalimar Colony",
+              streetAddress: CLINIC_ADDRESS,
               addressLocality: "Multan",
               addressRegion: "Punjab",
               addressCountry: "PK",
