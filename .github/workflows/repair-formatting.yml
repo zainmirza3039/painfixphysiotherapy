@@ -5,6 +5,7 @@ on:
       - fix/multan-clinician-directory-scope
 permissions:
   contents: write
+  actions: write
 jobs:
   format-and-verify:
     runs-on: ubuntu-latest
