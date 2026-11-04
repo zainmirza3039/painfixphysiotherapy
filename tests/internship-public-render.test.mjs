@@ -190,14 +190,21 @@ test("site-wide clinic hours remain consistent", () => {
 
 
 test("local business SEO facts stay aligned with the verified business profile", async () => {
-  const [constants, localPages, root] = await Promise.all([
+  const [constants, localPages, root, localSeo, hero, llms] = await Promise.all([
     readFile(new URL("../src/components/site/constants.ts", import.meta.url), "utf8"),
     readFile(new URL("../src/data/localPages.ts", import.meta.url), "utf8"),
     readFile(new URL("../src/routes/__root.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../src/lib/local-seo.ts", import.meta.url), "utf8"),
+    readFile(new URL("../src/components/site/Hero.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../public/llms.txt", import.meta.url), "utf8"),
   ]);
   assert.match(constants, /time: "11:00 AM – 9:00 PM"/);
   assert.doesNotMatch(localPages, /11:00 AM.{0,20}4:00 PM/);
   assert.doesNotMatch(localPages, /31 reviews/);
   assert.doesNotMatch(root, /aggregateRating|reviewCount/);
   assert.match(root, /closes: "21:00"/);
+  assert.match(localSeo, /closes: "21:00"/);
+  assert.match(hero, /Mon–Sat, 11:00 AM–9:00 PM/);
+  assert.match(llms, /11:00 AM–9:00 PM/);
+  assert.doesNotMatch(llms, /11:00 AM–4:00 PM/);
 });
