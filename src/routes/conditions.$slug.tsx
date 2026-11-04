@@ -181,7 +181,9 @@ function ConditionDetail() {
                 <AlertCircle className="h-5 w-5 text-destructive" />
                 When to seek urgent medical care
               </h3>
-              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{c.urgentWarning}</p>
+              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                {c.urgentWarning}
+              </p>
             </div>
           )}
 
