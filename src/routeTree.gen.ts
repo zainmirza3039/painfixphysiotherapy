@@ -17,6 +17,7 @@ import { Route as AuthRouteImport } from './routes/auth'
 import { Route as BestPhysiotherapistInMultanRouteImport } from './routes/best-physiotherapist-in-multan'
 import { Route as BookAppointmentRouteImport } from './routes/book-appointment'
 import { Route as CertificatesRouteImport } from './routes/certificates'
+import { Route as ClinicalResourcesRouteImport } from './routes/clinical-resources'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as DrFatimaIqbalDptMultanRouteImport } from './routes/dr-fatima-iqbal-dpt-multan'
 import { Route as DrJalalUdDinPtMultanRouteImport } from './routes/dr-jalal-ud-din-pt-multan'
@@ -31,6 +32,7 @@ import { Route as MembershipRouteImport } from './routes/membership'
 import { Route as OurTeamRouteImport } from './routes/our-team'
 import { Route as PhysiotherapistInMultanRouteImport } from './routes/physiotherapist-in-multan'
 import { Route as PhysiotherapyClinicInMultanRouteImport } from './routes/physiotherapy-clinic-in-multan'
+import { Route as PhysiotherapyInMultanRouteImport } from './routes/physiotherapy-in-multan'
 import { Route as PhysiotherapyInRahimYarKhanRouteImport } from './routes/physiotherapy-in-rahim-yar-khan'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as ResetPasswordRouteImport } from './routes/reset-password'
@@ -55,11 +57,13 @@ import { Route as ServicesSlugRouteImport } from './routes/services.$slug'
 import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin.index'
 import { Route as AuthenticatedAdminAppointmentsRouteImport } from './routes/_authenticated/admin.appointments'
 import { Route as AuthenticatedAdminBlogRouteImport } from './routes/_authenticated/admin.blog'
+import { Route as AuthenticatedAdminBlogEditorRouteImport } from './routes/_authenticated/admin.blog-editor'
 import { Route as AuthenticatedAdminCalculatorsRouteImport } from './routes/_authenticated/admin.calculators'
 import { Route as AuthenticatedAdminCertificatesRouteImport } from './routes/_authenticated/admin.certificates'
 import { Route as AuthenticatedAdminCliniciansRouteImport } from './routes/_authenticated/admin.clinicians'
 import { Route as AuthenticatedAdminExperienceRecordsRouteImport } from './routes/_authenticated/admin.experience-records'
 import { Route as AuthenticatedAdminFitnessContentRouteImport } from './routes/_authenticated/admin.fitness-content'
+import { Route as AuthenticatedAdminGalleryRouteImport } from './routes/_authenticated/admin.gallery'
 import { Route as AuthenticatedAdminHomeVisitsRouteImport } from './routes/_authenticated/admin.home-visits'
 import { Route as AuthenticatedAdminInternshipApplicationsRouteImport } from './routes/_authenticated/admin.internship-applications'
 import { Route as AuthenticatedAdminInternshipParticipantsRouteImport } from './routes/_authenticated/admin.internship-participants'
@@ -111,6 +115,11 @@ const BookAppointmentRoute = BookAppointmentRouteImport.update({
 const CertificatesRoute = CertificatesRouteImport.update({
   id: '/certificates',
   path: '/certificates',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ClinicalResourcesRoute = ClinicalResourcesRouteImport.update({
+  id: '/clinical-resources',
+  path: '/clinical-resources',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ContactRoute = ContactRouteImport.update({
@@ -184,6 +193,11 @@ const PhysiotherapyClinicInMultanRoute =
     path: '/physiotherapy-clinic-in-multan',
     getParentRoute: () => rootRouteImport,
   } as any)
+const PhysiotherapyInMultanRoute = PhysiotherapyInMultanRouteImport.update({
+  id: '/physiotherapy-in-multan',
+  path: '/physiotherapy-in-multan',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PhysiotherapyInRahimYarKhanRoute =
   PhysiotherapyInRahimYarKhanRouteImport.update({
     id: '/physiotherapy-in-rahim-yar-khan',
@@ -306,6 +320,12 @@ const AuthenticatedAdminBlogRoute = AuthenticatedAdminBlogRouteImport.update({
   path: '/blog',
   getParentRoute: () => AuthenticatedAdminRoute,
 } as any)
+const AuthenticatedAdminBlogEditorRoute =
+  AuthenticatedAdminBlogEditorRouteImport.update({
+    id: '/blog-editor',
+    path: '/blog-editor',
+    getParentRoute: () => AuthenticatedAdminRoute,
+  } as any)
 const AuthenticatedAdminCalculatorsRoute =
   AuthenticatedAdminCalculatorsRouteImport.update({
     id: '/calculators',
@@ -334,6 +354,12 @@ const AuthenticatedAdminFitnessContentRoute =
   AuthenticatedAdminFitnessContentRouteImport.update({
     id: '/fitness-content',
     path: '/fitness-content',
+    getParentRoute: () => AuthenticatedAdminRoute,
+  } as any)
+const AuthenticatedAdminGalleryRoute =
+  AuthenticatedAdminGalleryRouteImport.update({
+    id: '/gallery',
+    path: '/gallery',
     getParentRoute: () => AuthenticatedAdminRoute,
   } as any)
 const AuthenticatedAdminHomeVisitsRoute =
@@ -414,6 +440,7 @@ export interface FileRoutesByFullPath {
   '/best-physiotherapist-in-multan': typeof BestPhysiotherapistInMultanRoute
   '/book-appointment': typeof BookAppointmentRoute
   '/certificates': typeof CertificatesRoute
+  '/clinical-resources': typeof ClinicalResourcesRoute
   '/contact': typeof ContactRoute
   '/dr-fatima-iqbal-dpt-multan': typeof DrFatimaIqbalDptMultanRoute
   '/dr-jalal-ud-din-pt-multan': typeof DrJalalUdDinPtMultanRoute
@@ -428,6 +455,7 @@ export interface FileRoutesByFullPath {
   '/our-team': typeof OurTeamRoute
   '/physiotherapist-in-multan': typeof PhysiotherapistInMultanRoute
   '/physiotherapy-clinic-in-multan': typeof PhysiotherapyClinicInMultanRoute
+  '/physiotherapy-in-multan': typeof PhysiotherapyInMultanRoute
   '/physiotherapy-in-rahim-yar-khan': typeof PhysiotherapyInRahimYarKhanRoute
   '/privacy': typeof PrivacyRoute
   '/reset-password': typeof ResetPasswordRoute
@@ -451,11 +479,13 @@ export interface FileRoutesByFullPath {
   '/services/': typeof ServicesIndexRoute
   '/admin/appointments': typeof AuthenticatedAdminAppointmentsRoute
   '/admin/blog': typeof AuthenticatedAdminBlogRoute
+  '/admin/blog-editor': typeof AuthenticatedAdminBlogEditorRoute
   '/admin/calculators': typeof AuthenticatedAdminCalculatorsRoute
   '/admin/certificates': typeof AuthenticatedAdminCertificatesRoute
   '/admin/clinicians': typeof AuthenticatedAdminCliniciansRoute
   '/admin/experience-records': typeof AuthenticatedAdminExperienceRecordsRoute
   '/admin/fitness-content': typeof AuthenticatedAdminFitnessContentRoute
+  '/admin/gallery': typeof AuthenticatedAdminGalleryRoute
   '/admin/home-visits': typeof AuthenticatedAdminHomeVisitsRoute
   '/admin/internship-applications': typeof AuthenticatedAdminInternshipApplicationsRoute
   '/admin/internship-participants': typeof AuthenticatedAdminInternshipParticipantsRoute
@@ -478,6 +508,7 @@ export interface FileRoutesByTo {
   '/best-physiotherapist-in-multan': typeof BestPhysiotherapistInMultanRoute
   '/book-appointment': typeof BookAppointmentRoute
   '/certificates': typeof CertificatesRoute
+  '/clinical-resources': typeof ClinicalResourcesRoute
   '/contact': typeof ContactRoute
   '/dr-fatima-iqbal-dpt-multan': typeof DrFatimaIqbalDptMultanRoute
   '/dr-jalal-ud-din-pt-multan': typeof DrJalalUdDinPtMultanRoute
@@ -492,6 +523,7 @@ export interface FileRoutesByTo {
   '/our-team': typeof OurTeamRoute
   '/physiotherapist-in-multan': typeof PhysiotherapistInMultanRoute
   '/physiotherapy-clinic-in-multan': typeof PhysiotherapyClinicInMultanRoute
+  '/physiotherapy-in-multan': typeof PhysiotherapyInMultanRoute
   '/physiotherapy-in-rahim-yar-khan': typeof PhysiotherapyInRahimYarKhanRoute
   '/privacy': typeof PrivacyRoute
   '/reset-password': typeof ResetPasswordRoute
@@ -514,11 +546,13 @@ export interface FileRoutesByTo {
   '/services': typeof ServicesIndexRoute
   '/admin/appointments': typeof AuthenticatedAdminAppointmentsRoute
   '/admin/blog': typeof AuthenticatedAdminBlogRoute
+  '/admin/blog-editor': typeof AuthenticatedAdminBlogEditorRoute
   '/admin/calculators': typeof AuthenticatedAdminCalculatorsRoute
   '/admin/certificates': typeof AuthenticatedAdminCertificatesRoute
   '/admin/clinicians': typeof AuthenticatedAdminCliniciansRoute
   '/admin/experience-records': typeof AuthenticatedAdminExperienceRecordsRoute
   '/admin/fitness-content': typeof AuthenticatedAdminFitnessContentRoute
+  '/admin/gallery': typeof AuthenticatedAdminGalleryRoute
   '/admin/home-visits': typeof AuthenticatedAdminHomeVisitsRoute
   '/admin/internship-applications': typeof AuthenticatedAdminInternshipApplicationsRoute
   '/admin/internship-participants': typeof AuthenticatedAdminInternshipParticipantsRoute
@@ -543,6 +577,7 @@ export interface FileRoutesById {
   '/best-physiotherapist-in-multan': typeof BestPhysiotherapistInMultanRoute
   '/book-appointment': typeof BookAppointmentRoute
   '/certificates': typeof CertificatesRoute
+  '/clinical-resources': typeof ClinicalResourcesRoute
   '/contact': typeof ContactRoute
   '/dr-fatima-iqbal-dpt-multan': typeof DrFatimaIqbalDptMultanRoute
   '/dr-jalal-ud-din-pt-multan': typeof DrJalalUdDinPtMultanRoute
@@ -557,6 +592,7 @@ export interface FileRoutesById {
   '/our-team': typeof OurTeamRoute
   '/physiotherapist-in-multan': typeof PhysiotherapistInMultanRoute
   '/physiotherapy-clinic-in-multan': typeof PhysiotherapyClinicInMultanRoute
+  '/physiotherapy-in-multan': typeof PhysiotherapyInMultanRoute
   '/physiotherapy-in-rahim-yar-khan': typeof PhysiotherapyInRahimYarKhanRoute
   '/privacy': typeof PrivacyRoute
   '/reset-password': typeof ResetPasswordRoute
@@ -580,11 +616,13 @@ export interface FileRoutesById {
   '/services/': typeof ServicesIndexRoute
   '/_authenticated/admin/appointments': typeof AuthenticatedAdminAppointmentsRoute
   '/_authenticated/admin/blog': typeof AuthenticatedAdminBlogRoute
+  '/_authenticated/admin/blog-editor': typeof AuthenticatedAdminBlogEditorRoute
   '/_authenticated/admin/calculators': typeof AuthenticatedAdminCalculatorsRoute
   '/_authenticated/admin/certificates': typeof AuthenticatedAdminCertificatesRoute
   '/_authenticated/admin/clinicians': typeof AuthenticatedAdminCliniciansRoute
   '/_authenticated/admin/experience-records': typeof AuthenticatedAdminExperienceRecordsRoute
   '/_authenticated/admin/fitness-content': typeof AuthenticatedAdminFitnessContentRoute
+  '/_authenticated/admin/gallery': typeof AuthenticatedAdminGalleryRoute
   '/_authenticated/admin/home-visits': typeof AuthenticatedAdminHomeVisitsRoute
   '/_authenticated/admin/internship-applications': typeof AuthenticatedAdminInternshipApplicationsRoute
   '/_authenticated/admin/internship-participants': typeof AuthenticatedAdminInternshipParticipantsRoute
@@ -609,6 +647,7 @@ export interface FileRouteTypes {
     | '/best-physiotherapist-in-multan'
     | '/book-appointment'
     | '/certificates'
+    | '/clinical-resources'
     | '/contact'
     | '/dr-fatima-iqbal-dpt-multan'
     | '/dr-jalal-ud-din-pt-multan'
@@ -623,6 +662,7 @@ export interface FileRouteTypes {
     | '/our-team'
     | '/physiotherapist-in-multan'
     | '/physiotherapy-clinic-in-multan'
+    | '/physiotherapy-in-multan'
     | '/physiotherapy-in-rahim-yar-khan'
     | '/privacy'
     | '/reset-password'
@@ -646,11 +686,13 @@ export interface FileRouteTypes {
     | '/services/'
     | '/admin/appointments'
     | '/admin/blog'
+    | '/admin/blog-editor'
     | '/admin/calculators'
     | '/admin/certificates'
     | '/admin/clinicians'
     | '/admin/experience-records'
     | '/admin/fitness-content'
+    | '/admin/gallery'
     | '/admin/home-visits'
     | '/admin/internship-applications'
     | '/admin/internship-participants'
@@ -673,6 +715,7 @@ export interface FileRouteTypes {
     | '/best-physiotherapist-in-multan'
     | '/book-appointment'
     | '/certificates'
+    | '/clinical-resources'
     | '/contact'
     | '/dr-fatima-iqbal-dpt-multan'
     | '/dr-jalal-ud-din-pt-multan'
@@ -687,6 +730,7 @@ export interface FileRouteTypes {
     | '/our-team'
     | '/physiotherapist-in-multan'
     | '/physiotherapy-clinic-in-multan'
+    | '/physiotherapy-in-multan'
     | '/physiotherapy-in-rahim-yar-khan'
     | '/privacy'
     | '/reset-password'
@@ -709,11 +753,13 @@ export interface FileRouteTypes {
     | '/services'
     | '/admin/appointments'
     | '/admin/blog'
+    | '/admin/blog-editor'
     | '/admin/calculators'
     | '/admin/certificates'
     | '/admin/clinicians'
     | '/admin/experience-records'
     | '/admin/fitness-content'
+    | '/admin/gallery'
     | '/admin/home-visits'
     | '/admin/internship-applications'
     | '/admin/internship-participants'
@@ -737,6 +783,7 @@ export interface FileRouteTypes {
     | '/best-physiotherapist-in-multan'
     | '/book-appointment'
     | '/certificates'
+    | '/clinical-resources'
     | '/contact'
     | '/dr-fatima-iqbal-dpt-multan'
     | '/dr-jalal-ud-din-pt-multan'
@@ -751,6 +798,7 @@ export interface FileRouteTypes {
     | '/our-team'
     | '/physiotherapist-in-multan'
     | '/physiotherapy-clinic-in-multan'
+    | '/physiotherapy-in-multan'
     | '/physiotherapy-in-rahim-yar-khan'
     | '/privacy'
     | '/reset-password'
@@ -774,11 +822,13 @@ export interface FileRouteTypes {
     | '/services/'
     | '/_authenticated/admin/appointments'
     | '/_authenticated/admin/blog'
+    | '/_authenticated/admin/blog-editor'
     | '/_authenticated/admin/calculators'
     | '/_authenticated/admin/certificates'
     | '/_authenticated/admin/clinicians'
     | '/_authenticated/admin/experience-records'
     | '/_authenticated/admin/fitness-content'
+    | '/_authenticated/admin/gallery'
     | '/_authenticated/admin/home-visits'
     | '/_authenticated/admin/internship-applications'
     | '/_authenticated/admin/internship-participants'
@@ -803,6 +853,7 @@ export interface RootRouteChildren {
   BestPhysiotherapistInMultanRoute: typeof BestPhysiotherapistInMultanRoute
   BookAppointmentRoute: typeof BookAppointmentRoute
   CertificatesRoute: typeof CertificatesRoute
+  ClinicalResourcesRoute: typeof ClinicalResourcesRoute
   ContactRoute: typeof ContactRoute
   DrFatimaIqbalDptMultanRoute: typeof DrFatimaIqbalDptMultanRoute
   DrJalalUdDinPtMultanRoute: typeof DrJalalUdDinPtMultanRoute
@@ -817,6 +868,7 @@ export interface RootRouteChildren {
   OurTeamRoute: typeof OurTeamRoute
   PhysiotherapistInMultanRoute: typeof PhysiotherapistInMultanRoute
   PhysiotherapyClinicInMultanRoute: typeof PhysiotherapyClinicInMultanRoute
+  PhysiotherapyInMultanRoute: typeof PhysiotherapyInMultanRoute
   PhysiotherapyInRahimYarKhanRoute: typeof PhysiotherapyInRahimYarKhanRoute
   PrivacyRoute: typeof PrivacyRoute
   ResetPasswordRoute: typeof ResetPasswordRoute
@@ -896,6 +948,13 @@ declare module '@tanstack/react-router' {
       path: '/certificates'
       fullPath: '/certificates'
       preLoaderRoute: typeof CertificatesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/clinical-resources': {
+      id: '/clinical-resources'
+      path: '/clinical-resources'
+      fullPath: '/clinical-resources'
+      preLoaderRoute: typeof ClinicalResourcesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/contact': {
@@ -994,6 +1053,13 @@ declare module '@tanstack/react-router' {
       path: '/physiotherapy-clinic-in-multan'
       fullPath: '/physiotherapy-clinic-in-multan'
       preLoaderRoute: typeof PhysiotherapyClinicInMultanRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/physiotherapy-in-multan': {
+      id: '/physiotherapy-in-multan'
+      path: '/physiotherapy-in-multan'
+      fullPath: '/physiotherapy-in-multan'
+      preLoaderRoute: typeof PhysiotherapyInMultanRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/physiotherapy-in-rahim-yar-khan': {
@@ -1164,6 +1230,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminBlogRouteImport
       parentRoute: typeof AuthenticatedAdminRoute
     }
+    '/_authenticated/admin/blog-editor': {
+      id: '/_authenticated/admin/blog-editor'
+      path: '/blog-editor'
+      fullPath: '/admin/blog-editor'
+      preLoaderRoute: typeof AuthenticatedAdminBlogEditorRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
     '/_authenticated/admin/calculators': {
       id: '/_authenticated/admin/calculators'
       path: '/calculators'
@@ -1197,6 +1270,13 @@ declare module '@tanstack/react-router' {
       path: '/fitness-content'
       fullPath: '/admin/fitness-content'
       preLoaderRoute: typeof AuthenticatedAdminFitnessContentRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
+    '/_authenticated/admin/gallery': {
+      id: '/_authenticated/admin/gallery'
+      path: '/gallery'
+      fullPath: '/admin/gallery'
+      preLoaderRoute: typeof AuthenticatedAdminGalleryRouteImport
       parentRoute: typeof AuthenticatedAdminRoute
     }
     '/_authenticated/admin/home-visits': {
@@ -1289,11 +1369,13 @@ declare module '@tanstack/react-router' {
 interface AuthenticatedAdminRouteChildren {
   AuthenticatedAdminAppointmentsRoute: typeof AuthenticatedAdminAppointmentsRoute
   AuthenticatedAdminBlogRoute: typeof AuthenticatedAdminBlogRoute
+  AuthenticatedAdminBlogEditorRoute: typeof AuthenticatedAdminBlogEditorRoute
   AuthenticatedAdminCalculatorsRoute: typeof AuthenticatedAdminCalculatorsRoute
   AuthenticatedAdminCertificatesRoute: typeof AuthenticatedAdminCertificatesRoute
   AuthenticatedAdminCliniciansRoute: typeof AuthenticatedAdminCliniciansRoute
   AuthenticatedAdminExperienceRecordsRoute: typeof AuthenticatedAdminExperienceRecordsRoute
   AuthenticatedAdminFitnessContentRoute: typeof AuthenticatedAdminFitnessContentRoute
+  AuthenticatedAdminGalleryRoute: typeof AuthenticatedAdminGalleryRoute
   AuthenticatedAdminHomeVisitsRoute: typeof AuthenticatedAdminHomeVisitsRoute
   AuthenticatedAdminInternshipApplicationsRoute: typeof AuthenticatedAdminInternshipApplicationsRoute
   AuthenticatedAdminInternshipParticipantsRoute: typeof AuthenticatedAdminInternshipParticipantsRoute
@@ -1311,12 +1393,14 @@ interface AuthenticatedAdminRouteChildren {
 const AuthenticatedAdminRouteChildren: AuthenticatedAdminRouteChildren = {
   AuthenticatedAdminAppointmentsRoute: AuthenticatedAdminAppointmentsRoute,
   AuthenticatedAdminBlogRoute: AuthenticatedAdminBlogRoute,
+  AuthenticatedAdminBlogEditorRoute: AuthenticatedAdminBlogEditorRoute,
   AuthenticatedAdminCalculatorsRoute: AuthenticatedAdminCalculatorsRoute,
   AuthenticatedAdminCertificatesRoute: AuthenticatedAdminCertificatesRoute,
   AuthenticatedAdminCliniciansRoute: AuthenticatedAdminCliniciansRoute,
   AuthenticatedAdminExperienceRecordsRoute:
     AuthenticatedAdminExperienceRecordsRoute,
   AuthenticatedAdminFitnessContentRoute: AuthenticatedAdminFitnessContentRoute,
+  AuthenticatedAdminGalleryRoute: AuthenticatedAdminGalleryRoute,
   AuthenticatedAdminHomeVisitsRoute: AuthenticatedAdminHomeVisitsRoute,
   AuthenticatedAdminInternshipApplicationsRoute:
     AuthenticatedAdminInternshipApplicationsRoute,
@@ -1356,6 +1440,7 @@ const rootRouteChildren: RootRouteChildren = {
   BestPhysiotherapistInMultanRoute: BestPhysiotherapistInMultanRoute,
   BookAppointmentRoute: BookAppointmentRoute,
   CertificatesRoute: CertificatesRoute,
+  ClinicalResourcesRoute: ClinicalResourcesRoute,
   ContactRoute: ContactRoute,
   DrFatimaIqbalDptMultanRoute: DrFatimaIqbalDptMultanRoute,
   DrJalalUdDinPtMultanRoute: DrJalalUdDinPtMultanRoute,
@@ -1370,6 +1455,7 @@ const rootRouteChildren: RootRouteChildren = {
   OurTeamRoute: OurTeamRoute,
   PhysiotherapistInMultanRoute: PhysiotherapistInMultanRoute,
   PhysiotherapyClinicInMultanRoute: PhysiotherapyClinicInMultanRoute,
+  PhysiotherapyInMultanRoute: PhysiotherapyInMultanRoute,
   PhysiotherapyInRahimYarKhanRoute: PhysiotherapyInRahimYarKhanRoute,
   PrivacyRoute: PrivacyRoute,
   ResetPasswordRoute: ResetPasswordRoute,
