@@ -26,10 +26,9 @@ const featuredConditions: FeaturedCondition[] = [
   { conditionSlug: "neck-pain", title: "Neck Pain" },
   { conditionSlug: "frozen-shoulder", title: "Frozen Shoulder" },
   {
-    conditionSlug: "back-pain",
-    title: "Slip Disc",
-    description: "See the existing Back Pain guide for related disc-problem information.",
-    action: "Learn More — Back Pain guide",
+    conditionSlug: "slipped-disc",
+    title: "Slipped Disc",
+    description: "Assessment-led guidance for herniated-disc symptoms, nerve irritation and safe rehabilitation.",
     image: slippedDiscVisual.src,
     imageAlt: slippedDiscVisual.alt,
   },
@@ -56,9 +55,10 @@ export function Conditions() {
               Conditions We Treat
             </h2>
             <p className="mt-4 max-w-2xl text-sm leading-6 text-white/75 sm:text-base">
-              PainFix provides physiotherapy assessment and rehabilitation in Multan for back pain,
-              sciatica, knee pain, neck pain, frozen shoulder, slip-disc-related symptoms and stroke
-              recovery. Your treatment plan depends on your clinical findings, needs and goals.
+              Looking for back pain physiotherapy, sciatica treatment, knee or neck pain
+              rehabilitation, frozen shoulder care, slipped-disc rehabilitation or stroke
+              physiotherapy in Multan? Explore our condition guides below. PainFix plans care
+              around your assessment, clinical findings and recovery goals.
             </p>
           </div>
           <Link
