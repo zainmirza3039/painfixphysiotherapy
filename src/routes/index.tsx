@@ -17,7 +17,6 @@ import { FAQ } from "@/components/site/FAQ";
 import { homeFaqs } from "@/components/site/home-faqs";
 import { CTA } from "@/components/site/CTA";
 import { Footer } from "@/components/site/Footer";
-import { WhatsAppFab } from "@/components/site/WhatsAppFab";
 import heroAvif480 from "@/assets/hero-480.avif";
 import heroAvif768 from "@/assets/hero-768.avif";
 import heroAvif960 from "@/assets/hero-960.avif";
@@ -80,7 +79,6 @@ function Index() {
         <CTA />
       </main>
       <Footer />
-      <WhatsAppFab />
     </div>
   );
 }
