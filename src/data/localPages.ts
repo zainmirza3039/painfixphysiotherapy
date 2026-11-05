@@ -351,7 +351,7 @@ export const localPages: LocalPage[] = [
       },
       {
         q: "What are the clinic timings?",
-        a: "PainFix is open Monday to Saturday, 11:00 AM to 4:00 PM. Sunday appointments are available by arrangement — call or WhatsApp 0314-3039582 to book.",
+        a: "PainFix is open Monday to Saturday, 11:00 AM to 4:00 PM. Sunday is available by appointment only — call or WhatsApp 0314-3039582 to book.",
       },
       {
         q: "Ghar per physiotherapy Multan mein milti hai?",
