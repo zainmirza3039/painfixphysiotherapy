@@ -38,13 +38,14 @@ export const CLINIC_ADDRESS_LINES = [
   "Shalimar Colony,",
   "Multan, Punjab, Pakistan",
 ];
-// Exact Google Maps location of the clinic (used for map link + directions)
-export const MAP_PLACE_URL =
-  "https://www.google.com/maps/place/PainFix+Physiotherapy+Clinic/@30.239469,71.4856386,17z";
-export const MAP_DIRECTIONS_URL = MAP_PLACE_URL;
-// Embeddable Google Maps iframe URL for the clinic location
-export const MAP_EMBED_URL =
-  "https://www.google.com/maps?q=PainFix+Physiotherapy+Clinic,+Shalimar+Colony,+Multan&output=embed";
+// Verified Google Maps Place ID for PainFix Physiotherapy Clinic, Multan.
+export const GOOGLE_MAPS_PLACE_ID = "ChIJhSmMfwDrPDkRzjw7wUtIuHc";
+// Open the exact business listing rather than a broad address/keyword search.
+export const MAP_PLACE_URL = `https://www.google.com/maps/search/?api=1&query=PainFix+Physiotherapy+Clinic&query_place_id=${GOOGLE_MAPS_PLACE_ID}`;
+// Route directly to the verified Google Maps business listing.
+export const MAP_DIRECTIONS_URL = `https://www.google.com/maps/dir/?api=1&destination=PainFix+Physiotherapy+Clinic&destination_place_id=${GOOGLE_MAPS_PLACE_ID}`;
+// Lightweight embedded map centred on the verified Google Maps Place ID.
+export const MAP_EMBED_URL = `https://www.google.com/maps?q=place_id:${GOOGLE_MAPS_PLACE_ID}&output=embed`;
 
 // Social media profiles
 export const SOCIAL_LINKS = {
