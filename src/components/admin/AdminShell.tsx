@@ -139,22 +139,24 @@ export function AdminShell({ children }: { children: ReactNode }) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const pathname = useRouterState({ select: (s) => s.location.pathname });
   const { data: inboxCounts } = useQuery({
-    enabled: isAdmin,
-    queryKey: ["admin", "inbox-notifications"],
+    enabled: isAdmin || isStaff,
+    queryKey: ["admin", "inbox-notifications", isAdmin, isStaff],
     queryFn: async () => {
       const [messages, visits] = await Promise.all([
-        supabase
-          .from("contact_submissions")
-          .select("id", { count: "exact", head: true })
-          .or("status.is.null,status.eq.new"),
+        isAdmin
+          ? supabase
+              .from("contact_submissions")
+              .select("id", { count: "exact", head: true })
+              .or("status.is.null,status.eq.new")
+          : Promise.resolve(null),
         supabase
           .from("home_visit_requests")
           .select("id", { count: "exact", head: true })
           .or("status.is.null,status.eq.new"),
       ]);
-      if (messages.error) throw messages.error;
+      if (messages?.error) throw messages.error;
       if (visits.error) throw visits.error;
-      return { messages: messages.count ?? 0, visits: visits.count ?? 0 };
+      return { messages: messages?.count ?? 0, visits: visits.count ?? 0 };
     },
     refetchInterval: 15000,
     refetchOnWindowFocus: true,
@@ -345,9 +347,9 @@ export function AdminShell({ children }: { children: ReactNode }) {
             <span className="hidden max-w-[220px] truncate text-sm text-muted-foreground xl:inline">
               {user?.email}
             </span>
-            {isAdmin && (
+            {(isAdmin || isStaff) && (
               <Link
-                to="/admin/messages"
+                to={isAdmin ? "/admin/messages" : "/admin/home-visits"}
                 aria-label={totalNotifications > 0 ? `${totalNotifications} new clinic notifications` : "Clinic notifications"}
                 title={totalNotifications > 0 ? `${totalNotifications} new items` : "No new notifications"}
                 className="relative grid h-9 w-9 place-items-center rounded-xl text-muted-foreground transition-colors hover:bg-muted hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
