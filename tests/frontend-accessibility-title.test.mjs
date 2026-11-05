@@ -47,7 +47,7 @@ test("stroke condition retains its visible title and distinct recovery metadata"
   const conditions = source("data/conditions.ts");
   assert.match(
     conditions,
-    /title: "Stroke Rehabilitation",[\s\S]*?metaTitle: "Stroke Rehabilitation: Symptoms & Recovery in Multan \| PainFix"/,
+    /title: "Stroke Rehabilitation",[\\s\\S]*?metaTitle: "Stroke Rehabilitation in Multan \\| Physiotherapy — PainFix"/,
   );
 });
 
