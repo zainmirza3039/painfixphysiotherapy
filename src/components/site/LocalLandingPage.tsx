@@ -1,5 +1,13 @@
 import { Link } from "@tanstack/react-router";
-import { ArrowRight, MapPin, Phone, Clock, Stethoscope, BookOpen, CalendarCheck } from "lucide-react";
+import {
+  ArrowRight,
+  MapPin,
+  Phone,
+  Clock,
+  Stethoscope,
+  BookOpen,
+  CalendarCheck,
+} from "lucide-react";
 import type { LocalPage } from "@/data/localPages";
 import { serviceMap } from "@/data/services";
 import { conditionMap } from "@/data/conditions";
