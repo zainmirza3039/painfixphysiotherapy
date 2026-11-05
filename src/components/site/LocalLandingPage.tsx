@@ -315,8 +315,8 @@ export function LocalLandingPage({
                 Patient feedback on Google
               </h3>
               <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                Read current patient feedback directly on PainFix’s Google Business Profile.
-                Ratings and review counts are maintained by Google and may change over time.
+                Read current patient feedback directly on PainFix’s Google Business Profile. Ratings and
+                review counts are maintained by Google and may change over time.
               </p>
             </div>
             <div className="flex shrink-0 flex-wrap gap-3">
