@@ -44,7 +44,6 @@ function DashboardPage() {
   const newVisits = (data?.visits ?? []).filter((v) => (v.status ?? "new") === "new");
   const unreadMessages = (data?.messages ?? []).filter((m) => (m.status ?? "new") === "new");
 
-  // Professionals / content editors without clinical access land on their own workspace.
   if (!loading && !isStaff) {
     if (isProfessional) return <Navigate to="/admin/profile" replace />;
     if (canEditContent) return <Navigate to="/admin/blog" replace />;
@@ -54,74 +53,85 @@ function DashboardPage() {
     <div className="space-y-8">
       <AdminPageHeader
         title="Dashboard"
-        description="Overview of patients, appointments and enquiries."
+        description="Your clinic at a glance — activity, requests and patient records."
       />
 
-      <section aria-labelledby="dashboard-snapshot-heading">
-        <div className="mb-3">
-          <h2
-            id="dashboard-snapshot-heading"
-            className="font-heading text-lg font-semibold tracking-tight text-foreground"
-          >
-            At a glance
-          </h2>
-          <p className="mt-0.5 text-sm text-muted-foreground">
-            Current counts from clinic records.
-          </p>
+      <section aria-labelledby="dashboard-snapshot-heading" className="space-y-3">
+        <div className="flex flex-wrap items-end justify-between gap-2">
+          <div>
+            <h2
+              id="dashboard-snapshot-heading"
+              className="font-heading text-lg font-semibold tracking-tight text-foreground"
+            >
+              Clinic overview
+            </h2>
+            <p className="mt-0.5 text-sm text-muted-foreground">
+              A live snapshot of your clinic workspace.
+            </p>
+          </div>
+          <span className="text-[11px] font-medium uppercase tracking-[0.12em] text-muted-foreground">
+            Updated from clinic records
+          </span>
         </div>
         {isLoading ? (
           <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
             {Array.from({ length: 4 }).map((_, i) => (
-              <Skeleton key={i} className="h-32 rounded-xl" />
+              <Skeleton key={i} className="h-[116px] rounded-2xl" />
             ))}
           </div>
         ) : (
           <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
             <StatCard
-              label="Total Patients"
+              label="Total patients"
               value={data?.patientCount ?? 0}
-              icon={<Users aria-hidden="true" className="h-4.5 w-4.5" />}
+              icon={<Users aria-hidden="true" className="h-5 w-5" />}
               accent="primary"
             />
             <StatCard
-              label="Appointments Today"
+              label="Appointments today"
               value={todayAppts.length}
-              icon={<CalendarClock aria-hidden="true" className="h-4.5 w-4.5" />}
+              icon={<CalendarClock aria-hidden="true" className="h-5 w-5" />}
               accent="secondary"
-              hint={`${data?.appointments.length ?? 0} total`}
+              hint={`${data?.appointments.length ?? 0} total appointments`}
             />
             <StatCard
-              label="New Home Visits"
+              label="New home visits"
               value={newVisits.length}
-              icon={<Home aria-hidden="true" className="h-4.5 w-4.5" />}
+              icon={<Home aria-hidden="true" className="h-5 w-5" />}
               accent="amber"
-              hint={`${data?.visits.length ?? 0} total`}
+              hint={`${data?.visits.length ?? 0} total requests`}
             />
             <StatCard
-              label="Unread Messages"
+              label="Unread messages"
               value={unreadMessages.length}
-              icon={<MessageSquare aria-hidden="true" className="h-4.5 w-4.5" />}
+              icon={<MessageSquare aria-hidden="true" className="h-5 w-5" />}
               accent="rose"
-              hint={`${data?.messages.length ?? 0} total`}
+              hint={`${data?.messages.length ?? 0} total enquiries`}
             />
           </div>
         )}
       </section>
 
       <section aria-labelledby="dashboard-activity-heading" className="space-y-4">
-        <div>
-          <h2
-            id="dashboard-activity-heading"
-            className="font-heading text-lg font-semibold tracking-tight text-foreground"
-          >
-            Recent activity
-          </h2>
-          <p className="mt-0.5 text-sm text-muted-foreground">
-            Latest home visit requests and incoming messages.
-          </p>
+        <div className="flex flex-wrap items-end justify-between gap-2">
+          <div>
+            <h2
+              id="dashboard-activity-heading"
+              className="font-heading text-lg font-semibold tracking-tight text-foreground"
+            >
+              Recent activity
+            </h2>
+            <p className="mt-0.5 text-sm text-muted-foreground">
+              The latest enquiries and home visit requests received by PainFix.
+            </p>
+          </div>
+          <span className="inline-flex items-center gap-2 text-xs font-medium text-secondary">
+            <span className="h-2 w-2 rounded-full bg-secondary" />
+            Workspace active
+          </span>
         </div>
         <div className="grid gap-4 lg:grid-cols-2">
-          <Panel title="Latest Home Visit Requests" to="/admin/home-visits">
+          <Panel title="Home visit requests" to="/admin/home-visits" count={newVisits.length}>
             {(data?.visits ?? []).slice(0, 5).map((v) => (
               <li
                 key={v.id}
@@ -136,7 +146,7 @@ function DashboardPage() {
             {!data?.visits.length && <Empty />}
           </Panel>
 
-          <Panel title="Recent Messages" to="/admin/messages">
+          <Panel title="Recent messages" to="/admin/messages" count={unreadMessages.length}>
             {(data?.messages ?? []).slice(0, 5).map((m) => (
               <li
                 key={m.id}
@@ -156,13 +166,30 @@ function DashboardPage() {
   );
 }
 
-function Panel({ title, to, children }: { title: string; to: string; children: React.ReactNode }) {
+function Panel({
+  title,
+  to,
+  count,
+  children,
+}: {
+  title: string;
+  to: string;
+  count: number;
+  children: React.ReactNode;
+}) {
   return (
-    <div className="min-w-0 rounded-xl border border-border bg-card p-4 shadow-sm sm:p-5">
+    <div className="min-w-0 rounded-2xl border border-border bg-card p-4 shadow-sm sm:p-5">
       <div className="mb-1 flex items-center justify-between gap-3 border-b border-border pb-3">
-        <h3 className="font-heading text-base font-semibold leading-snug text-foreground">
-          {title}
-        </h3>
+        <div className="flex min-w-0 items-center gap-2">
+          <h3 className="truncate font-heading text-base font-semibold leading-snug text-foreground">
+            {title}
+          </h3>
+          {count > 0 && (
+            <span className="inline-flex h-5 min-w-5 items-center justify-center rounded-full bg-rose-500/10 px-1.5 text-[10px] font-bold tabular-nums text-rose-600">
+              {count}
+            </span>
+          )}
+        </div>
         <Link
           to={to}
           className="inline-flex shrink-0 items-center gap-1 rounded-sm text-xs font-semibold text-primary outline-none hover:underline focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-card sm:text-sm"

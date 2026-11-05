@@ -1,6 +1,6 @@
 import { useEffect, useState, type ReactNode } from "react";
 import { Link, useNavigate, useRouterState } from "@tanstack/react-router";
-import { useQueryClient } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import {
   LayoutDashboard,
   Users,
@@ -22,6 +22,7 @@ import {
   Calculator,
   Dumbbell,
   ExternalLink,
+  Bell,
 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useAdminAuth } from "@/admin/AdminAuthProvider";
@@ -137,6 +138,32 @@ export function AdminShell({ children }: { children: ReactNode }) {
   const { dark, toggle } = useDarkMode();
   const [mobileOpen, setMobileOpen] = useState(false);
   const pathname = useRouterState({ select: (s) => s.location.pathname });
+  const { data: inboxCounts } = useQuery({
+    enabled: isAdmin || isStaff,
+    queryKey: ["admin", "inbox-notifications", isAdmin, isStaff],
+    queryFn: async () => {
+      const [messages, visits] = await Promise.all([
+        isAdmin
+          ? supabase
+              .from("contact_submissions")
+              .select("id", { count: "exact", head: true })
+              .or("status.is.null,status.eq.new")
+          : Promise.resolve(null),
+        supabase
+          .from("home_visit_requests")
+          .select("id", { count: "exact", head: true })
+          .or("status.is.null,status.eq.new"),
+      ]);
+      if (messages?.error) throw messages.error;
+      if (visits.error) throw visits.error;
+      return { messages: messages?.count ?? 0, visits: visits.count ?? 0 };
+    },
+    refetchInterval: 15000,
+    refetchOnWindowFocus: true,
+  });
+  const unreadMessages = inboxCounts?.messages ?? 0;
+  const newHomeVisits = inboxCounts?.visits ?? 0;
+  const totalNotifications = unreadMessages + newHomeVisits;
 
   async function signOut() {
     await queryClient.cancelQueries();
@@ -260,6 +287,15 @@ export function AdminShell({ children }: { children: ReactNode }) {
                     )}
                   />
                   <span>{item.label}</span>
+                  {((item.to === "/admin/messages" && unreadMessages > 0) ||
+                    (item.to === "/admin/home-visits" && newHomeVisits > 0)) && (
+                    <span
+                      aria-label={`${item.to === "/admin/messages" ? unreadMessages : newHomeVisits} new items`}
+                      className="ml-auto inline-flex h-5 min-w-5 items-center justify-center rounded-full bg-rose-500 px-1.5 text-[10px] font-bold tabular-nums text-white"
+                    >
+                      {item.to === "/admin/messages" ? unreadMessages : newHomeVisits}
+                    </span>
+                  )}
                 </Link>
               );
             })}
@@ -311,6 +347,32 @@ export function AdminShell({ children }: { children: ReactNode }) {
             <span className="hidden max-w-[220px] truncate text-sm text-muted-foreground xl:inline">
               {user?.email}
             </span>
+            {(isAdmin || isStaff) && (
+              <Link
+                to={isAdmin ? "/admin/messages" : "/admin/home-visits"}
+                aria-label={
+                  totalNotifications > 0
+                    ? `${totalNotifications} new clinic notifications`
+                    : "Clinic notifications"
+                }
+                title={
+                  totalNotifications > 0
+                    ? `${totalNotifications} new items`
+                    : "No new notifications"
+                }
+                className="relative grid h-9 w-9 place-items-center rounded-xl text-muted-foreground transition-colors hover:bg-muted hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+              >
+                <Bell className="h-[18px] w-[18px]" aria-hidden="true" />
+                {totalNotifications > 0 && (
+                  <span className="absolute right-1 top-1 h-2.5 w-2.5 rounded-full border-2 border-card bg-rose-500" />
+                )}
+                <span className="sr-only">
+                  {totalNotifications > 0
+                    ? `${totalNotifications} new notifications`
+                    : "No new notifications"}
+                </span>
+              </Link>
+            )}
             <span aria-hidden="true" className="hidden h-6 w-px bg-border xl:block" />
             <Button variant="ghost" size="icon" onClick={toggle} aria-label="Toggle theme">
               {dark ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
@@ -337,8 +399,11 @@ export function AdminShell({ children }: { children: ReactNode }) {
           </div>
         </div>
 
-        <nav aria-label="Admin navigation" className="hidden border-t border-border/70 lg:block">
-          <div className="mx-auto flex max-w-[1600px] flex-wrap items-center gap-x-5 gap-y-2 px-4 py-2.5 sm:px-6 xl:px-8">
+        <nav
+          aria-label="Admin navigation"
+          className="hidden overflow-x-auto border-t border-border/70 lg:block"
+        >
+          <div className="mx-auto flex w-max min-w-full flex-nowrap items-center gap-x-5 px-4 py-2.5 sm:px-6 xl:px-8">
             {navigation.map((section) => (
               <div key={section.label} className="flex min-w-0 items-center gap-1.5">
                 <span className="mr-1 whitespace-nowrap text-[9px] font-bold uppercase tracking-[0.12em] text-muted-foreground/70">
@@ -367,6 +432,13 @@ export function AdminShell({ children }: { children: ReactNode }) {
                         aria-hidden="true"
                       />
                       {item.label}
+                      {((item.to === "/admin/messages" && unreadMessages > 0) ||
+                        (item.to === "/admin/home-visits" && newHomeVisits > 0)) && (
+                        <span
+                          aria-hidden="true"
+                          className="ml-0.5 h-1.5 w-1.5 shrink-0 rounded-full bg-rose-500"
+                        />
+                      )}
                     </Link>
                   );
                 })}
