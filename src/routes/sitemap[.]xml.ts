@@ -38,15 +38,9 @@ export const Route = createFileRoute("/sitemap.xml")({
           const { listPublishedClinicianProfiles } = await import("@/admin/clinicians.functions");
           clinicianSlugs = (await listPublishedClinicianProfiles()).map((profile) => profile.slug);
         } catch {
-          // Do not re-advertise a previously published profile after unpublication.
-          return new Response("Sitemap temporarily unavailable", {
-            status: 503,
-            headers: {
-              "Content-Type": "text/plain; charset=utf-8",
-              "Cache-Control": "no-store",
-              "Retry-After": "60",
-            },
-          });
+          // Keep the sitemap available when the optional clinician directory is unavailable.
+          // Dynamic clinician URLs are omitted until the public directory can be queried again.
+          clinicianSlugs = [];
         }
         try {
           const { listInternshipPrograms } = await import("@/lib/internships.functions");
@@ -59,15 +53,8 @@ export const Route = createFileRoute("/sitemap.xml")({
               priority: "0.7",
             }));
         } catch {
-          // Fail closed rather than serving stale or unverified program URLs.
-          return new Response("Sitemap temporarily unavailable", {
-            status: 503,
-            headers: {
-              "Content-Type": "text/plain; charset=utf-8",
-              "Cache-Control": "no-store",
-              "Retry-After": "60",
-            },
-          });
+          // Internship URLs are optional sitemap entries; never make the entire sitemap unavailable.
+          internshipEntries = [];
         }
         // De-duplicate CMS slugs that also exist in static data.
         const staticSlugs = new Set(blogPosts.map((p) => p.slug));
@@ -170,7 +157,12 @@ export const Route = createFileRoute("/sitemap.xml")({
           ...cmsBlogEntries,
         ];
 
-        const urls = entries.map((e) =>
+        // Redirected root-level SEO landing pages must not be advertised as canonical URLs.
+        const canonicalEntries = entries.filter(
+          (entry) => entry.path !== "/best-physiotherapist-in-multan",
+        );
+
+        const urls = canonicalEntries.map((e) =>
           [
             `  <url>`,
             `    <loc>${BASE_URL}${e.path}</loc>`,
