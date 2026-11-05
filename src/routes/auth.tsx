@@ -90,34 +90,34 @@ function AuthPage() {
   }
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-surface px-4 py-12">
-      <div className="w-full max-w-md">
+    <div className="flex min-h-screen items-center justify-center bg-[radial-gradient(ellipse_at_top,_rgba(0,168,89,0.08),_transparent_48%),linear-gradient(135deg,_#f5f8fc,_#eef4f2)] px-4 py-10">
+      <div className="w-full max-w-[420px]">
         <a
           href="/"
           className="mb-6 inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground"
         >
           <ArrowLeft className="h-4 w-4" /> Back to website
         </a>
-        <div className="rounded-3xl border border-border bg-card p-8 shadow-card">
-          <div className="mb-6 flex items-center gap-3">
-            <span className="grid h-11 w-11 place-items-center rounded-2xl bg-primary text-primary-foreground">
+        <div className="rounded-[28px] border border-border/80 bg-card p-6 shadow-[0_24px_70px_rgba(3,46,97,0.12)] sm:p-8">
+          <div className="mb-7 flex items-center gap-3">
+            <span className="grid h-12 w-12 place-items-center rounded-2xl bg-primary text-primary-foreground shadow-md shadow-primary/20">
               <Activity className="h-6 w-6" />
             </span>
             <div>
-              <h1 className="font-heading text-lg font-bold text-foreground">PainFix Admin</h1>
-              <p className="text-xs text-muted-foreground">Secure staff & admin portal</p>
+              <h1 className="font-heading text-xl font-bold tracking-tight text-foreground">PainFix Admin</h1>
+              <p className="mt-0.5 text-xs text-muted-foreground">Secure clinic workspace</p>
             </div>
           </div>
 
           <Tabs defaultValue="login">
-            <TabsList className="grid w-full grid-cols-2">
+            <TabsList className="grid h-11 w-full grid-cols-2 rounded-xl bg-muted/80 p-1">
               <TabsTrigger value="login">Login</TabsTrigger>
               <TabsTrigger value="forgot">Forgot Password</TabsTrigger>
             </TabsList>
 
             <TabsContent value="login" className="mt-6">
-              <form onSubmit={handleAuth} className="space-y-4">
-                <div className="space-y-1.5">
+              <form onSubmit={handleAuth} className="space-y-5">
+                <div className="space-y-2">
                   <Label htmlFor="email">Email</Label>
                   <div className="relative">
                     <Mail className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
@@ -133,7 +133,7 @@ function AuthPage() {
                     />
                   </div>
                 </div>
-                <div className="space-y-1.5">
+                <div className="space-y-2">
                   <Label htmlFor="password">Password</Label>
                   <div className="relative">
                     <Lock className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
@@ -149,12 +149,12 @@ function AuthPage() {
                     />
                   </div>
                 </div>
-                <Button type="submit" className="w-full" disabled={busy}>
+                <Button type="submit" className="h-11 w-full rounded-xl font-semibold shadow-sm" disabled={busy}>
                   {busy && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
                   {mode === "signin" ? "Sign in" : "Create account"}
                 </Button>
               </form>
-              <p className="mt-4 text-center text-xs text-muted-foreground">
+              <p className="mt-5 text-center text-xs text-muted-foreground">
                 {mode === "signin" ? "First time here?" : "Already have an account?"}{" "}
                 <button
                   type="button"
