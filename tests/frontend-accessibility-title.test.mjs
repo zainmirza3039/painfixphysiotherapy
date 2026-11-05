@@ -4,7 +4,7 @@ import test from "node:test";
 
 const source = (path) => readFileSync(new URL(`../src/${path}`, import.meta.url), "utf8");
 
-test("home-visit floating CTA uses its visible translated label and retains readable hover text", () => {
+test("home-visit floating CTA uses its visible translated label and compact placement", () => {
   const fab = source("components/site/HomeVisitFab.tsx");
   assert.ok(fab.includes("aria-label={t.actions.bookHomeVisit}"));
   assert.ok(fab.includes("<span>{t.actions.bookHomeVisit}</span>"));
