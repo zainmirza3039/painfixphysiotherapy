@@ -158,9 +158,11 @@ export const Route = createFileRoute("/sitemap.xml")({
         ];
 
         // Redirected root-level SEO landing pages must not be advertised as canonical URLs.
-        const canonicalEntries = entries.filter(
-          (entry) => entry.path !== "/best-physiotherapist-in-multan",
-        );
+        const redirectedLandingPaths = new Set([
+          "/physiotherapist-in-multan",
+          "/best-physiotherapist-in-multan",
+        ]);
+        const canonicalEntries = entries.filter((entry) => !redirectedLandingPaths.has(entry.path));
 
         const urls = canonicalEntries.map((e) =>
           [
