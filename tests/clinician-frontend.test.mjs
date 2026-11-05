@@ -248,7 +248,6 @@ test("deactivation confirmation validates and preserves the edited profile befor
   assert.match(route, /submitForm\(event, true\)/);
 });
 
-
 test("Multan physiotherapy landing page loads published clinicians before server rendering", async () => {
   const [route, page, query] = await Promise.all([
     readFile(new URL("../src/routes/physiotherapy-in-multan.tsx", import.meta.url), "utf8"),
