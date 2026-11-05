@@ -17,6 +17,7 @@ import { ThemeProvider, THEME_INIT_SCRIPT } from "@/components/site/ThemeProvide
 import { HomeVisitFab } from "@/components/site/HomeVisitFab";
 import { WhatsAppFab } from "@/components/site/WhatsAppFab";
 import { SITE_URL } from "@/components/site/constants";
+import { SERVICE_FEES } from "@/data/serviceFees";
 import type { AuthChangeEvent } from "@supabase/supabase-js";
 
 const FONT_HREF =
@@ -197,27 +198,17 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
             },
           ],
           medicalSpecialty: "Physiotherapy",
-          priceRange: "$$",
           hasMap: "https://maps.google.com/?cid=8626724576429817038",
           hasOfferCatalog: {
             "@type": "OfferCatalog",
-            name: "Consultation Fees",
-            itemListElement: [
-              {
-                "@type": "Offer",
-                name: "In-Clinic Consultation",
-                description: "Initial assessment and treatment plan.",
-                price: "2000",
-                priceCurrency: "PKR",
-              },
-              {
-                "@type": "Offer",
-                name: "Video Consultation",
-                description: "Online consultation for follow-ups and second opinions.",
-                price: "1000",
-                priceCurrency: "PKR",
-              },
-            ],
+            name: "Confirmed Physiotherapy Fees",
+            itemListElement: Object.values(SERVICE_FEES).map((fee) => ({
+              "@type": "Offer",
+              name: fee.name,
+              description: fee.description,
+              price: fee.amount,
+              priceCurrency: fee.currency,
+            })),
           },
           sameAs: [
             "https://facebook.com/painfixphysiotherapy1",

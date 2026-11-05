@@ -47,7 +47,7 @@ let fixtures = [
     full_name: "Legacy Fixture PT",
     expertise: ["Fixture clinical practice"],
   }),
-  profile("ariba-babar", {
+  profile("dr-ariba-babar-pt", {
     name: "Ariba Babar",
     full_name: "ARIBA BABAR, DPT",
     service_mode: "online_only",
@@ -221,6 +221,40 @@ const assertDefaultSharedBooking = (html) => {
 
 try {
   await startApp();
+  const homepage = await get("/");
+  assert.equal(homepage.response.status, 200);
+  const treatmentSection = homepage.html.indexOf("Treatment Services");
+  const conditionsSection = homepage.html.indexOf("Conditions We Treat");
+  const teamSection = homepage.html.indexOf('id="doctors"');
+  assert.ok(treatmentSection >= 0 && conditionsSection > treatmentSection);
+  assert.ok(teamSection > conditionsSection);
+  assert.match(homepage.html, /Meet the people behind your care\./);
+  assert.match(homepage.html, /href="\/dr-ariba-babar-pt"/);
+  for (const fee of ["PKR 2,000", "PKR 2,500", "PKR 1,000"])
+    assert.ok(homepage.html.includes(fee), `homepage should render ${fee}`);
+  const homeVisitPage = await get("/home-visit");
+  assert.equal(homeVisitPage.response.status, 200);
+  assert.match(homeVisitPage.html, /PKR 2,500/);
+  assert.match(homeVisitPage.html, /Includes one treatment session and travel\./);
+  assert.match(homeVisitPage.html, /Request a Home Visit/);
+  assert.doesNotMatch(
+    homeVisitPage.html,
+    /travel charges may apply|initial assessment fee|follow-up session fee|monthly rehabilitation packages/i,
+  );
+  const appointmentPage = await get("/book-appointment");
+  assert.equal(appointmentPage.response.status, 200);
+  assert.match(appointmentPage.html, /Book an Appointment|Book an appointment/);
+  const feedbackPage = await get("/success-stories");
+  assert.equal(feedbackPage.response.status, 200);
+  assert.match(feedbackPage.html, /Read current Google reviews/);
+  assert.doesNotMatch(
+    feedbackPage.html,
+    /Ahmed R\.|Real Recovery Journeys|genuine reviews from people/,
+  );
+  console.log(
+    "PASS: homepage team/fee SSR, section order, home-visit fee, review page, and appointment pages render; all checks are read-only GETs",
+  );
+
   let directory = await get("/our-team");
   assert.equal(directory.response.status, 200);
   assert.match(directory.html, /Dr\. Fixture Public PT/);
@@ -249,8 +283,10 @@ try {
   assertDefaultSharedBooking(directory.html);
   console.log("PASS: normal legacy route reads the managed API contract");
 
-  const online = await get("/ariba-babar");
+  const online = await get("/dr-ariba-babar-pt");
   assert.equal(online.response.status, 200);
+  const obsoleteOnline = await get("/ariba-babar");
+  assert.equal(obsoleteOnline.response.status, 404);
   const onlineHeader = headerHtml(online.html);
   const onlineFloating = floatingHtml(online.html);
   assert.ok(onlineFloating, "online profiles retain a contextual floating WhatsApp CTA");
@@ -306,7 +342,7 @@ try {
   }
   assert.match(
     online.html,
-    /rel="canonical"[^>]+href="https:\/\/painfixphysiotherapy.com\/ariba-babar"/,
+    /rel="canonical"[^>]+href="https:\/\/painfixphysiotherapy\.com\/dr-ariba-babar-pt"/,
   );
   const onlineSchemas = [
     ...online.html.matchAll(/<script[^>]+type="application\/ld\+json"[^>]*>([\s\S]*?)<\/script>/g),
@@ -314,14 +350,21 @@ try {
   const person = onlineSchemas.find((schema) => schema.name === "ARIBA BABAR, DPT");
   assert.ok(person);
   assert.equal(person["@type"], "Person");
+  assert.equal(person.worksFor, undefined);
   assert.equal(person.address, undefined);
-  assert.equal(person.areaServed, undefined);
+  assert.equal(person.areaServed.name, "Rahim Yar Khan, Pakistan");
   assert.equal(person.homeLocation.name, "Rahim Yar Khan, Pakistan");
   assert.equal(person.telephone, "+923120102560");
-  assert.match(directory.html, /href="\/ariba-babar"/);
+  const refreshedOnline = await get("/dr-ariba-babar-pt");
+  assert.equal(refreshedOnline.response.status, 200);
+  assert.match(
+    refreshedOnline.html,
+    /rel="canonical"[^>]+href="https:\/\/painfixphysiotherapy\.com\/dr-ariba-babar-pt"/,
+  );
+  assert.match(directory.html, /href="\/dr-ariba-babar-pt"/);
   assert.match(directory.html, /Online physiotherapy · Rahim Yar Khan, Pakistan/);
   console.log(
-    "PASS: online-only profile has AB placeholder, CV sections, direct WhatsApp, canonical and address-free Person metadata; clinic content is excluded",
+    "PASS: existing online-only profile route refreshes, has AB placeholder, direct WhatsApp, canonical and RYK service-area metadata; old path 404s and clinic address/affiliation are excluded",
   );
 
   for (const slug of ["dr-fixture-draft", "dr-fixture-inactive", "dr-fixture-missing"]) {
@@ -352,6 +395,9 @@ try {
   directory = await get("/our-team");
   assert.equal(directory.response.status, 200);
   assertStaticDirectory(directory.html);
+  const homepageDuringOutage = await get("/");
+  assert.equal(homepageDuringOutage.response.status, 200);
+  assertStaticDirectory(homepageDuringOutage.html);
   const unknownDuringOutage = await get("/dr-never-published");
   assert.equal(unknownDuringOutage.response.status, 404);
   console.log(
@@ -370,12 +416,13 @@ try {
   const sitemap = await get("/sitemap.xml");
   assert.equal(sitemap.response.status, 200);
   assert.match(sitemap.html, /\/dr-fixture-pt<\/loc>/);
-  assert.match(sitemap.html, /\/ariba-babar<\/loc>/);
+  assert.match(sitemap.html, /\/dr-ariba-babar-pt<\/loc>/);
   assert.doesNotMatch(sitemap.html, /dr-fixture-draft|dr-fixture-inactive/);
 
   fixtures = fixtures.map((row) => ({ ...row, is_published: false }));
   const unpublished = await get("/dr-fixture-pt");
   assert.equal(unpublished.response.status, 404);
+  assert.equal((await get("/dr-ariba-babar-pt")).response.status, 404);
   assert.equal((await get("/ariba-babar")).response.status, 404);
   directory = await get("/our-team");
   assert.equal(directory.response.status, 200);
@@ -393,11 +440,10 @@ try {
   assert.doesNotMatch(unpublishedStatic.html, /Dr\. Zain Ul Abideen PT/);
   apiMode = "outage";
   const unavailableSitemap = await get("/sitemap.xml");
-  assert.equal(unavailableSitemap.response.status, 503);
-  assert.equal(unavailableSitemap.response.headers.get("cache-control"), "no-store");
-  assert.equal(unavailableSitemap.response.headers.get("retry-after"), "60");
-  assert.doesNotMatch(unavailableSitemap.html, /dr-fixture-pt/);
-  console.log("PASS: sitemap outages still fail closed without static or stale clinician URLs");
+  assert.equal(unavailableSitemap.response.status, 200);
+  assert.match(unavailableSitemap.html, /\/our-team<\/loc>/);
+  assert.doesNotMatch(unavailableSitemap.html, /dr-fixture-pt|dr-ariba-babar-pt/);
+  console.log("PASS: sitemap remains available and omits dynamic clinician URLs during API outage");
 
   await stopApp();
   apiMode = "outage";
@@ -406,11 +452,19 @@ try {
   directory = await get("/our-team");
   assert.equal(directory.response.status, 200);
   assertStaticDirectory(directory.html);
+  const homepageWithoutPublicConfig = await get("/");
+  assert.equal(homepageWithoutPublicConfig.response.status, 200);
+  assertStaticDirectory(homepageWithoutPublicConfig.html);
   for (const [name, slug] of staticMembers) {
     const page = await get(`/${slug}`);
     assert.equal(page.response.status, 200, slug);
     assertStaticProfile(page.html, name, slug);
   }
+  const jalal = await get("/dr-jalal-ud-din-pt-multan");
+  assert.equal(jalal.response.status, 200);
+  assert.match(jalal.html, /0314-3039582/);
+  assert.match(jalal.html, /href="tel:\+923143039582"/);
+  assert.ok(whatsappLinks(jalal.html).some((link) => link.pathname === "/923143039582"));
   const fatima = await get("/dr-fatima-iqbal-dpt-multan");
   assert.doesNotMatch(
     fatima.html,

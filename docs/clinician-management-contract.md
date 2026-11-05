@@ -37,18 +37,20 @@ Shared types and photo constants remain in `@/admin/clinician-profile.contract`.
 
 `20261021000000_add_clinician_service_and_cv_fields.sql` adds the columns and inserts Ariba in one `BEGIN`/`COMMIT` transaction. No separately configured seed mechanism is required. The standalone seed file has been removed to avoid duplicate content sources. The insert uses root slug `ariba-babar` with `service_mode='online_only'`, city `Rahim Yar Khan, Pakistan`, WhatsApp `923120102560`, active/published flags, explicit SEO title/description, and null photo fields. Years of experience remain null. An initials placeholder is a frontend concern.
 
+The migration slug above is historical. The existing public profile is currently exposed at `/dr-ariba-babar-pt`; use that verified public path for links and SEO references. This route correction does not alter the profile row or any database state.
+
 Only the owner-provided CV details are included. Education, four internship entries, training/volunteer work, and research remain separate. `specialties` is empty; `expertise` holds the eight CV skill groups rather than specialist claims, with supervised exposure explicit in biography and experience. Dry needling appears in training, not as certification. No public email or invented physical branch is added.
 
 `ON CONFLICT (slug) DO NOTHING` makes reruns non-destructive: existing clinicians and later owner edits, publication changes, contact changes, and photos are not overwritten. A conflicting existing slug must be reviewed rather than silently replaced.
 
 ## Production prerequisites: do not blindly push migrations
 
-Owner-confirmed project `vagsksstptqqcloccavs` has four existing clinician rows, no Ariba slug, and none of the five new columns. Its live migration ledger contains:
+An earlier owner-confirmed production snapshot for project `vagsksstptqqcloccavs` recorded four clinician rows, no Ariba slug, and none of the five new columns at that time. This is historical context, not a current database inventory. Its live migration ledger then contained:
 
 - `20261020163455_create_clinician_management_tables_only`
 - `20261020163839_create_clinician_photos_storage_bucket`
 
-Those live-only setup migrations are absent from repository main. The older checked-in `20261017090000_add_clinician_profile_management.sql` is an object-creation proposal and must **not** be replayed against the existing production objects. Do not run `supabase db push` against this unreconciled history. Existing access/storage descriptions in older proposals are not evidence of current production configuration.
+Those live-only setup migrations were absent from repository main at the time of that earlier snapshot. The older checked-in `20261017090000_add_clinician_profile_management.sql` is an object-creation proposal and must **not** be replayed against existing production objects. Do not run `supabase db push` against this unreconciled history. Existing access/storage descriptions in older proposals are not evidence of current production configuration or of the present profile row.
 
 Before a separately approved rollout: reconcile the ledger with an authorized owner, verify backup/PITR availability without assuming a backup exists, review the exact combined schema/content SQL, and test compatible frontend/backend changes together in staging. Then coordinate the combined migration before code that selects the new columns. `supabase/config.toml` retains its existing stale project ref unchanged; it is not a safe production target selector.
 

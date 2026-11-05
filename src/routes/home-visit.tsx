@@ -22,6 +22,7 @@ import { Reveal } from "@/components/site/Reveal";
 import { HomeVisitForm } from "@/components/site/HomeVisitForm";
 import { useI18n } from "@/i18n/LanguageProvider";
 import { WHATSAPP_URL, PHONE_TEL, PHONE_DISPLAY, SITE_URL } from "@/components/site/constants";
+import { SERVICE_FEES } from "@/data/serviceFees";
 
 const TITLE = "Book a Home Visit — Home Physiotherapy in Multan | PainFix";
 const DESCRIPTION =
@@ -230,24 +231,21 @@ function HomeVisitPage() {
                 <p className="mx-auto mt-3 max-w-xl text-muted-foreground">{hv.pricing.subtitle}</p>
               </div>
             </Reveal>
-            <div className="mt-10 grid gap-4 sm:grid-cols-2">
-              {hv.pricing.items.map((item, i) => (
-                <Reveal anim="up" key={item}>
-                  <div className="hover-lift flex items-center justify-between gap-4 rounded-2xl border border-border bg-card p-5 shadow-soft">
-                    <span className="font-medium text-foreground">{item}</span>
-                    <span className="rounded-full bg-accent px-3 py-1 text-xs font-semibold text-accent-foreground">
-                      {t.actions.callNow}
-                    </span>
-                  </div>
-                </Reveal>
-              ))}
-            </div>
-            <p className="mt-6 text-center text-sm text-muted-foreground">
-              {hv.pricing.travelNote}
-            </p>
-            <p className="mt-2 text-center font-heading text-lg font-semibold text-primary">
-              {hv.pricing.note}
-            </p>
+            <Reveal anim="up">
+              <article className="mx-auto mt-10 max-w-2xl rounded-2xl border border-border bg-card p-5 shadow-soft sm:p-7">
+                <div className="flex flex-col justify-between gap-3 sm:flex-row sm:items-center">
+                  <h3 className="font-heading text-xl font-semibold text-foreground">
+                    {hv.pricing.label}
+                  </h3>
+                  <p className="font-heading text-3xl font-semibold text-primary">
+                    {SERVICE_FEES.homeVisit.displayPrice}
+                  </p>
+                </div>
+                <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+                  {hv.pricing.inclusions}
+                </p>
+              </article>
+            </Reveal>
           </div>
         </section>
 

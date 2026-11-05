@@ -79,7 +79,7 @@ export function CityBookingForm({
                 Online-only with{" "}
                 <Link
                   to="/$slug"
-                  params={{ slug: "ariba-babar" }}
+                  params={{ slug: "dr-ariba-babar-pt" }}
                   className="font-semibold text-primary underline"
                 >
                   Ariba Babar, DPT

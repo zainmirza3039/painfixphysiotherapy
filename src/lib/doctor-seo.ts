@@ -14,12 +14,12 @@ export function doctorProfileHead(doc: TeamMember) {
   const onlineOnly = isOnlineClinician(doc);
   const city = doc.city || "Pakistan";
   const metaTitle = onlineOnly
-    ? doc.slug === "ariba-babar"
+    ? doc.slug === "dr-ariba-babar-pt"
       ? "Ariba Babar DPT | Online Physiotherapist in Rahim Yar Khan"
       : `${doc.fullName} — Online Physiotherapy in ${city} | PainFix`
     : doc.profile.metaTitle;
   const metaDescription = onlineOnly
-    ? doc.slug === "ariba-babar"
+    ? doc.slug === "dr-ariba-babar-pt"
       ? "Book an online video consultation with Ariba Babar, DPT, an online physiotherapist serving Rahim Yar Khan. Ask about availability and suitability via WhatsApp."
       : doc.profile.metaDescription.includes(city)
         ? doc.profile.metaDescription
@@ -65,12 +65,16 @@ export function doctorProfileHead(doc: TeamMember) {
               }
             : {}),
           knowsAbout: doc.profile.expertise,
-          worksFor: {
-            "@type": "MedicalClinic",
-            "@id": `${SITE_URL}/#clinic`,
-            name: CLINIC_NAME,
-            url: SITE_URL,
-          },
+          ...(!onlineOnly
+            ? {
+                worksFor: {
+                  "@type": "MedicalClinic",
+                  "@id": `${SITE_URL}/#clinic`,
+                  name: CLINIC_NAME,
+                  url: SITE_URL,
+                },
+              }
+            : {}),
           ...(onlineOnly
             ? {
                 homeLocation: { "@type": "Place", name: doc.city || "Pakistan" },

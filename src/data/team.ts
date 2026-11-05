@@ -135,8 +135,8 @@ export const team: TeamMember[] = [
     initials: "JD",
     slug: "dr-jalal-ud-din-pt-multan",
     photo: drJalalImg,
-    phoneDisplay: "0317-0356265",
-    whatsapp: "923170356265",
+    phoneDisplay: "0314-3039582",
+    whatsapp: "923143039582",
     profile: {
       metaTitle: "Dr. Jalal Ud Din PT — Physiotherapist in Multan | DPT",
       metaDescription:

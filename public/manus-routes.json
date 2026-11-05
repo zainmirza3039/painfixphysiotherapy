@@ -7,6 +7,7 @@
     { "path": "/conditions", "title": "Physiotherapy Conditions" },
     { "path": "/conditions/:slug", "title": "Condition" },
     { "path": "/contact", "title": "Contact PainFix" },
+    { "path": "/dr-ariba-babar-pt", "title": "Ariba Babar" },
     { "path": "/dr-fatima-iqbal-dpt-multan", "title": "Dr Fatima Iqbal" },
     { "path": "/dr-jalal-ud-din-pt-multan", "title": "Dr Jalal Ud Din" },
     { "path": "/dr-zain-ul-abideen-pt-multan", "title": "Dr Zain Ul Abideen" },
@@ -32,14 +33,13 @@
     { "path": "/search", "title": "Search PainFix" },
     { "path": "/services", "title": "Physiotherapy Services" },
     { "path": "/services/:slug", "title": "Physiotherapy Service" },
-    { "path": "/success-stories", "title": "Patient Success Stories" },
+    { "path": "/success-stories", "title": "Patient Feedback" },
     { "path": "/terms", "title": "Terms of Service" },
     { "path": "/verify-certificate", "title": "Verify Certificate" },
     { "path": "/blog", "title": "PainFix Blog" },
     { "path": "/blog/:slug", "title": "PainFix Article" },
     { "path": "/blog/category/:category", "title": "Blog Category" },
-    { "path": "/ariba-babar", "title": "Ariba Babar" },
-    { "path": "/best-physiotherapist-in-multan", "title": "Best Physiotherapist in Multan" },
+    { "path": "/best-physiotherapist-in-multan", "title": "Choosing a Physiotherapist in Multan" },
     { "path": "/physiotherapy-in-multan", "title": "Physiotherapy in Multan" }
   ]
 }

@@ -100,7 +100,7 @@ export function CityServices() {
                 Enquire about online care <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
               </a>
               <a
-                href="/ariba-babar"
+                href="/dr-ariba-babar-pt"
                 className="inline-flex min-h-11 items-center justify-center gap-2 rounded-md border border-primary/20 px-4 py-2.5 text-sm font-semibold text-primary transition-colors hover:border-secondary hover:text-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
               >
                 Meet the physiotherapist

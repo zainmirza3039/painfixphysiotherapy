@@ -199,46 +199,46 @@ export const localPages: LocalPage[] = [
   },
   {
     slug: "best-physiotherapist-in-multan",
-    eyebrow: "Best Physiotherapist in Multan",
-    title: "Best Physiotherapist in Multan",
-    metaTitle: "Best Physiotherapist in Multan | 4.9★ Rated — PainFix Clinic",
+    eyebrow: "Choosing a Physiotherapist",
+    title: "Choosing a Physiotherapist in Multan",
+    metaTitle: "Choosing a Physiotherapist in Multan | PainFix Clinic",
     metaDescription:
-      "PainFix is among the best-rated physiotherapy clinics in Multan (4.9★ on Google). DPT-led, evidence-based care for lasting recovery. Book your assessment today.",
+      "Learn what to consider when choosing physiotherapy care in Multan, including clinician information, service options, fees, availability and current public feedback.",
     heroSubtitle:
-      "Rated 4.9★ by patients on Google — DPT-led, evidence-based physiotherapy built around your recovery, not quick fixes.",
+      "A practical guide to comparing physiotherapy services, published clinician information and appointment options in Multan.",
     quickAnswer:
-      "PainFix Physiotherapy Clinic is one of the best-rated physiotherapists in Multan, with a 4.9★ rating on Google. Care is led by Dr. Zain Ul Abideen (DPT) and Dr. Jalal Ud Din (Clinical Physiotherapist), who use evidence-based assessment and personalized treatment plans to deliver lasting results. Book on 0314-3039582.",
+      "When choosing a physiotherapist in Multan, consider the clinician's published qualifications, the service mode, appointment availability and fee information. Ask how an assessment will guide care for your goals. PainFix's public clinician profiles and contact details are available on this website, and current public feedback can be viewed directly on Google.",
     keyTakeaways: [
-      "4.9★ Google rating from real, verified patients",
-      "Led by a Doctor of Physical Therapy (DPT)",
-      "Personalized plans targeting the root cause",
-      "Focus on long-term recovery, not temporary relief",
-      "Trusted for back pain, sciatica, sports and post-surgical rehab",
+      "Review each clinician's published role and qualifications",
+      "Ask how an assessment relates to your goals",
+      "Confirm service options, fees and appointment availability",
+      "Check current public feedback directly on its review platform",
+      "Discuss whether a service is appropriate for your needs",
     ],
     sections: [
       {
-        heading: "What makes PainFix one of the best physiotherapy clinics in Multan?",
+        heading: "What to consider when choosing physiotherapy care",
         paragraphs: [
-          'Being the "best" physiotherapist is about outcomes, not slogans. PainFix is chosen by patients across Multan because every treatment plan is grounded in evidence, tailored to the individual, and focused on restoring lasting function — supported by positive feedback from patients on Google.',
+          "Provider choice depends on your location, goals, preferred appointment mode and the clinician's qualifications. Review the information a clinic publishes, ask what an assessment involves, and confirm fees and availability before arranging an appointment.",
         ],
         list: [
-          "DPT-qualified clinicians with real clinical experience",
-          "Detailed first assessment and accurate clinical diagnosis",
-          "Individualized treatment plans, reviewed as you progress",
-          "Hands-on manual therapy combined with active rehabilitation",
-          "Honest guidance and clear recovery expectations",
+          "Check the clinician's listed qualifications and role",
+          "Ask how the assessment will be explained",
+          "Confirm whether clinic, home or online care is offered",
+          "Review the current fee and appointment information",
+          "Open the review platform directly for current feedback",
         ],
       },
       {
-        heading: "How to judge the best physiotherapist for you",
+        heading: "How to compare a physiotherapist in Multan",
         paragraphs: [
-          "The right physiotherapist for you is one who listens, assesses thoroughly and explains your plan clearly. Verified Google reviews, proper DPT qualifications and a structured, measurable approach are the most reliable signals of quality.",
+          "Look for clear, current information about services, clinician qualifications and next steps. Public reviews may inform your decision; check them on the review platform itself and consider your own needs when choosing a provider.",
         ],
       },
       {
-        heading: "Meet the team leading your care",
+        heading: "Review PainFix's public clinician profiles",
         paragraphs: [
-          "Your recovery at PainFix is guided by Dr. Zain Ul Abideen (DPT), who focuses on evidence-based, personalized rehabilitation, and Dr. Jalal Ud Din (Clinical Physiotherapist), who specialises in exercise and neurological rehabilitation. Together they cover musculoskeletal, sports, post-surgical and neurological physiotherapy.",
+          "PainFix's clinician directory contains the public profiles and service information currently published by the clinic. Review the details on each profile and contact the clinic if you need to confirm a current appointment option.",
         ],
       },
     ],
@@ -265,20 +265,20 @@ export const localPages: LocalPage[] = [
     ],
     faqs: [
       {
-        q: "Why is PainFix considered among the best physiotherapists in Multan?",
-        a: "PainFix combines DPT-qualified clinicians, evidence-based treatment and personalized care, with a 4.9★ Google rating. Patients can read the feedback directly on our Google Business Profile.",
+        q: "What should I compare when choosing a physiotherapist in Multan?",
+        a: "Review the clinician's published role and qualifications, service mode, fee information and appointment availability. Ask questions about the assessment and whether the service fits your needs.",
       },
       {
-        q: "Multan mein sab se acha physiotherapist kaun hai?",
-        a: "PainFix Physiotherapy Clinic Multan ka ek behtareen (4.9★ rated) physiotherapy clinic hai. Yahan Dr. Zain Ul Abideen (DPT) aur Dr. Jalal Ud Din evidence-based, personalized ilaj faraham karte hain.",
+        q: "Multan mein physiotherapist ka intekhab kaise karoon?",
+        a: "Clinician ka published role, qualification, service mode, fee aur appointment availability check karein. Assessment aur service ke bare mein sawal pooch kar apni zaroorat ke mutabiq faisla karein.",
       },
       {
-        q: "Are the Google reviews for PainFix genuine?",
-        a: "Yes. Our reviews are real, verified reviews from patients on our Google Business Profile. You can read them anytime directly on Google.",
+        q: "Where can I read current Google reviews for PainFix?",
+        a: "Open PainFix's Google Business Profile to view current public reviews and ratings. Google controls the content shown there, and details may change.",
       },
       {
-        q: "What conditions do the best results come from?",
-        a: "We see strong, consistent outcomes for back pain, neck pain, sciatica, frozen shoulder, knee pain, sports injuries and post-surgical and stroke rehabilitation — always with a plan tailored to your goals.",
+        q: "How do I know whether a physiotherapy service is suitable for me?",
+        a: "Contact a clinician to discuss your goals and ask whether a service is suitable. Recommendations depend on an individual assessment.",
       },
     ],
   },

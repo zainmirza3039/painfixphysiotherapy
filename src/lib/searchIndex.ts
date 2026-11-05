@@ -18,7 +18,7 @@ export type SearchCategory =
   | "Diet"
   | "Programmes"
   | "Membership"
-  | "Success Stories"
+  | "Patient Feedback"
   | "Calculators"
   | "Resources"
   | "Categories"
@@ -48,7 +48,7 @@ export const CATEGORY_ORDER: SearchCategory[] = [
   "Programmes",
   "Diet",
   "Membership",
-  "Success Stories",
+  "Patient Feedback",
   "Calculators",
   "Resources",
   "Categories",
@@ -386,11 +386,11 @@ export async function buildSearchIndex(): Promise<SearchItem[]> {
     },
     {
       id: "resource-success-stories",
-      title: "Patient Success Stories",
-      subtitle: "Real recovery journeys",
-      category: "Success Stories",
+      title: "Patient Feedback on Google",
+      subtitle: "Current reviews and ratings on Google",
+      category: "Patient Feedback",
       href: "/success-stories",
-      keywords: "success stories testimonials reviews recovery journeys results outcomes",
+      keywords: "patient feedback Google reviews testimonials ratings clinic",
     },
     {
       id: "resource-health-calculators",
