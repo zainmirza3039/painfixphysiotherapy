@@ -49,7 +49,7 @@ export const Route = createFileRoute("/physiotherapy-in-rahim-yar-khan")({
             provider: {
               "@type": "Person",
               name: "Ariba Babar, DPT",
-              url: `${SITE_URL}/ariba-babar`,
+              url: `${SITE_URL}/dr-ariba-babar-pt`,
             },
           },
           mainEntity: {

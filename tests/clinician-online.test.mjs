@@ -19,7 +19,7 @@ const profile = {
   designation: "Doctor of Physical Therapy",
   professional_title: "Doctor of Physical Therapy",
   credentials: "DPT",
-  slug: "ariba-babar",
+  slug: "dr-ariba-babar-pt",
   service_mode: "online_only",
   city: "Rahim Yar Khan, Pakistan",
   photo_url: null,

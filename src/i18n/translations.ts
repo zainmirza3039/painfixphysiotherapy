@@ -117,16 +117,10 @@ export const en = {
       ways: ["WhatsApp", "Phone Call", "Website Appointment Form"],
     },
     pricing: {
-      title: "Pricing",
-      subtitle: "Transparent, customized to your treatment needs.",
-      items: [
-        "Home Visit Charges",
-        "Initial Assessment Fee",
-        "Follow-up Session Fee",
-        "Monthly Rehabilitation Packages",
-      ],
-      travelNote: "Travel charges may apply depending on distance.",
-      note: "Contact us for current pricing and customized treatment packages.",
+      title: "Home visit fee",
+      subtitle: "The confirmed fee for a home visit in Multan.",
+      label: "Home visit fee",
+      inclusions: "Includes one treatment session and travel.",
     },
     faq: {
       title: "Frequently Asked Questions",
@@ -314,11 +308,10 @@ export const ur: Dict = {
       ways: ["واٹس ایپ", "فون کال", "ویب سائٹ اپائنٹمنٹ فارم"],
     },
     pricing: {
-      title: "قیمتیں",
-      subtitle: "شفاف، آپ کی علاج کی ضروریات کے مطابق۔",
-      items: ["گھر وزٹ چارجز", "ابتدائی تشخیص فیس", "فالو اپ سیشن فیس", "ماہانہ بحالی پیکجز"],
-      travelNote: "فاصلے کے مطابق سفری چارجز لاگو ہو سکتے ہیں۔",
-      note: "موجودہ قیمتوں اور ذاتی علاج پیکجز کے لیے ہم سے رابطہ کریں۔",
+      title: "گھر وزٹ فیس",
+      subtitle: "ملتان میں گھر وزٹ کی تصدیق شدہ فیس۔",
+      label: "گھر وزٹ فیس",
+      inclusions: "اس فیس میں ایک علاج کا سیشن اور سفر شامل ہے۔",
     },
     faq: {
       title: "اکثر پوچھے جانے والے سوالات",

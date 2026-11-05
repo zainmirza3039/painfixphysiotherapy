@@ -1,9 +1,11 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { SITE_URL } from "@/components/site/constants";
 import { faqLd } from "@/lib/seo";
+import { listPublicClinicians } from "@/lib/public-clinicians";
 import { Navbar } from "@/components/site/Navbar";
 import { Hero } from "@/components/site/Hero";
 import { CityServices } from "@/components/site/CityServices";
+import { MeetDoctors } from "@/components/site/MeetDoctors";
 import { TrustSignals } from "@/components/site/TrustSignals";
 import { Services } from "@/components/site/Services";
 import { Conditions } from "@/components/site/Conditions";
@@ -26,6 +28,7 @@ const DESCRIPTION =
   "Need a physiotherapist in Multan? PainFix provides personalised assessment, hands-on treatment and rehabilitation at its Shalimar Colony clinic, with selected home visits. Care is planned around your condition and recovery goals.";
 
 export const Route = createFileRoute("/")({
+  loader: () => listPublicClinicians(),
   head: () => ({
     meta: [
       { title: TITLE },
@@ -60,14 +63,16 @@ export const Route = createFileRoute("/")({
 });
 
 function Index() {
+  const profiles = Route.useLoaderData();
   return (
     <div className="painfix-home min-h-screen bg-background">
       <Navbar />
       <main>
         <Hero />
-        <CityServices />
         <Services />
         <Conditions />
+        <CityServices />
+        <MeetDoctors initialProfiles={profiles} />
         <HomePhysio />
         <WhyChooseUs />
         <GoogleReviews />

@@ -9,7 +9,7 @@ const migrationPath = new URL(
 );
 
 const base = {
-  slug: "ariba-babar",
+  slug: "dr-ariba-babar-pt",
   name: "ARIBA BABAR, DPT",
   full_name: "ARIBA BABAR, DPT",
   designation: "Doctor of Physical Therapy",

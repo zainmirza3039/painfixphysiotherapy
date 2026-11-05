@@ -113,7 +113,7 @@ export function RykOnlineLandingPage() {
               </a>
               <Link
                 to="/$slug"
-                params={{ slug: "ariba-babar" }}
+                params={{ slug: "dr-ariba-babar-pt" }}
                 className="inline-flex min-h-11 items-center gap-2 rounded-xl border border-border bg-card px-5 py-3 text-sm font-semibold text-primary transition-colors hover:border-primary"
               >
                 Meet Ariba Babar <ArrowRight className="h-4 w-4" aria-hidden="true" />

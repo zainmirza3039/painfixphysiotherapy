@@ -5,9 +5,18 @@ import test from "node:test";
 const repo = new URL("../", import.meta.url);
 const read = (path) => readFile(new URL(path, repo), "utf8");
 
-test("homepage places city services immediately after the hero", async () => {
+test("homepage places Treatment Services and Conditions We Treat directly after the hero", async () => {
   const source = await read("src/routes/index.tsx");
-  assert.match(source, /<Hero\s*\/?>[\s\S]*?<CityServices\s*\/?>[\s\S]*?<Services\s*\/?>/);
+  assert.match(source, /<Hero\s*\/>\s*<Services\s*\/>\s*<Conditions\s*\/>/);
+});
+
+test("homepage displays the published clinician directory after city services", async () => {
+  const source = await read("src/routes/index.tsx");
+  assert.match(source, /loader:\s*\(\)\s*=>\s*listPublicClinicians\(\)/);
+  assert.match(source, /const profiles = Route\.useLoaderData\(\);/);
+  const cityServices = source.indexOf("<CityServices />");
+  const teamSection = source.indexOf("<MeetDoctors initialProfiles={profiles} />");
+  assert.ok(cityServices >= 0 && teamSection > cityServices);
 });
 
 test("city section presents Multan clinic and home visits plus RYK online-only care", async () => {
@@ -34,7 +43,7 @@ test("homepage booking links use the city-aware appointment contract", async () 
     "/book-appointment?city=rahim-yar-khan&service=online",
   ])
     assert.match(source, new RegExp(href.replace(/[?&=]/g, "\\$&")));
-  assert.match(cities, /href="\/ariba-babar"/);
+  assert.match(cities, /href="\/dr-ariba-babar-pt"/);
 });
 
 test("homepage hero and metadata mention both cities", async () => {
