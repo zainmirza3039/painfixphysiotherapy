@@ -152,7 +152,7 @@ export const localPages: LocalPage[] = [
       {
         heading: "Clinic appointments and home visits in Multan",
         paragraphs: [
-          "PainFix Physiotherapy Clinic is at Usman Raja Market, near Khair Ul Maarif School, Shalimar Colony, Multan. Clinic hours are Monday to Saturday, 11:00 AM to 4:00 PM. Sunday appointments are available by arrangement.",
+          "PainFix Physiotherapy Clinic is at Usman Raja Market, near Khair Ul Maarif School, Shalimar Colony, Multan. Clinic hours are Monday to Saturday, 11:00 AM to 4:00 PM. Sunday is available by appointment only.",
           "Selected home visits may be available for patients whose mobility or clinical needs make travel difficult. Contact the clinic before booking so the location, clinician availability and suitability of a home visit can be confirmed.",
         ],
       },
@@ -193,7 +193,7 @@ export const localPages: LocalPage[] = [
       },
       {
         q: "What are PainFix clinic timings?",
-        a: "The clinic is open Monday to Saturday, 11:00 AM to 4:00 PM. Sunday appointments are available by arrangement. Call or WhatsApp 0314-3039582 to confirm.",
+        a: "The clinic is open Monday to Saturday, 11:00 AM to 4:00 PM. Sunday is available by appointment only. Call or WhatsApp 0314-3039582 to confirm.",
       },
     ],
   },
@@ -317,7 +317,7 @@ export const localPages: LocalPage[] = [
       {
         heading: "Clinic timings and booking",
         paragraphs: [
-          "The clinic is open Monday to Saturday, 11:00 AM to 4:00 PM, with Sunday appointments by arrangement. Book online, call or WhatsApp 0314-3039582 to schedule your assessment.",
+          "The clinic is open Monday to Saturday, 11:00 AM to 4:00 PM, with Sunday available by appointment only. Book online, call or WhatsApp 0314-3039582 to schedule your assessment.",
         ],
       },
       {
