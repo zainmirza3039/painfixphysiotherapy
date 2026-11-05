@@ -41,8 +41,12 @@ export function LocalLandingPage({
   const services = page.serviceSlugs.map((s) => serviceMap[s]).filter(Boolean);
   const conditions = page.conditionSlugs.map((c) => conditionMap[c]).filter(Boolean);
   const blogs = page.blogSlugs.map((b) => blogMap[b]).filter(Boolean);
-  const { data: clinicianProfiles, isLoading, isError, refetch } =
-    usePublishedClinicians(initialProfiles);
+  const {
+    data: clinicianProfiles,
+    isLoading,
+    isError,
+    refetch,
+  } = usePublishedClinicians(initialProfiles);
   const clinicians = (clinicianProfiles ?? [])
     .map(toClinicianView)
     .filter((clinician) => isClinicClinicianInCity(clinician, "Multan"));
