@@ -183,7 +183,7 @@ for (const [status, expected] of [
 
 test("site-wide clinic hours remain consistent", () => {
   assert.deepEqual(OPENING_HOURS, [
-    { days: "Monday – Saturday", time: "11:00 AM – 9:00 PM" },
+    { days: "Monday – Saturday", time: "11:00 AM – 4:00 PM" },
     { days: "Sunday", time: "By Appointment" },
   ]);
 });
@@ -197,13 +197,13 @@ test("local business SEO stay aligned with the verified business profile", async
     readFile(new URL("../src/components/site/Hero.tsx", import.meta.url), "utf8"),
     readFile(new URL("../public/llms.txt", import.meta.url), "utf8"),
   ]);
-  assert.match(constants, /time: "11:00 AM – 9:00 PM"/);
+  assert.match(constants, /time: "11:00 AM – 4:00 PM"/);
   assert.doesNotMatch(localPages, /11:00 AM.{0,20}4:00 PM/);
   assert.doesNotMatch(localPages, /31 reviews/);
   assert.doesNotMatch(root, /aggregateRating|reviewCount/);
-  assert.match(root, /closes: "21:00"/);
-  assert.match(localSeo, /closes: "21:00"/);
-  assert.match(hero, /Mon–Sat, 11:00 AM–9:00 PM/);
-  assert.match(llms, /11:00 AM–9:00 PM/);
-  assert.doesNotMatch(llms, /11:00 AM–4:00 PM/);
+  assert.match(root, /closes: "16:00"/);
+  assert.match(localSeo, /closes: "16:00"/);
+  assert.match(hero, /Mon–Sat, 11:00 AM–4:00 PM/);
+  assert.match(llms, /11:00 AM–4:00 PM/);
+  assert.doesNotMatch(llms, /11:00 AM–9:00 PM/);
 });
