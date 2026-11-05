@@ -18,3 +18,22 @@ test("physiotherapist choice article targets informational intent, not the local
   assert.match(article, /practical checklist for choosing a physiotherapist in Multan/i);
   assert.doesNotMatch(article, /seoTitle: "Best Physiotherapist in Multan/);
 });
+
+
+test("root-level best physiotherapist landing URL consolidates to the homepage", async () => {
+  const config = JSON.parse(await read("vercel.json"));
+  assert.ok(config.redirects.some((rule) =>
+    rule.source === "/best-physiotherapist-in-multan" &&
+    rule.destination === "/" &&
+    rule.permanent === true,
+  ));
+  const sitemap = await read("src/routes/sitemap[.]xml.ts");
+  assert.match(sitemap, /entry\.path !== "\/best-physiotherapist-in-multan"/);
+});
+
+test("sitemap remains available when optional dynamic listings fail", async () => {
+  const sitemap = await read("src/routes/sitemap[.]xml.ts");
+  assert.match(sitemap, /clinicianSlugs = \[\]/);
+  assert.match(sitemap, /internshipEntries = \[\]/);
+  assert.doesNotMatch(sitemap, /status: 503/);
+});
