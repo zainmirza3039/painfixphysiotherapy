@@ -162,9 +162,7 @@ export const Route = createFileRoute("/sitemap.xml")({
           "/physiotherapist-in-multan",
           "/best-physiotherapist-in-multan",
         ]);
-        const canonicalEntries = entries.filter(
-          (entry) => !redirectedLandingPaths.has(entry.path),
-        );
+        const canonicalEntries = entries.filter((entry) => !redirectedLandingPaths.has(entry.path));
 
         const urls = canonicalEntries.map((e) =>
           [
