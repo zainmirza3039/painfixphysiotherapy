@@ -224,10 +224,11 @@ export function Hero() {
             in <span className="home-hero__accent">Multan.</span>
           </h1>
           <p className="mt-6 max-w-xl text-base leading-7 text-muted-foreground sm:text-lg sm:leading-8">
-            Looking for a physiotherapist in Multan? PainFix provides personalised clinical
-            assessment, hands-on treatment and progressive rehabilitation at our Shalimar Colony
-            clinic, with selected home visits across Multan. Your care plan is shaped around your
-            condition, daily activities and recovery goals.
+            Looking for a physiotherapist in Multan or a physiotherapy clinic near you? PainFix
+            provides personalised clinical assessment, hands-on treatment and progressive
+            rehabilitation at our Shalimar Colony clinic. We also arrange selected home
+            physiotherapy visits across Multan. Your care plan is shaped around your condition,
+            daily activities and recovery goals.
           </p>
 
           <div className="mt-8 grid gap-3 sm:grid-cols-2">
