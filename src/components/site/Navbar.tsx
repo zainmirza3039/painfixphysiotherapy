@@ -390,11 +390,15 @@ export function Navbar({ onlineClinician }: { onlineClinician?: TeamMember }) {
               </span>
               <MapPin className="h-4 w-4 shrink-0 text-primary" aria-hidden="true" />
               <span className="flex min-w-0 flex-col leading-tight">
-                <span className="text-[11px] font-semibold text-foreground sm:text-xs">Visit PainFix · Multan</span>
+                <span className="text-[11px] font-semibold text-foreground sm:text-xs">
+                  Visit PainFix · Multan
+                </span>
                 <span className="hidden truncate text-[10px] text-muted-foreground sm:block sm:max-w-[420px] lg:max-w-none">
                   {CLINIC_ADDRESS}
                 </span>
-                <span className="truncate text-[10px] text-muted-foreground sm:hidden">Shalimar Colony, Multan</span>
+                <span className="truncate text-[10px] text-muted-foreground sm:hidden">
+                  Shalimar Colony, Multan
+                </span>
               </span>
             </a>
             <a
