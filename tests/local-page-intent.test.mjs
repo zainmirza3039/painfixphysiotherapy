@@ -7,7 +7,7 @@ const repo = new URL("../", import.meta.url);
 test("physiotherapist local page targets appointment booking, not best-provider comparison", async () => {
   const source = await readFile(new URL("src/data/localPages.ts", repo), "utf8");
   const start = source.indexOf('slug: "physiotherapist-in-multan"');
-  const end = source.indexOf('\n  {\n    slug:', start + 1);
+  const end = source.indexOf("\n  {\n    slug:", start + 1);
   assert.notEqual(start, -1);
   assert.notEqual(end, -1);
   const page = source.slice(start, end);
