@@ -21,7 +21,7 @@ type FeaturedCondition = {
 
 const featuredConditions: FeaturedCondition[] = [
   { conditionSlug: "sciatica", title: "Sciatica" },
-  { conditionSlug: "osteoarthritis", title: "Knee Osteoarthritis (Knee OA)" },
+  { conditionSlug: "knee-pain", title: "Knee Pain & Osteoarthritis" },
   { conditionSlug: "back-pain", title: "Lower Back Pain" },
   { conditionSlug: "neck-pain", title: "Neck Pain" },
   { conditionSlug: "frozen-shoulder", title: "Frozen Shoulder" },
