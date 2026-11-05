@@ -166,7 +166,7 @@ export const blogPosts: BlogPost[] = [
     quickAnswer:
       "When choosing a physiotherapist in Multan, check their recognised DPT qualification and registration, ask how they assess your condition, and expect a treatment plan with measurable goals and regular review. Good care should explain the clinical reasoning, combine appropriate hands-on treatment with active rehabilitation, and adapt to your response.",
     date: "2026-07-01",
-    updated: "2026-07-10",
+    updated: "2026-11-05",
     authorKey: "ZA",
     featured: true,
     popular: true,
