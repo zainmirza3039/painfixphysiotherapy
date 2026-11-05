@@ -247,3 +247,18 @@ test("deactivation confirmation validates and preserves the edited profile befor
   assert.match(route, /deactivating \? \{ \.\.\.form, is_published: false \} : form/);
   assert.match(route, /submitForm\(event, true\)/);
 });
+
+test("Multan physiotherapy landing page loads published clinicians before server rendering", async () => {
+  const [route, page, query] = await Promise.all([
+    readFile(new URL("../src/routes/physiotherapy-in-multan.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../src/components/site/LocalLandingPage.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../src/lib/usePublishedClinicians.ts", import.meta.url), "utf8"),
+  ]);
+  assert.match(route, /loader: \(\) => listPublicClinicians\(\)/);
+  assert.match(route, /Route\.useLoaderData\(\)/);
+  assert.match(route, /initialProfiles=\{profiles\}/);
+  assert.match(page, /initialProfiles\?: PublicClinicianContent\[\]/);
+  assert.match(page, /usePublishedClinicians\(initialProfiles\)/);
+  assert.match(query, /initialData: initialProfiles/);
+  assert.match(query, /queryFn: \(\) => listPublicClinicians\(\)/);
+});
