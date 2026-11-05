@@ -46,8 +46,7 @@ export const MAP_PLACE_URL = `https://www.google.com/maps/search/?api=1&query=Pa
 export const MAP_DIRECTIONS_URL = `https://www.google.com/maps/dir/?api=1&destination=PainFix+Physiotherapy+Clinic&destination_place_id=${GOOGLE_MAPS_PLACE_ID}`;
 // Embed the clinic's existing Google Business Profile CID so the map opens on
 // the exact business pin/listing instead of a text-only location search.
-export const MAP_EMBED_URL =
-  "https://maps.google.com/maps?cid=8626724576429817038&output=embed";
+export const MAP_EMBED_URL = "https://maps.google.com/maps?cid=8626724576429817038&output=embed";
 
 // Social media profiles
 export const SOCIAL_LINKS = {
