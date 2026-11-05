@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { ArrowRight, MapPin, Phone, Clock, Stethoscope, BookOpen } from "lucide-react";
+import { ArrowRight, MapPin, Phone, Clock, Stethoscope, BookOpen, CalendarCheck } from "lucide-react";
 import type { LocalPage } from "@/data/localPages";
 import { serviceMap } from "@/data/services";
 import { conditionMap } from "@/data/conditions";
@@ -50,6 +50,22 @@ export function LocalLandingPage({ page }: { page: LocalPage }) {
           <QuickAnswer answer={page.quickAnswer} takeaways={page.keyTakeaways} />
         </div>
       </section>
+
+      {/* Direct booking CTA for the appointment-intent landing page */}
+      {page.slug === "physiotherapist-in-multan" && (
+        <section className="pb-8">
+          <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+            <Link
+              to="/book-appointment"
+              search={{ city: "multan", service: "clinic" }}
+              className="inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-md bg-primary px-6 py-3 text-center text-sm font-semibold text-primary-foreground shadow-card transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary focus-visible:ring-offset-2 sm:w-auto"
+            >
+              <CalendarCheck className="h-4 w-4" aria-hidden="true" />
+              Book a Clinic Appointment
+            </Link>
+          </div>
+        </section>
+      )}
 
       {/* Content sections */}
       <section className="pb-4">
