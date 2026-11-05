@@ -14,10 +14,11 @@ export function HomeVisitFab() {
     <Link
       to="/home-visit"
       aria-label={t.actions.bookHomeVisit}
-      className="floating-cta-glow fixed bottom-[calc(env(safe-area-inset-bottom,0px)+4.5rem)] right-[calc(env(safe-area-inset-right,0px)+1.25rem)] z-[60] inline-flex min-h-11 items-center justify-center gap-2 whitespace-nowrap rounded-full border border-[#00A859]/70 bg-[#032E61] px-3.5 text-xs font-semibold text-white shadow-card transition-colors duration-200 hover:bg-[#00A859] hover:text-white active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00A859] focus-visible:ring-offset-2"
+      title={t.actions.bookHomeVisit}
+      className="floating-cta-glow fixed bottom-[calc(env(safe-area-inset-bottom,0px)+5.5rem)] right-[calc(env(safe-area-inset-right,0px)+1.25rem)] z-[60] grid h-12 w-12 place-items-center rounded-full border-2 border-white/90 bg-[#032E61] text-white shadow-[0_10px_26px_rgba(3,46,97,0.28)] transition-[transform,background-color,box-shadow] duration-200 hover:scale-105 hover:bg-[#00A859] hover:shadow-[0_14px_30px_rgba(0,168,89,0.28)] active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00A859] focus-visible:ring-offset-2"
     >
-      <House className="h-4 w-4 shrink-0" aria-hidden="true" />
-      <span>{t.actions.bookHomeVisit}</span>
+      <House className="h-5 w-5" strokeWidth={2.2} aria-hidden="true" />
+      <span className="sr-only">{t.actions.bookHomeVisit}</span>
     </Link>
   );
 }
