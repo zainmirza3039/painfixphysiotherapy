@@ -30,7 +30,9 @@ test("root-level best physiotherapist landing URL consolidates to the homepage",
     ),
   );
   const sitemap = await read("src/routes/sitemap[.]xml.ts");
-  assert.match(sitemap, /entry\.path !== "\/best-physiotherapist-in-multan"/);
+  assert.match(sitemap, /"\/physiotherapist-in-multan"/);
+  assert.match(sitemap, /"\/best-physiotherapist-in-multan"/);
+  assert.match(sitemap, /redirectedLandingPaths\.has\(entry\.path\)/);
 });
 
 test("sitemap remains available when optional dynamic listings fail", async () => {
