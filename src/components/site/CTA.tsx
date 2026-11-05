@@ -1,10 +1,6 @@
 import { MapPin, Navigation } from "lucide-react";
 import { Reveal } from "./Reveal";
-import {
-  CLINIC_ADDRESS,
-  MAP_DIRECTIONS_URL,
-  MAP_EMBED_URL,
-} from "./constants";
+import { CLINIC_ADDRESS, MAP_DIRECTIONS_URL, MAP_EMBED_URL } from "./constants";
 
 export function CTA() {
   return (
