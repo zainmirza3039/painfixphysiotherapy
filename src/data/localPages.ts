@@ -152,7 +152,7 @@ export const localPages: LocalPage[] = [
       {
         heading: "Clinic appointments and home visits in Multan",
         paragraphs: [
-          "PainFix Physiotherapy Clinic is at Usman Raja Market, near Khair Ul Maarif School, Shalimar Colony, Multan. Clinic hours are Monday to Saturday, 11:00 AM to 9:00 PM. Sunday appointments are available by arrangement.",
+          "PainFix Physiotherapy Clinic is at Usman Raja Market, near Khair Ul Maarif School, Shalimar Colony, Multan. Clinic hours are Monday to Saturday, 11:00 AM to 4:00 PM. Sunday is available by appointment only.",
           "Selected home visits may be available for patients whose mobility or clinical needs make travel difficult. Contact the clinic before booking so the location, clinician availability and suitability of a home visit can be confirmed.",
         ],
       },
@@ -193,7 +193,7 @@ export const localPages: LocalPage[] = [
       },
       {
         q: "What are PainFix clinic timings?",
-        a: "The clinic is open Monday to Saturday, 11:00 AM to 9:00 PM. Sunday appointments are available by arrangement. Call or WhatsApp 0314-3039582 to confirm.",
+        a: "The clinic is open Monday to Saturday, 11:00 AM to 4:00 PM. Sunday is available by appointment only. Call or WhatsApp 0314-3039582 to confirm.",
       },
     ],
   },
@@ -292,13 +292,13 @@ export const localPages: LocalPage[] = [
     heroSubtitle:
       "A modern, fully equipped physiotherapy clinic in Shalimar Colony, Multan — complete assessment, treatment and rehabilitation under one roof.",
     quickAnswer:
-      "PainFix Physiotherapy Clinic is located at Usman Raja Market, near Khair Ul Maarif School, Shalimar Colony, Multan. The clinic offers complete physiotherapy under one roof — manual therapy, exercise therapy, electrotherapy, sports and post-surgical rehab — plus home physiotherapy. Open Monday–Saturday, 11:00 AM–9:00 PM. Call 0314-3039582.",
+      "PainFix Physiotherapy Clinic is located at Usman Raja Market, near Khair Ul Maarif School, Shalimar Colony, Multan. The clinic offers complete physiotherapy under one roof — manual therapy, exercise therapy, electrotherapy, sports and post-surgical rehab — plus home physiotherapy. Open Monday–Saturday, 11:00 AM–4:00 PM. Call 0314-3039582.",
     keyTakeaways: [
       "Central location in Shalimar Colony, Multan",
       "Complete physiotherapy services under one roof",
       "Modern, hygienic, comfortable treatment facilities",
       "Clinic appointments and home visits available",
-      "Open Monday–Saturday, 11:00 AM – 9:00 PM",
+      "Open Monday–Saturday, 11:00 AM – 4:00 PM",
     ],
     sections: [
       {
@@ -317,7 +317,7 @@ export const localPages: LocalPage[] = [
       {
         heading: "Clinic timings and booking",
         paragraphs: [
-          "The clinic is open Monday to Saturday, 11:00 AM to 9:00 PM, with Sunday appointments by arrangement. Book online, call or WhatsApp 0314-3039582 to schedule your assessment.",
+          "The clinic is open Monday to Saturday, 11:00 AM to 4:00 PM, with Sunday available by appointment only. Book online, call or WhatsApp 0314-3039582 to schedule your assessment.",
         ],
       },
       {
@@ -351,7 +351,7 @@ export const localPages: LocalPage[] = [
       },
       {
         q: "What are the clinic timings?",
-        a: "PainFix is open Monday to Saturday, 11:00 AM to 9:00 PM. Sunday appointments are available by arrangement — call or WhatsApp 0314-3039582 to book.",
+        a: "PainFix is open Monday to Saturday, 11:00 AM to 4:00 PM. Sunday is available by appointment only — call or WhatsApp 0314-3039582 to book.",
       },
       {
         q: "Ghar per physiotherapy Multan mein milti hai?",
