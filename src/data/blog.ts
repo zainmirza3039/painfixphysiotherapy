@@ -1561,7 +1561,7 @@ export const blogPosts: BlogPost[] = [
       "Core strengthening prevents recurrence.",
     ],
     relatedServices: ["manual-therapy", "exercise-therapy", "pain-management"],
-    relatedConditions: ["back-pain", "sciatica"],
+    relatedConditions: ["back-pain", "sciatica", "slipped-disc"],
   },
   {
     slug: "rotator-cuff-rehabilitation",
@@ -1647,7 +1647,7 @@ export const blogPosts: BlogPost[] = [
       "Improvement usually comes within 8–12 weeks.",
     ],
     relatedServices: ["exercise-therapy", "manual-therapy", "sports-rehabilitation"],
-    relatedConditions: ["frozen-shoulder", "sports-injuries"],
+    relatedConditions: ["shoulder-pain", "frozen-shoulder", "sports-injuries"],
   },
   {
     slug: "whiplash-injury",
