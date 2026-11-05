@@ -1056,3 +1056,44 @@ a.home-contact-item:hover .home-contact-item__label {
   right: calc(env(safe-area-inset-right, 0px) + 1.25rem);
   bottom: calc(env(safe-area-inset-bottom, 0px) + 1.25rem);
 }
+
+
+/* Compact, restrained glow for the two persistent booking/contact actions. */
+@keyframes floating-cta-glow {
+  0%,
+  100% {
+    box-shadow: 0 0.25rem 0.9rem rgb(0 168 89 / 22%), 0 0 0 0 rgb(0 168 89 / 0%);
+  }
+  50% {
+    box-shadow: 0 0.25rem 1.15rem rgb(0 168 89 / 36%), 0 0 0 0.2rem rgb(0 168 89 / 10%);
+  }
+}
+
+.floating-cta-glow {
+  animation: floating-cta-glow 3.2s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .floating-cta-glow {
+    animation: none;
+  }
+}
+
+.page-skeleton {
+  background: var(--background);
+}
+
+.page-skeleton__bar,
+.page-skeleton__line,
+.page-skeleton__panel {
+  background: color-mix(in srgb, var(--muted) 78%, var(--background));
+}
+
+.page-skeleton__bar,
+.page-skeleton__line {
+  border-radius: 999px;
+}
+
+.page-skeleton__panel {
+  border-radius: 1rem;
+}
