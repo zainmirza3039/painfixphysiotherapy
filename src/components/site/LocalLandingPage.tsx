@@ -9,6 +9,7 @@ import {
   CalendarCheck,
 } from "lucide-react";
 import type { LocalPage } from "@/data/localPages";
+import clinicExterior from "@/assets/clinic-exterior.webp";
 import { serviceMap } from "@/data/services";
 import { conditionMap } from "@/data/conditions";
 import { blogMap } from "@/data/blog";
@@ -29,6 +30,8 @@ import {
   PHONE_DISPLAY,
   PHONE_TEL,
   OPENING_HOURS,
+  GOOGLE_BUSINESS_PROFILE_URL,
+  GOOGLE_REVIEW_URL,
 } from "./constants";
 
 export function LocalLandingPage({
@@ -247,46 +250,93 @@ export function LocalLandingPage({
         </div>
       </section>
 
-      {/* Location / NAP */}
+      {/* Local proof: real clinic photography, consistent NAP and live review source */}
       <section className="py-14 sm:py-20">
-        <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
-          <div className="rounded-[1.75rem] border border-border bg-card p-8 shadow-soft">
-            <h2 className="font-heading text-xl font-bold text-foreground">
-              Visit PainFix Physiotherapy Clinic
-            </h2>
-            <ul className="mt-5 space-y-3 text-sm text-muted-foreground">
-              <li>
-                <a
-                  href={MAP_PLACE_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-start gap-2.5 transition-colors hover:text-primary"
-                >
-                  <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-secondary" /> {CLINIC_ADDRESS}
-                </a>
-              </li>
-              <li>
-                <a
-                  href={PHONE_TEL}
-                  className="flex items-center gap-2.5 transition-colors hover:text-primary"
-                >
-                  <Phone className="h-4 w-4 shrink-0 text-secondary" /> {PHONE_DISPLAY}
-                </a>
-              </li>
-              {OPENING_HOURS.map((h) => (
-                <li key={h.days} className="flex items-center gap-2.5">
-                  <Clock className="h-4 w-4 shrink-0 text-secondary" /> {h.days}: {h.time}
+        <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+          <div className="grid items-center gap-8 md:grid-cols-2">
+            <figure className="overflow-hidden rounded-[1.75rem] border border-border bg-card shadow-soft">
+              <img
+                src={clinicExterior}
+                alt="PainFix Physiotherapy Clinic storefront in Shalimar Colony, Multan"
+                width={1100}
+                height={1381}
+                loading="lazy"
+                decoding="async"
+                className="aspect-[4/5] w-full object-cover"
+              />
+              <figcaption className="px-5 py-3 text-sm text-muted-foreground">
+                The PainFix clinic in Shalimar Colony, Multan
+              </figcaption>
+            </figure>
+
+            <div className="rounded-[1.75rem] border border-border bg-card p-7 shadow-soft sm:p-8">
+              <h2 className="font-heading text-xl font-bold text-foreground">
+                Visit PainFix Physiotherapy Clinic
+              </h2>
+              <ul className="mt-5 space-y-3 text-sm text-muted-foreground">
+                <li>
+                  <a
+                    href={MAP_PLACE_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-start gap-2.5 transition-colors hover:text-primary"
+                  >
+                    <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-secondary" /> {CLINIC_ADDRESS}
+                  </a>
                 </li>
-              ))}
-            </ul>
-            <a
-              href={MAP_DIRECTIONS_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="ripple mt-6 inline-flex items-center gap-2 rounded-2xl bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground shadow-card transition-transform hover:scale-[1.03]"
-            >
-              <MapPin className="h-4 w-4" /> Get Directions
-            </a>
+                <li>
+                  <a
+                    href={PHONE_TEL}
+                    className="flex items-center gap-2.5 transition-colors hover:text-primary"
+                  >
+                    <Phone className="h-4 w-4 shrink-0 text-secondary" /> {PHONE_DISPLAY}
+                  </a>
+                </li>
+                {OPENING_HOURS.map((h) => (
+                  <li key={h.days} className="flex items-center gap-2.5">
+                    <Clock className="h-4 w-4 shrink-0 text-secondary" /> {h.days}: {h.time}
+                  </li>
+                ))}
+              </ul>
+              <a
+                href={MAP_DIRECTIONS_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="ripple mt-6 inline-flex min-h-11 items-center gap-2 rounded-2xl bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground shadow-card transition-transform hover:scale-[1.03]"
+              >
+                <MapPin className="h-4 w-4" /> Get Directions
+              </a>
+            </div>
+          </div>
+
+          <div className="mt-8 flex flex-col gap-5 rounded-[1.75rem] border border-border bg-surface p-6 sm:flex-row sm:items-center sm:justify-between sm:p-8">
+            <div className="max-w-2xl">
+              <h3 className="font-heading text-lg font-bold text-foreground">
+                Patient feedback on Google
+              </h3>
+              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                Read current patient feedback directly on PainFix’s Google Business Profile.
+                Ratings and review counts are maintained by Google and may change over time.
+              </p>
+            </div>
+            <div className="flex shrink-0 flex-wrap gap-3">
+              <a
+                href={GOOGLE_BUSINESS_PROFILE_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex min-h-11 items-center justify-center rounded-xl border border-primary px-4 py-2 text-sm font-semibold text-primary transition-colors hover:bg-primary/5"
+              >
+                Read Google Reviews
+              </a>
+              <a
+                href={GOOGLE_REVIEW_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex min-h-11 items-center justify-center rounded-xl bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary/90"
+              >
+                Leave a Review
+              </a>
+            </div>
           </div>
         </div>
       </section>
