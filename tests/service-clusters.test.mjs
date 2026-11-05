@@ -47,6 +47,6 @@ test("disc and rotator-cuff articles link to their matching condition pages", as
   assert.notEqual(shoulderStart, -1);
   const discBlock = source.slice(discStart, source.indexOf("\n  },", discStart));
   const shoulderBlock = source.slice(shoulderStart, source.indexOf("\n  },", shoulderStart));
-  assert.match(discBlock, /relatedConditions: \\[.*"slipped-disc"/);
-  assert.match(shoulderBlock, /relatedConditions: \\[.*"shoulder-pain"/);
+  assert.ok(discBlock.includes('relatedConditions: ["back-pain", "sciatica", "slipped-disc"]'));
+  assert.ok(shoulderBlock.includes('relatedConditions: ["shoulder-pain", "frozen-shoulder", "sports-injuries"]'));
 });
