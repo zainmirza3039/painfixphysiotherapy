@@ -15,6 +15,7 @@ import appCss from "../styles.css?url";
 import { LanguageProvider } from "@/i18n/LanguageProvider";
 import { ThemeProvider, THEME_INIT_SCRIPT } from "@/components/site/ThemeProvider";
 import { HomeVisitFab } from "@/components/site/HomeVisitFab";
+import { WhatsAppFab } from "@/components/site/WhatsAppFab";
 import { SITE_URL } from "@/components/site/constants";
 import type { AuthChangeEvent } from "@supabase/supabase-js";
 
@@ -302,6 +303,7 @@ function RootComponent() {
           {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
           <Outlet />
           <HomeVisitFab />
+          <WhatsAppFab />
           <Toaster position="top-center" richColors />
         </LanguageProvider>
       </ThemeProvider>
