@@ -10,15 +10,15 @@ interface StatCardProps {
 }
 
 const accents: Record<NonNullable<StatCardProps["accent"]>, { icon: string; border: string }> = {
-  primary: { icon: "bg-primary/10 text-primary", border: "border-l-primary" },
-  secondary: { icon: "bg-secondary/10 text-secondary", border: "border-l-secondary" },
+  primary: { icon: "bg-primary/10 text-primary", border: "before:bg-primary" },
+  secondary: { icon: "bg-secondary/10 text-secondary", border: "before:bg-secondary" },
   amber: {
     icon: "bg-amber-500/10 text-amber-600 dark:text-amber-400",
-    border: "border-l-amber-500",
+    border: "before:bg-amber-500",
   },
   rose: {
     icon: "bg-rose-500/10 text-rose-600 dark:text-rose-400",
-    border: "border-l-rose-500",
+    border: "before:bg-rose-500",
   },
 };
 
@@ -28,24 +28,25 @@ export function StatCard({ label, value, icon, hint, accent = "primary" }: StatC
   return (
     <div
       className={cn(
-        "min-w-0 rounded-xl border border-l-4 border-border bg-card p-4 shadow-sm sm:p-5",
+        "relative flex min-h-[116px] min-w-0 items-center gap-4 overflow-hidden rounded-2xl border border-border bg-card px-4 py-4 shadow-sm transition-shadow hover:shadow-md sm:px-5",
+        "before:absolute before:inset-y-4 before:left-0 before:w-1 before:rounded-r-full",
         accentStyle.border,
       )}
     >
-      <div className="flex items-start justify-between gap-3">
-        <p className="pt-1 text-xs font-semibold leading-5 text-muted-foreground sm:text-sm">
+      <span
+        className={cn("grid h-11 w-11 shrink-0 place-items-center rounded-xl", accentStyle.icon)}
+      >
+        {icon}
+      </span>
+      <div className="min-w-0 flex-1">
+        <p className="truncate text-xs font-semibold tracking-wide text-muted-foreground sm:text-sm">
           {label}
         </p>
-        <span
-          className={cn("grid h-9 w-9 shrink-0 place-items-center rounded-lg", accentStyle.icon)}
-        >
-          {icon}
-        </span>
+        <p className="mt-1.5 font-heading text-3xl font-semibold leading-none tracking-tight text-foreground">
+          {value}
+        </p>
+        {hint && <p className="mt-1.5 truncate text-[11px] leading-4 text-muted-foreground">{hint}</p>}
       </div>
-      <p className="mt-4 font-heading text-3xl font-semibold leading-none tracking-tight text-foreground">
-        {value}
-      </p>
-      {hint && <p className="mt-2 text-xs leading-5 text-muted-foreground">{hint}</p>}
     </div>
   );
 }
