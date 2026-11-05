@@ -104,7 +104,9 @@ function AuthPage() {
               <Activity className="h-6 w-6" />
             </span>
             <div>
-              <h1 className="font-heading text-xl font-bold tracking-tight text-foreground">PainFix Admin</h1>
+              <h1 className="font-heading text-xl font-bold tracking-tight text-foreground">
+                PainFix Admin
+              </h1>
               <p className="mt-0.5 text-xs text-muted-foreground">Secure clinic workspace</p>
             </div>
           </div>
@@ -149,7 +151,11 @@ function AuthPage() {
                     />
                   </div>
                 </div>
-                <Button type="submit" className="h-11 w-full rounded-xl font-semibold shadow-sm" disabled={busy}>
+                <Button
+                  type="submit"
+                  className="h-11 w-full rounded-xl font-semibold shadow-sm"
+                  disabled={busy}
+                >
                   {busy && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
                   {mode === "signin" ? "Sign in" : "Create account"}
                 </Button>
