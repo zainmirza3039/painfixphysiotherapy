@@ -112,47 +112,48 @@ export const localPages: LocalPage[] = [
   },
   {
     slug: "physiotherapist-in-multan",
-    eyebrow: "Physiotherapist in Multan",
-    title: "Physiotherapist in Multan",
-    metaTitle: "Physiotherapist in Multan | DPT-Led Physiotherapy — PainFix",
+    eyebrow: "Book a Physiotherapist in Multan",
+    title: "Book a Physiotherapist in Multan",
+    metaTitle: "Book a Physiotherapist in Multan | PainFix Clinic",
     metaDescription:
-      "Looking for a qualified physiotherapist in Multan? PainFix offers DPT-led, evidence-based physiotherapy for back pain, sciatica, sports injuries and more. Book today.",
+      "Book a physiotherapy assessment in Shalimar Colony, Multan. See what your first appointment includes, clinic timings, home-visit options and how to prepare.",
     heroSubtitle:
-      "Qualified, DPT-led physiotherapists in Multan providing evidence-based assessment and personalized treatment for pain, injury and rehabilitation.",
+      "Arrange a physiotherapy assessment at PainFix in Shalimar Colony, Multan. Understand your first visit, treatment planning and available appointment options.",
     quickAnswer:
-      "PainFix Physiotherapy Clinic in Shalimar Colony, Multan is led by qualified Doctors of Physical Therapy (DPT). Our physiotherapists assess the root cause of your pain and build a personalized, evidence-based treatment plan — covering manual therapy, exercise therapy, electrotherapy and home visits. Call 0314-3039582 to book an assessment.",
+      "To book a physiotherapy assessment at PainFix, call or WhatsApp 0314-3039582. The first appointment includes a clinical history, movement and functional assessment, discussion of your goals, and an agreed treatment plan. The clinic is at Usman Raja Market near Khair Ul Maarif School, Shalimar Colony, Multan. Selected home visits can be arranged after confirming suitability and availability.",
     keyTakeaways: [
-      "DPT-qualified physiotherapists, not untrained masseurs",
-      "Every plan starts with a detailed clinical assessment",
-      "Evidence-based treatment focused on long-term recovery",
-      "Clinic visits and home physiotherapy across Multan",
-      "Open Monday–Saturday, 11:00 AM – 9:00 PM",
+      "Book by phone or WhatsApp at 0314-3039582",
+      "First visit includes history, examination and goal setting",
+      "Treatment options are discussed after clinical assessment",
+      "Clinic appointments in Shalimar Colony, Multan",
+      "Selected home visits available after confirmation",
     ],
     sections: [
       {
-        heading: "What does a physiotherapist do?",
+        heading: "What happens at your first physiotherapy appointment?",
         paragraphs: [
-          "A physiotherapist is a trained healthcare professional who assesses, diagnoses and treats problems with movement, pain and function — without medication or surgery. At PainFix, our physiotherapists first identify the underlying cause of your symptoms, then design a treatment plan combining hands-on therapy, targeted exercise and patient education.",
-          "This root-cause approach is what separates real physiotherapy from short-term pain relief. Instead of only easing symptoms, we restore strength, mobility and confidence so problems are less likely to return.",
+          "Your first visit starts with a discussion of your symptoms, medical history, previous treatment and day-to-day limitations. The physiotherapist then selects relevant movement, strength, mobility and functional tests based on your presentation.",
+          "After the assessment, the clinician explains the working diagnosis, discusses suitable treatment options and agrees measurable goals with you. Hands-on techniques, exercise, education or other modalities are selected according to clinical findings rather than applied as a fixed package.",
         ],
       },
       {
-        heading: "How to choose a qualified physiotherapist in Multan",
+        heading: "How to prepare for your assessment",
         paragraphs: [
-          "In Pakistan, physiotherapy is best delivered by a qualified Doctor of Physical Therapy (DPT). When choosing a physiotherapist in Multan, look for proper qualifications, a structured assessment, a clear treatment plan and honest communication about your expected recovery.",
+          "Bring any relevant imaging reports, referral letters, medication list and details of previous treatment if available. Wear comfortable clothing that allows the affected body region to be examined and moved safely.",
         ],
         list: [
-          "DPT qualification and clinical experience",
-          "A thorough first assessment, not a rushed one",
-          "A written, personalized treatment plan",
-          "Realistic timelines and progress reviews",
-          "Comfortable, hygienic treatment facilities",
+          "Note when the symptoms started and what aggravates or eases them",
+          "Bring relevant X-ray, MRI or other investigation reports if already available",
+          "List current medicines and significant medical conditions",
+          "Think about the activities you want to return to",
+          "Tell the physiotherapist about new weakness, numbness or other concerning symptoms",
         ],
       },
       {
-        heading: "When should you see a physiotherapist?",
+        heading: "Clinic appointments and home visits in Multan",
         paragraphs: [
-          "See a physiotherapist if pain lasts more than a few days, keeps returning, limits your daily activities, or follows an injury or surgery. Early physiotherapy often prevents minor problems from becoming chronic and can reduce the need for stronger treatment later.",
+          "PainFix Physiotherapy Clinic is at Usman Raja Market, near Khair Ul Maarif School, Shalimar Colony, Multan. Clinic hours are Monday to Saturday, 11:00 AM to 9:00 PM. Sunday appointments are available by arrangement.",
+          "Selected home visits may be available for patients whose mobility or clinical needs make travel difficult. Contact the clinic before booking so the location, clinician availability and suitability of a home visit can be confirmed.",
         ],
       },
     ],
@@ -179,20 +180,20 @@ export const localPages: LocalPage[] = [
     ],
     faqs: [
       {
-        q: "Who is the best physiotherapist in Multan?",
-        a: "PainFix Physiotherapy Clinic is a leading DPT-led physiotherapy clinic in Shalimar Colony, Multan, rated 4.9★ on Google. Care is led by Dr. Zain Ul Abideen (DPT) and Dr. Jalal Ud Din (Clinical Physiotherapist), focusing on evidence-based, personalized treatment.",
+        q: "How do I book a physiotherapy assessment at PainFix?",
+        a: "Call or WhatsApp 0314-3039582 to discuss your symptoms and arrange an appointment at PainFix Physiotherapy Clinic, Shalimar Colony, Multan.",
       },
       {
-        q: "Multan mai physiotherapist kahan milega?",
-        a: "PainFix Physiotherapy Clinic Usman Raja Market, Khair Ul Maarif School ke qareeb, Shalimar Colony, Multan mein hai. Aap 0314-3039582 par call ya WhatsApp kar ke appointment le sakte hain.",
+        q: "What happens during the first appointment?",
+        a: "The first appointment includes a clinical history, relevant movement and functional examination, discussion of your goals, and an explanation of the proposed treatment plan.",
       },
       {
-        q: "Do I need a doctor's referral to see a physiotherapist?",
-        a: "No referral is required — you can contact PainFix directly to book an assessment. If we feel you need a medical review or imaging, we will advise you clearly.",
+        q: "Can I book a home physiotherapy visit in Multan?",
+        a: "Selected home visits may be available depending on your location, mobility needs, clinician schedule and the type of care required. Contact the clinic to confirm suitability and availability.",
       },
       {
-        q: "How much does physiotherapy cost in Multan?",
-        a: "Fees depend on your condition and the treatment plan. Contact us on 0314-3039582 for current pricing; we explain your plan and expected number of sessions before you begin.",
+        q: "What are PainFix clinic timings?",
+        a: "The clinic is open Monday to Saturday, 11:00 AM to 9:00 PM. Sunday appointments are available by arrangement. Call or WhatsApp 0314-3039582 to confirm.",
       },
     ],
   },
