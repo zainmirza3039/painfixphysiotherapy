@@ -43,7 +43,10 @@ test("homepage hero and metadata mention both cities", async () => {
     read("src/routes/index.tsx"),
   ]);
   assert.match(hero, /Move Better\. Recover Faster\. Live Pain-Free\./);
-  assert.match(hero, /Physiotherapist[\s\S]*?in <span className="home-hero__accent">Multan\.<\/span>/);
+  assert.match(
+    hero,
+    /Physiotherapist[\s\S]*?in <span className="home-hero__accent">Multan\.<\/span>/,
+  );
   assert.match(hero, /Rahim Yar Khan · Online/);
   assert.ok(route.includes("Physiotherapist in Multan | PainFix Physiotherapy Clinic"));
   assert.doesNotMatch(route, /Ariba Babar/);
