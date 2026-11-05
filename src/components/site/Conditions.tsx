@@ -56,8 +56,9 @@ export function Conditions() {
               Conditions We Treat
             </h2>
             <p className="mt-4 max-w-2xl text-sm leading-6 text-white/75 sm:text-base">
-              Explore common concerns and the information available from PainFix. A physiotherapist
-              can help you decide what is appropriate for your situation.
+              PainFix provides physiotherapy assessment and rehabilitation in Multan for back pain,
+              sciatica, knee pain, neck pain, frozen shoulder, slip-disc-related symptoms and stroke
+              recovery. Your treatment plan depends on your clinical findings, needs and goals.
             </p>
           </div>
           <Link
