@@ -21,7 +21,10 @@ type FeaturedCondition = {
 
 const featuredConditions: FeaturedCondition[] = [
   { conditionSlug: "sciatica", title: "Sciatica" },
-  { conditionSlug: "knee-pain", title: "Knee Pain & Osteoarthritis" },
+  {
+    conditionSlug: "knee-pain",
+    title: "Knee Pain & Osteoarthritis",
+  },
   { conditionSlug: "back-pain", title: "Lower Back Pain" },
   { conditionSlug: "neck-pain", title: "Neck Pain" },
   { conditionSlug: "frozen-shoulder", title: "Frozen Shoulder" },
@@ -57,8 +60,8 @@ export function Conditions() {
             <p className="mt-4 max-w-2xl text-sm leading-6 text-white/75 sm:text-base">
               Looking for back pain physiotherapy, sciatica treatment, knee or neck pain
               rehabilitation, frozen shoulder care, slipped-disc rehabilitation or stroke
-              physiotherapy in Multan? Explore our condition guides below. PainFix plans care
-              around your assessment, clinical findings and recovery goals.
+              physiotherapy in Multan? Explore our condition guides below. PainFix plans care around
+              your assessment, clinical findings and recovery goals.
             </p>
           </div>
           <Link
