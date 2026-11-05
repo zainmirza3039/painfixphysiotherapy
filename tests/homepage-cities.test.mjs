@@ -42,7 +42,8 @@ test("homepage hero and metadata mention both cities", async () => {
     read("src/components/site/Hero.tsx"),
     read("src/routes/index.tsx"),
   ]);
-  assert.match(hero, /Best Physiotherapy in Multan · DPT-led assessment and\s*rehabilitation/);
+  assert.match(hero, /Move Better\. Recover Faster\. Live Pain-Free\./);
+  assert.match(hero, /Physiotherapist[\\s\\S]*?home-hero__accent">Multan\\./);
   assert.match(hero, /Rahim Yar Khan · Online/);
   assert.match(route, /Best Physiotherapy in Multan \| PainFix Physiotherapy Clinic/);
   assert.doesNotMatch(route, /Ariba Babar/);
