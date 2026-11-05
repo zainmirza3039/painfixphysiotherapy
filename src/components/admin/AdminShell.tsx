@@ -350,8 +350,16 @@ export function AdminShell({ children }: { children: ReactNode }) {
             {(isAdmin || isStaff) && (
               <Link
                 to={isAdmin ? "/admin/messages" : "/admin/home-visits"}
-                aria-label={totalNotifications > 0 ? `${totalNotifications} new clinic notifications` : "Clinic notifications"}
-                title={totalNotifications > 0 ? `${totalNotifications} new items` : "No new notifications"}
+                aria-label={
+                  totalNotifications > 0
+                    ? `${totalNotifications} new clinic notifications`
+                    : "Clinic notifications"
+                }
+                title={
+                  totalNotifications > 0
+                    ? `${totalNotifications} new items`
+                    : "No new notifications"
+                }
                 className="relative grid h-9 w-9 place-items-center rounded-xl text-muted-foreground transition-colors hover:bg-muted hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
               >
                 <Bell className="h-[18px] w-[18px]" aria-hidden="true" />
@@ -359,7 +367,9 @@ export function AdminShell({ children }: { children: ReactNode }) {
                   <span className="absolute right-1 top-1 h-2.5 w-2.5 rounded-full border-2 border-card bg-rose-500" />
                 )}
                 <span className="sr-only">
-                  {totalNotifications > 0 ? `${totalNotifications} new notifications` : "No new notifications"}
+                  {totalNotifications > 0
+                    ? `${totalNotifications} new notifications`
+                    : "No new notifications"}
                 </span>
               </Link>
             )}
@@ -389,7 +399,10 @@ export function AdminShell({ children }: { children: ReactNode }) {
           </div>
         </div>
 
-        <nav aria-label="Admin navigation" className="hidden overflow-x-auto border-t border-border/70 lg:block">
+        <nav
+          aria-label="Admin navigation"
+          className="hidden overflow-x-auto border-t border-border/70 lg:block"
+        >
           <div className="mx-auto flex w-max min-w-full flex-nowrap items-center gap-x-5 px-4 py-2.5 sm:px-6 xl:px-8">
             {navigation.map((section) => (
               <div key={section.label} className="flex min-w-0 items-center gap-1.5">
