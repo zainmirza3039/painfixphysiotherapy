@@ -26,9 +26,24 @@ test("homepage hero naturally supports local clinic and home-visit searches", ()
   assert.ok(hero.includes("home physiotherapy visits across Multan"));
 });
 
-test("homepage condition introduction includes the priority rehabilitation cluster", () => {
+test("homepage links priority condition keywords to their own dedicated condition URLs", () => {
   const conditions = source("components/site/Conditions.tsx");
   for (const phrase of ["back pain", "sciatica", "knee pain", "neck pain", "frozen shoulder", "stroke"]) {
     assert.ok(conditions.includes(phrase), `Missing homepage condition keyword: ${phrase}`);
+  }
+  assert.ok(conditions.includes('conditionSlug: "slipped-disc"'));
+  assert.ok(conditions.includes('to="/conditions/$slug"'));
+});
+
+test("dedicated condition pages retain canonical metadata and are included through the sitemap data", () => {
+  const route = source("routes/conditions.$slug.tsx");
+  const sitemap = source("routes/sitemap[.]xml.ts");
+  const data = source("data/conditions.ts");
+  assert.ok(route.includes("getCondition(params.slug)"));
+  assert.ok(route.includes("canonical(path)"));
+  assert.ok(sitemap.includes("...conditions.map((c)"));
+  assert.ok(data.includes('metaTitle: "Stroke Rehabilitation in Multan | Physiotherapy — PainFix"'));
+  for (const slug of ["back-pain", "sciatica", "knee-pain", "neck-pain", "frozen-shoulder", "slipped-disc", "stroke-rehabilitation"]) {
+    assert.ok(data.includes(`slug: "${slug}"`), `Missing dedicated condition page data: ${slug}`);
   }
 });
