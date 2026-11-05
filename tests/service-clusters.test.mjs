@@ -38,3 +38,15 @@ test("new condition pages have matching visual references and existing service l
     assert.ok(services.includes(`slug: "${slug}"`));
   }
 });
+
+test("disc and rotator-cuff articles link to their matching condition pages", async () => {
+  const source = await read("src/data/blog.ts");
+  const discStart = source.indexOf('slug: "disc-herniation-treatment"');
+  const shoulderStart = source.indexOf('slug: "rotator-cuff-rehabilitation"');
+  assert.notEqual(discStart, -1);
+  assert.notEqual(shoulderStart, -1);
+  const discBlock = source.slice(discStart, source.indexOf("\\n  },", discStart));
+  const shoulderBlock = source.slice(shoulderStart, source.indexOf("\\n  },", shoulderStart));
+  assert.match(discBlock, /relatedConditions: \\[.*"slipped-disc"/);
+  assert.match(shoulderBlock, /relatedConditions: \\[.*"shoulder-pain"/);
+});
