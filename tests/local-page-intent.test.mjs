@@ -6,7 +6,10 @@ const repo = new URL("../", import.meta.url);
 
 test("physiotherapist local page targets appointment booking, not best-provider comparison", async () => {
   const source = await readFile(new URL("src/data/localPages.ts", repo), "utf8");
-  const component = await readFile(new URL("src/components/site/LocalLandingPage.tsx", repo), "utf8");
+  const component = await readFile(
+    new URL("src/components/site/LocalLandingPage.tsx", repo),
+    "utf8",
+  );
   const start = source.indexOf('slug: "physiotherapist-in-multan"');
   const end = source.indexOf("\n  {\n    slug:", start + 1);
   assert.notEqual(start, -1);
