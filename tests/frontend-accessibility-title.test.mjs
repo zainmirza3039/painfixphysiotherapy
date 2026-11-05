@@ -63,7 +63,7 @@ test("footer retains main's newer inverse contrast treatment without obsolete ov
 
 test("admin shell polls unread enquiries and exposes notification indicators", () => {
   const shell = source("components/admin/AdminShell.tsx");
-  assert.ok(shell.includes('queryKey: ["admin", "inbox-notifications"]'));
+  assert.match(shell, /queryKey: \["admin", "inbox-notifications", isAdmin, isStaff\]/);
   assert.ok(shell.includes("refetchInterval: 15000"));
   assert.ok(shell.includes('.from("contact_submissions")'));
   assert.ok(shell.includes('.from("home_visit_requests")'));
