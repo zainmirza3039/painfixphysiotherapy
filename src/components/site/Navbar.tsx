@@ -22,10 +22,20 @@ import {
   LayoutGrid,
   ArrowRight,
   Activity,
+  MapPin,
+  Navigation,
   type LucideIcon,
 } from "lucide-react";
 import { Link, useNavigate, useRouterState } from "@tanstack/react-router";
-import { SERVICES_MENU, CONDITIONS_MENU, WHATSAPP_CONSULT_URL, CALENDLY_URL } from "./constants";
+import {
+  SERVICES_MENU,
+  CONDITIONS_MENU,
+  WHATSAPP_CONSULT_URL,
+  CALENDLY_URL,
+  CLINIC_ADDRESS,
+  MAP_DIRECTIONS_URL,
+  MAP_EMBED_URL,
+} from "./constants";
 import type { TeamMember } from "@/data/team";
 import { clinicianWhatsAppUrl, isOnlineClinician } from "@/lib/clinician-service";
 
@@ -355,13 +365,52 @@ export function Navbar({ onlineClinician }: { onlineClinician?: TeamMember }) {
   return (
     <>
       <header
-        className={`fixed inset-x-0 top-0 z-50 border-b border-border/80 bg-background/95 backdrop-blur transition-all duration-300 will-change-transform ${
-          scrolled ? "shadow-soft py-2" : "py-3"
-        } ${hidden && !open ? "-translate-y-full" : "translate-y-0"}`}
+        className={`fixed inset-x-0 top-0 z-50 border-b border-border/80 bg-background/95 backdrop-blur shadow-soft transition-all duration-300 will-change-transform ${hidden && !open ? "-translate-y-full" : "translate-y-0"}`}
       >
+        {/* Compact clinic location strip with a lightweight Google Maps preview. */}
+        <div className={`border-b border-border/70 ${scrolled ? "h-9" : "h-10"}`}>
+          <div className="mx-auto flex h-full max-w-7xl items-center justify-between gap-3 px-4 sm:px-6 lg:px-8">
+            <a
+              href={MAP_DIRECTIONS_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={`Get directions to PainFix Physiotherapy Clinic: ${CLINIC_ADDRESS}`}
+              className="flex min-w-0 items-center gap-2.5 rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+            >
+              <span className="hidden h-8 w-[104px] shrink-0 overflow-hidden rounded-md border border-border bg-muted sm:block">
+                <iframe
+                  src={MAP_EMBED_URL}
+                  title="Mini map showing PainFix Physiotherapy Clinic in Shalimar Colony, Multan"
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  tabIndex={-1}
+                  aria-hidden="true"
+                  className="pointer-events-none h-full w-full border-0"
+                />
+              </span>
+              <MapPin className="h-4 w-4 shrink-0 text-primary" aria-hidden="true" />
+              <span className="flex min-w-0 flex-col leading-tight">
+                <span className="text-[11px] font-semibold text-foreground sm:text-xs">Visit PainFix · Multan</span>
+                <span className="hidden truncate text-[10px] text-muted-foreground sm:block sm:max-w-[420px] lg:max-w-none">
+                  {CLINIC_ADDRESS}
+                </span>
+                <span className="truncate text-[10px] text-muted-foreground sm:hidden">Shalimar Colony, Multan</span>
+              </span>
+            </a>
+            <a
+              href={MAP_DIRECTIONS_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex shrink-0 items-center gap-1.5 rounded-md bg-primary/10 px-2.5 py-1.5 text-[11px] font-semibold text-primary transition-colors hover:bg-primary/15 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 sm:text-xs"
+            >
+              <Navigation className="h-3.5 w-3.5" aria-hidden="true" />
+              <span>Get Directions</span>
+            </a>
+          </div>
+        </div>
         <nav
           aria-label="Primary"
-          className="mx-auto flex max-w-7xl items-center justify-between gap-2 px-4 sm:px-6 lg:px-8"
+          className={`mx-auto flex max-w-7xl items-center justify-between gap-2 px-4 sm:px-6 lg:px-8 ${scrolled ? "py-1" : "py-2"}`}
         >
           <Link
             to="/"
