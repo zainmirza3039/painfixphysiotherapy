@@ -21,14 +21,14 @@ test("homepage metadata covers the clinic and core treatment-intent cluster with
 });
 
 test("homepage hero naturally supports local clinic and home-visit searches", () => {
-  const hero = source("components/site/Hero.tsx");
+  const hero = source("components/site/Hero.tsx").replace(/\\s+/g, " ");
   assert.ok(hero.includes("physiotherapist in Multan or a physiotherapy clinic near you"));
   assert.ok(hero.includes("home physiotherapy visits across Multan"));
 });
 
 test("homepage links priority condition keywords to their own dedicated condition URLs", () => {
-  const conditions = source("components/site/Conditions.tsx");
-  for (const phrase of ["back pain", "sciatica", "knee pain", "neck pain", "frozen shoulder", "stroke"]) {
+  const conditions = source("components/site/Conditions.tsx").replace(/\\s+/g, " ");
+  for (const phrase of ["back pain", "sciatica", "knee or neck pain", "frozen shoulder", "stroke"]) {
     assert.ok(conditions.includes(phrase), `Missing homepage condition keyword: ${phrase}`);
   }
   assert.ok(conditions.includes('conditionSlug: "slipped-disc"'));
