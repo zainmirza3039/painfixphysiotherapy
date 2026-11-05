@@ -417,6 +417,13 @@ export function AdminShell({ children }: { children: ReactNode }) {
                         aria-hidden="true"
                       />
                       {item.label}
+                      {((item.to === "/admin/messages" && unreadMessages > 0) ||
+                        (item.to === "/admin/home-visits" && newHomeVisits > 0)) && (
+                        <span
+                          aria-hidden="true"
+                          className="ml-0.5 h-1.5 w-1.5 shrink-0 rounded-full bg-rose-500"
+                        />
+                      )}
                     </Link>
                   );
                 })}
