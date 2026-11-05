@@ -13,9 +13,7 @@ test("physiotherapist choice article targets informational intent, not the local
   const article = source.slice(start, end);
 
   assert.ok(article.includes('title: "How to Choose a Physiotherapist in Multan"'));
-  assert.ok(
-    article.includes('seoTitle: "How to Choose a Physiotherapist in Multan | PainFix"'),
-  );
+  assert.ok(article.includes('seoTitle: "How to Choose a Physiotherapist in Multan | PainFix"'));
   assert.match(article, /practical checklist for choosing a physiotherapist in Multan/i);
   assert.doesNotMatch(article, /seoTitle: "Best Physiotherapist in Multan/);
 });
