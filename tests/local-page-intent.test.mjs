@@ -20,6 +20,6 @@ test("physiotherapist local page targets appointment booking, not best-provider 
   assert.doesNotMatch(page, /Who is the best physiotherapist in Multan\?/);
   assert.match(component, /page\\.slug === "physiotherapist-in-multan"/);
   assert.match(component, /to="\\/book-appointment"/);
-  assert.match(component, /city: "multan", service: "clinic"/);
-  assert.match(component, /Book a Clinic Appointment/);
+  assert.ok(component.includes('city: "multan", service: "clinic"'));
+  assert.ok(component.includes("Book a Clinic Appointment"));
 });
