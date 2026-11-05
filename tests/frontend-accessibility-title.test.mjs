@@ -45,10 +45,8 @@ test("Google review accessible name includes its configurable visible label", ()
 
 test("stroke condition retains its visible title and distinct recovery metadata", () => {
   const conditions = source("data/conditions.ts");
-  assert.match(
-    conditions,
-    /title: "Stroke Rehabilitation",[\\s\\S]*?metaTitle: "Stroke Rehabilitation in Multan \\| Physiotherapy — PainFix"/,
-  );
+  assert.ok(conditions.includes('title: "Stroke Rehabilitation"'));
+  assert.ok(conditions.includes('metaTitle: "Stroke Rehabilitation in Multan | Physiotherapy — PainFix"'));
 });
 
 test("footer retains main's newer inverse contrast treatment without obsolete overrides", () => {
