@@ -44,8 +44,10 @@ export const GOOGLE_MAPS_PLACE_ID = "ChIJhSmMfwDrPDkRzjw7wUtIuHc";
 export const MAP_PLACE_URL = `https://www.google.com/maps/search/?api=1&query=PainFix+Physiotherapy+Clinic&query_place_id=${GOOGLE_MAPS_PLACE_ID}`;
 // Route directly to the verified Google Maps business listing.
 export const MAP_DIRECTIONS_URL = `https://www.google.com/maps/dir/?api=1&destination=PainFix+Physiotherapy+Clinic&destination_place_id=${GOOGLE_MAPS_PLACE_ID}`;
-// Lightweight embedded map centred on the verified Google Maps Place ID.
-export const MAP_EMBED_URL = `https://www.google.com/maps?q=place_id:${GOOGLE_MAPS_PLACE_ID}&output=embed`;
+// Embed the clinic's existing Google Business Profile CID so the map opens on
+// the exact business pin/listing instead of a text-only location search.
+export const MAP_EMBED_URL =
+  "https://maps.google.com/maps?cid=8626724576429817038&output=embed";
 
 // Social media profiles
 export const SOCIAL_LINKS = {
