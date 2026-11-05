@@ -7,11 +7,14 @@ const read = (path) => readFile(new URL(path, repo), "utf8");
 
 test("homepage owns the primary physiotherapist in Multan search intent", async () => {
   const route = await read("src/routes/index.tsx");
-  const hero = await read("src/components/site/Hero.tsx");
+  const hero = (await read("src/components/site/Hero.tsx")).replace(/\s+/g, " ");
 
   assert.match(route, /const TITLE = "Physiotherapist in Multan \| PainFix Physiotherapy Clinic"/);
   assert.match(hero, /Physiotherapist[\s\S]*?home-hero__accent">Multan\./);
-  assert.match(hero, /Looking for a physiotherapist in Multan\?/);
+  assert.match(
+    hero,
+    /Looking for a physiotherapist in Multan or a physiotherapy clinic near you\?/,
+  );
   assert.match(hero, /Move Better\. Recover Faster\. Live Pain-Free\./);
   assert.doesNotMatch(hero, /DPT-led assessment and rehabilitation/);
 });
