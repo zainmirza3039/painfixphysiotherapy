@@ -7,8 +7,9 @@ const source = (path) => readFileSync(new URL(`../src/${path}`, import.meta.url)
 test("home-visit floating CTA uses its visible translated label and compact placement", () => {
   const fab = source("components/site/HomeVisitFab.tsx");
   assert.ok(fab.includes("aria-label={t.actions.bookHomeVisit}"));
-  assert.ok(fab.includes("<span>{t.actions.bookHomeVisit}</span>"));
-  assert.ok(fab.includes("min-h-11"));
+  assert.ok(fab.includes('<span className="sr-only">{t.actions.bookHomeVisit}</span>'));
+  assert.ok(fab.includes("h-12 w-12"));
+  assert.ok(fab.includes("rounded-full"));
   assert.ok(fab.includes("right-[calc(env(safe-area-inset-right,0px)+1.25rem)]"));
   assert.ok(fab.includes("floating-cta-glow"));
 });
@@ -17,7 +18,8 @@ test("floating contact actions are mounted once at the root and remain compact",
   const root = source("routes/__root.tsx");
   assert.ok(root.includes("<HomeVisitFab />"));
   assert.ok(root.includes("<WhatsAppFab />"));
-  assert.ok(source("components/site/WhatsAppFab.tsx").includes("h-11 w-11"));
+  assert.ok(source("components/site/WhatsAppFab.tsx").includes("h-14 w-14"));
+  assert.ok(source("components/site/WhatsAppFab.tsx").includes("rounded-full"));
   assert.ok(!source("routes/index.tsx").includes("<WhatsAppFab />"));
   assert.ok(!source("routes/home-visit.tsx").includes("<WhatsAppFab />"));
 });
@@ -57,4 +59,20 @@ test("footer retains main's newer inverse contrast treatment without obsolete ov
   assert.ok(footer.includes("bg-white px-4 py-2 text-sm font-semibold text-brand-navy"));
   assert.ok(!footer.includes("footer-aa-green"));
   assert.ok(!source("styles.css").includes("footer-aa-green"));
+});
+
+test("admin shell polls unread enquiries and exposes notification indicators", () => {
+  const shell = source("components/admin/AdminShell.tsx");
+  assert.ok(shell.includes('queryKey: ["admin", "inbox-notifications"]'));
+  assert.ok(shell.includes("refetchInterval: 15000"));
+  assert.ok(shell.includes('.from("contact_submissions")'));
+  assert.ok(shell.includes('.from("home_visit_requests")'));
+  assert.ok(shell.includes('aria-label={totalNotifications > 0'));
+  assert.ok(shell.includes("bg-rose-500"));
+});
+
+test("admin dashboard metrics use compact horizontal cards", () => {
+  const card = source("components/admin/StatCard.tsx");
+  assert.ok(card.includes("flex min-h-[116px]"));
+  assert.ok(card.includes("items-center gap-4"));
 });
