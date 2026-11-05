@@ -119,11 +119,10 @@ test("public clinician fallback is isolated from admin CRUD and uses only existi
   assert.doesNotMatch(detail, /getTeamMemberBySlug|mergeDoctor/);
 });
 
-test("sitemap does not cache incomplete clinician lists after a public API failure", async () => {
+test("sitemap omits optional clinician URLs after a public API failure without failing the sitemap", async () => {
   const sitemap = await readFile(new URL("src/routes/sitemap[.]xml.ts", repo), "utf8");
-  assert.match(sitemap, /Retry-After/);
-  assert.match(sitemap, /status: 503/);
-  assert.match(sitemap, /"Cache-Control": "no-store"/);
+  assert.match(sitemap, /clinicianSlugs = \[\]/);
+  assert.doesNotMatch(sitemap, /status: 503/);
   assert.doesNotMatch(sitemap, /lastSuccessfulClinicianSlugs|usedStaleClinicianSlugs/);
 });
 
