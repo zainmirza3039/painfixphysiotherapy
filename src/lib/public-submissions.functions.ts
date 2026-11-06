@@ -15,12 +15,12 @@ const contactInput = z.object({
 const homeVisitInput = z.object({
   full_name: z.string().trim().min(1).max(200),
   phone: z.string().trim().min(1).max(40).refine((value) => {
-    const digits = value.replace(/\\D/g, "");
+    const digits = value.replace(/\D/g, "");
     return digits.length >= 7 && digits.length <= 15;
   }, "Enter a valid phone number"),
   address: z.string().trim().min(1).max(1000),
   medical_condition: z.string().trim().min(1).max(200),
-  preferred_date: z.string().regex(/^\\d{4}-\\d{2}-\\d{2}$/),
+  preferred_date: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
   preferred_time: z.string().trim().min(1).max(20),
   notes: z.string().max(5000).nullable(),
 }).strict();
@@ -71,7 +71,7 @@ export const submitContactMessage = createServerFn({ method: "POST" })
     if (data.website?.trim()) return { success: true };
 
     const normalizedEmail = data.email?.trim() ?? "";
-    if (normalizedEmail && !/^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(normalizedEmail)) {
+    if (normalizedEmail && !/^[^\s@]+@[^\s@]+\\.[^\s@]+$/.test(normalizedEmail)) {
       throw new Error("Enter a valid email address.");
     }
 
@@ -93,7 +93,7 @@ export const createHomeVisitRequest = createServerFn({ method: "POST" })
   .inputValidator((input) => homeVisitInput.parse(input))
   .handler(async ({ data }) => {
     setResponseHeader("cache-control", "no-store");
-    const digits = data.phone.replace(/\\D/g, "");
+    const digits = data.phone.replace(/\D/g, "");
     await checkRateLimit("home_visit", digits);
     const { error } = await publicClient().from("home_visit_requests").insert({
       full_name: data.full_name,
