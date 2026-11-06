@@ -4,26 +4,35 @@ import { createClient } from "@supabase/supabase-js";
 import { z } from "zod";
 import type { Database } from "@/integrations/supabase/types";
 
-const contactInput = z.object({
-  name: z.string().trim().min(1).max(200),
-  email: z.string().trim().max(254).nullable(),
-  phone: z.string().trim().min(1).max(40),
-  message: z.string().trim().min(1).max(5000),
-  website: z.string().max(500).optional(),
-}).strict();
+const contactInput = z
+  .object({
+    name: z.string().trim().min(1).max(200),
+    email: z.string().trim().max(254).nullable(),
+    phone: z.string().trim().min(1).max(40),
+    message: z.string().trim().min(1).max(5000),
+    website: z.string().max(500).optional(),
+  })
+  .strict();
 
-const homeVisitInput = z.object({
-  full_name: z.string().trim().min(1).max(200),
-  phone: z.string().trim().min(1).max(40).refine((value) => {
-    const digits = value.replace(/\D/g, "");
-    return digits.length >= 7 && digits.length <= 15;
-  }, "Enter a valid phone number"),
-  address: z.string().trim().min(1).max(1000),
-  medical_condition: z.string().trim().min(1).max(200),
-  preferred_date: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
-  preferred_time: z.string().trim().min(1).max(20),
-  notes: z.string().max(5000).nullable(),
-}).strict();
+const homeVisitInput = z
+  .object({
+    full_name: z.string().trim().min(1).max(200),
+    phone: z
+      .string()
+      .trim()
+      .min(1)
+      .max(40)
+      .refine((value) => {
+        const digits = value.replace(/\D/g, "");
+        return digits.length >= 7 && digits.length <= 15;
+      }, "Enter a valid phone number"),
+    address: z.string().trim().min(1).max(1000),
+    medical_condition: z.string().trim().min(1).max(200),
+    preferred_date: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
+    preferred_time: z.string().trim().min(1).max(20),
+    notes: z.string().max(5000).nullable(),
+  })
+  .strict();
 
 function publicClient() {
   const url = process.env.SUPABASE_URL;
@@ -42,7 +51,7 @@ async function checkRateLimit(kind: "contact" | "home_visit", secondary: string)
   const source = forwarded || "shared-global";
   const secret = process.env.INTERNSHIP_RATE_LIMIT_SECRET ?? "deployment-rate-limit";
   const { createHash } = await import("node:crypto");
-  const rateKey = createHash("sha256").update(`${secret}:${source}`).digest("hex");
+  const rateKey = createHash("sha256").update(\`\${secret}:\${source}\`).digest("hex");
 
   const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
   const rpc = supabaseAdmin as unknown as {
@@ -71,7 +80,7 @@ export const submitContactMessage = createServerFn({ method: "POST" })
     if (data.website?.trim()) return { success: true };
 
     const normalizedEmail = data.email?.trim() ?? "";
-    if (normalizedEmail && !/^[^\s@]+@[^\s@]+\\.[^\s@]+$/.test(normalizedEmail)) {
+    if (normalizedEmail && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(normalizedEmail)) {
       throw new Error("Enter a valid email address.");
     }
 
