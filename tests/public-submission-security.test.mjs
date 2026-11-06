@@ -21,11 +21,16 @@ test("public contact and home visit forms use server-side submission handlers", 
 });
 
 test("database enforces persistent submission and storage upload limits", () => {
-  const migration = read("../supabase/migrations/20261106100000_add_public_submission_and_storage_rate_limits.sql");
+  const migration = read(
+    "../supabase/migrations/20261106100000_add_public_submission_and_storage_rate_limits.sql",
+  );
 
   assert.match(migration, /SECURITY DEFINER/);
   assert.match(migration, /GRANT EXECUTE[\s\S]*TO service_role/);
-  assert.match(migration, /REVOKE ALL ON TABLE public\.storage_upload_rate_limits[\s\S]*FROM PUBLIC, anon, authenticated, service_role/);
+  assert.match(
+    migration,
+    /REVOKE ALL ON TABLE public\.storage_upload_rate_limits[\s\S]*FROM PUBLIC, anon, authenticated, service_role/,
+  );
   assert.match(migration, /BEFORE INSERT ON storage\.objects/);
   assert.match(migration, /site-media/);
   assert.match(migration, /medical-reports/);
