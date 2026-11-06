@@ -36,7 +36,7 @@ test("database enforces persistent submission and storage upload limits", () => 
 test("Gitleaks workflow scans all fetched Git refs and history", () => {
   const workflow = read("../.github/workflows/secret-history-scan.yml");
   assert.match(workflow, /fetch-depth: 0/);
-  assert.match(workflow, /git log -p --all --full-history/);
+  assert.match(workflow, /--log-opts="--all --full-history/);
   assert.match(workflow, /gitleaks:v8\.30\.1 stdin --redact/);
   assert.match(workflow, /schedule:/);
 });
