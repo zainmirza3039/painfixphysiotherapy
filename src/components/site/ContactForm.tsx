@@ -26,13 +26,13 @@ export function ContactForm() {
     }
     setSubmitting(true);
     try {
-      await submitContactMessage({
+      await submitContactMessage({ data: {
         name: values.name.trim(),
         email: values.email.trim() || null,
         phone: values.phone.trim(),
         message: values.message.trim(),
         website: botField,
-      });
+      } });
       toast.success(c.success);
       setValues({ name: "", email: "", phone: "", message: "" });
       setSubmitted(true);
