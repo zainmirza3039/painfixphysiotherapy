@@ -51,7 +51,7 @@ async function checkRateLimit(kind: "contact" | "home_visit", secondary: string)
   const source = forwarded || "shared-global";
   const secret = process.env.INTERNSHIP_RATE_LIMIT_SECRET ?? "deployment-rate-limit";
   const { createHash } = await import("node:crypto");
-  const rateKey = createHash("sha256").update(\`\${secret}:\${source}\`).digest("hex");
+  const rateKey = createHash("sha256").update(secret + ":" + source).digest("hex");
 
   const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
   const rpc = supabaseAdmin as unknown as {
