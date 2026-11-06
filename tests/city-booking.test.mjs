@@ -107,5 +107,5 @@ test("booking delegates Multan home visits to existing form and never inserts on
     new URL("../src/lib/public-submissions.functions.ts", import.meta.url),
     "utf8",
   );
-  assert.match(serverHandler, /from\("home_visit_requests"\)\\s*\.insert/);
+  assert.match(serverHandler, /from\("home_visit_requests"\)\s*\.insert/);
 });
