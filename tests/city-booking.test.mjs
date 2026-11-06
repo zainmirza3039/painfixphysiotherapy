@@ -102,5 +102,10 @@ test("booking delegates Multan home visits to existing form and never inserts on
     "utf8",
   );
   assert.match(home, /submitHomeVisitRequest/);
-  assert.match(home, /home_visit_requests/);
+  assert.match(home, /createHomeVisitRequest/);
+  const serverHandler = readFileSync(
+    new URL("../src/lib/public-submissions.functions.ts", import.meta.url),
+    "utf8",
+  );
+  assert.match(serverHandler, /from\("home_visit_requests"\)\.insert/);
 });
