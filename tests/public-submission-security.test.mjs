@@ -34,7 +34,7 @@ test("database enforces persistent submission and storage upload limits", () => 
     migration,
     /REVOKE ALL ON TABLE public\.storage_upload_rate_limits[\s\S]*FROM PUBLIC, anon, authenticated, service_role/,
   );
-  assert.match(migration, /BEFORE INSERT ON storage\.objects/);
+  assert.match(migration, /BEFORE INSERT OR UPDATE OF bucket_id, name, metadata ON storage\.objects/);
   assert.match(migration, /site-media/);
   assert.match(migration, /medical-reports/);
   assert.match(migration, /actor_limit/);
