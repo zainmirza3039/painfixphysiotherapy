@@ -13,6 +13,7 @@ interface PageHeroProps {
   icon?: ReactNode;
   image?: string;
   imageAlt?: string;
+  primaryAction?: { href: string; label: string };
   showActions?: boolean;
 }
 
@@ -24,6 +25,7 @@ export function PageHero({
   icon,
   image,
   imageAlt = "",
+  primaryAction,
   showActions = true,
 }: PageHeroProps) {
   return (
@@ -59,6 +61,16 @@ export function PageHero({
           <h1 className="mx-auto mt-5 max-w-[22ch] text-balance font-heading text-[clamp(2.35rem,5.4vw,4rem)] font-semibold leading-[1.03] tracking-[-0.035em] text-foreground">
             {title}
           </h1>
+          {primaryAction && (
+            <div className="mt-4 flex justify-center">
+              <a
+                href={primaryAction.href}
+                className="inline-flex min-h-12 items-center justify-center rounded-md bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+              >
+                {primaryAction.label}
+              </a>
+            </div>
+          )}
           {subtitle && (
             <p className="mx-auto mt-4 max-w-2xl text-base leading-7 text-muted-foreground sm:text-lg sm:leading-8">
               {subtitle}

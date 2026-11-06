@@ -46,9 +46,7 @@ export function StatCard({ label, value, icon, hint, accent = "primary" }: StatC
           {value}
         </p>
         {hint && (
-          <p className="mt-1.5 truncate text-[11px] leading-4 text-muted-foreground">
-            {hint}
-          </p>
+          <p className="mt-1.5 truncate text-[11px] leading-4 text-muted-foreground">{hint}</p>
         )}
       </div>
     </div>
