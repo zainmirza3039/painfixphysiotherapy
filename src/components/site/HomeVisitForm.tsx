@@ -59,7 +59,7 @@ export function HomeVisitForm() {
         today,
         {
           insertRequest: async (payload) => {
-            await createHomeVisitRequest(payload);
+            await createHomeVisitRequest({ data: payload });
           },
         },
         submissionGate,
