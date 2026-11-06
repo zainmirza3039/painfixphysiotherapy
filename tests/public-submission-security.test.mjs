@@ -16,6 +16,9 @@ test("public contact and home visit forms use server-side submission handlers", 
   assert.match(handlers, /check_public_submission_rate_limit/);
   assert.match(handlers, /VERCEL === "1"/);
   assert.match(handlers, /x-vercel-forwarded-for/);
+  assert.match(handlers, /createHmac\("sha256", secret\)/);
+  assert.match(handlers, /SUPABASE_SERVICE_ROLE_KEY/);
+  assert.doesNotMatch(handlers, /deployment-rate-limit/);
   assert.match(handlers, /\.from\("contact_submissions"\)\s*\.insert/);
   assert.match(handlers, /\.from\("home_visit_requests"\)\s*\.insert/);
 });
