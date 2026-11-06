@@ -41,6 +41,15 @@ BEGIN
     subject_ok := public.internship_rate_limit('public:home_visit:subject:' || normalized_subject, 3);
   END IF;
 
+  DELETE FROM public.internship_public_rate_limits
+  WHERE key_hash IN (
+    SELECT key_hash
+    FROM public.internship_public_rate_limits
+    WHERE window_started_at < now() - interval '2 days'
+    ORDER BY window_started_at
+    LIMIT 100
+  );
+
   RETURN global_ok AND client_ok AND subject_ok;
 END;
 $$;
