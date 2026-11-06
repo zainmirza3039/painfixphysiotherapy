@@ -3,18 +3,18 @@ import { Loader2, Send, CheckCircle2 } from "lucide-react";
 import { toast } from "sonner";
 import { useI18n } from "@/i18n/LanguageProvider";
 import { GoogleReviewButton } from "./GoogleReviewButton";
+import { submitContactMessage } from "@/lib/public-submissions.functions";
 
 export function ContactForm() {
   const { t } = useI18n();
   const c = t.contact;
   const [values, setValues] = useState({ name: "", email: "", phone: "", message: "" });
-  const [botField, setBotField] = useState(""); // honeypot — real users leave this empty
+  const [botField, setBotField] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
 
   const onSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    // Silently drop bot submissions that fill the hidden honeypot field.
     if (botField) return;
     if (!values.name.trim() || !values.phone.trim() || !values.message.trim()) {
       toast.error(c.required);
@@ -26,20 +26,19 @@ export function ContactForm() {
     }
     setSubmitting(true);
     try {
-      const { supabase } = await import("@/integrations/supabase/client");
-      const { error } = await supabase.from("contact_submissions").insert({
+      await submitContactMessage({
         name: values.name.trim(),
         email: values.email.trim() || null,
-        phone: values.phone.trim() || null,
+        phone: values.phone.trim(),
         message: values.message.trim(),
+        website: botField,
       });
-      if (error) throw error;
       toast.success(c.success);
       setValues({ name: "", email: "", phone: "", message: "" });
       setSubmitted(true);
     } catch (err) {
       console.error("Contact submission failed:", err);
-      toast.error(c.error);
+      toast.error(err instanceof Error && err.message.includes("Too many requests") ? err.message : c.error);
     } finally {
       setSubmitting(false);
     }
@@ -78,87 +77,35 @@ export function ContactForm() {
     <form onSubmit={onSubmit} className="grid gap-4">
       <div className="grid gap-4 sm:grid-cols-2">
         <div>
-          <label className={labelCls} htmlFor="c-name">
-            {c.name} *
-          </label>
-          <input
-            id="c-name"
-            className={inputCls}
-            value={values.name}
-            onChange={(e) => setValues((v) => ({ ...v, name: e.target.value }))}
-            required
-          />
+          <label className={labelCls} htmlFor="c-name">{c.name} *</label>
+          <input id="c-name" className={inputCls} value={values.name}
+            onChange={(e) => setValues((v) => ({ ...v, name: e.target.value }))} required />
         </div>
         <div>
-          <label className={labelCls} htmlFor="c-phone">
-            {c.phoneField} *
-          </label>
-          <input
-            id="c-phone"
-            type="tel"
-            className={inputCls}
-            value={values.phone}
-            onChange={(e) => setValues((v) => ({ ...v, phone: e.target.value }))}
-            required
-          />
+          <label className={labelCls} htmlFor="c-phone">{c.phoneField} *</label>
+          <input id="c-phone" type="tel" className={inputCls} value={values.phone}
+            onChange={(e) => setValues((v) => ({ ...v, phone: e.target.value }))} required />
         </div>
       </div>
       <div>
-        <label className={labelCls} htmlFor="c-email">
-          {c.email}
-        </label>
-        <input
-          id="c-email"
-          type="email"
-          className={inputCls}
-          value={values.email}
-          onChange={(e) => setValues((v) => ({ ...v, email: e.target.value }))}
-        />
+        <label className={labelCls} htmlFor="c-email">{c.email}</label>
+        <input id="c-email" type="email" className={inputCls} value={values.email}
+          onChange={(e) => setValues((v) => ({ ...v, email: e.target.value }))} />
       </div>
       <div>
-        <label className={labelCls} htmlFor="c-message">
-          {c.message} *
-        </label>
-        <textarea
-          id="c-message"
-          rows={4}
-          className={inputCls}
-          value={values.message}
-          onChange={(e) => setValues((v) => ({ ...v, message: e.target.value }))}
-          required
-        />
+        <label className={labelCls} htmlFor="c-message">{c.message} *</label>
+        <textarea id="c-message" rows={4} className={inputCls} value={values.message}
+          onChange={(e) => setValues((v) => ({ ...v, message: e.target.value }))} required />
       </div>
-      {/* Honeypot: visually hidden, ignored by humans, filled by bots */}
-      <div
-        aria-hidden
-        className="absolute left-[-9999px] top-[-9999px] h-0 w-0 overflow-hidden"
-        tabIndex={-1}
-      >
+      <div aria-hidden className="absolute left-[-9999px] top-[-9999px] h-0 w-0 overflow-hidden" tabIndex={-1}>
         <label htmlFor="c-website">Website</label>
-        <input
-          id="c-website"
-          name="website"
-          type="text"
-          tabIndex={-1}
-          autoComplete="off"
-          value={botField}
-          onChange={(e) => setBotField(e.target.value)}
-        />
+        <input id="c-website" name="website" type="text" tabIndex={-1} autoComplete="off"
+          value={botField} onChange={(e) => setBotField(e.target.value)} />
       </div>
-      <button
-        type="submit"
-        disabled={submitting}
-        className="ripple inline-flex items-center justify-center gap-2 rounded-2xl bg-primary px-6 py-3.5 text-sm font-semibold text-primary-foreground shadow-card transition-transform hover:scale-[1.02] disabled:cursor-not-allowed disabled:opacity-70"
-      >
-        {submitting ? (
-          <>
-            <Loader2 className="h-4 w-4 animate-spin" /> {t.actions.sending}
-          </>
-        ) : (
-          <>
-            <Send className="h-4 w-4" /> {t.actions.sendMessage}
-          </>
-        )}
+      <button type="submit" disabled={submitting}
+        className="ripple inline-flex items-center justify-center gap-2 rounded-2xl bg-primary px-6 py-3.5 text-sm font-semibold text-primary-foreground shadow-card transition-transform hover:scale-[1.02] disabled:cursor-not-allowed disabled:opacity-70">
+        {submitting ? <><Loader2 className="h-4 w-4 animate-spin" /> {t.actions.sending}</> :
+          <><Send className="h-4 w-4" /> {t.actions.sendMessage}</>}
       </button>
     </form>
   );
