@@ -39,9 +39,10 @@ function BookAppointmentPage() {
           { label: "Home", path: "/" },
           { label: "Book an appointment", path: "/book-appointment" },
         ]}
+        primaryAction={{ href: "#booking-selector", label: "Choose your city" }}
         showActions={false}
       />
-      <section className="py-10 sm:py-14">
+      <section id="booking-selector" className="scroll-mt-24 py-10 sm:py-14">
         <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
           <div className="rounded-xl border border-border bg-card p-4 shadow-soft sm:p-7">
             <CityBookingForm

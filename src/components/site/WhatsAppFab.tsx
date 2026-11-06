@@ -5,7 +5,13 @@ import { WHATSAPP_URL } from "./constants";
 export function WhatsAppFab() {
   const pathname = useRouterState({ select: (state) => state.location.pathname });
 
-  if (pathname.startsWith("/admin") || pathname.startsWith("/auth")) return null;
+  if (
+    pathname === "/book-appointment" ||
+    pathname.startsWith("/admin") ||
+    pathname.startsWith("/auth")
+  ) {
+    return null;
+  }
 
   return (
     <a

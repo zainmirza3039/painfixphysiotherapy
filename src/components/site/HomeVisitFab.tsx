@@ -6,7 +6,12 @@ export function HomeVisitFab() {
   const pathname = useRouterState({ select: (state) => state.location.pathname });
   const { t } = useI18n();
 
-  if (pathname === "/home-visit" || pathname.startsWith("/admin") || pathname.startsWith("/auth")) {
+  if (
+    pathname === "/book-appointment" ||
+    pathname === "/home-visit" ||
+    pathname.startsWith("/admin") ||
+    pathname.startsWith("/auth")
+  ) {
     return null;
   }
 

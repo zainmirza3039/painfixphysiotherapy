@@ -2,9 +2,13 @@ import { MessageCircle, Phone } from "lucide-react";
 import { WHATSAPP_CONSULT_URL, PHONE_TEL } from "./constants";
 import type { TeamMember } from "@/data/team";
 import { clinicianWhatsAppUrl, isOnlineClinician } from "@/lib/clinician-service";
+import { useRouterState } from "@tanstack/react-router";
 
 /** Sticky floating conversion actions shown on every page. */
 export function ConversionFab({ onlineClinician }: { onlineClinician?: TeamMember }) {
+  const pathname = useRouterState({ select: (state) => state.location.pathname });
+  if (pathname === "/book-appointment") return null;
+
   const onlineOnly = onlineClinician && isOnlineClinician(onlineClinician);
   const whatsappUrl = onlineOnly ? clinicianWhatsAppUrl(onlineClinician) : WHATSAPP_CONSULT_URL;
   return (
