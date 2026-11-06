@@ -51,14 +51,13 @@ async function checkRateLimit(kind: "contact" | "home_visit", secondary: string)
   const source = forwarded || "shared-global";
   const secret = process.env.INTERNSHIP_RATE_LIMIT_SECRET ?? "deployment-rate-limit";
   const { createHash } = await import("node:crypto");
-  const rateKey = createHash("sha256").update(secret + ":" + source).digest("hex");
+  const rateKey = createHash("sha256")
+    .update(secret + ":" + source)
+    .digest("hex");
 
   const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
   const rpc = supabaseAdmin as unknown as {
-    rpc: (
-      name: string,
-      args: Record<string, string>,
-    ) => Promise<{ data: unknown; error: unknown }>;
+    rpc: (name: string, args: Record<string, string>) => Promise<{ data: unknown; error: unknown }>;
   };
   const { data, error } = await rpc.rpc("check_public_submission_rate_limit", {
     p_kind: kind,
@@ -85,12 +84,14 @@ export const submitContactMessage = createServerFn({ method: "POST" })
     }
 
     await checkRateLimit("contact", normalizedEmail || data.phone);
-    const { error } = await publicClient().from("contact_submissions").insert({
-      name: data.name,
-      email: normalizedEmail || null,
-      phone: data.phone,
-      message: data.message,
-    });
+    const { error } = await publicClient()
+      .from("contact_submissions")
+      .insert({
+        name: data.name,
+        email: normalizedEmail || null,
+        phone: data.phone,
+        message: data.message,
+      });
     if (error) {
       console.error("Contact submission insert failed", { code: error.code });
       throw new Error("Unable to send your message. Please try again.");
@@ -104,15 +105,17 @@ export const createHomeVisitRequest = createServerFn({ method: "POST" })
     setResponseHeader("cache-control", "no-store");
     const digits = data.phone.replace(/\D/g, "");
     await checkRateLimit("home_visit", digits);
-    const { error } = await publicClient().from("home_visit_requests").insert({
-      full_name: data.full_name,
-      phone: data.phone,
-      address: data.address,
-      medical_condition: data.medical_condition,
-      preferred_date: data.preferred_date,
-      preferred_time: data.preferred_time,
-      notes: data.notes?.trim() || null,
-    });
+    const { error } = await publicClient()
+      .from("home_visit_requests")
+      .insert({
+        full_name: data.full_name,
+        phone: data.phone,
+        address: data.address,
+        medical_condition: data.medical_condition,
+        preferred_date: data.preferred_date,
+        preferred_time: data.preferred_time,
+        notes: data.notes?.trim() || null,
+      });
     if (error) {
       console.error("Home visit submission insert failed", { code: error.code });
       throw new Error("Unable to submit your request. Please try again.");
