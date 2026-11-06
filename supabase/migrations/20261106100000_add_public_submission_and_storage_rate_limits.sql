@@ -166,7 +166,7 @@ REVOKE ALL ON FUNCTION public.enforce_storage_upload_rate_limit()
 
 DROP TRIGGER IF EXISTS storage_upload_rate_limit_guard ON storage.objects;
 CREATE TRIGGER storage_upload_rate_limit_guard
-BEFORE INSERT ON storage.objects
+BEFORE INSERT OR UPDATE OF bucket_id, name, metadata ON storage.objects
 FOR EACH ROW
 EXECUTE FUNCTION public.enforce_storage_upload_rate_limit();
 
