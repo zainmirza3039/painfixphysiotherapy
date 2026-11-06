@@ -31,3 +31,9 @@ The `Secret history scan` workflow fetches complete history and scans added line
 ## Release and verification
 
 The migration is additive and must be applied before the new application code is deployed. The application changes and migration are proposed together in a reviewable PR. No production migration, deployment, environment-variable update, or live form submission is performed by this change. CI must pass before merge. After staging verification, apply the migration, deploy the app, and test contact, home-visit, media and report uploads with approved test data.
+
+## Current historical scan result
+
+The full-history scan covered more than 1,000 commits. Two findings were historical Supabase publishable/anon client keys; their exact fingerprints are allowlisted because these keys are intended for browser use and are not service-role credentials. No `SUPABASE_SERVICE_ROLE_KEY` finding was reported.
+
+One historical Google Maps browser API key remains flagged in a public `.env` commit dated 2026-07-11 (commit `bad812fce6e1dfc98985bbb26cd023d83046fd2c`, line 4). The variable is not referenced by the current source tree, but the old key must be disabled if unused, or restricted to approved HTTP referrers and required APIs if still in use. Do not add its fingerprint to the ignore file until the key has been disabled/rotated or its restrictions have been verified. The secret-history workflow is intentionally failing while this finding remains unremediated.
