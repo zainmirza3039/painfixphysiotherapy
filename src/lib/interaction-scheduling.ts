@@ -14,12 +14,15 @@ export function debounce<TArgs extends unknown[]>(
   const debounced = ((...args: TArgs) => {
     latestArgs = args;
     if (timer) clearTimeout(timer);
-    timer = setTimeout(() => {
-      timer = undefined;
-      const pending = latestArgs;
-      latestArgs = undefined;
-      if (pending) callback(...pending);
-    }, Math.max(0, delayMs));
+    timer = setTimeout(
+      () => {
+        timer = undefined;
+        const pending = latestArgs;
+        latestArgs = undefined;
+        if (pending) callback(...pending);
+      },
+      Math.max(0, delayMs),
+    );
   }) as CancelableCallback<TArgs>;
 
   debounced.cancel = () => {
