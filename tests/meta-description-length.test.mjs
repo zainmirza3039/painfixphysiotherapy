@@ -37,15 +37,15 @@ test("literal static meta descriptions stay within 160 characters", async () => 
 
   for (const path of sourceFiles) {
     const source = await readFile(new URL(path, repo), "utf8");
-    const matches = source.matchAll(/(?:metaDescription|DESCRIPTION)\\s*[:=]\\s*(["'`])([\\s\\S]*?)\\1/g);
+    const matches = source.matchAll(/(?:metaDescription|DESCRIPTION)\s*[:=]\s*(["'])([\s\S]*?)\1/g);
 
     for (const match of matches) {
-      const description = match[2].replace(/\\s+/g, " ").trim();
+      const description = match[2].replace(/\s+/g, " ").trim();
       if (description.length > 160) {
-        overlong.push(`${path}: ${description.length} characters — ${description}`);
+        overlong.push(path + ": " + description.length + " characters — " + description);
       }
     }
   }
 
-  assert.deepEqual(overlong, [], overlong.join("\\n"));
+  assert.deepEqual(overlong, [], overlong.join("\n"));
 });
