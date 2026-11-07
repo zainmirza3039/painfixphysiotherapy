@@ -94,17 +94,25 @@ function GalleryManagerPage() {
     },
     onMutate: async (asset) => {
       const current = galleryQuery.data ?? [];
-      const caption = asset.name.replace(/^.*\//, "").replace(/\.[^.]+$/, "").replace(/[-_]+/g, " ").trim();
-      return updateListOptimistically<GalleryRow>(queryClient, ["admin", "site-gallery"], (items) => [
-        ...items,
-        {
-          id: `optimistic-${asset.name}`,
-          storage_path: asset.name,
-          caption: caption || "PainFix Clinic",
-          alt_text: "Photo from PainFix Physiotherapy Clinic in Multan",
-          display_order: current.length,
-        },
-      ]);
+      const caption = asset.name
+        .replace(/^.*\//, "")
+        .replace(/\.[^.]+$/, "")
+        .replace(/[-_]+/g, " ")
+        .trim();
+      return updateListOptimistically<GalleryRow>(
+        queryClient,
+        ["admin", "site-gallery"],
+        (items) => [
+          ...items,
+          {
+            id: `optimistic-${asset.name}`,
+            storage_path: asset.name,
+            caption: caption || "PainFix Clinic",
+            alt_text: "Photo from PainFix Physiotherapy Clinic in Multan",
+            display_order: current.length,
+          },
+        ],
+      );
     },
     onSuccess: () => toast.success("Image added to website gallery"),
     onError: (error, _asset, context) => {
@@ -141,7 +149,11 @@ function GalleryManagerPage() {
     },
     onMutate: (item) =>
       updateListOptimistically<GalleryRow>(queryClient, ["admin", "site-gallery"], (items) =>
-        items.map((current) => current.id === item.id ? { ...current, caption: item.caption, alt_text: item.alt_text } : current),
+        items.map((current) =>
+          current.id === item.id
+            ? { ...current, caption: item.caption, alt_text: item.alt_text }
+            : current,
+        ),
       ),
     onError: (error, _item, context) => {
       rollbackOptimisticList(queryClient, ["admin", "site-gallery"], context);
@@ -170,7 +182,8 @@ function GalleryManagerPage() {
           if (item.id === first.id) return { ...item, display_order: second.display_order };
           if (item.id === second.id) return { ...item, display_order: first.display_order };
           return item;
-        }).sort((a, b) => a.display_order - b.display_order),
+        })
+          .sort((a, b) => a.display_order - b.display_order),
       ),
     onError: (error, _variables, context) => {
       rollbackOptimisticList(queryClient, ["admin", "site-gallery"], context);
