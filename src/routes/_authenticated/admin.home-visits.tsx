@@ -8,7 +8,6 @@ import type { Database } from "@/integrations/supabase/types";
 import { useAdminAuth } from "@/admin/AdminAuthProvider";
 import { AdminPageHeader } from "@/components/admin/AdminPageHeader";
 import { rollbackOptimisticList, updateListOptimistically } from "@/admin/optimistic";
-import { rollbackOptimisticList, updateListOptimistically } from "@/admin/optimistic";
 import { exportToCsv, fmtDate, fmtDateTime } from "@/admin/utils";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
