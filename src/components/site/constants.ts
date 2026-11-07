@@ -66,6 +66,10 @@ export const SOCIAL_LINKS = {
     url: "https://www.linkedin.com/company/painfix-physiotherapy-clinic1/",
     username: "PainFix Physiotherapy Clinic",
   },
+  youtube: {
+    url: "https://www.youtube.com/@painfixphysiotherapy1",
+    username: "@painfixphysiotherapy1",
+  },
 };
 
 export const NAV_LINKS = [
