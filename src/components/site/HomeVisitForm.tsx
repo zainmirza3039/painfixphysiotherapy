@@ -101,7 +101,6 @@ export function HomeVisitForm() {
         <p className="mt-2 text-sm leading-6 text-muted-foreground">
           Your home-visit request has been submitted. This is a request, not a confirmed
           appointment; the PainFix team will contact you to confirm availability.
-          the PainFix team will contact you to confirm availability.
         </p>
         <button
           type="button"
@@ -116,6 +115,7 @@ export function HomeVisitForm() {
 
   return (
     <form onSubmit={onSubmit} aria-busy={submitting} className="grid gap-4 sm:grid-cols-2">
+      <fieldset disabled={submitting} className="contents">
         <div>
           <label className={labelClassName} htmlFor="full_name">
             {f.fullName} *
@@ -266,6 +266,7 @@ export function HomeVisitForm() {
             )}
           </button>
         </div>
+      </fieldset>
     </form>
   );
 }
