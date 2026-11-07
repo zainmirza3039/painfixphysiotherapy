@@ -6,6 +6,7 @@ import { Search, Trash2, MessageSquare, Eye, Mail, Phone } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import type { Database } from "@/integrations/supabase/types";
 import { AdminPageHeader } from "@/components/admin/AdminPageHeader";
+import { rollbackOptimisticList, updateListOptimistically } from "@/admin/optimistic";
 import { AdminOnly } from "@/components/admin/AdminOnly";
 import { fmtDateTime } from "@/admin/utils";
 import { Button } from "@/components/ui/button";
@@ -91,11 +92,27 @@ function MessagesPage() {
     );
   }, [rows, search]);
 
-  async function updateStatus(m: Message, status: string) {
-    const { error } = await supabase.from("contact_submissions").update({ status }).eq("id", m.id);
-    if (error) return toast.error(error.message);
-    qc.invalidateQueries({ queryKey: ["admin", "messages"] });
-    qc.invalidateQueries({ queryKey: ["admin", "dashboard"] });
+  const statusMutation = useMutation({
+    mutationFn: async ({ id, status }: { id: string; status: string }) => {
+      const { error } = await supabase.from("contact_submissions").update({ status }).eq("id", id);
+      if (error) throw error;
+    },
+    onMutate: ({ id, status }) =>
+      updateListOptimistically<Message>(qc, ["admin", "messages"], (current) =>
+        current.map((message) => message.id === id ? { ...message, status } : message),
+      ),
+    onError: (error, _variables, context) => {
+      rollbackOptimisticList(qc, ["admin", "messages"], context);
+      toast.error(error instanceof Error ? error.message : "Unable to update message status");
+    },
+    onSettled: () => {
+      void qc.invalidateQueries({ queryKey: ["admin", "messages"] });
+      void qc.invalidateQueries({ queryKey: ["admin", "dashboard"] });
+    },
+  });
+
+  function updateStatus(m: Message, status: string) {
+    statusMutation.mutate({ id: m.id, status });
   }
 
   function openMessage(m: Message) {
