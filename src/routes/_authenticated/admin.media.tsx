@@ -5,6 +5,7 @@ import { toast } from "sonner";
 import { Upload, Trash2, Copy, Loader2, Image as ImageIcon, FileText } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { AdminPageHeader } from "@/components/admin/AdminPageHeader";
+import { rollbackOptimisticList, updateListOptimistically } from "@/admin/optimistic";
 import { ContentOnly } from "@/components/admin/ContentOnly";
 import { useAdminAuth } from "@/admin/AdminAuthProvider";
 import { Button } from "@/components/ui/button";
@@ -85,12 +86,19 @@ function MediaPage() {
       const { error } = await supabase.storage.from("site-media").remove([name]);
       if (error) throw error;
     },
+    onMutate: (name) =>
+      updateListOptimistically<MediaFile>(qc, ["admin", "media", prefix], (current) =>
+        current.filter((file) => file.name !== name),
+      ),
+    onError: (error, _name, context) => {
+      rollbackOptimisticList(qc, ["admin", "media", prefix], context);
+      toast.error(error instanceof Error ? error.message : "Delete failed");
+    },
     onSuccess: () => {
-      qc.invalidateQueries({ queryKey: ["admin", "media"] });
       setDeleteName(null);
       toast.success("File deleted");
     },
-    onError: (e) => toast.error(e instanceof Error ? e.message : "Delete failed"),
+    onSettled: () => void qc.invalidateQueries({ queryKey: ["admin", "media"] }),
   });
 
   async function handleUpload(e: React.ChangeEvent<HTMLInputElement>) {
