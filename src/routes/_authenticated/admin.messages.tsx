@@ -72,6 +72,8 @@ function MessagesPage() {
   const [search, setSearch] = useState("");
   const debouncedSearch = useDebouncedValue(search, 250);
   const [statusFilter, setStatusFilter] = useState("all");
+  const [dateFrom, setDateFrom] = useState("");
+  const [dateTo, setDateTo] = useState("");
   const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
   const [selected, setSelected] = useState<Message | null>(null);
   const [deleteId, setDeleteId] = useState<string | null>(null);
@@ -97,12 +99,14 @@ function MessagesPage() {
     const q = debouncedSearch.trim().toLowerCase();
     return (rows ?? []).filter((row) => {
       if (statusFilter !== "all" && (row.status ?? "new") !== statusFilter) return false;
+      if (dateFrom && new Date(row.created_at) < new Date(`${dateFrom}T00:00:00`)) return false;
+      if (dateTo && new Date(row.created_at) > new Date(`${dateTo}T23:59:59.999`)) return false;
       if (!q) return true;
       return [row.name, row.email, row.phone, row.message]
         .filter(Boolean)
         .some((value) => String(value).toLowerCase().includes(q));
     });
-  }, [rows, debouncedSearch, statusFilter]);
+  }, [rows, debouncedSearch, statusFilter, dateFrom, dateTo]);
 
   function toggleMessage(id: string, checked: boolean) {
     setSelectedIds((current) => {
@@ -225,6 +229,37 @@ function MessagesPage() {
             ))}
           </SelectContent>
         </Select>
+        <Input
+          type="date"
+          value={dateFrom}
+          max={dateTo || undefined}
+          onChange={(event) => setDateFrom(event.target.value)}
+          aria-label="Filter messages from date"
+          className="w-full sm:w-[150px]"
+        />
+        <Input
+          type="date"
+          value={dateTo}
+          min={dateFrom || undefined}
+          onChange={(event) => setDateTo(event.target.value)}
+          aria-label="Filter messages to date"
+          className="w-full sm:w-[150px]"
+        />
+        {(search || statusFilter !== "all" || dateFrom || dateTo) && (
+          <Button
+            type="button"
+            variant="ghost"
+            size="sm"
+            onClick={() => {
+              setSearch("");
+              setStatusFilter("all");
+              setDateFrom("");
+              setDateTo("");
+            }}
+          >
+            Clear filters
+          </Button>
+        )}
         <div className="flex flex-wrap items-center gap-2 sm:ml-auto">
           <span className="mr-1 text-xs text-muted-foreground" aria-live="polite">
             {selectedIds.size} selected
