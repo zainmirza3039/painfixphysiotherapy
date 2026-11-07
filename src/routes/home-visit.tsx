@@ -23,24 +23,27 @@ import { HomeVisitForm } from "@/components/site/HomeVisitForm";
 import { useI18n } from "@/i18n/LanguageProvider";
 import { WHATSAPP_URL, PHONE_TEL, PHONE_DISPLAY, SITE_URL } from "@/components/site/constants";
 import { SERVICE_FEES } from "@/data/serviceFees";
+import { pageMeta, canonical, breadcrumbLd } from "@/lib/seo";
 
-const TITLE = "Book a Home Visit — Home Physiotherapy in Multan | PainFix";
+const TITLE = "Home Physiotherapy in Multan | Book a Home Visit — PainFix";
 const DESCRIPTION =
-  "Premium home physiotherapy in Multan. Licensed physiotherapists deliver assessment, treatment and rehabilitation at your home. Request a visit today.";
+  "Need a physiotherapist at home in Multan? Request an assessment-led home visit for pain, mobility limitations or post-surgical rehabilitation. Confirm your area and appointment with PainFix.";
 
 export const Route = createFileRoute("/home-visit")({
   head: () => ({
-    meta: [
-      { title: TITLE },
-      { name: "description", content: DESCRIPTION },
-      { property: "og:title", content: TITLE },
-      { property: "og:description", content: DESCRIPTION },
-      { property: "og:url", content: `${SITE_URL}/home-visit` },
-      { name: "twitter:title", content: TITLE },
-      { name: "twitter:description", content: DESCRIPTION },
-      { name: "twitter:card", content: "summary_large_image" },
+    meta: pageMeta({
+      title: TITLE,
+      description: DESCRIPTION,
+      path: "/home-visit",
+      image: `${SITE_URL}/painfix-logo.png`,
+    }),
+    links: canonical("/home-visit"),
+    scripts: [
+      breadcrumbLd([
+        { label: "Home", path: "/" },
+        { label: "Home Physiotherapy in Multan", path: "/home-visit" },
+      ]),
     ],
-    links: [{ rel: "canonical", href: `${SITE_URL}/home-visit` }],
   }),
   component: HomeVisitPage,
 });
