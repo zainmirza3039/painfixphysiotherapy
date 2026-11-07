@@ -381,8 +381,8 @@ export function AdminShell({ children }: { children: ReactNode }) {
                 <Search className="h-4 w-4" />
                 <span className="hidden sm:inline">Search pages</span>
                 <kbd className="hidden rounded border bg-muted px-1.5 py-0.5 text-[10px] font-medium sm:inline">
-                ⌘ / Ctrl K
-              </kbd>
+                  ⌘ / Ctrl K
+                </kbd>
               </Button>
               <span className="hidden max-w-[220px] truncate text-sm text-muted-foreground xl:inline">
                 {user?.email}
@@ -417,7 +417,12 @@ export function AdminShell({ children }: { children: ReactNode }) {
               <Button variant="ghost" size="icon" onClick={toggle} aria-label="Toggle theme">
                 {dark ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
               </Button>
-              <Button variant="outline" size="sm" onClick={signOut} className="hidden sm:inline-flex">
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={signOut}
+                className="hidden sm:inline-flex"
+              >
                 <LogOut className="mr-2 h-4 w-4" /> Sign out
               </Button>
               <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
