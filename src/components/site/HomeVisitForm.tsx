@@ -99,8 +99,7 @@ export function HomeVisitForm() {
         <CheckCircle2 className="h-7 w-7 text-secondary" aria-hidden="true" />
         <h3 className="mt-3 font-heading text-lg font-bold text-foreground">Request received</h3>
         <p className="mt-2 text-sm leading-6 text-muted-foreground">
-          Your home-visit request has been submitted.
-          This is a request, not a confirmed
+          Your home-visit request has been submitted. This is a request, not a confirmed
           appointment. The PainFix team will contact you to confirm availability.
         </p>
         <button
@@ -256,13 +255,13 @@ export function HomeVisitForm() {
           >
             {submitting ? (
               <>
-                <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" />{" "}
-                {t.actions.submitting}
+                <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" />
+                <span className="ml-2">{t.actions.submitting}</span>
               </>
             ) : (
               <>
-                <Send className="h-4 w-4" aria-hidden="true" />{" "}
-                {t.actions.submit}
+                <Send className="h-4 w-4" aria-hidden="true" />
+                <span className="ml-2">{t.actions.submit}</span>
               </>
             )}
           </button>
