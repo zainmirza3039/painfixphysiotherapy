@@ -11,7 +11,7 @@ import { pageMeta, canonical, breadcrumbLd } from "@/lib/seo";
 const PATH = "/fitness-resources";
 const TITLE = "Free Fitness & Exercise Resources in Multan | PainFix";
 const DESCRIPTION =
-  "Free, physiotherapist-approved fitness resources from PainFix Multan — exercise guides, mobility routines, injury-prevention tips, recovery advice and healthy-eating basics.";
+  "Free physiotherapist-approved fitness resources from PainFix Multan: exercise guides, mobility routines, injury prevention and recovery advice.";
 
 const GUIDES = [
   {
