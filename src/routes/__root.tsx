@@ -216,6 +216,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
             "https://instagram.com/painfixphysiotherapy_",
             "https://tiktok.com/@painfixphysiotherapy",
             "https://www.linkedin.com/company/painfix-physiotherapy-clinic1/",
+            "https://www.youtube.com/@painfixphysiotherapy1",
           ],
         }),
       },

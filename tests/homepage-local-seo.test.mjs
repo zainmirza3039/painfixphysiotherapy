@@ -18,9 +18,9 @@ test("homepage keeps the primary Multan physiotherapist keyword and canonical UR
 
 test("homepage metadata covers the clinic and core treatment-intent cluster without keyword stuffing", () => {
   const home = source("routes/index.tsx");
-  assert.ok(home.includes("physiotherapy clinic in Shalimar Colony, Multan"));
-  assert.ok(home.includes("back pain, sciatica, knee or neck pain"));
-  assert.ok(home.includes("selected home visits"));
+  assert.ok(home.includes("PainFix Physiotherapy Clinic in Shalimar Colony, Multan"));
+  assert.ok(home.includes("back pain, sciatica, knee pain, injuries"));
+  assert.ok(home.includes("home visits."));
 });
 
 test("homepage hero naturally supports local clinic and home-visit searches", () => {
