@@ -57,6 +57,14 @@ function BlogEditorPage() {
       : null;
   const [form, setForm] = useState(blank);
   const [slugEdited, setSlugEdited] = useState(false);
+  const [hasEdited, setHasEdited] = useState(false);
+  const [draftReady, setDraftReady] = useState(false);
+  const [draftStatus, setDraftStatus] = useState<"idle" | "saving" | "saved" | "unavailable">("idle");
+  const [savedLocalDraft, setSavedLocalDraft] = useState<{
+    form: typeof blank;
+    savedAt: number;
+  } | null>(null);
+  const draftKey = `painfix:blog-editor:${postId ?? "new"}`;
 
   const postQuery = useQuery({
     queryKey: ["admin", "blog-editor", postId],
@@ -75,6 +83,42 @@ function BlogEditorPage() {
       return data;
     },
   });
+
+  useEffect(() => {
+    if (postId && postQuery.isLoading) return;
+    try {
+      const raw = window.localStorage.getItem(draftKey);
+      if (raw) {
+        const parsed = JSON.parse(raw) as { form?: Partial<typeof blank>; savedAt?: number };
+        if (parsed.form && typeof parsed.form === "object") {
+          setSavedLocalDraft({
+            form: { ...blank, ...parsed.form },
+            savedAt: typeof parsed.savedAt === "number" ? parsed.savedAt : Date.now(),
+          });
+        }
+      }
+    } catch {
+      window.localStorage.removeItem(draftKey);
+    }
+    setDraftReady(true);
+  }, [draftKey, postId, postQuery.isLoading]);
+
+  useEffect(() => {
+    if (!draftReady || !hasEdited) return;
+    setDraftStatus("saving");
+    const timer = window.setTimeout(() => {
+      try {
+        window.localStorage.setItem(
+          draftKey,
+          JSON.stringify({ form, savedAt: Date.now() }),
+        );
+        setDraftStatus("saved");
+      } catch {
+        setDraftStatus("unavailable");
+      }
+    }, 800);
+    return () => window.clearTimeout(timer);
+  }, [draftReady, draftKey, form, hasEdited]);
 
   useEffect(() => {
     if (!postQuery.data) return;
@@ -143,6 +187,7 @@ function BlogEditorPage() {
       }
     },
     onSuccess: async () => {
+      window.localStorage.removeItem(draftKey);
       await queryClient.invalidateQueries({ queryKey: ["admin", "blog"] });
       toast.success(postId ? "Article updated" : "Article created");
       window.location.assign("/admin/blog");
@@ -151,8 +196,19 @@ function BlogEditorPage() {
       toast.error(error instanceof Error ? error.message : "Unable to save article"),
   });
 
-  const set = (key: keyof typeof blank, value: string) =>
+  const set = (key: keyof typeof blank, value: string) => {
+    setHasEdited(true);
     setForm((current) => ({ ...current, [key]: value }));
+  };
+
+  function restoreLocalDraft() {
+    if (!savedLocalDraft) return;
+    setForm({ ...blank, ...savedLocalDraft.form });
+    setSlugEdited(true);
+    setHasEdited(true);
+    setSavedLocalDraft(null);
+    toast.success("Local draft restored");
+  }
 
   if (postId && postQuery.isLoading)
     return (
@@ -325,11 +381,32 @@ function BlogEditorPage() {
           </div>
         </section>
         <div className="sticky bottom-3 z-10 flex flex-wrap items-center justify-between gap-3 rounded-xl border border-border bg-background/95 p-3 shadow-lg backdrop-blur">
-          <p className="text-xs text-muted-foreground">
-            {form.status === "published"
-              ? "This article is set to publish."
-              : "This article is saved as a draft unless you change its status."}
-          </p>
+          <div className="min-w-0 space-y-1">
+            <p className="text-xs text-muted-foreground">
+              {form.status === "published"
+                ? "This article is set to publish."
+                : "This article is saved as a draft unless you change its status."}
+            </p>
+            <p className="text-xs text-muted-foreground" role="status" aria-live="polite">
+              {draftStatus === "saving"
+                ? "Saving a local draft…"
+                : draftStatus === "saved"
+                  ? "Local draft saved in this browser."
+                  : draftStatus === "unavailable"
+                    ? "Browser storage is unavailable; use Save article to keep your changes."
+                    : "Changes are saved locally after you edit."}
+            </p>
+            {savedLocalDraft && (
+              <div className="flex flex-wrap items-center gap-2">
+                <span className="text-xs text-muted-foreground">
+                  A previous local draft is available.
+                </span>
+                <Button type="button" size="sm" variant="link" className="h-auto p-0" onClick={restoreLocalDraft}>
+                  Restore local draft
+                </Button>
+              </div>
+            )}
+          </div>
           <div className="flex gap-2">
             <Button
               type="button"

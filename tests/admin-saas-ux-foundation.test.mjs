@@ -102,3 +102,13 @@ test("messages workspace supports status filtering and safe bulk status actions"
   assert.match(page, /rollbackOptimisticList\(qc, \["admin", "messages"\]/);
   assert.match(page, /\.in\("id", ids\)/);
 });
+
+test("blog editor keeps an explicit local autosave and restore workflow", () => {
+  const editor = source("routes/_authenticated/admin.blog-editor.tsx");
+  assert.match(editor, /localStorage\.setItem/);
+  assert.match(editor, /localStorage\.removeItem\(draftKey\)/);
+  assert.match(editor, /Restore local draft/);
+  assert.match(editor, /window\.setTimeout/);
+  assert.match(editor, /draftStatus === "saved"/);
+  assert.match(editor, /setHasEdited\(true\)/);
+});
