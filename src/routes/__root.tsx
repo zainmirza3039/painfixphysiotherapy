@@ -6,6 +6,7 @@ import {
   Link,
   createRootRouteWithContext,
   useRouter,
+  useRouterState,
   HeadContent,
   Scripts,
 } from "@tanstack/react-router";
@@ -263,6 +264,22 @@ function RootShell({ children }: { children: ReactNode }) {
   );
 }
 
+function NavigationProgress() {
+  const isLoading = useRouterState({ select: (state) => state.isLoading });
+
+  if (!isLoading) return null;
+
+  return (
+    <div
+      role="progressbar"
+      aria-label="Loading page"
+      className="fixed inset-x-0 top-0 z-[100] h-1 overflow-hidden bg-primary/15"
+    >
+      <div className="h-full w-1/3 animate-pulse rounded-r-full bg-secondary" />
+    </div>
+  );
+}
+
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
   const router = useRouter();
@@ -291,6 +308,7 @@ function RootComponent() {
     <QueryClientProvider client={queryClient}>
       <ThemeProvider>
         <LanguageProvider>
+          <NavigationProgress />
           {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
           <Outlet />
           <HomeVisitFab />
