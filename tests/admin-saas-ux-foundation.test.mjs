@@ -78,3 +78,17 @@ test("clinic record search pages use debounced values for derived filtering", ()
     assert.match(page, /debouncedSearch\.trim\(\)\.toLowerCase\(\)/);
   }
 });
+
+test("core admin record lists distinguish query failures from empty results and expose retry", () => {
+  for (const path of [
+    "routes/_authenticated/admin.patients.tsx",
+    "routes/_authenticated/admin.appointments.tsx",
+    "routes/_authenticated/admin.messages.tsx",
+    "routes/_authenticated/admin.home-visits.tsx",
+    "routes/_authenticated/admin.users.tsx",
+  ]) {
+    const page = source(path);
+    assert.match(page, /isError, refetch/);
+    assert.match(page, /<AdminQueryError onRetry=\{\(\) => void refetch\(\)\} \/>/);
+  }
+});

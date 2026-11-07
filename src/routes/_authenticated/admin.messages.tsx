@@ -7,6 +7,7 @@ import { Search, Trash2, MessageSquare, Eye, Mail, Phone } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import type { Database } from "@/integrations/supabase/types";
 import { AdminPageHeader } from "@/components/admin/AdminPageHeader";
+import { AdminQueryError } from "@/components/admin/AdminQueryError";
 import { rollbackOptimisticList, updateListOptimistically } from "@/admin/optimistic";
 import { AdminOnly } from "@/components/admin/AdminOnly";
 import { fmtDateTime } from "@/admin/utils";
@@ -72,7 +73,7 @@ function MessagesPage() {
   const [selected, setSelected] = useState<Message | null>(null);
   const [deleteId, setDeleteId] = useState<string | null>(null);
 
-  const { data: rows, isLoading } = useQuery({
+  const { data: rows, isLoading, isError, refetch } = useQuery({
     queryKey: ["admin", "messages"],
     queryFn: async () => {
       const { data, error } = await supabase
@@ -166,6 +167,8 @@ function MessagesPage() {
               <Skeleton key={i} className="h-12" />
             ))}
           </div>
+        ) : isError ? (
+          <AdminQueryError onRetry={() => void refetch()} />
         ) : filtered.length === 0 ? (
           <div className="flex flex-col items-center gap-2 py-16 text-muted-foreground">
             <MessageSquare className="h-8 w-8" />

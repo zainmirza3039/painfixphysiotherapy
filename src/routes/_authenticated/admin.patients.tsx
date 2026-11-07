@@ -8,6 +8,7 @@ import { supabase } from "@/integrations/supabase/client";
 import type { Database } from "@/integrations/supabase/types";
 import { useAdminAuth } from "@/admin/AdminAuthProvider";
 import { AdminPageHeader } from "@/components/admin/AdminPageHeader";
+import { AdminQueryError } from "@/components/admin/AdminQueryError";
 import { rollbackOptimisticList, updateListOptimistically } from "@/admin/optimistic";
 import { exportToCsv, fmtDate } from "@/admin/utils";
 import { Button } from "@/components/ui/button";
@@ -97,7 +98,7 @@ function PatientsPage() {
   const [form, setForm] = useState({ ...empty });
   const [deleteId, setDeleteId] = useState<string | null>(null);
 
-  const { data: patients, isLoading } = useQuery({
+  const { data: patients, isLoading, isError, refetch } = useQuery({
     queryKey: ["admin", "patients"],
     queryFn: async () => {
       const { data, error } = await supabase
@@ -255,6 +256,8 @@ function PatientsPage() {
               <Skeleton key={i} className="h-12" />
             ))}
           </div>
+        ) : isError ? (
+          <AdminQueryError onRetry={() => void refetch()} />
         ) : filtered.length === 0 ? (
           <div className="flex flex-col items-center gap-2 py-16 text-muted-foreground">
             <Users className="h-8 w-8" />

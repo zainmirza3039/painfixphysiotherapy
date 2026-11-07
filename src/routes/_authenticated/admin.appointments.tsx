@@ -7,6 +7,7 @@ import { Plus, Search, Download, Pencil, Loader2, CalendarClock } from "lucide-r
 import { supabase } from "@/integrations/supabase/client";
 import type { Database } from "@/integrations/supabase/types";
 import { AdminPageHeader } from "@/components/admin/AdminPageHeader";
+import { AdminQueryError } from "@/components/admin/AdminQueryError";
 import { rollbackOptimisticList, updateListOptimistically } from "@/admin/optimistic";
 import { exportToCsv, fmtDateTime } from "@/admin/utils";
 import { Button } from "@/components/ui/button";
@@ -88,7 +89,7 @@ function AppointmentsPage() {
   const [editing, setEditing] = useState<Appointment | null>(null);
   const [form, setForm] = useState({ ...empty });
 
-  const { data: rows, isLoading } = useQuery({
+  const { data: rows, isLoading, isError, refetch } = useQuery({
     queryKey: ["admin", "appointments"],
     queryFn: async () => {
       const { data, error } = await supabase
@@ -290,6 +291,8 @@ function AppointmentsPage() {
               <Skeleton key={i} className="h-12" />
             ))}
           </div>
+        ) : isError ? (
+          <AdminQueryError onRetry={() => void refetch()} />
         ) : filtered.length === 0 ? (
           <div className="flex flex-col items-center gap-2 py-16 text-muted-foreground">
             <CalendarClock className="h-8 w-8" />

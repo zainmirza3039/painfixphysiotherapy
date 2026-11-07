@@ -14,6 +14,7 @@ import {
   type AdminUserRow,
 } from "@/admin/admin.functions";
 import { AdminPageHeader } from "@/components/admin/AdminPageHeader";
+import { AdminQueryError } from "@/components/admin/AdminQueryError";
 import { rollbackOptimisticList, updateListOptimistically } from "@/admin/optimistic";
 import { AdminOnly } from "@/components/admin/AdminOnly";
 import { fmtDateTime } from "@/admin/utils";
@@ -79,7 +80,7 @@ function UsersPage() {
   });
   const [deleteId, setDeleteId] = useState<string | null>(null);
 
-  const { data: users, isLoading } = useQuery({
+  const { data: users, isLoading, isError, refetch } = useQuery({
     queryKey: ["admin", "users"],
     queryFn: () => list(),
   });
@@ -152,6 +153,8 @@ function UsersPage() {
               <Skeleton key={i} className="h-12" />
             ))}
           </div>
+        ) : isError ? (
+          <AdminQueryError onRetry={() => void refetch()} />
         ) : (
           <div className="overflow-x-auto">
             <Table>
