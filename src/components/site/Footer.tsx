@@ -5,6 +5,7 @@ import {
   MapPin,
   Phone,
   Linkedin,
+  Youtube,
   MessageCircle,
   Clock,
   ArrowRight,
@@ -27,6 +28,7 @@ const socials = [
   { icon: Instagram, label: "Instagram", ...SOCIAL_LINKS.instagram },
   { icon: Music2, label: "TikTok", ...SOCIAL_LINKS.tiktok },
   { icon: Linkedin, label: "LinkedIn", ...SOCIAL_LINKS.linkedin },
+  { icon: Youtube, label: "YouTube", ...SOCIAL_LINKS.youtube },
 ];
 
 export function Footer({ hideClinicDetails = false }: { hideClinicDetails?: boolean }) {
