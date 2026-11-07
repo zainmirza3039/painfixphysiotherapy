@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
+import { useDebouncedValue } from "@/hooks/use-debounced-value";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { Search, Download, Trash2, Home, Phone, MapPin, Eye, FileText } from "lucide-react";
@@ -67,6 +68,7 @@ function HomeVisitsPage() {
   const { isAdmin } = useAdminAuth();
   const qc = useQueryClient();
   const [search, setSearch] = useState("");
+  const debouncedSearch = useDebouncedValue(search, 250);
   const [statusFilter, setStatusFilter] = useState("all");
   const [selected, setSelected] = useState<Visit | null>(null);
   const [deleteId, setDeleteId] = useState<string | null>(null);
@@ -84,7 +86,7 @@ function HomeVisitsPage() {
   });
 
   const filtered = useMemo(() => {
-    const q = search.trim().toLowerCase();
+    const q = debouncedSearch.trim().toLowerCase();
     return (rows ?? []).filter((r) => {
       const status = r.status ?? "new";
       if (statusFilter !== "all" && status !== statusFilter) return false;
@@ -93,7 +95,7 @@ function HomeVisitsPage() {
         .filter(Boolean)
         .some((v) => String(v).toLowerCase().includes(q));
     });
-  }, [rows, search, statusFilter]);
+  }, [rows, debouncedSearch, statusFilter]);
 
   const statusMutation = useMutation({
     mutationFn: async ({ id, status }: { id: string; status: string }) => {

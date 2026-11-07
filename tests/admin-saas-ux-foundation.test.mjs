@@ -65,3 +65,16 @@ test("root route retains dedicated not-found and recoverable error views", () =>
   assert.match(root, /router\.invalidate\(\)/);
   assert.match(root, /Try again/);
 });
+
+test("clinic record search pages use debounced values for derived filtering", () => {
+  for (const path of [
+    "routes/_authenticated/admin.patients.tsx",
+    "routes/_authenticated/admin.appointments.tsx",
+    "routes/_authenticated/admin.messages.tsx",
+    "routes/_authenticated/admin.home-visits.tsx",
+  ]) {
+    const page = source(path);
+    assert.match(page, /useDebouncedValue\(search, 250\)/);
+    assert.match(page, /debouncedSearch\.trim\(\)\.toLowerCase\(\)/);
+  }
+});

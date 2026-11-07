@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
+import { useDebouncedValue } from "@/hooks/use-debounced-value";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { Plus, Search, Download, Pencil, Trash2, Loader2, Users } from "lucide-react";
@@ -90,6 +91,7 @@ function PatientsPage() {
   const { isAdmin } = useAdminAuth();
   const qc = useQueryClient();
   const [search, setSearch] = useState("");
+  const debouncedSearch = useDebouncedValue(search, 250);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [editing, setEditing] = useState<Patient | null>(null);
   const [form, setForm] = useState({ ...empty });
@@ -108,14 +110,14 @@ function PatientsPage() {
   });
 
   const filtered = useMemo(() => {
-    const q = search.trim().toLowerCase();
+    const q = debouncedSearch.trim().toLowerCase();
     if (!q) return patients ?? [];
     return (patients ?? []).filter((p) =>
       [p.name, p.phone, p.patient_code, p.diagnosis, p.assigned_physiotherapist]
         .filter(Boolean)
         .some((v) => String(v).toLowerCase().includes(q)),
     );
-  }, [patients, search]);
+  }, [patients, debouncedSearch]);
 
   const saveMutation = useMutation({
     mutationFn: async () => {
