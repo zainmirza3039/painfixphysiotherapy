@@ -75,7 +75,7 @@ export function ContactForm() {
   }
 
   return (
-    <form onSubmit={onSubmit} className="grid gap-4">
+    <form onSubmit={onSubmit} aria-busy={submitting} className="grid gap-4">
       <div className="grid gap-4 sm:grid-cols-2">
         <div>
           <label className={labelCls} htmlFor="c-name">
@@ -145,6 +145,11 @@ export function ContactForm() {
           onChange={(e) => setBotField(e.target.value)}
         />
       </div>
+      {submitting && (
+        <p role="status" aria-live="polite" className="text-sm text-muted-foreground">
+          Sending your message securely…
+        </p>
+      )}
       <button
         type="submit"
         disabled={submitting}
