@@ -95,7 +95,9 @@ test("core admin record lists distinguish query failures from empty results and 
 
 test("messages workspace supports status filtering and safe bulk status actions", () => {
   const page = source("routes/_authenticated/admin.messages.tsx");
-  assert.match(page, /Filter messages by status/);\n  assert.match(page, /Filter messages from date/);\n  assert.match(page, /Filter messages to date/);
+  assert.match(page, /Filter messages by status/);
+  assert.match(page, /Filter messages from date/);
+  assert.match(page, /Filter messages to date/);
   assert.match(page, /Select all visible messages/);
   assert.match(page, /selectedIds\.size === 0/);
   assert.match(page, /updateListOptimistically<Message>/);
