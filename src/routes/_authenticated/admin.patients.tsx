@@ -7,6 +7,7 @@ import { supabase } from "@/integrations/supabase/client";
 import type { Database } from "@/integrations/supabase/types";
 import { useAdminAuth } from "@/admin/AdminAuthProvider";
 import { AdminPageHeader } from "@/components/admin/AdminPageHeader";
+import { rollbackOptimisticList, updateListOptimistically } from "@/admin/optimistic";
 import { exportToCsv, fmtDate } from "@/admin/utils";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -155,13 +156,22 @@ function PatientsPage() {
       const { error } = await supabase.from("patients").delete().eq("id", id);
       if (error) throw error;
     },
+    onMutate: (id) =>
+      updateListOptimistically<Patient>(qc, ["admin", "patients"], (current) =>
+        current.filter((patient) => patient.id !== id),
+      ),
+    onError: (error, _id, context) => {
+      rollbackOptimisticList(qc, ["admin", "patients"], context);
+      toast.error(error instanceof Error ? error.message : "Delete failed");
+    },
     onSuccess: () => {
-      qc.invalidateQueries({ queryKey: ["admin", "patients"] });
-      qc.invalidateQueries({ queryKey: ["admin", "dashboard"] });
       setDeleteId(null);
       toast.success("Patient deleted");
     },
-    onError: (e) => toast.error(e instanceof Error ? e.message : "Delete failed"),
+    onSettled: () => {
+      void qc.invalidateQueries({ queryKey: ["admin", "patients"] });
+      void qc.invalidateQueries({ queryKey: ["admin", "dashboard"] });
+    },
   });
 
   function openNew() {
