@@ -3,18 +3,18 @@ import { Loader2, Send, CheckCircle2 } from "lucide-react";
 import { toast } from "sonner";
 import { useI18n } from "@/i18n/LanguageProvider";
 import { GoogleReviewButton } from "./GoogleReviewButton";
+import { submitContactMessage } from "@/lib/public-submissions.functions";
 
 export function ContactForm() {
   const { t } = useI18n();
   const c = t.contact;
   const [values, setValues] = useState({ name: "", email: "", phone: "", message: "" });
-  const [botField, setBotField] = useState(""); // honeypot — real users leave this empty
+  const [botField, setBotField] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
 
   const onSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    // Silently drop bot submissions that fill the hidden honeypot field.
     if (botField) return;
     if (!values.name.trim() || !values.phone.trim() || !values.message.trim()) {
       toast.error(c.required);
@@ -26,20 +26,23 @@ export function ContactForm() {
     }
     setSubmitting(true);
     try {
-      const { supabase } = await import("@/integrations/supabase/client");
-      const { error } = await supabase.from("contact_submissions").insert({
-        name: values.name.trim(),
-        email: values.email.trim() || null,
-        phone: values.phone.trim() || null,
-        message: values.message.trim(),
+      await submitContactMessage({
+        data: {
+          name: values.name.trim(),
+          email: values.email.trim() || null,
+          phone: values.phone.trim(),
+          message: values.message.trim(),
+          website: botField,
+        },
       });
-      if (error) throw error;
       toast.success(c.success);
       setValues({ name: "", email: "", phone: "", message: "" });
       setSubmitted(true);
     } catch (err) {
       console.error("Contact submission failed:", err);
-      toast.error(c.error);
+      toast.error(
+        err instanceof Error && err.message.includes("Too many requests") ? err.message : c.error,
+      );
     } finally {
       setSubmitting(false);
     }
@@ -128,7 +131,6 @@ export function ContactForm() {
           required
         />
       </div>
-      {/* Honeypot: visually hidden, ignored by humans, filled by bots */}
       <div
         aria-hidden
         className="absolute left-[-9999px] top-[-9999px] h-0 w-0 overflow-hidden"
