@@ -158,11 +158,13 @@ function MessagesPage() {
       setSelectedIds(new Set());
       toast.success(`${variables.ids.length} messages updated`);
     },
-    onSettled: () => void qc.invalidateQueries({ queryKey: ["admin", "messages"] }),
+    onSettled: () => {
+      void qc.invalidateQueries({ queryKey: ["admin", "messages"] });
+      void qc.invalidateQueries({ queryKey: ["admin", "dashboard"] });
+    },
   });
 
   function updateStatus(m: Message, status: string) {
-    bulkStatusMutation.reset();
     statusMutation.mutate({ id: m.id, status });
   }
 
