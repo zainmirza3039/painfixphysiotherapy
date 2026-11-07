@@ -181,7 +181,9 @@ function AppointmentsPage() {
     },
     onMutate: ({ id, status }) =>
       updateListOptimistically<Appointment>(qc, ["admin", "appointments"], (current) =>
-        current.map((appointment) => appointment.id === id ? { ...appointment, status } : appointment),
+        current.map((appointment) =>
+          appointment.id === id ? { ...appointment, status } : appointment,
+        ),
       ),
     onError: (error, _variables, context) => {
       rollbackOptimisticList(qc, ["admin", "appointments"], context);
@@ -315,7 +317,11 @@ function AppointmentsPage() {
                     <TableCell>{fmtDateTime(a.appointment_at)}</TableCell>
                     <TableCell>{a.assigned_therapist ?? "—"}</TableCell>
                     <TableCell>
-                      <Select value={a.status} onValueChange={(v) => quickStatus(a, v)} disabled={quickStatusMutation.isPending}>
+                      <Select
+                          value={a.status}
+                          onValueChange={(v) => quickStatus(a, v)}
+                          disabled={quickStatusMutation.isPending}
+                        >
                         <SelectTrigger className="h-8 w-[130px]">
                           <Badge variant="secondary" className={statusColor(a.status)}>
                             {a.status}
