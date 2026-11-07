@@ -115,6 +115,7 @@ export function HomeVisitForm() {
 
   return (
     <form onSubmit={onSubmit} aria-busy={submitting} className="grid gap-4 sm:grid-cols-2">
+      <fieldset disabled={submitting} className="contents">
       <div>
         <label className={labelClassName} htmlFor="full_name">
           {f.fullName} *
@@ -263,6 +264,7 @@ export function HomeVisitForm() {
           )}
         </button>
       </div>
+      </fieldset>
     </form>
   );
 }
