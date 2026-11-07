@@ -144,6 +144,12 @@ function BlogEditorPage() {
   const saveMutation = useMutation({
     mutationFn: async () => {
       if (!form.title.trim()) throw new Error("Article title is required.");
+      if (form.status === "published" && !form.content.trim()) {
+        throw new Error("Add article content before publishing.");
+      }
+      if (form.meta_description.trim().length > 160) {
+        throw new Error("Keep the meta description within 160 characters.");
+      }
       const payload = {
         title: form.title.trim(),
         slug: (form.slug.trim() || slugify(form.title)).trim(),
@@ -264,6 +270,7 @@ function BlogEditorPage() {
             <Label>Title *</Label>
             <Input
               value={form.title}
+              maxLength={120}
               required
               onChange={(e) => {
                 set("title", e.target.value);
@@ -277,6 +284,7 @@ function BlogEditorPage() {
               <Label>URL slug</Label>
               <Input
                 value={form.slug}
+                maxLength={120}
                 onChange={(e) => {
                   setSlugEdited(true);
                   set("slug", e.target.value);
@@ -350,6 +358,7 @@ function BlogEditorPage() {
             <Label>Excerpt</Label>
             <Textarea
               rows={3}
+              maxLength={320}
               value={form.excerpt}
               onChange={(e) => set("excerpt", e.target.value)}
               placeholder="Short summary shown in article listings"
@@ -373,12 +382,13 @@ function BlogEditorPage() {
           </div>
           <div className="space-y-1.5">
             <Label>SEO title</Label>
-            <Input value={form.seo_title} onChange={(e) => set("seo_title", e.target.value)} />
+            <Input maxLength={70} value={form.seo_title} onChange={(e) => set("seo_title", e.target.value)} />
           </div>
           <div className="space-y-1.5">
             <Label>Meta description</Label>
             <Textarea
               rows={3}
+              maxLength={160}
               value={form.meta_description}
               onChange={(e) => set("meta_description", e.target.value)}
             />
