@@ -8,7 +8,7 @@ import { canonical, pageMeta, breadcrumbLd } from "@/lib/seo";
 const PATH = "/clinical-resources";
 const TITLE = "Clinical Physiotherapy Resources | PainFix Multan";
 const DESCRIPTION =
-  "Educational resources from PainFix Physiotherapy Clinic, Multan, including a two-part clinical presentation on evidence-based management of chronic non-specific low back pain.";
+  "Clinical education from PainFix Multan, including evidence-based guidance on chronic non-specific low back pain management.";
 
 export const Route = createFileRoute("/clinical-resources")({
   head: () => ({
