@@ -1911,10 +1911,10 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: "best-exercises-for-lower-back-pain",
-    title: "Kamar Dard Ki Exercise: 6 Safe Lower Back Pain Exercises",
-    seoTitle: "Kamar Dard Ki Exercise | Lower Back Pain — PainFix",
+    title: "Kamar Dard Ki 6 Safe Exercises: Lower Back Pain Guide",
+    seoTitle: "Kamar Dard Ki 6 Exercises | Lower Back Pain Guide — PainFix",
     metaDescription:
-      "Kamar dard ki exercise: 6 gentle mobility and strengthening options for lower back pain, with safe reps, progression and warning signs. PainFix Multan.",
+      "Kamar dard ki 6 exercises with safe reps: pelvic tilts, cat-cow, glute bridges and more. Learn how to start, progress and spot warning signs. PainFix Multan.",
     category: "exercise-therapy",
     tags: [
       "kamar dard ki exercise",
