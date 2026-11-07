@@ -5,6 +5,7 @@ import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import { AdminOnly } from "@/components/admin/AdminOnly";
 import { AdminPageHeader } from "@/components/admin/AdminPageHeader";
+import { rollbackOptimisticList, updateListOptimistically } from "@/admin/optimistic";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -17,6 +18,20 @@ export const Route = createFileRoute("/_authenticated/admin/gallery")({
     </AdminOnly>
   ),
 });
+
+function reorderGalleryItems(
+  items: GalleryRow[],
+  first: GalleryRow,
+  second: GalleryRow,
+): GalleryRow[] {
+  return items
+    .map((item) => {
+      if (item.id === first.id) return { ...item, display_order: second.display_order };
+      if (item.id === second.id) return { ...item, display_order: first.display_order };
+      return item;
+    })
+    .sort((a, b) => a.display_order - b.display_order);
+}
 
 type GalleryRow = {
   id: string;
@@ -91,13 +106,34 @@ function GalleryManagerPage() {
       });
       if (error) throw error;
     },
-    onSuccess: async () => {
-      await refreshGallery();
-      toast.success("Image added to website gallery");
+    onMutate: async (asset) => {
+      const current = galleryQuery.data ?? [];
+      const caption = asset.name
+        .replace(/^.*\//, "")
+        .replace(/\.[^.]+$/, "")
+        .replace(/[-_]+/g, " ")
+        .trim();
+      return updateListOptimistically<GalleryRow>(
+        queryClient,
+        ["admin", "site-gallery"],
+        (items) => [
+          ...items,
+          {
+            id: `optimistic-${asset.name}`,
+            storage_path: asset.name,
+            caption: caption || "PainFix Clinic",
+            alt_text: "Photo from PainFix Physiotherapy Clinic in Multan",
+            display_order: current.length,
+          },
+        ],
+      );
     },
-    onError: (error) => {
+    onSuccess: () => toast.success("Image added to website gallery"),
+    onError: (error, _asset, context) => {
+      rollbackOptimisticList(queryClient, ["admin", "site-gallery"], context);
       toast.error(error instanceof Error ? error.message : "Unable to add image");
     },
+    onSettled: () => void refreshGallery(),
   });
 
   const removeMutation = useMutation({
@@ -105,13 +141,16 @@ function GalleryManagerPage() {
       const { error } = await supabase.from("site_gallery").delete().eq("id", id);
       if (error) throw error;
     },
-    onSuccess: async () => {
-      await refreshGallery();
-      toast.success("Image removed from gallery. The Media Library file was kept.");
-    },
-    onError: (error) => {
+    onMutate: (id) =>
+      updateListOptimistically<GalleryRow>(queryClient, ["admin", "site-gallery"], (items) =>
+        items.filter((item) => item.id !== id),
+      ),
+    onSuccess: () => toast.success("Image removed from gallery. The Media Library file was kept."),
+    onError: (error, _id, context) => {
+      rollbackOptimisticList(queryClient, ["admin", "site-gallery"], context);
       toast.error(error instanceof Error ? error.message : "Unable to remove image");
     },
+    onSettled: () => void refreshGallery(),
   });
 
   const updateMutation = useMutation({
@@ -122,10 +161,19 @@ function GalleryManagerPage() {
         .eq("id", item.id);
       if (error) throw error;
     },
-    onSuccess: refreshGallery,
-    onError: (error) => {
+    onMutate: (item) =>
+      updateListOptimistically<GalleryRow>(queryClient, ["admin", "site-gallery"], (items) =>
+        items.map((current) =>
+          current.id === item.id
+            ? { ...current, caption: item.caption, alt_text: item.alt_text }
+            : current,
+        ),
+      ),
+    onError: (error, _item, context) => {
+      rollbackOptimisticList(queryClient, ["admin", "site-gallery"], context);
       toast.error(error instanceof Error ? error.message : "Unable to save gallery details");
     },
+    onSettled: () => void refreshGallery(),
   });
 
   const reorderMutation = useMutation({
@@ -142,10 +190,15 @@ function GalleryManagerPage() {
         .eq("id", second.id);
       if (secondError) throw secondError;
     },
-    onSuccess: refreshGallery,
-    onError: (error) => {
+    onMutate: ({ first, second }) =>
+      updateListOptimistically<GalleryRow>(queryClient, ["admin", "site-gallery"], (items) =>
+        reorderGalleryItems(items, first, second),
+      ),
+    onError: (error, _variables, context) => {
+      rollbackOptimisticList(queryClient, ["admin", "site-gallery"], context);
       toast.error(error instanceof Error ? error.message : "Unable to reorder gallery");
     },
+    onSettled: () => void refreshGallery(),
   });
 
   const items = galleryQuery.data ?? [];

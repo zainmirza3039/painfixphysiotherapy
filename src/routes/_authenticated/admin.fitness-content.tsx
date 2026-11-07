@@ -6,6 +6,7 @@ import { Plus, Search, Pencil, Trash2, Loader2, Dumbbell } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import type { Database } from "@/integrations/supabase/types";
 import { AdminPageHeader } from "@/components/admin/AdminPageHeader";
+import { rollbackOptimisticList, updateListOptimistically } from "@/admin/optimistic";
 import { ContentOnly } from "@/components/admin/ContentOnly";
 import { useAdminAuth } from "@/admin/AdminAuthProvider";
 import { fmtDate, slugify } from "@/admin/utils";
@@ -180,12 +181,19 @@ function FitnessContentPage() {
       const { error } = await supabase.from("fitness_content").delete().eq("id", id);
       if (error) throw error;
     },
+    onMutate: (id) =>
+      updateListOptimistically<Row>(qc, ["admin", "fitness-content"], (current) =>
+        current.filter((row) => row.id !== id),
+      ),
+    onError: (error, _id, context) => {
+      rollbackOptimisticList(qc, ["admin", "fitness-content"], context);
+      toast.error(error instanceof Error ? error.message : "Delete failed");
+    },
     onSuccess: () => {
-      qc.invalidateQueries({ queryKey: ["admin", "fitness-content"] });
       toast.success("Content deleted");
       setDeleteRow(null);
     },
-    onError: (e) => toast.error(e instanceof Error ? e.message : "Delete failed"),
+    onSettled: () => void qc.invalidateQueries({ queryKey: ["admin", "fitness-content"] }),
   });
 
   return (

@@ -57,6 +57,15 @@ function BlogEditorPage() {
       : null;
   const [form, setForm] = useState(blank);
   const [slugEdited, setSlugEdited] = useState(false);
+  const [hasEdited, setHasEdited] = useState(false);
+  const [draftReady, setDraftReady] = useState(false);
+  type DraftStatus = "idle" | "saving" | "saved" | "unavailable";
+  const [draftStatus, setDraftStatus] = useState<DraftStatus>("idle");
+  const [savedLocalDraft, setSavedLocalDraft] = useState<{
+    form: typeof blank;
+    savedAt: number;
+  } | null>(null);
+  const draftKey = `painfix:blog-editor:${postId ?? "new"}`;
 
   const postQuery = useQuery({
     queryKey: ["admin", "blog-editor", postId],
@@ -75,6 +84,39 @@ function BlogEditorPage() {
       return data;
     },
   });
+
+  useEffect(() => {
+    if (postId && postQuery.isLoading) return;
+    try {
+      const raw = window.localStorage.getItem(draftKey);
+      if (raw) {
+        const parsed = JSON.parse(raw) as { form?: Partial<typeof blank>; savedAt?: number };
+        if (parsed.form && typeof parsed.form === "object") {
+          setSavedLocalDraft({
+            form: { ...blank, ...parsed.form },
+            savedAt: typeof parsed.savedAt === "number" ? parsed.savedAt : Date.now(),
+          });
+        }
+      }
+    } catch {
+      setSavedLocalDraft(null);
+    }
+    setDraftReady(true);
+  }, [draftKey, postId, postQuery.isLoading]);
+
+  useEffect(() => {
+    if (!draftReady || !hasEdited) return;
+    setDraftStatus("saving");
+    const timer = window.setTimeout(() => {
+      try {
+        window.localStorage.setItem(draftKey, JSON.stringify({ form, savedAt: Date.now() }));
+        setDraftStatus("saved");
+      } catch {
+        setDraftStatus("unavailable");
+      }
+    }, 800);
+    return () => window.clearTimeout(timer);
+  }, [draftReady, draftKey, form, hasEdited]);
 
   useEffect(() => {
     if (!postQuery.data) return;
@@ -100,6 +142,12 @@ function BlogEditorPage() {
   const saveMutation = useMutation({
     mutationFn: async () => {
       if (!form.title.trim()) throw new Error("Article title is required.");
+      if (form.status === "published" && !form.content.trim()) {
+        throw new Error("Add article content before publishing.");
+      }
+      if (form.meta_description.trim().length > 160) {
+        throw new Error("Keep the meta description within 160 characters.");
+      }
       const payload = {
         title: form.title.trim(),
         slug: (form.slug.trim() || slugify(form.title)).trim(),
@@ -143,6 +191,11 @@ function BlogEditorPage() {
       }
     },
     onSuccess: async () => {
+      try {
+        window.localStorage.removeItem(draftKey);
+      } catch {
+        // A successful server save must not depend on browser storage availability.
+      }
       await queryClient.invalidateQueries({ queryKey: ["admin", "blog"] });
       toast.success(postId ? "Article updated" : "Article created");
       window.location.assign("/admin/blog");
@@ -151,8 +204,19 @@ function BlogEditorPage() {
       toast.error(error instanceof Error ? error.message : "Unable to save article"),
   });
 
-  const set = (key: keyof typeof blank, value: string) =>
+  const set = (key: keyof typeof blank, value: string) => {
+    setHasEdited(true);
     setForm((current) => ({ ...current, [key]: value }));
+  };
+
+  function restoreLocalDraft() {
+    if (!savedLocalDraft) return;
+    setForm({ ...blank, ...savedLocalDraft.form });
+    setSlugEdited(true);
+    setHasEdited(true);
+    setSavedLocalDraft(null);
+    toast.success("Local draft restored");
+  }
 
   if (postId && postQuery.isLoading)
     return (
@@ -204,6 +268,7 @@ function BlogEditorPage() {
             <Label>Title *</Label>
             <Input
               value={form.title}
+              maxLength={120}
               required
               onChange={(e) => {
                 set("title", e.target.value);
@@ -217,6 +282,7 @@ function BlogEditorPage() {
               <Label>URL slug</Label>
               <Input
                 value={form.slug}
+                maxLength={120}
                 onChange={(e) => {
                   setSlugEdited(true);
                   set("slug", e.target.value);
@@ -290,6 +356,7 @@ function BlogEditorPage() {
             <Label>Excerpt</Label>
             <Textarea
               rows={3}
+              maxLength={320}
               value={form.excerpt}
               onChange={(e) => set("excerpt", e.target.value)}
               placeholder="Short summary shown in article listings"
@@ -313,23 +380,55 @@ function BlogEditorPage() {
           </div>
           <div className="space-y-1.5">
             <Label>SEO title</Label>
-            <Input value={form.seo_title} onChange={(e) => set("seo_title", e.target.value)} />
+            <Input
+              maxLength={70}
+              value={form.seo_title}
+              onChange={(e) => set("seo_title", e.target.value)}
+            />
           </div>
           <div className="space-y-1.5">
             <Label>Meta description</Label>
             <Textarea
               rows={3}
+              maxLength={160}
               value={form.meta_description}
               onChange={(e) => set("meta_description", e.target.value)}
             />
           </div>
         </section>
         <div className="sticky bottom-3 z-10 flex flex-wrap items-center justify-between gap-3 rounded-xl border border-border bg-background/95 p-3 shadow-lg backdrop-blur">
-          <p className="text-xs text-muted-foreground">
-            {form.status === "published"
-              ? "This article is set to publish."
-              : "This article is saved as a draft unless you change its status."}
-          </p>
+          <div className="min-w-0 space-y-1">
+            <p className="text-xs text-muted-foreground">
+              {form.status === "published"
+                ? "This article is set to publish."
+                : "This article is saved as a draft unless you change its status."}
+            </p>
+            <p className="text-xs text-muted-foreground" role="status" aria-live="polite">
+              {draftStatus === "saving"
+                ? "Saving a local draft…"
+                : draftStatus === "saved"
+                  ? "Local draft saved in this browser."
+                  : draftStatus === "unavailable"
+                    ? "Browser storage is unavailable; use Save article to keep your changes."
+                    : "Changes are saved locally after you edit."}
+            </p>
+            {savedLocalDraft && (
+              <div className="flex flex-wrap items-center gap-2">
+                <span className="text-xs text-muted-foreground">
+                  A previous local draft is available.
+                </span>
+                <Button
+                  type="button"
+                  size="sm"
+                  variant="link"
+                  className="h-auto p-0"
+                  onClick={restoreLocalDraft}
+                >
+                  Restore local draft
+                </Button>
+              </div>
+            )}
+          </div>
           <div className="flex gap-2">
             <Button
               type="button"

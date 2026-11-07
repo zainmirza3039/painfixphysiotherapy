@@ -14,6 +14,8 @@ import {
   type AdminUserRow,
 } from "@/admin/admin.functions";
 import { AdminPageHeader } from "@/components/admin/AdminPageHeader";
+import { AdminQueryError } from "@/components/admin/AdminQueryError";
+import { rollbackOptimisticList, updateListOptimistically } from "@/admin/optimistic";
 import { AdminOnly } from "@/components/admin/AdminOnly";
 import { fmtDateTime } from "@/admin/utils";
 import { Button } from "@/components/ui/button";
@@ -78,7 +80,12 @@ function UsersPage() {
   });
   const [deleteId, setDeleteId] = useState<string | null>(null);
 
-  const { data: users, isLoading } = useQuery({
+  const {
+    data: users,
+    isLoading,
+    isError,
+    refetch,
+  } = useQuery({
     queryKey: ["admin", "users"],
     queryFn: () => list(),
   });
@@ -97,21 +104,39 @@ function UsersPage() {
   const roleMutation = useMutation({
     mutationFn: (vars: { userId: string; role: AppRole; enabled: boolean }) =>
       setRole({ data: vars }),
-    onSuccess: () => {
-      qc.invalidateQueries({ queryKey: ["admin", "users"] });
-      toast.success("Roles updated");
+    onMutate: (vars) =>
+      updateListOptimistically<AdminUserRow>(qc, ["admin", "users"], (current) =>
+        current.map((member) => {
+          if (member.id !== vars.userId) return member;
+          const roles = new Set(member.roles as AppRole[]);
+          if (vars.enabled) roles.add(vars.role);
+          else roles.delete(vars.role);
+          return { ...member, roles: [...roles] };
+        }),
+      ),
+    onError: (error, _vars, context) => {
+      rollbackOptimisticList(qc, ["admin", "users"], context);
+      toast.error(error instanceof Error ? error.message : "Update failed");
     },
-    onError: (e) => toast.error(e instanceof Error ? e.message : "Update failed"),
+    onSuccess: () => toast.success("Roles updated"),
+    onSettled: () => void qc.invalidateQueries({ queryKey: ["admin", "users"] }),
   });
 
   const deleteMutation = useMutation({
     mutationFn: (userId: string) => remove({ data: { userId } }),
+    onMutate: (userId) =>
+      updateListOptimistically<AdminUserRow>(qc, ["admin", "users"], (current) =>
+        current.filter((member) => member.id !== userId),
+      ),
+    onError: (error, _userId, context) => {
+      rollbackOptimisticList(qc, ["admin", "users"], context);
+      toast.error(error instanceof Error ? error.message : "Delete failed");
+    },
     onSuccess: () => {
-      qc.invalidateQueries({ queryKey: ["admin", "users"] });
       setDeleteId(null);
       toast.success("User removed");
     },
-    onError: (e) => toast.error(e instanceof Error ? e.message : "Delete failed"),
+    onSettled: () => void qc.invalidateQueries({ queryKey: ["admin", "users"] }),
   });
 
   return (
@@ -133,6 +158,8 @@ function UsersPage() {
               <Skeleton key={i} className="h-12" />
             ))}
           </div>
+        ) : isError ? (
+          <AdminQueryError onRetry={() => void refetch()} />
         ) : (
           <div className="overflow-x-auto">
             <Table>

@@ -1,11 +1,14 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
+import { useDebouncedValue } from "@/hooks/use-debounced-value";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { Plus, Search, Download, Pencil, Loader2, CalendarClock } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import type { Database } from "@/integrations/supabase/types";
 import { AdminPageHeader } from "@/components/admin/AdminPageHeader";
+import { AdminQueryError } from "@/components/admin/AdminQueryError";
+import { rollbackOptimisticList, updateListOptimistically } from "@/admin/optimistic";
 import { exportToCsv, fmtDateTime } from "@/admin/utils";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -80,12 +83,18 @@ function toLocalInput(iso: string | null): string {
 function AppointmentsPage() {
   const qc = useQueryClient();
   const [search, setSearch] = useState("");
+  const debouncedSearch = useDebouncedValue(search, 250);
   const [statusFilter, setStatusFilter] = useState<string>("all");
   const [dialogOpen, setDialogOpen] = useState(false);
   const [editing, setEditing] = useState<Appointment | null>(null);
   const [form, setForm] = useState({ ...empty });
 
-  const { data: rows, isLoading } = useQuery({
+  const {
+    data: rows,
+    isLoading,
+    isError,
+    refetch,
+  } = useQuery({
     queryKey: ["admin", "appointments"],
     queryFn: async () => {
       const { data, error } = await supabase
@@ -98,7 +107,7 @@ function AppointmentsPage() {
   });
 
   const filtered = useMemo(() => {
-    const q = search.trim().toLowerCase();
+    const q = debouncedSearch.trim().toLowerCase();
     return (rows ?? []).filter((r) => {
       if (statusFilter !== "all" && r.status !== statusFilter) return false;
       if (!q) return true;
@@ -106,7 +115,7 @@ function AppointmentsPage() {
         .filter(Boolean)
         .some((v) => String(v).toLowerCase().includes(q));
     });
-  }, [rows, search, statusFilter]);
+  }, [rows, debouncedSearch, statusFilter]);
 
   const saveMutation = useMutation({
     mutationFn: async () => {
@@ -173,12 +182,30 @@ function AppointmentsPage() {
     },
   });
 
-  async function quickStatus(a: Appointment, status: string) {
-    const { error } = await supabase.from("appointments").update({ status }).eq("id", a.id);
-    if (error) return toast.error(error.message);
-    qc.invalidateQueries({ queryKey: ["admin", "appointments"] });
-    qc.invalidateQueries({ queryKey: ["admin", "dashboard"] });
-    toast.success("Status updated");
+  const quickStatusMutation = useMutation({
+    mutationFn: async ({ id, status }: { id: string; status: string }) => {
+      const { error } = await supabase.from("appointments").update({ status }).eq("id", id);
+      if (error) throw error;
+    },
+    onMutate: ({ id, status }) =>
+      updateListOptimistically<Appointment>(qc, ["admin", "appointments"], (current) =>
+        current.map((appointment) =>
+          appointment.id === id ? { ...appointment, status } : appointment,
+        ),
+      ),
+    onError: (error, _variables, context) => {
+      rollbackOptimisticList(qc, ["admin", "appointments"], context);
+      toast.error(error instanceof Error ? error.message : "Unable to update appointment status");
+    },
+    onSuccess: () => toast.success("Status updated"),
+    onSettled: () => {
+      void qc.invalidateQueries({ queryKey: ["admin", "appointments"] });
+      void qc.invalidateQueries({ queryKey: ["admin", "dashboard"] });
+    },
+  });
+
+  function quickStatus(a: Appointment, status: string) {
+    quickStatusMutation.mutate({ id: a.id, status });
   }
 
   function openNew() {
@@ -269,6 +296,8 @@ function AppointmentsPage() {
               <Skeleton key={i} className="h-12" />
             ))}
           </div>
+        ) : isError ? (
+          <AdminQueryError onRetry={() => void refetch()} />
         ) : filtered.length === 0 ? (
           <div className="flex flex-col items-center gap-2 py-16 text-muted-foreground">
             <CalendarClock className="h-8 w-8" />
@@ -298,7 +327,11 @@ function AppointmentsPage() {
                     <TableCell>{fmtDateTime(a.appointment_at)}</TableCell>
                     <TableCell>{a.assigned_therapist ?? "—"}</TableCell>
                     <TableCell>
-                      <Select value={a.status} onValueChange={(v) => quickStatus(a, v)}>
+                      <Select
+                        value={a.status}
+                        onValueChange={(v) => quickStatus(a, v)}
+                        disabled={quickStatusMutation.isPending}
+                      >
                         <SelectTrigger className="h-8 w-[130px]">
                           <Badge variant="secondary" className={statusColor(a.status)}>
                             {a.status}

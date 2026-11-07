@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
+import { useDebouncedValue } from "@/hooks/use-debounced-value";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { Plus, Search, Download, Pencil, Trash2, Loader2, Users } from "lucide-react";
@@ -7,6 +8,8 @@ import { supabase } from "@/integrations/supabase/client";
 import type { Database } from "@/integrations/supabase/types";
 import { useAdminAuth } from "@/admin/AdminAuthProvider";
 import { AdminPageHeader } from "@/components/admin/AdminPageHeader";
+import { AdminQueryError } from "@/components/admin/AdminQueryError";
+import { rollbackOptimisticList, updateListOptimistically } from "@/admin/optimistic";
 import { exportToCsv, fmtDate } from "@/admin/utils";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -89,12 +92,18 @@ function PatientsPage() {
   const { isAdmin } = useAdminAuth();
   const qc = useQueryClient();
   const [search, setSearch] = useState("");
+  const debouncedSearch = useDebouncedValue(search, 250);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [editing, setEditing] = useState<Patient | null>(null);
   const [form, setForm] = useState({ ...empty });
   const [deleteId, setDeleteId] = useState<string | null>(null);
 
-  const { data: patients, isLoading } = useQuery({
+  const {
+    data: patients,
+    isLoading,
+    isError,
+    refetch,
+  } = useQuery({
     queryKey: ["admin", "patients"],
     queryFn: async () => {
       const { data, error } = await supabase
@@ -107,14 +116,14 @@ function PatientsPage() {
   });
 
   const filtered = useMemo(() => {
-    const q = search.trim().toLowerCase();
+    const q = debouncedSearch.trim().toLowerCase();
     if (!q) return patients ?? [];
     return (patients ?? []).filter((p) =>
       [p.name, p.phone, p.patient_code, p.diagnosis, p.assigned_physiotherapist]
         .filter(Boolean)
         .some((v) => String(v).toLowerCase().includes(q)),
     );
-  }, [patients, search]);
+  }, [patients, debouncedSearch]);
 
   const saveMutation = useMutation({
     mutationFn: async () => {
@@ -155,13 +164,22 @@ function PatientsPage() {
       const { error } = await supabase.from("patients").delete().eq("id", id);
       if (error) throw error;
     },
+    onMutate: (id) =>
+      updateListOptimistically<Patient>(qc, ["admin", "patients"], (current) =>
+        current.filter((patient) => patient.id !== id),
+      ),
+    onError: (error, _id, context) => {
+      rollbackOptimisticList(qc, ["admin", "patients"], context);
+      toast.error(error instanceof Error ? error.message : "Delete failed");
+    },
     onSuccess: () => {
-      qc.invalidateQueries({ queryKey: ["admin", "patients"] });
-      qc.invalidateQueries({ queryKey: ["admin", "dashboard"] });
       setDeleteId(null);
       toast.success("Patient deleted");
     },
-    onError: (e) => toast.error(e instanceof Error ? e.message : "Delete failed"),
+    onSettled: () => {
+      void qc.invalidateQueries({ queryKey: ["admin", "patients"] });
+      void qc.invalidateQueries({ queryKey: ["admin", "dashboard"] });
+    },
   });
 
   function openNew() {
@@ -243,6 +261,8 @@ function PatientsPage() {
               <Skeleton key={i} className="h-12" />
             ))}
           </div>
+        ) : isError ? (
+          <AdminQueryError onRetry={() => void refetch()} />
         ) : filtered.length === 0 ? (
           <div className="flex flex-col items-center gap-2 py-16 text-muted-foreground">
             <Users className="h-8 w-8" />

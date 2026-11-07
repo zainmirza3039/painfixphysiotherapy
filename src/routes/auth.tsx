@@ -118,7 +118,7 @@ function AuthPage() {
             </TabsList>
 
             <TabsContent value="login" className="mt-6">
-              <form onSubmit={handleAuth} className="space-y-5">
+              <form onSubmit={handleAuth} aria-busy={busy} className="space-y-5">
                 <div className="space-y-2">
                   <Label htmlFor="email">Email</Label>
                   <div className="relative">
@@ -126,6 +126,7 @@ function AuthPage() {
                     <Input
                       id="email"
                       type="email"
+                      disabled={busy}
                       autoComplete="email"
                       className="pl-9"
                       placeholder="you@clinic.com"
@@ -142,6 +143,7 @@ function AuthPage() {
                     <Input
                       id="password"
                       type="password"
+                      disabled={busy}
                       autoComplete={mode === "signin" ? "current-password" : "new-password"}
                       className="pl-9"
                       placeholder="••••••••"
@@ -165,6 +167,7 @@ function AuthPage() {
                 <button
                   type="button"
                   className="font-semibold text-primary hover:underline"
+                  disabled={busy}
                   onClick={() => setMode(mode === "signin" ? "signup" : "signin")}
                 >
                   {mode === "signin" ? "Create your account" : "Sign in"}
@@ -173,7 +176,7 @@ function AuthPage() {
             </TabsContent>
 
             <TabsContent value="forgot" className="mt-6">
-              <form onSubmit={handleReset} className="space-y-4">
+              <form onSubmit={handleReset} aria-busy={resetBusy} className="space-y-4">
                 <p className="text-sm text-muted-foreground">
                   Enter your email and we'll send you a secure link to reset your password.
                 </p>
@@ -182,6 +185,7 @@ function AuthPage() {
                   <Input
                     id="reset-email"
                     type="email"
+                    disabled={resetBusy}
                     autoComplete="email"
                     placeholder="you@clinic.com"
                     value={resetEmail}

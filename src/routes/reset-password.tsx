@@ -65,7 +65,7 @@ function ResetPasswordPage() {
             ? "Choose a strong password for your admin account."
             : "Open this page from the reset link in your email to continue."}
         </p>
-        <form onSubmit={handleSubmit} className="mt-6 space-y-4">
+        <form onSubmit={handleSubmit} aria-busy={busy} className="mt-6 space-y-4">
           <div className="space-y-1.5">
             <Label htmlFor="new-password">New password</Label>
             <div className="relative">
@@ -77,7 +77,7 @@ function ResetPasswordPage() {
                 className="pl-9"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                disabled={!ready}
+                disabled={!ready || busy}
                 required
               />
             </div>

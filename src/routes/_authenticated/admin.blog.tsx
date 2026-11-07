@@ -7,6 +7,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { team } from "@/data/team";
 import type { Database } from "@/integrations/supabase/types";
 import { AdminPageHeader } from "@/components/admin/AdminPageHeader";
+import { rollbackOptimisticList, updateListOptimistically } from "@/admin/optimistic";
 import { ContentOnly } from "@/components/admin/ContentOnly";
 import { useAdminAuth } from "@/admin/AdminAuthProvider";
 import { fmtDate, slugify } from "@/admin/utils";
@@ -84,9 +85,10 @@ function BlogPage() {
   const [form, setForm] = useState({ ...empty });
   const [slugTouched, setSlugTouched] = useState(false);
   const [deleteId, setDeleteId] = useState<string | null>(null);
+  const blogQueryKey = ["admin", "blog", isAdmin ? "all" : user?.id] as const;
 
   const { data: rows, isLoading } = useQuery({
-    queryKey: ["admin", "blog", isAdmin ? "all" : user?.id],
+    queryKey: blogQueryKey,
     enabled: isAdmin || !!user?.id,
     queryFn: async () => {
       let query = supabase.from("blog_posts").select("*").order("created_at", { ascending: false });
@@ -151,12 +153,19 @@ function BlogPage() {
       const { error } = await supabase.from("blog_posts").delete().eq("id", id);
       if (error) throw error;
     },
+    onMutate: (id) =>
+      updateListOptimistically<Post>(qc, blogQueryKey, (current) =>
+        current.filter((post) => post.id !== id),
+      ),
+    onError: (error, _id, context) => {
+      rollbackOptimisticList(qc, blogQueryKey, context);
+      toast.error(error instanceof Error ? error.message : "Delete failed");
+    },
     onSuccess: () => {
-      qc.invalidateQueries({ queryKey: ["admin", "blog"] });
       setDeleteId(null);
       toast.success("Post deleted");
     },
-    onError: (e) => toast.error(e instanceof Error ? e.message : "Delete failed"),
+    onSettled: () => void qc.invalidateQueries({ queryKey: blogQueryKey }),
   });
 
   function openNew() {
