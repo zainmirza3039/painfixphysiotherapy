@@ -38,6 +38,7 @@ export function CertificateVerification({ initialReference = "", initialResult =
     <div className="mx-auto max-w-2xl">
       <form
         onSubmit={submit}
+        aria-busy={loading}
         className="rounded-2xl border border-border bg-card p-6 shadow-soft sm:p-8"
       >
         <label htmlFor="certificate-reference" className="text-sm font-semibold text-foreground">
@@ -66,6 +67,11 @@ export function CertificateVerification({ initialReference = "", initialResult =
             {loading ? "Checking…" : "Verify certificate"}
           </button>
         </div>
+        {loading && (
+          <p role="status" aria-live="polite" className="mt-3 text-sm text-muted-foreground">
+            Checking certificate records…
+          </p>
+        )}
         {error && (
           <p role="alert" className="mt-3 text-sm text-destructive">
             {error}
