@@ -7,6 +7,7 @@ import { supabase } from "@/integrations/supabase/client";
 import type { Database } from "@/integrations/supabase/types";
 import { useAdminAuth } from "@/admin/AdminAuthProvider";
 import { AdminPageHeader } from "@/components/admin/AdminPageHeader";
+import { rollbackOptimisticList, updateListOptimistically } from "@/admin/optimistic";
 import { exportToCsv, fmtDate, fmtDateTime } from "@/admin/utils";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -94,12 +95,28 @@ function HomeVisitsPage() {
     });
   }, [rows, search, statusFilter]);
 
-  async function updateStatus(v: Visit, status: string) {
-    const { error } = await supabase.from("home_visit_requests").update({ status }).eq("id", v.id);
-    if (error) return toast.error(error.message);
-    qc.invalidateQueries({ queryKey: ["admin", "home-visits"] });
-    qc.invalidateQueries({ queryKey: ["admin", "dashboard"] });
-    toast.success("Status updated");
+  const statusMutation = useMutation({
+    mutationFn: async ({ id, status }: { id: string; status: string }) => {
+      const { error } = await supabase.from("home_visit_requests").update({ status }).eq("id", id);
+      if (error) throw error;
+    },
+    onMutate: ({ id, status }) =>
+      updateListOptimistically<Visit>(qc, ["admin", "home-visits"], (current) =>
+        current.map((visit) => visit.id === id ? { ...visit, status } : visit),
+      ),
+    onError: (error, _variables, context) => {
+      rollbackOptimisticList(qc, ["admin", "home-visits"], context);
+      toast.error(error instanceof Error ? error.message : "Unable to update home visit status");
+    },
+    onSuccess: () => toast.success("Status updated"),
+    onSettled: () => {
+      void qc.invalidateQueries({ queryKey: ["admin", "home-visits"] });
+      void qc.invalidateQueries({ queryKey: ["admin", "dashboard"] });
+    },
+  });
+
+  function updateStatus(v: Visit, status: string) {
+    statusMutation.mutate({ id: v.id, status });
   }
 
   const deleteMutation = useMutation({
