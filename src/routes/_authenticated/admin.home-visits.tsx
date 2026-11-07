@@ -102,7 +102,7 @@ function HomeVisitsPage() {
     },
     onMutate: ({ id, status }) =>
       updateListOptimistically<Visit>(qc, ["admin", "home-visits"], (current) =>
-        current.map((visit) => visit.id === id ? { ...visit, status } : visit),
+        current.map((visit) => (visit.id === id ? { ...visit, status } : visit)),
       ),
     onError: (error, _variables, context) => {
       rollbackOptimisticList(qc, ["admin", "home-visits"], context);
