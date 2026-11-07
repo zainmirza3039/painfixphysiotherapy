@@ -318,10 +318,10 @@ function AppointmentsPage() {
                     <TableCell>{a.assigned_therapist ?? "—"}</TableCell>
                     <TableCell>
                       <Select
-                          value={a.status}
-                          onValueChange={(v) => quickStatus(a, v)}
-                          disabled={quickStatusMutation.isPending}
-                        >
+                        value={a.status}
+                        onValueChange={(v) => quickStatus(a, v)}
+                        disabled={quickStatusMutation.isPending}
+                      >
                         <SelectTrigger className="h-8 w-[130px]">
                           <Badge variant="secondary" className={statusColor(a.status)}>
                             {a.status}
