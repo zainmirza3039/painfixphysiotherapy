@@ -1097,3 +1097,49 @@ a.home-contact-item:hover .home-contact-item__label {
 .page-skeleton__panel {
   border-radius: 1rem;
 }
+
+
+/* Public-site interaction feedback: tactile press, clear hover and keyboard states.
+   Scoped to pages that render the public site footer so admin controls are untouched. */
+@media (hover: hover) and (pointer: fine) {
+  body:has(.site-footer) :is(a[href], button:not(:disabled), [role="button"], summary) {
+    transition:
+      color 160ms ease,
+      background-color 160ms ease,
+      border-color 160ms ease,
+      box-shadow 160ms ease,
+      opacity 160ms ease,
+      transform 160ms cubic-bezier(0.2, 0.75, 0.25, 1);
+  }
+
+  body:has(.site-footer) :is(a[href], button:not(:disabled), [role="button"], summary):hover {
+    cursor: pointer;
+  }
+}
+
+body:has(.site-footer) :is(a[href], button:not(:disabled), [role="button"], summary) {
+  -webkit-tap-highlight-color: rgb(0 168 89 / 16%);
+  touch-action: manipulation;
+}
+
+body:has(.site-footer) :is(a[href], button:not(:disabled), [role="button"], summary):active {
+  transform: scale(0.975);
+  opacity: 0.82;
+  transition-duration: 70ms;
+}
+
+body:has(.site-footer) :is(button:disabled, [aria-disabled="true"]) {
+  cursor: not-allowed;
+}
+
+body:has(.site-footer) :is(a[href], button, [role="button"], summary):focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 3px;
+  box-shadow: 0 0 0 3px var(--background);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body:has(.site-footer) :is(a[href], button, [role="button"], summary):active {
+    transform: none;
+  }
+}
