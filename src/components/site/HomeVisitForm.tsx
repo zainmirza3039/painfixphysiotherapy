@@ -100,7 +100,8 @@ export function HomeVisitForm() {
         <h3 className="mt-3 font-heading text-lg font-bold text-foreground">Request received</h3>
         <p className="mt-2 text-sm leading-6 text-muted-foreground">
           Your home-visit request has been submitted.
-          This is a request, not a confirmed appointment. The PainFix team will contact you to confirm availability.
+          This is a request, not a confirmed
+          appointment. The PainFix team will contact you to confirm availability.
         </p>
         <button
           type="button"
@@ -255,11 +256,13 @@ export function HomeVisitForm() {
           >
             {submitting ? (
               <>
-                <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" /><span>{t.actions.submitting}</span>
+                <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" />{" "}
+                {t.actions.submitting}
               </>
             ) : (
               <>
-                <Send className="h-4 w-4" aria-hidden="true" /><span>{t.actions.submit}</span>
+                <Send className="h-4 w-4" aria-hidden="true" />{" "}
+                {t.actions.submit}
               </>
             )}
           </button>
