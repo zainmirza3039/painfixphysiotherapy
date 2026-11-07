@@ -1482,7 +1482,7 @@ export const blogPosts: BlogPost[] = [
     title: "Disc Herniation (Slipped Disc) Treatment | Slip Disc Ka Ilaj",
     seoTitle: "Slipped Disc Treatment | Slip Disc Ka Ilaj — PainFix Multan",
     metaDescription:
-      "A herniated or slipped disc (slip disc) doesn't usually need surgery. Learn how physiotherapy in Multan treats disc herniation, relieves nerve pain and prevents recurrence.",
+      "Slipped disc (slip disc) rarely needs surgery. Learn how physiotherapy in Multan can help with disc-related pain and nerve symptoms.",
     category: "back-pain",
     tags: ["disc herniation", "slip disc", "slip disc ka ilaj", "sciatica", "back pain"],
     excerpt:
@@ -1741,7 +1741,7 @@ export const blogPosts: BlogPost[] = [
     title: "Bell's Palsy Physiotherapy | Munh Terha Hona Ka Ilaj",
     seoTitle: "Bell's Palsy | Munh Terha Hona Ka Ilaj — PainFix Multan",
     metaDescription:
-      "Bell's palsy causes sudden facial weakness (munh terha hona). Learn how physiotherapy in Multan — facial exercises, retraining and education — supports recovery from Bell's palsy.",
+      "Bell's palsy causes sudden facial weakness (munh terha hona). Learn how facial physiotherapy supports recovery through retraining and education.",
     category: "neurological-rehabilitation",
     tags: ["Bell's palsy", "munh terha hona", "facial", "neuro rehab", "recovery"],
     excerpt:
@@ -2597,7 +2597,7 @@ export const blogPosts: BlogPost[] = [
     title: "Text Neck: Neck Pain from Mobile Phones | Mobile Se Gardan Dard",
     seoTitle: "Text Neck | Mobile Se Gardan Dard Ka Ilaj — PainFix Multan",
     metaDescription:
-      "'Text neck' is neck pain from looking down at phones (mobile se gardan dard). Learn what it is, why it happens, and how physiotherapy and simple habits relieve and prevent it.",
+      "'Text neck' is neck pain linked to prolonged phone use. Learn the causes and how physiotherapy and simple habits can help.",
     category: "neck-pain",
     tags: ["text neck", "mobile se gardan dard", "posture", "phone", "neck pain"],
     excerpt:
