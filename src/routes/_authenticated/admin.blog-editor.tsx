@@ -59,7 +59,8 @@ function BlogEditorPage() {
   const [slugEdited, setSlugEdited] = useState(false);
   const [hasEdited, setHasEdited] = useState(false);
   const [draftReady, setDraftReady] = useState(false);
-  const [draftStatus, setDraftStatus] = useState<"idle" | "saving" | "saved" | "unavailable">("idle");
+  type DraftStatus = "idle" | "saving" | "saved" | "unavailable";
+  const [draftStatus, setDraftStatus] = useState<DraftStatus>("idle");
   const [savedLocalDraft, setSavedLocalDraft] = useState<{
     form: typeof blank;
     savedAt: number;
@@ -108,10 +109,7 @@ function BlogEditorPage() {
     setDraftStatus("saving");
     const timer = window.setTimeout(() => {
       try {
-        window.localStorage.setItem(
-          draftKey,
-          JSON.stringify({ form, savedAt: Date.now() }),
-        );
+        window.localStorage.setItem(draftKey, JSON.stringify({ form, savedAt: Date.now() }));
         setDraftStatus("saved");
       } catch {
         setDraftStatus("unavailable");
@@ -382,7 +380,11 @@ function BlogEditorPage() {
           </div>
           <div className="space-y-1.5">
             <Label>SEO title</Label>
-            <Input maxLength={70} value={form.seo_title} onChange={(e) => set("seo_title", e.target.value)} />
+            <Input
+              maxLength={70}
+              value={form.seo_title}
+              onChange={(e) => set("seo_title", e.target.value)}
+            />
           </div>
           <div className="space-y-1.5">
             <Label>Meta description</Label>
@@ -415,7 +417,13 @@ function BlogEditorPage() {
                 <span className="text-xs text-muted-foreground">
                   A previous local draft is available.
                 </span>
-                <Button type="button" size="sm" variant="link" className="h-auto p-0" onClick={restoreLocalDraft}>
+                <Button
+                  type="button"
+                  size="sm"
+                  variant="link"
+                  className="h-auto p-0"
+                  onClick={restoreLocalDraft}
+                >
                   Restore local draft
                 </Button>
               </div>
