@@ -76,7 +76,7 @@ export const team: TeamMember[] = [
     profile: {
       metaTitle: "Dr. Zain Ul Abideen PT — Physiotherapist in Multan | DPT",
       metaDescription:
-        "Dr. Zain Ul Abideen PT is a trusted physiotherapist in Multan offering evidence-based physiotherapy for back pain, neck pain, sciatica, sports injuries and rehabilitation. Book an appointment at PainFix Physiotherapy Clinic.",
+        "Dr. Zain Ul Abideen, DPT, is a physiotherapist in Multan offering care for back pain, neck pain, sciatica, sports injuries and rehabilitation at PainFix.",
       intro: [
         "Dr. Zain Ul Abideen PT is a Doctor of Physical Therapy (DPT) and one of the leading physiotherapists in Multan. At PainFix Physiotherapy Clinic he leads patient care with a focus on evidence-based physiotherapy, personalized rehabilitation and long-term recovery.",
         "Whether you are dealing with persistent back pain, a sports injury or recovering after surgery, Dr. Zain designs individualized treatment plans that target the root cause of your condition — helping you move better and live pain-free.",
@@ -140,7 +140,7 @@ export const team: TeamMember[] = [
     profile: {
       metaTitle: "Dr. Jalal Ud Din PT — Physiotherapist in Multan | DPT",
       metaDescription:
-        "Dr. Jalal Ud Din PT is a clinical physiotherapist in Multan providing evidence-based physiotherapy for back pain, neck pain, sciatica, neurological and orthopaedic rehabilitation. Book an appointment at PainFix Physiotherapy Clinic.",
+        "Dr. Jalal Ud Din, DPT, provides physiotherapy in Multan for back and neck pain, sciatica, and neurological and orthopaedic rehabilitation at PainFix.",
       intro: [
         "Dr. Jalal Ud Din PT is a clinical physiotherapist in Multan and a Doctor of Physical Therapy (DPT). At PainFix Physiotherapy Clinic he specialises in rehabilitation and recovery, designing individualized treatment plans that address the root cause of each patient's condition.",
         "From neurological rehabilitation to orthopaedic recovery and pain management, Dr. Jalal is committed to evidence-based physiotherapy that delivers real, long-term results for patients across Multan.",
