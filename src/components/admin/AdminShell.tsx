@@ -23,6 +23,7 @@ import {
   Dumbbell,
   ExternalLink,
   Bell,
+  Search,
 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useAdminAuth } from "@/admin/AdminAuthProvider";
@@ -30,6 +31,14 @@ import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger, SheetTitle } from "@/components/ui/sheet";
 import { Skeleton } from "@/components/ui/skeleton";
+import {
+  CommandDialog,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+} from "@/components/ui/command";
 
 interface NavItem {
   to: string;
@@ -137,7 +146,20 @@ export function AdminShell({ children }: { children: ReactNode }) {
   const queryClient = useQueryClient();
   const { dark, toggle } = useDarkMode();
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [commandOpen, setCommandOpen] = useState(false);
   const pathname = useRouterState({ select: (s) => s.location.pathname });
+
+  useEffect(() => {
+    function handleGlobalShortcut(event: KeyboardEvent) {
+      if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === "k") {
+        event.preventDefault();
+        setCommandOpen((open) => !open);
+      }
+    }
+
+    window.addEventListener("keydown", handleGlobalShortcut);
+    return () => window.removeEventListener("keydown", handleGlobalShortcut);
+  }, []);
   const { data: inboxCounts } = useQuery({
     enabled: isAdmin || isStaff,
     queryKey: ["admin", "inbox-notifications", isAdmin, isStaff],
@@ -322,7 +344,11 @@ export function AdminShell({ children }: { children: ReactNode }) {
   );
 
   return (
-    <div className="min-h-screen bg-surface">
+    <div className="min-h-screen bg-surface lg:flex">
+      <aside className="sticky top-0 hidden h-screen w-[272px] shrink-0 border-r border-border bg-card lg:block">
+        {SidebarInner}
+      </aside>
+      <div className="min-w-0 flex-1">
       <header className="sticky top-0 z-40 border-b border-border bg-card/95 shadow-sm backdrop-blur">
         <div className="mx-auto flex min-h-[68px] max-w-[1600px] items-center justify-between gap-4 px-4 sm:px-6 xl:px-8">
           <div className="flex min-w-0 items-center gap-3">
@@ -344,6 +370,18 @@ export function AdminShell({ children }: { children: ReactNode }) {
           </div>
 
           <div className="flex shrink-0 items-center gap-2">
+            <Button
+              type="button"
+              variant="outline"
+              size="sm"
+              onClick={() => setCommandOpen(true)}
+              className="mr-1 gap-2 text-muted-foreground"
+              aria-label="Open command palette"
+            >
+              <Search className="h-4 w-4" />
+              <span className="hidden sm:inline">Search pages</span>
+              <kbd className="hidden rounded border bg-muted px-1.5 py-0.5 text-[10px] font-medium sm:inline">Ctrl K</kbd>
+            </Button>
             <span className="hidden max-w-[220px] truncate text-sm text-muted-foreground xl:inline">
               {user?.email}
             </span>
@@ -401,7 +439,7 @@ export function AdminShell({ children }: { children: ReactNode }) {
 
         <nav
           aria-label="Admin navigation"
-          className="hidden overflow-x-auto border-t border-border/70 lg:block"
+          className="hidden"
         >
           <div className="mx-auto flex w-max min-w-full flex-nowrap items-center gap-x-5 px-4 py-2.5 sm:px-6 xl:px-8">
             {navigation.map((section) => (
@@ -459,6 +497,30 @@ export function AdminShell({ children }: { children: ReactNode }) {
       <main className="mx-auto w-full max-w-[1600px] px-4 py-5 sm:px-6 sm:py-7 xl:px-8">
         <div className="min-w-0">{children}</div>
       </main>
+      </div>
+      <CommandDialog open={commandOpen} onOpenChange={setCommandOpen}>
+        <CommandInput placeholder="Search admin pages and actions..." />
+        <CommandList>
+          <CommandEmpty>No matching pages found.</CommandEmpty>
+          <CommandGroup heading="Navigation">
+            {items.map((item) => (
+              <CommandItem
+                key={item.to}
+                value={`${item.label} ${item.to}`}
+                onSelect={() => {
+                  setCommandOpen(false);
+                  setMobileOpen(false);
+                  navigate({ to: item.to });
+                }}
+              >
+                <item.icon className="h-4 w-4" aria-hidden="true" />
+                <span>{item.label}</span>
+                <span className="ml-auto text-xs text-muted-foreground">{item.to}</span>
+              </CommandItem>
+            ))}
+          </CommandGroup>
+        </CommandList>
+      </CommandDialog>
     </div>
   );
 }
