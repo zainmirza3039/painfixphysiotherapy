@@ -6,6 +6,7 @@ import { Plus, Search, Download, Pencil, Loader2, CalendarClock } from "lucide-r
 import { supabase } from "@/integrations/supabase/client";
 import type { Database } from "@/integrations/supabase/types";
 import { AdminPageHeader } from "@/components/admin/AdminPageHeader";
+import { rollbackOptimisticList, updateListOptimistically } from "@/admin/optimistic";
 import { exportToCsv, fmtDateTime } from "@/admin/utils";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -173,12 +174,28 @@ function AppointmentsPage() {
     },
   });
 
-  async function quickStatus(a: Appointment, status: string) {
-    const { error } = await supabase.from("appointments").update({ status }).eq("id", a.id);
-    if (error) return toast.error(error.message);
-    qc.invalidateQueries({ queryKey: ["admin", "appointments"] });
-    qc.invalidateQueries({ queryKey: ["admin", "dashboard"] });
-    toast.success("Status updated");
+  const quickStatusMutation = useMutation({
+    mutationFn: async ({ id, status }: { id: string; status: string }) => {
+      const { error } = await supabase.from("appointments").update({ status }).eq("id", id);
+      if (error) throw error;
+    },
+    onMutate: ({ id, status }) =>
+      updateListOptimistically<Appointment>(qc, ["admin", "appointments"], (current) =>
+        current.map((appointment) => appointment.id === id ? { ...appointment, status } : appointment),
+      ),
+    onError: (error, _variables, context) => {
+      rollbackOptimisticList(qc, ["admin", "appointments"], context);
+      toast.error(error instanceof Error ? error.message : "Unable to update appointment status");
+    },
+    onSuccess: () => toast.success("Status updated"),
+    onSettled: () => {
+      void qc.invalidateQueries({ queryKey: ["admin", "appointments"] });
+      void qc.invalidateQueries({ queryKey: ["admin", "dashboard"] });
+    },
+  });
+
+  function quickStatus(a: Appointment, status: string) {
+    quickStatusMutation.mutate({ id: a.id, status });
   }
 
   function openNew() {
@@ -298,7 +315,7 @@ function AppointmentsPage() {
                     <TableCell>{fmtDateTime(a.appointment_at)}</TableCell>
                     <TableCell>{a.assigned_therapist ?? "—"}</TableCell>
                     <TableCell>
-                      <Select value={a.status} onValueChange={(v) => quickStatus(a, v)}>
+                      <Select value={a.status} onValueChange={(v) => quickStatus(a, v)} disabled={quickStatusMutation.isPending}>
                         <SelectTrigger className="h-8 w-[130px]">
                           <Badge variant="secondary" className={statusColor(a.status)}>
                             {a.status}
