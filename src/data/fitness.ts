@@ -625,7 +625,7 @@ const injuryPrevention: FitnessPage[] = [
       "Football-specific conditioning to reduce hamstring, knee and ankle injuries and keep you on the pitch.",
     metaTitle: "Football Athlete Injury Prevention in Multan | PainFix",
     metaDescription:
-      "Football injury prevention in Multan at PainFix — evidence-based conditioning to reduce hamstring, ACL, knee and ankle injuries and improve on-pitch performance.",
+      "Football injury prevention in Multan: physiotherapist-led conditioning for hamstring, ACL, knee and ankle injury risk at PainFix.",
     quickSummary:
       "The PainFix Football Athlete Programme uses evidence-based conditioning — including proven warm-up and strengthening strategies — to reduce common football injuries such as hamstring strains, knee (ACL) and ankle injuries, and to support performance.",
     keyTakeaways: [
