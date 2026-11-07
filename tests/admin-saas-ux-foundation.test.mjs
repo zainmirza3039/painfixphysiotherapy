@@ -110,5 +110,5 @@ test("blog editor keeps an explicit local autosave and restore workflow", () => 
   assert.match(editor, /Restore local draft/);
   assert.match(editor, /window\.setTimeout/);
   assert.match(editor, /draftStatus === "saved"/);
-  assert.match(editor, /setHasEdited\(true\)/);
+  assert.match(editor, /setHasEdited\(true\)/);\n  assert.match(editor, /Add article content before publishing/);\n  assert.match(editor, /maxLength=\{160\}/);
 });
