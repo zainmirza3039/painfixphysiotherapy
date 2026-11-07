@@ -13,6 +13,7 @@ import { AdminOnly } from "@/components/admin/AdminOnly";
 import { fmtDateTime } from "@/admin/utils";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Checkbox } from "@/components/ui/checkbox";
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
@@ -70,6 +71,8 @@ function MessagesPage() {
   const qc = useQueryClient();
   const [search, setSearch] = useState("");
   const debouncedSearch = useDebouncedValue(search, 250);
+  const [statusFilter, setStatusFilter] = useState("all");
+  const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
   const [selected, setSelected] = useState<Message | null>(null);
   const [deleteId, setDeleteId] = useState<string | null>(null);
 
@@ -87,13 +90,34 @@ function MessagesPage() {
 
   const filtered = useMemo(() => {
     const q = debouncedSearch.trim().toLowerCase();
-    if (!q) return rows ?? [];
-    return (rows ?? []).filter((r) =>
-      [r.name, r.email, r.phone, r.message]
+    return (rows ?? []).filter((row) => {
+      if (statusFilter !== "all" && (row.status ?? "new") !== statusFilter) return false;
+      if (!q) return true;
+      return [row.name, row.email, row.phone, row.message]
         .filter(Boolean)
-        .some((v) => String(v).toLowerCase().includes(q)),
-    );
-  }, [rows, debouncedSearch]);
+        .some((value) => String(value).toLowerCase().includes(q));
+    });
+  }, [rows, debouncedSearch, statusFilter]);
+
+  function toggleMessage(id: string, checked: boolean) {
+    setSelectedIds((current) => {
+      const next = new Set(current);
+      if (checked) next.add(id);
+      else next.delete(id);
+      return next;
+    });
+  }
+
+  function toggleAllMessages(checked: boolean) {
+    setSelectedIds((current) => {
+      const next = new Set(current);
+      for (const row of filtered) {
+        if (checked) next.add(row.id);
+        else next.delete(row.id);
+      }
+      return next;
+    });
+  }
 
   const statusMutation = useMutation({
     mutationFn: async ({ id, status }: { id: string; status: string }) => {
@@ -114,7 +138,31 @@ function MessagesPage() {
     },
   });
 
+  const bulkStatusMutation = useMutation({
+    mutationFn: async ({ ids, status }: { ids: string[]; status: string }) => {
+      const { error } = await supabase
+        .from("contact_submissions")
+        .update({ status })
+        .in("id", ids);
+      if (error) throw error;
+    },
+    onMutate: ({ ids, status }) =>
+      updateListOptimistically<Message>(qc, ["admin", "messages"], (current) =>
+        current.map((message) => (ids.includes(message.id) ? { ...message, status } : message)),
+      ),
+    onError: (error, _variables, context) => {
+      rollbackOptimisticList(qc, ["admin", "messages"], context);
+      toast.error(error instanceof Error ? error.message : "Unable to update selected messages");
+    },
+    onSuccess: (_data, variables) => {
+      setSelectedIds(new Set());
+      toast.success(`${variables.ids.length} messages updated`);
+    },
+    onSettled: () => void qc.invalidateQueries({ queryKey: ["admin", "messages"] }),
+  });
+
   function updateStatus(m: Message, status: string) {
+    bulkStatusMutation.reset();
     statusMutation.mutate({ id: m.id, status });
   }
 
@@ -150,14 +198,50 @@ function MessagesPage() {
     <div>
       <AdminPageHeader title="Messages" description="Contact form enquiries from your website." />
 
-      <div className="relative mb-4 max-w-sm">
-        <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-        <Input
-          className="pl-9"
-          placeholder="Search messages…"
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-        />
+      <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-center">
+        <div className="relative w-full max-w-sm">
+          <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+          <Input
+            className="pl-9"
+            placeholder="Search messages…"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          />
+        </div>
+        <Select value={statusFilter} onValueChange={setStatusFilter}>
+          <SelectTrigger className="w-full sm:w-[160px]" aria-label="Filter messages by status">
+            <SelectValue placeholder="All statuses" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="all">All statuses</SelectItem>
+            {STATUSES.map((status) => (
+              <SelectItem key={status} value={status}>
+                {status}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+        <div className="flex flex-wrap items-center gap-2 sm:ml-auto">
+          <span className="mr-1 text-xs text-muted-foreground" aria-live="polite">
+            {selectedIds.size} selected
+          </span>
+          <Button
+            size="sm"
+            variant="outline"
+            disabled={selectedIds.size === 0 || bulkStatusMutation.isPending}
+            onClick={() => bulkStatusMutation.mutate({ ids: [...selectedIds], status: "read" })}
+          >
+            Mark read
+          </Button>
+          <Button
+            size="sm"
+            variant="outline"
+            disabled={selectedIds.size === 0 || bulkStatusMutation.isPending}
+            onClick={() => bulkStatusMutation.mutate({ ids: [...selectedIds], status: "archived" })}
+          >
+            Archive
+          </Button>
+        </div>
       </div>
 
       <div className="overflow-hidden rounded-2xl border border-border bg-card shadow-soft">
@@ -179,6 +263,19 @@ function MessagesPage() {
             <Table>
               <TableHeader>
                 <TableRow>
+                  <TableHead className="w-10">
+                    <Checkbox
+                      aria-label="Select all visible messages"
+                      checked={
+                        filtered.length > 0 && filtered.every((row) => selectedIds.has(row.id))
+                          ? true
+                          : filtered.some((row) => selectedIds.has(row.id))
+                            ? "indeterminate"
+                            : false
+                      }
+                      onCheckedChange={(checked) => toggleAllMessages(checked === true)}
+                    />
+                  </TableHead>
                   <TableHead>From</TableHead>
                   <TableHead>Message</TableHead>
                   <TableHead>Received</TableHead>
@@ -192,6 +289,13 @@ function MessagesPage() {
                     key={m.id}
                     className={(m.status ?? "new") === "new" ? "font-medium" : ""}
                   >
+                    <TableCell>
+                      <Checkbox
+                        aria-label={`Select message from ${m.name}`}
+                        checked={selectedIds.has(m.id)}
+                        onCheckedChange={(checked) => toggleMessage(m.id, checked === true)}
+                      />
+                    </TableCell>
                     <TableCell>
                       <div className="text-foreground">{m.name}</div>
                       <div className="text-xs text-muted-foreground">

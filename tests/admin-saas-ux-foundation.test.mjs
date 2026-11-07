@@ -92,3 +92,13 @@ test("core admin record lists distinguish query failures from empty results and 
     assert.match(page, /<AdminQueryError onRetry=\{\(\) => void refetch\(\)\} \/>/);
   }
 });
+
+test("messages workspace supports status filtering and safe bulk status actions", () => {
+  const page = source("routes/_authenticated/admin.messages.tsx");
+  assert.match(page, /Filter messages by status/);
+  assert.match(page, /Select all visible messages/);
+  assert.match(page, /selectedIds\.size === 0/);
+  assert.match(page, /updateListOptimistically<Message>/);
+  assert.match(page, /rollbackOptimisticList\(qc, \["admin", "messages"\]/);
+  assert.match(page, /\.in\("id", ids\)/);
+});
