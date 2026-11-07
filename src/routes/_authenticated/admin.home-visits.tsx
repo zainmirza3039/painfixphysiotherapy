@@ -8,6 +8,7 @@ import type { Database } from "@/integrations/supabase/types";
 import { useAdminAuth } from "@/admin/AdminAuthProvider";
 import { AdminPageHeader } from "@/components/admin/AdminPageHeader";
 import { rollbackOptimisticList, updateListOptimistically } from "@/admin/optimistic";
+import { rollbackOptimisticList, updateListOptimistically } from "@/admin/optimistic";
 import { exportToCsv, fmtDate, fmtDateTime } from "@/admin/utils";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -124,13 +125,22 @@ function HomeVisitsPage() {
       const { error } = await supabase.from("home_visit_requests").delete().eq("id", id);
       if (error) throw error;
     },
+    onMutate: (id) =>
+      updateListOptimistically<Visit>(qc, ["admin", "home-visits"], (current) =>
+        current.filter((visit) => visit.id !== id),
+      ),
+    onError: (error, _id, context) => {
+      rollbackOptimisticList(qc, ["admin", "home-visits"], context);
+      toast.error(error instanceof Error ? error.message : "Delete failed");
+    },
     onSuccess: () => {
-      qc.invalidateQueries({ queryKey: ["admin", "home-visits"] });
-      qc.invalidateQueries({ queryKey: ["admin", "dashboard"] });
       setDeleteId(null);
       toast.success("Request deleted");
     },
-    onError: (e) => toast.error(e instanceof Error ? e.message : "Delete failed"),
+    onSettled: () => {
+      void qc.invalidateQueries({ queryKey: ["admin", "home-visits"] });
+      void qc.invalidateQueries({ queryKey: ["admin", "dashboard"] });
+    },
   });
 
   return (
