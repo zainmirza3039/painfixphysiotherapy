@@ -94,7 +94,7 @@ function GalleryManagerPage() {
     },
     onMutate: async (asset) => {
       const current = galleryQuery.data ?? [];
-      const caption = asset.name.replace(/^.*\\//, "").replace(/\\.[^.]+$/, "").replace(/[-_]+/g, " ").trim();
+      const caption = asset.name.replace(/^.*\//, "").replace(/\.[^.]+$/, "").replace(/[-_]+/g, " ").trim();
       return updateListOptimistically<GalleryRow>(queryClient, ["admin", "site-gallery"], (items) => [
         ...items,
         {
