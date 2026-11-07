@@ -148,7 +148,7 @@ export function HomeVisitForm() {
             required
           />
         </div>
-  
+
         <div className="sm:col-span-2">
           <label className={labelClassName} htmlFor="address">
             {f.address} *
@@ -165,7 +165,7 @@ export function HomeVisitForm() {
             required
           />
         </div>
-  
+
         <div className="sm:col-span-2">
           <label className={labelClassName} htmlFor="medical_condition">
             {f.condition} *
@@ -180,7 +180,7 @@ export function HomeVisitForm() {
             required
           />
         </div>
-  
+
         <div>
           <label className={labelClassName} htmlFor="preferred_date">
             {f.date} *
@@ -210,7 +210,7 @@ export function HomeVisitForm() {
             required
           />
         </div>
-  
+
         <div className="sm:col-span-2">
           <label className={labelClassName} htmlFor="notes">
             {f.notes}
@@ -225,7 +225,7 @@ export function HomeVisitForm() {
             onChange={(event) => set("notes", event.target.value)}
           />
         </div>
-  
+
         <div
           aria-hidden="true"
           className="absolute left-[-9999px] top-[-9999px] h-0 w-0 overflow-hidden"
@@ -241,7 +241,7 @@ export function HomeVisitForm() {
             onChange={(event) => setCompany(event.target.value)}
           />
         </div>
-  
+
         <div className="sm:col-span-2">
           {submitting && (
             <p className="mb-3 text-sm text-muted-foreground" role="status" aria-live="polite">
@@ -255,13 +255,11 @@ export function HomeVisitForm() {
           >
             {submitting ? (
               <>
-                <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" />{" "}
-                {t.actions.submitting}
+                <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" /> {t.actions.submitting}
               </>
             ) : (
               <>
-                <Send className="h-4 w-4" aria-hidden="true" />{" "}
-                {t.actions.submit}
+                <Send className="h-4 w-4" aria-hidden="true" /> {t.actions.submit}
               </>
             )}
           </button>
