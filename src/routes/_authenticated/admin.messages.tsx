@@ -7,7 +7,6 @@ import { supabase } from "@/integrations/supabase/client";
 import type { Database } from "@/integrations/supabase/types";
 import { AdminPageHeader } from "@/components/admin/AdminPageHeader";
 import { rollbackOptimisticList, updateListOptimistically } from "@/admin/optimistic";
-import { rollbackOptimisticList, updateListOptimistically } from "@/admin/optimistic";
 import { AdminOnly } from "@/components/admin/AdminOnly";
 import { fmtDateTime } from "@/admin/utils";
 import { Button } from "@/components/ui/button";
