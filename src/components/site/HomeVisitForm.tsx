@@ -1,5 +1,5 @@
 import { useState, type FormEvent } from "react";
-import { Loader2, Send } from "lucide-react";
+import { CheckCircle2, Loader2, Send } from "lucide-react";
 import { toast } from "sonner";
 import { useI18n } from "@/i18n/LanguageProvider";
 import {
@@ -28,6 +28,7 @@ export function HomeVisitForm() {
   const [values, setValues] = useState<HomeVisitFormValues>(createInitialValues);
   const [company, setCompany] = useState("");
   const [submitting, setSubmitting] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
   const [submissionGate] = useState(() => createHomeVisitSubmissionGate());
   const today = getLocalDateInputValue();
 
@@ -79,6 +80,7 @@ export function HomeVisitForm() {
 
       toast.success(f.success);
       setValues(createInitialValues());
+      setSubmitted(true);
     } catch (error) {
       console.error("Home visit request failed:", error);
       toast.error(f.error);
@@ -90,6 +92,26 @@ export function HomeVisitForm() {
   const inputClassName =
     "w-full rounded-xl border border-input bg-background px-4 py-3 text-sm text-foreground outline-none transition-colors placeholder:text-muted-foreground focus:border-primary focus:ring-2 focus:ring-primary/20";
   const labelClassName = "mb-1.5 block text-sm font-semibold text-foreground";
+
+  if (submitted) {
+    return (
+      <div role="status" className="rounded-2xl border border-secondary/30 bg-secondary/10 p-6">
+        <CheckCircle2 className="h-7 w-7 text-secondary" aria-hidden="true" />
+        <h3 className="mt-3 font-heading text-lg font-bold text-foreground">Request received</h3>
+        <p className="mt-2 text-sm leading-6 text-muted-foreground">
+          Your home-visit request has been submitted. This is a request, not a confirmed appointment;
+          the PainFix team will contact you to confirm availability.
+        </p>
+        <button
+          type="button"
+          onClick={() => setSubmitted(false)}
+          className="mt-4 inline-flex min-h-11 items-center rounded-xl border border-border bg-card px-4 py-2 text-sm font-semibold text-foreground hover:bg-muted"
+        >
+          Submit another request
+        </button>
+      </div>
+    );
+  }
 
   return (
     <form onSubmit={onSubmit} aria-busy={submitting} className="grid gap-4 sm:grid-cols-2">
@@ -220,6 +242,11 @@ export function HomeVisitForm() {
       </div>
 
       <div className="sm:col-span-2">
+        {submitting && (
+          <p className="mb-3 text-sm text-muted-foreground" role="status" aria-live="polite">
+            Sending your request securely…
+          </p>
+        )}
         <button
           type="submit"
           disabled={submitting}
