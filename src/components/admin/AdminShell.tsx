@@ -349,154 +349,101 @@ export function AdminShell({ children }: { children: ReactNode }) {
         {SidebarInner}
       </aside>
       <div className="min-w-0 flex-1">
-      <header className="sticky top-0 z-40 border-b border-border bg-card/95 shadow-sm backdrop-blur">
-        <div className="mx-auto flex min-h-[68px] max-w-[1600px] items-center justify-between gap-4 px-4 sm:px-6 xl:px-8">
-          <div className="flex min-w-0 items-center gap-3">
-            <span className="relative grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-primary text-primary-foreground">
-              <Activity className="h-5 w-5" />
-              <span
-                aria-hidden="true"
-                className="absolute -bottom-0.5 -right-0.5 h-3 w-3 rounded-full border-2 border-card bg-secondary"
-              />
-            </span>
-            <div className="min-w-0">
-              <p className="truncate font-heading text-base font-semibold tracking-tight text-foreground">
-                PainFix Admin
-              </p>
-              <p className="mt-0.5 text-[10px] font-semibold uppercase tracking-[0.14em] text-muted-foreground">
-                {panelLabel} workspace
-              </p>
+        <header className="sticky top-0 z-40 border-b border-border bg-card/95 shadow-sm backdrop-blur">
+          <div className="mx-auto flex min-h-[68px] max-w-[1600px] items-center justify-between gap-4 px-4 sm:px-6 xl:px-8">
+            <div className="flex min-w-0 items-center gap-3">
+              <span className="relative grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-primary text-primary-foreground">
+                <Activity className="h-5 w-5" />
+                <span
+                  aria-hidden="true"
+                  className="absolute -bottom-0.5 -right-0.5 h-3 w-3 rounded-full border-2 border-card bg-secondary"
+                />
+              </span>
+              <div className="min-w-0">
+                <p className="truncate font-heading text-base font-semibold tracking-tight text-foreground">
+                  PainFix Admin
+                </p>
+                <p className="mt-0.5 text-[10px] font-semibold uppercase tracking-[0.14em] text-muted-foreground">
+                  {panelLabel} workspace
+                </p>
+              </div>
+            </div>
+  
+            <div className="flex shrink-0 items-center gap-2">
+              <Button
+                type="button"
+                variant="outline"
+                size="sm"
+                onClick={() => setCommandOpen(true)}
+                className="mr-1 gap-2 text-muted-foreground"
+                aria-label="Open command palette"
+              >
+                <Search className="h-4 w-4" />
+                <span className="hidden sm:inline">Search pages</span>
+                <kbd className="hidden rounded border bg-muted px-1.5 py-0.5 text-[10px] font-medium sm:inline">
+                ⌘ / Ctrl K
+              </kbd>
+              </Button>
+              <span className="hidden max-w-[220px] truncate text-sm text-muted-foreground xl:inline">
+                {user?.email}
+              </span>
+              {(isAdmin || isStaff) && (
+                <Link
+                  to={isAdmin ? "/admin/messages" : "/admin/home-visits"}
+                  aria-label={
+                    totalNotifications > 0
+                      ? `${totalNotifications} new clinic notifications`
+                      : "Clinic notifications"
+                  }
+                  title={
+                    totalNotifications > 0
+                      ? `${totalNotifications} new items`
+                      : "No new notifications"
+                  }
+                  className="relative grid h-9 w-9 place-items-center rounded-xl text-muted-foreground transition-colors hover:bg-muted hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                >
+                  <Bell className="h-[18px] w-[18px]" aria-hidden="true" />
+                  {totalNotifications > 0 && (
+                    <span className="absolute right-1 top-1 h-2.5 w-2.5 rounded-full border-2 border-card bg-rose-500" />
+                  )}
+                  <span className="sr-only">
+                    {totalNotifications > 0
+                      ? `${totalNotifications} new notifications`
+                      : "No new notifications"}
+                  </span>
+                </Link>
+              )}
+              <span aria-hidden="true" className="hidden h-6 w-px bg-border xl:block" />
+              <Button variant="ghost" size="icon" onClick={toggle} aria-label="Toggle theme">
+                {dark ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
+              </Button>
+              <Button variant="outline" size="sm" onClick={signOut} className="hidden sm:inline-flex">
+                <LogOut className="mr-2 h-4 w-4" /> Sign out
+              </Button>
+              <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
+                <SheetTrigger asChild>
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    className="lg:hidden"
+                    aria-label="Open admin navigation"
+                  >
+                    <Menu className="h-5 w-5" />
+                  </Button>
+                </SheetTrigger>
+                <SheetContent side="right" className="w-80 p-0">
+                  <SheetTitle className="sr-only">Admin navigation</SheetTitle>
+                  {SidebarInner}
+                </SheetContent>
+              </Sheet>
             </div>
           </div>
-
-          <div className="flex shrink-0 items-center gap-2">
-            <Button
-              type="button"
-              variant="outline"
-              size="sm"
-              onClick={() => setCommandOpen(true)}
-              className="mr-1 gap-2 text-muted-foreground"
-              aria-label="Open command palette"
-            >
-              <Search className="h-4 w-4" />
-              <span className="hidden sm:inline">Search pages</span>
-              <kbd className="hidden rounded border bg-muted px-1.5 py-0.5 text-[10px] font-medium sm:inline">Ctrl K</kbd>
-            </Button>
-            <span className="hidden max-w-[220px] truncate text-sm text-muted-foreground xl:inline">
-              {user?.email}
-            </span>
-            {(isAdmin || isStaff) && (
-              <Link
-                to={isAdmin ? "/admin/messages" : "/admin/home-visits"}
-                aria-label={
-                  totalNotifications > 0
-                    ? `${totalNotifications} new clinic notifications`
-                    : "Clinic notifications"
-                }
-                title={
-                  totalNotifications > 0
-                    ? `${totalNotifications} new items`
-                    : "No new notifications"
-                }
-                className="relative grid h-9 w-9 place-items-center rounded-xl text-muted-foreground transition-colors hover:bg-muted hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-              >
-                <Bell className="h-[18px] w-[18px]" aria-hidden="true" />
-                {totalNotifications > 0 && (
-                  <span className="absolute right-1 top-1 h-2.5 w-2.5 rounded-full border-2 border-card bg-rose-500" />
-                )}
-                <span className="sr-only">
-                  {totalNotifications > 0
-                    ? `${totalNotifications} new notifications`
-                    : "No new notifications"}
-                </span>
-              </Link>
-            )}
-            <span aria-hidden="true" className="hidden h-6 w-px bg-border xl:block" />
-            <Button variant="ghost" size="icon" onClick={toggle} aria-label="Toggle theme">
-              {dark ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
-            </Button>
-            <Button variant="outline" size="sm" onClick={signOut} className="hidden sm:inline-flex">
-              <LogOut className="mr-2 h-4 w-4" /> Sign out
-            </Button>
-            <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
-              <SheetTrigger asChild>
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  className="lg:hidden"
-                  aria-label="Open admin navigation"
-                >
-                  <Menu className="h-5 w-5" />
-                </Button>
-              </SheetTrigger>
-              <SheetContent side="right" className="w-80 p-0">
-                <SheetTitle className="sr-only">Admin navigation</SheetTitle>
-                {SidebarInner}
-              </SheetContent>
-            </Sheet>
-          </div>
-        </div>
-
-        <nav
-          aria-label="Admin navigation"
-          className="hidden"
-        >
-          <div className="mx-auto flex w-max min-w-full flex-nowrap items-center gap-x-5 px-4 py-2.5 sm:px-6 xl:px-8">
-            {navigation.map((section) => (
-              <div key={section.label} className="flex min-w-0 items-center gap-1.5">
-                <span className="mr-1 whitespace-nowrap text-[9px] font-bold uppercase tracking-[0.12em] text-muted-foreground/70">
-                  {section.label}
-                </span>
-                {section.items.map((item) => {
-                  const active =
-                    item.to === "/admin" ? pathname === item.to : pathname.startsWith(item.to);
-                  return (
-                    <Link
-                      key={item.to}
-                      to={item.to}
-                      aria-current={active ? "page" : undefined}
-                      className={cn(
-                        "inline-flex min-h-9 items-center gap-1.5 whitespace-nowrap rounded-lg px-2.5 text-xs font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
-                        active
-                          ? "bg-primary/10 font-semibold text-primary"
-                          : "text-foreground/70 hover:bg-muted hover:text-foreground",
-                      )}
-                    >
-                      <item.icon
-                        className={cn(
-                          "h-3.5 w-3.5 shrink-0",
-                          active ? "text-secondary" : "text-muted-foreground",
-                        )}
-                        aria-hidden="true"
-                      />
-                      {item.label}
-                      {((item.to === "/admin/messages" && unreadMessages > 0) ||
-                        (item.to === "/admin/home-visits" && newHomeVisits > 0)) && (
-                        <span
-                          aria-hidden="true"
-                          className="ml-0.5 h-1.5 w-1.5 shrink-0 rounded-full bg-rose-500"
-                        />
-                      )}
-                    </Link>
-                  );
-                })}
-              </div>
-            ))}
-            <a
-              href="/"
-              target="_blank"
-              rel="noreferrer"
-              className="ml-auto inline-flex min-h-9 items-center gap-1.5 whitespace-nowrap rounded-lg px-2.5 text-xs font-medium text-muted-foreground hover:bg-muted hover:text-foreground"
-            >
-              <ExternalLink className="h-3.5 w-3.5" /> Website
-            </a>
-          </div>
-        </nav>
-      </header>
-
-      <main className="mx-auto w-full max-w-[1600px] px-4 py-5 sm:px-6 sm:py-7 xl:px-8">
-        <div className="min-w-0">{children}</div>
-      </main>
+  
+        </header>
+  
+        <main className="mx-auto w-full max-w-[1600px] px-4 py-5 sm:px-6 sm:py-7 xl:px-8">
+          <div className="min-w-0">{children}</div>
+        </main>
       </div>
       <CommandDialog open={commandOpen} onOpenChange={setCommandOpen}>
         <CommandInput placeholder="Search admin pages and actions..." />
