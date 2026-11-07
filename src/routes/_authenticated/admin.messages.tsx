@@ -76,7 +76,12 @@ function MessagesPage() {
   const [selected, setSelected] = useState<Message | null>(null);
   const [deleteId, setDeleteId] = useState<string | null>(null);
 
-  const { data: rows, isLoading, isError, refetch } = useQuery({
+  const {
+    data: rows,
+    isLoading,
+    isError,
+    refetch,
+  } = useQuery({
     queryKey: ["admin", "messages"],
     queryFn: async () => {
       const { data, error } = await supabase
@@ -140,10 +145,7 @@ function MessagesPage() {
 
   const bulkStatusMutation = useMutation({
     mutationFn: async ({ ids, status }: { ids: string[]; status: string }) => {
-      const { error } = await supabase
-        .from("contact_submissions")
-        .update({ status })
-        .in("id", ids);
+      const { error } = await supabase.from("contact_submissions").update({ status }).in("id", ids);
       if (error) throw error;
     },
     onMutate: ({ ids, status }) =>

@@ -12,10 +12,7 @@ export function AdminQueryError({
   message = "We couldn't load these records. Check your connection and try again.",
 }: AdminQueryErrorProps) {
   return (
-    <div
-      role="alert"
-      className="flex flex-col items-center gap-3 px-5 py-12 text-center"
-    >
+    <div role="alert" className="flex flex-col items-center gap-3 px-5 py-12 text-center">
       <span className="grid h-11 w-11 place-items-center rounded-full bg-destructive/10 text-destructive">
         <AlertCircle className="h-5 w-5" aria-hidden="true" />
       </span>

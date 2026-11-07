@@ -89,7 +89,12 @@ function AppointmentsPage() {
   const [editing, setEditing] = useState<Appointment | null>(null);
   const [form, setForm] = useState({ ...empty });
 
-  const { data: rows, isLoading, isError, refetch } = useQuery({
+  const {
+    data: rows,
+    isLoading,
+    isError,
+    refetch,
+  } = useQuery({
     queryKey: ["admin", "appointments"],
     queryFn: async () => {
       const { data, error } = await supabase

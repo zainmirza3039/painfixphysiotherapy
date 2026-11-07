@@ -98,7 +98,12 @@ function PatientsPage() {
   const [form, setForm] = useState({ ...empty });
   const [deleteId, setDeleteId] = useState<string | null>(null);
 
-  const { data: patients, isLoading, isError, refetch } = useQuery({
+  const {
+    data: patients,
+    isLoading,
+    isError,
+    refetch,
+  } = useQuery({
     queryKey: ["admin", "patients"],
     queryFn: async () => {
       const { data, error } = await supabase

@@ -98,7 +98,7 @@ function BlogEditorPage() {
         }
       }
     } catch {
-      window.localStorage.removeItem(draftKey);
+      setSavedLocalDraft(null);
     }
     setDraftReady(true);
   }, [draftKey, postId, postQuery.isLoading]);
@@ -187,7 +187,11 @@ function BlogEditorPage() {
       }
     },
     onSuccess: async () => {
-      window.localStorage.removeItem(draftKey);
+      try {
+        window.localStorage.removeItem(draftKey);
+      } catch {
+        // A successful server save must not depend on browser storage availability.
+      }
       await queryClient.invalidateQueries({ queryKey: ["admin", "blog"] });
       toast.success(postId ? "Article updated" : "Article created");
       window.location.assign("/admin/blog");

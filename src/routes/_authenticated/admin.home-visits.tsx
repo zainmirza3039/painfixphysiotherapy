@@ -74,7 +74,12 @@ function HomeVisitsPage() {
   const [selected, setSelected] = useState<Visit | null>(null);
   const [deleteId, setDeleteId] = useState<string | null>(null);
 
-  const { data: rows, isLoading, isError, refetch } = useQuery({
+  const {
+    data: rows,
+    isLoading,
+    isError,
+    refetch,
+  } = useQuery({
     queryKey: ["admin", "home-visits"],
     queryFn: async () => {
       const { data, error } = await supabase

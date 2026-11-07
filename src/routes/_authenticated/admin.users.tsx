@@ -80,7 +80,12 @@ function UsersPage() {
   });
   const [deleteId, setDeleteId] = useState<string | null>(null);
 
-  const { data: users, isLoading, isError, refetch } = useQuery({
+  const {
+    data: users,
+    isLoading,
+    isError,
+    refetch,
+  } = useQuery({
     queryKey: ["admin", "users"],
     queryFn: () => list(),
   });
