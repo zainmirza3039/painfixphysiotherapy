@@ -828,7 +828,7 @@ export const conditions: Condition[] = [
     icon: "💪",
     metaTitle: "Shoulder Pain Treatment in Multan | Physiotherapy — PainFix",
     metaDescription:
-      "Shoulder pain physiotherapy in Multan for painful movement, rotator cuff-related pain and stiffness. Get an individual assessment and rehabilitation plan at PainFix.",
+      "Shoulder pain physiotherapy in Multan for painful movement, rotator cuff symptoms and stiffness. Request an individual assessment at PainFix.",
     intro: [
       "Shoulder pain can arise from several structures and conditions, including rotator cuff-related pain, tendon irritation, joint stiffness, instability or referred pain from the neck. Pain during overhead activity does not identify one diagnosis on its own.",
       "PainFix provides assessment-led shoulder rehabilitation in Multan. The examination considers pain behaviour, active and passive movement, strength, neck contribution and the activities you need to regain.",
