@@ -180,14 +180,14 @@ function GalleryManagerPage() {
       updateListOptimistically<GalleryRow>(
         queryClient,
         ["admin", "site-gallery"],
-        (items) =>
-          items
-            .map((item) => {
-              if (item.id === first.id) return { ...item, display_order: second.display_order };
-              if (item.id === second.id) return { ...item, display_order: first.display_order };
-              return item;
-            })
-            .sort((a, b) => a.display_order - b.display_order),
+        (items) => {
+          const reordered = items.map((item) => {
+            if (item.id === first.id) return { ...item, display_order: second.display_order };
+            if (item.id === second.id) return { ...item, display_order: first.display_order };
+            return item;
+          });
+          return reordered.sort((a, b) => a.display_order - b.display_order);
+        },
       ),
     onError: (error, _variables, context) => {
       rollbackOptimisticList(queryClient, ["admin", "site-gallery"], context);
