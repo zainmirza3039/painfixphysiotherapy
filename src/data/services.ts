@@ -54,7 +54,7 @@ export const services: Service[] = [
     tagline: "Hands-on techniques to restore movement and relieve pain",
     metaTitle: "Manual Therapy in Multan | Hands-On Physiotherapy — PainFix",
     metaDescription:
-      "Expert manual therapy in Multan — joint mobilization, soft-tissue release and manipulation to relieve pain and restore mobility. Book your assessment at PainFix.",
+      "Manual therapy in Multan: joint mobilisation, soft-tissue techniques and manipulation for pain and restricted movement. Book an assessment at PainFix.",
     overview: [
       "Manual therapy is a specialised, hands-on approach to assessing and treating pain and stiffness in the muscles, joints and soft tissues. Our physiotherapists use skilled techniques to reduce pain, improve range of motion and restore natural movement.",
       "Every session begins with a detailed assessment so treatment is precisely targeted to the source of your problem — not just the symptoms. Manual therapy is often combined with exercise and education for lasting results.",
@@ -186,7 +186,7 @@ export const services: Service[] = [
     tagline: "Modern modalities to accelerate healing and control pain",
     metaTitle: "Electrotherapy in Multan | TENS, Ultrasound & More — PainFix",
     metaDescription:
-      "Advanced electrotherapy in Multan — TENS, ultrasound and electrical stimulation to relieve pain and speed up tissue healing. Book at PainFix Physiotherapy Clinic.",
+      "Electrotherapy in Multan, including TENS and ultrasound, may support pain management within an individual physiotherapy plan at PainFix.",
     overview: [
       "Electrotherapy uses controlled electrical energy and ultrasound to relieve pain, reduce inflammation and stimulate the body's natural healing. It is a valuable addition to hands-on therapy and exercise.",
       "Our clinicians select the right modality and dosage for your condition, ensuring safe, comfortable and effective treatment as part of your overall recovery plan.",
@@ -254,7 +254,7 @@ export const services: Service[] = [
     tagline: "Return to sport stronger, safer and more confident",
     metaTitle: "Sports Rehabilitation in Multan | Injury Recovery — PainFix",
     metaDescription:
-      "Sports rehabilitation in Multan for athletes and active people. Recover from injury, restore performance and prevent recurrence with PainFix Physiotherapy Clinic.",
+      "Sports injury rehabilitation in Multan to rebuild strength, restore performance and support a safe return to activity at PainFix.",
     overview: [
       "Sports rehabilitation helps athletes and active individuals recover from injury, regain performance and reduce the risk of future problems. We combine hands-on treatment, progressive strengthening and sport-specific training.",
       "Whether you are a weekend runner or a competitive athlete, we build a return-to-sport plan around your sport, position and goals.",
@@ -321,7 +321,7 @@ export const services: Service[] = [
     tagline: "Professional physiotherapy in the comfort of your home",
     metaTitle: "Home Physiotherapy in Multan | Home Visits — PainFix",
     metaDescription:
-      "Home physiotherapy in Multan. Licensed physiotherapists provide assessment, treatment and rehabilitation at your home. Ideal for elderly and post-surgical patients.",
+      "Home physiotherapy in Multan for older adults, post-surgical recovery and people with mobility limits. Ask PainFix about availability.",
     overview: [
       "Home physiotherapy brings expert, one-on-one treatment directly to you — ideal for elderly patients, those recovering from surgery, and anyone who finds travel difficult.",
       "You receive the same personalized assessment, treatment and rehabilitation you would at the clinic, delivered with full attention in a familiar, comfortable environment.",
@@ -519,7 +519,7 @@ export const services: Service[] = [
     tagline: "Lasting relief through evidence-based, drug-free physiotherapy",
     metaTitle: "Pain Management in Multan | Chronic Pain Physiotherapy — PainFix",
     metaDescription:
-      "Drug-free pain management in Multan for acute and chronic pain. Evidence-based physiotherapy to relieve pain and restore function at PainFix Physiotherapy Clinic.",
+      "Physiotherapy-led pain management in Multan for acute and persistent pain, focused on function, movement and individual goals at PainFix.",
     overview: [
       "Our pain management approach treats the root cause of your pain, not just the symptoms. We combine manual therapy, exercise, electrotherapy and education to provide lasting, drug-free relief.",
       "Whether your pain is recent or long-standing, we build a personalized plan that helps you move better, feel better and return to the activities you enjoy.",
@@ -639,7 +639,7 @@ export const services: Service[] = [
     tagline: "Traditional wet and dry cupping delivered safely under professional supervision.",
     metaTitle: "Hijama (Cupping Therapy) in Multan | PainFix Physiotherapy",
     metaDescription:
-      "Professional, hygienic Hijama (cupping therapy) at PainFix Physiotherapy Clinic, Multan. Single-use sterile equipment, trained practitioners and personalised aftercare.",
+      "Hijama (cupping therapy) at PainFix, Multan, with single-use equipment, trained practitioners and personalised aftercare.",
     overview: [
       "Hijama, also known as cupping therapy, is a traditional treatment in which suction cups are applied to the skin to encourage blood flow and relaxation of the underlying tissue. At PainFix Physiotherapy Clinic we offer Hijama as a complementary therapy alongside our evidence-based physiotherapy services.",
       "Every session is performed by trained practitioners using single-use, sterile equipment in a clean, private treatment room. We assess your suitability first, explain each step, and combine cupping with physiotherapy guidance where appropriate so you get safe, well-rounded care.",
