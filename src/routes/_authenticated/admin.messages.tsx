@@ -99,7 +99,7 @@ function MessagesPage() {
     },
     onMutate: ({ id, status }) =>
       updateListOptimistically<Message>(qc, ["admin", "messages"], (current) =>
-        current.map((message) => message.id === id ? { ...message, status } : message),
+        current.map((message) => (message.id === id ? { ...message, status } : message)),
       ),
     onError: (error, _variables, context) => {
       rollbackOptimisticList(qc, ["admin", "messages"], context);
