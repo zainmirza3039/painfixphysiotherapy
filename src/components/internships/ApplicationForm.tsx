@@ -96,6 +96,11 @@ export function ApplicationForm({ program }: { program: Program }) {
         the team will request them later through an agreed secure method. Please do not send
         identity documents in this form.
       </p>
+      {submitting && (
+        <p role="status" aria-live="polite" className="text-sm text-muted-foreground">
+          Sending your application securely…
+        </p>
+      )}
       {status.error && (
         <p
           role="alert"
