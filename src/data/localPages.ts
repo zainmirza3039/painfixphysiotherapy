@@ -203,7 +203,7 @@ export const localPages: LocalPage[] = [
     title: "Choosing a Physiotherapist in Multan",
     metaTitle: "Choosing a Physiotherapist in Multan | PainFix Clinic",
     metaDescription:
-      "Learn what to consider when choosing physiotherapy care in Multan, including clinician information, service options, fees, availability and current public feedback.",
+      "Compare physiotherapy options in Multan: clinician credentials, assessments, services, fees, availability and patient feedback.",
     heroSubtitle:
       "A practical guide to comparing physiotherapy services, published clinician information and appointment options in Multan.",
     quickAnswer:
@@ -288,7 +288,7 @@ export const localPages: LocalPage[] = [
     title: "Physiotherapy Clinic in Multan",
     metaTitle: "Physiotherapy Clinic in Multan | PainFix — Shalimar Colony",
     metaDescription:
-      "PainFix Physiotherapy Clinic in Shalimar Colony, Multan offers complete physiotherapy under one roof — manual therapy, electrotherapy, rehab and home visits. Visit us.",
+      "PainFix in Shalimar Colony, Multan offers manual therapy, electrotherapy, rehabilitation and selected home physiotherapy visits.",
     heroSubtitle:
       "A modern, fully equipped physiotherapy clinic in Shalimar Colony, Multan — complete assessment, treatment and rehabilitation under one roof.",
     quickAnswer:
