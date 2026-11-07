@@ -178,11 +178,12 @@ function GalleryManagerPage() {
     },
     onMutate: ({ first, second }) =>
       updateListOptimistically<GalleryRow>(queryClient, ["admin", "site-gallery"], (items) =>
-        items.map((item) => {
-          if (item.id === first.id) return { ...item, display_order: second.display_order };
-          if (item.id === second.id) return { ...item, display_order: first.display_order };
-          return item;
-        })
+        items
+          .map((item) => {
+            if (item.id === first.id) return { ...item, display_order: second.display_order };
+            if (item.id === second.id) return { ...item, display_order: first.display_order };
+            return item;
+          })
           .sort((a, b) => a.display_order - b.display_order),
       ),
     onError: (error, _variables, context) => {
