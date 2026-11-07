@@ -7,6 +7,7 @@ import { supabase } from "@/integrations/supabase/client";
 import type { Database } from "@/integrations/supabase/types";
 import { AdminPageHeader } from "@/components/admin/AdminPageHeader";
 import { rollbackOptimisticList, updateListOptimistically } from "@/admin/optimistic";
+import { rollbackOptimisticList, updateListOptimistically } from "@/admin/optimistic";
 import { AdminOnly } from "@/components/admin/AdminOnly";
 import { fmtDateTime } from "@/admin/utils";
 import { Button } from "@/components/ui/button";
@@ -125,13 +126,22 @@ function MessagesPage() {
       const { error } = await supabase.from("contact_submissions").delete().eq("id", id);
       if (error) throw error;
     },
+    onMutate: (id) =>
+      updateListOptimistically<Message>(qc, ["admin", "messages"], (current) =>
+        current.filter((message) => message.id !== id),
+      ),
+    onError: (error, _id, context) => {
+      rollbackOptimisticList(qc, ["admin", "messages"], context);
+      toast.error(error instanceof Error ? error.message : "Delete failed");
+    },
     onSuccess: () => {
-      qc.invalidateQueries({ queryKey: ["admin", "messages"] });
-      qc.invalidateQueries({ queryKey: ["admin", "dashboard"] });
       setDeleteId(null);
       toast.success("Message deleted");
     },
-    onError: (e) => toast.error(e instanceof Error ? e.message : "Delete failed"),
+    onSettled: () => {
+      void qc.invalidateQueries({ queryKey: ["admin", "messages"] });
+      void qc.invalidateQueries({ queryKey: ["admin", "dashboard"] });
+    },
   });
 
   return (
