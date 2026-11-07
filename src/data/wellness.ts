@@ -87,7 +87,7 @@ export const fitnessPage: WellnessPage = {
     "Physiotherapist-led fitness and rehabilitation in Multan — safe, individualised exercise programmes to rebuild strength, restore movement and keep you injury-free.",
   metaTitle: "Personalised Fitness & Rehabilitation in Multan | PainFix",
   metaDescription:
-    "Physiotherapist-led fitness and rehabilitation in Multan. Personalised exercise, corrective training, strength & conditioning, mobility and injury prevention at PainFix.",
+    "Physiotherapist-led fitness and rehabilitation in Multan, with tailored exercise, strength, mobility and injury-prevention programmes at PainFix.",
   quickSummary:
     "Personalised fitness and rehabilitation at PainFix is a physiotherapist-led exercise programme built around your assessment, goals and daily life. Dr. Zain Ul Abideen and Dr. Jalal Ud Din use corrective exercise, functional training, strength & conditioning, and mobility work to help you recover from injury, move better and prevent recurrence — progressed safely and reviewed as you improve.",
   keyTakeaways: [
@@ -218,7 +218,7 @@ export const dietMainPage: WellnessPage = {
     "Evidence-based diet and nutrition support to complement your recovery, manage weight and build healthy, sustainable eating habits.",
   metaTitle: "Diet & Nutrition in Multan | PainFix Physiotherapy Clinic",
   metaDescription:
-    "Diet and nutrition services in Multan at PainFix — personalised diet plans, nutrition counselling and healthy-lifestyle guidance to support your health and recovery.",
+    "Diet and nutrition guidance in Multan at PainFix, including personalised plans and counselling to support health and recovery.",
   quickSummary:
     "PainFix Diet & Nutrition offers personalised diet plans, nutrition counselling and healthy-lifestyle guidance designed to support recovery, weight management and long-term wellbeing. Plans are practical, culturally relevant to Multan, and built around your goals, health and preferences.",
   keyTakeaways: [
