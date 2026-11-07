@@ -88,7 +88,7 @@ test("core admin record lists distinguish query failures from empty results and 
     "routes/_authenticated/admin.users.tsx",
   ]) {
     const page = source(path);
-    assert.match(page, /isError, refetch/);
+    assert.match(page, /isError,[\\s\\S]{0,100}refetch/);
     assert.match(page, /<AdminQueryError onRetry=\{\(\) => void refetch\(\)\} \/>/);
   }
 });
