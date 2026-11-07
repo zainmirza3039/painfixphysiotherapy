@@ -255,11 +255,11 @@ export function HomeVisitForm() {
           >
             {submitting ? (
               <>
-                <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" />{" "}{t.actions.submitting}
+                <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" /><span>{t.actions.submitting}</span>
               </>
             ) : (
               <>
-                <Send className="h-4 w-4" aria-hidden="true" /> {t.actions.submit}
+                <Send className="h-4 w-4" aria-hidden="true" /><span>{t.actions.submit}</span>
               </>
             )}
           </button>
