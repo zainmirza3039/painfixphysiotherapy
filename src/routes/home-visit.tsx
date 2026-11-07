@@ -27,7 +27,7 @@ import { pageMeta, canonical, breadcrumbLd } from "@/lib/seo";
 
 const TITLE = "Home Physiotherapy in Multan | Book a Home Visit — PainFix";
 const DESCRIPTION =
-  "Need a physiotherapist at home in Multan? Request an assessment-led home visit for pain, mobility limitations or post-surgical rehabilitation. Confirm your area and appointment with PainFix.";
+  "Request a home physiotherapy visit in Multan for pain, mobility limits or post-surgical rehabilitation. Contact PainFix to confirm area and availability.";
 
 export const Route = createFileRoute("/home-visit")({
   head: () => ({
