@@ -288,7 +288,6 @@ export const blogPosts: BlogPost[] = [
     ],
     relatedServices: ["manual-therapy", "exercise-therapy", "home-physiotherapy"],
     relatedConditions: ["back-pain", "neck-pain", "knee-pain"],
-  }
   },
   {
     slug: "back-pain-treatment-in-multan",
