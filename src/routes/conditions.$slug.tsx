@@ -216,9 +216,9 @@ function ConditionDetail() {
               Book a Physiotherapy Assessment in Multan
             </h2>
             <p className="mt-3 max-w-3xl text-sm leading-relaxed text-muted-foreground sm:text-base">
-              Discuss your symptoms with the PainFix team and arrange an assessment at our
-              Shalimar Colony clinic. If travelling is difficult, you can also ask whether a
-              home visit is suitable and available for your location.
+              Discuss your symptoms with the PainFix team and arrange an assessment at our Shalimar
+              Colony clinic. If travelling is difficult, you can also ask whether a home visit is
+              suitable and available for your location.
             </p>
             <div className="mt-6 flex flex-wrap gap-3">
               <Link
