@@ -405,7 +405,7 @@ export function Navbar({ onlineClinician }: { onlineClinician?: TeamMember }) {
               href={MAP_DIRECTIONS_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex shrink-0 items-center gap-1.5 rounded-md bg-primary/10 px-2.5 py-1.5 text-[11px] font-semibold text-primary transition-colors hover:bg-primary/15 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 sm:text-xs"
+              className="inline-flex shrink-0 items-center gap-1.5 rounded-md bg-primary/10 px-2.5 py-1.5 text-[11px] font-semibold text-primary transition-all duration-150 ease-out hover:-translate-y-px hover:bg-primary/15 hover:shadow-sm active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 sm:text-xs"
             >
               <Navigation className="h-3.5 w-3.5" aria-hidden="true" />
               <span>Get Directions</span>
