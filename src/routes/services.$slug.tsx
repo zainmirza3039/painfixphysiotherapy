@@ -25,6 +25,7 @@ import { RelatedArticles } from "@/components/site/RelatedArticles";
 import { Reveal } from "@/components/site/Reveal";
 import { pageMeta, canonical, breadcrumbLd, faqLd } from "@/lib/seo";
 import { SITE_URL } from "@/components/site/constants";
+import { SERVICE_FEES } from "@/data/serviceFees";
 
 export const Route = createFileRoute("/services/$slug")({
   loader: ({ params }) => {
@@ -299,6 +300,33 @@ function ServiceDetail() {
           </div>
         </div>
       </section>
+
+      {service.slug === "home-physiotherapy" && (
+        <section className="bg-surface py-14 sm:py-20">
+          <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+            <div className="rounded-[1.75rem] border border-border bg-card p-7 shadow-soft sm:p-9">
+              <h2 className="font-heading text-2xl font-extrabold text-foreground">
+                Request Home Physiotherapy in Multan
+              </h2>
+              <p className="mt-3 text-sm leading-relaxed text-muted-foreground sm:text-base">
+                Home visits are arranged after confirming your address, clinical needs and
+                appointment availability. The current home-visit fee is{" "}
+                <strong className="font-semibold text-foreground">
+                  {SERVICE_FEES.homeVisit.displayPrice}
+                </strong>{" "}
+                and includes one treatment session and travel.
+              </p>
+              <Link
+                to="/home-visit"
+                className="mt-6 inline-flex min-h-11 items-center gap-2 rounded-md bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary/90"
+              >
+                Check Availability &amp; Request a Visit
+                <span aria-hidden="true">→</span>
+              </Link>
+            </div>
+          </div>
+        </section>
+      )}
 
       <PageCTA />
       <RelatedServices slugs={service.related} />
