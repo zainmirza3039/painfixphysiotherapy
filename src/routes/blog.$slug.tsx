@@ -247,6 +247,35 @@ function BlogArticle() {
               </div>
             )}
 
+            {/* Contextual next steps for the high-visibility lower-back exercise article */}
+            {post.slug === "best-exercises-for-lower-back-pain" && (
+              <section className="mt-10 rounded-[1.75rem] border border-border bg-surface p-6">
+                <h2 className="font-heading text-xl font-bold text-foreground">
+                  When exercises are not enough
+                </h2>
+                <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+                  Exercises can support recovery, but persistent or recurring kamar dard needs an
+                  assessment to identify the cause and choose the right treatment. Read our
+                  <Link
+                    to="/blog/$slug"
+                    params={{ slug: "back-pain-treatment-in-multan" }}
+                    className="mx-1 font-semibold text-primary underline underline-offset-4"
+                  >
+                    back pain treatment guide for Multan
+                  </Link>
+                  or review the
+                  <Link
+                    to="/conditions/$slug"
+                    params={{ slug: "back-pain" }}
+                    className="mx-1 font-semibold text-primary underline underline-offset-4"
+                  >
+                    back pain condition and physiotherapy options
+                  </Link>
+                  before deciding on your next step.
+                </p>
+              </section>
+            )}
+
             {/* Conversion CTA */}
             <div className="mt-12 overflow-hidden rounded-[2rem] bg-gradient-to-br from-primary to-secondary p-8 text-center shadow-card">
               <h2 className="font-heading text-2xl font-extrabold text-primary-foreground">
