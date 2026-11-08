@@ -28,5 +28,6 @@ test("booking hero links to the existing city selector without confirming an app
   assert.ok(hero.includes("primaryAction?: { href: string; label: string }"));
   assert.ok(hero.includes("href={primaryAction.href}"));
   assert.ok(hero.indexOf("{primaryAction &&") < hero.indexOf("{subtitle &&"));
-  assert.ok(booking.includes("Availability is confirmed by the team."));
+  assert.ok(booking.includes("online physiotherapy"));
+  assert.ok(booking.includes("Multan home visit"));
 });

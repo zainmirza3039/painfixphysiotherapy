@@ -20,7 +20,7 @@ import { SITE_URL } from "@/components/site/constants";
 const PATH = "/fitness";
 const TITLE = "Fitness & Rehabilitation Platform in Multan | PainFix";
 const DESCRIPTION =
-  "PainFix's evidence-based fitness platform in Multan — physiotherapist-led strength, mobility, injury prevention, structured programmes, free calculators and resources.";
+  "Physiotherapist-led fitness in Multan: strength, mobility, injury prevention, structured programmes and free health resources at PainFix.";
 
 const HUB_LINKS = [
   {

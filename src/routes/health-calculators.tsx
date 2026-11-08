@@ -13,7 +13,7 @@ import { pageMeta, canonical, breadcrumbLd, faqLd } from "@/lib/seo";
 const PATH = "/health-calculators";
 const TITLE = "Free Health Calculators | BMI, Calorie, Protein & Water — PainFix";
 const DESCRIPTION =
-  "Free, accurate health calculators from PainFix Multan — BMI, daily calories, ideal weight, protein and water intake. Educational estimates to guide your fitness journey.";
+  "Free health calculators from PainFix Multan for BMI, calories, ideal weight, protein and water intake. Estimates are educational, not diagnoses.";
 
 const FAQS = [
   {

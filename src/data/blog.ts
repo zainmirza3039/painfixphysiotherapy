@@ -158,7 +158,7 @@ export const blogPosts: BlogPost[] = [
     title: "How to Choose a Physiotherapist in Multan",
     seoTitle: "How to Choose a Physiotherapist in Multan | PainFix",
     metaDescription:
-      "A practical checklist for choosing a physiotherapist in Multan: verify DPT credentials, ask about assessment and treatment planning, and review progress measures.",
+      "Choose a physiotherapist in Multan: check DPT credentials, assessment quality, treatment planning and progress reviews.",
     category: "patient-education",
     tags: ["Multan", "physiotherapist", "patient-education", "DPT"],
     excerpt:
@@ -248,7 +248,7 @@ export const blogPosts: BlogPost[] = [
     title: "Back Pain Treatment in Multan | Kamar Dard Ka Ilaj",
     seoTitle: "Back Pain Treatment in Multan | Kamar Dard Ka Ilaj — PainFix",
     metaDescription:
-      "Effective back pain treatment in Multan (kamar dard ka ilaj). Learn the causes, when to worry, and how evidence-based physiotherapy relieves back pain and prevents it returning.",
+      "Back pain treatment in Multan: causes, warning signs and how evidence-based physiotherapy supports recovery and reduces recurrence.",
     category: "back-pain",
     tags: [
       "back pain",
@@ -367,7 +367,7 @@ export const blogPosts: BlogPost[] = [
     title: "Causes of Back Pain Explained | Kamar Dard Ki Wajuhat",
     seoTitle: "Causes of Back Pain | Kamar Dard Ki Wajuhat — PainFix Multan",
     metaDescription:
-      "What causes back pain (kamar dard ki wajuhat)? Understand the most common causes — from muscle strain and posture to disc problems — and how physiotherapy in Multan treats each one.",
+      "Kamar dard ki wajuhat: common causes include muscle strain, posture and disc problems. Learn when assessment and physiotherapy may help.",
     category: "back-pain",
     tags: ["back pain", "kamar dard", "causes", "disc", "posture"],
     excerpt:
@@ -448,7 +448,7 @@ export const blogPosts: BlogPost[] = [
     title: "How Physiotherapy Helps Sciatica | Tang Ke Nerve Pain Ka Ilaj",
     seoTitle: "Sciatica Treatment | Tang Ke Nerve Pain Ka Ilaj — PainFix",
     metaDescription:
-      "Sciatica (tang ke nerve pain) causes shooting pain down the leg. Learn how physiotherapy in Multan relieves sciatica, the best exercises, and how long recovery usually takes.",
+      "Sciatica causes shooting leg pain. Learn how physiotherapy in Multan can help, which exercises may suit you and what affects recovery.",
     category: "sciatica",
     tags: ["sciatica", "tang ka dard", "nerve pain", "leg pain", "disc"],
     excerpt:
@@ -535,7 +535,7 @@ export const blogPosts: BlogPost[] = [
     title: "Gardan Dard Ki Exercises | Neck Pain Ke Liye Safe Movements",
     seoTitle: "Gardan Dard Ki Exercises | Neck Pain — PainFix Multan",
     metaDescription:
-      "Gardan dard ki exercises: chin tuck, gentle neck rotation aur shoulder blade control. Safe technique, repetitions aur warning signs ke saath simple physiotherapy guide.",
+      "Gardan dard ki exercises: chin tucks, gentle rotation and shoulder-blade control, with safe technique and warning signs.",
     category: "neck-pain",
     tags: [
       "gardan dard ki exercises",
@@ -711,7 +711,7 @@ export const blogPosts: BlogPost[] = [
     title: "Ghar Par Physiotherapy Ke Fawaid | Home Physiotherapy in Multan",
     seoTitle: "Ghar Par Physiotherapy | Home Visit in Multan — PainFix",
     metaDescription:
-      "Ghar par physiotherapy ke fawaid jaaniye. Home physiotherapy in Multan for elderly, post-surgery, stroke and mobility-limited patients. Learn what to expect from a home visit.",
+      "Ghar par physiotherapy ke fawaid: home visits in Multan for older adults, post-surgery, stroke and mobility-limited patients.",
     category: "home-physiotherapy",
     tags: [
       "ghar par physiotherapy",
@@ -903,7 +903,7 @@ export const blogPosts: BlogPost[] = [
     title: "Frozen Shoulder Ka Ilaj | Kandhe Ki Jakran Aur Recovery",
     seoTitle: "Frozen Shoulder Ka Ilaj | Kandhe Ki Jakran — PainFix",
     metaDescription:
-      "Frozen shoulder (kandhe ki jakran) ke stages, symptoms aur recovery timeline samjhein. Physiotherapy pain control aur shoulder movement/function improve karne mein kaise madad karti hai.",
+      "Frozen shoulder (kandhe ki jakran): understand its stages, symptoms and recovery, and how physiotherapy can improve movement.",
     category: "frozen-shoulder",
     tags: [
       "frozen shoulder ka ilaj",
@@ -984,7 +984,7 @@ export const blogPosts: BlogPost[] = [
     title: "Chalne Ke Baad Ghutne Mein Dard | Knee Pain Treatment",
     seoTitle: "Chalne Se Ghutne Mein Dard | Ghutno Ka Ilaj — PainFix",
     metaDescription:
-      "Chalne ke baad ghutne mein dard kyun hota hai? Ghutno ke dard ki common causes, warning signs aur Multan mein physiotherapy se recovery ka evidence-based plan jaaniye.",
+      "Chalne ke baad ghutne mein dard? Explore common causes, warning signs and evidence-based physiotherapy options in Multan.",
     category: "knee-pain",
     tags: [
       "chalne se ghutne mein dard",
@@ -1158,7 +1158,7 @@ export const blogPosts: BlogPost[] = [
     title: "Plantar Fasciitis Treatment | Airi Ke Dard Ka Ilaj",
     seoTitle: "Plantar Fasciitis | Airi (Heel) Ke Dard Ka Ilaj — PainFix",
     metaDescription:
-      "Plantar fasciitis causes stabbing heel pain (airi ka dard), worst with the first steps of the day. Learn how physiotherapy treats it with stretching, strengthening and load management.",
+      "Plantar fasciitis causes heel pain, often worse with first steps. Learn how load management, exercise and physiotherapy can help.",
     category: "recovery-tips",
     tags: ["plantar fasciitis", "airi ka dard", "heel pain", "foot", "stretching"],
     excerpt:
@@ -1245,7 +1245,7 @@ export const blogPosts: BlogPost[] = [
     title: "Stroke Rehabilitation: A Complete Guide | Falij Ka Ilaj",
     seoTitle: "Stroke Rehabilitation | Falij Ka Ilaj — PainFix Multan",
     metaDescription:
-      "A complete guide to stroke rehabilitation (falij ka ilaj). Learn how physiotherapy in Multan restores movement, strength and independence after a stroke, and why early rehab matters.",
+      "Stroke rehabilitation (falij ka ilaj): how physiotherapy supports movement, strength and independence after a stroke.",
     category: "stroke-rehabilitation",
     tags: ["stroke", "falij", "falij ka ilaj", "neuro rehab", "recovery"],
     excerpt:
@@ -1482,7 +1482,7 @@ export const blogPosts: BlogPost[] = [
     title: "Disc Herniation (Slipped Disc) Treatment | Slip Disc Ka Ilaj",
     seoTitle: "Slipped Disc Treatment | Slip Disc Ka Ilaj — PainFix Multan",
     metaDescription:
-      "A herniated or slipped disc (slip disc) doesn't usually need surgery. Learn how physiotherapy in Multan treats disc herniation, relieves nerve pain and prevents recurrence.",
+      "Slipped disc (slip disc) rarely needs surgery. Learn how physiotherapy in Multan can help with disc-related pain and nerve symptoms.",
     category: "back-pain",
     tags: ["disc herniation", "slip disc", "slip disc ka ilaj", "sciatica", "back pain"],
     excerpt:
@@ -1568,7 +1568,7 @@ export const blogPosts: BlogPost[] = [
     title: "Rotator Cuff Rehabilitation | Kandhe Ke Dard Ka Ilaj",
     seoTitle: "Shoulder Pain Treatment | Kandhe Ke Dard Ka Ilaj — PainFix",
     metaDescription:
-      "Rotator cuff injuries cause shoulder pain and weakness (kandhe ka dard). Learn how physiotherapy in Multan rehabilitates the rotator cuff and restores pain-free shoulder movement.",
+      "Rotator cuff injuries can cause shoulder pain and weakness. Learn how physiotherapy in Multan supports recovery and movement.",
     category: "sports-injuries",
     tags: ["rotator cuff", "kandhe ka dard", "shoulder", "tendon", "rehab"],
     excerpt:
@@ -1654,7 +1654,7 @@ export const blogPosts: BlogPost[] = [
     title: "Whiplash Injury: Recovery with Physiotherapy | Gardan Ki Chot Ka Ilaj",
     seoTitle: "Whiplash Injury | Gardan Ki Chot Ka Ilaj — PainFix Multan",
     metaDescription:
-      "Whiplash after a car accident causes neck pain and stiffness (gardan ki chot). Learn how physiotherapy in Multan speeds whiplash recovery and prevents long-term neck problems.",
+      "Whiplash after a car accident can cause neck pain and stiffness. Learn how physiotherapy supports recovery.",
     category: "neck-pain",
     tags: ["whiplash", "gardan ki chot", "neck", "car accident", "recovery"],
     excerpt:
@@ -1741,7 +1741,7 @@ export const blogPosts: BlogPost[] = [
     title: "Bell's Palsy Physiotherapy | Munh Terha Hona Ka Ilaj",
     seoTitle: "Bell's Palsy | Munh Terha Hona Ka Ilaj — PainFix Multan",
     metaDescription:
-      "Bell's palsy causes sudden facial weakness (munh terha hona). Learn how physiotherapy in Multan — facial exercises, retraining and education — supports recovery from Bell's palsy.",
+      "Bell's palsy causes sudden facial weakness (munh terha hona). Learn how facial physiotherapy supports recovery through retraining and education.",
     category: "neurological-rehabilitation",
     tags: ["Bell's palsy", "munh terha hona", "facial", "neuro rehab", "recovery"],
     excerpt:
@@ -2105,7 +2105,7 @@ export const blogPosts: BlogPost[] = [
     title: "Electrotherapy in Physiotherapy: TENS, Ultrasound and More",
     seoTitle: "Electrotherapy in Physiotherapy | TENS & Ultrasound — PainFix",
     metaDescription:
-      "What is electrotherapy? Learn how TENS, ultrasound and other modalities are used in physiotherapy to relieve pain and support healing — and their real role in treatment.",
+      "Electrotherapy in physiotherapy: how TENS, ultrasound and other modalities may help manage pain and support rehabilitation.",
     category: "electrotherapy",
     tags: ["electrotherapy", "TENS", "ultrasound", "pain relief"],
     excerpt:
@@ -2185,7 +2185,7 @@ export const blogPosts: BlogPost[] = [
     title: "Pediatric Physiotherapy: When Your Child Needs It",
     seoTitle: "Pediatric Physiotherapy | Children's Physio — PainFix Multan",
     metaDescription:
-      "Pediatric physiotherapy helps children with developmental delays, injuries and movement difficulties. Learn the signs your child may benefit and what treatment involves.",
+      "Pediatric physiotherapy supports children with developmental delays, injuries and movement difficulties. Learn when assessment may help.",
     category: "pediatric-physiotherapy",
     tags: ["pediatric", "children", "development", "physiotherapy"],
     excerpt:
@@ -2352,7 +2352,7 @@ export const blogPosts: BlogPost[] = [
     title: "Physiotherapy for the Elderly: Staying Mobile and Independent",
     seoTitle: "Physiotherapy for the Elderly | Mobility & Independence — PainFix",
     metaDescription:
-      "Physiotherapy helps older adults stay strong, mobile and independent. Learn how it improves balance, reduces pain and prevents falls — at the clinic or at home in Multan.",
+      "Physiotherapy helps older adults maintain strength, mobility and independence, improve balance and reduce falls risk in Multan.",
     category: "elderly-care",
     tags: ["elderly", "mobility", "independence", "strength"],
     excerpt:
@@ -2597,7 +2597,7 @@ export const blogPosts: BlogPost[] = [
     title: "Text Neck: Neck Pain from Mobile Phones | Mobile Se Gardan Dard",
     seoTitle: "Text Neck | Mobile Se Gardan Dard Ka Ilaj — PainFix Multan",
     metaDescription:
-      "'Text neck' is neck pain from looking down at phones (mobile se gardan dard). Learn what it is, why it happens, and how physiotherapy and simple habits relieve and prevent it.",
+      "'Text neck' is neck pain linked to prolonged phone use. Learn the causes and how physiotherapy and simple habits can help.",
     category: "neck-pain",
     tags: ["text neck", "mobile se gardan dard", "posture", "phone", "neck pain"],
     excerpt:
@@ -2680,7 +2680,7 @@ export const blogPosts: BlogPost[] = [
     title: "Cervical Radiculopathy Treatment | Gardan Ki Nerve Dabne Ka Ilaj",
     seoTitle: "Cervical Radiculopathy | Gardan Ki Nerve Dabna — PainFix",
     metaDescription:
-      "Cervical radiculopathy is a pinched nerve in the neck causing arm pain (gardan ki nerve dabna). Learn the symptoms and how physiotherapy relieves it — usually without surgery.",
+      "Cervical radiculopathy (gardan ki nerve dabna) can cause arm pain. Learn the symptoms and how physiotherapy may help.",
     category: "neck-pain",
     tags: ["cervical radiculopathy", "gardan ki nerve dabna", "pinched nerve", "arm pain", "neck"],
     excerpt:
@@ -2766,7 +2766,7 @@ export const blogPosts: BlogPost[] = [
     title: "What Is Hijama (Cupping Therapy)? A Simple, Honest Guide",
     seoTitle: "What Is Hijama (Cupping Therapy)? Benefits & Safety — PainFix",
     metaDescription:
-      "A clear, honest guide to Hijama (cupping therapy): what it is, how a session works, what it may help with and when to avoid it. From PainFix Physiotherapy, Multan.",
+      "Hijama (cupping therapy): what a session involves, possible uses and when to avoid it. A clear guide from PainFix, Multan.",
     category: "hijama",
     tags: ["hijama", "cupping therapy", "wet cupping", "dry cupping", "muscle tension"],
     excerpt:

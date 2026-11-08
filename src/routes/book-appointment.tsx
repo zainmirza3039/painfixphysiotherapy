@@ -9,7 +9,7 @@ import { breadcrumbLd, canonical, pageMeta } from "@/lib/seo";
 import { serviceImages } from "@/data/serviceImages";
 const TITLE = "Book Physiotherapy | Multan & Rahim Yar Khan Online | PainFix";
 const DESCRIPTION =
-  "Request Multan clinic appointments or home visits, or enquire about online physiotherapy with Ariba Babar in Rahim Yar Khan. Availability is confirmed by the team.";
+  "Book a PainFix clinic appointment or Multan home visit, or enquire about online physiotherapy with Ariba Babar in Rahim Yar Khan.";
 export const Route = createFileRoute("/book-appointment")({
   validateSearch: parseBookingSearch,
   head: () => ({
