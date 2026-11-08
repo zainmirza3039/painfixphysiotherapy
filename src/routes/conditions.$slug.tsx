@@ -72,6 +72,23 @@ function ConditionNotFound() {
   );
 }
 
+const conditionPageHeadings: Record<string, string> = {
+  "back-pain": "Back Pain Treatment in Multan",
+  "neck-pain": "Neck Pain Treatment in Multan",
+  sciatica: "Sciatica Treatment in Multan",
+  "frozen-shoulder": "Frozen Shoulder Treatment in Multan",
+  "knee-pain": "Knee Pain Treatment in Multan",
+  osteoarthritis: "Osteoarthritis Treatment in Multan",
+  "plantar-fasciitis": "Plantar Fasciitis Treatment in Multan",
+  "sports-injuries": "Sports Injury Treatment in Multan",
+  "stroke-rehabilitation": "Stroke Rehabilitation in Multan",
+  "cervical-radiculopathy": "Cervical Radiculopathy Treatment in Multan",
+  "balance-disorders": "Balance Disorder Treatment in Multan",
+  "post-surgical-rehabilitation": "Post-Surgical Rehabilitation in Multan",
+  "slipped-disc": "Slipped Disc Treatment in Multan",
+  "shoulder-pain": "Shoulder Pain Treatment in Multan",
+};
+
 const blocks = [
   { key: "symptoms", title: "Common Symptoms", icon: AlertCircle },
   { key: "causes", title: "Causes", icon: Activity },
@@ -89,7 +106,7 @@ function ConditionDetail() {
     <PageLayout>
       <PageHero
         eyebrow="Condition We Treat"
-        title={c.title}
+        title={conditionPageHeadings[c.slug] ?? `${c.title} in Multan`}
         subtitle={c.intro[0]}
         crumbs={[
           { label: "Home", path: "/" },
