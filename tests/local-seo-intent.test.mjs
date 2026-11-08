@@ -15,7 +15,7 @@ test("physiotherapist choice article targets informational intent, not the local
   assert.ok(article.includes('title: "How to Choose the Right Physiotherapist in Multan"'));
   assert.ok(article.includes('seoTitle: "How to Choose a Physiotherapist in Multan | PainFix"'));
   assert.match(article, /updated: "2026-11-08"/);
-  assert.match(article, /choose a physiotherapist in Multan/i);\n  assert.match(article, /professional credentials/i);\n  assert.match(article, /active rehabilitation/i);\n  assert.match(article, /measured against meaningful outcomes/i);\n  assert.match(article, /warning signs/i);
+  assert.match(article, /choose a physiotherapist in Multan/i);\n  assert.match(article, /professional credentials/i);\n  assert.match(article, /active rehabilitation/i);\n  assert.match(article, /reviewed against meaningful outcomes/i);\n  assert.match(article, /warning signs/i);
   assert.doesNotMatch(article, /seoTitle: "Best Physiotherapist in Multan/);
 });
 
