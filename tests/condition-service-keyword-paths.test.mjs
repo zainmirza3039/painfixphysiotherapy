@@ -5,6 +5,21 @@ import test from "node:test";
 const source = (path) => readFileSync(new URL("../src/" + path, import.meta.url), "utf8");
 const normalize = (value) => value.replace(/\\s+/g, " ").trim();
 
+test("condition H1s reinforce existing Multan treatment intent without changing canonical URLs", () => {
+  const route = normalize(source("routes/conditions.$slug.tsx"));
+  for (const title of [
+    "Back Pain Treatment in Multan",
+    "Sciatica Treatment in Multan",
+    "Knee Pain Treatment in Multan",
+    "Frozen Shoulder Treatment in Multan",
+    "Stroke Rehabilitation in Multan",
+    "Slipped Disc Treatment in Multan",
+  ]) {
+    assert.ok(route.includes('"' + title + '"'));
+  }
+  assert.ok(route.includes("canonical(path)"));
+});
+
 test("condition pages provide direct local clinic and home-visit booking paths", () => {
   const route = normalize(source("routes/conditions.$slug.tsx"));
   assert.ok(route.includes('to="/physiotherapist-in-multan"'));
