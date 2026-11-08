@@ -72,6 +72,23 @@ function ConditionNotFound() {
   );
 }
 
+const conditionPageHeadings: Record<string, string> = {
+  "back-pain": "Back Pain Treatment in Multan",
+  "neck-pain": "Neck Pain Treatment in Multan",
+  sciatica: "Sciatica Treatment in Multan",
+  "frozen-shoulder": "Frozen Shoulder Treatment in Multan",
+  "knee-pain": "Knee Pain Treatment in Multan",
+  osteoarthritis: "Osteoarthritis Treatment in Multan",
+  "plantar-fasciitis": "Plantar Fasciitis Treatment in Multan",
+  "sports-injuries": "Sports Injury Treatment in Multan",
+  "stroke-rehabilitation": "Stroke Rehabilitation in Multan",
+  "cervical-radiculopathy": "Cervical Radiculopathy Treatment in Multan",
+  "balance-disorders": "Balance Disorder Treatment in Multan",
+  "post-surgical-rehabilitation": "Post-Surgical Rehabilitation in Multan",
+  "slipped-disc": "Slipped Disc Treatment in Multan",
+  "shoulder-pain": "Shoulder Pain Treatment in Multan",
+};
+
 const blocks = [
   { key: "symptoms", title: "Common Symptoms", icon: AlertCircle },
   { key: "causes", title: "Causes", icon: Activity },
@@ -89,7 +106,7 @@ function ConditionDetail() {
     <PageLayout>
       <PageHero
         eyebrow="Condition We Treat"
-        title={c.title}
+        title={conditionPageHeadings[c.slug] ?? `${c.title} in Multan`}
         subtitle={c.intro[0]}
         crumbs={[
           { label: "Home", path: "/" },
@@ -205,6 +222,35 @@ function ConditionDetail() {
           </h2>
           <div className="mt-10">
             <FaqAccordion faqs={c.faqs} />
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-surface py-14 sm:py-20">
+        <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+          <div className="rounded-[1.75rem] border border-border bg-card p-7 shadow-soft sm:p-9">
+            <h2 className="font-heading text-2xl font-extrabold text-foreground">
+              Book a Physiotherapy Assessment in Multan
+            </h2>
+            <p className="mt-3 max-w-3xl text-sm leading-relaxed text-muted-foreground sm:text-base">
+              Discuss your symptoms with the PainFix team and arrange an assessment at our Shalimar
+              Colony clinic. If travelling is difficult, you can also ask whether a home visit is
+              suitable and available for your location.
+            </p>
+            <div className="mt-6 flex flex-wrap gap-3">
+              <Link
+                to="/physiotherapist-in-multan"
+                className="inline-flex min-h-11 items-center gap-2 rounded-md bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary/90"
+              >
+                Book a Clinic Assessment <ArrowRight className="h-4 w-4" />
+              </Link>
+              <Link
+                to="/home-visit"
+                className="inline-flex min-h-11 items-center gap-2 rounded-md border border-border bg-background px-5 py-3 text-sm font-semibold text-foreground transition-colors hover:bg-accent"
+              >
+                Check Home Visit Availability <ArrowRight className="h-4 w-4" />
+              </Link>
+            </div>
           </div>
         </div>
       </section>

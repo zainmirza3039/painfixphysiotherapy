@@ -152,7 +152,7 @@ export const conditions: Condition[] = [
       "Sciatica treatment in Multan. Relieve nerve pain radiating from the back into the leg with targeted, evidence-based physiotherapy at PainFix.",
     intro: [
       "Sciatica is pain that travels along the sciatic nerve — from the lower back through the buttock and down the leg. It is usually caused by irritation or compression of the nerve.",
-      "Physiotherapy relieves sciatica by reducing nerve irritation, restoring movement and strengthening the supporting muscles.",
+      "Physiotherapy can help manage sciatica symptoms, improve movement tolerance and rebuild strength. The plan depends on the likely pain source, neurological findings and how symptoms respond to movement.",
     ],
     symptoms: [
       "Pain radiating from the back into the leg",
@@ -184,13 +184,13 @@ export const conditions: Condition[] = [
     ],
     howWeTreat: [
       "Assessment to locate the source of irritation",
-      "Manual therapy to reduce nerve compression",
+      "Appropriate manual techniques, when indicated, to support symptom relief and movement tolerance",
       "Nerve mobility and stretching exercises",
       "Core and back strengthening",
       "Posture and activity modification",
     ],
     recovery:
-      "Many patients feel progressive relief within a few weeks, with a structured programme to prevent recurrence.",
+      "Recovery varies with the cause, symptom duration and neurological involvement. Progress is reviewed using pain, function and neurological findings, with medical referral if neurological deficits progress.",
     faqs: [
       {
         q: "Is surgery needed for sciatica?",
