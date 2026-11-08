@@ -24,8 +24,16 @@ test("home physiotherapy service page routes booking to the dedicated home-visit
 test("sciatica page avoids claiming manual therapy physically reduces nerve compression", () => {
   const conditions = source("data/conditions.ts");
   assert.ok(!conditions.includes("Manual therapy to reduce nerve compression"));
-  assert.ok(conditions.includes("Appropriate manual techniques, when indicated, to support symptom relief and movement tolerance"));
-  assert.ok(conditions.includes("Recovery varies with the cause, symptom duration and neurological involvement."));
+  assert.ok(
+    conditions.includes(
+      "Appropriate manual techniques, when indicated, to support symptom relief and movement tolerance",
+    ),
+  );
+  assert.ok(
+    conditions.includes(
+      "Recovery varies with the cause, symptom duration and neurological involvement.",
+    ),
+  );
 });
 
 test("existing condition keyword ownership and canonical route remain unchanged", () => {
