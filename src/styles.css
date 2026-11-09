@@ -1160,3 +1160,24 @@ body:has(.site-footer) :is(a[href], button, [role="button"], summary):focus-visi
 .personal-patients-portal[dir="rtl"] .lucide {
   flex-shrink: 0;
 }
+
+
+@media print {
+  body * {
+    visibility: hidden !important;
+  }
+  .personal-patients-portal,
+  .personal-patients-portal * {
+    visibility: visible !important;
+  }
+  .personal-patients-portal {
+    position: absolute !important;
+    inset: 0 !important;
+    width: 100% !important;
+    background: #fff !important;
+    color: #111 !important;
+  }
+  .personal-patients-portal button {
+    display: none !important;
+  }
+}
