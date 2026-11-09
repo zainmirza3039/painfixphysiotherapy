@@ -314,7 +314,7 @@ create or replace function public.audit_personal_patient_record_change()
 returns trigger
 language plpgsql
 set search_path = ''
-as $
+as $$
 begin
   insert into public.personal_patient_audit_events (
     clinician_id, patient_id, entity_type, entity_id, action, details
@@ -325,7 +325,7 @@ begin
   );
   return new;
 end;
-$;
+$$;
 
 drop trigger if exists personal_patient_record_audit on public.personal_patients;
 create trigger personal_patient_record_audit
@@ -336,7 +336,7 @@ create or replace function public.audit_personal_patient_ledger_entry()
 returns trigger
 language plpgsql
 set search_path = ''
-as $
+as $$
 begin
   insert into public.personal_patient_audit_events (
     clinician_id, patient_id, entity_type, entity_id, action, details
@@ -346,7 +346,7 @@ begin
   );
   return new;
 end;
-$;
+$$;
 
 drop trigger if exists personal_patient_ledger_audit on public.personal_patient_ledger;
 create trigger personal_patient_ledger_audit
