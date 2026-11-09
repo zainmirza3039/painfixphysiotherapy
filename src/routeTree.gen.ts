@@ -638,6 +638,7 @@ export interface FileRoutesById {
   '/_authenticated/admin/media': typeof AuthenticatedAdminMediaRoute
   '/_authenticated/admin/messages': typeof AuthenticatedAdminMessagesRoute
   '/_authenticated/admin/patients': typeof AuthenticatedAdminPatientsRoute
+  '/_authenticated/admin/personal-patients': typeof AuthenticatedAdminPersonalPatientsRoute
   '/_authenticated/admin/profile': typeof AuthenticatedAdminProfileRoute
   '/_authenticated/admin/reports': typeof AuthenticatedAdminReportsRoute
   '/_authenticated/admin/settings': typeof AuthenticatedAdminSettingsRoute
@@ -708,6 +709,7 @@ export interface FileRouteTypes {
     | '/admin/media'
     | '/admin/messages'
     | '/admin/patients'
+    | '/admin/personal-patients'
     | '/admin/profile'
     | '/admin/reports'
     | '/admin/settings'
@@ -1334,6 +1336,13 @@ declare module '@tanstack/react-router' {
       path: '/patients'
       fullPath: '/admin/patients'
       preLoaderRoute: typeof AuthenticatedAdminPatientsRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
+    '/_authenticated/admin/personal-patients': {
+      id: '/_authenticated/admin/personal-patients'
+      path: '/personal-patients'
+      fullPath: '/admin/personal-patients'
+      preLoaderRoute: typeof AuthenticatedAdminPersonalPatientsRouteImport
       parentRoute: typeof AuthenticatedAdminRoute
     }
     '/_authenticated/admin/profile': {
