@@ -36,6 +36,7 @@ create table if not exists public.personal_patient_plans (
   is_active boolean not null default true,
   created_at timestamptz not null default now(),
   unique (id, clinician_id),
+  unique (id, patient_id, clinician_id),
   constraint personal_patient_plans_owner_patient_fk
     foreign key (patient_id, clinician_id)
     references public.personal_patients(id, clinician_id)
@@ -62,7 +63,8 @@ create table if not exists public.personal_patient_sessions (
     references public.personal_patients(id, clinician_id)
     on delete restrict,
   constraint personal_patient_sessions_plan_fk
-    foreign key (plan_id, clinician_id) references public.personal_patient_plans(id, clinician_id)
+    foreign key (plan_id, patient_id, clinician_id)
+    references public.personal_patient_plans(id, patient_id, clinician_id)
     on delete restrict
 );
 
