@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useMemo, useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
-import { ArrowLeft, CalendarPlus, CheckCircle2, CircleDollarSign, CreditCard, Plus, UserRound } from "lucide-react";
+import { ArrowLeft, CalendarPlus, CheckCircle2, CircleDollarSign, CreditCard, Plus, ShieldCheck, Copy, Share2 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useAdminAuth } from "@/admin/AdminAuthProvider";
 import { AdminPageHeader } from "@/components/admin/AdminPageHeader";
@@ -31,7 +31,7 @@ function PersonalPatientDetailPage() {
   const [language, setLanguage] = useState<"en" | "ur">("en");
   const [planOpen, setPlanOpen] = useState(false);
   const [sessionOpen, setSessionOpen] = useState(false);
-  const [paymentOpen, setPaymentOpen] = useState(false);
+  const [paymentOpen, setPaymentOpen] = useState(false);\n  const [portalOpen, setPortalOpen] = useState(false);\n  const [portalPin, setPortalPin] = useState("");\n  const [portalUrl, setPortalUrl] = useState("");
   const [planType, setPlanType] = useState<"package" | "per_session" | "custom">("package");
   const [planTitle, setPlanTitle] = useState("Physiotherapy package");
   const [packageSessions, setPackageSessions] = useState("10");
@@ -132,6 +132,27 @@ function PersonalPatientDetailPage() {
     onError: (e) => toast.error(e instanceof Error ? e.message : "Could not record payment."),
   });
 
+  const managePortal = useMutation({
+    mutationFn: async (action: "create_or_rotate" | "revoke") => {
+      if (action === "create_or_rotate" && !/^\\d{6}$/.test(portalPin)) throw new Error("Enter a six-digit PIN.");
+      const { data, error } = await supabase.functions.invoke("manage-patient-portal", {
+        body: { action, patientId, ...(action === "create_or_rotate" ? { pin: portalPin } : {}) },
+      });
+      if (error || data?.error) throw new Error(data?.error || error?.message || "Could not update patient portal access.");
+      return data as { token?: string; revoked?: boolean };
+    },
+    onSuccess: (result) => {
+      if (result.token) {
+        setPortalUrl(`${window.location.origin}/patient-portal/${result.token}`);
+        toast.success("Patient portal link created. Share the PIN separately.");
+      } else if (result.revoked) {
+        setPortalUrl("");
+        toast.success("Patient portal access disabled.");
+      }
+    },
+    onError: (error) => toast.error(error instanceof Error ? error.message : "Portal access could not be updated."),
+  });
+
   const updateSession = useMutation({
     mutationFn: async ({ id, status }: { id: string; status: "completed" | "cancelled" | "rescheduled" }) => {
       const { error } = await (supabase as any).from("personal_patient_sessions").update({
@@ -153,7 +174,7 @@ function PersonalPatientDetailPage() {
   return <div className="personal-patients-portal space-y-5" dir={language === "ur" ? "rtl" : "ltr"}>
     <div className="flex justify-end"><Button variant="outline" size="sm" onClick={() => setLanguage(language === "en" ? "ur" : "en")}>{t.language}</Button></div>
     <Link to="/admin/personal-patients" className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground"><ArrowLeft className="h-4 w-4" />{t.back}</Link>
-    <AdminPageHeader title={data.patient.full_name} description={[data.patient.phone, data.patient.email].filter(Boolean).join(" · ") || "Personal patient account"} actions={<div className="flex flex-wrap gap-2"><Button variant="outline" onClick={() => setPlanOpen(true)}><Plus className="mr-2 h-4 w-4" />{t.plan}</Button><Button variant="outline" onClick={() => { setSessionCharge(String(activePlan?.per_session_fee ?? 0)); setSessionOpen(true); }}><CalendarPlus className="mr-2 h-4 w-4" />{t.addSession}</Button><Button onClick={() => setPaymentOpen(true)}><CreditCard className="mr-2 h-4 w-4" />{t.payment}</Button></div>} />
+    <AdminPageHeader title={data.patient.full_name} description={[data.patient.phone, data.patient.email].filter(Boolean).join(" · ") || "Personal patient account"} actions={<div className="flex flex-wrap gap-2"><Button variant="outline" onClick={() => setPlanOpen(true)}><Plus className="mr-2 h-4 w-4" />{t.plan}</Button><Button variant="outline" onClick={() => { setSessionCharge(String(activePlan?.per_session_fee ?? 0)); setSessionOpen(true); }}><CalendarPlus className="mr-2 h-4 w-4" />{t.addSession}</Button><Button variant="outline" onClick={() => setPortalOpen(true)}><ShieldCheck className="mr-2 h-4 w-4" />{language === "ur" ? "مریض پورٹل" : "Patient portal"}</Button><Button onClick={() => setPaymentOpen(true)}><CreditCard className="mr-2 h-4 w-4" />{t.payment}</Button></div>} />
     {data.patient.private_notes && <div className="rounded-xl border border-amber-500/30 bg-amber-500/5 p-4"><p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">{t.privateNotes}</p><p className="mt-2 whitespace-pre-wrap text-sm">{data.patient.private_notes}</p></div>}
     <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
       {[{label:t.completed,value:completed},{label:t.upcoming,value:scheduled},{label:t.charges,value:money(totalCharges)},{label:t.received,value:money(received)}].map((x)=><div key={x.label} className="rounded-xl border border-border bg-card p-4"><p className="text-sm text-muted-foreground">{x.label}</p><p className="mt-2 text-xl font-semibold">{x.value}</p></div>)}
@@ -172,6 +193,15 @@ function PersonalPatientDetailPage() {
     <section className="rounded-xl border border-border bg-card p-4"><h2 className="font-semibold">{t.statement}</h2><p className="mt-1 text-xs text-muted-foreground">Charges, payments, refunds and credits are recorded as separate ledger entries.</p>
       {data.ledger.length ? <div className="mt-3 divide-y divide-border">{data.ledger.map((e)=><div key={e.id} className="flex items-center justify-between gap-3 py-3"><div><p className="font-medium">{e.description}</p><p className="text-xs text-muted-foreground">{date(e.occurred_at)}{e.payment_method ? ` · ${e.payment_method.replace("_"," ")}` : ""}</p></div><p className={`font-semibold tabular-nums ${e.amount < 0 ? "text-emerald-600" : "text-foreground"}`}>{e.amount < 0 ? "− " : "+ "}{money(Math.abs(Number(e.amount)))}</p></div>)}</div> : <p className="mt-3 text-sm text-muted-foreground">No financial entries yet.</p>}
     </section>
+    <Dialog open={portalOpen} onOpenChange={setPortalOpen}><DialogContent className="sm:max-w-lg"><DialogHeader><DialogTitle>{language === "ur" ? "مریض کے پورٹل تک رسائی" : "Patient portal access"}</DialogTitle><DialogDescription>{language === "ur" ? "مستقل لنک بنائیں اور چھ ہندسوں کا پن الگ سے مریض کو دیں۔" : "Create a permanent link and share the six-digit PIN with the patient separately."}</DialogDescription></DialogHeader>
+      <div className="space-y-3">
+        <div className="space-y-1"><Label>{language === "ur" ? "چھ ہندسوں کا پن" : "Six-digit PIN"}</Label><Input inputMode="numeric" maxLength={6} value={portalPin} onChange={(e)=>setPortalPin(e.target.value.replace(/\\D/g,"").slice(0,6))} placeholder="••••••" /></div>
+        <Button className="w-full" disabled={managePortal.isPending || portalPin.length !== 6} onClick={()=>managePortal.mutate("create_or_rotate")}>{managePortal.isPending ? "…" : language === "ur" ? "لنک بنائیں / پن تبدیل کریں" : "Create link / rotate PIN"}</Button>
+        {portalUrl && <div className="space-y-2 rounded-lg border border-border p-3"><Label>{language === "ur" ? "مریض کا لنک" : "Patient link"}</Label><Input readOnly value={portalUrl} /><div className="grid grid-cols-2 gap-2"><Button variant="outline" size="sm" onClick={()=>{void navigator.clipboard.writeText(portalUrl).then(()=>toast.success("Link copied."));}}><Copy className="mr-2 h-4 w-4" />{language === "ur" ? "لنک کاپی کریں" : "Copy link"}</Button><Button variant="outline" size="sm" onClick={()=>{const msg=encodeURIComponent(`Assalam-o-Alaikum. Your PainFix patient record is available here: ${portalUrl}. Please enter the six-digit PIN shared separately.`);window.open(`https://wa.me/?text=${msg}`,"_blank","noopener,noreferrer");}}><Share2 className="mr-2 h-4 w-4" />WhatsApp</Button></div><Button variant="ghost" size="sm" className="w-full" onClick={()=>{void navigator.clipboard.writeText(portalPin).then(()=>toast.success("PIN copied. Share it separately from the link."));}}><Copy className="mr-2 h-4 w-4" />{language === "ur" ? "پن الگ سے کاپی کریں" : "Copy PIN separately"}</Button><p className="text-xs text-muted-foreground">{language === "ur" ? "سیکیورٹی کے لیے پن واٹس ایپ لنک کے ساتھ نہ بھیجیں؛ اسے الگ ذریعے سے شیئر کریں۔" : "For security, do not send the PIN in the same WhatsApp message as the link."}</p></div>}
+        <Button variant="destructive" className="w-full" disabled={managePortal.isPending || !portalUrl} onClick={()=>managePortal.mutate("revoke")}>{language === "ur" ? "پورٹل رسائی بند کریں" : "Disable patient portal access"}</Button>
+      </div>
+      <DialogFooter><Button variant="outline" onClick={()=>setPortalOpen(false)}>{t.cancel}</Button></DialogFooter>
+    </DialogContent></Dialog>
     <Dialog open={planOpen} onOpenChange={setPlanOpen}><DialogContent><DialogHeader><DialogTitle>{t.addPlan}</DialogTitle><DialogDescription>Package fees are charged once when the plan is saved. Included sessions are not charged again.</DialogDescription></DialogHeader><form className="space-y-3" onSubmit={(e)=>{e.preventDefault();createPlan.mutate();}}>
       <div className="space-y-1"><Label>{language === "ur" ? "بلنگ کی قسم" : "Billing type"}</Label><select className="h-10 w-full rounded-md border border-input bg-background px-3 text-sm" value={planType} onChange={(e)=>setPlanType(e.target.value as typeof planType)}><option value="package">Package fee</option><option value="per_session">Per-session fee</option><option value="custom">Custom fee</option></select></div>
       <div className="space-y-1"><Label>{language === "ur" ? "پلان کا عنوان" : "Plan title"}</Label><Input value={planTitle} onChange={(e)=>setPlanTitle(e.target.value)} required /></div>
