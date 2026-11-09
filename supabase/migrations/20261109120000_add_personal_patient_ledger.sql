@@ -173,6 +173,12 @@ language plpgsql
 set search_path = ''
 as $
 begin
+  update public.personal_patient_plans
+    set is_active = false
+    where patient_id = new.patient_id
+      and clinician_id = new.clinician_id
+      and id <> new.id
+      and is_active = true;
   if new.plan_type = 'package' and coalesce(new.package_fee, 0) > 0 then
     insert into public.personal_patient_ledger (
       clinician_id, patient_id, entry_type, amount, description
@@ -197,6 +203,42 @@ drop trigger if exists personal_patient_plan_create_charge on public.personal_pa
 create trigger personal_patient_plan_create_charge
 after insert on public.personal_patient_plans
 for each row execute function public.record_personal_patient_plan_charge();
+
+-- Session state transitions are one-way. A completed/cancelled/rescheduled
+-- record cannot be reopened, preventing duplicate charges and history erasure.
+create or replace function public.guard_personal_patient_session_transition()
+returns trigger
+language plpgsql
+set search_path = ''
+as $
+begin
+  if tg_op = 'INSERT' then
+    if new.status <> 'scheduled' then
+      raise exception 'New personal patient sessions must start as scheduled.';
+    end if;
+    new.completed_at := null;
+    return new;
+  end if;
+
+  if old.status in ('completed', 'cancelled', 'rescheduled') and new.status <> old.status then
+    raise exception 'A finalised session cannot be reopened or reclassified.';
+  end if;
+
+  if old.status = 'completed' and new.charge_amount is distinct from old.charge_amount then
+    raise exception 'A completed session charge cannot be edited; use a ledger adjustment.';
+  end if;
+
+  if new.status = 'completed' and old.status = 'scheduled' and new.completed_at is null then
+    new.completed_at := now();
+  end if;
+  return new;
+end;
+$;
+
+drop trigger if exists personal_patient_session_transition_guard on public.personal_patient_sessions;
+create trigger personal_patient_session_transition_guard
+before insert or update on public.personal_patient_sessions
+for each row execute function public.guard_personal_patient_session_transition();
 
 -- Completing a billable session creates its charge in the same transaction.
 -- Package sessions use charge_amount=0 because the package was charged upfront.
