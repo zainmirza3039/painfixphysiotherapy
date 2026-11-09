@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { CalendarCheck2, CircleDollarSign, Plus, Search, Users } from "lucide-react";
@@ -37,6 +37,17 @@ function PersonalPatientsPage() {
   const [email, setEmail] = useState("");
   const [notes, setNotes] = useState("");
   const t = words[lang];
+
+  useEffect(() => {
+    const id = "painfix-nastaliq-font";
+    if (lang === "ur" && !document.getElementById(id)) {
+      const link = document.createElement("link");
+      link.id = id;
+      link.rel = "stylesheet";
+      link.href = "https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;500;600;700&display=swap";
+      document.head.appendChild(link);
+    }
+  }, [lang]);
 
   const query = useQuery({
     queryKey: ["admin", "personal-patients", user?.id],
