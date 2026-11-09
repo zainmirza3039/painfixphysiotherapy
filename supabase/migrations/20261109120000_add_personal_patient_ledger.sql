@@ -293,6 +293,49 @@ create trigger personal_patient_session_audit
 after insert or update on public.personal_patient_sessions
 for each row execute function public.audit_personal_patient_session_change();
 
+create or replace function public.audit_personal_patient_record_change()
+returns trigger
+language plpgsql
+set search_path = ''
+as $
+begin
+  insert into public.personal_patient_audit_events (
+    clinician_id, patient_id, entity_type, entity_id, action, details
+  ) values (
+    new.clinician_id, new.id, 'patient', new.id,
+    case when tg_op = 'INSERT' then 'patient_created' else 'patient_updated' end,
+    jsonb_build_object('status', new.status, 'name_changed', old.full_name is distinct from new.full_name)
+  );
+  return new;
+end;
+$;
+
+drop trigger if exists personal_patient_record_audit on public.personal_patients;
+create trigger personal_patient_record_audit
+after insert or update on public.personal_patients
+for each row execute function public.audit_personal_patient_record_change();
+
+create or replace function public.audit_personal_patient_ledger_entry()
+returns trigger
+language plpgsql
+set search_path = ''
+as $
+begin
+  insert into public.personal_patient_audit_events (
+    clinician_id, patient_id, entity_type, entity_id, action, details
+  ) values (
+    new.clinician_id, new.patient_id, 'ledger', new.id, 'ledger_entry_created',
+    jsonb_build_object('entry_type', new.entry_type, 'amount', new.amount, 'description', new.description)
+  );
+  return new;
+end;
+$;
+
+drop trigger if exists personal_patient_ledger_audit on public.personal_patient_ledger;
+create trigger personal_patient_ledger_audit
+after insert on public.personal_patient_ledger
+for each row execute function public.audit_personal_patient_ledger_entry();
+
 -- Immutable ledger and audit trail: corrections must be new compensating entries.
 create or replace function public.reject_personal_patient_history_mutation()
 returns trigger language plpgsql set search_path = ''
