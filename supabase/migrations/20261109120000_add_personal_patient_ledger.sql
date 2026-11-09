@@ -171,7 +171,7 @@ create or replace function public.record_personal_patient_plan_charge()
 returns trigger
 language plpgsql
 set search_path = ''
-as $
+as $$
 begin
   update public.personal_patient_plans
     set is_active = false
@@ -197,7 +197,7 @@ begin
   );
   return new;
 end;
-$;
+$$;
 
 drop trigger if exists personal_patient_plan_create_charge on public.personal_patient_plans;
 create trigger personal_patient_plan_create_charge
@@ -210,7 +210,7 @@ create or replace function public.guard_personal_patient_session_transition()
 returns trigger
 language plpgsql
 set search_path = ''
-as $
+as $$
 begin
   if tg_op = 'INSERT' then
     if new.status <> 'scheduled' then
@@ -233,7 +233,7 @@ begin
   end if;
   return new;
 end;
-$;
+$$;
 
 drop trigger if exists personal_patient_session_transition_guard on public.personal_patient_sessions;
 create trigger personal_patient_session_transition_guard
@@ -246,7 +246,7 @@ create or replace function public.record_personal_patient_session_completion()
 returns trigger
 language plpgsql
 set search_path = ''
-as $
+as $$
 begin
   if new.status = 'completed' and old.status is distinct from 'completed'
      and new.charge_amount > 0 then
@@ -260,7 +260,7 @@ begin
   end if;
   return new;
 end;
-$;
+$$;
 
 drop trigger if exists personal_patient_session_completion_charge on public.personal_patient_sessions;
 create trigger personal_patient_session_completion_charge
@@ -271,7 +271,7 @@ create or replace function public.audit_personal_patient_session_change()
 returns trigger
 language plpgsql
 set search_path = ''
-as $
+as $$
 begin
   insert into public.personal_patient_audit_events (
     clinician_id, patient_id, entity_type, entity_id, action, details
@@ -286,7 +286,7 @@ begin
   );
   return new;
 end;
-$;
+$$;
 
 drop trigger if exists personal_patient_session_audit on public.personal_patient_sessions;
 create trigger personal_patient_session_audit
