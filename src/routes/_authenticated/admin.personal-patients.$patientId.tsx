@@ -70,9 +70,16 @@ function PersonalPatientDetailPage() {
         db.from("personal_patient_plans").select("id,plan_type,title,package_sessions,package_fee,per_session_fee,is_active").eq("patient_id", patientId).order("created_at", { ascending: false }),
         db.from("personal_patient_sessions").select("id,plan_id,session_date,status,session_label,charge_amount,private_note").eq("patient_id", patientId).order("session_date", { ascending: false }),
         db.from("personal_patient_ledger").select("id,entry_type,amount,description,payment_method,occurred_at").eq("patient_id", patientId).order("occurred_at", { ascending: false }),
+        db.from("personal_patient_audit_events").select("id,entity_type,action,details,created_at").eq("patient_id", patientId).order("created_at", { ascending: false }).limit(50),
       ]);
-      for (const result of [p, plans, sessions, ledger]) if (result.error) throw result.error;
-      return { patient: p.data as Patient, plans: plans.data as Plan[], sessions: sessions.data as Session[], ledger: ledger.data as Entry[] };
+      for (const result of [p, plans, sessions, ledger, audit]) if (result.error) throw result.error;
+      return {
+        patient: p.data as Patient,
+        plans: plans.data as Plan[],
+        sessions: sessions.data as Session[],
+        ledger: ledger.data as Entry[],
+        audit: audit.data as AuditEvent[],
+      };
     },
   });
 
@@ -131,7 +138,7 @@ function PersonalPatientDetailPage() {
       const sessions = planType === "package" ? Number(packageSessions) : null;
       const fee = planType === "package" ? Number(packageFee) : null;
       const perFee = planType === "per_session" ? Number(perSessionFee) : planType === "custom" && perSessionFee ? Number(perSessionFee) : null;
-      if (planType === "package" && (!sessions || sessions < 1 || !Number.isFinite(fee) || fee < 0)) throw new Error("Enter valid package sessions and fee.");
+      if (planType === "package" && (!sessions || sessions < 1 || fee == null || !Number.isFinite(fee) || fee < 0)) throw new Error("Enter valid package sessions and fee.");
       if (planType === "per_session" && (!Number.isFinite(perFee) || (perFee ?? 0) < 0)) throw new Error("Enter a valid per-session fee.");
       const { error } = await (supabase as any).from("personal_patient_plans").insert({
         clinician_id: user.id, patient_id: patientId, plan_type: planType, title: planTitle.trim(),
