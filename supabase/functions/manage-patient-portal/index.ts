@@ -24,7 +24,9 @@ function randomToken() {
 }
 async function hashPin(pin: string) {
   const salt = crypto.getRandomValues(new Uint8Array(16));
-  const key = await crypto.subtle.importKey("raw", encoder.encode(pin), "PBKDF2", false, ["deriveBits"]);
+  const key = await crypto.subtle.importKey("raw", encoder.encode(pin), "PBKDF2", false, [
+    "deriveBits",
+  ]);
   const bits = await crypto.subtle.deriveBits(
     { name: "PBKDF2", hash: "SHA-256", salt, iterations },
     key,
@@ -35,7 +37,9 @@ async function hashPin(pin: string) {
 
 const url = Deno.env.get("SUPABASE_URL")!;
 const serviceKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
-const adminClient = createClient(url, serviceKey, { auth: { persistSession: false, autoRefreshToken: false } });
+const adminClient = createClient(url, serviceKey, {
+  auth: { persistSession: false, autoRefreshToken: false },
+});
 
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") return new Response("ok", { headers: corsHeaders });
@@ -70,11 +74,18 @@ Deno.serve(async (req) => {
         .eq("patient_id", patientId)
         .eq("clinician_id", clinicianId);
       if (revokeError) return json({ error: "Could not disable the patient link." }, 500);
-      await adminClient.from("personal_patient_portal_sessions")
-        .update({ revoked_at: now }).eq("patient_id", patientId).eq("clinician_id", clinicianId).is("revoked_at", null);
+      await adminClient
+        .from("personal_patient_portal_sessions")
+        .update({ revoked_at: now })
+        .eq("patient_id", patientId)
+        .eq("clinician_id", clinicianId)
+        .is("revoked_at", null);
       await adminClient.from("personal_patient_audit_events").insert({
-        clinician_id: clinicianId, patient_id: patientId, entity_type: "portal",
-        action: "portal_access_revoked", details: {},
+        clinician_id: clinicianId,
+        patient_id: patientId,
+        entity_type: "portal",
+        action: "portal_access_revoked",
+        details: {},
       });
       return json({ revoked: true });
     }
@@ -87,23 +98,33 @@ Deno.serve(async (req) => {
     const [tokenDigest, pinHash] = await Promise.all([digest(token), hashPin(pin)]);
     const { error: upsertError } = await adminClient
       .from("personal_patient_portal_credentials")
-      .upsert({
-        patient_id: patientId,
-        clinician_id: clinicianId,
-        token_digest: tokenDigest,
-        pin_hash: pinHash,
-        is_revoked: false,
-        failed_attempts: 0,
-        locked_until: null,
-        last_accessed_at: null,
-      }, { onConflict: "patient_id" });
+      .upsert(
+        {
+          patient_id: patientId,
+          clinician_id: clinicianId,
+          token_digest: tokenDigest,
+          pin_hash: pinHash,
+          is_revoked: false,
+          failed_attempts: 0,
+          locked_until: null,
+          last_accessed_at: null,
+        },
+        { onConflict: "patient_id" },
+      );
     if (upsertError) return json({ error: "Could not create the patient link." }, 500);
 
-    await adminClient.from("personal_patient_portal_sessions")
-      .update({ revoked_at: now }).eq("patient_id", patientId).eq("clinician_id", clinicianId).is("revoked_at", null);
+    await adminClient
+      .from("personal_patient_portal_sessions")
+      .update({ revoked_at: now })
+      .eq("patient_id", patientId)
+      .eq("clinician_id", clinicianId)
+      .is("revoked_at", null);
     await adminClient.from("personal_patient_audit_events").insert({
-      clinician_id: clinicianId, patient_id: patientId, entity_type: "portal",
-      action: "portal_link_created_or_rotated", details: {},
+      clinician_id: clinicianId,
+      patient_id: patientId,
+      entity_type: "portal",
+      action: "portal_link_created_or_rotated",
+      details: {},
     });
     return json({ token });
   } catch {
