@@ -166,6 +166,59 @@ drop trigger if exists personal_patient_portal_credentials_updated_at on public.
 create trigger personal_patient_portal_credentials_updated_at before update on public.personal_patient_portal_credentials
 for each row execute function public.set_personal_patient_updated_at();
 
+-- Completing a billable session creates its charge in the same transaction.
+-- Package sessions use charge_amount=0 because the package was charged upfront.
+create or replace function public.record_personal_patient_session_completion()
+returns trigger
+language plpgsql
+set search_path = ''
+as $
+begin
+  if new.status = 'completed' and old.status is distinct from 'completed'
+     and new.charge_amount > 0 then
+    insert into public.personal_patient_ledger (
+      clinician_id, patient_id, session_id, entry_type, amount, description, occurred_at
+    ) values (
+      new.clinician_id, new.patient_id, new.id, 'charge', new.charge_amount,
+      coalesce(nullif(new.session_label, ''), 'Completed physiotherapy session'),
+      coalesce(new.completed_at, now())
+    );
+  end if;
+  return new;
+end;
+$;
+
+drop trigger if exists personal_patient_session_completion_charge on public.personal_patient_sessions;
+create trigger personal_patient_session_completion_charge
+after update of status on public.personal_patient_sessions
+for each row execute function public.record_personal_patient_session_completion();
+
+create or replace function public.audit_personal_patient_session_change()
+returns trigger
+language plpgsql
+set search_path = ''
+as $
+begin
+  insert into public.personal_patient_audit_events (
+    clinician_id, patient_id, entity_type, entity_id, action, details
+  ) values (
+    new.clinician_id, new.patient_id, 'session', new.id,
+    case when tg_op = 'INSERT' then 'session_created' else 'session_updated' end,
+    jsonb_build_object(
+      'status', new.status,
+      'session_date', new.session_date,
+      'charge_amount', new.charge_amount
+    )
+  );
+  return new;
+end;
+$;
+
+drop trigger if exists personal_patient_session_audit on public.personal_patient_sessions;
+create trigger personal_patient_session_audit
+after insert or update on public.personal_patient_sessions
+for each row execute function public.audit_personal_patient_session_change();
+
 -- Immutable ledger and audit trail: corrections must be new compensating entries.
 create or replace function public.reject_personal_patient_history_mutation()
 returns trigger language plpgsql set search_path = ''
