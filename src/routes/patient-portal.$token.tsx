@@ -370,9 +370,9 @@ function PatientPortalPage() {
             </>
           ) : null}
         </section>
-      <p className="mt-5 text-center text-xs text-slate-400">
-        PainFix Physiotherapy Clinic · Move Better. Recover Faster.
-      </p>
+        <p className="mt-5 text-center text-xs text-slate-400">
+          PainFix Physiotherapy Clinic · Move Better. Recover Faster.
+        </p>
       </div>
     </main>
   );
