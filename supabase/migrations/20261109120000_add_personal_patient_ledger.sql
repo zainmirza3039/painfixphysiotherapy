@@ -113,7 +113,7 @@ create table if not exists public.personal_patient_portal_credentials (
   patient_id uuid primary key,
   clinician_id uuid not null references auth.users(id) on delete restrict,
   token_digest text not null unique,
-  pin_hash text not null,
+  pin_hash text not null, -- PBKDF2-SHA256 hash with per-PIN salt; never plaintext.
   is_revoked boolean not null default false,
   failed_attempts integer not null default 0 check (failed_attempts >= 0),
   locked_until timestamptz,
@@ -125,6 +125,23 @@ create table if not exists public.personal_patient_portal_credentials (
     references public.personal_patients(id, clinician_id)
     on delete restrict
 );
+
+create table if not exists public.personal_patient_portal_sessions (
+  id uuid primary key default gen_random_uuid(),
+  patient_id uuid not null,
+  clinician_id uuid not null references auth.users(id) on delete restrict,
+  session_token_digest text not null unique,
+  expires_at timestamptz not null,
+  revoked_at timestamptz,
+  created_at timestamptz not null default now(),
+  constraint personal_patient_portal_session_owner_patient_fk
+    foreign key (patient_id, clinician_id)
+    references public.personal_patients(id, clinician_id)
+    on delete restrict
+);
+
+create index if not exists personal_patient_portal_sessions_patient_expiry_idx
+  on public.personal_patient_portal_sessions (patient_id, expires_at desc);
 
 create table if not exists public.personal_patient_audit_events (
   id uuid primary key default gen_random_uuid(),
@@ -358,6 +375,7 @@ alter table public.personal_patient_plans enable row level security;
 alter table public.personal_patient_sessions enable row level security;
 alter table public.personal_patient_ledger enable row level security;
 alter table public.personal_patient_portal_credentials enable row level security;
+alter table public.personal_patient_portal_sessions enable row level security;
 alter table public.personal_patient_audit_events enable row level security;
 
 create policy "Clinicians read only their personal patients"
@@ -458,6 +476,8 @@ grant select, insert, update on public.personal_patient_plans to authenticated;
 grant select, insert, update on public.personal_patient_sessions to authenticated;
 grant select, insert on public.personal_patient_ledger to authenticated;
 revoke all on public.personal_patient_portal_credentials from authenticated;
+revoke all on public.personal_patient_portal_sessions from anon, authenticated;
+grant all on public.personal_patient_portal_credentials, public.personal_patient_portal_sessions to service_role;
 grant select, insert on public.personal_patient_audit_events to authenticated;
 
 -- Explicitly do not grant anonymous access. Patient-link access will be served
