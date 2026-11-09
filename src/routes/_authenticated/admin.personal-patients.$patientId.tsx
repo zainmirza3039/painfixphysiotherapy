@@ -4,6 +4,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { ArrowLeft, CalendarPlus, CheckCircle2, CircleDollarSign, CreditCard, Plus, ShieldCheck, Copy, Share2, ChevronLeft, ChevronRight, Download, Printer, CalendarDays, MessageCircle } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
+import { personalPatientDb } from "@/admin/personal-patients.db";
 import { useAdminAuth } from "@/admin/AdminAuthProvider";
 import { AdminPageHeader } from "@/components/admin/AdminPageHeader";
 import { AdminQueryError } from "@/components/admin/AdminQueryError";
@@ -64,7 +65,7 @@ function PersonalPatientDetailPage() {
     queryKey: ["admin", "personal-patient-detail", user?.id, patientId],
     enabled: Boolean(user?.id && patientId),
     queryFn: async () => {
-      const db = supabase as any;
+      const db = personalPatientDb;
       const [p, plans, sessions, ledger, audit] = await Promise.all([
         db.from("personal_patients").select("id,full_name,phone,email,private_notes,status").eq("id", patientId).single(),
         db.from("personal_patient_plans").select("id,plan_type,title,package_sessions,package_fee,per_session_fee,is_active").eq("patient_id", patientId).order("created_at", { ascending: false }),
@@ -140,7 +141,7 @@ function PersonalPatientDetailPage() {
       const perFee = planType === "per_session" ? Number(perSessionFee) : planType === "custom" && perSessionFee ? Number(perSessionFee) : null;
       if (planType === "package" && (!sessions || sessions < 1 || fee == null || !Number.isFinite(fee) || fee < 0)) throw new Error("Enter valid package sessions and fee.");
       if (planType === "per_session" && (!Number.isFinite(perFee) || (perFee ?? 0) < 0)) throw new Error("Enter a valid per-session fee.");
-      const { error } = await (supabase as any).from("personal_patient_plans").insert({
+      const { error } = await personalPatientDb.from("personal_patient_plans").insert({
         clinician_id: user.id, patient_id: patientId, plan_type: planType, title: planTitle.trim(),
         package_sessions: sessions, package_fee: fee, per_session_fee: perFee,
       });
@@ -156,7 +157,7 @@ function PersonalPatientDetailPage() {
       if (!sessionDate) throw new Error("Select a session date and time.");
       const charge = Number(sessionCharge);
       if (!Number.isFinite(charge) || charge < 0) throw new Error("Enter a valid session fee.");
-      const { error } = await (supabase as any).from("personal_patient_sessions").insert({
+      const { error } = await personalPatientDb.from("personal_patient_sessions").insert({
         clinician_id: user.id, patient_id: patientId, plan_id: activePlan?.id ?? null,
         session_date: new Date(sessionDate).toISOString(), status: "scheduled",
         session_label: sessionLabel.trim() || null, charge_amount: charge,
@@ -173,7 +174,7 @@ function PersonalPatientDetailPage() {
       if (!user?.id) throw new Error("Please sign in again.");
       const amount = Number(paymentAmount);
       if (!Number.isFinite(amount) || amount <= 0) throw new Error("Enter a payment amount greater than zero.");
-      const { error } = await (supabase as any).from("personal_patient_ledger").insert({
+      const { error } = await personalPatientDb.from("personal_patient_ledger").insert({
         clinician_id: user.id, patient_id: patientId, entry_type: "payment", amount: -amount,
         description: paymentDescription.trim() || "Patient payment", payment_method: paymentMethod,
       });
@@ -206,7 +207,7 @@ function PersonalPatientDetailPage() {
 
   const updateSession = useMutation({
     mutationFn: async ({ id, status }: { id: string; status: "completed" | "cancelled" | "rescheduled" }) => {
-      const { error } = await (supabase as any).from("personal_patient_sessions").update({
+      const { error } = await personalPatientDb.from("personal_patient_sessions").update({
         status, completed_at: status === "completed" ? new Date().toISOString() : null,
       }).eq("id", id);
       if (error) throw error;
