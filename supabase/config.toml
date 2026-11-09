@@ -1,1 +1,9 @@
 project_id = "vagsksstptqqcloccavs"
+
+[functions.patient-portal]
+# The endpoint implements its own opaque link token + PBKDF2 PIN + expiring session checks.
+verify_jwt = false
+
+[functions.manage-patient-portal]
+# Link rotation and revocation require a valid authenticated clinician JWT.
+verify_jwt = true
