@@ -35,7 +35,6 @@ create table if not exists public.personal_patient_plans (
   ends_on date,
   is_active boolean not null default true,
   created_at timestamptz not null default now(),
-  unique (id, clinician_id),
   unique (id, patient_id, clinician_id),
   constraint personal_patient_plans_owner_patient_fk
     foreign key (patient_id, clinician_id)
@@ -57,7 +56,6 @@ create table if not exists public.personal_patient_sessions (
   completed_at timestamptz,
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now(),
-  unique (id, clinician_id),
   unique (id, patient_id, clinician_id),
   constraint personal_patient_sessions_owner_patient_fk
     foreign key (patient_id, clinician_id)
@@ -109,7 +107,7 @@ create index if not exists personal_patient_ledger_patient_date_idx
   on public.personal_patient_ledger (patient_id, occurred_at desc);
 
 -- Private portal credentials are only readable/writable by the owning clinician.
--- The opaque token digest and bcrypt PIN hash are never exposed to anon clients.
+-- The opaque token digest and PBKDF2 PIN hash are never exposed to anon clients.
 create table if not exists public.personal_patient_portal_credentials (
   patient_id uuid primary key,
   clinician_id uuid not null references auth.users(id) on delete restrict,
