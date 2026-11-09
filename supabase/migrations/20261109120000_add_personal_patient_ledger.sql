@@ -243,7 +243,7 @@ begin
   end if;
   return new;
 end;
-$;
+$$;
 
 drop trigger if exists personal_patient_plan_update_guard on public.personal_patient_plans;
 create trigger personal_patient_plan_update_guard
@@ -266,7 +266,12 @@ begin
     return new;
   end if;
 
-  if new.id is distinct from old.id or new.clinician_id is distinct from old.clinician_id\n     or new.patient_id is distinct from old.patient_id or new.plan_id is distinct from old.plan_id then\n    raise exception 'A session cannot be reassigned to another patient or plan.';\n  end if;\n\n  if old.status in ('completed', 'cancelled', 'rescheduled') and new.status <> old.status then
+  if new.id is distinct from old.id or new.clinician_id is distinct from old.clinician_id
+     or new.patient_id is distinct from old.patient_id or new.plan_id is distinct from old.plan_id then
+    raise exception 'A session cannot be reassigned to another patient or plan.';
+  end if;
+
+  if old.status in ('completed', 'cancelled', 'rescheduled') and new.status <> old.status then
     raise exception 'A finalised session cannot be reopened or reclassified.';
   end if;
 
