@@ -118,6 +118,7 @@ function PersonalPatientsPage() {
         return <article key={p.id} className="rounded-xl border border-border bg-card p-4 shadow-sm transition-colors hover:border-primary/40">
           <div className="flex items-start justify-between gap-3"><div><h2 className="font-semibold">{p.full_name}</h2><p className="mt-1 text-sm text-muted-foreground">{p.phone || p.email || "—"}</p></div><Badge variant="secondary">{p.status === "on_hold" ? t.hold : p.status === "discharged" ? t.discharged : t.activeStatus}</Badge></div>
           <div className="mt-4 grid grid-cols-3 gap-2 border-t border-border pt-3 text-sm"><div><p className="text-xs text-muted-foreground">{t.sessions}</p><p className="mt-1 font-semibold">{ss.filter((s) => s.status === "completed").length}</p></div><div><p className="text-xs text-muted-foreground">{t.received}</p><p className="mt-1 font-semibold">{money(received)}</p></div><div><p className="text-xs text-muted-foreground">{t.dues}</p><p className="mt-1 font-semibold">{balance > 0 ? money(balance) : balance < 0 ? `+${money(-balance)} credit` : money(0)}</p></div></div>
+          <div className="mt-3 border-t border-border pt-3"><Button asChild variant="outline" size="sm" className="w-full"><Link to="/admin/personal-patients/$patientId" params={{ patientId: p.id }}>{t.open}</Link></Button></div>
         </article>;
       })}
     </div>}
