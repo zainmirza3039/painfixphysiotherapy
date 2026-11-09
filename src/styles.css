@@ -1143,3 +1143,22 @@ body:has(.site-footer) :is(a[href], button, [role="button"], summary):focus-visi
     transform: none;
   }
 }
+
+
+/* Personal patient workspace Urdu typography is deliberately scoped to this route. */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;500;600;700&display=swap');
+
+.personal-patients-portal[dir="rtl"] {
+  font-family: "Noto Nastaliq Urdu", serif;
+  line-height: 2;
+}
+.personal-patients-portal[dir="rtl"] :is(button, input, textarea, label, p, h1, h2, h3, span, div) {
+  font-family: "Noto Nastaliq Urdu", serif;
+}
+.personal-patients-portal[dir="rtl"] input,
+.personal-patients-portal[dir="rtl"] textarea {
+  text-align: right;
+}
+.personal-patients-portal[dir="rtl"] .lucide {
+  flex-shrink: 0;
+}
