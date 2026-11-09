@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;500;600;700&display=swap');
 @import "tailwindcss" source(none);
 @source "../src";
 @import "tw-animate-css";
@@ -1146,8 +1147,6 @@ body:has(.site-footer) :is(a[href], button, [role="button"], summary):focus-visi
 
 
 /* Personal patient workspace Urdu typography is deliberately scoped to this route. */
-@import url('https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;500;600;700&display=swap');
-
 .personal-patients-portal[dir="rtl"] {
   font-family: "Noto Nastaliq Urdu", serif;
   line-height: 2;
