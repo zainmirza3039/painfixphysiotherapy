@@ -28,7 +28,8 @@ function PersonalPatientDetailPage() {
   const { patientId } = Route.useParams();
   const { user } = useAdminAuth();
   const qc = useQueryClient();
-  const [language, setLanguage] = useState<"en" | "ur">("en");\n  const [planOpen, setPlanOpen] = useState(false);
+  const [language, setLanguage] = useState<"en" | "ur">("en");
+  const [planOpen, setPlanOpen] = useState(false);
   const [sessionOpen, setSessionOpen] = useState(false);
   const [paymentOpen, setPaymentOpen] = useState(false);
   const [planType, setPlanType] = useState<"package" | "per_session" | "custom">("package");
@@ -44,7 +45,17 @@ function PersonalPatientDetailPage() {
   const [paymentMethod, setPaymentMethod] = useState("cash");
   const [paymentDescription, setPaymentDescription] = useState("Patient payment");
 
-  const t = language === "ur" ? { back: "ذاتی مریضوں کی فہرست", plan: "بلنگ پلان", addSession: "سیشن شامل کریں", payment: "ادائیگی درج کریں", completed: "مکمل سیشنز", upcoming: "آنے والے سیشنز", charges: "کل چارجز", received: "وصول شدہ رقم", billing: "مالی خلاصہ", plans: "بلنگ پلانز", sessions: "سیشنز کی تفصیل", statement: "مالی اسٹیٹمنٹ", privateNotes: "معالج کے نجی نوٹس — مریض کو نہیں دکھائے جائیں گے", due: "بقایا رقم", credit: "ایڈوانس کریڈٹ", settled: "حساب برابر", remaining: "باقی پیکیج سیشنز", noPlan: "کوئی فعال پلان نہیں", addPlan: "بلنگ پلان شامل کریں", schedule: "سیشن شیڈول کریں", save: "محفوظ کریں", cancel: "منسوخ", language: "English", completedStatus: "مکمل", scheduled: "شیڈول", cancelled: "منسوخ", rescheduled: "دوبارہ شیڈول", markComplete: "مکمل کریں", recordPayment: "ادائیگی درج کریں" } : { back: "Back to Personal Patients", plan: "Billing plan", addSession: "Add session", payment: "Record payment", completed: "Completed sessions", upcoming: "Upcoming sessions", charges: "Total charges", received: "Received", billing: "Billing overview", plans: "Billing plans", sessions: "Session history", statement: "Financial statement", privateNotes: "Private clinician notes — never shared with patient", due: "Outstanding dues", credit: "Advance credit", settled: "Settled", remaining: "Package sessions left", noPlan: "No active plan", addPlan: "Add billing plan", schedule: "Schedule session", save: "Save", cancel: "Cancel", language: "اردو", completedStatus: "Completed", scheduled: "Scheduled", cancelled: "Cancelled", rescheduled: "Rescheduled", markComplete: "Complete", recordPayment: "Record payment" };\n\n  useEffect(() => {\n    if (language !== "ur" || document.getElementById("painfix-nastaliq-font")) return;\n    const link = document.createElement("link");\n    link.id = "painfix-nastaliq-font"; link.rel = "stylesheet";\n    link.href = "https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;500;600;700&display=swap";\n    document.head.appendChild(link);\n  }, [language]);\n\n  const query = useQuery({
+  const t = language === "ur" ? { back: "ذاتی مریضوں کی فہرست", plan: "بلنگ پلان", addSession: "سیشن شامل کریں", payment: "ادائیگی درج کریں", completed: "مکمل سیشنز", upcoming: "آنے والے سیشنز", charges: "کل چارجز", received: "وصول شدہ رقم", billing: "مالی خلاصہ", plans: "بلنگ پلانز", sessions: "سیشنز کی تفصیل", statement: "مالی اسٹیٹمنٹ", privateNotes: "معالج کے نجی نوٹس — مریض کو نہیں دکھائے جائیں گے", due: "بقایا رقم", credit: "ایڈوانس کریڈٹ", settled: "حساب برابر", remaining: "باقی پیکیج سیشنز", noPlan: "کوئی فعال پلان نہیں", addPlan: "بلنگ پلان شامل کریں", schedule: "سیشن شیڈول کریں", save: "محفوظ کریں", cancel: "منسوخ", language: "English", completedStatus: "مکمل", scheduled: "شیڈول", cancelled: "منسوخ", rescheduled: "دوبارہ شیڈول", markComplete: "مکمل کریں", recordPayment: "ادائیگی درج کریں" } : { back: "Back to Personal Patients", plan: "Billing plan", addSession: "Add session", payment: "Record payment", completed: "Completed sessions", upcoming: "Upcoming sessions", charges: "Total charges", received: "Received", billing: "Billing overview", plans: "Billing plans", sessions: "Session history", statement: "Financial statement", privateNotes: "Private clinician notes — never shared with patient", due: "Outstanding dues", credit: "Advance credit", settled: "Settled", remaining: "Package sessions left", noPlan: "No active plan", addPlan: "Add billing plan", schedule: "Schedule session", save: "Save", cancel: "Cancel", language: "اردو", completedStatus: "Completed", scheduled: "Scheduled", cancelled: "Cancelled", rescheduled: "Rescheduled", markComplete: "Complete", recordPayment: "Record payment" };
+
+  useEffect(() => {
+    if (language !== "ur" || document.getElementById("painfix-nastaliq-font")) return;
+    const link = document.createElement("link");
+    link.id = "painfix-nastaliq-font"; link.rel = "stylesheet";
+    link.href = "https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;500;600;700&display=swap";
+    document.head.appendChild(link);
+  }, [language]);
+
+  const query = useQuery({
     queryKey: ["admin", "personal-patient-detail", user?.id, patientId],
     enabled: Boolean(user?.id && patientId),
     queryFn: async () => {
