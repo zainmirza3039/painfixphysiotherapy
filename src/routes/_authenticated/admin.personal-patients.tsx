@@ -3,7 +3,7 @@ import { useEffect, useMemo, useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { CalendarCheck2, CircleDollarSign, Plus, Search, Users } from "lucide-react";
-import { supabase } from "@/integrations/supabase/client";
+import { personalPatientDb } from "@/admin/personal-patients.db";
 import { useAdminAuth } from "@/admin/AdminAuthProvider";
 import { AdminPageHeader } from "@/components/admin/AdminPageHeader";
 import { AdminQueryError } from "@/components/admin/AdminQueryError";
@@ -53,7 +53,7 @@ function PersonalPatientsPage() {
     queryKey: ["admin", "personal-patients", user?.id],
     enabled: Boolean(user?.id),
     queryFn: async () => {
-      const db = supabase as any;
+      const db = personalPatientDb;
       const [p, s, l] = await Promise.all([
         db.from("personal_patients").select("id,full_name,phone,email,status,created_at").neq("status", "archived").order("created_at", { ascending: false }),
         db.from("personal_patient_sessions").select("patient_id,status"),
@@ -88,7 +88,7 @@ function PersonalPatientsPage() {
     mutationFn: async () => {
       if (!user?.id) throw new Error("Please sign in again.");
       if (!name.trim()) throw new Error("Patient name is required.");
-      const { error } = await (supabase as any).from("personal_patients").insert({
+      const { error } = await personalPatientDb.from("personal_patients").insert({
         clinician_id: user.id, full_name: name.trim(), phone: phone.trim() || null,
         email: email.trim() || null, private_notes: notes.trim() || null,
       });
