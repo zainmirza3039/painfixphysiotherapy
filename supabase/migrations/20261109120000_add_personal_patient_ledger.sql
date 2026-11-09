@@ -304,7 +304,7 @@ begin
   ) values (
     new.clinician_id, new.id, 'patient', new.id,
     case when tg_op = 'INSERT' then 'patient_created' else 'patient_updated' end,
-    jsonb_build_object('status', new.status, 'name_changed', old.full_name is distinct from new.full_name)
+    jsonb_build_object('status', new.status, 'name_changed', case when tg_op = 'INSERT' then true else old.full_name is distinct from new.full_name end)
   );
   return new;
 end;
