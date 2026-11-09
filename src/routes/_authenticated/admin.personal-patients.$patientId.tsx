@@ -102,8 +102,7 @@ function PersonalPatientDetailPage() {
       ...data.ledger.map((e) => ["Financial", e.occurred_at, e.description, e.payment_method ?? e.entry_type, e.amount]),
       ...data.sessions.map((s) => ["Session", s.session_date, s.session_label ?? "Physiotherapy session", s.status, s.charge_amount]),
     ];
-    const csv = rows.map((row) => row.map((value) => `"${String(value ?? "").replaceAll('"', '""')}"`).join(",")).join("
-");
+    const csv = rows.map((row) => row.map((value) => `"${String(value ?? "").replaceAll('"', '""')}"`).join(",")).join("\n");
     const url = URL.createObjectURL(new Blob(["\uFEFF", csv], { type: "text/csv;charset=utf-8" }));
     const anchor = document.createElement("a");
     anchor.href = url;
@@ -119,8 +118,7 @@ function PersonalPatientDetailPage() {
       next ? `Your next PainFix physiotherapy session is scheduled for ${date(next.session_date)}.` : "",
       balance > 0 ? `Your current outstanding balance is ${money(balance)}.` : balance < 0 ? `Your account has an advance credit of ${money(-balance)}.` : "Your account is settled.",
       "Please contact PainFix if you need to reschedule.",
-    ].filter(Boolean).join("
-");
+    ].filter(Boolean).join("\n");
     const phone = (data.patient.phone ?? "").replace(/[^0-9]/g, "");
     window.open(`https://wa.me/${phone}?text=${encodeURIComponent(message)}`, "_blank", "noopener,noreferrer");
   };
