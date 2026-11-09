@@ -135,7 +135,7 @@ Deno.serve(async (req) => {
       const [patient, plans, sessions, ledger] = await Promise.all([
         supabase.from("personal_patients").select("full_name,status").eq("id", patientId).eq("clinician_id", clinicianId).single(),
         supabase.from("personal_patient_plans").select("title,plan_type,package_sessions,package_fee,per_session_fee,is_active").eq("patient_id", patientId).eq("clinician_id", clinicianId).order("created_at", { ascending: false }),
-        supabase.from("personal_patient_sessions").select("session_date,status,session_label,charge_amount").eq("patient_id", patientId).eq("clinician_id", clinicianId).order("session_date", { ascending: true }),
+        supabase.from("personal_patient_sessions").select("plan_id,session_date,status,session_label,charge_amount").eq("patient_id", patientId).eq("clinician_id", clinicianId).order("session_date", { ascending: true }),
         supabase.from("personal_patient_ledger").select("entry_type,amount,description,payment_method,occurred_at").eq("patient_id", patientId).eq("clinician_id", clinicianId).order("occurred_at", { ascending: false }),
       ]);
       for (const result of [patient, plans, sessions, ledger]) {
@@ -147,12 +147,12 @@ Deno.serve(async (req) => {
       const balance = entries.reduce((sum, entry) => sum + Number(entry.amount), 0);
       const activePlan = (plans.data ?? []).find((plan) => plan.is_active) ?? null;
       const completed = (sessions.data ?? []).filter((session) => session.status === "completed").length;
-      const upcoming = (sessions.data ?? []).filter((session) => session.status === "scheduled");
+      const upcoming = (sessions.data ?? []).filter((session) => session.status === "scheduled" && new Date(session.session_date).getTime() >= Date.now());
       const nextSession = upcoming.find((session) => new Date(session.session_date).getTime() >= Date.now()) ?? null;
       return json({
         patient: patient.data,
         plan: activePlan,
-        sessions: sessions.data ?? [],
+        sessions: (sessions.data ?? []).map(({ session_date, status, session_label, charge_amount }) => ({ session_date, status, session_label, charge_amount })),
         ledger: entries,
         summary: {
           completedSessions: completed,
@@ -162,7 +162,7 @@ Deno.serve(async (req) => {
           outstandingDues: Math.max(balance, 0),
           advanceCredit: Math.max(-balance, 0),
           packageSessionsRemaining: activePlan?.plan_type === "package" && activePlan.package_sessions != null
-            ? Math.max(0, activePlan.package_sessions - (sessions.data ?? []).filter((session) => session.status === "completed").length)
+            ? Math.max(0, activePlan.package_sessions - (sessions.data ?? []).filter((session) => session.plan_id === activePlan.id && session.status === "completed").length)
             : null,
           nextSession,
         },
