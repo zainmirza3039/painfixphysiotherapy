@@ -56,6 +56,7 @@ create table if not exists public.personal_patient_sessions (
   completed_at timestamptz,
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now(),
+  unique (id, clinician_id),
   constraint personal_patient_sessions_owner_patient_fk
     foreign key (patient_id, clinician_id)
     references public.personal_patients(id, clinician_id)
@@ -76,14 +77,21 @@ create table if not exists public.personal_patient_ledger (
   id uuid primary key default gen_random_uuid(),
   clinician_id uuid not null references auth.users(id) on delete restrict,
   patient_id uuid not null,
-  session_id uuid references public.personal_patient_sessions(id) on delete restrict,
+  session_id uuid,
   entry_type text not null check (entry_type in ('charge','payment','credit','refund','adjustment')),
-  amount numeric(12,2) not null check (amount <> 0),
+  amount numeric(12,2) not null check (
+    (entry_type in ('charge','refund') and amount > 0)
+    or (entry_type in ('payment','credit') and amount < 0)
+    or entry_type = 'adjustment'
+  ),
   description text not null,
   payment_method text check (payment_method is null or payment_method in ('cash','bank_transfer','jazzcash','easypaisa','card','other')),
   reference text,
   occurred_at timestamptz not null default now(),
   created_at timestamptz not null default now(),
+  constraint personal_patient_ledger_session_fk
+    foreign key (session_id, clinician_id)
+    references public.personal_patient_sessions(id, clinician_id) on delete restrict,
   constraint personal_patient_ledger_owner_patient_fk
     foreign key (patient_id, clinician_id)
     references public.personal_patients(id, clinician_id)
