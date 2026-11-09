@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useMemo, useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
-import { ArrowLeft, CalendarPlus, CheckCircle2, CircleDollarSign, CreditCard, Plus, ShieldCheck, Copy, Share2 } from "lucide-react";
+import { ArrowLeft, CalendarPlus, CheckCircle2, CircleDollarSign, CreditCard, Plus, ShieldCheck, Copy, Share2, ChevronLeft, ChevronRight, Download, Printer, CalendarDays, MessageCircle } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useAdminAuth } from "@/admin/AdminAuthProvider";
 import { AdminPageHeader } from "@/components/admin/AdminPageHeader";
@@ -20,7 +20,7 @@ export const Route = createFileRoute("/_authenticated/admin/personal-patients/$p
 type Patient = { id: string; full_name: string; phone: string | null; email: string | null; private_notes: string | null; status: string };
 type Plan = { id: string; plan_type: string; title: string; package_sessions: number | null; package_fee: number | null; per_session_fee: number | null; is_active: boolean };
 type Session = { id: string; plan_id: string | null; session_date: string; status: string; session_label: string | null; charge_amount: number; private_note: string | null };
-type Entry = { id: string; entry_type: string; amount: number; description: string; payment_method: string | null; occurred_at: string };
+type Entry = { id: string; entry_type: string; amount: number; description: string; payment_method: string | null; occurred_at: string };\ntype AuditEvent = { id: string; entity_type: string; action: string; details: Record<string, unknown>; created_at: string };
 const money = (n: number) => new Intl.NumberFormat("en-PK", { style: "currency", currency: "PKR", maximumFractionDigits: 0 }).format(n);
 const date = (v: string) => new Intl.DateTimeFormat("en-PK", { dateStyle: "medium", timeStyle: "short" }).format(new Date(v));
 
@@ -34,7 +34,7 @@ function PersonalPatientDetailPage() {
   const [paymentOpen, setPaymentOpen] = useState(false);
   const [portalOpen, setPortalOpen] = useState(false);
   const [portalPin, setPortalPin] = useState("");
-  const [portalUrl, setPortalUrl] = useState("");
+  const [portalUrl, setPortalUrl] = useState("");\n  const [calendarMonth, setCalendarMonth] = useState(() => new Date(new Date().getFullYear(), new Date().getMonth(), 1));
   const [planType, setPlanType] = useState<"package" | "per_session" | "custom">("package");
   const [planTitle, setPlanTitle] = useState("Physiotherapy package");
   const [packageSessions, setPackageSessions] = useState("10");
@@ -63,7 +63,7 @@ function PersonalPatientDetailPage() {
     enabled: Boolean(user?.id && patientId),
     queryFn: async () => {
       const db = supabase as any;
-      const [p, plans, sessions, ledger] = await Promise.all([
+      const [p, plans, sessions, ledger, audit] = await Promise.all([
         db.from("personal_patients").select("id,full_name,phone,email,private_notes,status").eq("id", patientId).single(),
         db.from("personal_patient_plans").select("id,plan_type,title,package_sessions,package_fee,per_session_fee,is_active").eq("patient_id", patientId).order("created_at", { ascending: false }),
         db.from("personal_patient_sessions").select("id,plan_id,session_date,status,session_label,charge_amount,private_note").eq("patient_id", patientId).order("session_date", { ascending: false }),
@@ -81,7 +81,45 @@ function PersonalPatientDetailPage() {
   const totalCharges = data?.ledger.filter((e) => e.entry_type === "charge").reduce((n, e) => n + Number(e.amount), 0) ?? 0;
   const received = data?.ledger.filter((e) => e.entry_type === "payment").reduce((n, e) => n + Math.abs(Number(e.amount)), 0) ?? 0;
   const balance = data?.ledger.reduce((n, e) => n + Number(e.amount), 0) ?? 0;
-  const refresh = () => qc.invalidateQueries({ queryKey: ["admin", "personal-patient-detail", user?.id, patientId] });
+  const refresh = () => qc.invalidateQueries({ queryKey: ["admin", "personal-patient-detail", user?.id, patientId] });\n  const calendarDays = useMemo(() => {
+    const year = calendarMonth.getFullYear();
+    const month = calendarMonth.getMonth();
+    const firstWeekday = new Date(year, month, 1).getDay();
+    const daysInMonth = new Date(year, month + 1, 0).getDate();
+    return [...Array(firstWeekday).fill(null), ...Array.from({ length: daysInMonth }, (_, i) => i + 1)];
+  }, [calendarMonth]);
+  const monthSessions = (data?.sessions ?? []).filter((s) => {
+    const d = new Date(s.session_date);
+    return d.getFullYear() === calendarMonth.getFullYear() && d.getMonth() === calendarMonth.getMonth();
+  });
+  const exportCsv = () => {
+    if (!data) return;
+    const rows = [
+      ["Record type", "Date", "Description", "Status / method", "Amount PKR"],
+      ...data.ledger.map((e) => ["Financial", e.occurred_at, e.description, e.payment_method ?? e.entry_type, e.amount]),
+      ...data.sessions.map((s) => ["Session", s.session_date, s.session_label ?? "Physiotherapy session", s.status, s.charge_amount]),
+    ];
+    const csv = rows.map((row) => row.map((value) => `"${String(value ?? "").replaceAll('"', '""')}"`).join(",")).join("\n");
+    const url = URL.createObjectURL(new Blob(["\\uFEFF", csv], { type: "text/csv;charset=utf-8" }));
+    const anchor = document.createElement("a");
+    anchor.href = url;
+    anchor.download = `painfix-${data.patient.full_name.replace(/[^a-z0-9]+/gi, "-").toLowerCase()}-statement.csv`;
+    anchor.click();
+    URL.revokeObjectURL(url);
+  };
+  const sendWhatsAppReminder = () => {
+    if (!data) return;
+    const next = (data.sessions ?? []).filter((s) => s.status === "scheduled" && new Date(s.session_date).getTime() >= Date.now()).sort((a,b) => a.session_date.localeCompare(b.session_date))[0];
+    const message = [
+      `Assalam-o-Alaikum ${data.patient.full_name},`,
+      next ? `Your next PainFix physiotherapy session is scheduled for ${date(next.session_date)}.` : "",
+      balance > 0 ? `Your current outstanding balance is ${money(balance)}.` : balance < 0 ? `Your account has an advance credit of ${money(-balance)}.` : "Your account is settled.",
+      "Please contact PainFix if you need to reschedule.",
+    ].filter(Boolean).join("\n");
+    const phone = (data.patient.phone ?? "").replace(/[^0-9]/g, "");
+    window.open(`https://wa.me/${phone}?text=${encodeURIComponent(message)}`, "_blank", "noopener,noreferrer");
+  };
+
 
   const createPlan = useMutation({
     mutationFn: async () => {
