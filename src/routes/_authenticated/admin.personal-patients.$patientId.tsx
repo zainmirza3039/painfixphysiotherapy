@@ -20,7 +20,8 @@ export const Route = createFileRoute("/_authenticated/admin/personal-patients/$p
 type Patient = { id: string; full_name: string; phone: string | null; email: string | null; private_notes: string | null; status: string };
 type Plan = { id: string; plan_type: string; title: string; package_sessions: number | null; package_fee: number | null; per_session_fee: number | null; is_active: boolean };
 type Session = { id: string; plan_id: string | null; session_date: string; status: string; session_label: string | null; charge_amount: number; private_note: string | null };
-type Entry = { id: string; entry_type: string; amount: number; description: string; payment_method: string | null; occurred_at: string };\ntype AuditEvent = { id: string; entity_type: string; action: string; details: Record<string, unknown>; created_at: string };
+type Entry = { id: string; entry_type: string; amount: number; description: string; payment_method: string | null; occurred_at: string };
+type AuditEvent = { id: string; entity_type: string; action: string; details: Record<string, unknown>; created_at: string };
 const money = (n: number) => new Intl.NumberFormat("en-PK", { style: "currency", currency: "PKR", maximumFractionDigits: 0 }).format(n);
 const date = (v: string) => new Intl.DateTimeFormat("en-PK", { dateStyle: "medium", timeStyle: "short" }).format(new Date(v));
 
@@ -34,7 +35,8 @@ function PersonalPatientDetailPage() {
   const [paymentOpen, setPaymentOpen] = useState(false);
   const [portalOpen, setPortalOpen] = useState(false);
   const [portalPin, setPortalPin] = useState("");
-  const [portalUrl, setPortalUrl] = useState("");\n  const [calendarMonth, setCalendarMonth] = useState(() => new Date(new Date().getFullYear(), new Date().getMonth(), 1));
+  const [portalUrl, setPortalUrl] = useState("");
+  const [calendarMonth, setCalendarMonth] = useState(() => new Date(new Date().getFullYear(), new Date().getMonth(), 1));
   const [planType, setPlanType] = useState<"package" | "per_session" | "custom">("package");
   const [planTitle, setPlanTitle] = useState("Physiotherapy package");
   const [packageSessions, setPackageSessions] = useState("10");
@@ -81,7 +83,8 @@ function PersonalPatientDetailPage() {
   const totalCharges = data?.ledger.filter((e) => e.entry_type === "charge").reduce((n, e) => n + Number(e.amount), 0) ?? 0;
   const received = data?.ledger.filter((e) => e.entry_type === "payment").reduce((n, e) => n + Math.abs(Number(e.amount)), 0) ?? 0;
   const balance = data?.ledger.reduce((n, e) => n + Number(e.amount), 0) ?? 0;
-  const refresh = () => qc.invalidateQueries({ queryKey: ["admin", "personal-patient-detail", user?.id, patientId] });\n  const calendarDays = useMemo(() => {
+  const refresh = () => qc.invalidateQueries({ queryKey: ["admin", "personal-patient-detail", user?.id, patientId] });
+  const calendarDays = useMemo(() => {
     const year = calendarMonth.getFullYear();
     const month = calendarMonth.getMonth();
     const firstWeekday = new Date(year, month, 1).getDay();
@@ -99,8 +102,9 @@ function PersonalPatientDetailPage() {
       ...data.ledger.map((e) => ["Financial", e.occurred_at, e.description, e.payment_method ?? e.entry_type, e.amount]),
       ...data.sessions.map((s) => ["Session", s.session_date, s.session_label ?? "Physiotherapy session", s.status, s.charge_amount]),
     ];
-    const csv = rows.map((row) => row.map((value) => `"${String(value ?? "").replaceAll('"', '""')}"`).join(",")).join("\n");
-    const url = URL.createObjectURL(new Blob(["\\uFEFF", csv], { type: "text/csv;charset=utf-8" }));
+    const csv = rows.map((row) => row.map((value) => `"${String(value ?? "").replaceAll('"', '""')}"`).join(",")).join("
+");
+    const url = URL.createObjectURL(new Blob(["\uFEFF", csv], { type: "text/csv;charset=utf-8" }));
     const anchor = document.createElement("a");
     anchor.href = url;
     anchor.download = `painfix-${data.patient.full_name.replace(/[^a-z0-9]+/gi, "-").toLowerCase()}-statement.csv`;
@@ -115,7 +119,8 @@ function PersonalPatientDetailPage() {
       next ? `Your next PainFix physiotherapy session is scheduled for ${date(next.session_date)}.` : "",
       balance > 0 ? `Your current outstanding balance is ${money(balance)}.` : balance < 0 ? `Your account has an advance credit of ${money(-balance)}.` : "Your account is settled.",
       "Please contact PainFix if you need to reschedule.",
-    ].filter(Boolean).join("\n");
+    ].filter(Boolean).join("
+");
     const phone = (data.patient.phone ?? "").replace(/[^0-9]/g, "");
     window.open(`https://wa.me/${phone}?text=${encodeURIComponent(message)}`, "_blank", "noopener,noreferrer");
   };
