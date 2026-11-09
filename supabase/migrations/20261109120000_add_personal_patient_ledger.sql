@@ -275,13 +275,31 @@ alter table public.personal_patient_ledger enable row level security;
 alter table public.personal_patient_portal_credentials enable row level security;
 alter table public.personal_patient_audit_events enable row level security;
 
-create policy "Clinicians manage only their personal patients"
-on public.personal_patients for all to authenticated
+create policy "Clinicians read only their personal patients"
+on public.personal_patients for select to authenticated
+using ((select auth.uid()) = clinician_id);
+create policy "Clinicians add their own personal patients"
+on public.personal_patients for insert to authenticated
+with check ((select auth.uid()) = clinician_id);
+create policy "Clinicians update their own personal patients"
+on public.personal_patients for update to authenticated
 using ((select auth.uid()) = clinician_id)
 with check ((select auth.uid()) = clinician_id);
 
-create policy "Clinicians manage only their personal patient plans"
-on public.personal_patient_plans for all to authenticated
+create policy "Clinicians read only their personal patient plans"
+on public.personal_patient_plans for select to authenticated
+using ((select auth.uid()) = clinician_id);
+create policy "Clinicians add plans for their own patients"
+on public.personal_patient_plans for insert to authenticated
+with check (
+  (select auth.uid()) = clinician_id
+  and exists (
+    select 1 from public.personal_patients p
+    where p.id = patient_id and p.clinician_id = (select auth.uid())
+  )
+);
+create policy "Clinicians update plans for their own patients"
+on public.personal_patient_plans for update to authenticated
 using ((select auth.uid()) = clinician_id)
 with check (
   (select auth.uid()) = clinician_id
@@ -291,8 +309,20 @@ with check (
   )
 );
 
-create policy "Clinicians manage only their personal patient sessions"
-on public.personal_patient_sessions for all to authenticated
+create policy "Clinicians read only their personal patient sessions"
+on public.personal_patient_sessions for select to authenticated
+using ((select auth.uid()) = clinician_id);
+create policy "Clinicians schedule sessions for their own patients"
+on public.personal_patient_sessions for insert to authenticated
+with check (
+  (select auth.uid()) = clinician_id
+  and exists (
+    select 1 from public.personal_patients p
+    where p.id = patient_id and p.clinician_id = (select auth.uid())
+  )
+);
+create policy "Clinicians update sessions for their own patients"
+on public.personal_patient_sessions for update to authenticated
 using ((select auth.uid()) = clinician_id)
 with check (
   (select auth.uid()) = clinician_id
@@ -316,16 +346,8 @@ with check (
   )
 );
 
-create policy "Clinicians manage only their personal patient portal credentials"
-on public.personal_patient_portal_credentials for all to authenticated
-using ((select auth.uid()) = clinician_id)
-with check (
-  (select auth.uid()) = clinician_id
-  and exists (
-    select 1 from public.personal_patients p
-    where p.id = patient_id and p.clinician_id = (select auth.uid())
-  )
-);
+-- Portal credentials are intentionally not accessible through the client Data API.
+-- A dedicated server-side function will manage them after authentication.
 
 create policy "Clinicians view only their personal patient audit history"
 on public.personal_patient_audit_events for select to authenticated
@@ -350,7 +372,7 @@ grant select, insert, update on public.personal_patients to authenticated;
 grant select, insert, update on public.personal_patient_plans to authenticated;
 grant select, insert, update on public.personal_patient_sessions to authenticated;
 grant select, insert on public.personal_patient_ledger to authenticated;
-grant select, insert, update on public.personal_patient_portal_credentials to authenticated;
+revoke all on public.personal_patient_portal_credentials from authenticated;
 grant select, insert on public.personal_patient_audit_events to authenticated;
 
 -- Explicitly do not grant anonymous access. Patient-link access will be served
