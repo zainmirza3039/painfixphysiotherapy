@@ -34,9 +34,7 @@ async function hashPin(pin: string) {
 }
 
 const url = Deno.env.get("SUPABASE_URL")!;
-const anonKey = Deno.env.get("SUPABASE_ANON_KEY")!;
 const serviceKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
-const authClient = createClient(url, anonKey, { auth: { persistSession: false, autoRefreshToken: false } });
 const adminClient = createClient(url, serviceKey, { auth: { persistSession: false, autoRefreshToken: false } });
 
 Deno.serve(async (req) => {
@@ -47,7 +45,7 @@ Deno.serve(async (req) => {
     const authorization = req.headers.get("Authorization") ?? "";
     const accessToken = authorization.replace(/^Bearer\s+/i, "");
     if (!accessToken) return json({ error: "Authentication required." }, 401);
-    const { data: authData, error: authError } = await authClient.auth.getUser(accessToken);
+    const { data: authData, error: authError } = await adminClient.auth.getUser(accessToken);
     if (authError || !authData.user) return json({ error: "Authentication required." }, 401);
     const clinicianId = authData.user.id;
 
