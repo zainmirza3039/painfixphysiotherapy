@@ -75,7 +75,7 @@ function PersonalPatientDetailPage() {
   const activePlan = data?.plans.find((p) => p.is_active);
   const completed = data?.sessions.filter((s) => s.status === "completed").length ?? 0;
   const scheduled = data?.sessions.filter((s) => s.status === "scheduled").length ?? 0;
-  const totalCharges = data?.ledger.filter((e) => e.amount > 0).reduce((n, e) => n + Number(e.amount), 0) ?? 0;
+  const totalCharges = data?.ledger.filter((e) => e.entry_type === "charge").reduce((n, e) => n + Number(e.amount), 0) ?? 0;
   const received = data?.ledger.filter((e) => e.entry_type === "payment").reduce((n, e) => n + Math.abs(Number(e.amount)), 0) ?? 0;
   const balance = data?.ledger.reduce((n, e) => n + Number(e.amount), 0) ?? 0;
   const refresh = () => qc.invalidateQueries({ queryKey: ["admin", "personal-patient-detail", user?.id, patientId] });
@@ -143,8 +143,9 @@ function PersonalPatientDetailPage() {
     onError: (e) => toast.error(e instanceof Error ? e.message : "Could not update session."),
   });
 
+  const activePlanCompleted = activePlan ? (data?.sessions ?? []).filter((s) => s.plan_id === activePlan.id && s.status === "completed").length : 0;
   const remaining = activePlan?.plan_type === "package" && activePlan.package_sessions != null
-    ? Math.max(0, activePlan.package_sessions - completed) : null;
+    ? Math.max(0, activePlan.package_sessions - activePlanCompleted) : null;
 
   if (query.isLoading) return <div className="space-y-4"><Skeleton className="h-12 w-72" /><Skeleton className="h-44 rounded-xl" /><Skeleton className="h-72 rounded-xl" /></div>;
   if (query.isError || !data) return <AdminQueryError onRetry={() => void query.refetch()} />;
