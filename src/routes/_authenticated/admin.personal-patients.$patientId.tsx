@@ -149,8 +149,9 @@ function PersonalPatientDetailPage() {
   if (query.isLoading) return <div className="space-y-4"><Skeleton className="h-12 w-72" /><Skeleton className="h-44 rounded-xl" /><Skeleton className="h-72 rounded-xl" /></div>;
   if (query.isError || !data) return <AdminQueryError onRetry={() => void query.refetch()} />;
 
-  return <div className="space-y-5">
-    <Link to="/admin/personal-patients" className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground"><ArrowLeft className="h-4 w-4" />Back to Personal Patients</Link>
+  return <div className="personal-patients-portal space-y-5" dir={language === "ur" ? "rtl" : "ltr"}>
+    <div className="flex justify-end"><Button variant="outline" size="sm" onClick={() => setLanguage(language === "en" ? "ur" : "en")}>{t.language}</Button></div>
+    <Link to="/admin/personal-patients" className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground"><ArrowLeft className="h-4 w-4" />{t.back}</Link>
     <AdminPageHeader title={data.patient.full_name} description={[data.patient.phone, data.patient.email].filter(Boolean).join(" · ") || "Personal patient account"} actions={<div className="flex flex-wrap gap-2"><Button variant="outline" onClick={() => setPlanOpen(true)}><Plus className="mr-2 h-4 w-4" />{t.plan}</Button><Button variant="outline" onClick={() => { setSessionCharge(String(activePlan?.per_session_fee ?? 0)); setSessionOpen(true); }}><CalendarPlus className="mr-2 h-4 w-4" />{t.addSession}</Button><Button onClick={() => setPaymentOpen(true)}><CreditCard className="mr-2 h-4 w-4" />{t.payment}</Button></div>} />
     {data.patient.private_notes && <div className="rounded-xl border border-amber-500/30 bg-amber-500/5 p-4"><p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">{t.privateNotes}</p><p className="mt-2 whitespace-pre-wrap text-sm">{data.patient.private_notes}</p></div>}
     <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
