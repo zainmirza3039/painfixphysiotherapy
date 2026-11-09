@@ -9,7 +9,15 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Skeleton } from "@/components/ui/skeleton";
 
-export const Route = createFileRoute("/patient-portal/$token")({ component: PatientPortalPage });
+export const Route = createFileRoute("/patient-portal/$token")({
+  component: PatientPortalPage,
+  head: () => ({
+    meta: [
+      { title: "Patient Portal | PainFix Physiotherapy Clinic" },
+      { name: "robots", content: "noindex, nofollow, noarchive" },
+    ],
+  }),
+});
 
 type PortalData = {
   patient: { full_name: string; status: string };
