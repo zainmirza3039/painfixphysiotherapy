@@ -31,7 +31,10 @@ function PersonalPatientDetailPage() {
   const [language, setLanguage] = useState<"en" | "ur">("en");
   const [planOpen, setPlanOpen] = useState(false);
   const [sessionOpen, setSessionOpen] = useState(false);
-  const [paymentOpen, setPaymentOpen] = useState(false);\n  const [portalOpen, setPortalOpen] = useState(false);\n  const [portalPin, setPortalPin] = useState("");\n  const [portalUrl, setPortalUrl] = useState("");
+  const [paymentOpen, setPaymentOpen] = useState(false);
+  const [portalOpen, setPortalOpen] = useState(false);
+  const [portalPin, setPortalPin] = useState("");
+  const [portalUrl, setPortalUrl] = useState("");
   const [planType, setPlanType] = useState<"package" | "per_session" | "custom">("package");
   const [planTitle, setPlanTitle] = useState("Physiotherapy package");
   const [packageSessions, setPackageSessions] = useState("10");
@@ -134,7 +137,7 @@ function PersonalPatientDetailPage() {
 
   const managePortal = useMutation({
     mutationFn: async (action: "create_or_rotate" | "revoke") => {
-      if (action === "create_or_rotate" && !/^\\d{6}$/.test(portalPin)) throw new Error("Enter a six-digit PIN.");
+      if (action === "create_or_rotate" && !/^\d{6}$/.test(portalPin)) throw new Error("Enter a six-digit PIN.");
       const { data, error } = await supabase.functions.invoke("manage-patient-portal", {
         body: { action, patientId, ...(action === "create_or_rotate" ? { pin: portalPin } : {}) },
       });
@@ -195,7 +198,7 @@ function PersonalPatientDetailPage() {
     </section>
     <Dialog open={portalOpen} onOpenChange={setPortalOpen}><DialogContent className="sm:max-w-lg"><DialogHeader><DialogTitle>{language === "ur" ? "مریض کے پورٹل تک رسائی" : "Patient portal access"}</DialogTitle><DialogDescription>{language === "ur" ? "مستقل لنک بنائیں اور چھ ہندسوں کا پن الگ سے مریض کو دیں۔" : "Create a permanent link and share the six-digit PIN with the patient separately."}</DialogDescription></DialogHeader>
       <div className="space-y-3">
-        <div className="space-y-1"><Label>{language === "ur" ? "چھ ہندسوں کا پن" : "Six-digit PIN"}</Label><Input inputMode="numeric" maxLength={6} value={portalPin} onChange={(e)=>setPortalPin(e.target.value.replace(/\\D/g,"").slice(0,6))} placeholder="••••••" /></div>
+        <div className="space-y-1"><Label>{language === "ur" ? "چھ ہندسوں کا پن" : "Six-digit PIN"}</Label><Input inputMode="numeric" maxLength={6} value={portalPin} onChange={(e)=>setPortalPin(e.target.value.replace(/\D/g,"").slice(0,6))} placeholder="••••••" /></div>
         <Button className="w-full" disabled={managePortal.isPending || portalPin.length !== 6} onClick={()=>managePortal.mutate("create_or_rotate")}>{managePortal.isPending ? "…" : language === "ur" ? "لنک بنائیں / پن تبدیل کریں" : "Create link / rotate PIN"}</Button>
         {portalUrl && <div className="space-y-2 rounded-lg border border-border p-3"><Label>{language === "ur" ? "مریض کا لنک" : "Patient link"}</Label><Input readOnly value={portalUrl} /><div className="grid grid-cols-2 gap-2"><Button variant="outline" size="sm" onClick={()=>{void navigator.clipboard.writeText(portalUrl).then(()=>toast.success("Link copied."));}}><Copy className="mr-2 h-4 w-4" />{language === "ur" ? "لنک کاپی کریں" : "Copy link"}</Button><Button variant="outline" size="sm" onClick={()=>{const msg=encodeURIComponent(`Assalam-o-Alaikum. Your PainFix patient record is available here: ${portalUrl}. Please enter the six-digit PIN shared separately.`);window.open(`https://wa.me/?text=${msg}`,"_blank","noopener,noreferrer");}}><Share2 className="mr-2 h-4 w-4" />WhatsApp</Button></div><Button variant="ghost" size="sm" className="w-full" onClick={()=>{void navigator.clipboard.writeText(portalPin).then(()=>toast.success("PIN copied. Share it separately from the link."));}}><Copy className="mr-2 h-4 w-4" />{language === "ur" ? "پن الگ سے کاپی کریں" : "Copy PIN separately"}</Button><p className="text-xs text-muted-foreground">{language === "ur" ? "سیکیورٹی کے لیے پن واٹس ایپ لنک کے ساتھ نہ بھیجیں؛ اسے الگ ذریعے سے شیئر کریں۔" : "For security, do not send the PIN in the same WhatsApp message as the link."}</p></div>}
         <Button variant="destructive" className="w-full" disabled={managePortal.isPending || !portalUrl} onClick={()=>managePortal.mutate("revoke")}>{language === "ur" ? "پورٹل رسائی بند کریں" : "Disable patient portal access"}</Button>
