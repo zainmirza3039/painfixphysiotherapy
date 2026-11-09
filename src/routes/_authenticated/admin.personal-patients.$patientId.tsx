@@ -506,7 +506,39 @@ function PersonalPatientDetailPage() {
         <ArrowLeft className="h-4 w-4" />
         {t.back}
       </Link>
-    <AdminPageHeader title={data.patient.full_name} description={[data.patient.phone, data.patient.email].filter(Boolean).join(" · ") || "Personal patient account"} actions={<div className="flex flex-wrap gap-2"><Button variant="outline" onClick={() => setPlanOpen(true)}><Plus className="mr-2 h-4 w-4" />{t.plan}</Button><Button variant="outline" onClick={() => { setSessionCharge(String(activePlan?.per_session_fee ?? 0)); setSessionOpen(true); }}><CalendarPlus className="mr-2 h-4 w-4" />{t.addSession}</Button><Button variant="outline" onClick={() => setPortalOpen(true)}><ShieldCheck className="mr-2 h-4 w-4" />{language === "ur" ? "مریض پورٹل" : "Patient portal"}</Button><Button onClick={() => setPaymentOpen(true)}><CreditCard className="mr-2 h-4 w-4" />{t.payment}</Button></div>} />
+    <AdminPageHeader
+      title={data.patient.full_name}
+      description={
+        [data.patient.phone, data.patient.email].filter(Boolean).join(" · ") ||
+        "Personal patient account"
+      }
+      actions={
+        <div className="flex flex-wrap gap-2">
+          <Button variant="outline" onClick={() => setPlanOpen(true)}>
+            <Plus className="mr-2 h-4 w-4" />
+            {t.plan}
+          </Button>
+          <Button
+            variant="outline"
+            onClick={() => {
+              setSessionCharge(String(activePlan?.per_session_fee ?? 0));
+              setSessionOpen(true);
+            }}
+          >
+            <CalendarPlus className="mr-2 h-4 w-4" />
+            {t.addSession}
+          </Button>
+          <Button variant="outline" onClick={() => setPortalOpen(true)}>
+            <ShieldCheck className="mr-2 h-4 w-4" />
+            {language === "ur" ? "مریض پورٹل" : "Patient portal"}
+          </Button>
+          <Button onClick={() => setPaymentOpen(true)}>
+            <CreditCard className="mr-2 h-4 w-4" />
+            {t.payment}
+          </Button>
+        </div>
+      }
+    />
       <div className="flex flex-wrap justify-end gap-2">
         <Button size="sm" variant="outline" onClick={sendWhatsAppReminder}>
           <MessageCircle className="mr-2 h-4 w-4" />
@@ -557,7 +589,35 @@ function PersonalPatientDetailPage() {
             </div>
           </div>
         </section>
-      <section className="rounded-xl border border-border bg-card p-4"><h2 className="font-semibold">{t.plans}</h2>{data.plans.length ? <div className="mt-3 space-y-3">{data.plans.map((p)=><div key={p.id} className="flex items-start justify-between gap-3 border-t border-border pt-3 first:border-0 first:pt-0"><div><p className="font-medium">{p.title}</p><p className="text-sm text-muted-foreground">{p.plan_type === "package" ? `${p.package_sessions} sessions · ${money(Number(p.package_fee ?? 0))}` : p.plan_type === "per_session" ? `${money(Number(p.per_session_fee ?? 0))} per session` : "Custom billing"}</p></div><Badge variant={p.is_active ? "default" : "secondary"}>{p.is_active ? "Active" : "Inactive"}</Badge></div>)}</div> : <p className="mt-3 text-sm text-muted-foreground">No billing plan added yet.</p>}</section>
+      <section className="rounded-xl border border-border bg-card p-4">
+        <h2 className="font-semibold">{t.plans}</h2>
+        {data.plans.length ? (
+          <div className="mt-3 space-y-3">
+            {data.plans.map((p) => (
+              <div
+                key={p.id}
+                className="flex items-start justify-between gap-3 border-t border-border pt-3 first:border-0 first:pt-0"
+              >
+                <div>
+                  <p className="font-medium">{p.title}</p>
+                  <p className="text-sm text-muted-foreground">
+                    {p.plan_type === "package"
+                      ? `${p.package_sessions} sessions · ${money(Number(p.package_fee ?? 0))}`
+                      : p.plan_type === "per_session"
+                        ? `${money(Number(p.per_session_fee ?? 0))} per session`
+                        : "Custom billing"}
+                  </p>
+                </div>
+                <Badge variant={p.is_active ? "default" : "secondary"}>
+                  {p.is_active ? "Active" : "Inactive"}
+                </Badge>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <p className="mt-3 text-sm text-muted-foreground">No billing plan added yet.</p>
+        )}
+      </section>
       </div>
       <section className="rounded-xl border border-border bg-card p-4">
         <div className="flex flex-wrap items-center justify-between gap-3">
@@ -676,7 +736,80 @@ function PersonalPatientDetailPage() {
           <h2 className="font-semibold">{t.sessions}</h2>
           <Badge variant="secondary">{data.sessions.length} total</Badge>
         </div>
-      {data.sessions.length ? <div className="mt-3 divide-y divide-border">{data.sessions.map((s)=><div key={s.id} className="flex flex-wrap items-center justify-between gap-3 py-3"><div className="min-w-0"><p className="font-medium">{s.session_label || "Physiotherapy session"}</p><p className="text-sm text-muted-foreground">{date(s.session_date)} · {money(Number(s.charge_amount))}</p>{s.private_note && <p className="mt-1 text-xs text-muted-foreground">{s.private_note}</p>}</div><div className="flex items-center gap-2"><Badge variant={s.status === "completed" ? "default" : s.status === "cancelled" ? "destructive" : "secondary"}>{s.status}</Badge>{s.status === "scheduled" && <><Button size="sm" variant="outline" disabled={updateSession.isPending} onClick={() => updateSession.mutate({id:s.id,status:"completed"})}><CheckCircle2 className="mr-1 h-4 w-4" />{t.markComplete}</Button><Button size="sm" variant="ghost" disabled={updateSession.isPending} onClick={() => updateSession.mutate({id:s.id,status:"cancelled"})}>{t.cancel}</Button><Button size="sm" variant="ghost" disabled={updateSession.isPending} onClick={() => updateSession.mutate({id:s.id,status:"rescheduled"})}>{t.rescheduled}</Button></>}</div></div>)}</div> : <p className="mt-3 text-sm text-muted-foreground">No sessions scheduled yet.</p>}
+      {data.sessions.length ? (
+        <div className="mt-3 divide-y divide-border">
+          {data.sessions.map((s) => (
+            <div
+              key={s.id}
+              className="flex flex-wrap items-center justify-between gap-3 py-3"
+            >
+              <div className="min-w-0">
+                <p className="font-medium">
+                  {s.session_label || "Physiotherapy session"}
+                </p>
+                <p className="text-sm text-muted-foreground">
+                  {date(s.session_date)} · {money(Number(s.charge_amount))}
+                </p>
+                {s.private_note && (
+                  <p className="mt-1 text-xs text-muted-foreground">
+                    {s.private_note}
+                  </p>
+                )}
+              </div>
+              <div className="flex items-center gap-2">
+                <Badge
+                  variant={
+                    s.status === "completed"
+                      ? "default"
+                      : s.status === "cancelled"
+                        ? "destructive"
+                        : "secondary"
+                  }
+                >
+                  {s.status}
+                </Badge>
+                {s.status === "scheduled" && (
+                  <>
+                    <Button
+                      size="sm"
+                      variant="outline"
+                      disabled={updateSession.isPending}
+                      onClick={() =>
+                        updateSession.mutate({ id: s.id, status: "completed" })
+                      }
+                    >
+                      <CheckCircle2 className="mr-1 h-4 w-4" />
+                      {t.markComplete}
+                    </Button>
+                    <Button
+                      size="sm"
+                      variant="ghost"
+                      disabled={updateSession.isPending}
+                      onClick={() =>
+                        updateSession.mutate({ id: s.id, status: "cancelled" })
+                      }
+                    >
+                      {t.cancel}
+                    </Button>
+                    <Button
+                      size="sm"
+                      variant="ghost"
+                      disabled={updateSession.isPending}
+                      onClick={() =>
+                        updateSession.mutate({ id: s.id, status: "rescheduled" })
+                      }
+                    >
+                      {t.rescheduled}
+                    </Button>
+                  </>
+                )}
+              </div>
+            </div>
+          ))}
+        </div>
+      ) : (
+        <p className="mt-3 text-sm text-muted-foreground">No sessions scheduled yet.</p>
+      )}
       </section>
       <section className="rounded-xl border border-border bg-card p-4">
         <div className="flex flex-wrap items-center justify-between gap-2">
@@ -695,7 +828,34 @@ function PersonalPatientDetailPage() {
         <p className="mt-1 text-xs text-muted-foreground">
           Charges, payments, refunds and credits are recorded as separate ledger entries.
         </p>
-      {data.ledger.length ? <div className="mt-3 divide-y divide-border">{data.ledger.map((e)=><div key={e.id} className="flex items-center justify-between gap-3 py-3"><div><p className="font-medium">{e.description}</p><p className="text-xs text-muted-foreground">{date(e.occurred_at)}{e.payment_method ? ` · ${e.payment_method.replace("_"," ")}` : ""}</p></div><p className={`font-semibold tabular-nums ${e.amount < 0 ? "text-emerald-600" : "text-foreground"}`}>{e.amount < 0 ? "− " : "+ "}{money(Math.abs(Number(e.amount)))}</p></div>)}</div> : <p className="mt-3 text-sm text-muted-foreground">No financial entries yet.</p>}
+      {data.ledger.length ? (
+        <div className="mt-3 divide-y divide-border">
+          {data.ledger.map((e) => (
+            <div
+              key={e.id}
+              className="flex items-center justify-between gap-3 py-3"
+            >
+              <div>
+                <p className="font-medium">{e.description}</p>
+                <p className="text-xs text-muted-foreground">
+                  {date(e.occurred_at)}
+                  {e.payment_method
+                    ? ` · ${e.payment_method.replace("_", " ")}`
+                    : ""}
+                </p>
+              </div>
+              <p
+                className={`font-semibold tabular-nums ${e.amount < 0 ? "text-emerald-600" : "text-foreground"}`}
+              >
+                {e.amount < 0 ? "− " : "+ "}
+                {money(Math.abs(Number(e.amount)))}
+              </p>
+            </div>
+          ))}
+        </div>
+      ) : (
+        <p className="mt-3 text-sm text-muted-foreground">No financial entries yet.</p>
+      )}
       </section>
       <section className="rounded-xl border border-border bg-card p-4">
         <h2 className="font-semibold">
