@@ -166,6 +166,38 @@ drop trigger if exists personal_patient_portal_credentials_updated_at on public.
 create trigger personal_patient_portal_credentials_updated_at before update on public.personal_patient_portal_credentials
 for each row execute function public.set_personal_patient_updated_at();
 
+-- A package is charged once when its plan is created; included sessions are zero-priced.
+create or replace function public.record_personal_patient_plan_charge()
+returns trigger
+language plpgsql
+set search_path = ''
+as $
+begin
+  if new.plan_type = 'package' and coalesce(new.package_fee, 0) > 0 then
+    insert into public.personal_patient_ledger (
+      clinician_id, patient_id, entry_type, amount, description
+    ) values (
+      new.clinician_id, new.patient_id, 'charge', new.package_fee,
+      coalesce(nullif(new.title, ''), 'Treatment package')
+    );
+  end if;
+  insert into public.personal_patient_audit_events (
+    clinician_id, patient_id, entity_type, entity_id, action, details
+  ) values (
+    new.clinician_id, new.patient_id, 'plan', new.id, 'plan_created',
+    jsonb_build_object('plan_type', new.plan_type, 'title', new.title,
+      'package_sessions', new.package_sessions, 'package_fee', new.package_fee,
+      'per_session_fee', new.per_session_fee)
+  );
+  return new;
+end;
+$;
+
+drop trigger if exists personal_patient_plan_create_charge on public.personal_patient_plans;
+create trigger personal_patient_plan_create_charge
+after insert on public.personal_patient_plans
+for each row execute function public.record_personal_patient_plan_charge();
+
 -- Completing a billable session creates its charge in the same transaction.
 -- Package sessions use charge_amount=0 because the package was charged upfront.
 create or replace function public.record_personal_patient_session_completion()
