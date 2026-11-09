@@ -80,9 +80,11 @@ create table if not exists public.personal_patient_ledger (
   session_id uuid,
   entry_type text not null check (entry_type in ('charge','payment','credit','refund','adjustment')),
   amount numeric(12,2) not null check (
+    amount <> 0 and (
     (entry_type in ('charge','refund') and amount > 0)
     or (entry_type in ('payment','credit') and amount < 0)
     or entry_type = 'adjustment'
+    )
   ),
   description text not null,
   payment_method text check (payment_method is null or payment_method in ('cash','bank_transfer','jazzcash','easypaisa','card','other')),
