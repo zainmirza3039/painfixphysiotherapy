@@ -823,7 +823,7 @@ function PersonalPatientDetailPage() {
                   <p className="font-medium">{e.description}</p>
                   <p className="text-xs text-muted-foreground">
                     {date(e.occurred_at)}
-                  {e.payment_method ? ` · ${e.payment_method.replace("_", " ")}` : ""}
+                    {e.payment_method ? ` · ${e.payment_method.replace("_", " ")}` : ""}
                   </p>
                 </div>
                 <p
