@@ -5,8 +5,9 @@ export interface PersonalPatientQueryResult<T = unknown> {
   error: { message: string; code?: string } | null;
 }
 
-export interface PersonalPatientQueryBuilder
-  extends PromiseLike<PersonalPatientQueryResult<unknown>> {
+export interface PersonalPatientQueryBuilder extends PromiseLike<
+  PersonalPatientQueryResult<unknown>
+> {
   select(
     columns: string,
     options?: { count?: "exact" | "planned" | "estimated"; head?: boolean },
