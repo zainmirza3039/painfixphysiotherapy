@@ -58,6 +58,7 @@ create table if not exists public.personal_patient_sessions (
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now(),
   unique (id, clinician_id),
+  unique (id, patient_id, clinician_id),
   constraint personal_patient_sessions_owner_patient_fk
     foreign key (patient_id, clinician_id)
     references public.personal_patients(id, clinician_id)
@@ -94,8 +95,8 @@ create table if not exists public.personal_patient_ledger (
   occurred_at timestamptz not null default now(),
   created_at timestamptz not null default now(),
   constraint personal_patient_ledger_session_fk
-    foreign key (session_id, clinician_id)
-    references public.personal_patient_sessions(id, clinician_id) on delete restrict,
+    foreign key (session_id, patient_id, clinician_id)
+    references public.personal_patient_sessions(id, patient_id, clinician_id) on delete restrict,
   constraint personal_patient_ledger_owner_patient_fk
     foreign key (patient_id, clinician_id)
     references public.personal_patients(id, clinician_id)
@@ -221,6 +222,34 @@ create trigger personal_patient_plan_create_charge
 after insert on public.personal_patient_plans
 for each row execute function public.record_personal_patient_plan_charge();
 
+create or replace function public.guard_personal_patient_plan_update()
+returns trigger
+language plpgsql
+set search_path = ''
+as $$
+begin
+  if new.id is distinct from old.id
+     or new.clinician_id is distinct from old.clinician_id
+     or new.patient_id is distinct from old.patient_id
+     or new.plan_type is distinct from old.plan_type
+     or new.title is distinct from old.title
+     or new.package_sessions is distinct from old.package_sessions
+     or new.package_fee is distinct from old.package_fee
+     or new.per_session_fee is distinct from old.per_session_fee
+     or new.currency is distinct from old.currency
+     or new.starts_on is distinct from old.starts_on
+     or new.ends_on is distinct from old.ends_on then
+    raise exception 'Billing plan terms are immutable; create a new plan to change pricing.';
+  end if;
+  return new;
+end;
+$;
+
+drop trigger if exists personal_patient_plan_update_guard on public.personal_patient_plans;
+create trigger personal_patient_plan_update_guard
+before update on public.personal_patient_plans
+for each row execute function public.guard_personal_patient_plan_update();
+
 -- Session state transitions are one-way. A completed/cancelled/rescheduled
 -- record cannot be reopened, preventing duplicate charges and history erasure.
 create or replace function public.guard_personal_patient_session_transition()
@@ -237,7 +266,7 @@ begin
     return new;
   end if;
 
-  if old.status in ('completed', 'cancelled', 'rescheduled') and new.status <> old.status then
+  if new.id is distinct from old.id or new.clinician_id is distinct from old.clinician_id\n     or new.patient_id is distinct from old.patient_id or new.plan_id is distinct from old.plan_id then\n    raise exception 'A session cannot be reassigned to another patient or plan.';\n  end if;\n\n  if old.status in ('completed', 'cancelled', 'rescheduled') and new.status <> old.status then
     raise exception 'A finalised session cannot be reopened or reclassified.';
   end if;
 
