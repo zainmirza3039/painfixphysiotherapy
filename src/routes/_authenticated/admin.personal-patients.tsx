@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useMemo, useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
@@ -323,9 +323,9 @@ function PersonalPatientsPage() {
                 </div>
                 <div className="mt-3 border-t border-border pt-3">
                   <Button asChild variant="outline" size="sm" className="w-full">
-                    <Link to="/admin/personal-patients/$patientId" params={{ patientId: p.id }}>
+                    <a href={`/admin/personal-patients/${encodeURIComponent(p.id)}`}>
                       {t.open}
-                    </Link>
+                    </a>
                   </Button>
                 </div>
               </article>
