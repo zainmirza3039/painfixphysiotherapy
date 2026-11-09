@@ -12,7 +12,8 @@ create table if not exists public.personal_patients (
   status text not null default 'active' check (status in ('active','on_hold','discharged','archived')),
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now(),
-  archived_at timestamptz
+  archived_at timestamptz,
+  unique (id, clinician_id)
 );
 
 create index if not exists personal_patients_owner_created_idx
@@ -34,6 +35,7 @@ create table if not exists public.personal_patient_plans (
   ends_on date,
   is_active boolean not null default true,
   created_at timestamptz not null default now(),
+  unique (id, clinician_id),
   constraint personal_patient_plans_owner_patient_fk
     foreign key (patient_id, clinician_id)
     references public.personal_patients(id, clinician_id)
@@ -59,7 +61,7 @@ create table if not exists public.personal_patient_sessions (
     references public.personal_patients(id, clinician_id)
     on delete restrict,
   constraint personal_patient_sessions_plan_fk
-    foreign key (plan_id) references public.personal_patient_plans(id)
+    foreign key (plan_id, clinician_id) references public.personal_patient_plans(id, clinician_id)
     on delete restrict
 );
 
