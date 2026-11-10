@@ -16,6 +16,8 @@ import {
   ChevronRight,
   Download,
   Printer,
+  Pencil,
+  SlidersHorizontal,
   CalendarDays,
   MessageCircle,
 } from "lucide-react";
@@ -76,6 +78,7 @@ type Entry = {
   description: string;
   payment_method: string | null;
   occurred_at: string;
+  reference: string | null;
 };
 type AuditEvent = {
   id: string;
@@ -102,6 +105,15 @@ function PersonalPatientDetailPage() {
   const [sessionOpen, setSessionOpen] = useState(false);
   const [paymentOpen, setPaymentOpen] = useState(false);
   const [portalOpen, setPortalOpen] = useState(false);
+  const [editOpen, setEditOpen] = useState(false);
+  const [correctionOpen, setCorrectionOpen] = useState(false);
+  const [correctionType, setCorrectionType] = useState<"refund" | "adjustment">("refund");
+  const [correctionAmount, setCorrectionAmount] = useState("");
+  const [correctionDescription, setCorrectionDescription] = useState("");
+  const [editName, setEditName] = useState("");
+  const [editPhone, setEditPhone] = useState("");
+  const [editEmail, setEditEmail] = useState("");
+  const [editNotes, setEditNotes] = useState("");
   const [portalPin, setPortalPin] = useState("");
   const [portalUrl, setPortalUrl] = useState("");
   const [calendarMonth, setCalendarMonth] = useState(
@@ -218,7 +230,7 @@ function PersonalPatientDetailPage() {
           .order("session_date", { ascending: false }),
         db
           .from("personal_patient_ledger")
-          .select("id,entry_type,amount,description,payment_method,occurred_at")
+          .select("id,entry_type,amount,description,payment_method,occurred_at,reference")
           .eq("patient_id", patientId)
           .order("occurred_at", { ascending: false }),
         db
@@ -427,6 +439,57 @@ function PersonalPatientDetailPage() {
     onError: (e) => toast.error(e instanceof Error ? e.message : "Could not record payment."),
   });
 
+  const updatePatient = useMutation({
+    mutationFn: async () => {
+      if (!user?.id || !editName.trim()) throw new Error("Patient name is required.");
+      const { error } = await personalPatientDb
+        .from("personal_patients")
+        .update({
+          full_name: editName.trim(),
+          phone: editPhone.trim() || null,
+          email: editEmail.trim() || null,
+          private_notes: editNotes.trim() || null,
+        })
+        .eq("id", patientId)
+        .eq("clinician_id", user.id);
+      if (error) throw error;
+    },
+    onSuccess: async () => {
+      await refresh();
+      setEditOpen(false);
+      toast.success("Patient details updated.");
+    },
+    onError: (e) => toast.error(e instanceof Error ? e.message : "Could not update patient."),
+  });
+
+  const addCorrection = useMutation({
+    mutationFn: async () => {
+      if (!user?.id) throw new Error("Please sign in again.");
+      const amount = Number(correctionAmount);
+      if (!Number.isFinite(amount) || amount <= 0)
+        throw new Error("Enter an amount greater than zero.");
+      const { error } = await personalPatientDb.from("personal_patient_ledger").insert({
+        clinician_id: user.id,
+        patient_id: patientId,
+        entry_type: correctionType,
+        amount,
+        description:
+          correctionDescription.trim() ||
+          (correctionType === "refund" ? "Patient refund" : "Account adjustment"),
+        reference: crypto.randomUUID(),
+      });
+      if (error) throw error;
+    },
+    onSuccess: async () => {
+      await refresh();
+      setCorrectionOpen(false);
+      setCorrectionAmount("");
+      setCorrectionDescription("");
+      toast.success("Ledger correction recorded as an immutable entry.");
+    },
+    onError: (e) => toast.error(e instanceof Error ? e.message : "Could not record correction."),
+  });
+
   const managePortal = useMutation({
     mutationFn: async (action: "create_or_rotate" | "revoke") => {
       if (action === "create_or_rotate" && !/^\d{6}$/.test(portalPin))
@@ -520,6 +583,19 @@ function PersonalPatientDetailPage() {
         }
         actions={
           <div className="flex flex-wrap gap-2">
+            <Button
+              variant="outline"
+              onClick={() => {
+                setEditName(data.patient.full_name);
+                setEditPhone(data.patient.phone ?? "");
+                setEditEmail(data.patient.email ?? "");
+                setEditNotes(data.patient.private_notes ?? "");
+                setEditOpen(true);
+              }}
+            >
+              <Pencil className="mr-2 h-4 w-4" />
+              {language === "ur" ? "ترمیم" : "Edit patient"}
+            </Button>
             <Button variant="outline" onClick={() => setPlanOpen(true)}>
               <Plus className="mr-2 h-4 w-4" />
               {t.plan}
@@ -808,6 +884,10 @@ function PersonalPatientDetailPage() {
         <div className="flex flex-wrap items-center justify-between gap-2">
           <h2 className="font-semibold">{t.statement}</h2>
           <div className="flex gap-2">
+            <Button size="sm" variant="outline" onClick={() => setCorrectionOpen(true)}>
+              <SlidersHorizontal className="mr-1 h-4 w-4" />
+              {language === "ur" ? "تصحیح" : "Refund / adjustment"}
+            </Button>
             <Button size="sm" variant="outline" onClick={exportCsv}>
               <Download className="mr-1 h-4 w-4" />
               {language === "ur" ? "CSV ایکسپورٹ" : "Export CSV"}
@@ -830,6 +910,7 @@ function PersonalPatientDetailPage() {
                   <p className="text-xs text-muted-foreground">
                     {date(e.occurred_at)}
                     {e.payment_method ? ` · ${e.payment_method.replace("_", " ")}` : ""}
+                    {e.reference ? ` · Ref ${e.reference.slice(0, 8)}` : ""}
                   </p>
                 </div>
                 <p
@@ -870,6 +951,121 @@ function PersonalPatientDetailPage() {
           <p className="mt-3 text-sm text-muted-foreground">No changes recorded yet.</p>
         )}
       </section>
+      <Dialog open={editOpen} onOpenChange={setEditOpen}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>
+              {language === "ur" ? "مریض کی تفصیل میں ترمیم" : "Edit patient details"}
+            </DialogTitle>
+            <DialogDescription>
+              Historical sessions and financial records are preserved.
+            </DialogDescription>
+          </DialogHeader>
+          <form
+            className="space-y-3"
+            onSubmit={(event) => {
+              event.preventDefault();
+              updatePatient.mutate();
+            }}
+          >
+            <div className="space-y-1">
+              <Label>Patient name</Label>
+              <Input
+                value={editName}
+                onChange={(event) => setEditName(event.target.value)}
+                maxLength={160}
+                required
+              />
+            </div>
+            <div className="space-y-1">
+              <Label>Phone</Label>
+              <Input value={editPhone} onChange={(event) => setEditPhone(event.target.value)} />
+            </div>
+            <div className="space-y-1">
+              <Label>Email</Label>
+              <Input
+                type="email"
+                value={editEmail}
+                onChange={(event) => setEditEmail(event.target.value)}
+              />
+            </div>
+            <div className="space-y-1">
+              <Label>Private clinician notes</Label>
+              <Textarea
+                rows={4}
+                value={editNotes}
+                onChange={(event) => setEditNotes(event.target.value)}
+              />
+            </div>
+            <DialogFooter>
+              <Button type="button" variant="outline" onClick={() => setEditOpen(false)}>
+                Cancel
+              </Button>
+              <Button type="submit" disabled={updatePatient.isPending}>
+                {updatePatient.isPending ? "Saving…" : "Save changes"}
+              </Button>
+            </DialogFooter>
+          </form>
+        </DialogContent>
+      </Dialog>
+      <Dialog open={correctionOpen} onOpenChange={setCorrectionOpen}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>
+              {language === "ur" ? "مالی تصحیح" : "Refund or account adjustment"}
+            </DialogTitle>
+            <DialogDescription>
+              Ledger rows are immutable. This creates a new compensating entry.
+            </DialogDescription>
+          </DialogHeader>
+          <form
+            className="space-y-3"
+            onSubmit={(event) => {
+              event.preventDefault();
+              addCorrection.mutate();
+            }}
+          >
+            <div className="space-y-1">
+              <Label>Correction type</Label>
+              <select
+                className="h-10 w-full rounded-md border border-input bg-background px-3 text-sm"
+                value={correctionType}
+                onChange={(event) => setCorrectionType(event.target.value as typeof correctionType)}
+              >
+                <option value="refund">Refund</option>
+                <option value="adjustment">Adjustment</option>
+              </select>
+            </div>
+            <div className="space-y-1">
+              <Label>Amount (PKR)</Label>
+              <Input
+                type="number"
+                min="1"
+                step="1"
+                value={correctionAmount}
+                onChange={(event) => setCorrectionAmount(event.target.value)}
+                required
+              />
+            </div>
+            <div className="space-y-1">
+              <Label>Description</Label>
+              <Input
+                value={correctionDescription}
+                onChange={(event) => setCorrectionDescription(event.target.value)}
+                placeholder="Reason for correction"
+              />
+            </div>
+            <DialogFooter>
+              <Button type="button" variant="outline" onClick={() => setCorrectionOpen(false)}>
+                Cancel
+              </Button>
+              <Button type="submit" disabled={addCorrection.isPending}>
+                {addCorrection.isPending ? "Saving…" : "Record correction"}
+              </Button>
+            </DialogFooter>
+          </form>
+        </DialogContent>
+      </Dialog>
       <Dialog open={portalOpen} onOpenChange={setPortalOpen}>
         <DialogContent className="sm:max-w-lg">
           <DialogHeader>

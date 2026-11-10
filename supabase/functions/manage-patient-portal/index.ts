@@ -1,13 +1,28 @@
 import { createClient } from "npm:@supabase/supabase-js@2";
 
-const corsHeaders = {
-  "Access-Control-Allow-Origin": "*",
+const baseCorsHeaders = {
   "Access-Control-Allow-Headers": "authorization, apikey, content-type, x-client-info",
   "Access-Control-Allow-Methods": "POST, OPTIONS",
   "Content-Type": "application/json",
 };
-const json = (body: unknown, status = 200) =>
-  new Response(JSON.stringify(body), { status, headers: corsHeaders });
+function corsHeaders(req: Request) {
+  const origin = req.headers.get("origin");
+  const allowed = new Set(
+    [
+      "https://painfixphysiotherapy.com",
+      Deno.env.get("APP_ORIGIN"),
+      Deno.env.get("PREVIEW_ORIGIN"),
+    ].filter((value): value is string => Boolean(value)),
+  );
+  return {
+    ...baseCorsHeaders,
+    ...(origin && allowed.has(origin)
+      ? { "Access-Control-Allow-Origin": origin, Vary: "Origin" }
+      : {}),
+  };
+}
+const json = (req: Request, body: unknown, status = 200) =>
+  new Response(JSON.stringify(body), { status, headers: corsHeaders(req) });
 const encoder = new TextEncoder();
 const iterations = 310_000;
 
@@ -42,21 +57,21 @@ const adminClient = createClient(url, serviceKey, {
 });
 
 Deno.serve(async (req) => {
-  if (req.method === "OPTIONS") return new Response("ok", { headers: corsHeaders });
-  if (req.method !== "POST") return json({ error: "Method not allowed." }, 405);
+  if (req.method === "OPTIONS") return new Response("ok", { headers: corsHeaders(req) });
+  if (req.method !== "POST") return json(req, { error: "Method not allowed." }, 405);
 
   try {
     const authorization = req.headers.get("Authorization") ?? "";
     const accessToken = authorization.replace(/^Bearer\s+/i, "");
-    if (!accessToken) return json({ error: "Authentication required." }, 401);
+    if (!accessToken) return json(req, { error: "Authentication required." }, 401);
     const { data: authData, error: authError } = await adminClient.auth.getUser(accessToken);
-    if (authError || !authData.user) return json({ error: "Authentication required." }, 401);
+    if (authError || !authData.user) return json(req, { error: "Authentication required." }, 401);
     const clinicianId = authData.user.id;
 
     const body = await req.json();
     const patientId = typeof body.patientId === "string" ? body.patientId : "";
     const action = body.action;
-    if (!patientId) return json({ error: "Patient is required." }, 400);
+    if (!patientId) return json(req, { error: "Patient is required." }, 400);
 
     const { data: patient, error: patientError } = await adminClient
       .from("personal_patients")
@@ -64,7 +79,7 @@ Deno.serve(async (req) => {
       .eq("id", patientId)
       .eq("clinician_id", clinicianId)
       .maybeSingle();
-    if (patientError || !patient) return json({ error: "Patient account not found." }, 404);
+    if (patientError || !patient) return json(req, { error: "Patient account not found." }, 404);
 
     const now = new Date().toISOString();
     if (action === "revoke") {
@@ -73,26 +88,31 @@ Deno.serve(async (req) => {
         .update({ is_revoked: true })
         .eq("patient_id", patientId)
         .eq("clinician_id", clinicianId);
-      if (revokeError) return json({ error: "Could not disable the patient link." }, 500);
+      if (revokeError) return json(req, { error: "Could not disable the patient link." }, 500);
       await adminClient
         .from("personal_patient_portal_sessions")
         .update({ revoked_at: now })
         .eq("patient_id", patientId)
         .eq("clinician_id", clinicianId)
         .is("revoked_at", null);
-      await adminClient.from("personal_patient_audit_events").insert({
-        clinician_id: clinicianId,
-        patient_id: patientId,
-        entity_type: "portal",
-        action: "portal_access_revoked",
-        details: {},
-      });
-      return json({ revoked: true });
+      const { error: revokeAuditError } = await adminClient
+        .from("personal_patient_audit_events")
+        .insert({
+          clinician_id: clinicianId,
+          patient_id: patientId,
+          entity_type: "portal",
+          action: "portal_access_revoked",
+          details: {},
+        });
+      if (revokeAuditError)
+        return json(req, { error: "Portal access changed but audit logging failed." }, 500);
+      return json(req, { revoked: true });
     }
 
-    if (action !== "create_or_rotate") return json({ error: "Invalid request." }, 400);
+    if (action !== "create_or_rotate") return json(req, { error: "Invalid request." }, 400);
     const pin = typeof body.pin === "string" ? body.pin : "";
-    if (!/^\d{6}$/.test(pin)) return json({ error: "PIN must contain exactly six digits." }, 400);
+    if (!/^\d{6}$/.test(pin))
+      return json(req, { error: "PIN must contain exactly six digits." }, 400);
 
     const token = randomToken();
     const [tokenDigest, pinHash] = await Promise.all([digest(token), hashPin(pin)]);
@@ -111,7 +131,7 @@ Deno.serve(async (req) => {
         },
         { onConflict: "patient_id" },
       );
-    if (upsertError) return json({ error: "Could not create the patient link." }, 500);
+    if (upsertError) return json(req, { error: "Could not create the patient link." }, 500);
 
     await adminClient
       .from("personal_patient_portal_sessions")
@@ -119,15 +139,19 @@ Deno.serve(async (req) => {
       .eq("patient_id", patientId)
       .eq("clinician_id", clinicianId)
       .is("revoked_at", null);
-    await adminClient.from("personal_patient_audit_events").insert({
-      clinician_id: clinicianId,
-      patient_id: patientId,
-      entity_type: "portal",
-      action: "portal_link_created_or_rotated",
-      details: {},
-    });
-    return json({ token });
+    const { error: createAuditError } = await adminClient
+      .from("personal_patient_audit_events")
+      .insert({
+        clinician_id: clinicianId,
+        patient_id: patientId,
+        entity_type: "portal",
+        action: "portal_link_created_or_rotated",
+        details: {},
+      });
+    if (createAuditError)
+      return json(req, { error: "Portal link created but audit logging failed." }, 500);
+    return json(req, { token });
   } catch {
-    return json({ error: "Unexpected error. Please try again." }, 500);
+    return json(req, { error: "Unexpected error. Please try again." }, 500);
   }
 });

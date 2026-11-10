@@ -1,13 +1,28 @@
 import { createClient } from "npm:@supabase/supabase-js@2";
 
-const corsHeaders = {
-  "Access-Control-Allow-Origin": "*",
+const baseCorsHeaders = {
   "Access-Control-Allow-Headers": "authorization, apikey, content-type, x-client-info",
   "Access-Control-Allow-Methods": "POST, OPTIONS",
   "Content-Type": "application/json",
 };
-const json = (body: unknown, status = 200) =>
-  new Response(JSON.stringify(body), { status, headers: corsHeaders });
+function corsHeaders(req: Request) {
+  const origin = req.headers.get("origin");
+  const allowed = new Set(
+    [
+      "https://painfixphysiotherapy.com",
+      Deno.env.get("APP_ORIGIN"),
+      Deno.env.get("PREVIEW_ORIGIN"),
+    ].filter((value): value is string => Boolean(value)),
+  );
+  return {
+    ...baseCorsHeaders,
+    ...(origin && allowed.has(origin)
+      ? { "Access-Control-Allow-Origin": origin, Vary: "Origin" }
+      : {}),
+  };
+}
+const json = (req: Request, body: unknown, status = 200) =>
+  new Response(JSON.stringify(body), { status, headers: corsHeaders(req) });
 const encoder = new TextEncoder();
 
 function toBase64Url(bytes: Uint8Array) {
@@ -54,8 +69,8 @@ const supabase = createClient(
 );
 
 Deno.serve(async (req) => {
-  if (req.method === "OPTIONS") return new Response("ok", { headers: corsHeaders });
-  if (req.method !== "POST") return json({ error: "Method not allowed." }, 405);
+  if (req.method === "OPTIONS") return new Response("ok", { headers: corsHeaders(req) });
+  if (req.method !== "POST") return json(req, { error: "Method not allowed." }, 405);
 
   try {
     const body = await req.json();
@@ -63,7 +78,7 @@ Deno.serve(async (req) => {
       const token = typeof body.token === "string" ? body.token : "";
       const pin = typeof body.pin === "string" ? body.pin : "";
       if (token.length < 32 || token.length > 128 || !/^\d{6}$/.test(pin)) {
-        return json({ error: "The link or PIN is incorrect." }, 401);
+        return json(req, { error: "The link or PIN is incorrect." }, 401);
       }
 
       const tokenDigest = await digest(token);
@@ -73,12 +88,16 @@ Deno.serve(async (req) => {
         .eq("token_digest", tokenDigest)
         .maybeSingle();
       if (error || !credential || credential.is_revoked) {
-        return json({ error: "The link or PIN is incorrect, or access has been disabled." }, 401);
+        return json(
+          req,
+          { error: "The link or PIN is incorrect, or access has been disabled." },
+          401,
+        );
       }
 
       const now = new Date();
       if (credential.locked_until && new Date(credential.locked_until) > now) {
-        return json({ error: "Too many attempts. Please try again later." }, 429);
+        return json(req, { error: "Too many attempts. Please try again later." }, 429);
       }
 
       const valid = await verifyPin(pin, credential.pin_hash);
@@ -94,6 +113,7 @@ Deno.serve(async (req) => {
           })
           .eq("token_digest", tokenDigest);
         return json(
+          req,
           {
             error: lockedUntil
               ? "Too many attempts. Please try again in 15 minutes."
@@ -123,14 +143,14 @@ Deno.serve(async (req) => {
         }),
       ]);
       if (credentialUpdate.error || sessionInsert.error)
-        return json({ error: "Could not open the patient account. Please try again." }, 500);
-      return json({ sessionToken, expiresAt });
+        return json(req, { error: "Could not open the patient account. Please try again." }, 500);
+      return json(req, { sessionToken, expiresAt });
     }
 
     if (body?.action === "data") {
       const sessionToken = typeof body.sessionToken === "string" ? body.sessionToken : "";
       if (sessionToken.length < 32 || sessionToken.length > 128)
-        return json({ error: "Session expired. Enter your PIN again." }, 401);
+        return json(req, { error: "Session expired. Enter your PIN again." }, 401);
       const sessionDigest = await digest(sessionToken);
       const now = new Date().toISOString();
       const { data: portalSession, error: sessionError } = await supabase
@@ -141,7 +161,7 @@ Deno.serve(async (req) => {
         .is("revoked_at", null)
         .maybeSingle();
       if (sessionError || !portalSession)
-        return json({ error: "Session expired. Enter your PIN again." }, 401);
+        return json(req, { error: "Session expired. Enter your PIN again." }, 401);
 
       const { data: credential } = await supabase
         .from("personal_patient_portal_credentials")
@@ -150,7 +170,7 @@ Deno.serve(async (req) => {
         .eq("clinician_id", portalSession.clinician_id)
         .maybeSingle();
       if (!credential || credential.is_revoked)
-        return json({ error: "This patient link has been disabled." }, 403);
+        return json(req, { error: "This patient link has been disabled." }, 403);
 
       const patientId = portalSession.patient_id;
       const clinicianId = portalSession.clinician_id;
@@ -181,7 +201,7 @@ Deno.serve(async (req) => {
           .order("occurred_at", { ascending: false }),
       ]);
       for (const result of [patient, plans, sessions, ledger]) {
-        if (result.error) return json({ error: "Could not load the patient statement." }, 500);
+        if (result.error) return json(req, { error: "Could not load the patient statement." }, 500);
       }
       const entries = ledger.data ?? [];
       const charges = entries
@@ -201,7 +221,7 @@ Deno.serve(async (req) => {
       );
       const nextSession =
         upcoming.find((session) => new Date(session.session_date).getTime() >= Date.now()) ?? null;
-      return json({
+      return json(req, {
         patient: patient.data,
         plan: activePlan,
         sessions: (sessions.data ?? []).map(
@@ -236,8 +256,8 @@ Deno.serve(async (req) => {
       });
     }
 
-    return json({ error: "Invalid request." }, 400);
+    return json(req, { error: "Invalid request." }, 400);
   } catch {
-    return json({ error: "Unexpected error. Please try again." }, 500);
+    return json(req, { error: "Unexpected error. Please try again." }, 500);
   }
 });

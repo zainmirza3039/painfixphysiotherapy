@@ -1,8 +1,8 @@
-import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useMemo, useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
-import { CalendarCheck2, CircleDollarSign, Plus, Search, Users } from "lucide-react";
+import { Archive, CalendarCheck2, CircleDollarSign, Plus, Search, Users } from "lucide-react";
 import { personalPatientDb } from "@/admin/personal-patients.db";
 import { useAdminAuth } from "@/admin/AdminAuthProvider";
 import { AdminPageHeader } from "@/components/admin/AdminPageHeader";
@@ -41,7 +41,7 @@ const words = {
     title: "Personal Patients",
     desc: "Your private caseload, treatment sessions and patient accounts.",
     add: "Add patient",
-    search: "Search by name or phone…",
+    search: "Search by name, phone or patient ID…",
     active: "Active patients",
     sessions: "Completed sessions",
     received: "Payments received",
@@ -64,12 +64,15 @@ const words = {
     open: "Open patient account",
     charges: "Total charges",
     credit: "Advance credit",
+    archived: "Show archived",
+    restore: "Restore",
+    archive: "Archive",
   },
   ur: {
     title: "ذاتی مریض",
     desc: "اپنے مریضوں، علاج کے سیشنز اور مالی ریکارڈ کا نجی انتظام۔",
     add: "مریض شامل کریں",
-    search: "مریض کا نام یا فون تلاش کریں…",
+    search: "نام، فون یا مریض ID تلاش کریں…",
     active: "فعال مریض",
     sessions: "مکمل سیشنز",
     received: "وصول شدہ رقم",
@@ -92,6 +95,9 @@ const words = {
     open: "مریض کا اکاؤنٹ کھولیں",
     charges: "کل چارجز",
     credit: "ایڈوانس کریڈٹ",
+    archived: "محفوظ شدہ دکھائیں",
+    restore: "بحال کریں",
+    archive: "محفوظ کریں",
   },
 } as const;
 const money = (n: number) =>
@@ -102,7 +108,6 @@ const money = (n: number) =>
   }).format(n);
 
 function PersonalPatientsPage() {
-  const navigate = useNavigate();
   const { user } = useAdminAuth();
   const qc = useQueryClient();
   const [lang, setLang] = useState<"en" | "ur">("en");
@@ -112,6 +117,7 @@ function PersonalPatientsPage() {
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
   const [notes, setNotes] = useState("");
+  const [showArchived, setShowArchived] = useState(false);
   const t = words[lang];
 
   useEffect(() => {
@@ -135,7 +141,6 @@ function PersonalPatientsPage() {
         db
           .from("personal_patients")
           .select("id,full_name,phone,email,status,created_at")
-          .neq("status", "archived")
           .order("created_at", { ascending: false }),
         db.from("personal_patient_sessions").select("patient_id,status"),
         db.from("personal_patient_ledger").select("patient_id,entry_type,amount"),
@@ -154,9 +159,11 @@ function PersonalPatientsPage() {
   const filtered = useMemo(() => {
     const q = search.trim().toLowerCase();
     return (query.data?.patients ?? []).filter(
-      (p) => !q || [p.full_name, p.phone ?? ""].some((v) => v.toLowerCase().includes(q)),
+      (p) =>
+        (showArchived || p.status !== "archived") &&
+        (!q || [p.full_name, p.phone ?? "", p.id].some((v) => v.toLowerCase().includes(q))),
     );
-  }, [query.data?.patients, search]);
+  }, [query.data?.patients, search, showArchived]);
 
   const totals = useMemo(() => {
     const sessions = query.data?.sessions ?? [];
@@ -203,6 +210,22 @@ function PersonalPatientsPage() {
     onError: (e) => toast.error(e instanceof Error ? e.message : "Could not save patient."),
   });
 
+  const updateStatus = useMutation({
+    mutationFn: async ({ id, status }: { id: string; status: "active" | "archived" }) => {
+      const { error } = await personalPatientDb
+        .from("personal_patients")
+        .update({ status, archived_at: status === "archived" ? new Date().toISOString() : null })
+        .eq("id", id);
+      if (error) throw error;
+    },
+    onSuccess: async (_, variables) => {
+      await qc.invalidateQueries({ queryKey: ["admin", "personal-patients", user?.id] });
+      toast.success(variables.status === "archived" ? "Patient archived." : "Patient restored.");
+    },
+    onError: (e) =>
+      toast.error(e instanceof Error ? e.message : "Could not update patient status."),
+  });
+
   return (
     <div className="personal-patients-portal" dir={lang === "ur" ? "rtl" : "ltr"}>
       <div className="mb-5 flex justify-end">
@@ -238,14 +261,24 @@ function PersonalPatientsPage() {
           </div>
         ))}
       </div>
-      <div className="relative mb-4 max-w-md">
-        <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-        <Input
-          className="pl-9"
-          placeholder={t.search}
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-        />
+      <div className="mb-4 flex flex-wrap items-center gap-3">
+        <div className="relative max-w-md flex-1">
+          <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+          <Input
+            className="pl-9"
+            placeholder={t.search}
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          />
+        </div>
+        <Button
+          variant={showArchived ? "default" : "outline"}
+          size="sm"
+          onClick={() => setShowArchived((value) => !value)}
+        >
+          <Archive className="mr-2 h-4 w-4" />
+          {t.archived}
+        </Button>
       </div>
       {query.isLoading ? (
         <div className="space-y-3">
@@ -323,20 +356,33 @@ function PersonalPatientsPage() {
                   </div>
                 </div>
                 <div className="mt-3 border-t border-border pt-3">
-                  <Button
-                    type="button"
-                    variant="outline"
-                    size="sm"
-                    className="w-full"
-                    onClick={() =>
-                      navigate({
-                        to: "/admin/personal-patients/$patientId",
-                        params: { patientId: p.id },
-                      })
-                    }
-                  >
-                    {t.open}
-                  </Button>
+                  <div className="flex flex-wrap gap-2">
+                    <Button
+                      asChild
+                      type="button"
+                      variant="outline"
+                      size="sm"
+                      className="min-w-0 flex-1"
+                    >
+                      <Link to="/admin/personal-patients/$patientId" params={{ patientId: p.id }}>
+                        {t.open}
+                      </Link>
+                    </Button>
+                    <Button
+                      type="button"
+                      variant="ghost"
+                      size="sm"
+                      disabled={updateStatus.isPending}
+                      onClick={() =>
+                        updateStatus.mutate({
+                          id: p.id,
+                          status: p.status === "archived" ? "active" : "archived",
+                        })
+                      }
+                    >
+                      {p.status === "archived" ? t.restore : t.archive}
+                    </Button>
+                  </div>
                 </div>
               </article>
             );

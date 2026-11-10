@@ -52,6 +52,7 @@ import { Route as FitnessIndexRouteImport } from './routes/fitness.index'
 import { Route as FitnessSlugRouteImport } from './routes/fitness.$slug'
 import { Route as InternshipsIndexRouteImport } from './routes/internships.index'
 import { Route as InternshipsSlugRouteImport } from './routes/internships.$slug'
+import { Route as PatientPortalTokenRouteImport } from './routes/patient-portal.$token'
 import { Route as ServicesIndexRouteImport } from './routes/services.index'
 import { Route as ServicesSlugRouteImport } from './routes/services.$slug'
 import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin.index'
@@ -72,13 +73,12 @@ import { Route as AuthenticatedAdminMediaRouteImport } from './routes/_authentic
 import { Route as AuthenticatedAdminMessagesRouteImport } from './routes/_authenticated/admin.messages'
 import { Route as AuthenticatedAdminPatientsRouteImport } from './routes/_authenticated/admin.patients'
 import { Route as AuthenticatedAdminPersonalPatientsRouteImport } from './routes/_authenticated/admin.personal-patients'
-import { Route as AuthenticatedAdminPersonalPatientDetailRouteImport } from './routes/_authenticated/admin.personal-patients.$patientId'
-import { Route as PatientPortalTokenRouteImport } from './routes/patient-portal.$token'
 import { Route as AuthenticatedAdminProfileRouteImport } from './routes/_authenticated/admin.profile'
 import { Route as AuthenticatedAdminReportsRouteImport } from './routes/_authenticated/admin.reports'
 import { Route as AuthenticatedAdminSettingsRouteImport } from './routes/_authenticated/admin.settings'
 import { Route as AuthenticatedAdminUsersRouteImport } from './routes/_authenticated/admin.users'
 import { Route as BlogCategoryCategoryRouteImport } from './routes/blog.category.$category'
+import { Route as AuthenticatedAdminPersonalPatientsPatientIdRouteImport } from './routes/_authenticated/admin.personal-patients.$patientId'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -297,6 +297,11 @@ const InternshipsSlugRoute = InternshipsSlugRouteImport.update({
   path: '/internships/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PatientPortalTokenRoute = PatientPortalTokenRouteImport.update({
+  id: '/patient-portal/$token',
+  path: '/patient-portal/$token',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ServicesIndexRoute = ServicesIndexRouteImport.update({
   id: '/services/',
   path: '/services/',
@@ -412,12 +417,6 @@ const AuthenticatedAdminPersonalPatientsRoute =
     path: '/personal-patients',
     getParentRoute: () => AuthenticatedAdminRoute,
   } as any)
-const AuthenticatedAdminPersonalPatientDetailRoute =
-  AuthenticatedAdminPersonalPatientDetailRouteImport.update({
-    id: '/personal-patients/$patientId',
-    path: '/personal-patients/$patientId',
-    getParentRoute: () => AuthenticatedAdminRoute,
-  } as any)
 const AuthenticatedAdminProfileRoute =
   AuthenticatedAdminProfileRouteImport.update({
     id: '/profile',
@@ -446,12 +445,12 @@ const BlogCategoryCategoryRoute = BlogCategoryCategoryRouteImport.update({
   path: '/blog/category/$category',
   getParentRoute: () => rootRouteImport,
 } as any)
-
-const PatientPortalTokenRoute = PatientPortalTokenRouteImport.update({
-  id: '/patient-portal/$token',
-  path: '/patient-portal/$token',
-  getParentRoute: () => rootRouteImport,
-} as any)
+const AuthenticatedAdminPersonalPatientsPatientIdRoute =
+  AuthenticatedAdminPersonalPatientsPatientIdRouteImport.update({
+    id: '/$patientId',
+    path: '/$patientId',
+    getParentRoute: () => AuthenticatedAdminPersonalPatientsRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -491,6 +490,7 @@ export interface FileRoutesByFullPath {
   '/diet-nutrition/$slug': typeof DietNutritionSlugRoute
   '/fitness/$slug': typeof FitnessSlugRoute
   '/internships/$slug': typeof InternshipsSlugRoute
+  '/patient-portal/$token': typeof PatientPortalTokenRoute
   '/services/$slug': typeof ServicesSlugRoute
   '/blog/': typeof BlogIndexRoute
   '/conditions/': typeof ConditionsIndexRoute
@@ -514,14 +514,14 @@ export interface FileRoutesByFullPath {
   '/admin/media': typeof AuthenticatedAdminMediaRoute
   '/admin/messages': typeof AuthenticatedAdminMessagesRoute
   '/admin/patients': typeof AuthenticatedAdminPatientsRoute
-  '/admin/personal-patients': typeof AuthenticatedAdminPersonalPatientsRoute
-  '/admin/personal-patients/$patientId': typeof AuthenticatedAdminPersonalPatientDetailRoute
+  '/admin/personal-patients': typeof AuthenticatedAdminPersonalPatientsRouteWithChildren
   '/admin/profile': typeof AuthenticatedAdminProfileRoute
   '/admin/reports': typeof AuthenticatedAdminReportsRoute
   '/admin/settings': typeof AuthenticatedAdminSettingsRoute
   '/admin/users': typeof AuthenticatedAdminUsersRoute
   '/blog/category/$category': typeof BlogCategoryCategoryRoute
   '/admin/': typeof AuthenticatedAdminIndexRoute
+  '/admin/personal-patients/$patientId': typeof AuthenticatedAdminPersonalPatientsPatientIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -560,6 +560,7 @@ export interface FileRoutesByTo {
   '/diet-nutrition/$slug': typeof DietNutritionSlugRoute
   '/fitness/$slug': typeof FitnessSlugRoute
   '/internships/$slug': typeof InternshipsSlugRoute
+  '/patient-portal/$token': typeof PatientPortalTokenRoute
   '/services/$slug': typeof ServicesSlugRoute
   '/blog': typeof BlogIndexRoute
   '/conditions': typeof ConditionsIndexRoute
@@ -583,14 +584,14 @@ export interface FileRoutesByTo {
   '/admin/media': typeof AuthenticatedAdminMediaRoute
   '/admin/messages': typeof AuthenticatedAdminMessagesRoute
   '/admin/patients': typeof AuthenticatedAdminPatientsRoute
-  '/admin/personal-patients': typeof AuthenticatedAdminPersonalPatientsRoute
-  '/admin/personal-patients/$patientId': typeof AuthenticatedAdminPersonalPatientDetailRoute
+  '/admin/personal-patients': typeof AuthenticatedAdminPersonalPatientsRouteWithChildren
   '/admin/profile': typeof AuthenticatedAdminProfileRoute
   '/admin/reports': typeof AuthenticatedAdminReportsRoute
   '/admin/settings': typeof AuthenticatedAdminSettingsRoute
   '/admin/users': typeof AuthenticatedAdminUsersRoute
   '/blog/category/$category': typeof BlogCategoryCategoryRoute
   '/admin': typeof AuthenticatedAdminIndexRoute
+  '/admin/personal-patients/$patientId': typeof AuthenticatedAdminPersonalPatientsPatientIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -620,7 +621,6 @@ export interface FileRoutesById {
   '/physiotherapy-in-multan': typeof PhysiotherapyInMultanRoute
   '/physiotherapy-in-rahim-yar-khan': typeof PhysiotherapyInRahimYarKhanRoute
   '/privacy': typeof PrivacyRoute
-  '/patient-portal/$token': typeof PatientPortalTokenRoute
   '/reset-password': typeof ResetPasswordRoute
   '/search': typeof SearchRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
@@ -633,6 +633,7 @@ export interface FileRoutesById {
   '/diet-nutrition/$slug': typeof DietNutritionSlugRoute
   '/fitness/$slug': typeof FitnessSlugRoute
   '/internships/$slug': typeof InternshipsSlugRoute
+  '/patient-portal/$token': typeof PatientPortalTokenRoute
   '/services/$slug': typeof ServicesSlugRoute
   '/blog/': typeof BlogIndexRoute
   '/conditions/': typeof ConditionsIndexRoute
@@ -656,14 +657,14 @@ export interface FileRoutesById {
   '/_authenticated/admin/media': typeof AuthenticatedAdminMediaRoute
   '/_authenticated/admin/messages': typeof AuthenticatedAdminMessagesRoute
   '/_authenticated/admin/patients': typeof AuthenticatedAdminPatientsRoute
-  '/_authenticated/admin/personal-patients': typeof AuthenticatedAdminPersonalPatientsRoute
-  '/_authenticated/admin/personal-patients/$patientId': typeof AuthenticatedAdminPersonalPatientDetailRoute
+  '/_authenticated/admin/personal-patients': typeof AuthenticatedAdminPersonalPatientsRouteWithChildren
   '/_authenticated/admin/profile': typeof AuthenticatedAdminProfileRoute
   '/_authenticated/admin/reports': typeof AuthenticatedAdminReportsRoute
   '/_authenticated/admin/settings': typeof AuthenticatedAdminSettingsRoute
   '/_authenticated/admin/users': typeof AuthenticatedAdminUsersRoute
   '/blog/category/$category': typeof BlogCategoryCategoryRoute
   '/_authenticated/admin/': typeof AuthenticatedAdminIndexRoute
+  '/_authenticated/admin/personal-patients/$patientId': typeof AuthenticatedAdminPersonalPatientsPatientIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -693,7 +694,6 @@ export interface FileRouteTypes {
     | '/physiotherapy-in-multan'
     | '/physiotherapy-in-rahim-yar-khan'
     | '/privacy'
-    | '/patient-portal/$token'
     | '/reset-password'
     | '/search'
     | '/sitemap.xml'
@@ -706,6 +706,7 @@ export interface FileRouteTypes {
     | '/diet-nutrition/$slug'
     | '/fitness/$slug'
     | '/internships/$slug'
+    | '/patient-portal/$token'
     | '/services/$slug'
     | '/blog/'
     | '/conditions/'
@@ -730,13 +731,13 @@ export interface FileRouteTypes {
     | '/admin/messages'
     | '/admin/patients'
     | '/admin/personal-patients'
-    | '/admin/personal-patients/$patientId'
     | '/admin/profile'
     | '/admin/reports'
     | '/admin/settings'
     | '/admin/users'
     | '/blog/category/$category'
     | '/admin/'
+    | '/admin/personal-patients/$patientId'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -764,7 +765,6 @@ export interface FileRouteTypes {
     | '/physiotherapy-in-multan'
     | '/physiotherapy-in-rahim-yar-khan'
     | '/privacy'
-    | '/patient-portal/$token'
     | '/reset-password'
     | '/search'
     | '/sitemap.xml'
@@ -776,6 +776,7 @@ export interface FileRouteTypes {
     | '/diet-nutrition/$slug'
     | '/fitness/$slug'
     | '/internships/$slug'
+    | '/patient-portal/$token'
     | '/services/$slug'
     | '/blog'
     | '/conditions'
@@ -800,13 +801,13 @@ export interface FileRouteTypes {
     | '/admin/messages'
     | '/admin/patients'
     | '/admin/personal-patients'
-    | '/admin/personal-patients/$patientId'
     | '/admin/profile'
     | '/admin/reports'
     | '/admin/settings'
     | '/admin/users'
     | '/blog/category/$category'
     | '/admin'
+    | '/admin/personal-patients/$patientId'
   id:
     | '__root__'
     | '/'
@@ -835,8 +836,6 @@ export interface FileRouteTypes {
     | '/physiotherapy-in-multan'
     | '/physiotherapy-in-rahim-yar-khan'
     | '/privacy'
-    | '/patient-portal/$token'
-    | '/patient-portal/$token'
     | '/reset-password'
     | '/search'
     | '/sitemap.xml'
@@ -849,6 +848,7 @@ export interface FileRouteTypes {
     | '/diet-nutrition/$slug'
     | '/fitness/$slug'
     | '/internships/$slug'
+    | '/patient-portal/$token'
     | '/services/$slug'
     | '/blog/'
     | '/conditions/'
@@ -873,13 +873,13 @@ export interface FileRouteTypes {
     | '/_authenticated/admin/messages'
     | '/_authenticated/admin/patients'
     | '/_authenticated/admin/personal-patients'
-    | '/_authenticated/admin/personal-patients/$patientId'
     | '/_authenticated/admin/profile'
     | '/_authenticated/admin/reports'
     | '/_authenticated/admin/settings'
     | '/_authenticated/admin/users'
     | '/blog/category/$category'
     | '/_authenticated/admin/'
+    | '/_authenticated/admin/personal-patients/$patientId'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -915,12 +915,12 @@ export interface RootRouteChildren {
   SuccessStoriesRoute: typeof SuccessStoriesRoute
   TermsRoute: typeof TermsRoute
   VerifyCertificateRoute: typeof VerifyCertificateRoute
-  PatientPortalTokenRoute: typeof PatientPortalTokenRoute
   BlogSlugRoute: typeof BlogSlugRoute
   ConditionsSlugRoute: typeof ConditionsSlugRoute
   DietNutritionSlugRoute: typeof DietNutritionSlugRoute
   FitnessSlugRoute: typeof FitnessSlugRoute
   InternshipsSlugRoute: typeof InternshipsSlugRoute
+  PatientPortalTokenRoute: typeof PatientPortalTokenRoute
   ServicesSlugRoute: typeof ServicesSlugRoute
   BlogIndexRoute: typeof BlogIndexRoute
   ConditionsIndexRoute: typeof ConditionsIndexRoute
@@ -1115,13 +1115,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PrivacyRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/patient-portal/$token': {
-      id: '/patient-portal/$token'
-      path: '/patient-portal/$token'
-      fullPath: '/patient-portal/$token'
-      preLoaderRoute: typeof PatientPortalTokenRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/reset-password': {
       id: '/reset-password'
       path: '/reset-password'
@@ -1239,6 +1232,13 @@ declare module '@tanstack/react-router' {
       path: '/internships/$slug'
       fullPath: '/internships/$slug'
       preLoaderRoute: typeof InternshipsSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/patient-portal/$token': {
+      id: '/patient-portal/$token'
+      path: '/patient-portal/$token'
+      fullPath: '/patient-portal/$token'
+      preLoaderRoute: typeof PatientPortalTokenRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/services/': {
@@ -1381,13 +1381,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminPersonalPatientsRouteImport
       parentRoute: typeof AuthenticatedAdminRoute
     }
-    '/_authenticated/admin/personal-patients/$patientId': {
-      id: '/_authenticated/admin/personal-patients/$patientId'
-      path: '/personal-patients/$patientId'
-      fullPath: '/admin/personal-patients/$patientId'
-      preLoaderRoute: typeof AuthenticatedAdminPersonalPatientDetailRouteImport
-      parentRoute: typeof AuthenticatedAdminRoute
-    }
     '/_authenticated/admin/profile': {
       id: '/_authenticated/admin/profile'
       path: '/profile'
@@ -1423,8 +1416,30 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BlogCategoryCategoryRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated/admin/personal-patients/$patientId': {
+      id: '/_authenticated/admin/personal-patients/$patientId'
+      path: '/$patientId'
+      fullPath: '/admin/personal-patients/$patientId'
+      preLoaderRoute: typeof AuthenticatedAdminPersonalPatientsPatientIdRouteImport
+      parentRoute: typeof AuthenticatedAdminPersonalPatientsRoute
+    }
   }
 }
+
+interface AuthenticatedAdminPersonalPatientsRouteChildren {
+  AuthenticatedAdminPersonalPatientsPatientIdRoute: typeof AuthenticatedAdminPersonalPatientsPatientIdRoute
+}
+
+const AuthenticatedAdminPersonalPatientsRouteChildren: AuthenticatedAdminPersonalPatientsRouteChildren =
+  {
+    AuthenticatedAdminPersonalPatientsPatientIdRoute:
+      AuthenticatedAdminPersonalPatientsPatientIdRoute,
+  }
+
+const AuthenticatedAdminPersonalPatientsRouteWithChildren =
+  AuthenticatedAdminPersonalPatientsRoute._addFileChildren(
+    AuthenticatedAdminPersonalPatientsRouteChildren,
+  )
 
 interface AuthenticatedAdminRouteChildren {
   AuthenticatedAdminAppointmentsRoute: typeof AuthenticatedAdminAppointmentsRoute
@@ -1443,8 +1458,7 @@ interface AuthenticatedAdminRouteChildren {
   AuthenticatedAdminMediaRoute: typeof AuthenticatedAdminMediaRoute
   AuthenticatedAdminMessagesRoute: typeof AuthenticatedAdminMessagesRoute
   AuthenticatedAdminPatientsRoute: typeof AuthenticatedAdminPatientsRoute
-  AuthenticatedAdminPersonalPatientsRoute: typeof AuthenticatedAdminPersonalPatientsRoute
-  AuthenticatedAdminPersonalPatientDetailRoute: typeof AuthenticatedAdminPersonalPatientDetailRoute
+  AuthenticatedAdminPersonalPatientsRoute: typeof AuthenticatedAdminPersonalPatientsRouteWithChildren
   AuthenticatedAdminProfileRoute: typeof AuthenticatedAdminProfileRoute
   AuthenticatedAdminReportsRoute: typeof AuthenticatedAdminReportsRoute
   AuthenticatedAdminSettingsRoute: typeof AuthenticatedAdminSettingsRoute
@@ -1472,8 +1486,8 @@ const AuthenticatedAdminRouteChildren: AuthenticatedAdminRouteChildren = {
   AuthenticatedAdminMediaRoute: AuthenticatedAdminMediaRoute,
   AuthenticatedAdminMessagesRoute: AuthenticatedAdminMessagesRoute,
   AuthenticatedAdminPatientsRoute: AuthenticatedAdminPatientsRoute,
-  AuthenticatedAdminPersonalPatientsRoute: AuthenticatedAdminPersonalPatientsRoute,
-  AuthenticatedAdminPersonalPatientDetailRoute: AuthenticatedAdminPersonalPatientDetailRoute,
+  AuthenticatedAdminPersonalPatientsRoute:
+    AuthenticatedAdminPersonalPatientsRouteWithChildren,
   AuthenticatedAdminProfileRoute: AuthenticatedAdminProfileRoute,
   AuthenticatedAdminReportsRoute: AuthenticatedAdminReportsRoute,
   AuthenticatedAdminSettingsRoute: AuthenticatedAdminSettingsRoute,
@@ -1528,12 +1542,12 @@ const rootRouteChildren: RootRouteChildren = {
   SuccessStoriesRoute: SuccessStoriesRoute,
   TermsRoute: TermsRoute,
   VerifyCertificateRoute: VerifyCertificateRoute,
-  PatientPortalTokenRoute: PatientPortalTokenRoute,
   BlogSlugRoute: BlogSlugRoute,
   ConditionsSlugRoute: ConditionsSlugRoute,
   DietNutritionSlugRoute: DietNutritionSlugRoute,
   FitnessSlugRoute: FitnessSlugRoute,
   InternshipsSlugRoute: InternshipsSlugRoute,
+  PatientPortalTokenRoute: PatientPortalTokenRoute,
   ServicesSlugRoute: ServicesSlugRoute,
   BlogIndexRoute: BlogIndexRoute,
   ConditionsIndexRoute: ConditionsIndexRoute,

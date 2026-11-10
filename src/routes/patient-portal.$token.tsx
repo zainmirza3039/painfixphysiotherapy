@@ -22,6 +22,7 @@ export const Route = createFileRoute("/patient-portal/$token")({
     meta: [
       { title: "Patient Portal | PainFix Physiotherapy Clinic" },
       { name: "robots", content: "noindex, nofollow, noarchive" },
+      { name: "referrer", content: "no-referrer" },
     ],
   }),
 });
