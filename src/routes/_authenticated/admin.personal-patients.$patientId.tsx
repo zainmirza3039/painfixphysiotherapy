@@ -228,14 +228,20 @@ function PersonalPatientDetailPage() {
           .order("created_at", { ascending: false })
           .limit(50),
       ]);
-      for (const result of [p, plans, sessions, ledger, audit])
+      // Patient, billing and treatment data are the core record. Audit history is
+      // supplementary and must never prevent the clinician from opening a patient.
+      for (const result of [p, plans, sessions, ledger]) {
         if (result.error) throw result.error;
+      }
+      if (audit.error) {
+        console.warn("Personal patient audit history could not be loaded:", audit.error.message);
+      }
       return {
         patient: p.data as Patient,
-        plans: plans.data as Plan[],
-        sessions: sessions.data as Session[],
-        ledger: ledger.data as Entry[],
-        audit: audit.data as AuditEvent[],
+        plans: (plans.data ?? []) as Plan[],
+        sessions: (sessions.data ?? []) as Session[],
+        ledger: (ledger.data ?? []) as Entry[],
+        audit: (audit.data ?? []) as AuditEvent[],
       };
     },
   });
