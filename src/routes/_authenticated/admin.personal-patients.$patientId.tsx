@@ -212,12 +212,13 @@ function PersonalPatientDetailPage() {
     enabled: Boolean(user?.id && patientId),
     queryFn: async () => {
       const db = personalPatientDb;
-      const [p, plans, sessions, ledger, audit] = await Promise.all([
-        db
-          .from("personal_patients")
-          .select("id,full_name,phone,email,private_notes,status")
-          .eq("id", patientId)
-          .single(),
+      const p = await db
+        .from("personal_patients")
+        .select("id,full_name,phone,email,private_notes,status")
+        .eq("id", patientId)
+        .single();
+      if (p.error || !p.data) throw p.error ?? new Error("Patient account not found.");
+      const optional = await Promise.allSettled([
         db
           .from("personal_patient_plans")
           .select("id,plan_type,title,package_sessions,package_fee,per_session_fee,is_active")
@@ -240,20 +241,24 @@ function PersonalPatientDetailPage() {
           .order("created_at", { ascending: false })
           .limit(50),
       ]);
-      // Patient, billing and treatment data are the core record. Audit history is
-      // supplementary and must never prevent the clinician from opening a patient.
-      for (const result of [p, plans, sessions, ledger]) {
-        if (result.error) throw result.error;
-      }
-      if (audit.error) {
-        console.warn("Personal patient audit history could not be loaded:", audit.error.message);
+      const [plansResult, sessionsResult, ledgerResult, auditResult] = optional.map((result) =>
+        result.status === "fulfilled" ? result.value : { data: [], error: result.reason },
+      );
+      for (const [label, result] of [
+        ["billing plans", plansResult],
+        ["sessions", sessionsResult],
+        ["ledger", ledgerResult],
+        ["audit history", auditResult],
+      ] as const) {
+        if (result.error)
+          console.warn(`Personal patient ${label} could not be loaded:`, result.error);
       }
       return {
         patient: p.data as Patient,
-        plans: (plans.data ?? []) as Plan[],
-        sessions: (sessions.data ?? []) as Session[],
-        ledger: (ledger.data ?? []) as Entry[],
-        audit: (audit.data ?? []) as AuditEvent[],
+        plans: (plansResult.data ?? []) as Plan[],
+        sessions: (sessionsResult.data ?? []) as Session[],
+        ledger: (ledgerResult.data ?? []) as Entry[],
+        audit: (auditResult.data ?? []) as AuditEvent[],
       };
     },
   });
