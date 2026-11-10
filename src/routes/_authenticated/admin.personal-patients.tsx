@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useEffect, useMemo, useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
@@ -102,6 +102,7 @@ const money = (n: number) =>
   }).format(n);
 
 function PersonalPatientsPage() {
+  const navigate = useNavigate();
   const { user } = useAdminAuth();
   const qc = useQueryClient();
   const [lang, setLang] = useState<"en" | "ur">("en");
@@ -322,10 +323,19 @@ function PersonalPatientsPage() {
                   </div>
                 </div>
                 <div className="mt-3 border-t border-border pt-3">
-                  <Button asChild variant="outline" size="sm" className="w-full">
-                    <a href={`/admin/personal-patients/${encodeURIComponent(p.id)}`}>
-                      {t.open}
-                    </a>
+                  <Button
+                    type="button"
+                    variant="outline"
+                    size="sm"
+                    className="w-full"
+                    onClick={() =>
+                      navigate({
+                        to: "/admin/personal-patients/$patientId",
+                        params: { patientId: p.id },
+                      })
+                    }
+                  >
+                    {t.open}
                   </Button>
                 </div>
               </article>
