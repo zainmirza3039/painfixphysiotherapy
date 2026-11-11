@@ -170,7 +170,7 @@ function BlogIndex() {
 
             {/* Sidebar */}
             <aside className="space-y-6 lg:sticky lg:top-24 lg:self-start">
-              <div className="rounded-[1.75rem] border border-border bg-card p-6 shadow-soft">
+              <div className="rounded-xl border border-border bg-card p-6 shadow-soft">
                 <h3 className="flex items-center gap-2 font-heading text-lg font-bold text-foreground">
                   <Star className="h-4 w-4 text-secondary" /> Popular Articles
                 </h3>
