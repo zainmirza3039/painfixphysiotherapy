@@ -13,16 +13,34 @@ test("homepage features only the BMI calculator and links to the complete tools 
   assert.doesNotMatch(source, /Calorie Calculator|Water Intake|Protein Intake|Ideal Weight/);
 });
 
-test("hero uses a restrained solid green accent and a neutral image border", async () => {
-  const source = await readFile(new URL("src/styles.css", repo), "utf8");
-  const visual = source.match(/\.home-hero__visual \{[^}]+\}/)?.[0] ?? "";
-  const accent = source.match(/\.home-hero__visual::before \{[^}]+\}/)?.[0] ?? "";
-  const frame = source.match(/\.home-hero__image-frame \{[^}]+\}/)?.[0] ?? "";
+test("header logo is rounded and the public header uses softer surfaces", async () => {
+  const navbar = await readFile(new URL("src/components/site/Navbar.tsx", repo), "utf8");
+  assert.match(navbar, /rounded-full border border-border\/50 bg-white shadow-sm/);
+  assert.match(navbar, /bg-surface\/45/);
+  assert.match(navbar, /shadow-\[0_2px_12px_rgba\(22,50,74,0\.05\)\]/);
+});
 
-  assert.match(visual, /isolation: isolate/);
-  assert.ok(accent.includes("background: color-mix("));
-  assert.ok(accent.includes("var(--secondary) 13%, var(--background)"));
-  assert.doesNotMatch(accent, /linear-gradient|filter: blur/);
-  assert.match(frame, /border: 1px solid var\(--border\)/);
-  assert.doesNotMatch(frame, /border-left: 6px/);
+test("footer social links use recognisable platform brand marks", async () => {
+  const footer = await readFile(new URL("src/components/site/Footer.tsx", repo), "utf8");
+  for (const brand of ["Facebook", "Instagram", "TikTok", "LinkedIn", "YouTube"]) {
+    assert.ok(footer.includes(`label: "${brand}"`), `${brand} link is present`);
+  }
+  assert.match(footer, /function SocialBrandIcon/);
+  assert.match(footer, /<SocialBrandIcon label={s.label} \/>/);
+});
+
+test("hero photo has no decorative drop shape beneath it", async () => {
+  const source = await readFile(new URL("src/styles.css", repo), "utf8");
+  assert.match(source, /\.home-hero__visual \{[^}]+\}/);
+  assert.doesNotMatch(source, /\.home-hero__visual::before/);
+  assert.match(source, /\.home-hero__image-frame \{[^}]*border: 1px solid var\(--border\)/);
+});
+
+test("homepage treatment cards use local clinic photos where available and defer image loading", async () => {
+  const source = await readFile(new URL("src/components/site/Services.tsx", repo), "utf8");
+  assert.match(source, /manualTherapyClinicPhoto from "@\/assets\/hero\.webp"/);
+  assert.match(source, /guidedRehabClinicPhoto from "@\/assets\/clinic-photo-4\.webp"/);
+  assert.match(source, /loading="lazy"/);
+  assert.match(source, /fetchPriority="low"/);
+  assert.match(source, /sizes="\(min-width: 1280px\) 20vw/);
 });
