@@ -29,11 +29,13 @@ test("footer social links use recognisable platform brand marks", async () => {
   assert.match(footer, /<SocialBrandIcon label={s.label} \/>/);
 });
 
-test("hero photo has no decorative drop shape beneath it", async () => {
+test("homepage hero retains the earlier soft green art direction and photo edge", async () => {
   const source = await readFile(new URL("src/styles.css", repo), "utf8");
-  assert.match(source, /\.home-hero__visual \{[^}]+\}/);
-  assert.doesNotMatch(source, /\.home-hero__visual::before/);
-  assert.match(source, /\.home-hero__image-frame \{[^}]*border: 1px solid var\(--border\)/);
+  assert.match(source, /\.home-hero \{[^}]*background: var\(--surface\)/);
+  assert.match(source, /\.home-hero__visual::before/);
+  assert.match(source, /background: color-mix\(in srgb, var\(--secondary\) 9%, var\(--background\)\)/);
+  assert.match(source, /\.home-hero__image-frame \{[^}]*border-left: 5px solid var\(--brand-green\)/);
+  assert.match(source, /border-radius: 0 1rem 1rem 0/);
 });
 
 test("homepage treatment cards use real treatment-specific Pexels photos and defer image loading", async () => {
