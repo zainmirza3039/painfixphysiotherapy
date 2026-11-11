@@ -101,7 +101,7 @@ test("public calculator and newsletter fields use the verified input boundary to
   }
 });
 
-test("light-mode palette and gradients remain unchanged by the dark theme", () => {
+test("light-mode brand palette remains stable", () => {
   assert.deepEqual(light, {
     background: "#fafaf7",
     foreground: "#16324a",
@@ -127,16 +127,7 @@ test("light-mode palette and gradients remain unchanged by the dark theme", () =
     input: "#718579",
     ring: "#007a43",
   });
-  const root = css.match(/:root \{([^}]+)\}/)[1];
-  for (const declaration of [
-    "--gradient-hero: linear-gradient(110deg, #032e61, #007a43);",
-    "--gradient-blue: linear-gradient(135deg, #032e61, #0b4f87);",
-    "--gradient-teal: linear-gradient(135deg, #007a43, #00a859);",
-    "--gradient-brand-soft: linear-gradient(135deg, #edf4f1, #f5f7f4);",
-  ])
-    assert.ok(root.includes(declaration), declaration);
 });
-
 test("dark brand accents, secondary/80 hover, and raised surfaces retain contrast", () => {
   assert.equal(dark["brand-green"], "#00a859");
   assert.equal(dark["primary-foreground"], "#032e61");
@@ -156,22 +147,8 @@ test("dark brand accents, secondary/80 hover, and raised surfaces retain contras
     meets(rgb(dark["brand-green"]), rgb(dark[surface]), 3, `brand marker on ${surface}`);
 });
 
-test("dark text gradients and inverse navy panels keep readable labels", () => {
-  const block = css.match(/\.dark \{([^}]+)\}/)[1];
-  for (const gradient of ["hero", "teal"]) {
-    const stops = block
-      .match(new RegExp(`--gradient-${gradient}: ([^;]+);`))[1]
-      .match(/#[\da-f]{6}/gi);
-    for (const stop of stops)
-      for (const surface of ["background", "surface", "card", "muted", "accent"])
-        meets(rgb(stop), rgb(dark[surface]), 4.5, `${gradient} stop ${stop} on ${surface}`);
-  }
-  const panel = css.match(/\.dark \.bg-gradient-to-br\.from-primary\.to-secondary \{([^}]+)\}/)[1];
-  assert.ok(panel.includes("background-color: #032e61;"));
-  assert.ok(panel.includes("background-image: none;"));
-  assert.ok(panel.includes("--primary-foreground: #f5f8f7;"));
-  const navy = rgb("#032e61");
-  meets(rgb("#f5f8f7"), navy, 4.5, "inverse panel label");
-  meets(blend(rgb("#f5f8f7"), navy, 0.75), navy, 4.5, "inverse panel muted label");
-  meets(rgb(dark.ring), navy, 3, "inverse panel focus");
+test("public visual system avoids decorative gradient panels", () => {
+  assert.ok(!css.includes("--gradient-hero"));
+  assert.ok(!css.includes("--gradient-brand-soft"));
+  assert.ok(!css.includes("linear-gradient("));
 });
