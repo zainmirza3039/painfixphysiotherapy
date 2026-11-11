@@ -436,7 +436,7 @@ export function AdminShell({ children }: { children: ReactNode }) {
                     <Menu className="h-5 w-5" />
                   </Button>
                 </SheetTrigger>
-                <SheetContent side="right" className="w-80 p-0">
+                <SheetContent side="right" className="admin-sidebar-sheet w-80 p-0">
                   <SheetTitle className="sr-only">Admin navigation</SheetTitle>
                   {SidebarInner}
                 </SheetContent>
