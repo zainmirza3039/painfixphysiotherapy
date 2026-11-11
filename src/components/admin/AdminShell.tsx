@@ -344,7 +344,7 @@ export function AdminShell({ children }: { children: ReactNode }) {
   );
 
   return (
-    <div className="min-h-screen bg-surface lg:flex">
+    <div className="admin-shell min-h-screen bg-surface lg:flex">
       <aside className="sticky top-0 hidden h-screen w-[272px] shrink-0 border-r border-border bg-card lg:block">
         {SidebarInner}
       </aside>
