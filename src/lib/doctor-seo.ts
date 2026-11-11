@@ -4,7 +4,7 @@ import type { TeamMember } from "@/data/team";
 import { isOnlineClinician } from "@/lib/clinician-service";
 
 /**
- * Builds the full head() payload (meta, canonical, breadcrumb + Physician JSON-LD)
+ * Builds the full head() payload (meta, canonical, breadcrumb + Person JSON-LD)
  * for a dedicated doctor profile page — optimized for doctor entity recognition
  * and local search ("Dr … PT Multan", "Physiotherapist in Multan").
  */
