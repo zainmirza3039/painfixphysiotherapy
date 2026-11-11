@@ -147,8 +147,26 @@ test("dark brand accents, secondary/80 hover, and raised surfaces retain contras
     meets(rgb(dark["brand-green"]), rgb(dark[surface]), 3, `brand marker on ${surface}`);
 });
 
-test("public visual system avoids decorative gradient panels", () => {
+test("public visual system uses a restrained radius scale and avoids decorative gradients", () => {
+  assert.ok(css.includes("--radius-xl: calc(var(--radius) + 2px);"));
+  assert.ok(css.includes("--radius-2xl: calc(var(--radius) + 4px);"));
+  assert.ok(css.includes("--radius-3xl: calc(var(--radius) + 8px);"));
   assert.ok(!css.includes("--gradient-hero"));
   assert.ok(!css.includes("--gradient-brand-soft"));
   assert.ok(!css.includes("linear-gradient("));
+});
+
+test("public shell and conversion pages avoid glass and gradient utility treatments", () => {
+  for (const path of [
+    "../src/components/site/Navbar.tsx",
+    "../src/components/site/Stats.tsx",
+    "../src/components/site/Hero.tsx",
+    "../src/routes/home-visit.tsx",
+    "../src/routes/blog.$slug.tsx",
+    "../src/routes/auth.tsx",
+  ]) {
+    const source = readFileSync(new URL(path, import.meta.url), "utf8");
+    assert.ok(!source.includes("backdrop-blur"), `${path} does not use glass blur`);
+    assert.ok(!source.includes("bg-gradient-to-"), `${path} does not use gradient utility panels`);
+  }
 });
