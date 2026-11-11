@@ -43,7 +43,7 @@ test("Kamar Dard exercise guide targets the exercise query with practical safety
 
   const safetyStart = source.indexOf('slug: "safe-kamar-dard-exercises"');
   assert.notEqual(safetyStart, -1);
-  const safetyEnd = source.indexOf("\\n  },", safetyStart);
+  const safetyEnd = source.indexOf("\n  },", safetyStart);
   const safetyArticle = source.slice(safetyStart, safetyEnd);
   assert.ok(safetyArticle.includes('seoTitle: "Safe Lower-Back Exercises: Kamar Dard Guide"'));
   const articleRoute = await read("src/routes/blog.$slug.tsx");
