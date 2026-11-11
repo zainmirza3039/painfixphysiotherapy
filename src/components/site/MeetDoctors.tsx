@@ -64,13 +64,15 @@ export function MeetDoctors({ initialProfiles }: { initialProfiles?: PublicClini
             clinicians.map((doc, index) => (
               <Reveal key={doc.slug} anim="up" delay={index * 45}>
                 <article className="home-team-card">
-                  <ClinicianPortrait
-                    photo={doc.photo}
-                    name={doc.name}
-                    role={doc.role}
-                    className="home-team-card__portrait"
-                  />
-                  <div className="min-w-0">
+                  <div className="home-team-card__media">
+                    <ClinicianPortrait
+                      photo={doc.photo}
+                      name={doc.name}
+                      role={doc.role}
+                      className="home-team-card__portrait"
+                    />
+                  </div>
+                  <div className="home-team-card__content min-w-0">
                     <p className="inline-flex items-center gap-1.5 rounded-full bg-[rgba(0,168,89,0.09)] px-3 py-1.5 text-xs font-bold uppercase tracking-[0.1em] text-secondary">
                       <BadgeCheck className="h-4 w-4" aria-hidden="true" /> {doc.credentials}
                     </p>
@@ -87,12 +89,12 @@ export function MeetDoctors({ initialProfiles }: { initialProfiles?: PublicClini
                         experience
                       </p>
                     )}
-                    <p className="mt-3 max-w-2xl text-sm leading-6 text-muted-foreground">
+                    <p className="home-team-card__bio">
                       {doc.bio}
                     </p>
                     {doc.tags.length > 0 && (
                       <ul
-                        className="mt-3 flex flex-wrap gap-x-4 gap-y-1"
+                        className="home-team-card__specialties"
                         aria-label={`${doc.name} areas of practice`}
                       >
                         {doc.tags.slice(0, 3).map((tag) => (
@@ -102,7 +104,7 @@ export function MeetDoctors({ initialProfiles }: { initialProfiles?: PublicClini
                         ))}
                       </ul>
                     )}
-                    <div className="mt-4 flex flex-wrap gap-x-5 gap-y-2">
+                    <div className="home-team-card__actions">
                       <a
                         href={`/${doc.slug}`}
                         aria-label={`View profile of ${doc.fullName}`}
