@@ -36,10 +36,12 @@ test("hero photo has no decorative drop shape beneath it", async () => {
   assert.match(source, /\.home-hero__image-frame \{[^}]*border: 1px solid var\(--border\)/);
 });
 
-test("homepage treatment cards use local clinic photos where available and defer image loading", async () => {
+test("homepage treatment cards use real treatment-specific Pexels photos and defer image loading", async () => {
   const source = await readFile(new URL("src/components/site/Services.tsx", repo), "utf8");
-  assert.match(source, /manualTherapyClinicPhoto from "@\/assets\/hero\.webp"/);
-  assert.match(source, /guidedRehabClinicPhoto from "@\/assets\/clinic-photo-4\.webp"/);
+  for (const photoId of ["20860597", "20860594", "6076134", "30483049", "20860580"]) {
+    assert.ok(source.includes(`/photos/${photoId}/`), `treatment photo ${photoId} is mapped`);
+  }
+  assert.match(source, /illustrative photograph/i);
   assert.match(source, /loading="lazy"/);
   assert.match(source, /fetchPriority="low"/);
   assert.match(source, /sizes="\(min-width: 1280px\) 20vw/);
