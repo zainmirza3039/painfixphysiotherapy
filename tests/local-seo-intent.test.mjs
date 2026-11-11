@@ -50,7 +50,7 @@ test("Kamar Dard exercise guide targets the exercise query with practical safety
   assert.match(articleRoute, /slug: "safe-kamar-dard-exercises"/);
 });
 
-test("root-level best physiotherapist landing URL consolidates to the homepage", async () => {
+test("broad Multan physiotherapy landing URLs consolidate to the homepage and home physio routes consolidate to home-visit", async () => {
   const config = JSON.parse(await read("vercel.json"));
   assert.ok(
     config.redirects.some(
@@ -75,7 +75,7 @@ test("sitemap remains available when optional dynamic listings fail", async () =
   assert.doesNotMatch(sitemap, /status: 503/);
 });
 
-test("Multan physiotherapy service page links to booking and home-visit journeys", async () => {
+test("service and condition hubs send broad local physiotherapy intent to the homepage", async () => {
   const component = await read("src/components/site/LocalLandingPage.tsx");
   const sitemap = await read("src/routes/sitemap[.]xml.ts");
   assert.ok(component.includes('page.slug === "physiotherapy-in-multan"'));
