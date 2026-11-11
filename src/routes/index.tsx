@@ -25,7 +25,7 @@ import heroAvif960 from "@/assets/hero-960.avif";
 
 const TITLE = "Physiotherapist in Multan | PainFix Physiotherapy Clinic";
 const DESCRIPTION =
-  "Looking for physiotherapy in Multan or a physiotherapist near you? PainFix offers assessment, manual therapy, exercise therapy, electrotherapy and rehabilitation in Shalimar Colony, plus home visits across Multan.";
+  "PainFix Physiotherapy Clinic in Multan. Physiotherapy near you for back pain, rehabilitation and home visits across the city.";
 
 export const Route = createFileRoute("/")({
   loader: () => listPublicClinicians(),
