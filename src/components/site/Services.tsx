@@ -2,7 +2,9 @@ import { Link } from "@tanstack/react-router";
 import { Activity, ArrowUpRight, Dumbbell, Hand, HeartPulse, Zap } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { serviceMap } from "@/data/services";
-import { serviceImages } from "@/data/serviceImages";\nimport manualTherapyClinicPhoto from "@/assets/hero.webp";\nimport guidedRehabClinicPhoto from "@/assets/clinic-photo-4.webp";
+import { serviceImages } from "@/data/serviceImages";
+import manualTherapyClinicPhoto from "@/assets/hero.webp";
+import guidedRehabClinicPhoto from "@/assets/clinic-photo-4.webp";
 import { Reveal } from "./Reveal";
 
 type TreatmentService = {
@@ -77,6 +79,8 @@ function TreatmentCardContent({ service }: { service: TreatmentService }) {
           height={480}
           loading="lazy"
           decoding="async"
+          fetchPriority="low"
+          sizes="(min-width: 1280px) 20vw, (min-width: 768px) 33vw, 50vw"
           className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
         />
       </span>
