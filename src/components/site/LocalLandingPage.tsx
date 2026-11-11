@@ -170,7 +170,7 @@ export function LocalLandingPage({
                   <Link
                     to="/services/$slug"
                     params={{ slug: service.slug }}
-                    className="hover-lift group flex h-full flex-col rounded-[1.75rem] border border-border bg-card p-6 shadow-soft"
+                    className="hover-lift group flex h-full flex-col rounded-xl border border-border bg-card p-6 shadow-soft"
                   >
                     <span className="grid h-12 w-12 place-items-center rounded-2xl bg-secondary/12 text-secondary">
                       <service.icon className="h-6 w-6" />
@@ -235,13 +235,13 @@ export function LocalLandingPage({
                 <div
                   key={index}
                   aria-hidden="true"
-                  className="h-40 animate-pulse rounded-[1.75rem] bg-muted"
+                  className="h-40 animate-pulse rounded-xl bg-muted"
                 />
               ))}
             {isError && (
               <div
                 role="alert"
-                className="rounded-[1.75rem] border border-border bg-card p-6 text-sm"
+                className="rounded-xl border border-border bg-card p-6 text-sm"
               >
                 <p className="text-foreground">Clinician information could not be loaded.</p>
                 <button
@@ -254,7 +254,7 @@ export function LocalLandingPage({
               </div>
             )}
             {!isLoading && !isError && clinicians.length === 0 && (
-              <p className="rounded-[1.75rem] border border-border bg-card p-6 text-sm text-muted-foreground">
+              <p className="rounded-xl border border-border bg-card p-6 text-sm text-muted-foreground">
                 No clinician profiles are currently published.
               </p>
             )}
@@ -262,7 +262,7 @@ export function LocalLandingPage({
               !isError &&
               clinicians.map((m, i) => (
                 <Reveal key={m.slug} anim="up" delay={i * 80}>
-                  <div className="flex h-full gap-4 rounded-[1.75rem] border border-border bg-card p-6 shadow-soft">
+                  <div className="flex h-full gap-4 rounded-xl border border-border bg-card p-6 shadow-soft">
                     <ClinicianPortrait
                       photo={m.photo}
                       name={m.name}
@@ -292,7 +292,7 @@ export function LocalLandingPage({
       <section className="py-14 sm:py-20">
         <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
           <div className="grid items-center gap-8 md:grid-cols-2">
-            <figure className="overflow-hidden rounded-[1.75rem] border border-border bg-card shadow-soft">
+            <figure className="overflow-hidden rounded-xl border border-border bg-card shadow-soft">
               <img
                 src={clinicExterior}
                 alt="PainFix Physiotherapy Clinic storefront in Shalimar Colony, Multan"
@@ -307,7 +307,7 @@ export function LocalLandingPage({
               </figcaption>
             </figure>
 
-            <div className="rounded-[1.75rem] border border-border bg-card p-7 shadow-soft sm:p-8">
+            <div className="rounded-xl border border-border bg-card p-7 shadow-soft sm:p-8">
               <h2 className="font-heading text-xl font-bold text-foreground">
                 Visit PainFix Physiotherapy Clinic
               </h2>
@@ -347,7 +347,7 @@ export function LocalLandingPage({
             </div>
           </div>
 
-          <div className="mt-8 flex flex-col gap-5 rounded-[1.75rem] border border-border bg-surface p-6 sm:flex-row sm:items-center sm:justify-between sm:p-8">
+          <div className="mt-8 flex flex-col gap-5 rounded-xl border border-border bg-surface p-6 sm:flex-row sm:items-center sm:justify-between sm:p-8">
             <div className="max-w-2xl">
               <h3 className="font-heading text-lg font-bold text-foreground">
                 Patient feedback on Google
@@ -404,7 +404,7 @@ export function LocalLandingPage({
                   <Link
                     to="/blog/$slug"
                     params={{ slug: post.slug }}
-                    className="hover-lift group flex h-full flex-col rounded-[1.75rem] border border-border bg-card p-6 shadow-soft"
+                    className="hover-lift group flex h-full flex-col rounded-xl border border-border bg-card p-6 shadow-soft"
                   >
                     <h3 className="font-heading text-lg font-bold text-foreground">{post.title}</h3>
                     <p className="mt-2 flex-1 text-sm leading-relaxed text-muted-foreground line-clamp-3">
