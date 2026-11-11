@@ -39,11 +39,13 @@ test("home-visit page confirms Multan-wide coverage in both languages and keeps 
   ]) {
     assert.ok(translations.includes(area), `Missing area: ${area}`);
   }
-  assert.ok(
-    translations.includes("Home physiotherapy visits are offered across Multan."),
-  );
+  assert.ok(translations.includes("Home physiotherapy visits are offered across Multan."));
   assert.ok(translations.includes("گھر پر فزیوتھراپی کے وزٹس پورے ملتان میں فراہم کیے جاتے ہیں۔"));
   assert.ok(homeVisitRoute.includes("PainFix provides home physiotherapy visits across Multan."));
   assert.ok(homeVisitRoute.includes("Coverage includes areas such as Royal Orchard, DHA Multan"));
-  assert.ok(homeVisitRoute.includes("PainFix ملتان کے تمام علاقوں میں گھر پر فزیوتھراپی وزٹس فراہم کرتا ہے۔"));
+  assert.ok(
+    homeVisitRoute.includes(
+      "PainFix ملتان کے تمام علاقوں میں گھر پر فزیوتھراپی وزٹس فراہم کرتا ہے۔",
+    ),
+  );
 });
