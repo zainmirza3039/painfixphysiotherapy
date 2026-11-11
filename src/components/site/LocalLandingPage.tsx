@@ -119,6 +119,42 @@ export function LocalLandingPage({
         </div>
       </section>
 
+      {/* Service-information page routes visitors to the relevant next step. */}
+      {page.slug === "physiotherapy-in-multan" && (
+        <section className="bg-surface py-12 sm:py-16">
+          <div className="mx-auto grid max-w-4xl gap-4 px-4 sm:px-6 lg:grid-cols-2 lg:px-8">
+            <Link
+              to="/physiotherapist-in-multan"
+              className="group rounded-2xl border border-border bg-card p-6 shadow-soft transition-colors hover:border-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+            >
+              <h2 className="font-heading text-lg font-bold text-foreground">
+                Book a Physiotherapy Assessment
+              </h2>
+              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                Review the first-appointment process and arrange an in-clinic assessment at PainFix.
+              </p>
+              <span className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-primary">
+                Appointment information <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1 rtl:rotate-180" />
+              </span>
+            </Link>
+            <Link
+              to="/home-visit"
+              className="group rounded-2xl border border-border bg-card p-6 shadow-soft transition-colors hover:border-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+            >
+              <h2 className="font-heading text-lg font-bold text-foreground">
+                Physiotherapy Home Visits Across Multan
+              </h2>
+              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                Check home-visit suitability, address coverage and appointment availability.
+              </p>
+              <span className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-primary">
+                Home-visit details <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1 rtl:rotate-180" />
+              </span>
+            </Link>
+          </div>
+        </section>
+      )}
+
       {/* Services offered */}
       {services.length > 0 && (
         <section className="bg-surface py-14 sm:py-20">
