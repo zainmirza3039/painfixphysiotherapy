@@ -38,7 +38,7 @@ export const en = {
     eyebrow: "Home Physiotherapy",
     title: "Physiotherapy at Your Doorstep",
     subtitle:
-      "Can't visit our clinic? Get personalized physiotherapy at home, subject to location and appointment availability.",
+      "Can't visit our clinic? Get personalized physiotherapy at home anywhere in Multan, subject to address and appointment availability.",
     intro:
       "Receive professional physiotherapy treatment in the comfort of your home. Our experienced physiotherapists provide personalized assessment, treatment, and rehabilitation for patients who are unable to visit the clinic or prefer treatment at home.",
     suitableTitle: "Ideal for",
@@ -238,7 +238,7 @@ export const ur: Dict = {
     eyebrow: "گھر پر فزیوتھراپی",
     title: "فزیوتھراپی آپ کی دہلیز پر",
     subtitle:
-      "کلینک آنا مشکل ہے؟ مقام اور اپائنٹمنٹ کی دستیابی سے مشروط، گھر پر ذاتی فزیوتھراپی حاصل کریں۔",
+      "کلینک آنا مشکل ہے؟ ملتان میں اپنے گھر پر ذاتی فزیوتھراپی حاصل کریں؛ وزٹ کی تصدیق پتے اور اپائنٹمنٹ کی دستیابی کے مطابق ہوگی۔",
     intro:
       "اپنے گھر کے آرام میں پیشہ ورانہ فزیوتھراپی علاج حاصل کریں۔ ہمارے تجربہ کار فزیوتھراپسٹ ان مریضوں کے لیے ذاتی تشخیص، علاج اور بحالی فراہم کرتے ہیں جو کلینک نہیں آ سکتے یا گھر پر علاج کو ترجیح دیتے ہیں۔",
     suitableTitle: "کن کے لیے موزوں ہے",
