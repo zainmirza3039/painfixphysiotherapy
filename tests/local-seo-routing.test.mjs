@@ -9,14 +9,7 @@ const translations = readFileSync(new URL("src/i18n/translations.ts", root), "ut
 const homeVisitRoute = readFileSync(new URL("src/routes/home-visit.tsx", root), "utf8");
 
 test("broad physiotherapist landing URL permanently redirects to the homepage", () => {
-  assert.ok(
-    vercel.redirects.some(
-      (rule) =>
-        rule.source === "/physiotherapist-in-multan" &&
-        rule.destination === "/" &&
-        rule.permanent,
-    ),
-  );
+  assert.ok(vercel.redirects.some((rule) => rule.source === "/physiotherapist-in-multan" && rule.destination === "/" && rule.permanent));
 });
 
 test("redirected broad local landing pages are excluded from the canonical sitemap", () => {
