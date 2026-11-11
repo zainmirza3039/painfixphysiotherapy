@@ -103,7 +103,7 @@ test("clinic-location page avoids unsupported facility claims and stays distinct
   const localPages = await read("src/data/localPages.ts");
   const clinicStart = localPages.indexOf('slug: "physiotherapy-clinic-in-multan"');
   assert.notEqual(clinicStart, -1);
-  const clinicEnd = localPages.indexOf("\\n  },", clinicStart);
+  const clinicEnd = localPages.indexOf("\n  },", clinicStart);
   const clinicPage = localPages.slice(clinicStart, clinicEnd);
 
   assert.ok(clinicPage.includes('title: "Physiotherapy Clinic in Multan"'));
