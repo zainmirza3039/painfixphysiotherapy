@@ -4,7 +4,7 @@ import { MAP_EMBED_URL, MAP_DIRECTIONS_URL, CLINIC_NAME } from "./constants";
 export function MapEmbed({ className = "" }: { className?: string }) {
   return (
     <div
-      className={`overflow-hidden rounded-[1.75rem] border border-border shadow-soft ${className}`}
+      className={`overflow-hidden rounded-xl border border-border shadow-soft ${className}`}
     >
       <iframe
         title={`Map showing the location of ${CLINIC_NAME}`}
