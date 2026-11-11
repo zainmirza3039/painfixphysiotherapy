@@ -356,7 +356,7 @@
   position: relative;
   border-bottom: 1px solid var(--border);
   overflow: hidden;
-  background: var(--background);
+  background: var(--surface);
 }
 
 .home-hero__accent {
@@ -366,8 +366,20 @@
 }
 
 .home-hero__visual {
+  position: relative;
+  isolation: isolate;
   max-width: 39rem;
   margin-inline: auto;
+}
+
+.home-hero__visual::before {
+  position: absolute;
+  z-index: -1;
+  inset: 5% -2% 8% 12%;
+  border-radius: 48% 52% 43% 57% / 45% 46% 54% 55%;
+  background: color-mix(in srgb, var(--secondary) 9%, var(--background));
+  content: "";
+  transform: rotate(-3deg);
 }
 
 .home-hero__image-frame {
@@ -376,9 +388,10 @@
   aspect-ratio: 0.9;
   overflow: hidden;
   border: 1px solid var(--border);
-  border-radius: 0.5rem;
+  border-left: 5px solid var(--brand-green);
+  border-radius: 0 1rem 1rem 0;
   background: var(--surface);
-  box-shadow: var(--shadow-soft);
+  box-shadow: none;
 }
 
 .home-hero__image-frame img {
