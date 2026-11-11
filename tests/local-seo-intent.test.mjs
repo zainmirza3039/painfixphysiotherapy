@@ -71,10 +71,10 @@ test("sitemap remains available when optional dynamic listings fail", async () =
 test("service and condition hubs route broad local discovery links to the homepage", async () => {
   const services = await read("src/routes/services.index.tsx");
   const conditions = await read("src/routes/conditions.index.tsx");
-  assert.match(services, /to="\\/"/);
-  assert.match(conditions, /to="\\/"/);
-  assert.doesNotMatch(services, /to="\\/physiotherapy-in-multan"/);
-  assert.doesNotMatch(conditions, /to="\\/physiotherapy-in-multan"/);
+  assert.ok(services.includes('to="/"'));
+  assert.ok(conditions.includes('to="/"'));
+  assert.ok(!services.includes('to="/physiotherapy-in-multan"'));
+  assert.ok(!conditions.includes('to="/physiotherapy-in-multan"'));
 });
 
 test("homepage owns broad local discovery while booking remains separate", async () => {
