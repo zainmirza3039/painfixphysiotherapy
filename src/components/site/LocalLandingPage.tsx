@@ -134,7 +134,8 @@ export function LocalLandingPage({
                 Review the first-appointment process and arrange an in-clinic assessment at PainFix.
               </p>
               <span className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-primary">
-                Appointment information <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1 rtl:rotate-180" />
+                Appointment information{" "}
+                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1 rtl:rotate-180" />
               </span>
             </Link>
             <Link
@@ -148,7 +149,8 @@ export function LocalLandingPage({
                 Check home-visit suitability, address coverage and appointment availability.
               </p>
               <span className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-primary">
-                Home-visit details <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1 rtl:rotate-180" />
+                Home-visit details{" "}
+                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1 rtl:rotate-180" />
               </span>
             </Link>
           </div>
