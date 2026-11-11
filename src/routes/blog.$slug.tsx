@@ -181,7 +181,7 @@ function BlogArticle() {
             </div>
 
             {/* Quick Answer (AEO) */}
-            <div className="mt-6 rounded-[1.75rem] border-l-4 border-secondary bg-surface p-6 shadow-soft">
+            <div className="mt-6 rounded-xl border-l-4 border-secondary bg-surface p-6 shadow-soft">
               <p className="text-xs font-bold uppercase tracking-wider text-secondary">
                 Quick Answer
               </p>
@@ -222,7 +222,7 @@ function BlogArticle() {
 
             {/* Key Takeaways */}
             {post.keyTakeaways.length > 0 && (
-              <div className="mt-10 rounded-[1.75rem] border border-border bg-card p-6 shadow-soft">
+              <div className="mt-10 rounded-xl border border-border bg-card p-6 shadow-soft">
                 <h2 className="font-heading text-xl font-bold text-foreground">Key Takeaways</h2>
                 <ul className="mt-4 space-y-2.5">
                   {post.keyTakeaways.map((k) => (
@@ -249,7 +249,7 @@ function BlogArticle() {
 
             {/* Contextual next steps for the high-visibility lower-back exercise article */}
             {post.slug === "best-exercises-for-lower-back-pain" && (
-              <section className="mt-10 rounded-[1.75rem] border border-border bg-surface p-6">
+              <section className="mt-10 rounded-xl border border-border bg-surface p-6">
                 <h2 className="font-heading text-xl font-bold text-foreground">
                   When exercises are not enough
                 </h2>
@@ -286,7 +286,7 @@ function BlogArticle() {
             )}
 
             {/* Conversion CTA */}
-            <div className="mt-12 overflow-hidden rounded-[2rem] bg-gradient-to-br from-primary to-secondary p-8 text-center shadow-card">
+            <div className="mt-12 overflow-hidden rounded-xl bg-primary p-8 text-center shadow-card">
               <h2 className="font-heading text-2xl font-extrabold text-primary-foreground">
                 Have a question about this?
               </h2>
@@ -339,7 +339,7 @@ function BlogArticle() {
             />
 
             {/* Share */}
-            <div className="rounded-[1.75rem] border border-border bg-card p-6 shadow-soft">
+            <div className="rounded-xl border border-border bg-card p-6 shadow-soft">
               <p className="text-sm font-bold text-foreground">Share this article</p>
               <div className="mt-3 flex gap-2">
                 <a
@@ -365,7 +365,7 @@ function BlogArticle() {
 
             {/* Related services */}
             {services.length > 0 && (
-              <div className="rounded-[1.75rem] border border-border bg-card p-6 shadow-soft">
+              <div className="rounded-xl border border-border bg-card p-6 shadow-soft">
                 <p className="text-sm font-bold text-foreground">Related Services</p>
                 <ul className="mt-3 space-y-2">
                   {services.map((s) => (
@@ -386,7 +386,7 @@ function BlogArticle() {
 
             {/* Related conditions */}
             {conditions.length > 0 && (
-              <div className="rounded-[1.75rem] border border-border bg-card p-6 shadow-soft">
+              <div className="rounded-xl border border-border bg-card p-6 shadow-soft">
                 <p className="text-sm font-bold text-foreground">Related Conditions</p>
                 <ul className="mt-3 space-y-2">
                   {conditions.map((c) => (
