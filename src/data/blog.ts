@@ -1982,7 +1982,7 @@ export const blogPosts: BlogPost[] = [
     sections: [
       {
         paragraphs: [
-          "Agar aap kamar dard ki exercise dhoond rahe hain, to pehle gentle, controlled movement se start karein. Har patient ke liye ek hi exercise best nahi hoti: exercise ka selection symptoms, examination findings aur movement response ke mutabiq hota hai. Jo movement comfortable ho aur function ko support kare, usay gradually build karein. Pain leg mein aur neeche spread ho, numbness ya weakness barhe to routine continue na karein."
+          "Agar aap kamar dard ki exercise dhoond rahe hain, to pehle gentle, controlled movement se start karein. Har patient ke liye ek hi exercise best nahi hoti: exercise ka selection symptoms, examination findings aur movement response ke mutabiq hota hai. Jo movement comfortable ho aur function ko support kare, usay gradually build karein. Pain leg mein aur neeche spread ho, numbness ya weakness barhe to routine continue na karein.",
         ],
       },
       {
@@ -2016,7 +2016,7 @@ export const blogPosts: BlogPost[] = [
       {
         heading: "How to start and progress safely",
         paragraphs: [
-          "Tamam six exercises ek hi session mein karna zaroori nahi. Pehle 1–2 comfortable movements choose karein aur 1 set se start karein; tolerance achi ho to 1–2 sets tak progress karein. Mobility daily ki ja sakti hai, jabke strengthening aam tor par haftay mein 2–3 din se start hoti hai. Mild muscular effort acceptable ho sakta hai, lekin sharp pain, leg symptoms ka aur neeche spread hona, nayi numbness ya weakness aaye to exercise rok dein aur assessment lein. Agar aglay din symptoms noticeably worse hon to range, repetitions ya load kam karein."
+          "Tamam six exercises ek hi session mein karna zaroori nahi. Pehle 1–2 comfortable movements choose karein aur 1 set se start karein; tolerance achi ho to 1–2 sets tak progress karein. Mobility daily ki ja sakti hai, jabke strengthening aam tor par haftay mein 2–3 din se start hoti hai. Mild muscular effort acceptable ho sakta hai, lekin sharp pain, leg symptoms ka aur neeche spread hona, nayi numbness ya weakness aaye to exercise rok dein aur assessment lein. Agar aglay din symptoms noticeably worse hon to range, repetitions ya load kam karein.",
         ],
       },
       {
