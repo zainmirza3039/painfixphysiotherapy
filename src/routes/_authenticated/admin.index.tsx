@@ -163,6 +163,7 @@ function DashboardPage() {
             to="/admin/home-visits"
             count={newVisits.length}
             empty="No home visit requests have been received."
+            isEmpty={(data?.visits.length ?? 0) === 0}
           >
             {(data?.visits ?? []).slice(0, 6).map((visit) => (
               <li key={visit.id} className="flex min-w-0 items-center justify-between gap-3 py-3">
@@ -187,6 +188,7 @@ function DashboardPage() {
             to="/admin/messages"
             count={unreadMessages.length}
             empty="No enquiries have been received."
+            isEmpty={(data?.messages.length ?? 0) === 0}
           >
             {(data?.messages ?? []).slice(0, 6).map((message) => (
               <li key={message.id} className="flex min-w-0 items-center justify-between gap-3 py-3">
@@ -244,12 +246,14 @@ function ActivityPanel({
   to,
   count,
   empty,
+  isEmpty,
   children,
 }: {
   title: string;
   to: "/admin/home-visits" | "/admin/messages";
   count: number;
   empty: string;
+  isEmpty: boolean;
   children: React.ReactNode;
 }) {
   return (
@@ -269,7 +273,7 @@ function ActivityPanel({
       </div>
       <ul className="divide-y divide-border px-4">
         {children}
-        {!children && <li className="py-8 text-center text-xs text-muted-foreground">{empty}</li>}
+        {isEmpty && <li className="py-8 text-center text-xs text-muted-foreground">{empty}</li>}
       </ul>
     </section>
   );
