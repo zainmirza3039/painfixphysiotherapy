@@ -38,7 +38,7 @@ export function ClinicianPortrait({
     <div
       role="img"
       aria-label={`${name}, ${role}; portrait not provided`}
-      className={`relative grid place-items-center overflow-hidden bg-gradient-to-br from-primary/15 via-accent to-secondary/20 ${className}`}
+      className={`relative grid place-items-center overflow-hidden bg-accent ${className}`}
     >
       <span
         aria-hidden="true"
