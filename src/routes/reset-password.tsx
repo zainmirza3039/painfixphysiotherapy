@@ -58,7 +58,7 @@ function ResetPasswordPage() {
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-surface px-4 py-12">
-      <div className="w-full max-w-md rounded-3xl border border-border bg-card p-8 shadow-card">
+      <div className="w-full max-w-md rounded-xl border border-border bg-card p-8 shadow-card">
         <h1 className="font-heading text-lg font-bold text-foreground">Set a new password</h1>
         <p className="mt-1 text-sm text-muted-foreground">
           {ready
