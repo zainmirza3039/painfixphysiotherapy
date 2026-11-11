@@ -43,3 +43,22 @@ test("sitemap remains available when optional dynamic listings fail", async () =
   assert.match(sitemap, /internshipEntries = \[\]/);
   assert.doesNotMatch(sitemap, /status: 503/);
 });
+
+test("Multan physiotherapy service page links to booking and home-visit journeys", async () => {
+  const component = await read("src/components/site/LocalLandingPage.tsx");
+  const sitemap = await read("src/routes/sitemap[.]xml.ts");
+  assert.match(component, /page\.slug === "physiotherapy-in-multan"/);
+  assert.match(component, /to="\\/physiotherapist-in-multan"/);
+  assert.match(component, /to="\\/home-visit"/);
+  assert.match(sitemap, /\.\.\.localPages\.map/);
+});
+
+test("homepage, service-information and booking pages retain distinct page intent", async () => {
+  const homepage = await read("src/routes/index.tsx");
+  const localPages = await read("src/data/localPages.ts");
+  assert.match(homepage, /const TITLE = "Physiotherapist in Multan \\| PainFix Physiotherapy Clinic"/);
+  assert.match(localPages, /metaTitle: "Physiotherapy in Multan \\| PainFix Clinic"/);
+  assert.match(localPages, /metaTitle: "Book a Physiotherapist in Multan \\| PainFix Clinic"/);
+  assert.match(localPages, /heading: "Physiotherapy services in Multan"/);
+  assert.match(localPages, /heading: "What happens at your first physiotherapy appointment\\?"/);
+});
