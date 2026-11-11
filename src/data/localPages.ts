@@ -40,13 +40,13 @@ export const localPages: LocalPage[] = [
     heroSubtitle:
       "Evidence-based physiotherapy and rehabilitation for pain, injury and movement problems in Multan — at our Shalimar Colony clinic or at home.",
     quickAnswer:
-      "PainFix Physiotherapy Clinic provides physiotherapy in Multan from Usman Raja Market near Khair Ul Maarif School, Shalimar Colony. Care includes clinical assessment, exercise therapy, manual therapy, electrotherapy, sports and post-surgical rehabilitation, plus selected home visits across Multan. Contact the clinic to discuss your symptoms and book an appropriate assessment.",
+      "PainFix Physiotherapy Clinic provides physiotherapy in Multan from Usman Raja Market near Khair Ul Maarif School, Shalimar Colony. Care includes clinical assessment, exercise therapy, manual therapy, electrotherapy, sports and post-surgical rehabilitation, plus home physiotherapy visits across Multan, with each appointment confirmed against the address, clinician schedule and care needs. Contact the clinic to discuss your symptoms and book an appropriate assessment.",
     keyTakeaways: [
       "Physiotherapy clinic in Shalimar Colony, Multan",
       "Assessment-led plans for pain, injury and rehabilitation",
       "Exercise therapy, manual therapy and electrotherapy",
       "Sports, post-surgical and neurological rehabilitation options",
-      "Selected home physiotherapy visits across Multan",
+      "Home physiotherapy visits available across Multan",
     ],
     sections: [
       {
@@ -59,8 +59,8 @@ export const localPages: LocalPage[] = [
       {
         heading: "Clinic physiotherapy and home visits across Multan",
         paragraphs: [
-          "The PainFix clinic is located at Usman Raja Market, near Khair Ul Maarif School, Shalimar Colony, Multan. Patients who can attend the clinic can receive assessment and supervised rehabilitation there. Selected home visits are also available across Multan when travel is difficult, including for some older, post-surgical or mobility-limited patients.",
-          "Service availability depends on the location, clinician schedule and the type of care needed. Contact the clinic before travelling or booking a home visit so the appropriate option can be confirmed.",
+          "The PainFix clinic is located at Usman Raja Market, near Khair Ul Maarif School, Shalimar Colony, Multan. Patients who can attend the clinic can receive assessment and supervised rehabilitation there. Home physiotherapy visits can be requested from any area of Multan, including for patients who are older, recovering after surgery or have difficulty travelling.",
+          "For every request, PainFix confirms the address, clinician schedule and suitability of the care before finalising the home visit.",
         ],
       },
       {
@@ -94,7 +94,7 @@ export const localPages: LocalPage[] = [
     faqs: [
       {
         q: "Where can I get physiotherapy in Multan?",
-        a: "PainFix Physiotherapy Clinic is located at Usman Raja Market, near Khair Ul Maarif School, Shalimar Colony, Multan. Selected home visits are also available across Multan after confirmation.",
+        a: "PainFix Physiotherapy Clinic is located at Usman Raja Market, near Khair Ul Maarif School, Shalimar Colony, Multan. Home physiotherapy visits can be requested from any area of Multan; the address, clinician schedule and care requirements are confirmed before booking.",
       },
       {
         q: "What conditions does a physiotherapist in Multan treat?",
@@ -106,7 +106,7 @@ export const localPages: LocalPage[] = [
       },
       {
         q: "Does PainFix offer home physiotherapy in Multan?",
-        a: "Selected home physiotherapy visits are available across Multan. Contact the clinic with your location and mobility needs so availability and suitability can be confirmed.",
+        a: "Home physiotherapy visits can be requested from any area of Multan. Contact the clinic with your full address and care needs so the clinician schedule and appointment can be confirmed.",
       },
     ],
   },
@@ -120,13 +120,13 @@ export const localPages: LocalPage[] = [
     heroSubtitle:
       "Arrange a physiotherapy assessment at PainFix in Shalimar Colony, Multan. Understand your first visit, treatment planning and available appointment options.",
     quickAnswer:
-      "To book a physiotherapy assessment at PainFix, call or WhatsApp 0314-3039582. The first appointment includes a clinical history, movement and functional assessment, discussion of your goals, and an agreed treatment plan. The clinic is at Usman Raja Market near Khair Ul Maarif School, Shalimar Colony, Multan. Selected home visits can be arranged after confirming suitability and availability.",
+      "To book a physiotherapy assessment at PainFix, call or WhatsApp 0314-3039582. The first appointment includes a clinical history, movement and functional assessment, discussion of your goals, and an agreed treatment plan. The clinic is at Usman Raja Market near Khair Ul Maarif School, Shalimar Colony, Multan. Home physiotherapy visits can be requested from any area of Multan. The address, clinician schedule and suitability of care are confirmed before booking.",
     keyTakeaways: [
       "Book by phone or WhatsApp at 0314-3039582",
       "First visit includes history, examination and goal setting",
       "Treatment options are discussed after clinical assessment",
       "Clinic appointments in Shalimar Colony, Multan",
-      "Selected home visits available after confirmation",
+      "Home visits available across Multan after address and schedule confirmation",
     ],
     sections: [
       {
@@ -153,7 +153,7 @@ export const localPages: LocalPage[] = [
         heading: "Clinic appointments and home visits in Multan",
         paragraphs: [
           "PainFix Physiotherapy Clinic is at Usman Raja Market, near Khair Ul Maarif School, Shalimar Colony, Multan. Clinic hours are Monday to Saturday, 11:00 AM to 4:00 PM. Sunday is available by appointment only.",
-          "Selected home visits may be available for patients whose mobility or clinical needs make travel difficult. Contact the clinic before booking so the location, clinician availability and suitability of a home visit can be confirmed.",
+          "Home physiotherapy visits can be requested from any area of Multan, particularly when mobility or clinical needs make travel difficult. Contact the clinic with your full address so clinician availability and suitability can be confirmed before booking.",
         ],
       },
     ],
@@ -189,7 +189,7 @@ export const localPages: LocalPage[] = [
       },
       {
         q: "Can I book a home physiotherapy visit in Multan?",
-        a: "Selected home visits may be available depending on your location, mobility needs, clinician schedule and the type of care required. Contact the clinic to confirm suitability and availability.",
+        a: "Home physiotherapy visits can be requested from any area of Multan. The clinic confirms your address, clinician schedule and suitability of the requested care before finalising an appointment.",
       },
       {
         q: "What are PainFix clinic timings?",
@@ -288,7 +288,7 @@ export const localPages: LocalPage[] = [
     title: "Physiotherapy Clinic in Multan",
     metaTitle: "Physiotherapy Clinic in Multan | PainFix — Shalimar Colony",
     metaDescription:
-      "PainFix in Shalimar Colony, Multan offers manual therapy, electrotherapy, rehabilitation and selected home physiotherapy visits.",
+      "PainFix in Shalimar Colony, Multan offers manual therapy, electrotherapy, rehabilitation and home physiotherapy visits across Multan.",
     heroSubtitle:
       "A modern, fully equipped physiotherapy clinic in Shalimar Colony, Multan — complete assessment, treatment and rehabilitation under one roof.",
     quickAnswer:

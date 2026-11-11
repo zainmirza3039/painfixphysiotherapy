@@ -66,3 +66,17 @@ test("homepage, service-information and booking pages retain distinct page inten
     localPages.includes('heading: "What happens at your first physiotherapy appointment?"'),
   );
 });
+
+test("local Multan landing pages describe home visits as available citywide", async () => {
+  const localPages = await read("src/data/localPages.ts");
+  const homeVisit = await read("src/routes/home-visit.tsx");
+
+  assert.match(localPages, /Home physiotherapy visits available across Multan/);
+  assert.match(localPages, /requested from any area of Multan/);
+  assert.doesNotMatch(
+    localPages,
+    /Selected home visits|Selected home physiotherapy visits|selected home visits/i,
+  );
+  assert.match(homeVisit, /PainFix provides home physiotherapy visits across Multan/);
+  assert.match(homeVisit, /تمام علاقوں میں گھر پر فزیوتھراپی وزٹس/);
+});
