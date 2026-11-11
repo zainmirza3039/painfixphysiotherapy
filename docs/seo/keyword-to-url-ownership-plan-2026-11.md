@@ -1,6 +1,6 @@
 # PainFix SEO Keyword-to-URL Ownership Plan
 
-**Status:** Proposal for review only — no production SEO changes authorised  
+**Status:** Approved keyword ownership strategy; implementation is under review in PR #96  
 **Prepared:** 11 November 2026  
 **Source:** User-supplied SEMrush Keyword Magic exports and consolidated keyword list, plus Pakistan-filtered Google Search Console data (12 Oct–10 Nov 2026).
 
@@ -18,7 +18,7 @@
 
 **Preferred URL:** `/`  
 **Primary keyword:** Physiotherapist in Multan  
-**Secondary cluster:** Best physiotherapist in Multan; physiotherapist Multan; physiotherapy clinic in Multan; best physiotherapy clinic in Multan; physiotherapy near me; physiotherapist near me; physical therapist in Multan; physiotherapy services in Multan (brand/local discovery only).
+**Secondary cluster:** Physiotherapy in Multan; physiotherapy clinic in Multan; best physiotherapist in Multan; physiotherapist Multan; best physiotherapy clinic in Multan; physiotherapy near me; physiotherapist near me; physical therapist in Multan; general physiotherapy treatment in Multan.
 
 ### GSC evidence (Pakistan filter; 12 Oct–10 Nov 2026)
 
@@ -34,7 +34,7 @@
 
 **Decision:** The homepage is the best-supported primary local-discovery URL based on this recent sample. Keep the primary wording “Physiotherapist in Multan”; use “Best Physiotherapist in Multan” and “Physiotherapy Clinic in Multan” as secondary variants, not competing H1s.
 
-**Important limitation:** This report does not establish that `/physiotherapy-clinic-in-multan` has zero impressions. Its page-level/query-level ownership still needs a full Search Console export or suitable page-filtered data before consolidation decisions. Do not redirect `/physiotherapist-in-multan` or `/physiotherapy-clinic-in-multan` yet. The booking route remains a conversion workflow, not the default SEO landing page.
+**Implementation decision:** All broad/local physiotherapy discovery terms belong to `/`. The old `/physiotherapist-in-multan`, `/physiotherapy-in-multan` and `/physiotherapy-clinic-in-multan` landing URLs permanently redirect to `/`. The existing `/best-physiotherapist-in-multan` redirect remains. `/book-appointment` stays as the separate conversion workflow.
 
 ## 3. Proposed URL ownership map
 
@@ -42,9 +42,10 @@
 |---|---|---|
 | Local physiotherapist/clinic discovery in Multan | `/` | Homepage owns primary local discovery cluster |
 | Home physiotherapy and home visits | `/home-visit` | Dedicated conversion page; homepage section links here |
-| General physiotherapy service information in Multan | `/physiotherapy-in-multan` | Explain services, modalities, assessment and links |
+| Broad physiotherapy service and local discovery terms | `/` | Homepage owns broad Multan and near-me discovery variants; explain actual services/modalities and link to dedicated service/condition pages |
 | Appointment scheduling | `/book-appointment` | Keep as conversion flow; do not force it to own local discovery |
-| Back pain / lumbar pain / slipped-disc-related physiotherapy | `/conditions/back-pain` | Add relevant disc/lumbar subtopics only where clinically accurate |
+| Back pain / lumbar pain | `/conditions/back-pain` | Nonspecific lumbar and back-pain treatment intent |
+| Slipped disc / disc bulge / herniated disc | `/conditions/slipped-disc` | Use the existing dedicated condition page; keep disc-specific content separate from general back-pain intent |
 | Sciatica / radiating leg pain | `/conditions/sciatica` | Condition/treatment intent; link to exercise education |
 | Neck pain / cervical pain | `/conditions/neck-pain` | Condition/treatment intent |
 | Frozen shoulder | `/conditions/frozen-shoulder` | Condition/treatment intent; stage- and irritability-aware content |
@@ -58,9 +59,9 @@
 ### Local pages requiring careful separation
 
 - `/`: clinic identity, local discovery, clinicians, location, services and strong appointment/home-visit paths.
-- `/physiotherapist-in-multan`: existing appointment/booking-oriented local landing page. Preserve until its query ownership and conversion role are audited.
-- `/physiotherapy-clinic-in-multan`: clinic-specific landing page. Potential overlap with homepage; do not consolidate without page-level evidence.
-- `/physiotherapy-in-multan`: broad service-information landing page.
+- `/physiotherapist-in-multan`: permanently redirects to `/`; booking CTA points to `/book-appointment`.
+- `/physiotherapy-clinic-in-multan`: permanently redirects to `/`.
+- `/physiotherapy-in-multan`: permanently redirects to `/`.
 - `/home-visit`: home-visit service and enquiry conversion.
 
 ## 4. SEMrush volume-bearing terms supplied by the user
@@ -115,7 +116,7 @@ Other volume figures previously transcribed but not sufficiently clear: herniate
 - physiotherapy charges per session Multan
 - affordable physiotherapy treatment Multan
 - physiotherapist in Multan (duplicate exact wording retained as one cluster)
-- physiotherapy in Multan (homepage may appear, but service-information ownership remains `/physiotherapy-in-multan`; avoid competing copy)
+- physiotherapy in Multan (homepage owns this broad local discovery query)
 
 ### B. Home physiotherapy / home visit
 
@@ -150,35 +151,23 @@ Other volume figures previously transcribed but not sufficiently clear: herniate
 - home visit physiotherapist
 - physiotherapy at home in Multan
 
-### C. Back pain / lumbar pain / disc bulge / slipped disc
+### C. Back pain / lumbar pain
 
-**Preferred URL:** `/conditions/back-pain` (do not create a separate slipped-disc URL without demand and content approval)
+**Preferred URL:** `/conditions/back-pain` for general back and lumbar pain. Use the existing `/conditions/slipped-disc` page for disc-specific treatment intent; do not combine the two clusters by default.
 
 - back pain treatment Multan
 - back pain treatment in Multan
 - lower back pain doctor in Multan
-- slipped disc treatment without surgery Multan
-- slipped disc treatment Multan
-- disc slip treatment Multan
-- disc slip treatment in Pakistan
-- herniated disc treatment in Pakistan
-- disc bulge treatment in Pakistan
-- disc slip treatment medicine
-- disc slip doctor in Pakistan
-- disc bulging treatment physiotherapy
 - backache physiotherapy
 - back pain physiotherapy treatment
-- physiotherapy for bulging disc
 - physiotherapy for chronic back pain
 - manual therapy for back pain
 - best physiotherapy treatment for back pain
-- can physiotherapy treat slipped disc
 - kamar dard ka ilaj Multan
 - kamar dard ki physiotherapy Multan
 - kamar dard ka doctor Multan
 - kamar dard ka ilaj baghair operation
 - kamar mein nas dabne ka ilaj
-- slip disc ka ilaj Multan
 - lower back pain treatment
 - back pain treatment
 - back pain and leg numbness treatment (cross-link with sciatica/nerve symptoms as appropriate)
@@ -188,6 +177,23 @@ Other volume figures previously transcribed but not sufficiently clear: herniate
 - kamar dard ki exercise (existing exercise blog retains ownership)
 - kamar dard exercise
 - kamar dard ka ilaj exercise
+
+### C2. Slipped disc / disc bulge / herniated disc
+
+**Preferred URL:** `/conditions/slipped-disc`
+
+- slipped disc treatment without surgery Multan
+- slipped disc treatment Multan
+- disc slip treatment Multan
+- disc slip treatment in Pakistan
+- herniated disc treatment in Pakistan
+- disc bulge treatment in Pakistan
+- disc slip treatment medicine (informational intent only; do not prescribe)
+- disc slip doctor in Pakistan
+- disc bulging treatment physiotherapy
+- physiotherapy for bulging disc
+- can physiotherapy treat slipped disc
+- slip disc ka ilaj Multan
 
 ### D. Sciatica / radiating leg pain
 
@@ -428,7 +434,6 @@ Map each phrase to the relevant clinical cluster above; use Roman Urdu naturally
 - pair mein nas ka dard ka ilaj
 - bazu mein sunpan ka ilaj
 - pathon ke dard ka ilaj
-- slip disc ka ilaj Multan
 - sciatica ka ilaj Multan
 - joron ke dard ki physiotherapy Multan
 
@@ -459,16 +464,15 @@ Recent Pakistan-filtered GSC data shows:
 
 Do not change ownership of these proven informational queries without new evidence.
 
-## 8. Implementation sequence (requires approval)
+## 8. Implementation sequence
 
-1. Export page-level and query-level GSC data for the homepage, `/physiotherapist-in-multan`, `/physiotherapy-clinic-in-multan` and `/physiotherapy-in-multan` for the same date window. The current connector's available historical range may be limited.
-2. Verify actual condition/service/blog routes and whether PainFix offers each named service.
-3. Approve the ownership map and any page consolidation decision.
-4. Optimise homepage copy/section hierarchy for local discovery without changing its existing URL or breaking existing ranking ownership.
-5. Optimise `/home-visit` for home-service intent; homepage HomePhysio section links to it.
-6. Add secondary disease terms to the correct existing condition/service pages; preserve distinct exercise/symptom blogs.
-7. Add contextual internal links and FAQs; avoid keyword stuffing and unsupported clinical claims.
-8. Add automated tests for canonical URLs, redirects, metadata, and intended homepage/landing-page separation.
-9. Run tests, lint, typecheck and production build; inspect preview before any production release.
+1. Make the homepage the sole destination for broad/local physiotherapy discovery keywords.
+2. Permanently redirect the old broad local landing URLs to `/`.
+3. Make `/home-visit` the sole destination for home-physiotherapy and home-visit keywords; permanently redirect `/services/home-physiotherapy` to `/home-visit`.
+4. Keep `/book-appointment` as the booking workflow.
+5. Keep dedicated condition pages, treatment modality pages and informational blogs for their distinct intent.
+6. Keep actual treatment modalities (manual therapy, exercise therapy, electrotherapy and rehabilitation where provided) visible on the homepage and their dedicated service pages. Do not remove truthful service claims as part of URL consolidation.
+7. Update internal links and sitemap so redirected URLs are not advertised as canonical destinations.
+8. Verify redirect behavior, run tests, lint, typecheck and production build, and inspect preview before production release.
 
-**No redirects, canonical changes, page deletions, production deployment or merge are included in this planning proposal.**
+**Condition pages, modality pages and informational exercise/symptom blogs are not included in these redirects.**

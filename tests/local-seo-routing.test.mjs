@@ -5,26 +5,22 @@ import test from "node:test";
 const root = new URL("../", import.meta.url);
 const vercel = JSON.parse(readFileSync(new URL("vercel.json", root), "utf8"));
 const sitemap = readFileSync(new URL("src/routes/sitemap[.]xml.ts", root), "utf8");
-const bookingRoute = readFileSync(
-  new URL("src/routes/physiotherapist-in-multan.tsx", root),
-  "utf8",
-);
 const translations = readFileSync(new URL("src/i18n/translations.ts", root), "utf8");
 const homeVisitRoute = readFileSync(new URL("src/routes/home-visit.tsx", root), "utf8");
 
-test("booking-intent landing page is no longer redirected to the homepage", () => {
-  assert.equal(
-    vercel.redirects.some((rule) => rule.source === "/physiotherapist-in-multan"),
-    false,
+test("broad physiotherapist landing URL permanently redirects to the homepage", () => {
+  assert.ok(
+    vercel.redirects.some(
+      (rule) =>
+        rule.source === "/physiotherapist-in-multan" && rule.destination === "/" && rule.permanent,
+    ),
   );
-  assert.ok(bookingRoute.includes('createFileRoute("/physiotherapist-in-multan")'));
-  assert.ok(bookingRoute.includes("localPageHead(page)"));
 });
 
-test("booking landing page remains eligible for the canonical sitemap", () => {
+test("redirected broad local landing pages are excluded from the canonical sitemap", () => {
   assert.ok(sitemap.includes("...localPages.map"));
-  assert.ok(sitemap.includes('new Set(["/best-physiotherapist-in-multan"])'));
-  assert.ok(!sitemap.includes('"physiotherapist-in-multan",'));
+  assert.ok(sitemap.includes('"/physiotherapist-in-multan"'));
+  assert.ok(sitemap.includes("redirectedLandingPaths.has(entry.path)"));
 });
 
 test("home-visit page confirms Multan-wide coverage in both languages and keeps areas as examples", () => {

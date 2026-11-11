@@ -6,6 +6,26 @@
       "source": "/best-physiotherapist-in-multan",
       "destination": "/",
       "permanent": true
+    },
+    {
+      "source": "/physiotherapist-in-multan",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/physiotherapy-in-multan",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/physiotherapy-clinic-in-multan",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/services/home-physiotherapy",
+      "destination": "/home-visit",
+      "permanent": true
     }
   ]
 }
