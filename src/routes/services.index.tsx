@@ -136,8 +136,8 @@ function ServicesIndex() {
       <section className="border-t border-border bg-surface py-10">
         <div className="mx-auto max-w-4xl px-4 text-center sm:px-6 lg:px-8">
           <p className="text-sm leading-7 text-muted-foreground">
-            Looking for a physiotherapist in Multan? Visit our homepage for clinic information, local
-            physiotherapy options and appointment details.{" "}
+            Looking for a physiotherapist in Multan? Visit our homepage for clinic information,
+            local physiotherapy options and appointment details.{" "}
             <Link
               to="/"
               className="font-semibold text-primary underline underline-offset-4 hover:text-secondary"
