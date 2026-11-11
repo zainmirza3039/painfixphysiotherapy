@@ -26,5 +26,5 @@ test("home-visit page lists only the confirmed Multan coverage areas in both lan
     assert.ok(translations.includes(area), `Missing area: ${area}`);
   }
   assert.ok(translations.includes("گھر پر فزیوتھراپی کے وزٹس ملتان کے منتخب علاقوں میں دستیاب ہیں"));
-  assert.ok(homeVisitRoute.includes("selected areas including Royal Orchard, DHA Multan, Bosan Road and Shalimar Colony"));
+  assert.ok(homeVisitRoute.includes("Royal Orchard, DHA Multan, Bosan Road and nearby areas"));
 });

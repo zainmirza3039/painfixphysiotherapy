@@ -27,7 +27,7 @@ import { pageMeta, canonical, breadcrumbLd } from "@/lib/seo";
 
 const TITLE = "Home Physiotherapy in Multan | Book a Home Visit — PainFix";
 const DESCRIPTION =
-  "Request home physiotherapy in Multan for pain, mobility limits or post-surgical rehabilitation. Visits are available in selected areas including Royal Orchard, DHA Multan, Bosan Road and Shalimar Colony; confirm your location and appointment first.";
+  "Home physiotherapy in Multan for pain, mobility and post-surgical recovery. Ask about visits in Royal Orchard, DHA Multan, Bosan Road and nearby areas.";
 
 export const Route = createFileRoute("/home-visit")({
   head: () => ({
