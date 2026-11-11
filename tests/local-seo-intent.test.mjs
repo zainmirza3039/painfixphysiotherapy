@@ -29,7 +29,7 @@ test("Kamar Dard exercise guide targets the exercise query with practical safety
   const source = await read("src/data/blog.ts");
   const start = source.indexOf('slug: "best-exercises-for-lower-back-pain"');
   assert.notEqual(start, -1);
-  const end = source.indexOf("\\n  },", start);
+  const end = source.indexOf("\n  },", start);
   const article = source.slice(start, end);
 
   assert.ok(article.includes('title: "Kamar Dard Ki 6 Exercises: Reps, Form & Safety"'));
@@ -46,6 +46,8 @@ test("Kamar Dard exercise guide targets the exercise query with practical safety
   const safetyEnd = source.indexOf("\\n  },", safetyStart);
   const safetyArticle = source.slice(safetyStart, safetyEnd);
   assert.ok(safetyArticle.includes('seoTitle: "Safe Lower-Back Exercises: Kamar Dard Guide"'));
+  const articleRoute = await read("src/routes/blog.$slug.tsx");
+  assert.match(articleRoute, /slug: "safe-kamar-dard-exercises"/);
 });
 
 test("root-level best physiotherapist landing URL consolidates to the homepage", async () => {
