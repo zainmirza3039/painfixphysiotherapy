@@ -765,27 +765,19 @@
 .home-team-list {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
-  gap: 1.25rem;
-}
-
-@media (min-width: 768px) {
-  .home-team-list {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 1.5rem;
-  }
+  gap: 1.5rem;
 }
 
 .home-team-card {
   display: grid;
-  grid-template-columns: 6rem minmax(0, 1fr);
-  align-items: start;
-  gap: 1.25rem;
+  grid-template-columns: minmax(15rem, 0.38fr) minmax(0, 1fr);
+  align-items: stretch;
+  gap: clamp(1.5rem, 3vw, 2.5rem);
   min-width: 0;
-  height: 100%;
   border: 1px solid var(--border);
   border-radius: 1.25rem;
-  background: var(--surface);
-  padding: clamp(1.1rem, 2.5vw, 1.6rem);
+  background: var(--card);
+  padding: clamp(1rem, 2.5vw, 1.5rem);
   box-shadow: 0 8px 28px rgba(3, 46, 97, 0.055);
   transition: border-color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
 }
@@ -799,11 +791,13 @@
 .home-team-card__portrait,
 .home-team-row__portrait {
   display: block;
-  width: 6rem;
-  height: 6rem;
-  border-radius: 1rem;
+  width: 100%;
+  height: 100%;
+  min-height: 18rem;
+  border-radius: 0.9rem;
   background: var(--accent);
   object-fit: cover;
+  object-position: center 20%;
 }
 
 .home-team-card__portrait[role="img"],
@@ -811,19 +805,70 @@
   background: var(--accent);
 }
 
-@media (max-width: 480px) {
+.home-team-card > div:last-child {
+  align-self: center;
+  min-width: 0;
+  padding-block: 0.75rem;
+}
+
+.home-team-card h3 {
+  font-family: var(--font-sans);
+  font-size: clamp(1.55rem, 2.3vw, 2rem);
+  font-weight: 750;
+  letter-spacing: -0.035em;
+  line-height: 1.15;
+}
+
+.home-team-card p {
+  text-wrap: pretty;
+}
+
+@media (max-width: 767px) {
   .home-team-card {
-    grid-template-columns: 4.75rem minmax(0, 1fr);
-    gap: 0.9rem;
+    grid-template-columns: minmax(9rem, 0.38fr) minmax(0, 1fr);
+    gap: 1.1rem;
     border-radius: 1rem;
-    padding: 1rem;
+    padding: 0.85rem;
   }
 
   .home-team-card__portrait,
   .home-team-row__portrait {
-    width: 4.75rem;
-    height: 4.75rem;
-    border-radius: 0.85rem;
+    min-height: 14rem;
+    border-radius: 0.75rem;
+  }
+
+  .home-team-card > div:last-child {
+    padding-block: 0.35rem;
+  }
+
+  .home-team-card h3 {
+    font-size: 1.35rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .home-team-card {
+    grid-template-columns: minmax(7rem, 0.36fr) minmax(0, 1fr);
+    gap: 0.85rem;
+    padding: 0.7rem;
+  }
+
+  .home-team-card__portrait,
+  .home-team-row__portrait {
+    min-height: 11rem;
+  }
+
+  .home-team-card h3 {
+    font-size: 1.18rem;
+  }
+
+  .home-team-card .text-sm {
+    font-size: 0.8rem;
+    line-height: 1.45;
+  }
+
+  .home-team-card .text-xs {
+    font-size: 0.7rem;
   }
 }
 
