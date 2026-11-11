@@ -271,7 +271,16 @@ function BlogArticle() {
                   >
                     back pain condition and physiotherapy options
                   </Link>
-                  before deciding on your next step.
+                  before deciding on your next step. For exercise-specific stop signals and safe
+                  progression, read our
+                  <Link
+                    to="/blog/$slug"
+                    params={{ slug: "safe-kamar-dard-exercises" }}
+                    className="mx-1 font-semibold text-primary underline underline-offset-4"
+                  >
+                    safe lower-back exercise guide
+                  </Link>
+                  as well.
                 </p>
               </section>
             )}
