@@ -275,7 +275,7 @@ export function Navbar({ onlineClinician }: { onlineClinician?: TeamMember }) {
   const navClass = (path: string) =>
     `${linkClass} ${isRouteActive(path) ? "bg-accent text-primary" : ""}`;
   const mobileNavClass = (path: string) =>
-    `rounded-xl px-4 py-3.5 text-base font-medium transition-colors ${isRouteActive(path) ? "bg-accent text-primary" : "text-foreground/85 hover:bg-accent hover:text-primary"}`;
+    `rounded-md px-4 py-3.5 text-base font-medium transition-colors ${isRouteActive(path) ? "bg-accent text-primary" : "text-foreground/85 hover:bg-accent hover:text-primary"}`;
 
   /* Sticky smart header: show near top, hide on scroll down, reveal on scroll up. */
   useEffect(() => {
@@ -365,7 +365,7 @@ export function Navbar({ onlineClinician }: { onlineClinician?: TeamMember }) {
   return (
     <>
       <header
-        className={`fixed inset-x-0 top-0 z-50 border-b border-border/80 bg-background/95 backdrop-blur shadow-soft transition-all duration-300 will-change-transform ${hidden && !open ? "-translate-y-full" : "translate-y-0"}`}
+        className={`fixed inset-x-0 top-0 z-50 border-b border-border/80 bg-background shadow-sm transition-all duration-300 will-change-transform ${hidden && !open ? "-translate-y-full" : "translate-y-0"}`}
       >
         {/* Compact clinic location strip with a lightweight Google Maps preview. */}
         <div className={`border-b border-border/70 ${scrolled ? "h-9" : "h-10"}`}>
@@ -421,7 +421,7 @@ export function Navbar({ onlineClinician }: { onlineClinician?: TeamMember }) {
             className="flex min-w-0 items-center gap-2.5"
             aria-current={pathname === "/" ? "page" : undefined}
           >
-            <span className="grid h-11 w-11 shrink-0 place-items-center overflow-hidden rounded-xl bg-background shadow-soft ring-1 ring-border">
+            <span className="grid h-11 w-11 shrink-0 place-items-center overflow-hidden rounded-md bg-background ring-1 ring-border">
               <img
                 src="/painfix-logo-96.webp"
                 alt="PainFix Physiotherapy Clinic logo"
@@ -491,7 +491,7 @@ export function Navbar({ onlineClinician }: { onlineClinician?: TeamMember }) {
                   <div
                     id="desktop-services-menu"
                     role="menu"
-                    className="grid w-[46rem] grid-cols-[1.4fr_1fr] gap-2 overflow-hidden rounded-2xl border border-border bg-card p-3 shadow-card animate-fade-in"
+                    className="grid w-[46rem] grid-cols-[1.4fr_1fr] gap-2 overflow-hidden rounded-lg border border-border bg-card p-3 shadow-md animate-fade-in"
                   >
                     {/* Left: Core Services */}
                     <div>
@@ -600,7 +600,7 @@ export function Navbar({ onlineClinician }: { onlineClinician?: TeamMember }) {
                   <div
                     role="menu"
                     id="desktop-conditions-menu"
-                    className="w-[34rem] overflow-hidden rounded-2xl border border-border bg-card p-3 shadow-card animate-fade-in"
+                    className="w-[34rem] overflow-hidden rounded-lg border border-border bg-card p-3 shadow-md animate-fade-in"
                   >
                     <p className="px-2 pb-1.5 text-[11px] font-bold uppercase tracking-wide text-muted-foreground">
                       Conditions We Treat
