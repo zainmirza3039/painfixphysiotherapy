@@ -130,7 +130,7 @@ function ServiceDetail() {
             </Reveal>
             {image && (
               <Reveal anim="right">
-                <div className="overflow-hidden rounded-[1.75rem] border border-border shadow-card">
+                <div className="overflow-hidden rounded-xl border border-border shadow-card">
                   <img
                     src={image}
                     alt={imageAlt}
@@ -172,7 +172,7 @@ function ServiceDetail() {
       <section className="py-14 sm:py-20">
         <div className="mx-auto grid max-w-7xl gap-10 px-4 sm:px-6 lg:grid-cols-2 lg:px-8">
           <Reveal anim="left">
-            <div className="rounded-[1.75rem] border border-border bg-card p-8 shadow-soft">
+            <div className="rounded-xl border border-border bg-card p-8 shadow-soft">
               <h2 className="flex items-center gap-2 font-heading text-xl font-bold text-foreground">
                 <ClipboardList className="h-5 w-5 text-primary" />{" "}
                 {service.conditionsLabel ?? "Conditions Treated"}
@@ -187,7 +187,7 @@ function ServiceDetail() {
             </div>
           </Reveal>
           <Reveal anim="right">
-            <div className="rounded-[1.75rem] border border-border bg-card p-8 shadow-soft">
+            <div className="rounded-xl border border-border bg-card p-8 shadow-soft">
               <h2 className="flex items-center gap-2 font-heading text-xl font-bold text-foreground">
                 <Sparkles className="h-5 w-5 text-primary" /> Benefits
               </h2>
@@ -212,7 +212,7 @@ function ServiceDetail() {
           <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
             {service.process.map((step, i) => (
               <Reveal key={step.title} anim="up" delay={i * 70}>
-                <div className="hover-lift h-full rounded-[1.75rem] border border-border bg-card p-6 shadow-soft">
+                <div className="hover-lift h-full rounded-xl border border-border bg-card p-6 shadow-soft">
                   <span className="grid h-11 w-11 place-items-center rounded-2xl bg-primary/10 font-heading text-lg font-bold text-primary">
                     {i + 1}
                   </span>
@@ -234,7 +234,7 @@ function ServiceDetail() {
           <div className="mx-auto grid max-w-7xl gap-10 px-4 sm:px-6 lg:grid-cols-2 lg:px-8">
             {service.evidence && service.evidence.length > 0 && (
               <Reveal anim="left">
-                <div className="h-full rounded-[1.75rem] border border-border bg-card p-8 shadow-soft">
+                <div className="h-full rounded-xl border border-border bg-card p-8 shadow-soft">
                   <h2 className="flex items-center gap-2 font-heading text-xl font-bold text-foreground">
                     <BookOpen className="h-5 w-5 text-primary" /> Evidence &amp; Our Approach
                   </h2>
@@ -250,7 +250,7 @@ function ServiceDetail() {
             )}
             {service.contraindications && service.contraindications.length > 0 && (
               <Reveal anim="right">
-                <div className="h-full rounded-[1.75rem] border border-border bg-card p-8 shadow-soft">
+                <div className="h-full rounded-xl border border-border bg-card p-8 shadow-soft">
                   <h2 className="flex items-center gap-2 font-heading text-xl font-bold text-foreground">
                     <ShieldAlert className="h-5 w-5 text-secondary" /> When to Avoid / Tell Us
                   </h2>
@@ -304,7 +304,7 @@ function ServiceDetail() {
       {service.slug === "home-physiotherapy" && (
         <section className="bg-surface py-14 sm:py-20">
           <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
-            <div className="rounded-[1.75rem] border border-border bg-card p-7 shadow-soft sm:p-9">
+            <div className="rounded-xl border border-border bg-card p-7 shadow-soft sm:p-9">
               <h2 className="font-heading text-2xl font-extrabold text-foreground">
                 Request Home Physiotherapy in Multan
               </h2>
