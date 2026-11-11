@@ -17,7 +17,9 @@ export function AdminPageHeader({ title, description, actions }: AdminPageHeader
           {title}
         </h1>
         {description && (
-          <p className="mt-1.5 max-w-2xl text-[13px] leading-5 text-muted-foreground">{description}</p>
+          <p className="mt-1.5 max-w-2xl text-[13px] leading-5 text-muted-foreground">
+            {description}
+          </p>
         )}
       </div>
       {actions && (
