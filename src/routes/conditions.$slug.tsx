@@ -170,7 +170,7 @@ function ConditionDetail() {
           <div className="mt-12 grid gap-6 sm:grid-cols-2">
             {blocks.map((b, i) => (
               <Reveal key={b.key} anim="up" delay={(i % 2) * 70}>
-                <div className="h-full rounded-[1.75rem] border border-border bg-card p-7 shadow-soft">
+                <div className="h-full rounded-xl border border-border bg-card p-7 shadow-soft">
                   <h3 className="flex items-center gap-2 font-heading text-lg font-bold text-foreground">
                     <b.icon className="h-5 w-5 text-primary" /> {b.title}
                   </h3>
@@ -205,7 +205,7 @@ function ConditionDetail() {
           )}
 
           <Reveal anim="up">
-            <div className="mt-6 rounded-[1.75rem] border border-border bg-accent/50 p-7 shadow-soft">
+            <div className="mt-6 rounded-xl border border-border bg-accent/50 p-7 shadow-soft">
               <h3 className="flex items-center gap-2 font-heading text-lg font-bold text-foreground">
                 <TrendingUp className="h-5 w-5 text-primary" /> Expected Recovery
               </h3>
@@ -228,7 +228,7 @@ function ConditionDetail() {
 
       <section className="bg-surface py-14 sm:py-20">
         <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
-          <div className="rounded-[1.75rem] border border-border bg-card p-7 shadow-soft sm:p-9">
+          <div className="rounded-xl border border-border bg-card p-7 shadow-soft sm:p-9">
             <h2 className="font-heading text-2xl font-extrabold text-foreground">
               Book a Physiotherapy Assessment in Multan
             </h2>
@@ -267,7 +267,7 @@ function ConditionDetail() {
                   <Link
                     to="/services/$slug"
                     params={{ slug: service.slug }}
-                    className="hover-lift group flex h-full flex-col rounded-[1.75rem] border border-border bg-card p-6 shadow-soft"
+                    className="hover-lift group flex h-full flex-col rounded-xl border border-border bg-card p-6 shadow-soft"
                   >
                     <span className="grid h-12 w-12 place-items-center rounded-2xl bg-secondary/12 text-secondary">
                       <service.icon className="h-6 w-6" />
