@@ -1957,10 +1957,10 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: "best-exercises-for-lower-back-pain",
-    title: "Kamar Dard Ki 6 Safe Exercises: Lower Back Pain Guide",
-    seoTitle: "Kamar Dard Ki 6 Exercises | Lower Back Pain Guide — PainFix",
+    title: "Kamar Dard Ki 6 Exercises: Reps, Form & Safety",
+    seoTitle: "Kamar Dard Ki Exercise: 6 Moves + Reps | PainFix",
     metaDescription:
-      "Kamar dard ki 6 exercises with safe reps: pelvic tilts, cat-cow, glute bridges and more. Learn how to start, progress and spot warning signs. PainFix Multan.",
+      "Kamar dard ki exercise: 6 gentle lower-back moves with starting positions, reps and safety cues. Roman Urdu guide to choosing and progressing exercises.",
     category: "exercise-therapy",
     tags: [
       "kamar dard ki exercise",
@@ -1973,16 +1973,16 @@ export const blogPosts: BlogPost[] = [
       "Multan",
     ],
     excerpt:
-      "Kamar dard mein kaunsi exercise madad kar sakti hai? Explore six practical mobility and strengthening options, with simple guidance on how to start safely.",
+      "Six practical lower-back mobility and strengthening exercises, with starting positions, repetitions and guidance on choosing movements that suit your symptoms.",
     quickAnswer:
-      "Kamar dard ki exercise ka selection symptoms aur movement tolerance ke mutabiq hona chahiye. Gentle pelvic tilts, cat-cow, comfortable knee-to-chest movement, glute bridges, bird-dog and walking are useful starting options for many people with uncomplicated lower back pain. Start easy, monitor your response and build gradually.",
+      "Kamar dard ki exercise symptoms, medical history and movement tolerance ke mutabiq choose karein. Pelvic tilts, cat-cow, knee-to-chest, glute bridges, bird-dog and dead bug are options for some people with uncomplicated lower-back pain; short comfortable walks can also help maintain activity. Har exercise har person ke liye suitable nahi hoti. Start with one or two comfortable movements, monitor your response and progress gradually.",
     date: "2026-05-02",
-    updated: "2026-11-03",
+    updated: "2026-11-11",
     authorKey: "ZA",
     sections: [
       {
         paragraphs: [
-          "Agar aap kamar dard (lower back pain) ke liye exercise dhoond rahe hain, to pehle gentle movement se start karein. Har patient ke liye ek hi exercise best nahi hoti: jo movement symptoms ko ease kare aur daily activity ko improve kare, usay gradually build kiya ja sakta hai. Exercise should be adjusted if pain spreads further down the leg or neurological symptoms appear.",
+          "Agar aap kamar dard ki exercise dhoond rahe hain, to pehle gentle, controlled movement se start karein. Har patient ke liye ek hi exercise best nahi hoti: exercise ka selection symptoms, examination findings aur movement response ke mutabiq hota hai. Jo movement comfortable ho aur function ko support kare, usay gradually build karein. Pain leg mein aur neeche spread ho, numbness ya weakness barhe to routine continue na karein.",
         ],
       },
       {
@@ -1991,9 +1991,9 @@ export const blogPosts: BlogPost[] = [
           "In movements ka maqsad lower back aur hips ki comfortable mobility maintain karna hai. Range chhoti rakhein; movement ko force na karein.",
         ],
         list: [
-          "Pelvic tilts: knees bent aur feet flat rakh kar lower back ko gently floor ki taraf flatten karein, phir relax karein. 8–12 controlled repetitions.",
-          "Cat-cow: hands and knees position mein spine ko gently round aur arch karein. 6–10 slow repetitions, pain-free range mein.",
-          "Single knee-to-chest: let kar ek knee ko gently chest ki taraf laayein, 5–10 seconds hold karein, phir side change karein. 3–5 repetitions per side; only if it feels comfortable.",
+          "Pelvic tilts: Peeth ke bal let kar knees bent aur feet floor par rakhein. Exhale karte hue lower back ko gently floor ki taraf flatten karein, phir relax karein; forcefully press na karein. 8–12 controlled repetitions.",
+          "Cat-cow: Hands-and-knees position mein wrists shoulders ke neeche aur knees hips ke neeche rakhein. Spine ko ahista round karein, phir comfortable range mein gently extend karein. 6–10 slow repetitions; end range force na karein.",
+          "Single knee-to-chest: Peeth ke bal let kar ek knee ko gently chest ki taraf laayein, doosri leg relaxed rakhein. 5–10 seconds hold karein, phir side change karein; 3–5 repetitions per side. Agar back pain ya leg symptoms barhein to is movement ko skip karein.",
         ],
       },
       {
@@ -2002,9 +2002,9 @@ export const blogPosts: BlogPost[] = [
           "Strengthening ko tab add karein jab basic movement comfortable ho. Quality aur control repetitions ki quantity se zyada important hain.",
         ],
         list: [
-          "Glute bridge: knees bent rakh kar hips ko lift karein, ribs ko flare na hone dein. 8–12 repetitions.",
-          "Bird-dog: hands and knees position mein opposite arm aur leg ko extend karein; pelvis ko level rakhein. 5–8 repetitions per side.",
-          "Dead bug: back par let kar arms up aur hips/knees bent rakhein; opposite arm aur leg ko slowly lower karein, lower back ko controlled position mein rakhein. 5–8 repetitions per side.",
+          "Glute bridge: Peeth ke bal let kar knees bent, feet hip-width par rakhein. Glutes tighten karke hips ko comfortable height tak lift karein; lower back ko over-arch na karein. 8–12 repetitions.",
+          "Bird-dog: Hands-and-knees position mein abdomen ko gently brace karein. Opposite arm aur leg extend karein, pelvis ko level rakhein aur trunk ko rotate na hone dein. 2–3 seconds hold; 5–8 repetitions per side.",
+          "Dead bug: Peeth ke bal let kar arms ceiling ki taraf aur hips/knees bent rakhein. Trunk ko steady rakhte hue opposite arm aur leg ko ahista lower karein; sirf utni range use karein jahan lower back aur pelvis controlled rahen. 5–8 repetitions per side.",
         ],
       },
       {
@@ -2016,7 +2016,7 @@ export const blogPosts: BlogPost[] = [
       {
         heading: "How to start and progress safely",
         paragraphs: [
-          "Pehle 1 set se start karein; comfortable hon to 1–2 sets tak progress karein. Mobility daily ki ja sakti hai, jabke strengthening ko aam tor par haftay mein 2–3 din se start kiya ja sakta hai. Exercise ke dauran mild muscular effort acceptable hai, lekin sharp pain, symptoms ka leg mein aur neeche spread hona, nayi numbness ya weakness aane par exercise rok kar assessment karwayein. Agle din symptoms noticeably worse hon to range, repetitions ya load kam karein.",
+          "Tamam six exercises ek hi session mein karna zaroori nahi. Pehle 1–2 comfortable movements choose karein aur 1 set se start karein; tolerance achi ho to 1–2 sets tak progress karein. Mobility daily ki ja sakti hai, jabke strengthening aam tor par haftay mein 2–3 din se start hoti hai. Mild muscular effort acceptable ho sakta hai, lekin sharp pain, leg symptoms ka aur neeche spread hona, nayi numbness ya weakness aaye to exercise rok dein aur assessment lein. Agar aglay din symptoms noticeably worse hon to range, repetitions ya load kam karein.",
         ],
       },
       {
@@ -2029,7 +2029,11 @@ export const blogPosts: BlogPost[] = [
     faqs: [
       {
         q: "Kamar dard ki exercise konsi best hai?",
-        a: "Ek universal best exercise nahi hoti. Pelvic tilts, cat-cow, glute bridge aur bird-dog common starting options hain, lekin selection aapke symptoms, examination aur movement response ke mutabiq honi chahiye.",
+        a: "Ek universal best exercise nahi hoti. Pelvic tilts, cat-cow, glute bridge aur bird-dog kuch logon ke liye starting options ho sakti hain, lekin selection aapke symptoms, medical history, examination aur movement response ke mutabiq honi chahiye.",
+      },
+      {
+        q: "Kya mujhe tamam 6 exercises ek hi waqt karni chahiye?",
+        a: "Nahi. Pehle 1–2 comfortable movements se start karein. Exercise selection aur progression symptoms, movement tolerance aur assessment findings ke mutabiq honi chahiye.",
       },
       {
         q: "Kya kamar dard mein exercise karni chahiye?",
