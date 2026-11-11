@@ -27,7 +27,7 @@ import { pageMeta, canonical, breadcrumbLd } from "@/lib/seo";
 
 const TITLE = "Home Physiotherapy in Multan | Book a Home Visit — PainFix";
 const DESCRIPTION =
-  "Home physiotherapy in Multan for pain, mobility and post-surgical recovery. Ask about visits in Royal Orchard, DHA Multan, Bosan Road and nearby areas.";
+  "Home physiotherapy across Multan for pain, mobility and post-surgical recovery. Contact PainFix to check home-visit availability at your address.";
 
 export const Route = createFileRoute("/home-visit")({
   head: () => ({
@@ -51,7 +51,7 @@ export const Route = createFileRoute("/home-visit")({
 const stepIcons = [ClipboardList, PhoneCall, CalendarCheck, HomeIcon, Stethoscope, HeartPulse];
 
 function HomeVisitPage() {
-  const { t } = useI18n();
+  const { t, lang } = useI18n();
   const hv = t.homeVisit;
   const [openFaq, setOpenFaq] = useState<number | null>(0);
 
@@ -192,8 +192,16 @@ function HomeVisitPage() {
                 <h2 className="mt-4 font-heading text-2xl font-extrabold text-foreground">
                   {hv.areas.title}
                 </h2>
-                <p className="mt-3 text-base text-muted-foreground">{hv.areas.body}</p>
-                <p className="mt-2 text-sm text-muted-foreground">{hv.areas.note}</p>
+                <p className="mt-3 text-base text-muted-foreground">
+                  {lang === "ur"
+                    ? "PainFix ملتان کے تمام علاقوں میں گھر پر فزیوتھراپی وزٹس فراہم کرتا ہے۔ اپنے علاقے یا مکمل پتے کے ساتھ رابطہ کریں تاکہ آپ کے مقام پر فزیوتھراپسٹ کی دستیابی چیک کی جا سکے۔"
+                    : "PainFix provides home physiotherapy visits across Multan. Contact us with your area or full address so we can check physiotherapist availability at your location."}
+                </p>
+                <p className="mt-2 text-sm text-muted-foreground">
+                  {lang === "ur"
+                    ? "رائل آرچرڈ، ڈی ایچ اے ملتان، بوسن روڈ، ایم ڈی اے چوک، نگانہ چوک، واپڈا ٹاؤن اور شالیمار کالونی سمیت تمام علاقے شامل ہیں۔ وزٹ کی تصدیق مقام اور شیڈول کے مطابق ہوگی۔"
+                    : "Coverage includes areas such as Royal Orchard, DHA Multan, Bosan Road, MDA Chowk, Nagana Chowk, Wapda Town and Shalimar Colony. Every visit is confirmed according to location and scheduling availability."}
+                </p>
               </div>
             </Reveal>
             <Reveal anim="right">

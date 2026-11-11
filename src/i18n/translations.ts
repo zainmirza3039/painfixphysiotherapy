@@ -38,7 +38,7 @@ export const en = {
     eyebrow: "Home Physiotherapy",
     title: "Physiotherapy at Your Doorstep",
     subtitle:
-      "Can't visit our clinic? Get personalized physiotherapy at home, subject to location and appointment availability.",
+      "Can't visit our clinic? Get personalized physiotherapy at home anywhere in Multan, subject to address and appointment availability.",
     intro:
       "Receive professional physiotherapy treatment in the comfort of your home. Our experienced physiotherapists provide personalized assessment, treatment, and rehabilitation for patients who are unable to visit the clinic or prefer treatment at home.",
     suitableTitle: "Ideal for",
@@ -108,7 +108,7 @@ export const en = {
     },
     areas: {
       title: "Service Areas",
-      body: "Home physiotherapy visits are available in selected Multan areas: Royal Orchard, DHA Multan, Bosan Road, MDA Chowk, Nagana Chowk, Wapda Town and Shalimar Colony. Nearby locations can be checked with the team.",
+      body: "Home physiotherapy visits are offered across Multan. Contact us with your area or full address so we can check physiotherapist availability at your location. Coverage includes Royal Orchard, DHA Multan, Bosan Road, MDA Chowk, Nagana Chowk, Wapda Town, Shalimar Colony and surrounding neighbourhoods.",
       note: "Availability depends on your location and appointment schedule.",
     },
     scheduling: {
@@ -238,7 +238,7 @@ export const ur: Dict = {
     eyebrow: "گھر پر فزیوتھراپی",
     title: "فزیوتھراپی آپ کی دہلیز پر",
     subtitle:
-      "کلینک آنا مشکل ہے؟ مقام اور اپائنٹمنٹ کی دستیابی سے مشروط، گھر پر ذاتی فزیوتھراپی حاصل کریں۔",
+      "کلینک آنا مشکل ہے؟ ملتان میں اپنے گھر پر ذاتی فزیوتھراپی حاصل کریں؛ وزٹ کی تصدیق پتے اور اپائنٹمنٹ کی دستیابی کے مطابق ہوگی۔",
     intro:
       "اپنے گھر کے آرام میں پیشہ ورانہ فزیوتھراپی علاج حاصل کریں۔ ہمارے تجربہ کار فزیوتھراپسٹ ان مریضوں کے لیے ذاتی تشخیص، علاج اور بحالی فراہم کرتے ہیں جو کلینک نہیں آ سکتے یا گھر پر علاج کو ترجیح دیتے ہیں۔",
     suitableTitle: "کن کے لیے موزوں ہے",
@@ -299,8 +299,8 @@ export const ur: Dict = {
     },
     areas: {
       title: "سروس کے علاقے",
-      body: "گھر پر فزیوتھراپی کے وزٹس ملتان کے منتخب علاقوں میں دستیاب ہیں: رائل آرچرڈ، ڈی ایچ اے ملتان، بوسن روڈ، ایم ڈی اے چوک، نگانہ چوک، واپڈا ٹاؤن اور شالیمار کالونی۔ قریبی علاقوں کی دستیابی ٹیم سے معلوم کی جا سکتی ہے۔",
-      note: "دستیابی آپ کے مقام اور اپائنٹمنٹ شیڈول پر منحصر ہے۔",
+      body: "گھر پر فزیوتھراپی کے وزٹس پورے ملتان میں فراہم کیے جاتے ہیں۔ اپنے علاقے یا مکمل پتے کے ساتھ رابطہ کریں تاکہ آپ کے مقام پر فزیوتھراپسٹ کی دستیابی چیک کی جا سکے۔ اس میں رائل آرچرڈ، ڈی ایچ اے ملتان، بوسن روڈ، ایم ڈی اے چوک، نگانہ چوک، واپڈا ٹاؤن، شالیمار کالونی اور آس پاس کے علاقے شامل ہیں۔",
+      note: "ہر وزٹ کی تصدیق آپ کے پتے اور اپائنٹمنٹ کی دستیابی کے مطابق کی جائے گی۔",
     },
     scheduling: {
       title: "اپائنٹمنٹ شیڈول",
