@@ -1108,3 +1108,315 @@ body:has(.site-footer) :is(a[href], button, [role="button"], summary):focus-visi
     transform: none;
   }
 }
+
+
+/* PainFix admin CMS: an application interface, distinct from the editorial public site. */
+.admin-shell {
+  --background: #f3f5f4;
+  --foreground: #172d40;
+  --surface: #f3f5f4;
+  --card: #ffffff;
+  --card-foreground: #172d40;
+  --popover: #ffffff;
+  --popover-foreground: #172d40;
+  --primary: #123b61;
+  --primary-foreground: #ffffff;
+  --secondary: #087747;
+  --secondary-foreground: #ffffff;
+  --muted: #edf1ef;
+  --muted-foreground: #647584;
+  --accent: #e7f1eb;
+  --accent-foreground: #123b61;
+  --border: #d9e1de;
+  --input: #87968f;
+  --ring: #087747;
+  color: var(--foreground);
+  background: var(--background);
+  font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+}
+
+.admin-shell :is(h1, h2, h3, h4, h5, h6) {
+  font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+  letter-spacing: -0.025em;
+}
+
+.admin-shell > aside {
+  --foreground: #edf3f6;
+  --surface: #10283f;
+  --card: #10283f;
+  --card-foreground: #edf3f6;
+  --primary: #d6e5ef;
+  --primary-foreground: #10283f;
+  --secondary: #54c58f;
+  --secondary-foreground: #092a1b;
+  --muted: #1b3851;
+  --muted-foreground: #a7b7c4;
+  --border: #2b455b;
+  background: #10283f;
+  border-color: #2b455b;
+}
+
+.admin-shell > aside nav a[aria-current="page"] {
+  background: #1b3851;
+  color: #ffffff;
+}
+
+.admin-shell > aside nav a[aria-current="page"] svg {
+  color: #65d6a2;
+}
+
+.admin-shell > aside nav a:not([aria-current="page"]):hover {
+  background: #19364e;
+  color: #ffffff;
+}
+
+.admin-shell > aside nav a:not([aria-current="page"]):hover svg {
+  color: #dce8ef;
+}
+
+.admin-shell > aside nav p {
+  color: #8fa5b5;
+}
+
+.admin-shell > aside .border-b,
+.admin-shell > aside .border-t {
+  border-color: #2b455b;
+}
+
+.admin-shell > aside a[href="/"],
+.admin-shell > aside button {
+  color: #c6d3dc;
+}
+
+.admin-shell > aside a[href="/"]:hover {
+  background: #1b3851;
+  color: #ffffff;
+}
+
+.admin-shell > aside button:hover {
+  background: rgb(185 74 64 / 12%);
+  color: #ffaaa2;
+}
+
+.admin-shell > div > header {
+  background: rgb(255 255 255 / 96%);
+  border-color: #d9e1de;
+  box-shadow: 0 1px 2px rgb(20 45 64 / 4%);
+}
+
+.admin-shell main {
+  min-height: calc(100vh - 68px);
+}
+
+.admin-shell main > div {
+  max-width: 1480px;
+}
+
+.admin-shell :is(article, section) {
+  scroll-margin-top: 5.5rem;
+}
+
+.admin-shell [data-slot="card"] {
+  border-radius: 0.375rem;
+  box-shadow: none;
+}
+
+.admin-shell a,
+.admin-shell button {
+  -webkit-tap-highlight-color: transparent;
+}
+
+.dark .admin-shell {
+  --background: #101c27;
+  --foreground: #e7eef2;
+  --surface: #142331;
+  --card: #172938;
+  --card-foreground: #e7eef2;
+  --popover: #172938;
+  --popover-foreground: #e7eef2;
+  --primary: #b8cfe0;
+  --primary-foreground: #10202d;
+  --secondary: #65d6a2;
+  --secondary-foreground: #09261a;
+  --muted: #203343;
+  --muted-foreground: #a7b7c4;
+  --accent: #1d3a32;
+  --accent-foreground: #e7eef2;
+  --border: #34495a;
+  --input: #8296a6;
+  --ring: #65d6a2;
+}
+
+.dark .admin-shell > aside {
+  --foreground: #edf3f6;
+  --surface: #0d1d2b;
+  --card: #0d1d2b;
+  --card-foreground: #edf3f6;
+  --primary: #d6e5ef;
+  --primary-foreground: #10283f;
+  --secondary: #65d6a2;
+  --secondary-foreground: #092a1b;
+  --muted: #1b3448;
+  --muted-foreground: #a7b7c4;
+  --border: #2b455b;
+  background: #0d1d2b;
+}
+
+.dark .admin-shell > div > header {
+  background: rgb(19 35 49 / 96%);
+  border-color: #34495a;
+}
+
+@media (max-width: 1023px) {
+  .admin-shell main {
+    min-height: calc(100vh - 68px);
+  }
+}
+
+
+.admin-sidebar-sheet {
+  --foreground: #edf3f6;
+  --surface: #10283f;
+  --card: #10283f;
+  --card-foreground: #edf3f6;
+  --primary: #d6e5ef;
+  --primary-foreground: #10283f;
+  --secondary: #54c58f;
+  --secondary-foreground: #092a1b;
+  --muted: #1b3851;
+  --muted-foreground: #a7b7c4;
+  --border: #2b455b;
+  background: #10283f !important;
+  color: #edf3f6;
+}
+
+.admin-sidebar-sheet nav a[aria-current="page"] {
+  background: #1b3851;
+  color: #ffffff;
+}
+
+.admin-sidebar-sheet nav a[aria-current="page"] svg {
+  color: #65d6a2;
+}
+
+.admin-sidebar-sheet nav a:not([aria-current="page"]):hover {
+  background: #19364e;
+  color: #ffffff;
+}
+
+.admin-sidebar-sheet nav p,
+.admin-sidebar-sheet .text-muted-foreground {
+  color: #a7b7c4;
+}
+
+.admin-sidebar-sheet .border-b,
+.admin-sidebar-sheet .border-t {
+  border-color: #2b455b;
+}
+
+.admin-sidebar-sheet a[href="/"],
+.admin-sidebar-sheet button {
+  color: #c6d3dc;
+}
+
+.dark .admin-sidebar-sheet {
+  --foreground: #edf3f6;
+  --surface: #0d1d2b;
+  --card: #0d1d2b;
+  --card-foreground: #edf3f6;
+  --primary: #d6e5ef;
+  --secondary: #65d6a2;
+  --muted: #1b3448;
+  --muted-foreground: #a7b7c4;
+  --border: #2b455b;
+  background: #0d1d2b !important;
+}
+
+
+/* Shared admin data-workspace treatment across Patients, Appointments, CMS and inboxes. */
+.admin-shell main :is(.rounded-2xl, .rounded-xl) {
+  border-radius: 0.375rem;
+}
+
+.admin-shell main .shadow-soft {
+  box-shadow: 0 1px 2px rgb(16 40 63 / 5%);
+}
+
+.admin-shell main :is(input, textarea, [role="combobox"]) {
+  border-radius: 0.25rem;
+  background-color: var(--card);
+}
+
+.admin-shell main :is(input, textarea):focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 1px;
+}
+
+.admin-shell main [data-slot="dialog-content"] {
+  border-radius: 0.5rem;
+  border-color: var(--border);
+  box-shadow: 0 20px 55px rgb(10 28 43 / 18%);
+}
+
+.admin-shell main table {
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: 0.8125rem;
+}
+
+.admin-shell main thead tr {
+  background: var(--muted);
+}
+
+.admin-shell main thead th {
+  height: 2.75rem;
+  color: var(--muted-foreground);
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.075em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.admin-shell main tbody tr {
+  transition: background-color 120ms ease;
+}
+
+.admin-shell main tbody tr:hover {
+  background: color-mix(in srgb, var(--muted) 65%, transparent);
+}
+
+.admin-shell main tbody td {
+  height: 3.25rem;
+  color: var(--foreground);
+}
+
+.admin-shell main :is(button, a) {
+  transition-duration: 140ms;
+}
+
+.admin-shell main :is(button, a):focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+
+.admin-shell main [data-slot="badge"] {
+  border-radius: 0.2rem;
+  font-size: 0.67rem;
+  font-weight: 650;
+  letter-spacing: 0.015em;
+}
+
+@media (max-width: 640px) {
+  .admin-shell main {
+    padding-bottom: 2rem;
+  }
+
+  .admin-shell main thead th {
+    padding-inline: 0.75rem;
+  }
+
+  .admin-shell main tbody td {
+    padding-inline: 0.75rem;
+  }
+}

@@ -9,46 +9,40 @@ interface StatCardProps {
   accent?: "primary" | "secondary" | "amber" | "rose";
 }
 
-const accents: Record<NonNullable<StatCardProps["accent"]>, { icon: string; border: string }> = {
-  primary: { icon: "bg-primary/10 text-primary", border: "before:bg-primary" },
-  secondary: { icon: "bg-secondary/10 text-secondary", border: "before:bg-secondary" },
-  amber: {
-    icon: "bg-amber-500/10 text-amber-600 dark:text-amber-400",
-    border: "before:bg-amber-500",
-  },
-  rose: {
-    icon: "bg-rose-500/10 text-rose-600 dark:text-rose-400",
-    border: "before:bg-rose-500",
-  },
+const accents: Record<NonNullable<StatCardProps["accent"]>, { icon: string; rule: string }> = {
+  primary: { icon: "bg-[#e9eef5] text-[#173b63]", rule: "before:bg-[#173b63]" },
+  secondary: { icon: "bg-[#e6f2eb] text-[#087747]", rule: "before:bg-[#087747]" },
+  amber: { icon: "bg-[#f8f0df] text-[#95630d]", rule: "before:bg-[#c28b27]" },
+  rose: { icon: "bg-[#f7e9e7] text-[#a23c32]", rule: "before:bg-[#b94a40]" },
 };
 
 export function StatCard({ label, value, icon, hint, accent = "primary" }: StatCardProps) {
-  const accentStyle = accents[accent];
+  const style = accents[accent];
 
   return (
-    <div
+    <article
       className={cn(
-        "relative flex min-h-[116px] min-w-0 items-center gap-4 overflow-hidden rounded-2xl border border-border bg-card px-4 py-4 shadow-sm transition-shadow hover:shadow-md sm:px-5",
-        "before:absolute before:inset-y-4 before:left-0 before:w-1 before:rounded-r-full",
-        accentStyle.border,
+        "relative flex min-h-[112px] min-w-0 items-start gap-3 overflow-hidden border border-border bg-card px-4 py-4",
+        "before:absolute before:inset-x-0 before:top-0 before:h-[3px]",
+        style.rule,
       )}
     >
       <span
-        className={cn("grid h-11 w-11 shrink-0 place-items-center rounded-xl", accentStyle.icon)}
+        className={cn("mt-0.5 grid h-9 w-9 shrink-0 place-items-center rounded-md", style.icon)}
       >
         {icon}
       </span>
       <div className="min-w-0 flex-1">
-        <p className="truncate text-xs font-semibold tracking-wide text-muted-foreground sm:text-sm">
+        <p className="text-[11px] font-semibold uppercase tracking-[0.09em] text-muted-foreground">
           {label}
         </p>
-        <p className="mt-1.5 font-heading text-3xl font-semibold leading-none tracking-tight text-foreground">
+        <p className="mt-2 font-sans text-[2rem] font-semibold leading-none tracking-[-0.04em] tabular-nums text-foreground">
           {value}
         </p>
         {hint && (
-          <p className="mt-1.5 truncate text-[11px] leading-4 text-muted-foreground">{hint}</p>
+          <p className="mt-2 truncate text-[11px] leading-4 text-muted-foreground">{hint}</p>
         )}
       </div>
-    </div>
+    </article>
   );
 }

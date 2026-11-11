@@ -71,8 +71,10 @@ test("admin shell polls unread enquiries and exposes notification indicators", (
   assert.ok(shell.includes("bg-rose-500"));
 });
 
-test("admin dashboard metrics use compact horizontal cards", () => {
+test("admin dashboard metrics use compact data-led cards", () => {
   const card = source("components/admin/StatCard.tsx");
-  assert.ok(card.includes("flex min-h-[116px]"));
-  assert.ok(card.includes("items-center gap-4"));
+  assert.ok(card.includes("flex min-h-[112px]"));
+  assert.ok(card.includes("items-start gap-3"));
+  assert.ok(card.includes("uppercase tracking-[0.09em]"));
+  assert.ok(card.includes("tabular-nums"));
 });
