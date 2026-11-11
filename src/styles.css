@@ -42,9 +42,9 @@
   --color-brand-navy: #032e61;
   --color-inverse-accent: #8ce8b5;
 
-  --shadow-soft: 0 4px 20px -6px color-mix(in oklab, var(--primary) 16%, transparent);
-  --shadow-card: 0 12px 40px -12px color-mix(in oklab, var(--primary) 24%, transparent);
-  --shadow-glow: 0 20px 60px -16px color-mix(in oklab, var(--secondary) 40%, transparent);
+  --shadow-soft: 0 1px 5px color-mix(in oklab, var(--primary) 9%, transparent);
+  --shadow-card: 0 4px 14px -4px color-mix(in oklab, var(--primary) 13%, transparent);
+  --shadow-glow: 0 3px 10px color-mix(in oklab, var(--secondary) 18%, transparent);
 }
 
 @layer base {
@@ -84,17 +84,7 @@
 }
 
 .hero-section {
-  background:
-    radial-gradient(
-      circle at 77% 22%,
-      color-mix(in oklab, var(--secondary) 10%, transparent),
-      transparent 27rem
-    ),
-    linear-gradient(
-      180deg,
-      color-mix(in oklab, var(--background) 78%, var(--accent)),
-      var(--background)
-    );
+  background: var(--background);
 }
 
 .hero-photo-frame::before {
@@ -110,25 +100,18 @@
 
 @utility hover-lift {
   transition:
-    transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
-    box-shadow 0.35s ease;
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
   &:hover {
-    transform: translateY(-6px);
-    box-shadow: var(--shadow-card);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-soft);
   }
-}
-
-@utility text-gradient {
-  background: var(--gradient-hero);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
 }
 
 @keyframes reveal-up {
   from {
     opacity: 0;
-    transform: translateY(28px);
+    transform: translateY(12px);
   }
   to {
     opacity: 1;
@@ -138,7 +121,7 @@
 @keyframes reveal-left {
   from {
     opacity: 0;
-    transform: translateX(-32px);
+    transform: translateX(-12px);
   }
   to {
     opacity: 1;
@@ -148,7 +131,7 @@
 @keyframes reveal-right {
   from {
     opacity: 0;
-    transform: translateX(32px);
+    transform: translateX(12px);
   }
   to {
     opacity: 1;
@@ -169,13 +152,13 @@
   opacity: 0;
 }
 .reveal.is-visible[data-anim="up"] {
-  animation: reveal-up 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation: reveal-up 0.45s ease-out forwards;
 }
 .reveal.is-visible[data-anim="left"] {
-  animation: reveal-left 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation: reveal-left 0.45s ease-out forwards;
 }
 .reveal.is-visible[data-anim="right"] {
-  animation: reveal-right 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation: reveal-right 0.45s ease-out forwards;
 }
 
 .animate-float {
@@ -231,7 +214,7 @@
 
 /* PainFix homepage art direction: editorial type, real clinic imagery, precise rules and quiet surfaces. */
 :root {
-  --radius: 0.75rem;
+  --radius: 0.5rem;
   --background: #fafaf7;
   --foreground: #16324a;
   --surface: #f0f4f1;
@@ -256,10 +239,6 @@
   /* Control boundaries must remain distinct from decorative dividers. */
   --input: #718579;
   --ring: #007a43;
-  --gradient-hero: linear-gradient(110deg, #032e61, #007a43);
-  --gradient-blue: linear-gradient(135deg, #032e61, #0b4f87);
-  --gradient-teal: linear-gradient(135deg, #007a43, #00a859);
-  --gradient-brand-soft: linear-gradient(135deg, #edf4f1, #f5f7f4);
 }
 
 .dark {
@@ -289,21 +268,11 @@
   --border: #3b5063;
   --input: #8296a6;
   --ring: #8ce8b5;
-  --gradient-hero: linear-gradient(110deg, #b3c9e1, #65d6a2);
-  --gradient-blue: linear-gradient(135deg, #032e61, #123e58);
-  --gradient-teal: linear-gradient(135deg, #65d6a2, #8ce8b5);
-  --gradient-brand-soft: linear-gradient(135deg, #152434, #12382f);
 }
 
-/* These inverse panels need light labels, unlike ordinary pale filled controls. */
-.dark .bg-gradient-to-br.from-primary.to-secondary {
-  --primary-foreground: #f5f8f7;
-  background-color: #032e61;
-  background-image: none;
-}
-
+/* Missing clinician portraits use a quiet, solid brand surface. */
 .dark .home-team-row__portrait[role="img"] {
-  background: var(--gradient-brand-soft);
+  background: var(--accent);
 }
 
 .painfix-home {
@@ -394,17 +363,7 @@
   position: relative;
   border-bottom: 1px solid var(--border);
   overflow: hidden;
-  background:
-    radial-gradient(
-      circle at 82% 22%,
-      color-mix(in oklab, var(--secondary) 9%, transparent),
-      transparent 24rem
-    ),
-    linear-gradient(
-      180deg,
-      color-mix(in oklab, var(--background) 84%, var(--accent)),
-      var(--background)
-    );
+  background: var(--background);
 }
 
 .home-hero__accent {
@@ -424,9 +383,9 @@
   overflow: hidden;
   border: 1px solid color-mix(in oklab, var(--primary) 16%, var(--border));
   border-left: 6px solid var(--brand-green);
-  border-radius: 0 1.5rem 1.5rem 0;
+  border-radius: 0 0.75rem 0.75rem 0;
   background: var(--surface);
-  box-shadow: 1.25rem 1.25rem 0 color-mix(in oklab, var(--secondary) 8%, transparent);
+  box-shadow: var(--shadow-soft);
 }
 
 .home-hero__image-frame img {
@@ -820,7 +779,7 @@
 }
 
 .home-team-row__portrait[role="img"] {
-  background: linear-gradient(145deg, #e7f2eb, #d6e5ef);
+  background: var(--accent);
 }
 
 .home-review-summary {
