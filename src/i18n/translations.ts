@@ -108,7 +108,7 @@ export const en = {
     },
     areas: {
       title: "Service Areas",
-      body: "We provide home physiotherapy services across Multan.",
+      body: "Home physiotherapy visits are available in selected Multan areas: Royal Orchard, DHA Multan, Bosan Road, MDA Chowk, Nagana Chowk, Wapda Town and Shalimar Colony. Nearby locations can be checked with the team.",
       note: "Availability depends on your location and appointment schedule.",
     },
     scheduling: {
@@ -299,7 +299,7 @@ export const ur: Dict = {
     },
     areas: {
       title: "سروس کے علاقے",
-      body: "ہم پورے ملتان میں گھریلو فزیوتھراپی خدمات فراہم کرتے ہیں۔",
+      body: "گھر پر فزیوتھراپی کے وزٹس ملتان کے منتخب علاقوں میں دستیاب ہیں: رائل آرچرڈ، ڈی ایچ اے ملتان، بوسن روڈ، ایم ڈی اے چوک، نگانہ چوک، واپڈا ٹاؤن اور شالیمار کالونی۔ قریبی علاقوں کی دستیابی ٹیم سے معلوم کی جا سکتی ہے۔",
       note: "دستیابی آپ کے مقام اور اپائنٹمنٹ شیڈول پر منحصر ہے۔",
     },
     scheduling: {
