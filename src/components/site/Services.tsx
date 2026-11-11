@@ -2,7 +2,9 @@ import { Link } from "@tanstack/react-router";
 import { Activity, ArrowUpRight, Dumbbell, Hand, HeartPulse, Zap } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { serviceMap } from "@/data/services";
-// Illustrative clinical photographs hosted by Pexels under the Pexels License.
+import { Reveal } from "./Reveal";
+
+// Illustrative photographs; Pexels free-use license. Credits: manual/exercise/rehab — Funkcinės Terapijos Centras; taping — Antoni Shkraba; electrotherapy — Cansu Hangül.
 const TREATMENT_IMAGES: Record<string, string> = {
   "Manual Therapy": "https://images.pexels.com/photos/20860597/pexels-photo-20860597.jpeg?auto=compress&cs=tinysrgb&w=720",
   "Exercise Therapy": "https://images.pexels.com/photos/20860594/pexels-photo-20860594.jpeg?auto=compress&cs=tinysrgb&w=720",
@@ -10,7 +12,6 @@ const TREATMENT_IMAGES: Record<string, string> = {
   Electrotherapy: "https://images.pexels.com/photos/30483049/pexels-photo-30483049.jpeg?auto=compress&cs=tinysrgb&w=720",
   Rehabilitation: "https://images.pexels.com/photos/20860580/pexels-photo-20860580.jpeg?auto=compress&cs=tinysrgb&w=720",
 };
-import { Reveal } from "./Reveal";
 
 type TreatmentService = {
   title: string;
