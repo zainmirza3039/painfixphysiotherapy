@@ -107,7 +107,7 @@ export function MeetDoctors({ initialProfiles }: { initialProfiles?: PublicClini
                       <a
                         href={`/${doc.slug}`}
                         aria-label={`View profile of ${doc.fullName}`}
-                        className="inline-flex min-h-11 items-center gap-1.5 text-sm font-semibold text-primary underline-offset-4 hover:text-secondary hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+                        className="home-team-card__link home-team-card__link--primary"
                       >
                         View profile <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
                       </a>
@@ -117,7 +117,7 @@ export function MeetDoctors({ initialProfiles }: { initialProfiles?: PublicClini
                           target="_blank"
                           rel="noopener noreferrer"
                           aria-label={`Ask about an appointment with ${doc.name} on WhatsApp`}
-                          className="home-team-card__link home-team-card__link--primary"
+                          className="home-team-card__link home-team-card__link--secondary"
                         >
                           <MessageCircle className="h-4 w-4" aria-hidden="true" /> WhatsApp
                         </a>
