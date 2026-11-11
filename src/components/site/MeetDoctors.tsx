@@ -30,7 +30,7 @@ export function MeetDoctors({ initialProfiles }: { initialProfiles?: PublicClini
         <div className="home-team-list" aria-live="polite" aria-busy={isLoading}>
           {isLoading &&
             Array.from({ length: 2 }).map((_, index) => (
-              <div key={index} aria-hidden="true" className="home-team-row animate-pulse">
+              <div key={index} aria-hidden="true" className="home-team-card animate-pulse">
                 <div className="h-24 w-24 shrink-0 rounded-2xl bg-muted" />
                 <div className="flex-1 space-y-3">
                   <div className="h-4 w-40 rounded bg-muted" />
@@ -63,7 +63,7 @@ export function MeetDoctors({ initialProfiles }: { initialProfiles?: PublicClini
             !isError &&
             clinicians.map((doc, index) => (
               <Reveal key={doc.slug} anim="up" delay={index * 45}>
-                <article className="home-team-row">
+                <article className="home-team-card">
                   <ClinicianPortrait
                     photo={doc.photo}
                     name={doc.name}
@@ -71,14 +71,14 @@ export function MeetDoctors({ initialProfiles }: { initialProfiles?: PublicClini
                     className="home-team-row__portrait"
                   />
                   <div className="min-w-0">
-                    <p className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-[0.11em] text-secondary">
+                    <p className="inline-flex items-center gap-1.5 rounded-full bg-[rgba(0,168,89,0.09)] px-3 py-1.5 text-xs font-bold uppercase tracking-[0.1em] text-secondary">
                       <BadgeCheck className="h-4 w-4" aria-hidden="true" /> {doc.credentials}
                     </p>
-                    <h3 className="mt-2 font-heading text-2xl font-semibold leading-tight text-foreground">
+                    <h3 className="mt-3 font-heading text-2xl font-bold leading-tight text-[#032E61]">
                       {doc.fullName}
                     </h3>
-                    <p className="mt-1 text-sm font-medium text-primary">{doc.role}</p>
-                    <p className="mt-1 text-sm font-semibold text-primary">
+                    <p className="mt-1 text-sm font-semibold text-[#00A859]">{doc.role}</p>
+                    <p className="mt-2 inline-flex w-fit rounded-md bg-[rgba(3,46,97,0.06)] px-2.5 py-1 text-xs font-semibold text-[#032E61]">
                       {clinicianServiceLabel(doc)}
                     </p>
                     {doc.yearsExperience !== null && doc.yearsExperience !== undefined && (
