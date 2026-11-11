@@ -68,13 +68,13 @@ export function MeetDoctors({ initialProfiles }: { initialProfiles?: PublicClini
                     photo={doc.photo}
                     name={doc.name}
                     role={doc.role}
-                    className="home-team-row__portrait"
+                    className="home-team-card__portrait"
                   />
                   <div className="min-w-0">
                     <p className="inline-flex items-center gap-1.5 rounded-full bg-[rgba(0,168,89,0.09)] px-3 py-1.5 text-xs font-bold uppercase tracking-[0.1em] text-secondary">
                       <BadgeCheck className="h-4 w-4" aria-hidden="true" /> {doc.credentials}
                     </p>
-                    <h3 className="mt-3 font-heading text-2xl font-bold leading-tight text-[#032E61]">
+                    <h3 className="mt-3 font-sans text-3xl font-extrabold leading-tight tracking-tight text-[#032E61]">
                       {doc.fullName}
                     </h3>
                     <p className="mt-1 text-sm font-semibold text-[#00A859]">{doc.role}</p>
