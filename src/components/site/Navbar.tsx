@@ -764,7 +764,7 @@ export function Navbar({ onlineClinician }: { onlineClinician?: TeamMember }) {
         {/* Backdrop */}
         <div
           onClick={closeMobile}
-          className={`fixed inset-0 z-[60] bg-foreground/40 backdrop-blur-sm transition-opacity duration-300 ${
+          className={`fixed inset-0 z-[60] bg-foreground/55 transition-opacity duration-300 ${
             open ? "opacity-100" : "opacity-0"
           }`}
           aria-hidden="true"
