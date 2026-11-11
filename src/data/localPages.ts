@@ -288,7 +288,7 @@ export const localPages: LocalPage[] = [
     title: "Physiotherapy Clinic in Multan",
     metaTitle: "Physiotherapy Clinic in Multan | PainFix — Shalimar Colony",
     metaDescription:
-      "PainFix in Shalimar Colony, Multan offers manual therapy, electrotherapy, rehabilitation and selected home physiotherapy visits.",
+      "PainFix in Shalimar Colony, Multan offers manual therapy, electrotherapy, rehabilitation and home physiotherapy visits across Multan.",
     heroSubtitle:
       "A modern, fully equipped physiotherapy clinic in Shalimar Colony, Multan — complete assessment, treatment and rehabilitation under one roof.",
     quickAnswer:
