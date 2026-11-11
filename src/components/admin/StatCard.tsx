@@ -27,7 +27,9 @@ export function StatCard({ label, value, icon, hint, accent = "primary" }: StatC
         style.rule,
       )}
     >
-      <span className={cn("mt-0.5 grid h-9 w-9 shrink-0 place-items-center rounded-md", style.icon)}>
+      <span
+        className={cn("mt-0.5 grid h-9 w-9 shrink-0 place-items-center rounded-md", style.icon)}
+      >
         {icon}
       </span>
       <div className="min-w-0 flex-1">
@@ -37,7 +39,9 @@ export function StatCard({ label, value, icon, hint, accent = "primary" }: StatC
         <p className="mt-2 font-sans text-[2rem] font-semibold leading-none tracking-[-0.04em] tabular-nums text-foreground">
           {value}
         </p>
-        {hint && <p className="mt-2 truncate text-[11px] leading-4 text-muted-foreground">{hint}</p>}
+        {hint && (
+          <p className="mt-2 truncate text-[11px] leading-4 text-muted-foreground">{hint}</p>
+        )}
       </div>
     </article>
   );
