@@ -86,7 +86,8 @@ function TreatmentCardContent({ service }: { service: TreatmentService }) {
     Rehabilitation:
       "Physiotherapist assisting a patient with rehabilitation exercises on a treatment table; illustrative photograph.",
   };
-  const imageAlt =\n    imageAltByTitle[service.title] ?? `${service.title} treatment; illustrative photograph.`;
+  const imageAlt =
+    imageAltByTitle[service.title] ?? `${service.title} treatment; illustrative photograph.`;
   return (
     <>
       <span className="-mx-4 -mt-4 mb-1 block aspect-[4/3] overflow-hidden rounded-t-md bg-surface sm:-mx-5 sm:-mt-5">
