@@ -31,11 +31,13 @@ export function MeetDoctors({ initialProfiles }: { initialProfiles?: PublicClini
           {isLoading &&
             Array.from({ length: 2 }).map((_, index) => (
               <div key={index} aria-hidden="true" className="home-team-card animate-pulse">
-                <div className="h-24 w-24 shrink-0 rounded-2xl bg-muted" />
-                <div className="flex-1 space-y-3">
-                  <div className="h-4 w-40 rounded bg-muted" />
-                  <div className="h-6 w-56 rounded bg-muted" />
-                  <div className="h-4 w-full max-w-xl rounded bg-muted" />
+                <div className="home-team-card__media" />
+                <div className="home-team-card__content w-full space-y-4">
+                  <div className="h-3 w-36 rounded bg-muted" />
+                  <div className="h-8 w-3/4 rounded bg-muted" />
+                  <div className="h-4 w-2/5 rounded bg-muted" />
+                  <div className="mt-4 h-4 w-full rounded bg-muted" />
+                  <div className="h-4 w-5/6 rounded bg-muted" />
                 </div>
               </div>
             ))}
@@ -73,22 +75,19 @@ export function MeetDoctors({ initialProfiles }: { initialProfiles?: PublicClini
                     />
                   </div>
                   <div className="home-team-card__content min-w-0">
-                    <p className="inline-flex items-center gap-1.5 rounded-full bg-[rgba(0,168,89,0.09)] px-3 py-1.5 text-xs font-bold uppercase tracking-[0.1em] text-secondary">
+                    <p className="home-team-card__credentials">
                       <BadgeCheck className="h-4 w-4" aria-hidden="true" /> {doc.credentials}
                     </p>
-                    <h3 className="mt-3 font-sans text-3xl font-extrabold leading-tight tracking-tight text-[#032E61]">
-                      {doc.fullName}
-                    </h3>
-                    <p className="mt-1 text-sm font-semibold text-[#00A859]">{doc.role}</p>
-                    <p className="mt-2 inline-flex w-fit rounded-md bg-[rgba(3,46,97,0.06)] px-2.5 py-1 text-xs font-semibold text-[#032E61]">
-                      {clinicianServiceLabel(doc)}
-                    </p>
-                    {doc.yearsExperience !== null && doc.yearsExperience !== undefined && (
-                      <p className="mt-1 text-xs text-muted-foreground">
-                        {doc.yearsExperience} {doc.yearsExperience === 1 ? "year" : "years"} of
-                        experience
-                      </p>
-                    )}
+                    <h3 className="home-team-card__name">{doc.fullName}</h3>
+                    <p className="home-team-card__role">{doc.role}</p>
+                    <div className="home-team-card__meta">
+                      <span className="home-team-card__meta-item">{clinicianServiceLabel(doc)}</span>
+                      {doc.yearsExperience !== null && doc.yearsExperience !== undefined && (
+                        <span className="home-team-card__meta-item">
+                          {doc.yearsExperience} {doc.yearsExperience === 1 ? "year" : "years"} of experience
+                        </span>
+                      )}
+                    </div>
                     <p className="home-team-card__bio">
                       {doc.bio}
                     </p>
@@ -118,7 +117,7 @@ export function MeetDoctors({ initialProfiles }: { initialProfiles?: PublicClini
                           target="_blank"
                           rel="noopener noreferrer"
                           aria-label={`Ask about an appointment with ${doc.name} on WhatsApp`}
-                          className="inline-flex min-h-11 items-center gap-1.5 text-sm font-semibold text-primary underline-offset-4 hover:text-secondary hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+                          className="home-team-card__link home-team-card__link--primary"
                         >
                           <MessageCircle className="h-4 w-4" aria-hidden="true" /> WhatsApp
                         </a>
