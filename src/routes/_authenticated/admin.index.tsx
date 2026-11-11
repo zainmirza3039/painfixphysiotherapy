@@ -128,28 +128,52 @@ function DashboardPage() {
 
       <section aria-labelledby="quick-actions-heading" className="border border-border bg-card">
         <div className="flex flex-wrap items-center justify-between gap-2 border-b border-border px-4 py-3">
-          <h2 id="quick-actions-heading" className="text-[12px] font-semibold uppercase tracking-[0.12em] text-foreground">
+          <h2
+            id="quick-actions-heading"
+            className="text-[12px] font-semibold uppercase tracking-[0.12em] text-foreground"
+          >
             Quick actions
           </h2>
           <span className="text-[11px] text-muted-foreground">Common clinic tasks</span>
         </div>
         <div className="grid divide-y divide-border sm:grid-cols-2 sm:divide-x sm:divide-y-0 xl:grid-cols-4">
-          <QuickAction to="/admin/patients" icon={<UserRoundPlus />} label="Patient records" detail="Find or add a patient" />
-          <QuickAction to="/admin/appointments" icon={<CalendarPlus />} label="Appointments" detail="Review the schedule" />
-          <QuickAction to="/admin/home-visits" icon={<Home />} label="Home visits" detail="Process visit requests" />
-          <QuickAction to="/admin/messages" icon={<ClipboardList />} label="Enquiries" detail="Review incoming messages" />
+          <QuickAction
+            to="/admin/patients"
+            icon={<UserRoundPlus />}
+            label="Patient records"
+            detail="Find or add a patient"
+          />
+          <QuickAction
+            to="/admin/appointments"
+            icon={<CalendarPlus />}
+            label="Appointments"
+            detail="Review the schedule"
+          />
+          <QuickAction
+            to="/admin/home-visits"
+            icon={<Home />}
+            label="Home visits"
+            detail="Process visit requests"
+          />
+          <QuickAction
+            to="/admin/messages"
+            icon={<ClipboardList />}
+            label="Enquiries"
+            detail="Review incoming messages"
+          />
         </div>
       </section>
 
       <section aria-labelledby="activity-heading" className="space-y-3">
         <div className="flex flex-wrap items-end justify-between gap-2">
           <div>
-            <h2 id="activity-heading" className="text-[12px] font-semibold uppercase tracking-[0.12em] text-foreground">
+            <h2
+              id="activity-heading"
+              className="text-[12px] font-semibold uppercase tracking-[0.12em] text-foreground"
+            >
               Incoming activity
             </h2>
-            <p className="mt-1 text-xs text-muted-foreground">
-              Recent requests requiring review.
-            </p>
+            <p className="mt-1 text-xs text-muted-foreground">Recent requests requiring review.</p>
           </div>
           <span className="inline-flex items-center gap-2 text-[11px] text-muted-foreground">
             <Activity className="h-3.5 w-3.5 text-secondary" />
@@ -168,7 +192,9 @@ function DashboardPage() {
             {(data?.visits ?? []).slice(0, 6).map((visit) => (
               <li key={visit.id} className="flex min-w-0 items-center justify-between gap-3 py-3">
                 <div className="min-w-0">
-                  <p className="truncate text-[13px] font-medium text-foreground">{visit.full_name}</p>
+                  <p className="truncate text-[13px] font-medium text-foreground">
+                    {visit.full_name}
+                  </p>
                   <p className="mt-0.5 text-[11px] text-muted-foreground">
                     Preferred date: {visit.preferred_date || "Not specified"}
                   </p>
@@ -177,7 +203,9 @@ function DashboardPage() {
                   <span className="inline-flex items-center border border-amber-300/70 bg-amber-50 px-2 py-0.5 text-[10px] font-semibold text-amber-800 dark:border-amber-800 dark:bg-amber-950/40 dark:text-amber-300">
                     {(visit.status ?? "new") === "new" ? "New" : visit.status}
                   </span>
-                  <p className="mt-1 text-[10px] text-muted-foreground">{fmtDateTime(visit.created_at)}</p>
+                  <p className="mt-1 text-[10px] text-muted-foreground">
+                    {fmtDateTime(visit.created_at)}
+                  </p>
                 </div>
               </li>
             ))}
@@ -202,7 +230,9 @@ function DashboardPage() {
                   <span className="inline-flex items-center border border-rose-200 bg-rose-50 px-2 py-0.5 text-[10px] font-semibold text-rose-800 dark:border-rose-900 dark:bg-rose-950/40 dark:text-rose-300">
                     {(message.status ?? "new") === "new" ? "New" : message.status}
                   </span>
-                  <p className="mt-1 text-[10px] text-muted-foreground">{fmtDateTime(message.created_at)}</p>
+                  <p className="mt-1 text-[10px] text-muted-foreground">
+                    {fmtDateTime(message.created_at)}
+                  </p>
                 </div>
               </li>
             ))}
@@ -267,7 +297,10 @@ function ActivityPanel({
             </span>
           )}
         </div>
-        <Link to={to} className="inline-flex shrink-0 items-center gap-1 text-[11px] font-semibold text-primary hover:text-secondary">
+        <Link
+          to={to}
+          className="inline-flex shrink-0 items-center gap-1 text-[11px] font-semibold text-primary hover:text-secondary"
+        >
           Open inbox <ArrowUpRight className="h-3 w-3" />
         </Link>
       </div>
