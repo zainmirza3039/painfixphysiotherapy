@@ -311,7 +311,7 @@ function RootComponent() {
   const pathname = useRouterState({ select: (state) => state.location.pathname });
 
   useEffect(() => {
-    if (/^\\/(admin|patient|portal|sign-in|login)(\\/|$)/.test(pathname)) return;
+    if (/^\/(admin|patient|portal|sign-in|login)(\/|$)/.test(pathname)) return;
     const analyticsWindow = window as Window & {
       gtag?: (command: string, eventName: string, params: Record<string, string>) => void;
     };
