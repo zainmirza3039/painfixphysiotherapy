@@ -80,6 +80,21 @@ function ConditionsIndex() {
           </div>
         </div>
       </section>
+      <section className="border-t border-border bg-surface py-10">
+        <div className="mx-auto max-w-4xl px-4 text-center sm:px-6 lg:px-8">
+          <p className="text-sm leading-7 text-muted-foreground">
+            If you are comparing care options for a pain or movement problem, see how PainFix
+            provides assessment-led{" "}
+            <Link
+              to="/physiotherapy-in-multan"
+              className="font-semibold text-primary underline underline-offset-4 hover:text-secondary"
+            >
+              physiotherapy in Multan
+            </Link>{" "}
+            and connects patients with relevant services and rehabilitation pathways.
+          </p>
+        </div>
+      </section>
       <PageCTA />
     </PageLayout>
   );
