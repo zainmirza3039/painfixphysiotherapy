@@ -44,7 +44,8 @@
 | Home physiotherapy and home visits | `/home-visit` | Dedicated conversion page; homepage section links here |
 | General physiotherapy service information in Multan | `/physiotherapy-in-multan` | Explain services, modalities, assessment and links |
 | Appointment scheduling | `/book-appointment` | Keep as conversion flow; do not force it to own local discovery |
-| Back pain / lumbar pain / slipped-disc-related physiotherapy | `/conditions/back-pain` | Add relevant disc/lumbar subtopics only where clinically accurate |
+| Back pain / lumbar pain | `/conditions/back-pain` | Nonspecific lumbar and back-pain treatment intent |
+| Slipped disc / disc bulge / herniated disc | `/conditions/slipped-disc` | Use the existing dedicated condition page; keep disc-specific content separate from general back-pain intent |
 | Sciatica / radiating leg pain | `/conditions/sciatica` | Condition/treatment intent; link to exercise education |
 | Neck pain / cervical pain | `/conditions/neck-pain` | Condition/treatment intent |
 | Frozen shoulder | `/conditions/frozen-shoulder` | Condition/treatment intent; stage- and irritability-aware content |
@@ -150,35 +151,23 @@ Other volume figures previously transcribed but not sufficiently clear: herniate
 - home visit physiotherapist
 - physiotherapy at home in Multan
 
-### C. Back pain / lumbar pain / disc bulge / slipped disc
+### C. Back pain / lumbar pain
 
-**Preferred URL:** `/conditions/back-pain` (do not create a separate slipped-disc URL without demand and content approval)
+**Preferred URL:** `/conditions/back-pain` for general back and lumbar pain. Use the existing `/conditions/slipped-disc` page for disc-specific treatment intent; do not combine the two clusters by default.
 
 - back pain treatment Multan
 - back pain treatment in Multan
 - lower back pain doctor in Multan
-- slipped disc treatment without surgery Multan
-- slipped disc treatment Multan
-- disc slip treatment Multan
-- disc slip treatment in Pakistan
-- herniated disc treatment in Pakistan
-- disc bulge treatment in Pakistan
-- disc slip treatment medicine
-- disc slip doctor in Pakistan
-- disc bulging treatment physiotherapy
 - backache physiotherapy
 - back pain physiotherapy treatment
-- physiotherapy for bulging disc
 - physiotherapy for chronic back pain
 - manual therapy for back pain
 - best physiotherapy treatment for back pain
-- can physiotherapy treat slipped disc
 - kamar dard ka ilaj Multan
 - kamar dard ki physiotherapy Multan
 - kamar dard ka doctor Multan
 - kamar dard ka ilaj baghair operation
 - kamar mein nas dabne ka ilaj
-- slip disc ka ilaj Multan
 - lower back pain treatment
 - back pain treatment
 - back pain and leg numbness treatment (cross-link with sciatica/nerve symptoms as appropriate)
@@ -188,6 +177,23 @@ Other volume figures previously transcribed but not sufficiently clear: herniate
 - kamar dard ki exercise (existing exercise blog retains ownership)
 - kamar dard exercise
 - kamar dard ka ilaj exercise
+
+### C2. Slipped disc / disc bulge / herniated disc
+
+**Preferred URL:** `/conditions/slipped-disc`
+
+- slipped disc treatment without surgery Multan
+- slipped disc treatment Multan
+- disc slip treatment Multan
+- disc slip treatment in Pakistan
+- herniated disc treatment in Pakistan
+- disc bulge treatment in Pakistan
+- disc slip treatment medicine (informational intent only; do not prescribe)
+- disc slip doctor in Pakistan
+- disc bulging treatment physiotherapy
+- physiotherapy for bulging disc
+- can physiotherapy treat slipped disc
+- slip disc ka ilaj Multan
 
 ### D. Sciatica / radiating leg pain
 
@@ -428,7 +434,6 @@ Map each phrase to the relevant clinical cluster above; use Roman Urdu naturally
 - pair mein nas ka dard ka ilaj
 - bazu mein sunpan ka ilaj
 - pathon ke dard ka ilaj
-- slip disc ka ilaj Multan
 - sciatica ka ilaj Multan
 - joron ke dard ki physiotherapy Multan
 
