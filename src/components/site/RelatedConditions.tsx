@@ -29,7 +29,7 @@ export function RelatedConditions({
                   to="/conditions/$slug"
                   params={{ slug: condition.slug }}
                   aria-label={`Learn about ${condition.title} treatment`}
-                  className="hover-lift group flex h-full flex-col overflow-hidden rounded-[1.75rem] border border-border bg-card shadow-soft transition-shadow hover:border-primary/40 hover:shadow-card focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+                  className="hover-lift group flex h-full flex-col overflow-hidden rounded-xl border border-border bg-card shadow-soft transition-shadow hover:border-primary/40 hover:shadow-card focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
                 >
                   {image && (
                     <div className="aspect-[16/9] overflow-hidden bg-surface">
