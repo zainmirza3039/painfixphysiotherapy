@@ -57,6 +57,26 @@ const CLARITY_SCRIPT = `(function () {
   }
 })();`;
 
+const GA4_MEASUREMENT_ID = "G-91JS1V1T9E";
+const GA4_SCRIPT = `(function () {
+  var host = window.location.hostname;
+  if (host.indexOf("www.") === 0) host = host.slice(4);
+  if (host !== ${JSON.stringify(CLARITY_HOST)}) return;
+  if (/^\\/(admin|patient|portal|sign-in|login)(\\/|$)/.test(window.location.pathname)) return;
+  if (document.querySelector('script[data-ga4-measurement="G-91JS1V1T9E"]')) return;
+
+  window.dataLayer = window.dataLayer || [];
+  window.gtag = window.gtag || function () { window.dataLayer.push(arguments); };
+  window.gtag("js", new Date());
+  window.gtag("config", "${GA4_MEASUREMENT_ID}", { send_page_view: false });
+
+  var script = document.createElement("script");
+  script.async = true;
+  script.dataset.ga4Measurement = "${GA4_MEASUREMENT_ID}";
+  script.src = "https://www.googletagmanager.com/gtag/js?id=${GA4_MEASUREMENT_ID}";
+  document.head.appendChild(script);
+})();`;
+
 function NotFoundComponent() {
   return (
     <div className="flex min-h-screen items-center justify-center bg-background px-4">
@@ -225,6 +245,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         // www alias), never on local or deployment previews. Defer until idle.
         children: CLARITY_SCRIPT,
       },
+      {
+        // Google Analytics 4 — official PainFix host only; private routes are excluded.
+        children: GA4_SCRIPT,
+      },
     ],
   }),
   shellComponent: RootShell,
@@ -284,6 +308,19 @@ function NavigationProgress() {
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
   const router = useRouter();
+  const pathname = useRouterState({ select: (state) => state.location.pathname });
+
+  useEffect(() => {
+    if (/^\/(admin|patient|portal|sign-in|login)(\/|$)/.test(pathname)) return;
+    const analyticsWindow = window as Window & {
+      gtag?: (command: string, eventName: string, params: Record<string, string>) => void;
+    };
+    analyticsWindow.gtag?.("event", "page_view", {
+      page_path: pathname,
+      page_location: window.location.origin + pathname,
+      page_title: document.title,
+    });
+  }, [pathname]);
 
   useEffect(() => {
     let active = true;
