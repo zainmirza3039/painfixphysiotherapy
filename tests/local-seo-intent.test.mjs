@@ -104,7 +104,7 @@ test("slipped-disc search intent maps to the existing slipped-disc condition rou
   const ownershipPlan = await read("docs/seo/keyword-to-url-ownership-plan-2026-11.md");
 
   assert.match(conditions, /slug: "slipped-disc"/);
-  assert.match(ownershipPlan, /\x60\\/conditions\\/slipped-disc\x60/);
+  assert.ok(ownershipPlan.includes(String.fromCharCode(96) + "/conditions/slipped-disc" + String.fromCharCode(96)));
   assert.doesNotMatch(ownershipPlan, /do not create a separate slipped-disc URL/i);
 });
 
