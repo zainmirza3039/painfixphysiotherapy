@@ -99,6 +99,15 @@ test("homepage, service-information and booking pages retain distinct page inten
   );
 });
 
+test("slipped-disc search intent maps to the existing slipped-disc condition route", async () => {
+  const conditions = await read("src/data/conditions.ts");
+  const ownershipPlan = await read("docs/seo/keyword-to-url-ownership-plan-2026-11.md");
+
+  assert.match(conditions, /slug: "slipped-disc"/);
+  assert.match(ownershipPlan, /\x60\\/conditions\\/slipped-disc\x60/);
+  assert.doesNotMatch(ownershipPlan, /do not create a separate slipped-disc URL/i);
+});
+
 test("clinic-location page avoids unsupported facility claims and stays distinct from service information", async () => {
   const localPages = await read("src/data/localPages.ts");
   const clinicStart = localPages.indexOf('slug: "physiotherapy-clinic-in-multan"');
