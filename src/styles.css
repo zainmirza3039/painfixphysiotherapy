@@ -366,17 +366,29 @@
 }
 
 .home-hero__visual {
+  position: relative;
+  isolation: isolate;
   max-width: 39rem;
   margin-inline: auto;
 }
 
+.home-hero__visual::before {
+  position: absolute;
+  z-index: -1;
+  inset: 5% -2% 8% 12%;
+  border-radius: 48% 52% 43% 57% / 45% 46% 54% 55%;
+  background: color-mix(in oklab, var(--secondary) 13%, var(--background));
+  content: "";
+  transform: rotate(-7deg);
+}
+
 .home-hero__image-frame {
   position: relative;
+  z-index: 1;
   aspect-ratio: 0.9;
   overflow: hidden;
-  border: 1px solid color-mix(in oklab, var(--primary) 16%, var(--border));
-  border-left: 6px solid var(--brand-green);
-  border-radius: 0 0.75rem 0.75rem 0;
+  border: 1px solid var(--border);
+  border-radius: 0.5rem;
   background: var(--surface);
   box-shadow: var(--shadow-soft);
 }
