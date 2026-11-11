@@ -37,7 +37,7 @@ export function doctorProfileHead(doc: TeamMember) {
         : doc.profile.metaDescription;
   // Static imports are root-relative paths; admin-uploaded photos may be absolute URLs.
   const image = doc.photo
-    ? /^https?:\\/\\//.test(doc.photo)
+    ? /^https?:\/\//.test(doc.photo)
       ? doc.photo
       : `${SITE_URL}${doc.photo}`
     : undefined;
