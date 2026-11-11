@@ -52,13 +52,37 @@ test("Kamar Dard exercise guide targets the exercise query with practical safety
 
 test("broad Multan landing URLs consolidate to homepage and home-visit", async () => {
   const config = JSON.parse(await read("vercel.json"));
-  for (const source of ["/best-physiotherapist-in-multan", "/physiotherapist-in-multan", "/physiotherapy-in-multan", "/physiotherapy-clinic-in-multan"]) {
-    assert.ok(config.redirects.some((rule) => rule.source === source && rule.destination === "/" && rule.permanent === true));
+  for (const source of [
+    "/best-physiotherapist-in-multan",
+    "/physiotherapist-in-multan",
+    "/physiotherapy-in-multan",
+    "/physiotherapy-clinic-in-multan",
+  ]) {
+    assert.ok(
+      config.redirects.some(
+        (rule) => rule.source === source && rule.destination === "/" && rule.permanent === true,
+      ),
+    );
   }
-  assert.ok(config.redirects.some((rule) => rule.source === "/services/home-physiotherapy" && rule.destination === "/home-visit" && rule.permanent === true));
+  assert.ok(
+    config.redirects.some(
+      (rule) =>
+        rule.source === "/services/home-physiotherapy" &&
+        rule.destination === "/home-visit" &&
+        rule.permanent === true,
+    ),
+  );
   const sitemap = await read("src/routes/sitemap[.]xml.ts");
   assert.match(sitemap, /redirectedLandingPaths\.has\(entry\.path\)/);
-  for (const path of ["/best-physiotherapist-in-multan", "/physiotherapist-in-multan", "/physiotherapy-in-multan", "/physiotherapy-clinic-in-multan", "/services/home-physiotherapy"]) assert.ok(sitemap.includes(path));
+  for (const path of [
+    "/best-physiotherapist-in-multan",
+    "/physiotherapist-in-multan",
+    "/physiotherapy-in-multan",
+    "/physiotherapy-clinic-in-multan",
+    "/services/home-physiotherapy",
+  ]) {
+    assert.ok(sitemap.includes(path));
+  }
 });
 
 test("sitemap remains available when optional dynamic listings fail", async () => {
@@ -80,8 +104,14 @@ test("service and condition hubs route broad local discovery links to the homepa
 test("homepage owns broad local discovery while booking remains separate", async () => {
   const homepage = await read("src/routes/index.tsx");
   const config = JSON.parse(await read("vercel.json"));
-  assert.ok(homepage.includes('const TITLE = "Physiotherapist in Multan | PainFix Physiotherapy Clinic"'));
-  assert.ok(config.redirects.some((rule) => rule.source === "/physiotherapist-in-multan" && rule.destination === "/"));
+  assert.ok(
+    homepage.includes('const TITLE = "Physiotherapist in Multan | PainFix Physiotherapy Clinic"'),
+  );
+  assert.ok(
+    config.redirects.some(
+      (rule) => rule.source === "/physiotherapist-in-multan" && rule.destination === "/",
+    ),
+  );
   const booking = await read("src/routes/book-appointment.tsx");
   assert.ok(booking.length > 0);
 });
@@ -128,4 +158,3 @@ test("local Multan landing pages describe home visits as available citywide", as
   assert.match(homeVisit, /PainFix provides home physiotherapy visits across Multan/);
   assert.match(homeVisit, /تمام علاقوں میں گھر پر فزیوتھراپی وزٹس/);
 });
-
