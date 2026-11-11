@@ -2,7 +2,7 @@ import { Link } from "@tanstack/react-router";
 import { Activity, ArrowUpRight, Dumbbell, Hand, HeartPulse, Zap } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { serviceMap } from "@/data/services";
-import { serviceImages } from "@/data/serviceImages";
+import { serviceImages } from "@/data/serviceImages";\nimport manualTherapyClinicPhoto from "@/assets/hero.webp";\nimport guidedRehabClinicPhoto from "@/assets/clinic-photo-4.webp";
 import { Reveal } from "./Reveal";
 
 type TreatmentService = {
@@ -58,11 +58,14 @@ const cardClassName =
 
 function TreatmentCardContent({ service }: { service: TreatmentService }) {
   const Icon = service.icon;
-  const image = service.slug
-    ? serviceImages[service.slug]
-    : service.title === "Kinesiology Taping"
-      ? serviceImages["sports-rehabilitation"]
-      : serviceImages["exercise-therapy"];
+  const image =
+    service.title === "Manual Therapy"
+      ? manualTherapyClinicPhoto
+      : service.title === "Exercise Therapy" || service.title === "Rehabilitation"
+        ? guidedRehabClinicPhoto
+        : service.slug
+          ? serviceImages[service.slug]
+          : serviceImages["exercise-therapy"];
   const imageAlt = `${service.title} at PainFix Physiotherapy Clinic in Multan`;
   return (
     <>
