@@ -33,8 +33,14 @@ test("homepage hero retains the earlier soft green art direction and photo edge"
   const source = await readFile(new URL("src/styles.css", repo), "utf8");
   assert.match(source, /\.home-hero \{[^}]*background: var\(--surface\)/);
   assert.match(source, /\.home-hero__visual::before/);
-  assert.match(\n    source,\n    /background: color-mix\\(in srgb, var\\(--secondary\\) 9%, var\\(--background\\)\\)/,\n  );
-  assert.match(\n    source,\n    /\\.home-hero__image-frame \\{[^}]*border-left: 5px solid var\\(--brand-green\\)/,\n  );
+  assert.match(
+    source,
+    /background: color-mix\(in srgb, var\(--secondary\) 9%, var\(--background\)\)/,
+  );
+  assert.match(
+    source,
+    /\.home-hero__image-frame \{[^}]*border-left: 5px solid var\(--brand-green\)/,
+  );
   assert.match(source, /border-radius: 0 1rem 1rem 0/);
 });
 
