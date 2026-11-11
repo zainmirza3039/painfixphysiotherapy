@@ -120,7 +120,7 @@ export function RykOnlineLandingPage() {
               </Link>
             </div>
           </div>
-          <aside className="rounded-[1.75rem] border border-border bg-card p-6 shadow-soft sm:p-8">
+          <aside className="rounded-xl border border-border bg-card p-6 shadow-soft sm:p-8">
             <p className="text-xs font-bold uppercase tracking-[0.16em] text-secondary">
               Service mode
             </p>
