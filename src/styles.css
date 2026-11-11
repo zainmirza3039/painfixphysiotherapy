@@ -366,20 +366,8 @@
 }
 
 .home-hero__visual {
-  position: relative;
-  isolation: isolate;
   max-width: 39rem;
   margin-inline: auto;
-}
-
-.home-hero__visual::before {
-  position: absolute;
-  z-index: -1;
-  inset: 5% -2% 8% 12%;
-  border-radius: 48% 52% 43% 57% / 45% 46% 54% 55%;
-  background: color-mix(in oklab, var(--secondary) 13%, var(--background));
-  content: "";
-  transform: rotate(-7deg);
 }
 
 .home-hero__image-frame {
