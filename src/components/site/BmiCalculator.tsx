@@ -44,7 +44,7 @@ export function BmiCalculator({ compact = false }: { compact?: boolean }) {
 
   return (
     <div
-      className={`rounded-[1.75rem] border border-border bg-card p-6 shadow-soft sm:p-8 ${
+      className={`rounded-xl border border-border bg-card p-6 shadow-soft sm:p-8 ${
         compact ? "" : "mx-auto max-w-3xl"
       }`}
     >
