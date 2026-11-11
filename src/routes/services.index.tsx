@@ -133,6 +133,21 @@ function ServicesIndex() {
           </div>
         </div>
       </section>
+      <section className="border-t border-border bg-surface py-10">
+        <div className="mx-auto max-w-4xl px-4 text-center sm:px-6 lg:px-8">
+          <p className="text-sm leading-7 text-muted-foreground">
+            Looking for physiotherapy care in Multan? Read about the clinic, assessment options and
+            rehabilitation services available across the city on our{" "}
+            <Link
+              to="/physiotherapy-in-multan"
+              className="font-semibold text-primary underline underline-offset-4 hover:text-secondary"
+            >
+              Physiotherapy in Multan
+            </Link>{" "}
+            page.
+          </p>
+        </div>
+      </section>
       <PageCTA />
     </PageLayout>
   );

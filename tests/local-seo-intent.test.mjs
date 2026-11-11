@@ -111,3 +111,13 @@ test("local Multan landing pages describe home visits as available citywide", as
   assert.match(homeVisit, /PainFix provides home physiotherapy visits across Multan/);
   assert.match(homeVisit, /تمام علاقوں میں گھر پر فزیوتھراپی وزٹس/);
 });
+
+test("services and conditions hubs contextually link to the Multan physiotherapy information page", async () => {
+  const services = await read("src/routes/services.index.tsx");
+  const conditions = await read("src/routes/conditions.index.tsx");
+
+  assert.match(services, /to="\/physiotherapy-in-multan"/);
+  assert.match(services, /Physiotherapy in Multan/);
+  assert.match(conditions, /to="\/physiotherapy-in-multan"/);
+  assert.match(conditions, /physiotherapy in Multan/);
+});
