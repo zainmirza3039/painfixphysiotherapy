@@ -1975,7 +1975,7 @@ export const blogPosts: BlogPost[] = [
     excerpt:
       "Six practical lower-back mobility and strengthening exercises, with starting positions, repetitions and guidance on choosing movements that suit your symptoms.",
     quickAnswer:
-      "Kamar dard ki exercise symptoms, medical history and movement tolerance ke mutabiq choose karein. Pelvic tilts, cat-cow, knee-to-chest, glute bridges, bird-dog and dead bug are options for some people with uncomplicated lower-back pain; short comfortable walks can also help maintain activity. Har exercise har person ke liye suitable nahi hoti. Start with one or two comfortable movements, monitor your response and progress gradually."
+      "Kamar dard ki exercise symptoms, medical history and movement tolerance ke mutabiq choose karein. Pelvic tilts, cat-cow, knee-to-chest, glute bridges, bird-dog and dead bug are options for some people with uncomplicated lower-back pain; short comfortable walks can also help maintain activity. Har exercise har person ke liye suitable nahi hoti. Start with one or two comfortable movements, monitor your response and progress gradually.",
     date: "2026-05-02",
     updated: "2026-11-11",
     authorKey: "ZA",
