@@ -239,10 +239,7 @@ export function LocalLandingPage({
                 />
               ))}
             {isError && (
-              <div
-                role="alert"
-                className="rounded-xl border border-border bg-card p-6 text-sm"
-              >
+              <div role="alert" className="rounded-xl border border-border bg-card p-6 text-sm">
                 <p className="text-foreground">Clinician information could not be loaded.</p>
                 <button
                   type="button"
