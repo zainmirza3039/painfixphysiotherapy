@@ -27,7 +27,7 @@ test("booking landing page remains eligible for the canonical sitemap", () => {
   assert.ok(!sitemap.includes('"physiotherapist-in-multan",'));
 });
 
-test("home-visit page lists only the confirmed Multan coverage areas in both languages", () => {
+test("home-visit page confirms Multan-wide coverage in both languages and keeps areas as examples", () => {
   for (const area of [
     "Royal Orchard",
     "DHA Multan",
@@ -40,7 +40,10 @@ test("home-visit page lists only the confirmed Multan coverage areas in both lan
     assert.ok(translations.includes(area), `Missing area: ${area}`);
   }
   assert.ok(
-    translations.includes("گھر پر فزیوتھراپی کے وزٹس ملتان کے منتخب علاقوں میں دستیاب ہیں"),
+    translations.includes("Home physiotherapy visits are offered across Multan."),
   );
-  assert.ok(homeVisitRoute.includes("Royal Orchard, DHA Multan, Bosan Road and nearby areas"));
+  assert.ok(translations.includes("گھر پر فزیوتھراپی کے وزٹس پورے ملتان میں فراہم کیے جاتے ہیں۔"));
+  assert.ok(homeVisitRoute.includes("PainFix provides home physiotherapy visits across Multan."));
+  assert.ok(homeVisitRoute.includes("Coverage includes areas such as Royal Orchard, DHA Multan"));
+  assert.ok(homeVisitRoute.includes("PainFix ملتان کے تمام علاقوں میں گھر پر فزیوتھراپی وزٹس فراہم کرتا ہے۔"));
 });
