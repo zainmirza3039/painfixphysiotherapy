@@ -2,8 +2,23 @@ import { Link } from "@tanstack/react-router";
 import { Activity, ArrowUpRight, Dumbbell, Hand, HeartPulse, Zap } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { serviceMap } from "@/data/services";
-import { serviceImages } from "@/data/serviceImages";
 import { Reveal } from "./Reveal";
+
+// Illustrative photographs under the Pexels free-use license.
+// Credits: manual/exercise/rehab — Funkcinės Terapijos Centras;
+// taping — Antoni Shkraba; electrotherapy — Cansu Hangül.
+const TREATMENT_IMAGES: Record<string, string> = {
+  "Manual Therapy":
+    "https://images.pexels.com/photos/20860597/pexels-photo-20860597.jpeg?auto=compress&cs=tinysrgb&w=720",
+  "Exercise Therapy":
+    "https://images.pexels.com/photos/20860594/pexels-photo-20860594.jpeg?auto=compress&cs=tinysrgb&w=720",
+  "Kinesiology Taping":
+    "https://images.pexels.com/photos/6076134/pexels-photo-6076134.jpeg?auto=compress&cs=tinysrgb&w=720",
+  Electrotherapy:
+    "https://images.pexels.com/photos/30483049/pexels-photo-30483049.jpeg?auto=compress&cs=tinysrgb&w=720",
+  Rehabilitation:
+    "https://images.pexels.com/photos/20860580/pexels-photo-20860580.jpeg?auto=compress&cs=tinysrgb&w=720",
+};
 
 type TreatmentService = {
   title: string;
@@ -58,12 +73,21 @@ const cardClassName =
 
 function TreatmentCardContent({ service }: { service: TreatmentService }) {
   const Icon = service.icon;
-  const image = service.slug
-    ? serviceImages[service.slug]
-    : service.title === "Kinesiology Taping"
-      ? serviceImages["sports-rehabilitation"]
-      : serviceImages["exercise-therapy"];
-  const imageAlt = `${service.title} at PainFix Physiotherapy Clinic in Multan`;
+  const image = TREATMENT_IMAGES[service.title];
+  const imageAltByTitle: Record<string, string> = {
+    "Manual Therapy":
+      "Physiotherapist performing hands-on treatment on a patient's leg in a clinical setting; illustrative photograph.",
+    "Exercise Therapy":
+      "Physiotherapist instructing a patient during a supervised rehabilitation exercise session; illustrative photograph.",
+    "Kinesiology Taping":
+      "Physiotherapist applying kinesiology tape to a patient's shoulder; illustrative photograph.",
+    Electrotherapy:
+      "Electrotherapy applied during a knee physiotherapy session; illustrative photograph.",
+    Rehabilitation:
+      "Physiotherapist assisting a patient with rehabilitation exercises on a treatment table; illustrative photograph.",
+  };
+  const imageAlt =
+    imageAltByTitle[service.title] ?? `${service.title} treatment; illustrative photograph.`;
   return (
     <>
       <span className="-mx-4 -mt-4 mb-1 block aspect-[4/3] overflow-hidden rounded-t-md bg-surface sm:-mx-5 sm:-mt-5">
@@ -74,6 +98,8 @@ function TreatmentCardContent({ service }: { service: TreatmentService }) {
           height={480}
           loading="lazy"
           decoding="async"
+          fetchPriority="low"
+          sizes="(min-width: 1280px) 20vw, (min-width: 768px) 33vw, 50vw"
           className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
         />
       </span>

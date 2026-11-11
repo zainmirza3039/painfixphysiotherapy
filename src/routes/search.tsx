@@ -399,7 +399,7 @@ function ResultLink({
 function NoResults({ query, onPick }: { query: string; onPick: (t: string) => void }) {
   return (
     <Reveal anim="up">
-      <div className="mt-8 rounded-3xl border border-border bg-card p-8 text-center shadow-soft">
+      <div className="mt-8 rounded-xl border border-border bg-card p-8 text-center shadow-soft">
         <div className="mx-auto grid h-14 w-14 place-items-center rounded-2xl bg-surface text-muted-foreground">
           <Search className="h-6 w-6" aria-hidden="true" />
         </div>

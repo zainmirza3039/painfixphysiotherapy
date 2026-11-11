@@ -13,11 +13,12 @@ test("top Get Directions CTA keeps its Maps action and accessible interaction st
   const className = cta[1];
   const classes = new Set(className.split(/\s+/));
 
-  assert.ok(classes.has("bg-primary/10"));
-  assert.ok(classes.has("hover:bg-primary/15"));
-  assert.ok(classes.has("hover:-translate-y-px"));
-  assert.ok(classes.has("hover:shadow-sm"));
-  assert.ok(classes.has("active:scale-[0.98]"));
+  assert.ok(classes.has("border"));
+  assert.ok(classes.has("border-border/60"));
+  assert.ok(classes.has("bg-card/80"));
+  assert.ok(classes.has("hover:border-secondary/40"));
+  assert.ok(classes.has("hover:bg-secondary/10"));
+  assert.ok(classes.has("transition-colors"));
   assert.ok(classes.has("focus-visible:outline-none"));
   assert.ok(classes.has("focus-visible:ring-2"));
   assert.ok(classes.has("focus-visible:ring-offset-2"));

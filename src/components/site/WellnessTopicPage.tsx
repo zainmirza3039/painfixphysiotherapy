@@ -69,7 +69,7 @@ export function WellnessTopicPage({ page, crumbs, comingSoon = false }: Wellness
             <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
               {page.features.map((f, i) => (
                 <Reveal key={f.title} anim="up" delay={(i % 3) * 70}>
-                  <div className="hover-lift h-full rounded-[1.75rem] border border-border bg-card p-6 shadow-soft">
+                  <div className="hover-lift h-full rounded-xl border border-border bg-card p-6 shadow-soft">
                     <h3 className="font-heading text-lg font-bold text-foreground">{f.title}</h3>
                     <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
                       {f.description}
@@ -113,7 +113,7 @@ export function WellnessTopicPage({ page, crumbs, comingSoon = false }: Wellness
             <ol className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-5">
               {page.journey.map((step, i) => (
                 <Reveal key={step.title} anim="up" delay={i * 70}>
-                  <li className="hover-lift h-full rounded-[1.75rem] border border-border bg-card p-6 shadow-soft">
+                  <li className="hover-lift h-full rounded-xl border border-border bg-card p-6 shadow-soft">
                     <span className="grid h-11 w-11 place-items-center rounded-2xl bg-primary/10 font-heading text-lg font-bold text-primary">
                       {i + 1}
                     </span>

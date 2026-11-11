@@ -162,7 +162,7 @@ function HomeVisitPage() {
                 const Icon = stepIcons[i] ?? ClipboardList;
                 return (
                   <Reveal anim="up" key={step.title}>
-                    <div className="hover-lift relative h-full rounded-[1.75rem] border border-border bg-card p-6 shadow-soft">
+                    <div className="hover-lift relative h-full rounded-xl border border-border bg-card p-6 shadow-soft">
                       <span className="absolute end-5 top-5 font-heading text-4xl font-extrabold text-primary/70">
                         {i + 1}
                       </span>
@@ -185,7 +185,7 @@ function HomeVisitPage() {
         <section className="py-16 sm:py-20">
           <div className="mx-auto grid max-w-6xl gap-6 px-4 sm:px-6 lg:grid-cols-2 lg:px-8">
             <Reveal anim="left">
-              <div className="h-full rounded-[1.75rem] border border-border bg-card p-8 shadow-soft">
+              <div className="h-full rounded-xl border border-border bg-card p-8 shadow-soft">
                 <span className="grid h-12 w-12 place-items-center rounded-2xl bg-secondary/12 text-secondary">
                   <MapPin className="h-6 w-6" />
                 </span>
@@ -205,7 +205,7 @@ function HomeVisitPage() {
               </div>
             </Reveal>
             <Reveal anim="right">
-              <div className="h-full rounded-[1.75rem] border border-border bg-card p-8 shadow-soft">
+              <div className="h-full rounded-xl border border-border bg-card p-8 shadow-soft">
                 <span className="grid h-12 w-12 place-items-center rounded-2xl bg-primary/12 text-primary">
                   <CalendarCheck className="h-6 w-6" />
                 </span>
@@ -264,7 +264,7 @@ function HomeVisitPage() {
         <section id="request" className="py-16 sm:py-20">
           <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
             <Reveal anim="up">
-              <div className="rounded-[2rem] border border-border bg-card p-6 shadow-card sm:p-9">
+              <div className="rounded-xl border border-border bg-card p-6 shadow-card sm:p-9">
                 <h2 className="font-heading text-2xl font-extrabold text-foreground sm:text-3xl">
                   {hv.form.title}
                 </h2>
@@ -322,7 +322,7 @@ function HomeVisitPage() {
         <section className="py-16 sm:py-20">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <Reveal anim="up">
-              <div className="relative overflow-hidden rounded-[2.5rem] bg-gradient-to-br from-primary via-primary to-secondary px-6 py-14 text-center shadow-card sm:px-12">
+              <div className="relative overflow-hidden rounded-xl bg-primary px-6 py-14 text-center shadow-card sm:px-12">
                 <h2 className="font-heading text-3xl font-extrabold text-primary-foreground sm:text-4xl">
                   {t.actions.bookHomeVisit}
                 </h2>

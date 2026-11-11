@@ -115,7 +115,7 @@ function FitnessAssessment() {
       <section className="py-12 sm:py-16">
         <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
           <Reveal anim="up">
-            <div className="rounded-[1.75rem] border border-border bg-card p-6 shadow-soft sm:p-8">
+            <div className="rounded-xl border border-border bg-card p-6 shadow-soft sm:p-8">
               <h2 className="flex items-center gap-2 font-heading text-xl font-extrabold text-foreground">
                 <Activity className="h-5 w-5 text-secondary" /> Posture Self-Screen
               </h2>

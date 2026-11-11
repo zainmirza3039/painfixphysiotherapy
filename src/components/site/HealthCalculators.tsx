@@ -26,7 +26,7 @@ function CalcCard({
   children: React.ReactNode;
 }) {
   return (
-    <div className="flex h-full flex-col rounded-[1.75rem] border border-border bg-card p-6 shadow-soft">
+    <div className="flex h-full flex-col rounded-xl border border-border bg-card p-6 shadow-soft">
       <h3 className="flex items-center gap-2 font-heading text-lg font-bold text-foreground">
         <span className="grid h-9 w-9 place-items-center rounded-xl bg-primary/10 text-primary">
           {icon}

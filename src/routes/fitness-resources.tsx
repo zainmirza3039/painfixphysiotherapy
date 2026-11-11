@@ -130,7 +130,7 @@ function FitnessResources() {
             <Reveal anim="up">
               <Link
                 to="/health-calculators"
-                className="hover-lift group flex h-full flex-col rounded-[1.75rem] border border-border bg-card p-6 shadow-soft focus-within:ring-2 focus-within:ring-primary"
+                className="hover-lift group flex h-full flex-col rounded-xl border border-border bg-card p-6 shadow-soft focus-within:ring-2 focus-within:ring-primary"
               >
                 <span className="grid h-11 w-11 place-items-center rounded-2xl bg-primary/10 text-primary">
                   <Calculator className="h-5 w-5" />
@@ -150,7 +150,7 @@ function FitnessResources() {
             <Reveal anim="up" delay={80}>
               <Link
                 to="/fitness-assessment"
-                className="hover-lift group flex h-full flex-col rounded-[1.75rem] border border-border bg-card p-6 shadow-soft focus-within:ring-2 focus-within:ring-primary"
+                className="hover-lift group flex h-full flex-col rounded-xl border border-border bg-card p-6 shadow-soft focus-within:ring-2 focus-within:ring-primary"
               >
                 <span className="grid h-11 w-11 place-items-center rounded-2xl bg-secondary/12 text-secondary">
                   <BookOpen className="h-5 w-5" />

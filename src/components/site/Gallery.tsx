@@ -217,7 +217,7 @@ function Lightbox({
       role="dialog"
       aria-modal="true"
       aria-label={photo.caption}
-      className="fixed inset-0 z-[100] flex flex-col bg-foreground/90 backdrop-blur-md"
+      className="fixed inset-0 z-[100] flex flex-col bg-foreground/95"
       onClick={onClose}
     >
       {/* Top bar */}

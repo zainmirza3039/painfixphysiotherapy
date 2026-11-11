@@ -6,7 +6,7 @@ export function FaqAccordion({ faqs }: { faqs: Faq[] }) {
   const id = useId();
   const [open, setOpen] = useState<number | null>(0);
   return (
-    <div className="mx-auto max-w-3xl divide-y divide-border rounded-[1.75rem] border border-border bg-card shadow-soft">
+    <div className="mx-auto max-w-3xl divide-y divide-border rounded-xl border border-border bg-card shadow-soft">
       {faqs.map((faq, i) => {
         const isOpen = open === i;
         return (

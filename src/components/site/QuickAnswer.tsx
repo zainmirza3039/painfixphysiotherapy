@@ -13,7 +13,7 @@ interface QuickAnswerProps {
 export function QuickAnswer({ answer, takeaways = [] }: QuickAnswerProps) {
   return (
     <Reveal anim="up">
-      <div className="rounded-[1.75rem] border border-secondary/30 bg-secondary/5 p-7 shadow-soft">
+      <div className="rounded-xl border border-secondary/30 bg-secondary/5 p-7 shadow-soft">
         <h2 className="flex items-center gap-2 font-heading text-lg font-bold text-foreground">
           <Sparkles className="h-5 w-5 text-secondary" /> Quick Answer
         </h2>

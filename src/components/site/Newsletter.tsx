@@ -3,7 +3,7 @@ import { Mail } from "lucide-react";
 /** Newsletter signup is intentionally unavailable until a verified subscription service is connected. */
 export function Newsletter() {
   return (
-    <div className="rounded-[1.75rem] border border-border bg-surface p-6 shadow-soft">
+    <div className="rounded-xl border border-border bg-surface p-6 shadow-soft">
       <div className="flex items-center gap-2 text-sm font-bold text-foreground">
         <Mail className="h-4 w-4 text-secondary" /> Health Tips Newsletter
       </div>

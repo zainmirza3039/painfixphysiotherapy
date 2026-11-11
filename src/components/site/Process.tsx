@@ -46,7 +46,7 @@ export function Process() {
               as="li"
               anim="up"
               delay={(i % 4) * 90}
-              className="hover-lift h-full list-none rounded-[1.75rem] border border-border bg-card p-7 shadow-soft"
+              className="hover-lift h-full list-none rounded-xl border border-border bg-card p-7 shadow-soft"
             >
               <div className="flex items-center justify-between">
                 <span className="grid h-12 w-12 place-items-center rounded-2xl bg-secondary/12 text-secondary">

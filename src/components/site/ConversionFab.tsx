@@ -33,7 +33,7 @@ export function ConversionFab({ onlineClinician }: { onlineClinician?: TeamMembe
               ? `Enquire about online physiotherapy with ${onlineClinician.name} on WhatsApp`
               : "Chat with us on WhatsApp"
           }
-          className="relative grid h-14 w-14 place-items-center rounded-full bg-secondary text-secondary-foreground shadow-glow motion-safe:transition-transform motion-safe:hover:scale-110 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+          className="relative grid h-14 w-14 place-items-center rounded-full bg-secondary text-secondary-foreground shadow-md motion-safe:transition-transform motion-safe:hover:scale-110 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
         >
           <MessageCircle className="h-6 w-6" />
           <span className="absolute inline-flex h-full w-full rounded-full bg-secondary/40 motion-safe:animate-ping" />

@@ -71,7 +71,7 @@ function Membership() {
             {MEMBERSHIP_PLANS.map((plan, i) => (
               <Reveal key={plan.slug} anim="up" delay={i * 80}>
                 <div
-                  className={`relative flex h-full flex-col rounded-[1.75rem] border bg-card p-7 shadow-soft ${
+                  className={`relative flex h-full flex-col rounded-xl border bg-card p-7 shadow-soft ${
                     plan.featured ? "border-secondary ring-2 ring-secondary/30" : "border-border"
                   }`}
                 >

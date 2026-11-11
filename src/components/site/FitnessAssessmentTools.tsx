@@ -22,7 +22,7 @@ export function BodyFatEstimator() {
   }, [sex, age, height, weight]);
 
   return (
-    <div className="flex h-full flex-col rounded-[1.75rem] border border-border bg-card p-6 shadow-soft">
+    <div className="flex h-full flex-col rounded-xl border border-border bg-card p-6 shadow-soft">
       <h3 className="flex items-center gap-2 font-heading text-lg font-bold text-foreground">
         <span className="grid h-9 w-9 place-items-center rounded-xl bg-primary/10 text-primary">
           <Percent className="h-5 w-5" />
@@ -145,7 +145,7 @@ export function FitnessGoalForm() {
   }, [selected, level, notes]);
 
   return (
-    <div className="rounded-[1.75rem] border border-border bg-card p-6 shadow-soft sm:p-8">
+    <div className="rounded-xl border border-border bg-card p-6 shadow-soft sm:p-8">
       <h3 className="font-heading text-lg font-bold text-foreground">Fitness Goal Questionnaire</h3>
       <p className="mt-1.5 text-sm text-muted-foreground">
         Tell us your goals and we'll build a safe, personalised plan. Sends securely via WhatsApp —

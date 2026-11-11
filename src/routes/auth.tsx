@@ -90,7 +90,7 @@ function AuthPage() {
   }
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-[radial-gradient(ellipse_at_top,_rgba(0,168,89,0.08),_transparent_48%),linear-gradient(135deg,_#f5f8fc,_#eef4f2)] px-4 py-10">
+    <div className="flex min-h-screen items-center justify-center bg-background px-4 py-10">
       <div className="w-full max-w-[420px]">
         <a
           href="/"

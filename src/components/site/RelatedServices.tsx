@@ -20,7 +20,7 @@ export function RelatedServices({ slugs }: { slugs: string[] }) {
                 to="/services/$slug"
                 params={{ slug: service.slug }}
                 aria-label={`Learn more about ${service.title}`}
-                className="hover-lift group flex h-full flex-col rounded-[1.75rem] border border-border bg-card p-6 shadow-soft"
+                className="hover-lift group flex h-full flex-col rounded-xl border border-border bg-card p-6 shadow-soft"
               >
                 <span className="grid h-12 w-12 place-items-center rounded-2xl bg-secondary/12 text-secondary">
                   <service.icon className="h-6 w-6" />
