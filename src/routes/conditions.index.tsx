@@ -91,7 +91,7 @@ function ConditionsIndex() {
             >
               physiotherapy in Multan
             </Link>{" "}
-            and connects patients with relevant services and rehabilitation pathways.
+            for broad physiotherapy searches in Multan.
           </p>
         </div>
       </section>
