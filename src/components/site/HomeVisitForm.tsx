@@ -2,6 +2,7 @@ import { useState, type FormEvent } from "react";
 import { CheckCircle2, Loader2, Send } from "lucide-react";
 import { toast } from "sonner";
 import { useI18n } from "@/i18n/LanguageProvider";
+import { createHomeVisitRequest } from "@/lib/public-submissions.functions";
 import {
   createHomeVisitSubmissionGate,
   getLocalDateInputValue,
@@ -59,9 +60,7 @@ export function HomeVisitForm() {
         today,
         {
           insertRequest: async (payload) => {
-            const { supabase } = await import("@/integrations/supabase/client");
-            const { error } = await supabase.from("home_visit_requests").insert(payload);
-            if (error) throw error;
+            await createHomeVisitRequest({ data: payload });
           },
         },
         submissionGate,

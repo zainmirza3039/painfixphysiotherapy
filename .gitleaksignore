@@ -1,0 +1,4 @@
+# Supabase publishable/legacy anon client keys are intentionally public.
+# These two historical .env entries are explicitly named PUBLISHABLE_KEY, not service-role keys.
+8f7c586d60fe8955a1f5ccb6247e6970940e26d8:.env:jwt:2
+8f7c586d60fe8955a1f5ccb6247e6970940e26d8:.env:jwt:5
