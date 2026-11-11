@@ -129,7 +129,7 @@ function FitnessHub() {
                       to="/fitness/$slug"
                       params={{ slug: p.slug }}
                       aria-label={`Learn more about ${p.title}`}
-                      className="hover-lift group flex h-full flex-col rounded-[1.75rem] border border-border bg-card p-6 shadow-soft focus-within:ring-2 focus-within:ring-primary"
+                      className="hover-lift group flex h-full flex-col rounded-xl border border-border bg-card p-6 shadow-soft focus-within:ring-2 focus-within:ring-primary"
                     >
                       <span className="grid h-11 w-11 place-items-center rounded-2xl bg-secondary/12 text-secondary">
                         <Sparkles className="h-5 w-5" />
@@ -164,7 +164,7 @@ function FitnessHub() {
               <Reveal key={l.to} anim="up" delay={(i % 4) * 60}>
                 <Link
                   to={l.to}
-                  className="hover-lift group flex h-full flex-col rounded-[1.75rem] border border-border bg-card p-6 shadow-soft focus-within:ring-2 focus-within:ring-primary"
+                  className="hover-lift group flex h-full flex-col rounded-xl border border-border bg-card p-6 shadow-soft focus-within:ring-2 focus-within:ring-primary"
                 >
                   <span className="grid h-11 w-11 place-items-center rounded-2xl bg-primary/10 text-primary">
                     <l.icon className="h-5 w-5" />
