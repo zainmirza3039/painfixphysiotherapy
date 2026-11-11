@@ -90,12 +90,26 @@ test("homepage, service-information and booking pages retain distinct page inten
   assert.ok(
     homepage.includes('const TITLE = "Physiotherapist in Multan | PainFix Physiotherapy Clinic"'),
   );
-  assert.ok(localPages.includes('metaTitle: "Physiotherapy in Multan | PainFix Clinic"'));
+  assert.ok(localPages.includes('title: "Physiotherapy Services in Multan"'));
+  assert.ok(localPages.includes('metaTitle: "Physiotherapy Services in Multan | PainFix Clinic"'));
   assert.ok(localPages.includes('metaTitle: "Book a Physiotherapist in Multan | PainFix Clinic"'));
   assert.ok(localPages.includes('heading: "Physiotherapy services in Multan"'));
   assert.ok(
     localPages.includes('heading: "What happens at your first physiotherapy appointment?"'),
   );
+});
+
+test("clinic-location page avoids unsupported facility claims and stays distinct from service information", async () => {
+  const localPages = await read("src/data/localPages.ts");
+  const clinicStart = localPages.indexOf('slug: "physiotherapy-clinic-in-multan"');
+  assert.notEqual(clinicStart, -1);
+  const clinicEnd = localPages.indexOf("\\n  },", clinicStart);
+  const clinicPage = localPages.slice(clinicStart, clinicEnd);
+
+  assert.ok(clinicPage.includes('title: "Physiotherapy Clinic in Multan"'));
+  assert.ok(clinicPage.includes("Usman Raja Market"));
+  assert.ok(clinicPage.includes("Sunday by appointment"));
+  assert.doesNotMatch(clinicPage, /modern, fully equipped|everything your recovery needs|modern equipment/i);
 });
 
 test("local Multan landing pages describe home visits as available citywide", async () => {
