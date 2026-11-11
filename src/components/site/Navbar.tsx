@@ -388,7 +388,9 @@ export function Navbar({ onlineClinician }: { onlineClinician?: TeamMember }) {
                   className="pointer-events-none h-full w-full border-0"
                 />
               </span>
-              <span className="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-secondary/10 text-secondary"><MapPin className="h-3.5 w-3.5" aria-hidden="true" /></span>
+              <span className="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-secondary/10 text-secondary">
+                <MapPin className="h-3.5 w-3.5" aria-hidden="true" />
+              </span>
               <span className="flex min-w-0 flex-col leading-tight">
                 <span className="text-[11px] font-semibold text-foreground sm:text-xs">
                   Visit PainFix · Multan
