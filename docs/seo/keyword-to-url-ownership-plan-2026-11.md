@@ -105,11 +105,13 @@ Other volume figures previously transcribed but not sufficiently clear: herniate
 - physical therapist in Multan
 - physiotherapy services in Multan
 - best physiotherapy services in Multan (general/local intent; if the query means home service, use home-visit page)
+- best treatment for back pain near me (local treatment discovery; homepage may surface, then link to back-pain condition page)
 - physiotherapy clinic near Shalimar Colony Multan
 - physiotherapist near Bosan Road Multan
 - physiotherapy clinic open today Multan (only if hours/status are accurate)
 - physiotherapist appointment today Multan (booking CTA; query can land on homepage)
 - physiotherapy fees in Multan
+- best treatment for back pain near me
 - physiotherapy charges per session Multan
 - affordable physiotherapy treatment Multan
 - physiotherapist in Multan (duplicate exact wording retained as one cluster)
@@ -156,6 +158,8 @@ Other volume figures previously transcribed but not sufficiently clear: herniate
 - back pain treatment in Multan
 - lower back pain doctor in Multan
 - slipped disc treatment without surgery Multan
+- slipped disc treatment Multan
+- disc slip treatment Multan
 - disc slip treatment in Pakistan
 - herniated disc treatment in Pakistan
 - disc bulge treatment in Pakistan
@@ -243,6 +247,7 @@ Other volume figures previously transcribed but not sufficiently clear: herniate
 
 - knee pain treatment
 - knee pain treatment in Pakistan
+- knee pain treatment without surgery Multan
 - knee pain causes
 - knee pain injection
 - knee pain injection price in Pakistan
@@ -283,6 +288,7 @@ Other volume figures previously transcribed but not sufficiently clear: herniate
 **Preferred URL:** assign by anatomical source: `/conditions/sciatica`, `/conditions/back-pain` or `/conditions/neck-pain`. No generic catch-all URL assumed.
 
 - nerve compression treatment
+- nerve compression treatment Multan
 - nerve compression treatment at home
 - nerve compression treatment in Ayurveda (exclude Ayurveda claims/services not offered)
 - nerve compression treatment in Hindi (language modifier, not a separate page)
@@ -365,9 +371,12 @@ Other volume figures previously transcribed but not sufficiently clear: herniate
 - joint pain physiotherapy Multan → pain-management / relevant joint condition
 - hand numbness physiotherapy → source-specific nerve page
 - tailbone pain treatment Multan → verify coccyx-related content/service
+- tennis elbow treatment in Multan → verify dedicated condition/service route
+- heel pain treatment in Multan → verify plantar-fasciitis condition/service route
 - physiotherapy after fracture → post-surgical/orthopaedic rehab service, only if appropriate
 - physiotherapy after ligament injury → sports-injuries service
 - physiotherapy for poor posture → posture/ergonomic assessment service
+- physiotherapy for muscle weakness → relevant rehabilitation assessment/service
 - chest physiotherapy → verify actual service provision before targeting
 - winged scapula physiotherapy → verify dedicated shoulder/scapular content
 - fibromyalgia treatment → do not target as a service unless PainFix has relevant expertise and page content
