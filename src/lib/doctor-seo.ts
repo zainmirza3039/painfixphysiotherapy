@@ -4,7 +4,7 @@ import type { TeamMember } from "@/data/team";
 import { isOnlineClinician } from "@/lib/clinician-service";
 
 /**
- * Builds the full head() payload (meta, canonical, breadcrumb + Physician JSON-LD)
+ * Builds the full head() payload (meta, canonical, breadcrumb + Person JSON-LD)
  * for a dedicated doctor profile page — optimized for doctor entity recognition
  * and local search ("Dr … PT Multan", "Physiotherapist in Multan").
  */
@@ -13,18 +13,23 @@ export function doctorProfileHead(doc: TeamMember) {
   const url = `${SITE_URL}${path}`;
   const onlineOnly = isOnlineClinician(doc);
   const city = doc.city || "Pakistan";
+  const isZainProfile = doc.slug === "dr-zain-ul-abideen-pt-multan";
   const metaTitle = onlineOnly
     ? doc.slug === "dr-ariba-babar-pt"
       ? "Ariba Babar DPT | Online Physiotherapist in Rahim Yar Khan"
       : `${doc.fullName} — Online Physiotherapy in ${city} | PainFix`
-    : doc.profile.metaTitle;
+    : isZainProfile
+      ? `${doc.fullName} | Physiotherapist in Multan | PainFix`
+      : doc.profile.metaTitle;
   const metaDescription = onlineOnly
     ? doc.slug === "dr-ariba-babar-pt"
       ? "Book an online video consultation with Ariba Babar, DPT, an online physiotherapist serving Rahim Yar Khan. Ask about availability and suitability via WhatsApp."
       : doc.profile.metaDescription.includes(city)
         ? doc.profile.metaDescription
         : `Online physiotherapy consultation enquiries with ${doc.fullName}, based in ${city}.`
-    : doc.profile.metaDescription;
+    : isZainProfile
+      ? `${doc.fullName} is a Doctor of Physical Therapy at PainFix in Multan. View professional qualifications, clinical focus and appointment details.`
+      : doc.profile.metaDescription;
   // Static imports are root-relative paths; admin-uploaded photos may be absolute URLs.
   const image = doc.photo
     ? /^https?:\/\//.test(doc.photo)
@@ -50,13 +55,12 @@ export function doctorProfileHead(doc: TeamMember) {
         type: "application/ld+json",
         children: JSON.stringify({
           "@context": "https://schema.org",
-          "@type": onlineOnly ? "Person" : "Physician",
+          "@type": "Person",
           name: doc.fullName,
           alternateName: doc.name,
           url,
           ...(image ? { image } : {}),
           jobTitle: doc.role,
-          ...(!onlineOnly ? { medicalSpecialty: "Physiotherapy" } : {}),
           ...(doc.whatsapp || doc.phoneDisplay || !onlineOnly
             ? {
                 telephone: doc.whatsapp
