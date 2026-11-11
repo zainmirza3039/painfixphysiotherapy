@@ -104,7 +104,11 @@ test("slipped-disc search intent maps to the existing slipped-disc condition rou
   const ownershipPlan = await read("docs/seo/keyword-to-url-ownership-plan-2026-11.md");
 
   assert.match(conditions, /slug: "slipped-disc"/);
-  assert.ok(ownershipPlan.includes(String.fromCharCode(96) + "/conditions/slipped-disc" + String.fromCharCode(96)));
+  assert.ok(
+    ownershipPlan.includes(
+      String.fromCharCode(96) + "/conditions/slipped-disc" + String.fromCharCode(96),
+    ),
+  );
   assert.doesNotMatch(ownershipPlan, /do not create a separate slipped-disc URL/i);
 });
 
@@ -118,7 +122,10 @@ test("clinic-location page avoids unsupported facility claims and stays distinct
   assert.ok(clinicPage.includes('title: "Physiotherapy Clinic in Multan"'));
   assert.ok(clinicPage.includes("Usman Raja Market"));
   assert.ok(clinicPage.includes("Sunday by appointment"));
-  assert.doesNotMatch(clinicPage, /modern, fully equipped|everything your recovery needs|modern equipment/i);
+  assert.doesNotMatch(
+    clinicPage,
+    /modern, fully equipped|everything your recovery needs|modern equipment/i,
+  );
 });
 
 test("local Multan landing pages describe home visits as available citywide", async () => {
