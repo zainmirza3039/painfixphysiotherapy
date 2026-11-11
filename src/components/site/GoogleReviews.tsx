@@ -15,8 +15,8 @@ export function GoogleReviews() {
             <h2 className="home-section-title mt-4">Feedback on Google.</h2>
           </div>
           <p className="max-w-2xl text-base leading-7 text-muted-foreground">
-            Read current patient feedback directly on PainFix’s Google Business Profile. Reviews and
-            ratings are kept on Google, where you can see the latest information.
+            See PainFix’s Google rating and patient reviews, displayed directly below.
+            You can also visit our Google Business Profile to read more feedback.
           </p>
         </div>
 
@@ -27,11 +27,23 @@ export function GoogleReviews() {
               <div>
                 <p className="font-semibold text-foreground">PainFix on Google</p>
                 <p className="mt-1 text-sm text-muted-foreground">
-                  Browse current patient reviews, ratings, and clinic details.
+                  Google patient reviews and ratings
                 </p>
               </div>
             </div>
-            <div className="flex flex-wrap gap-3">
+
+            <script
+              src="https://grwidget.com/v1/grwidget.js"
+              async
+              defer
+              data-wpmeteor-nooptimize="true"
+            />
+            <div
+              className="grwidget-embed mt-6 w-full"
+              data-grwidget-key="swUmP1Xp4nnfkHNj3Ie8f2GW"
+            />
+
+            <div className="mt-6 flex flex-wrap gap-3">
               <a
                 href={GOOGLE_BUSINESS_PROFILE_URL}
                 target="_blank"
