@@ -36,7 +36,7 @@ export const localPages: LocalPage[] = [
     title: "Physiotherapy Services in Multan",
     metaTitle: "Physiotherapy Services in Multan | PainFix Clinic",
     metaDescription:
-      "Explore physiotherapy services in Multan at PainFix: clinical assessment, manual therapy, exercise therapy and rehabilitation. Clinic in Shalimar Colony; home visits available citywide.",
+      "Physiotherapy services in Multan at PainFix: clinical assessment, manual therapy, exercise therapy and rehabilitation at our Shalimar Colony clinic.",
     heroSubtitle:
       "Understand the assessment, treatment approaches and rehabilitation options available through PainFix in Multan.",
     quickAnswer:
@@ -288,7 +288,7 @@ export const localPages: LocalPage[] = [
     title: "Physiotherapy Clinic in Multan",
     metaTitle: "Physiotherapy Clinic in Multan | PainFix — Shalimar Colony",
     metaDescription:
-      "PainFix Physiotherapy Clinic is in Shalimar Colony, Multan. Review clinic location, appointment hours, assessment and treatment options, and home-visit availability.",
+      "PainFix Physiotherapy Clinic in Shalimar Colony, Multan. View clinic hours, assessment options, treatment services and home-visit availability.",
     heroSubtitle:
       "Find PainFix in Shalimar Colony, Multan and review clinic appointment options, assessment and rehabilitation services.",
     quickAnswer:
