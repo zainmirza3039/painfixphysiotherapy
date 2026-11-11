@@ -21,7 +21,14 @@ test("homepage owns the primary physiotherapist in Multan search intent", async 
 
 test("broad physiotherapist landing URL redirects home while booking stays on its dedicated route", async () => {
   const config = JSON.parse(await read("vercel.json"));
-  assert.ok(config.redirects.some((redirect) => redirect.source === "/physiotherapist-in-multan" && redirect.destination === "/" && redirect.permanent));
+  assert.ok(
+    config.redirects.some(
+      (redirect) =>
+        redirect.source === "/physiotherapist-in-multan" &&
+        redirect.destination === "/" &&
+        redirect.permanent,
+    ),
+  );
   const bookingRoute = await read("src/routes/book-appointment.tsx");
   assert.ok(bookingRoute.includes('createFileRoute("/book-appointment")'));
 });
