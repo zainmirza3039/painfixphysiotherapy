@@ -3,11 +3,6 @@
   "framework": "tanstack-start",
   "redirects": [
     {
-      "source": "/physiotherapist-in-multan",
-      "destination": "/",
-      "permanent": true
-    },
-    {
       "source": "/best-physiotherapist-in-multan",
       "destination": "/",
       "permanent": true
