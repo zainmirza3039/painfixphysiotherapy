@@ -351,20 +351,16 @@ export function AdminShell({ children }: { children: ReactNode }) {
       <div className="min-w-0 flex-1">
         <header className="sticky top-0 z-40 border-b border-border bg-card/95 shadow-sm backdrop-blur">
           <div className="mx-auto flex min-h-[68px] max-w-[1600px] items-center justify-between gap-4 px-4 sm:px-6 xl:px-8">
-            <div className="flex min-w-0 items-center gap-3">
-              <span className="relative grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-primary text-primary-foreground">
-                <Activity className="h-5 w-5" />
-                <span
-                  aria-hidden="true"
-                  className="absolute -bottom-0.5 -right-0.5 h-3 w-3 rounded-full border-2 border-card bg-secondary"
-                />
+            <div className="flex min-w-0 items-center gap-2 sm:gap-3">
+              <span className="hidden text-xs font-medium text-muted-foreground sm:inline">
+                PainFix <span className="mx-1 text-border">/</span>
               </span>
               <div className="min-w-0">
-                <p className="truncate font-heading text-base font-semibold tracking-tight text-foreground">
-                  PainFix Admin
+                <p className="truncate text-sm font-semibold tracking-tight text-foreground sm:text-[15px]">
+                  {activePage?.label ?? "Workspace"}
                 </p>
-                <p className="mt-0.5 text-[10px] font-semibold uppercase tracking-[0.14em] text-muted-foreground">
-                  {panelLabel} workspace
+                <p className="mt-0.5 text-[10px] font-medium uppercase tracking-[0.12em] text-muted-foreground">
+                  {panelLabel} · Clinic management
                 </p>
               </div>
             </div>
