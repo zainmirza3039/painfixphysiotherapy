@@ -31,7 +31,17 @@ export function GoogleReviews() {
                 </p>
               </div>
             </div>
-            <div className="flex flex-wrap gap-3">
+            <div className="mt-6 overflow-hidden rounded-xl border border-border">
+              <iframe
+                src="https://maps.google.com/maps?cid=8626724576429817038&output=embed"
+                title="PainFix Physiotherapy Clinic on Google Maps"
+                className="block h-[280px] w-full sm:h-[360px]"
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                allowFullScreen
+              />
+            </div>
+            <div className="mt-5 flex flex-wrap gap-3">
               <a
                 href={GOOGLE_BUSINESS_PROFILE_URL}
                 target="_blank"
