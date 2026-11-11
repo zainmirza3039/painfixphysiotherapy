@@ -365,10 +365,10 @@ export function Navbar({ onlineClinician }: { onlineClinician?: TeamMember }) {
   return (
     <>
       <header
-        className={`fixed inset-x-0 top-0 z-50 border-b border-border/80 bg-background shadow-sm transition-all duration-300 will-change-transform ${hidden && !open ? "-translate-y-full" : "translate-y-0"}`}
+        className={`fixed inset-x-0 top-0 z-50 border-b border-border/60 bg-background shadow-[0_2px_12px_rgba(22,50,74,0.05)] transition-all duration-300 will-change-transform ${hidden && !open ? "-translate-y-full" : "translate-y-0"}`}
       >
         {/* Compact clinic location strip with a lightweight Google Maps preview. */}
-        <div className={`border-b border-border/70 ${scrolled ? "h-9" : "h-10"}`}>
+        <div className={`border-b border-border/45 bg-surface/45 ${scrolled ? "h-9" : "h-10"}`}>
           <div className="mx-auto flex h-full max-w-7xl items-center justify-between gap-3 px-4 sm:px-6 lg:px-8">
             <a
               href={MAP_DIRECTIONS_URL}
@@ -377,7 +377,7 @@ export function Navbar({ onlineClinician }: { onlineClinician?: TeamMember }) {
               aria-label={`Get directions to PainFix Physiotherapy Clinic: ${CLINIC_ADDRESS}`}
               className="flex min-w-0 items-center gap-2.5 rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
             >
-              <span className="hidden h-8 w-[104px] shrink-0 overflow-hidden rounded-md border border-border bg-muted sm:block">
+              <span className="hidden h-8 w-[104px] shrink-0 overflow-hidden rounded-full bg-card/80 sm:block">
                 <iframe
                   src={MAP_EMBED_URL}
                   title="Mini map showing PainFix Physiotherapy Clinic in Shalimar Colony, Multan"
@@ -388,7 +388,7 @@ export function Navbar({ onlineClinician }: { onlineClinician?: TeamMember }) {
                   className="pointer-events-none h-full w-full border-0"
                 />
               </span>
-              <MapPin className="h-4 w-4 shrink-0 text-primary" aria-hidden="true" />
+              <span className="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-secondary/10 text-secondary"><MapPin className="h-3.5 w-3.5" aria-hidden="true" /></span>
               <span className="flex min-w-0 flex-col leading-tight">
                 <span className="text-[11px] font-semibold text-foreground sm:text-xs">
                   Visit PainFix · Multan
@@ -405,7 +405,7 @@ export function Navbar({ onlineClinician }: { onlineClinician?: TeamMember }) {
               href={MAP_DIRECTIONS_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex shrink-0 items-center gap-1.5 rounded-md bg-primary/10 px-2.5 py-1.5 text-[11px] font-semibold text-primary transition-all duration-150 ease-out hover:-translate-y-px hover:bg-primary/15 hover:shadow-sm active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 sm:text-xs"
+              className="inline-flex shrink-0 items-center gap-1.5 rounded-full border border-border/60 bg-card/80 px-3 py-1.5 text-[11px] font-semibold text-foreground/80 transition-colors hover:border-secondary/40 hover:bg-secondary/10 hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 sm:text-xs"
             >
               <Navigation className="h-3.5 w-3.5" aria-hidden="true" />
               <span>Get Directions</span>
@@ -414,20 +414,20 @@ export function Navbar({ onlineClinician }: { onlineClinician?: TeamMember }) {
         </div>
         <nav
           aria-label="Primary"
-          className={`mx-auto flex max-w-7xl items-center justify-between gap-2 px-4 sm:px-6 lg:px-8 ${scrolled ? "py-1" : "py-2"}`}
+          className={`mx-auto flex max-w-7xl items-center justify-between gap-2 px-4 sm:px-6 lg:px-8 ${scrolled ? "py-1.5" : "py-2.5"}`}
         >
           <Link
             to="/"
             className="flex min-w-0 items-center gap-2.5"
             aria-current={pathname === "/" ? "page" : undefined}
           >
-            <span className="grid h-11 w-11 shrink-0 place-items-center overflow-hidden rounded-md bg-background ring-1 ring-border">
+            <span className="grid h-11 w-11 shrink-0 place-items-center overflow-hidden rounded-full border border-border/50 bg-white shadow-sm">
               <img
                 src="/painfix-logo-96.webp"
                 alt="PainFix Physiotherapy Clinic logo"
                 width={44}
                 height={44}
-                className="h-full w-full object-contain p-0.5"
+                className="h-full w-full rounded-full object-contain p-1"
               />
             </span>
             <span className="flex min-w-0 flex-col leading-tight">
