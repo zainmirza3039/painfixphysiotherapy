@@ -73,7 +73,10 @@ test("local Multan landing pages describe home visits as available citywide", as
 
   assert.match(localPages, /Home physiotherapy visits available across Multan/);
   assert.match(localPages, /requested from any area of Multan/);
-  assert.doesNotMatch(localPages, /Selected home visits|Selected home physiotherapy visits|selected home visits/i);
+  assert.doesNotMatch(
+    localPages,
+    /Selected home visits|Selected home physiotherapy visits|selected home visits/i,
+  );
   assert.match(homeVisit, /PainFix provides home physiotherapy visits across Multan/);
   assert.match(homeVisit, /تمام علاقوں میں گھر پر فزیوتھراپی وزٹس/);
 });
