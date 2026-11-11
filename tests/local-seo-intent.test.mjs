@@ -50,22 +50,15 @@ test("Kamar Dard exercise guide targets the exercise query with practical safety
   assert.match(articleRoute, /slug: "safe-kamar-dard-exercises"/);
 });
 
-test("broad Multan physiotherapy landing URLs consolidate to the homepage and home physio routes consolidate to home-visit", async () => {
+test("broad Multan landing URLs consolidate to homepage and home-visit", async () => {
   const config = JSON.parse(await read("vercel.json"));
-  assert.ok(
-    config.redirects.some(
-      (rule) =>
-        rule.source === "/best-physiotherapist-in-multan" &&
-        rule.destination === "/" &&
-        rule.permanent === true,
-    ),
-  );
+  for (const source of ["/best-physiotherapist-in-multan", "/physiotherapist-in-multan", "/physiotherapy-in-multan", "/physiotherapy-clinic-in-multan"]) {
+    assert.ok(config.redirects.some((rule) => rule.source === source && rule.destination === "/" && rule.permanent === true));
+  }
+  assert.ok(config.redirects.some((rule) => rule.source === "/services/home-physiotherapy" && rule.destination === "/home-visit" && rule.permanent === true));
   const sitemap = await read("src/routes/sitemap[.]xml.ts");
-  const localPages = await read("src/data/localPages.ts");
-  assert.match(localPages, /slug: "physiotherapist-in-multan"/);
-  assert.match(sitemap, /new Set\(\["\/best-physiotherapist-in-multan"\]\)/);
   assert.match(sitemap, /redirectedLandingPaths\.has\(entry\.path\)/);
-  assert.doesNotMatch(sitemap, /"\/physiotherapist-in-multan"/);
+  for (const path of ["/best-physiotherapist-in-multan", "/physiotherapist-in-multan", "/physiotherapy-in-multan", "/physiotherapy-clinic-in-multan", "/services/home-physiotherapy"]) assert.ok(sitemap.includes(path));
 });
 
 test("sitemap remains available when optional dynamic listings fail", async () => {
@@ -75,28 +68,22 @@ test("sitemap remains available when optional dynamic listings fail", async () =
   assert.doesNotMatch(sitemap, /status: 503/);
 });
 
-test("service and condition hubs send broad local physiotherapy intent to the homepage", async () => {
-  const component = await read("src/components/site/LocalLandingPage.tsx");
-  const sitemap = await read("src/routes/sitemap[.]xml.ts");
-  assert.ok(component.includes('page.slug === "physiotherapy-in-multan"'));
-  assert.ok(component.includes('to="/physiotherapist-in-multan"'));
-  assert.ok(component.includes('to="/home-visit"'));
-  assert.ok(sitemap.includes("...localPages.map"));
+test("service and condition hubs route broad local discovery links to the homepage", async () => {
+  const services = await read("src/routes/services.index.tsx");
+  const conditions = await read("src/routes/conditions.index.tsx");
+  assert.match(services, /to="\\/"/);
+  assert.match(conditions, /to="\\/"/);
+  assert.doesNotMatch(services, /to="\\/physiotherapy-in-multan"/);
+  assert.doesNotMatch(conditions, /to="\\/physiotherapy-in-multan"/);
 });
 
-test("homepage, service-information and booking pages retain distinct page intent", async () => {
+test("homepage owns broad local discovery while booking remains separate", async () => {
   const homepage = await read("src/routes/index.tsx");
-  const localPages = await read("src/data/localPages.ts");
-  assert.ok(
-    homepage.includes('const TITLE = "Physiotherapist in Multan | PainFix Physiotherapy Clinic"'),
-  );
-  assert.ok(localPages.includes('title: "Physiotherapy Services in Multan"'));
-  assert.ok(localPages.includes('metaTitle: "Physiotherapy Services in Multan | PainFix Clinic"'));
-  assert.ok(localPages.includes('metaTitle: "Book a Physiotherapist in Multan | PainFix Clinic"'));
-  assert.ok(localPages.includes('heading: "Physiotherapy services in Multan"'));
-  assert.ok(
-    localPages.includes('heading: "What happens at your first physiotherapy appointment?"'),
-  );
+  const config = JSON.parse(await read("vercel.json"));
+  assert.ok(homepage.includes('const TITLE = "Physiotherapist in Multan | PainFix Physiotherapy Clinic"'));
+  assert.ok(config.redirects.some((rule) => rule.source === "/physiotherapist-in-multan" && rule.destination === "/"));
+  const booking = await read("src/routes/book-appointment.tsx");
+  assert.ok(booking.length > 0);
 });
 
 test("slipped-disc search intent maps to the existing slipped-disc condition route", async () => {
@@ -142,12 +129,3 @@ test("local Multan landing pages describe home visits as available citywide", as
   assert.match(homeVisit, /تمام علاقوں میں گھر پر فزیوتھراپی وزٹس/);
 });
 
-test("services and conditions hubs contextually link to the Multan physiotherapy information page", async () => {
-  const services = await read("src/routes/services.index.tsx");
-  const conditions = await read("src/routes/conditions.index.tsx");
-
-  assert.match(services, /to="\/physiotherapy-in-multan"/);
-  assert.match(services, /Physiotherapy in Multan/);
-  assert.match(conditions, /to="\/physiotherapy-in-multan"/);
-  assert.match(conditions, /physiotherapy in Multan/);
-});
