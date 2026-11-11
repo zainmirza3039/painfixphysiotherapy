@@ -56,9 +56,13 @@ test("Multan physiotherapy service page links to booking and home-visit journeys
 test("homepage, service-information and booking pages retain distinct page intent", async () => {
   const homepage = await read("src/routes/index.tsx");
   const localPages = await read("src/data/localPages.ts");
-  assert.ok(homepage.includes('const TITLE = "Physiotherapist in Multan | PainFix Physiotherapy Clinic"'));
+  assert.ok(
+    homepage.includes('const TITLE = "Physiotherapist in Multan | PainFix Physiotherapy Clinic"'),
+  );
   assert.ok(localPages.includes('metaTitle: "Physiotherapy in Multan | PainFix Clinic"'));
   assert.ok(localPages.includes('metaTitle: "Book a Physiotherapist in Multan | PainFix Clinic"'));
   assert.ok(localPages.includes('heading: "Physiotherapy services in Multan"'));
-  assert.ok(localPages.includes('heading: "What happens at your first physiotherapy appointment?"'));
+  assert.ok(
+    localPages.includes('heading: "What happens at your first physiotherapy appointment?"'),
+  );
 });
