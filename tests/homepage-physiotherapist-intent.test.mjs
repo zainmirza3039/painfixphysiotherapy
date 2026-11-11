@@ -19,16 +19,9 @@ test("homepage owns the primary physiotherapist in Multan search intent", async 
   assert.doesNotMatch(hero, /DPT-led assessment and rehabilitation/);
 });
 
-test("physiotherapist booking landing page remains a distinct canonical route", async () => {
+test("broad physiotherapist landing URL redirects home while booking stays on its dedicated route", async () => {
   const config = JSON.parse(await read("vercel.json"));
-  assert.equal(
-    config.redirects.some((redirect) => redirect.source === "/physiotherapist-in-multan"),
-    false,
-  );
-  const bookingRoute = await read("src/routes/physiotherapist-in-multan.tsx");
-  const localPages = await read("src/data/localPages.ts");
-  assert.match(bookingRoute, /createFileRoute\("\/physiotherapist-in-multan"\)/);
-  assert.match(bookingRoute, /localPageHead\(page\)/);
-  assert.match(localPages, /slug: "physiotherapist-in-multan"/);
-  assert.match(localPages, /title: "Book a Physiotherapist in Multan"/);
+  assert.ok(config.redirects.some((redirect) => redirect.source === "/physiotherapist-in-multan" && redirect.destination === "/" && redirect.permanent));
+  const bookingRoute = await read("src/routes/book-appointment.tsx");
+  assert.ok(bookingRoute.includes('createFileRoute("/book-appointment")'));
 });
