@@ -90,7 +90,6 @@ type SaveResult = {
   uploadError: string | null;
   cleanupPath: string | null;
 };
-type MediaLibraryImage = { name: string; size: number; url: string };
 
 function errorMessage(error: unknown): string {
   return error instanceof Error ? error.message : "The request could not be completed.";
@@ -130,9 +129,6 @@ function CliniciansPage() {
   const [editing, setEditing] = useState<AdminClinicianProfile | null>(null);
   const [form, setForm] = useState<ClinicianFormState>(emptyClinicianForm);
   const [photoFile, setPhotoFile] = useState<File | null>(null);
-  const [selectedMedia, setSelectedMedia] = useState<MediaLibraryImage | null>(null);
-  const [mediaPickerOpen, setMediaPickerOpen] = useState(false);
-  const [mediaSearch, setMediaSearch] = useState("");
   const [formError, setFormError] = useState<string | null>(null);
   const [deactivateTarget, setDeactivateTarget] = useState<AdminClinicianProfile | null>(null);
   const [clearPhotoTarget, setClearPhotoTarget] = useState<AdminClinicianProfile | null>(null);
@@ -147,30 +143,6 @@ function CliniciansPage() {
     queryFn: () => listProfiles(),
   });
 
-  const mediaQuery = useQuery({
-    queryKey: ["admin", "media", ""],
-    enabled: mediaPickerOpen,
-    queryFn: async (): Promise<MediaLibraryImage[]> => {
-      const { data, error } = await supabase.storage
-        .from("site-media")
-        .list("", { limit: 200, sortBy: { column: "created_at", order: "desc" } });
-      if (error) throw error;
-      const imageExtensions = new Set(["jpg", "jpeg", "png", "webp", "gif", "avif"]);
-      return (data ?? [])
-        .filter((file) => file.id !== null)
-        .filter((file) => imageExtensions.has(file.name.split(".").pop()?.toLowerCase() ?? ""))
-        .map((file) => ({
-          name: file.name,
-          size: file.metadata?.size ?? 0,
-          url: supabase.storage.from("site-media").getPublicUrl(file.name).data.publicUrl,
-        }));
-    },
-  });
-
-  const filteredMedia = (mediaQuery.data ?? []).filter((file) =>
-    file.name.toLocaleLowerCase().includes(mediaSearch.trim().toLocaleLowerCase()),
-  );
-
   const saveMutation = useMutation({
     mutationFn: async (vars: {
       payload: ClinicianProfileInput;
@@ -178,16 +150,7 @@ function CliniciansPage() {
       previousPhotoPath: string | null;
     }): Promise<SaveResult> => {
       const profile = await saveProfile({ data: vars.payload });
-      if (!vars.file) {
-        return {
-          profile,
-          uploadError: null,
-          cleanupPath:
-            vars.previousPhotoPath && vars.payload.photo_url && !vars.payload.photo_path
-              ? vars.previousPhotoPath
-              : null,
-        };
-      }
+      if (!vars.file) return { profile, uploadError: null, cleanupPath: null };
 
       let signedUpload: Awaited<ReturnType<typeof createPhotoUploadUrl>>;
       try {
@@ -269,7 +232,6 @@ function CliniciansPage() {
         toast.error(result.uploadError);
       } else {
         setPhotoFile(null);
-        setSelectedMedia(null);
         setDialogOpen(false);
         toast.success("Clinician profile saved");
       }
@@ -391,7 +353,6 @@ function CliniciansPage() {
     setEditing(null);
     setForm(emptyClinicianForm());
     setPhotoFile(null);
-    setSelectedMedia(null);
     setFormError(null);
   }
 
@@ -412,7 +373,6 @@ function CliniciansPage() {
     setEditing(profile);
     setForm(clinicianProfileToForm(profile));
     setPhotoFile(null);
-    setSelectedMedia(null);
     setFormError(null);
     setDialogOpen(true);
   }
@@ -434,7 +394,6 @@ function CliniciansPage() {
       return;
     }
     setPhotoFile(file);
-    setSelectedMedia(null);
     setFormError(null);
   }
 
@@ -453,13 +412,10 @@ function CliniciansPage() {
     }
 
     const deactivating = editing?.is_active && !form.is_active;
-    const basePayload = clinicianFormToInput(
+    const payload = clinicianFormToInput(
       deactivating ? { ...form, is_published: false } : form,
       editing?.photo_path ?? null,
     );
-    const payload: ClinicianProfileInput = selectedMedia
-      ? { ...basePayload, photo_path: null, photo_url: selectedMedia.url }
-      : basePayload;
     if (payload.slug !== editing?.slug && isReservedRootSlug(payload.slug)) {
       setFormError("That URL is already used by another PainFix page. Choose a different slug.");
       return;
@@ -986,62 +942,36 @@ function CliniciansPage() {
                     Profile photo
                   </Label>
                   <p className="mt-1 text-xs text-muted-foreground">
-                    Choose an existing image from Media Library or upload a new portrait
-                    ({photoFormatLabel}, maximum 5 MiB).
+                    {photoFormatLabel}; maximum 5 MiB. Images upload to the dedicated clinician
+                    photo bucket using a server-issued signed URL.
                   </p>
-                  {(selectedMedia?.url || (editing?.resolved_photo_url && !photoFile)) && (
+                  {editing?.resolved_photo_url && !photoFile && (
                     <div className="mt-3 flex items-center gap-3">
                       <img
-                        src={selectedMedia?.url ?? editing?.resolved_photo_url ?? ""}
-                        alt={`Portrait preview for ${form.full_name || form.name}`}
+                        src={editing.resolved_photo_url}
+                        alt={`Current portrait of ${editing.full_name}`}
                         className="h-16 w-16 rounded-xl border border-border object-cover"
                       />
-                      <div className="min-w-0">
+                      <div>
                         <p className="text-sm font-medium text-foreground">
-                          {selectedMedia ? "Selected from Media Library" : "Current public portrait"}
+                          Current public portrait
                         </p>
-                        {selectedMedia && (
-                          <p className="max-w-sm truncate text-xs text-muted-foreground">
-                            {selectedMedia.name}
-                          </p>
-                        )}
-                        {!selectedMedia && editing && (
-                          <Button
-                            type="button"
-                            size="sm"
-                            variant="ghost"
-                            className="mt-1 h-8 px-2 text-rose-600"
-                            onClick={() => {
-                              if (!operationRef.current) setClearPhotoTarget(editing);
-                            }}
-                            disabled={clearPhotoMutation.isPending}
-                          >
-                            <X className="mr-1 h-3.5 w-3.5" /> Remove photo
-                          </Button>
-                        )}
-                        {selectedMedia && (
-                          <Button
-                            type="button"
-                            size="sm"
-                            variant="ghost"
-                            className="mt-1 h-8 px-2"
-                            onClick={() => setSelectedMedia(null)}
-                          >
-                            Cancel selection
-                          </Button>
-                        )}
+                        <Button
+                          type="button"
+                          size="sm"
+                          variant="ghost"
+                          className="mt-1 h-8 px-2 text-rose-600"
+                          onClick={() => {
+                            if (!operationRef.current) setClearPhotoTarget(editing);
+                          }}
+                          disabled={clearPhotoMutation.isPending}
+                        >
+                          <X className="mr-1 h-3.5 w-3.5" /> Remove photo
+                        </Button>
                       </div>
                     </div>
                   )}
                   <div className="mt-3 flex flex-wrap items-center gap-2">
-                    <Button
-                      type="button"
-                      variant="outline"
-                      onClick={() => setMediaPickerOpen(true)}
-                    >
-                      <ImagePlus className="mr-2 h-4 w-4" /> Choose from Media Library
-                    </Button>
-                    <span className="text-xs text-muted-foreground">or upload a new image</span>
                     <Input
                       id="clinician-photo"
                       type="file"
@@ -1055,7 +985,7 @@ function CliniciansPage() {
                     {photoFile && (
                       <>
                         <span className="text-xs text-muted-foreground">
-                          Selected upload: {photoFile.name}
+                          Selected: {photoFile.name}
                         </span>
                         <Button
                           type="button"
@@ -1063,7 +993,7 @@ function CliniciansPage() {
                           variant="ghost"
                           onClick={() => setPhotoFile(null)}
                         >
-                          Cancel upload
+                          Cancel selection
                         </Button>
                       </>
                     )}
@@ -1133,114 +1063,6 @@ function CliniciansPage() {
               </DialogFooter>
             </fieldset>
           </form>
-        </DialogContent>
-      </Dialog>
-
-      <Dialog open={mediaPickerOpen} onOpenChange={setMediaPickerOpen}>
-        <DialogContent className="max-h-[88vh] max-w-4xl overflow-y-auto">
-          <DialogHeader>
-            <DialogTitle>Choose a portrait from Media Library</DialogTitle>
-            <p className="text-sm text-muted-foreground">
-              Select an image already uploaded to the shared website Media Library. The selected
-              image will be assigned to this clinician when you save the profile.
-            </p>
-          </DialogHeader>
-
-          <div className="flex items-center gap-2">
-            <Search className="h-4 w-4 shrink-0 text-muted-foreground" />
-            <Input
-              value={mediaSearch}
-              onChange={(event) => setMediaSearch(event.target.value)}
-              placeholder="Search image filenames"
-              aria-label="Search Media Library images"
-            />
-            <Button
-              type="button"
-              size="icon"
-              variant="outline"
-              aria-label="Refresh Media Library"
-              disabled={mediaQuery.isFetching}
-              onClick={() => void mediaQuery.refetch()}
-            >
-              <RefreshCw className={`h-4 w-4 ${mediaQuery.isFetching ? "animate-spin" : ""}`} />
-            </Button>
-          </div>
-
-          {mediaQuery.isLoading ? (
-            <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
-              {Array.from({ length: 8 }).map((_, index) => (
-                <Skeleton key={index} className="aspect-[4/5] w-full rounded-xl" />
-              ))}
-            </div>
-          ) : mediaQuery.isError ? (
-            <div className="rounded-xl border border-destructive/30 p-5 text-sm text-destructive">
-              {errorMessage(mediaQuery.error)}
-              <Button
-                type="button"
-                variant="outline"
-                size="sm"
-                className="ml-3"
-                onClick={() => void mediaQuery.refetch()}
-              >
-                Retry
-              </Button>
-            </div>
-          ) : filteredMedia.length === 0 ? (
-            <div className="rounded-xl border border-dashed border-border p-8 text-center">
-              <ImagePlus className="mx-auto h-7 w-7 text-muted-foreground" />
-              <p className="mt-2 text-sm font-medium text-foreground">
-                {mediaQuery.data?.length ? "No images match this search" : "No images in Media Library"}
-              </p>
-              <p className="mt-1 text-xs text-muted-foreground">
-                Upload images in Media Library first, then return here to select one.
-              </p>
-              <a
-                href="/admin/media"
-                target="_blank"
-                rel="noreferrer"
-                className="mt-3 inline-flex min-h-9 items-center text-sm font-semibold text-primary underline underline-offset-4"
-              >
-                Open Media Library
-              </a>
-            </div>
-          ) : (
-            <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
-              {filteredMedia.map((file) => (
-                <button
-                  key={file.name}
-                  type="button"
-                  onClick={() => {
-                    setSelectedMedia(file);
-                    setPhotoFile(null);
-                    setMediaPickerOpen(false);
-                    setFormError(null);
-                  }}
-                  className="group overflow-hidden rounded-xl border border-border bg-card text-left transition-colors hover:border-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-                  aria-label={`Select ${file.name} as clinician portrait`}
-                >
-                  <div className="aspect-[4/5] overflow-hidden bg-muted">
-                    <img
-                      src={file.url}
-                      alt=""
-                      loading="lazy"
-                      className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.03]"
-                    />
-                  </div>
-                  <div className="p-2">
-                    <p className="truncate text-xs font-medium text-foreground">{file.name}</p>
-                    <p className="mt-0.5 text-[11px] text-muted-foreground">
-                      {(file.size / 1024).toFixed(0)} KB
-                    </p>
-                  </div>
-                </button>
-              ))}
-            </div>
-          )}
-          <DialogFooter>
-            <Button type="button" variant="outline" onClick={() => setMediaPickerOpen(false)}>
-              Close
-            </Button>
-          </DialogFooter>
         </DialogContent>
       </Dialog>
 
