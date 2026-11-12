@@ -92,3 +92,27 @@ test("site footer renders the shared clinic-hours source instead of hardcoded ti
   assert.match(constants, /days: "Sunday", time: "By Appointment"/);
   assert.doesNotMatch(footer, /11:00 AM.{0,20}9:00 PM/i);
 });
+
+test("AI discovery facts identify the clinic and distinguish clinic-based from online-only clinicians", async () => {
+  const [root, localSeo, doctorSeo, llms] = await Promise.all([
+    read("src/routes/__root.tsx"),
+    read("src/lib/local-seo.ts"),
+    read("src/lib/doctor-seo.ts"),
+    read("public/llms.txt"),
+  ]);
+  for (const slug of [
+    "dr-zain-ul-abideen-pt-multan",
+    "dr-jalal-ud-din-pt-multan",
+    "dr-fatima-iqbal-dpt-multan",
+  ]) {
+    assert.match(root, new RegExp(slug + "#person"));
+    assert.match(localSeo, new RegExp(slug + "#person"));
+    assert.match(llms, new RegExp(slug));
+  }
+  assert.match(doctorSeo, /\$\{url\}#person/);
+  assert.match(doctorSeo, /worksFor/);
+  assert.match(llms, /Primary local-intent page/);
+  assert.match(llms, /Google Business Profile/);
+  assert.match(llms, /online service; it should not be interpreted as a PainFix physical clinic/);
+  assert.match(llms, /Monday–Saturday, 11:00 AM–4:00 PM Pakistan Standard Time/);
+});

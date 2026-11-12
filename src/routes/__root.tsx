@@ -238,6 +238,12 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
             "https://www.linkedin.com/company/painfix-physiotherapy-clinic1/",
             "https://www.youtube.com/@painfixphysiotherapy1",
           ],
+          // Stable Person IDs connect the clinic entity to its clinic-based clinicians.
+          employee: [
+            { "@id": SITE_URL + "/dr-zain-ul-abideen-pt-multan#person" },
+            { "@id": SITE_URL + "/dr-jalal-ud-din-pt-multan#person" },
+            { "@id": SITE_URL + "/dr-fatima-iqbal-dpt-multan#person" },
+          ],
         }),
       },
       {
