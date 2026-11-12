@@ -339,14 +339,14 @@ export const blogPosts: BlogPost[] = [
       {
         heading: "What causes back pain",
         paragraphs: [
-          "Most back pain has a mechanical cause that physiotherapy can directly address.",
+          "Back pain can have several contributors, including physical loading, activity patterns, health conditions and psychosocial factors. The assessment helps identify the most relevant factors and whether medical review is needed.",
         ],
         list: [
           "Muscle or ligament strain",
-          "Poor posture and prolonged sitting",
-          "Disc problems",
-          "Heavy or incorrect lifting",
-          "Weak core and back muscles",
+          "Prolonged or unvaried positions may aggravate symptoms in some people",
+          "Disc-related conditions in some presentations",
+          "Sudden or repeated lifting loads, depending on capacity",
+          "Reduced strength or activity tolerance, which may be a modifiable factor rather than the sole cause",
         ],
       },
       {
@@ -527,9 +527,9 @@ export const blogPosts: BlogPost[] = [
           "Assessment guides the plan. It may include advice to remain active, graded movement and strengthening, and selected nerve-mobilising exercises when they do not aggravate symptoms. Manual techniques may be used selectively as an adjunct. The aim is to improve function and symptom tolerance, not to claim that treatment physically removes pressure from the nerve.",
         ],
         list: [
-          "Nerve-mobilising ('flossing') exercises",
-          "Manual therapy to reduce muscle guarding",
-          "Directional exercises to centralise the pain",
+          "Selected nerve-mobilising exercises when assessment indicates they are appropriate and symptoms tolerate them",
+          "Manual techniques as an adjunct when clinically indicated",
+          "Directional movements only when the person's symptom response supports their use",
           "Core and gluteal strengthening",
           "Posture and lifting education",
         ],
@@ -1372,7 +1372,7 @@ export const blogPosts: BlogPost[] = [
     title: "ACL Rehabilitation After Surgery: What to Expect",
     seoTitle: "ACL Rehabilitation After Surgery | Physiotherapy — PainFix",
     metaDescription:
-      "A phase-by-phase guide to ACL rehabilitation after surgery. Learn the recovery timeline, key milestones and how physiotherapy ensures a safe return to sport.",
+      "A phase-by-phase guide to ACL rehabilitation after surgery, including strength, functional milestones and criteria-informed return-to-sport decisions.",
     category: "sports-injuries",
     tags: ["ACL", "knee", "surgery", "return to sport"],
     excerpt:
@@ -1385,7 +1385,7 @@ export const blogPosts: BlogPost[] = [
     sections: [
       {
         paragraphs: [
-          "The anterior cruciate ligament (ACL) is a key stabiliser of the knee. After reconstruction, structured physiotherapy is essential to rebuild strength, control and confidence, and to return to sport safely. Rushing the process is the leading cause of re-injury.",
+          "The anterior cruciate ligament (ACL) is a key stabiliser of the knee. After reconstruction, structured rehabilitation helps rebuild strength, neuromuscular control and sport-specific capacity. Returning before adequate recovery can increase reinjury risk, but reinjury is multifactorial and cannot be attributed to one factor alone.",
         ],
       },
       {
@@ -1430,7 +1430,7 @@ export const blogPosts: BlogPost[] = [
       },
       {
         q: "Do I need rehab before ACL surgery too?",
-        a: "Yes. 'Prehab' to restore movement and strength before surgery improves post-operative outcomes.",
+        a: "Prehabilitation may help address swelling, range of motion, quadriceps strength and functional capacity before surgery. The programme should follow the surgeon's plan, and its benefits depend on the person's presentation and the procedure.",
       },
     ],
     keyTakeaways: [
@@ -1528,7 +1528,7 @@ export const blogPosts: BlogPost[] = [
     title: "Disc Herniation (Slipped Disc) Treatment | Slip Disc Ka Ilaj",
     seoTitle: "Slipped Disc Treatment | Slip Disc Ka Ilaj — PainFix Multan",
     metaDescription:
-      "Slipped disc (slip disc) rarely needs surgery. Learn how physiotherapy in Multan can help with disc-related pain and nerve symptoms.",
+      "Many people with symptomatic slipped discs improve without surgery. Learn how assessment and physiotherapy may help manage disc-related symptoms and when specialist review is needed.",
     category: "back-pain",
     tags: ["disc herniation", "slip disc", "slip disc ka ilaj", "sciatica", "back pain"],
     excerpt:
@@ -2322,7 +2322,7 @@ export const blogPosts: BlogPost[] = [
     title: "Postnatal Physiotherapy and Core Recovery",
     seoTitle: "Postnatal Physiotherapy | Core & Pelvic Recovery — PainFix",
     metaDescription:
-      "Postnatal physiotherapy helps mothers recover core strength, heal from birth and relieve back pain. Learn how to safely rebuild after pregnancy and childbirth.",
+      "Postnatal physiotherapy can support pelvic-floor and abdominal-wall function, manage symptoms and guide a gradual return to activity after pregnancy and birth. Learn what assessment and individualised rehabilitation may involve.",
     category: "womens-health",
     tags: ["postnatal", "women's health", "core", "pelvic floor"],
     excerpt:
@@ -2335,7 +2335,7 @@ export const blogPosts: BlogPost[] = [
     sections: [
       {
         paragraphs: [
-          "Pregnancy and childbirth place significant demands on the core, pelvic floor and spine. Postnatal physiotherapy provides a safe, structured path back to strength and function, addressing common issues like back pain and abdominal separation.",
+          "Pregnancy and childbirth can affect pelvic-floor function, abdominal-wall capacity and tolerance for daily activity. Postnatal assessment considers symptoms, healing, medical factors and goals before building a progressive plan for strength and function.",
         ],
       },
       {
