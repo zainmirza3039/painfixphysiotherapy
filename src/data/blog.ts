@@ -1389,19 +1389,19 @@ export const blogPosts: BlogPost[] = [
         ],
       },
       {
-        heading: "Phase 1 — Early recovery (weeks 0–6)",
+        heading: "Phase 1 — Early recovery",
         paragraphs: [
           "The priorities are controlling swelling, restoring full knee extension, regaining quadriceps activation, and walking normally. Gentle range-of-motion and activation exercises lay the foundation.",
         ],
       },
       {
-        heading: "Phase 2 — Strengthening (weeks 6–20)",
+        heading: "Phase 2 — Progressive strengthening",
         paragraphs: [
           "Progressive strengthening of the quadriceps, hamstrings and hips rebuilds the muscle support around the knee. Balance and single-leg control work restores stability and neuromuscular control.",
         ],
       },
       {
-        heading: "Phase 3 — Return to sport (months 5–12)",
+        heading: "Phase 3 — Running and return to sport",
         paragraphs: [
           "Running, agility, jumping and sport-specific drills are introduced gradually. Return to competition is guided by objective strength and hop tests — not just time — to minimise re-injury risk.",
         ],
@@ -2175,7 +2175,7 @@ export const blogPosts: BlogPost[] = [
     sections: [
       {
         paragraphs: [
-          "Electrotherapy refers to a range of treatments that use electrical energy, sound waves or currents to relieve pain and support healing. Used appropriately, it complements the core of physiotherapy — assessment, manual therapy and exercise.",
+          "Electrotherapy refers to a range of treatments that use electrical energy, sound waves or currents. Their effects and indications differ; a modality should not be assumed to relieve pain or accelerate tissue healing. Assessment, education, activity and exercise-based rehabilitation remain central.",
         ],
       },
       {
@@ -2198,7 +2198,7 @@ export const blogPosts: BlogPost[] = [
       {
         heading: "How we use it at PainFix",
         paragraphs: [
-          "We use electrotherapy selectively, as one tool within a comprehensive, personalized plan. This ensures you get symptom relief while also addressing the underlying cause through active treatment.",
+          "If a modality is being considered, the clinician should explain its specific purpose, supporting evidence, precautions and alternatives. It should be used only when there is a clear clinical rationale and should not displace active rehabilitation.",
         ],
       },
     ],
@@ -2217,7 +2217,7 @@ export const blogPosts: BlogPost[] = [
       },
       {
         q: "Is ultrasound therapy effective?",
-        a: "Evidence is mixed; it may help some soft-tissue conditions and is used selectively as an adjunct.",
+        a: "Effectiveness depends on the diagnosis. Therapeutic ultrasound is not recommended for low back pain or sciatica by NICE, and the 2025 rotator cuff tendinopathy guideline recommends against it for rotator cuff tendinopathy.",
       },
       {
         q: "Should a clinic use only machines?",
