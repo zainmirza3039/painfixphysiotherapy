@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { Activity, ArrowUpRight, Dumbbell, Hand, HeartPulse, Zap } from "lucide-react";
+import { Activity, ArrowUpRight, CalendarDays, Dumbbell, Hand, HeartPulse, Zap } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { serviceMap } from "@/data/services";
 import { Reveal } from "./Reveal";
@@ -156,6 +156,24 @@ export function Services() {
               ) : null}
             </Reveal>
           ))}
+        </div>
+        <div className="mt-7 flex flex-col gap-4 rounded-xl border border-secondary/20 bg-accent/40 p-5 sm:flex-row sm:items-center sm:justify-between sm:px-6">
+          <div className="max-w-xl">
+            <p className="font-heading text-lg font-semibold text-foreground">
+              Not sure which treatment is right for you?
+            </p>
+            <p className="mt-1 text-sm leading-6 text-muted-foreground">
+              Start with a clinical assessment. We’ll help you identify the next appropriate step.
+            </p>
+          </div>
+          <a
+            href="/book-appointment?city=multan&service=clinic"
+            className="inline-flex min-h-12 w-full shrink-0 items-center justify-center gap-2 rounded-lg bg-secondary px-5 py-3 text-sm font-bold text-white shadow-sm transition-colors hover:bg-[#008F4C] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary focus-visible:ring-offset-2 sm:w-auto"
+          >
+            <CalendarDays className="h-4 w-4" aria-hidden="true" />
+            Book your assessment
+            <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
+          </a>
         </div>
       </div>
     </section>
