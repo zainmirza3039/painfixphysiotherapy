@@ -1641,3 +1641,80 @@ body:has(.site-footer) :is(a[href], button, [role="button"], summary):focus-visi
     padding-inline: 0.75rem;
   }
 }
+
+
+/* Approved clinician-card direction: two large, natural editorial portraits. */
+.home-team-list {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  max-width: 66rem;
+  gap: clamp(1.5rem, 3vw, 2.5rem);
+}
+
+.home-team-card {
+  border-radius: 0.35rem;
+  border-color: color-mix(in srgb, #032e61 13%, var(--border));
+  box-shadow: none;
+}
+
+.home-team-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgb(3 46 97 / 8%);
+}
+
+.home-team-card__media {
+  aspect-ratio: 4 / 5;
+  background: #edf0ec;
+}
+
+.home-team-card__portrait {
+  object-position: 50% 24%;
+  filter: none;
+}
+
+.home-team-card__content {
+  padding: clamp(1.25rem, 2.3vw, 1.8rem);
+}
+
+.home-team-card__credentials {
+  font-size: 0.68rem;
+  letter-spacing: 0.075em;
+}
+
+.home-team-card__name {
+  margin-top: 0.8rem;
+  font-size: clamp(1.45rem, 2.1vw, 1.9rem);
+  font-weight: 700;
+}
+
+.home-team-card__role {
+  margin-top: 0.45rem;
+}
+
+.home-team-card__specialties {
+  min-height: 0;
+  margin-top: 0.8rem;
+}
+
+.home-team-card__specialties li {
+  border-radius: 0.2rem;
+  background: transparent;
+  padding: 0.28rem 0.48rem;
+}
+
+@media (max-width: 639px) {
+  .home-team-list {
+    grid-template-columns: minmax(0, 1fr);
+    max-width: 28rem;
+    gap: 1.5rem;
+  }
+
+  .home-team-card__media {
+    aspect-ratio: 4 / 5;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home-team-card:hover {
+    transform: none;
+  }
+}
