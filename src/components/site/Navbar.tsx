@@ -3,7 +3,7 @@ import * as DialogPrimitive from "@radix-ui/react-dialog";
 import {
   Activity, ArrowUpRight, CalendarDays, ChevronRight, Dumbbell, Hand, HeartPulse,
   Home as HomeIcon, LogIn, LogOut, MapPin, Menu, MessageCircle, Navigation, Phone,
-  Salad, ShieldCheck, Stethoscope, UserRound, X, Droplets, type LucideIcon,
+  Salad, ShieldCheck, Stethoscope, UserRound, X, Droplets, LayoutDashboard, type LucideIcon,
 } from "lucide-react";
 import { Link, useNavigate, useRouterState } from "@tanstack/react-router";
 import {
@@ -84,8 +84,8 @@ function ConditionLink({ item, onNavigate }: { item: ConditionItem; onNavigate: 
 
 const PRIMARY_LINKS = [
   { label: "Home", to: "/" }, { label: "About PainFix", to: "/about" },
-  { label: "Our clinicians", to: "/our-team" }, { label: "Home visits", to: "/home-visit" },
-  { label: "Patient stories", to: "/success-stories" }, { label: "Articles & guides", to: "/blog" },
+  { label: "Our clinicians", to: "/our-team" }, { label: "Fitness", to: "/fitness" }, { label: "Home visits", to: "/home-visit" },
+  { label: "Patient stories", to: "/success-stories" }, { label: "Articles & guides", to: "/blog" }, { label: "Gallery", to: "/gallery" },
   { label: "Contact", to: "/contact" },
 ] as const;
 
@@ -116,7 +116,7 @@ export function Navbar({ onlineClinician }: { onlineClinician?: TeamMember }) {
   }
 
   const services = SERVICES_MENU.filter((item) => item.label !== "Home Physiotherapy");
-  const conditions = onlineOnly ? CONDITIONS_MENU.filter((item) => item.slug !== "stroke-rehabilitation") : CONDITIONS_MENU;
+  const conditions = CONDITIONS_MENU;
 
   return (
     <>
@@ -217,7 +217,7 @@ export function Navbar({ onlineClinician }: { onlineClinician?: TeamMember }) {
                   <>
                     <Link to="/admin/profile" onClick={closeMenu} className="apple-press inline-flex min-h-10 items-center gap-2 rounded-xl px-3 text-sm font-medium text-foreground hover:bg-accent"><UserRound className="h-4 w-4" aria-hidden="true" />My profile</Link>
                     <Link to="/admin/appointments" onClick={closeMenu} className="apple-press inline-flex min-h-10 items-center gap-2 rounded-xl px-3 text-sm font-medium text-foreground hover:bg-accent"><CalendarDays className="h-4 w-4" aria-hidden="true" />Appointments</Link>
-                    {isAdmin && <Link to="/admin" onClick={closeMenu} className="apple-press inline-flex min-h-10 items-center gap-2 rounded-xl px-3 text-sm font-medium text-foreground hover:bg-accent"><ShieldCheck className="h-4 w-4" aria-hidden="true" />Admin</Link>}
+                    <Link to="/admin" onClick={closeMenu} className="apple-press inline-flex min-h-10 items-center gap-2 rounded-xl px-3 text-sm font-medium text-foreground hover:bg-accent">{isAdmin ? <ShieldCheck className="h-4 w-4" aria-hidden="true" /> : <LayoutDashboard className="h-4 w-4" aria-hidden="true" />}{isAdmin ? "Admin" : "Dashboard"}</Link>
                     <button type="button" onClick={handleSignOut} className="apple-press inline-flex min-h-10 items-center gap-2 rounded-xl px-3 text-sm font-medium text-foreground hover:bg-accent"><LogOut className="h-4 w-4" aria-hidden="true" />Sign out</button>
                   </>
                 ) : <Link to="/auth" onClick={closeMenu} className="apple-press inline-flex min-h-10 items-center gap-2 rounded-xl px-3 text-sm font-medium text-foreground hover:bg-accent"><LogIn className="h-4 w-4" aria-hidden="true" />Sign in</Link>}
