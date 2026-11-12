@@ -60,14 +60,20 @@ export function MeetDoctors({ initialProfiles }: { initialProfiles?: PublicClini
 
           {!isLoading &&
             !isError &&
-            clinicians.map((doc, index) => (
+            clinicians.map((doc, index) => {
+              const displayRole =
+                doc.slug === "dr-zain-ul-abideen-pt-multan"
+                  ? "Founder & Head Physiotherapist"
+                  : doc.role;
+
+              return (
               <Reveal key={doc.slug} anim="up" delay={index * 45}>
                 <article className="home-team-card">
                   <div className="home-team-card__media">
                     <ClinicianPortrait
                       photo={doc.photo}
                       name={doc.name}
-                      role={doc.role}
+                      role={displayRole}
                       className="home-team-card__portrait"
                     />
                   </div>
@@ -78,7 +84,7 @@ export function MeetDoctors({ initialProfiles }: { initialProfiles?: PublicClini
                       {doc.credentials}
                     </p>
                     <h3 className="home-team-card__name">{doc.fullName}</h3>
-                    <p className="home-team-card__role">{doc.role}</p>
+                    <p className="home-team-card__role">{displayRole}</p>
 
                     <div className="home-team-card__meta">
                       <span className="home-team-card__meta-item">{clinicianServiceLabel(doc)}</span>
@@ -123,7 +129,8 @@ export function MeetDoctors({ initialProfiles }: { initialProfiles?: PublicClini
                   </div>
                 </article>
               </Reveal>
-            ))}
+              );
+            })}
         </div>
       </div>
     </section>
