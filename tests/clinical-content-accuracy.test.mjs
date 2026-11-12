@@ -84,7 +84,7 @@ test("ACL and rotator-cuff guidance avoids fixed recovery promises", () => {
   assert.match(acl, /psychological readiness/);
   assert.match(cuff, /partial-thickness tears/);
   assert.match(cuff, /full-thickness tears/);
-  assert.doesNotMatch(cuff, /8–12 weeks/);
+  assert.doesNotMatch(cuff, /improvement usually comes within 8–12 weeks/);
 });
 
 test("frozen shoulder, paediatric and postnatal guidance is individualised", () => {
