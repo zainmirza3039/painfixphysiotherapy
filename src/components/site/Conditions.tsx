@@ -26,8 +26,7 @@ const featuredConditions: FeaturedCondition[] = [
   {
     conditionSlug: "neck-pain",
     title: "Neck Pain",
-    description:
-      "Care for neck pain, stiffness and difficulty turning or moving the head.",
+    description: "Care for neck pain, stiffness and difficulty turning or moving the head.",
   },
   {
     conditionSlug: "sciatica",
@@ -50,14 +49,12 @@ const featuredConditions: FeaturedCondition[] = [
   {
     conditionSlug: "frozen-shoulder",
     title: "Frozen Shoulder",
-    description:
-      "Individualised care for shoulder pain and progressive restriction of movement.",
+    description: "Individualised care for shoulder pain and progressive restriction of movement.",
   },
   {
     conditionSlug: "shoulder-pain",
     title: "Shoulder Pain",
-    description:
-      "Assessment of shoulder pain affecting reaching, lifting and everyday activities.",
+    description: "Assessment of shoulder pain affecting reaching, lifting and everyday activities.",
   },
   {
     conditionSlug: "plantar-fasciitis",
