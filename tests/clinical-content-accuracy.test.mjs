@@ -73,7 +73,7 @@ test("Hijama copy describes wet-cupping risks without calling it generally safe"
 test("electrotherapy claims are modality- and condition-specific", () => {
   const text = articleText("electrotherapy-in-physiotherapy").toLowerCase();
   assert.match(text, /nice advises against tens, ultrasound and interferential therapy for low back pain or sciatica/);
-  assert.match(text, /does not replace/);
+  assert.match(text, /never replace/);
   assert.doesNotMatch(text, /electrotherapy.*support healing/);
 });
 
