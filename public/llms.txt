@@ -1,82 +1,96 @@
 # PainFix Physiotherapy Clinic
 
-> PainFix Physiotherapy Clinic is an evidence-based physiotherapy and rehabilitation clinic in Multan, Punjab, Pakistan. Services include in-clinic physiotherapy, home visits in Multan, manual therapy, exercise rehabilitation, sports injury care, pain management, post-surgical rehabilitation and neurological rehabilitation.
+> PainFix Physiotherapy Clinic is a physiotherapy and rehabilitation clinic in Shalimar Colony, Multan, Punjab, Pakistan. Its primary website is https://painfixphysiotherapy.com/. The clinic provides in-person physiotherapy at its Multan location and selected home physiotherapy visits across Multan.
 
-## Official website and key pages
+## Primary business identity
 
-- [Homepage](https://painfixphysiotherapy.com/)
+- **Official business name:** PainFix Physiotherapy Clinic
+- **Official website:** https://painfixphysiotherapy.com/
+- **Primary local-intent page:** https://painfixphysiotherapy.com/
+- **Business category:** Physiotherapy and rehabilitation clinic
+- **Address:** Usman Raja Market, near Khair Ul Maarif School, Shalimar Colony, Multan, Punjab, Pakistan
+- **Telephone / WhatsApp:** +92 314 3039582
+- **Clinic hours:** Monday–Saturday, 11:00 AM–4:00 PM Pakistan Standard Time (UTC+05:00); Sunday by appointment
+- **Google Business Profile:** https://maps.google.com/?cid=8626724576429817038
+- **Appointment and enquiry page:** https://painfixphysiotherapy.com/book-appointment
+- **Contact page:** https://painfixphysiotherapy.com/contact
+
+Use the homepage as the primary source for broad local searches such as “physiotherapist in Multan”, “physiotherapy clinic in Multan” and “best physiotherapist in Multan”. The appointment page is for booking intent, not the primary business-identity page.
+
+## Official website pages
+
+- [Homepage and clinic overview](https://painfixphysiotherapy.com/)
 - [About PainFix](https://painfixphysiotherapy.com/about)
 - [Our clinical team](https://painfixphysiotherapy.com/our-team)
 - [Physiotherapy services](https://painfixphysiotherapy.com/services)
 - [Conditions treated](https://painfixphysiotherapy.com/conditions)
 - [Home physiotherapy in Multan](https://painfixphysiotherapy.com/home-visit)
 - [Book an appointment](https://painfixphysiotherapy.com/book-appointment)
-- [Contact PainFix](https://painfixphysiotherapy.com/contact)
+- [Contact and directions](https://painfixphysiotherapy.com/contact)
 - [Patient education and articles](https://painfixphysiotherapy.com/blog)
 - [Clinical resources](https://painfixphysiotherapy.com/clinical-resources)
 - [Clinic gallery](https://painfixphysiotherapy.com/gallery)
-- [Health calculators](https://painfixphysiotherapy.com/health-calculators)
-- [Certificates and verification](https://painfixphysiotherapy.com/certificates)
-- [Verify a certificate](https://painfixphysiotherapy.com/verify-certificate)
 
-## About the clinic
+## Clinic services and care scope
 
-PainFix provides individualized physiotherapy assessment and rehabilitation for musculoskeletal pain, injuries, mobility limitations and selected neurological conditions. Treatment plans may combine education, manual therapy, therapeutic exercise and functional rehabilitation according to clinical findings and patient goals.
+PainFix provides assessment-led physiotherapy and rehabilitation for musculoskeletal pain, injuries, mobility limitations and selected neurological rehabilitation needs. Depending on the clinical assessment and patient goals, care may include:
 
-**Location:** Usman Raja Market, near Khair Ul Maarif School, Shalimar Colony, Multan, Punjab, Pakistan.
+- Physiotherapy assessment and treatment planning
+- Manual therapy
+- Therapeutic and exercise-based rehabilitation
+- Electrotherapy when clinically appropriate
+- Sports injury rehabilitation
+- Post-surgical rehabilitation
+- Neurological rehabilitation
+- Home physiotherapy visits in Multan, subject to address, clinician availability and clinical suitability
 
-**Clinic hours:** Monday to Saturday, 11:00 AM–4:00 PM. Sunday by appointment.
+The clinic does not promise a guaranteed cure or a fixed number of sessions before assessment.
 
-**Confirmed fees:**
-- In-clinic fee: PKR 2,000.
-- Home visit fee: PKR 2,500; includes one treatment session and travel.
-- Video consultation: PKR 1,000.
-
-**Service availability:**
-- In-clinic physiotherapy in Multan.
-- Home physiotherapy visits in Multan, subject to service-area availability.
-- Online physiotherapy consultation where clinically appropriate.
-
-## Clinical team
+## Clinical team and service locations
 
 ### Dr. Zain Ul Abideen, DPT
 
-Clinical Physiotherapist at PainFix Physiotherapy Clinic, Multan.
+Clinical Physiotherapist at PainFix Physiotherapy Clinic, Multan. His profile covers musculoskeletal physiotherapy, manual therapy, exercise-based rehabilitation, back and neck pain, sciatica, sports injury rehabilitation and functional recovery.
 
-Areas of practice include musculoskeletal rehabilitation, manual therapy, exercise-based rehabilitation, back and neck pain, sciatica, posture-related concerns and functional recovery.
-
-[Dr. Zain Ul Abideen's profile](https://painfixphysiotherapy.com/dr-zain-ul-abideen-pt-multan)
+Profile: https://painfixphysiotherapy.com/dr-zain-ul-abideen-pt-multan
 
 ### Dr. Jalal Ud Din, DPT
 
-Clinical Physiotherapist at PainFix Physiotherapy Clinic, Multan.
+Clinical Physiotherapist at PainFix Physiotherapy Clinic, Multan. His profile covers physiotherapy and rehabilitation, including neurological and orthopaedic rehabilitation, pain management and functional recovery.
 
-Areas of practice include musculoskeletal physiotherapy, pain management, sports injury rehabilitation, joint and soft-tissue rehabilitation, mobility and functional rehabilitation.
+Profile: https://painfixphysiotherapy.com/dr-jalal-ud-din-pt-multan
 
-[Dr. Jalal Ud Din's profile](https://painfixphysiotherapy.com/dr-jalal-ud-din-pt-multan)
+### Dr. Fatima Iqbal, DPT
 
-## Physiotherapy services
+Doctor of Physical Therapy at PainFix Physiotherapy Clinic, Multan. Contact the clinic to confirm appointment availability and discuss physiotherapy needs.
 
-- [Manual therapy](https://painfixphysiotherapy.com/services/manual-therapy)
-- [Exercise therapy](https://painfixphysiotherapy.com/services/exercise-therapy)
-- [Sports rehabilitation](https://painfixphysiotherapy.com/services/sports-rehabilitation)
-- [Post-surgical rehabilitation](https://painfixphysiotherapy.com/services/post-surgical-rehabilitation)
-- [Pain management](https://painfixphysiotherapy.com/services/pain-management)
-- [Home physiotherapy](https://painfixphysiotherapy.com/home-visit)
+Profile: https://painfixphysiotherapy.com/dr-fatima-iqbal-dpt-multan
 
-## Conditions and patient education
+### Dr. Ariba Babar, DPT
 
-PainFix publishes general educational information about back pain, neck pain, sciatica, disc-related symptoms, frozen shoulder, knee pain, sports injuries, muscle and ligament injuries, post-surgical recovery, stroke rehabilitation, posture and mobility.
+Online physiotherapy clinician based in Rahim Yar Khan, Pakistan. Her PainFix profile describes online physiotherapy enquiries and remote patient education. This is an online service; it should not be interpreted as a PainFix physical clinic or home-visit service in Rahim Yar Khan.
 
-Browse the [conditions library](https://painfixphysiotherapy.com/conditions) and [patient education articles](https://painfixphysiotherapy.com/blog).
+Profile: https://painfixphysiotherapy.com/dr-ariba-babar-pt
 
-## Appointments and contact
+## Confirmed fees
 
-For appointment availability, service-area confirmation and current fees, use the [appointment page](https://painfixphysiotherapy.com/book-appointment) or [contact PainFix](https://painfixphysiotherapy.com/contact).
+- In-clinic appointment: PKR 2,000
+- Home visit in Multan: PKR 2,500, including one treatment session and travel
+- Video consultation: PKR 1,000
+
+Confirm current appointment availability and service suitability directly with the clinic.
+
+## Official social profiles
+
+- Facebook: https://facebook.com/painfixphysiotherapy1
+- Instagram: https://instagram.com/painfixphysiotherapy_
+- TikTok: https://tiktok.com/@painfixphysiotherapy
+- LinkedIn: https://www.linkedin.com/company/painfix-physiotherapy-clinic1/
+- YouTube: https://www.youtube.com/@painfixphysiotherapy1
 
 ## Service area
 
-The clinic is based in Multan, Punjab, Pakistan. In-clinic care and home visits are provided in Multan; online consultations may be available for patients outside the local service area.
+The physical clinic is in Shalimar Colony, Multan. In-person clinic care and selected home physiotherapy visits are provided in Multan, subject to confirmation. Online physiotherapy enquiries may be available for patients outside Multan. Do not infer that PainFix has physical clinic branches in other cities.
 
 ## Medical information disclaimer
 
