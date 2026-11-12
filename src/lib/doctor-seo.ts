@@ -61,6 +61,11 @@ export function doctorProfileHead(doc: TeamMember) {
         children: JSON.stringify({
           "@context": "https://schema.org",
           "@type": "Person",
+          "@id": `${url}#person`,
+          mainEntityOfPage: {
+            "@type": "ProfilePage",
+            "@id": url,
+          },
           name: doc.fullName,
           alternateName: doc.name,
           url,
