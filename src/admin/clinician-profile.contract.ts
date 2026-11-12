@@ -38,6 +38,7 @@ export const clinicianProfileInputSchema = z
     years_experience: z.number().int().min(0).max(80).nullable(),
     qualifications: textList(40, 240),
     photo_path: z.string().regex(photoPathPattern).nullable(),
+    photo_url: z.string().url().max(2048).nullable().optional(),
     phone_display: nullableText(40),
     service_mode: z.enum(["clinic", "online_only"]).default("clinic"),
     city: z.string().trim().min(1).max(160).default("Multan"),
@@ -81,6 +82,21 @@ export type PublicClinicianProfile = Omit<
 export type AdminClinicianProfile = ClinicianProfileRecord & {
   resolved_photo_url: string | null;
 };
+
+export function isSiteMediaPublicUrl(value: string, supabaseUrl: string): boolean {
+  try {
+    const expectedOrigin = new URL(supabaseUrl).origin;
+    const candidate = new URL(value);
+    return (
+      candidate.origin === expectedOrigin &&
+      candidate.pathname.startsWith("/storage/v1/object/public/site-media/") &&
+      !candidate.search &&
+      !candidate.hash
+    );
+  } catch {
+    return false;
+  }
+}
 
 export function isClinicianPhotoPathForId(photoPath: string, clinicianId: string): boolean {
   return (
