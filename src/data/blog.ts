@@ -816,7 +816,7 @@ export const blogPosts: BlogPost[] = [
       },
       {
         q: "Kya home physiotherapy clinic treatment jitni effective hoti hai?",
-        a: "Elderly, post-surgical, stroke and mobility-limited patients, and anyone who finds travel difficult.",
+        a: "It may suit older adults, people after surgery or stroke, and people whose mobility or transport makes clinic attendance difficult. The clinician should first confirm that home care is appropriate for the person's needs.",
       },
       {
         q: "Do I need any equipment at home?",
@@ -836,7 +836,7 @@ export const blogPosts: BlogPost[] = [
       },
     ],
     keyTakeaways: [
-      "Home physiotherapy is as effective as clinic care for many conditions.",
+      "Home physiotherapy can be practical for selected patients, but suitability and available equipment depend on clinical needs and the home environment.",
       "It suits elderly, post-surgical and mobility-limited patients.",
       "Functional training happens in your real environment.",
       "Available across Multan on a scheduled basis.",
@@ -997,11 +997,11 @@ export const blogPosts: BlogPost[] = [
       },
       {
         q: "Kya frozen shoulder mein zor se stretching karni chahiye?",
-        a: "Physiotherapy is the mainstay of treatment and helps most people regain function and relieve pain across all stages.",
+        a: "Treatment depends on irritability and function. Gentle, pain-limited movement may suit a highly irritable shoulder; mobility work, stretching and strengthening can progress as tolerance improves. Forceful stretching may aggravate symptoms.",
       },
       {
         q: "Should I keep moving with a frozen shoulder?",
-        a: "Yes — gentle, guided movement within comfort helps preserve range. Aggressive stretching in the painful stage can worsen it.",
+        a: "Usually, comfortable movement is encouraged, but the range and intensity should match symptom irritability. Avoid forcing painful end range; seek assessment if pain or function is worsening.",
       },
       {
         q: "What triggers frozen shoulder?",
@@ -1017,9 +1017,9 @@ export const blogPosts: BlogPost[] = [
       },
     ],
     keyTakeaways: [
-      "Frozen shoulder has three stages: freezing, frozen, thawing.",
-      "Recovery can take 1–3 years untreated.",
-      "Physiotherapy reduces pain and speeds recovery.",
+      "Frozen shoulder is often described in painful, stiff and recovery phases, but not everyone follows a fixed timeline.",
+      "Treatment intensity should match irritability and functional tolerance.",
+      "Physiotherapy may help manage symptoms and function, but cannot guarantee a faster recovery.",
       "Early, guided movement is key.",
     ],
     relatedServices: ["manual-therapy", "exercise-therapy", "electrotherapy"],
@@ -1167,11 +1167,11 @@ export const blogPosts: BlogPost[] = [
     faqs: [
       {
         q: "What is the correct desk posture?",
-        a: "Screen at eye level, elbows and knees around 90 degrees, back supported, feet flat, and wrists neutral.",
+        a: "Use a comfortable setup that lets you see the screen and reach the keyboard and mouse without sustained strain. Exact joint angles are not mandatory; adjust the setup to your body, task and comfort.",
       },
       {
         q: "How often should I take breaks at work?",
-        a: "Move for a minute or two every 30–45 minutes. Frequent movement matters more than any single posture.",
+        a: "Change position and move regularly when practical. There is no universal break interval that suits every worker; use a sustainable pattern that interrupts long static periods and fits your symptoms and workload.",
       },
       {
         q: "Does a standing desk prevent back pain?",
@@ -1187,7 +1187,7 @@ export const blogPosts: BlogPost[] = [
       },
       {
         q: "What is 'tech neck'?",
-        a: "Neck strain from looking down at screens and phones for long periods, which good ergonomics and exercises can prevent.",
+        a: "'Text neck' is a popular term for neck symptoms associated with prolonged device use, but one posture does not automatically cause pain. Vary positions, manage screen time and build activity tolerance; persistent symptoms may need assessment.",
       },
     ],
     keyTakeaways: [
@@ -1418,7 +1418,7 @@ export const blogPosts: BlogPost[] = [
       },
       {
         q: "Why is ACL rehab so important?",
-        a: "It rebuilds strength and control and reduces re-injury risk. Returning too soon is the main cause of a second ACL injury.",
+        a: "It rebuilds strength, neuromuscular control and sport-specific capacity. Return-to-sport decisions should consider multiple risk factors; no single factor explains every reinjury.",
       },
       {
         q: "Can I return to sport after 6 months?",
@@ -1434,8 +1434,8 @@ export const blogPosts: BlogPost[] = [
       },
     ],
     keyTakeaways: [
-      "ACL rehab progresses through clear phases.",
-      "Full recovery usually takes 9–12 months.",
+      "ACL rehabilitation is criteria-based and progresses according to symptoms, strength and functional milestones.",
+      "Return to pivoting sport often takes 9 months or longer, but time alone does not establish readiness.",
       "Return to sport is criteria-based, not time-based.",
       "Rushing back is the main cause of re-injury.",
     ],
@@ -1679,7 +1679,7 @@ export const blogPosts: BlogPost[] = [
       },
       {
         q: "When is rotator cuff surgery needed?",
-        a: "For large or full-thickness tears with significant weakness, or when physiotherapy has not helped.",
+        a: "A traumatic full-thickness tear, marked weakness, major loss of function or persistent symptoms may warrant medical or orthopaedic assessment. Treatment decisions depend on age, tear size, function, goals and response to non-surgical care.",
       },
       {
         q: "Why is my shoulder worse at night?",
@@ -1690,7 +1690,7 @@ export const blogPosts: BlogPost[] = [
       "Most rotator cuff problems don't need surgery.",
       "Progressive strengthening is the key treatment.",
       "Scapular control and posture matter.",
-      "Improvement usually comes within 8–12 weeks.",
+      "Improvement timelines vary by diagnosis, tear characteristics, health factors and response to progressive loading.",
     ],
     relatedServices: ["exercise-therapy", "manual-therapy", "sports-rehabilitation"],
     relatedConditions: ["shoulder-pain", "frozen-shoulder", "sports-injuries"],
@@ -1793,7 +1793,7 @@ export const blogPosts: BlogPost[] = [
     excerpt:
       "Bell's palsy (munh terha hona) can be frightening, but most people recover well — and facial physiotherapy supports the process.",
     quickAnswer:
-      "Bell's palsy (munh terha hona ka ilaj) is sudden, usually temporary weakness of one side of the face caused by facial nerve inflammation. Physiotherapy supports recovery through facial exercises, neuromuscular retraining, gentle massage and education. Most people recover within weeks to months, and physiotherapy helps restore symmetry and prevent abnormal movement patterns.",
+      "Sudden one-sided facial weakness needs urgent medical assessment to exclude stroke and other causes before it is labelled Bell's palsy. For confirmed Bell's palsy, timely medical treatment and eye protection are priorities; a clinician should assess corticosteroid treatment within 72 hours where appropriate. Facial rehabilitation may be considered as an adjunct, depending on the recovery pattern.",
     date: "2026-05-08",
     updated: "2026-11-12",
     authorKey: "JD",
@@ -1801,6 +1801,13 @@ export const blogPosts: BlogPost[] = [
       {
         paragraphs: [
           "Sudden facial weakness must be assessed urgently by a medical professional to exclude stroke and other identifiable causes; do not assume it is Bell's palsy. Once Bell's palsy is diagnosed, a prescribing clinician should assess eligibility for oral corticosteroids, which are recommended within 72 hours of symptom onset for many patients aged 16 and over. If the eye does not close fully, prompt eye protection and medical advice are essential. Facial rehabilitation may be considered as an adjunct, with an individualised programme.",
+        ],
+      },
+      {
+        heading: "What to do first",
+        paragraphs: [
+          "If facial weakness starts suddenly, seek urgent medical assessment rather than booking routine physiotherapy first. Stroke can present with facial droop, especially when there is arm or leg weakness, speech difficulty, vision change, imbalance, severe headache or other sudden neurological symptoms. Even when symptoms appear limited to the face, a clinician needs to assess the cause.",
+          "For diagnosed Bell's palsy, oral corticosteroids are commonly recommended for eligible patients aged 16 and over when started within 72 hours. A clinician must assess suitability and prescribe them. If the eye does not close fully, prompt eye protection is essential to prevent corneal injury.",
         ],
       },
       {
@@ -1848,11 +1855,11 @@ export const blogPosts: BlogPost[] = [
       },
       {
         q: "What is synkinesis?",
-        a: "Unwanted linked facial movements that can develop during recovery. Proper retraining reduces this risk.",
+        a: "Unwanted linked facial movements in which an intended action triggers another movement, such as eye narrowing during a smile. Assessment by a clinician experienced in facial nerve disorders can guide management." ,
       },
       {
         q: "How do I protect my eye with Bell's palsy?",
-        a: "If you cannot close the eye fully, use lubricating drops and protection as advised to prevent damage.",
+        a: "If the eyelid does not close fully, seek prompt medical advice about lubrication and protection, including nighttime measures when recommended. Eye pain, redness or visual change needs urgent eye assessment.",
       },
       {
         q: "Is Bell's palsy permanent?",
@@ -1861,7 +1868,8 @@ export const blogPosts: BlogPost[] = [
     ],
     keyTakeaways: [
       "Bell's palsy is usually temporary facial nerve weakness.",
-      "Most people recover within weeks to months.",
+      "Sudden facial weakness requires urgent assessment; do not assume it is Bell's palsy.",
+      "For confirmed Bell's palsy, timely clinician-led treatment and eye protection are priorities.",
       "Facial retraining restores balanced movement.",
       "Early guidance reduces long-term asymmetry.",
     ],
@@ -2161,9 +2169,9 @@ export const blogPosts: BlogPost[] = [
     excerpt:
       "Electrotherapy can relieve pain and support healing, but it works best as part of an active treatment plan. Here's the balanced view.",
     quickAnswer:
-      "Electrotherapy uses modalities such as TENS, ultrasound and electrical stimulation to relieve pain, reduce muscle spasm and support healing. It is a useful adjunct in physiotherapy but is most effective when combined with manual therapy and exercise — not used alone. Your physiotherapist selects modalities based on your specific condition.",
+      "Electrotherapy is a broad term covering different modalities, and evidence is not interchangeable between them. Some forms of electrical stimulation may be used for a specific goal such as muscle activation, while others have limited or condition-specific evidence. TENS, ultrasound and interferential therapy are not recommended by NICE for low back pain or sciatica. Modalities should never replace appropriate education, activity and exercise-based rehabilitation.",
     date: "2026-04-24",
-    updated: "2026-06-04",
+    updated: "2026-11-12",
     authorKey: "JD",
     sections: [
       {
@@ -2175,17 +2183,17 @@ export const blogPosts: BlogPost[] = [
         heading: "Common modalities",
         paragraphs: ["Different modalities serve different purposes."],
         list: [
-          "TENS: reduces pain by stimulating nerves",
-          "Therapeutic ultrasound: may support soft-tissue healing",
-          "Electrical muscle stimulation: helps activate weak muscles",
-          "Interferential therapy: pain relief for deeper tissues",
-          "Heat and cold: manage pain and inflammation",
+          "TENS: provides sensory-level electrical stimulation; evidence and recommendations depend on the condition, and NICE advises against its use for low back pain or sciatica.",
+          "Therapeutic ultrasound: should not be presented as a general tissue-healing treatment; NICE advises against it for low back pain or sciatica, and the 2025 rotator cuff guideline advises against it for rotator cuff tendinopathy.",
+          "Neuromuscular electrical stimulation: may be considered for selected muscle-activation goals when clinically indicated; it is not a universal pain or healing treatment.",
+          "Interferential therapy: not recommended by NICE for low back pain or sciatica.",
+          "Heat or cold: may offer short-term comfort for some people, depending on the presentation and individual response.",
         ],
       },
       {
         heading: "What electrotherapy can and can't do",
         paragraphs: [
-          "Electrotherapy can provide helpful short-term pain relief and support certain phases of recovery. However, it does not replace the active rehabilitation — strengthening and movement retraining — that produces lasting change. Beware any clinic that offers only machines.",
+          "The effect depends on the modality and the condition being treated. Evidence for one device or diagnosis should not be used to claim that all electrotherapy relieves pain or accelerates tissue healing. For many musculoskeletal problems, education, activity and progressive exercise remain central; a modality should be used only when there is a clear, defensible clinical reason.",
         ],
       },
       {
@@ -2198,15 +2206,15 @@ export const blogPosts: BlogPost[] = [
     faqs: [
       {
         q: "Does electrotherapy really work?",
-        a: "It can provide useful short-term pain relief and support recovery, but works best combined with manual therapy and exercise, not alone.",
+        a: "It depends on the modality and diagnosis. Some interventions may have a limited or specific role, while others are not recommended for certain conditions. For example, NICE advises against TENS, ultrasound and interferential therapy for low back pain or sciatica. Exercise and self-management remain central.",
       },
       {
         q: "Is TENS safe?",
-        a: "TENS is generally very safe when used appropriately, with some exceptions your physiotherapist will screen for.",
+        a: "TENS is not suitable for every person or every condition. A clinician should screen for relevant contraindications and device precautions, and it should not be promoted as an evidence-based treatment for low back pain or sciatica under NICE guidance.",
       },
       {
         q: "Can electrotherapy heal my injury?",
-        a: "It supports certain phases of healing but does not replace active rehabilitation, which drives lasting recovery.",
+        a: "Do not assume electrotherapy accelerates tissue healing. The evidence and indications differ by modality and diagnosis; active rehabilitation and condition-specific management remain important.",
       },
       {
         q: "Is ultrasound therapy effective?",
@@ -2286,7 +2294,7 @@ export const blogPosts: BlogPost[] = [
       },
       {
         q: "Is pediatric physiotherapy safe for babies?",
-        a: "Yes. Techniques are gentle, age-appropriate and designed specifically for infants and children.",
+        a: "Paediatric assessment and treatment should be age-appropriate and tailored to the child's medical history, development, tolerance and goals. A clinician should explain the proposed techniques and safety considerations to the parent or caregiver.",
       },
       {
         q: "Does my child need a referral?",
@@ -2302,8 +2310,8 @@ export const blogPosts: BlogPost[] = [
       },
     ],
     keyTakeaways: [
-      "Pediatric physiotherapy supports movement and development.",
-      "Watch for delayed milestones and coordination issues.",
+      "Pediatric physiotherapy supports children when assessment identifies movement or functional needs.",
+      "Milestone checklists are not diagnostic; concerns need appropriate screening or evaluation.",
       "Treatment is play-based and child-friendly.",
       "Early intervention often gives the best results.",
     ],
@@ -2377,7 +2385,7 @@ export const blogPosts: BlogPost[] = [
       },
       {
         q: "Is it safe to exercise after having a baby?",
-        a: "Yes, with a gradual, guided approach. Physiotherapy ensures you rebuild strength safely before returning to intense exercise.",
+        a: "Return to exercise should be gradual and symptom-based, taking account of delivery, healing, pain, bleeding and any medical complications. Physiotherapy can help assess pelvic-floor and abdominal-wall function and guide progression; it cannot guarantee safety without individual assessment.",
       },
       {
         q: "How do I strengthen my pelvic floor?",
@@ -2389,9 +2397,9 @@ export const blogPosts: BlogPost[] = [
       },
     ],
     keyTakeaways: [
-      "Postnatal physiotherapy rebuilds core and pelvic strength.",
-      "It addresses diastasis recti and back pain.",
-      "Progression is gradual and guided.",
+      "Postnatal rehabilitation should be individualised and symptom-based.",
+      "Pelvic-floor and abdominal-wall function matter more than a single measured gap.",
+      "Progression depends on healing, symptoms and medical factors.",
       "It's beneficial even long after childbirth.",
     ],
     relatedServices: ["exercise-therapy", "manual-therapy", "home-physiotherapy"],
