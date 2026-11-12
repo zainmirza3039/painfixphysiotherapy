@@ -1276,33 +1276,31 @@ a.home-contact-item:hover .home-contact-item__label {
 }
 
 
-/* Public-site interaction feedback: tactile press, clear hover and keyboard states.
-   Scoped to pages that render the public site footer so admin controls are untouched. */
-@media (hover: hover) and (pointer: fine) {
-  body:has(.site-footer) :is(a[href], button:not(:disabled), [role="button"], summary) {
-    transition:
-      color 160ms ease,
-      background-color 160ms ease,
-      border-color 160ms ease,
-      box-shadow 160ms ease,
-      opacity 160ms ease,
-      transform 160ms cubic-bezier(0.2, 0.75, 0.25, 1);
-  }
+/* Public-site interaction feedback: preserve all existing layouts and visuals;
+   add consistent, restrained tactile feedback on touch and pointer devices.
+   Scoped to public pages so the admin application remains unchanged. */
+body:has(.site-footer) :is(a[href], button:not(:disabled), [role="button"], summary) {
+  transition:
+    color 160ms ease,
+    background-color 160ms ease,
+    border-color 160ms ease,
+    box-shadow 160ms ease,
+    opacity 150ms ease,
+    transform 150ms cubic-bezier(0.2, 0.75, 0.25, 1);
+  -webkit-tap-highlight-color: rgb(0 168 89 / 16%);
+  touch-action: manipulation;
+}
 
+@media (hover: hover) and (pointer: fine) {
   body:has(.site-footer) :is(a[href], button:not(:disabled), [role="button"], summary):hover {
     cursor: pointer;
   }
 }
 
-body:has(.site-footer) :is(a[href], button:not(:disabled), [role="button"], summary) {
-  -webkit-tap-highlight-color: rgb(0 168 89 / 16%);
-  touch-action: manipulation;
-}
-
 body:has(.site-footer) :is(a[href], button:not(:disabled), [role="button"], summary):active {
-  transform: scale(0.975);
-  opacity: 0.82;
-  transition-duration: 70ms;
+  transform: scale(0.985);
+  opacity: 0.94;
+  transition-duration: 85ms;
 }
 
 body:has(.site-footer) :is(button:disabled, [aria-disabled="true"]) {
@@ -1316,8 +1314,13 @@ body:has(.site-footer) :is(a[href], button, [role="button"], summary):focus-visi
 }
 
 @media (prefers-reduced-motion: reduce) {
+  body:has(.site-footer) :is(a[href], button, [role="button"], summary) {
+    transition: none;
+  }
+
   body:has(.site-footer) :is(a[href], button, [role="button"], summary):active {
     transform: none;
+    opacity: 1;
   }
 }
 
