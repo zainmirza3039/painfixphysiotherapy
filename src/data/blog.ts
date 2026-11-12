@@ -305,24 +305,24 @@ export const blogPosts: BlogPost[] = [
       "physiotherapy",
     ],
     excerpt:
-      "Most back pain (kamar dard) responds extremely well to physiotherapy. Here's how we assess, treat and prevent back pain at our Multan clinic.",
+      "Learn how back pain is assessed and how education, activity and individualised rehabilitation may support recovery at our Multan clinic.",
     quickAnswer:
-      "Back pain treatment in Multan (kamar dard ka ilaj) starts with a detailed physiotherapy assessment to find the cause, followed by manual therapy to relieve pain, targeted core and back strengthening, and posture correction. Most back pain improves within a few weeks of consistent, evidence-based physiotherapy — usually without surgery or long-term medication.",
+      "Back pain treatment in Multan (kamar dard ka ilaj) starts with a clinical assessment and a plan matched to symptoms, function and goals. Advice to stay active and a suitable exercise programme are central; manual therapy may be added when appropriate to support short-term symptom relief. Many episodes improve over time without surgery, but recovery varies and depends on the individual presentation.",
     date: "2026-06-28",
-    updated: "2026-07-09",
+    updated: "2026-11-12",
     authorKey: "ZA",
     featured: true,
     popular: true,
     sections: [
       {
         paragraphs: [
-          "Back pain is one of the most common reasons people seek physiotherapy in Multan. It ranges from a dull, constant ache to a sudden, sharp pain, and can affect work, sleep and everyday movement. The good news: the vast majority of back pain is mechanical and responds very well to physiotherapy.",
+          "Back pain is one of the most common reasons people seek physiotherapy in Multan. It ranges from a dull, constant ache to a sudden, sharp pain, and can affect work, sleep and everyday movement. Many episodes are non-specific and improve with appropriate self-management and activity, although a smaller number have specific causes that need medical assessment.",
         ],
       },
       {
         heading: "Kamar Dard Ka Ilaj — Back Pain Treatment in Multan",
         paragraphs: [
-          "Agar aap kamar dard (back pain) ka behtareen ilaj Multan mein talash kar rahe hain, physiotherapy sab se mahfooz aur asar-daar tareeqa hai. At PainFix Physiotherapy Clinic in Shalimar Colony, Multan, we assess the true cause of your kamar dard and build an evidence-based plan — manual therapy, targeted exercises and posture correction — usually without surgery or long-term painkillers.",
+          "Agar aap Multan mein kamar dard (back pain) ka ilaj talash kar rahe hain, pehla qadam proper assessment hai. PainFix Physiotherapy Clinic mein plan symptoms, function aur clinical findings ke mutabiq banaya jata hai. Is mein education, suitable exercises aur zaroorat par manual therapy shamil ho sakti hai; manual therapy active rehabilitation ka replacement nahi.",
         ],
       },
       {
@@ -339,20 +339,20 @@ export const blogPosts: BlogPost[] = [
       {
         heading: "What causes back pain",
         paragraphs: [
-          "Most back pain has a mechanical cause that physiotherapy can directly address.",
+          "Back pain can have several contributors, including physical loading, activity patterns, health conditions and psychosocial factors. The assessment helps identify the most relevant factors and whether medical review is needed.",
         ],
         list: [
           "Muscle or ligament strain",
-          "Poor posture and prolonged sitting",
-          "Disc problems",
-          "Heavy or incorrect lifting",
-          "Weak core and back muscles",
+          "Prolonged or unvaried positions may aggravate symptoms in some people",
+          "Disc-related conditions in some presentations",
+          "Sudden or repeated lifting loads, depending on capacity",
+          "Reduced strength or activity tolerance, which may be a modifiable factor rather than the sole cause",
         ],
       },
       {
         heading: "How we treat back pain at PainFix",
         paragraphs: [
-          "Treatment begins with a thorough assessment to identify the source of your pain. We then combine hands-on manual therapy to relieve pain and stiffness with a progressive exercise programme that strengthens the muscles supporting your spine. Posture and ergonomic advice help prevent recurrence.",
+          "Treatment begins with assessment, education and advice to remain as active as is reasonably comfortable. A progressive exercise programme is selected around your capacity and goals. Manual therapy may be used as an adjunct for short-term relief or to help movement, alongside exercise rather than instead of it.",
         ],
         list: [
           "Detailed assessment to identify the cause",
@@ -376,11 +376,11 @@ export const blogPosts: BlogPost[] = [
       },
       {
         q: "Can physiotherapy cure back pain?",
-        a: "Physiotherapy resolves most mechanical back pain and, importantly, reduces the chance of it returning by addressing the underlying cause.",
+        a: "Physiotherapy can help many people with back pain improve movement, strength and daily function. It cannot guarantee a cure or prevent every recurrence; ongoing self-management and appropriate activity may reduce the impact of future episodes.",
       },
       {
         q: "How long does back pain take to recover?",
-        a: "Many patients feel meaningful relief within 2–4 weeks of consistent physiotherapy, with a full programme designed to prevent recurrence.",
+        a: "Some people improve within a few weeks, while others need longer. There is no reliable fixed timeline; progress is reviewed against symptoms, function and individual goals.",
       },
       {
         q: "Do I need an MRI for back pain?",
@@ -396,14 +396,14 @@ export const blogPosts: BlogPost[] = [
       },
       {
         q: "Will I need surgery for back pain?",
-        a: "The large majority of back pain never needs surgery. Physiotherapy is the recommended first-line treatment.",
+        a: "Most people with non-specific low back pain do not need surgery. Advice, staying active and exercise-based care are common first steps; referral or surgical opinion depends on the diagnosis, neurological findings and response to appropriate care.",
       },
     ],
     keyTakeaways: [
-      "Most back pain is mechanical and responds well to physiotherapy.",
-      "Treatment combines manual therapy, exercise and posture correction.",
-      "Staying gently active beats bed rest.",
-      "Surgery is rarely needed for common back pain.",
+      "Most non-specific low back pain improves without surgery, but individual causes and recovery vary.",
+      "Stay active within tolerance and use an exercise plan matched to your capacity.",
+      "Manual therapy may be an adjunct to an active rehabilitation plan when appropriate.",
+      "Seek urgent assessment for new bladder or bowel dysfunction, saddle numbness or progressive weakness.",
     ],
     relatedServices: ["manual-therapy", "exercise-therapy", "pain-management"],
     relatedConditions: ["back-pain", "sciatica"],
@@ -498,17 +498,17 @@ export const blogPosts: BlogPost[] = [
     category: "sciatica",
     tags: ["sciatica", "tang ka dard", "nerve pain", "leg pain", "disc"],
     excerpt:
-      "Sciatica (tang ke nerve pain) can be intensely painful, but most cases settle with the right physiotherapy. Here's how we treat it.",
+      "Sciatica (tang ke nerve pain) can be intensely painful. Learn how assessment, activity advice and individualised rehabilitation may help manage symptoms and identify when medical review is needed.",
     quickAnswer:
-      "Physiotherapy helps sciatica (tang ke nerve pain ka ilaj) by relieving pressure and irritation on the sciatic nerve. Treatment includes gentle nerve-mobilising exercises, manual therapy, posture correction and progressive strengthening. Most sciatica improves within 4–8 weeks of consistent physiotherapy, and surgery is rarely needed.",
+      "Physiotherapy can help manage sciatica by supporting comfortable movement, activity and function while symptoms settle. Depending on assessment, care may include education, graded exercise, selected nerve-mobilising techniques and manual therapy as an adjunct. Many people improve without surgery, but recovery time varies and some need medical or surgical review.",
     date: "2026-06-20",
-    updated: "2026-07-06",
+    updated: "2026-11-12",
     authorKey: "JD",
     popular: true,
     sections: [
       {
         paragraphs: [
-          "Sciatica is pain that travels along the sciatic nerve — from the lower back through the buttock and down the leg. It is usually caused by a disc pressing on or irritating the nerve. Although it can be severe, the majority of cases respond well to physiotherapy.",
+          "Sciatica is pain that travels along the sciatic nerve — from the lower back through the buttock and down the leg. It can be associated with lumbar nerve-root irritation, including from a disc herniation, but other causes of radiating leg pain are possible. Many cases improve with time and conservative care; assessment helps identify neurological deficits or other causes that need referral.",
         ],
       },
       {
@@ -524,12 +524,12 @@ export const blogPosts: BlogPost[] = [
       {
         heading: "How physiotherapy treats sciatica",
         paragraphs: [
-          "We first identify what is irritating the nerve. Treatment then reduces that irritation and restores movement using nerve-gliding exercises, manual therapy, and a graded strengthening programme. Education on posture and safe movement prevents flare-ups.",
+          "Assessment guides the plan. It may include advice to remain active, graded movement and strengthening, and selected nerve-mobilising exercises when they do not aggravate symptoms. Manual techniques may be used selectively as an adjunct. The aim is to improve function and symptom tolerance, not to claim that treatment physically removes pressure from the nerve.",
         ],
         list: [
-          "Nerve-mobilising ('flossing') exercises",
-          "Manual therapy to reduce muscle guarding",
-          "Directional exercises to centralise the pain",
+          "Selected nerve-mobilising exercises when assessment indicates they are appropriate and symptoms tolerate them",
+          "Manual techniques as an adjunct when clinically indicated",
+          "Directional movements only when the person's symptom response supports their use",
           "Core and gluteal strengthening",
           "Posture and lifting education",
         ],
@@ -537,18 +537,18 @@ export const blogPosts: BlogPost[] = [
       {
         heading: "Recovery timeline",
         paragraphs: [
-          "Acute sciatica often begins to ease within a couple of weeks, with most people substantially recovered by 6–8 weeks. Consistency with your home exercises is the biggest predictor of a fast, lasting recovery.",
+          "Some acute episodes begin to settle over several weeks, but the course varies. Persistent, worsening or function-limiting symptoms, particularly with neurological changes, need reassessment rather than reliance on a fixed recovery estimate.",
         ],
       },
     ],
     faqs: [
       {
         q: "How long does sciatica take to heal?",
-        a: "Most sciatica improves within 4–8 weeks of consistent physiotherapy, though severe cases can take longer.",
+        a: "Many people improve over weeks to months, but there is no guaranteed 4–8 week recovery window. The course depends on the cause, symptom severity, neurological findings and response to care.",
       },
       {
         q: "What is the best exercise for sciatica?",
-        a: "Nerve-gliding exercises and gentle directional movements are often best, but the ideal exercise depends on your assessment findings.",
+        a: "There is no single best exercise for everyone. The choice depends on symptom behaviour, neurological findings, irritability and functional goals; stop and seek advice if weakness or spreading symptoms develop.",
       },
       {
         q: "Should I rest or move with sciatica?",
@@ -556,22 +556,22 @@ export const blogPosts: BlogPost[] = [
       },
       {
         q: "Can physiotherapy fix sciatica without surgery?",
-        a: "Yes — the large majority of sciatica resolves with physiotherapy. Surgery is reserved for severe or non-improving cases with nerve compression.",
+        a: "Many people improve with conservative care, which may include physiotherapy. Surgical assessment may be needed for cauda equina symptoms, significant or progressive weakness, or persistent disabling symptoms despite an appropriate conservative-care trial.",
       },
       {
         q: "Why is my sciatica worse when sitting?",
-        a: "Sitting increases pressure on the lumbar discs, which can further irritate the nerve. We provide sitting and posture strategies to manage this.",
+        a: "Sitting can aggravate symptoms in some people, but this does not prove that disc pressure is the cause. Adjust position, duration and activity according to symptom response rather than following a single posture rule.",
       },
       {
         q: "When is sciatica an emergency?",
-        a: "Seek urgent care for loss of bladder or bowel control, or rapidly worsening leg weakness.",
+        a: "Seek emergency care for new bladder or bowel dysfunction, difficulty passing urine, saddle numbness, rapidly progressive leg weakness or severe new walking difficulty.",
       },
     ],
     keyTakeaways: [
-      "Sciatica is usually caused by nerve irritation from a disc.",
-      "Physiotherapy relieves most sciatica within 4–8 weeks.",
-      "Nerve-gliding and directional exercises are key.",
-      "Surgery is rarely necessary.",
+      "Sciatica is a symptom pattern; it does not identify one cause by itself.",
+      "Many people improve with conservative care, but recovery time varies.",
+      "Exercise and nerve-mobilising techniques should be selected according to assessment and response.",
+      "Cauda equina symptoms or progressive weakness require urgent medical assessment.",
     ],
     relatedServices: ["manual-therapy", "exercise-therapy", "pain-management"],
     relatedConditions: ["sciatica", "back-pain", "cervical-radiculopathy"],
@@ -673,81 +673,81 @@ export const blogPosts: BlogPost[] = [
     title: "Can Physiotherapy Help You Avoid Surgery?",
     seoTitle: "Can Physiotherapy Help You Avoid Surgery? — PainFix Multan",
     metaDescription:
-      "Can physiotherapy help you avoid surgery? For many back, knee and shoulder conditions, yes. Learn when physiotherapy is the recommended first-line treatment.",
+      "Physiotherapy may be a non-surgical option for some conditions. Learn when specialist assessment is needed.",
     category: "patient-education",
     tags: ["surgery", "conservative treatment", "back pain", "knee"],
     excerpt:
-      "For many common conditions, physiotherapy is the recommended first treatment — and often removes the need for surgery altogether.",
+      "For many musculoskeletal conditions, structured rehabilitation may be appropriate before surgery, but suitability depends on the diagnosis, severity and clinical findings.",
     quickAnswer:
-      "Yes — for many conditions physiotherapy can help you avoid surgery. Research shows that for back pain, sciatica, knee osteoarthritis, rotator cuff problems and many sports injuries, structured physiotherapy delivers outcomes comparable to surgery in most patients, and is recommended as the first-line treatment before considering an operation.",
+      "Physiotherapy can help some people manage a condition without surgery, but this depends on the diagnosis and severity. Exercise-based rehabilitation is an appropriate initial option for many musculoskeletal problems, while other conditions benefit from early specialist or surgical assessment. Evidence and alternatives differ between lumbar disc herniation, knee osteoarthritis, rotator cuff disorders and traumatic injuries; outcomes should not be generalised across them.",
     date: "2026-06-15",
-    updated: "2026-07-08",
+    updated: "2026-11-12",
     authorKey: "ZA",
     featured: true,
     sections: [
       {
         paragraphs: [
-          "Surgery is sometimes essential — but for many common musculoskeletal conditions it is not the first step. Physiotherapy is frequently the recommended initial treatment, and in a large proportion of patients it resolves the problem without an operation.",
+          "Surgery is sometimes essential, but it is not the first step for every musculoskeletal problem. For many presentations, a clinician may recommend education, activity modification and structured rehabilitation first. Whether this is suitable depends on the diagnosis, severity, neurological status, imaging when indicated and the person's goals.",
         ],
       },
       {
-        heading: "Conditions where physiotherapy often avoids surgery",
+        heading: "Conditions where structured rehabilitation may be considered",
         paragraphs: [
-          "Evidence supports trying structured physiotherapy first for many conditions.",
+          "Exercise-based rehabilitation is an appropriate initial option for many presentations, but the evidence and referral thresholds differ by diagnosis.",
         ],
         list: [
-          "Back pain and sciatica (including many disc herniations)",
+          "Many non-specific low back pain and selected sciatica presentations",
           "Knee osteoarthritis",
-          "Rotator cuff and shoulder impingement",
-          "Meniscus tears (degenerative)",
+          "Rotator cuff tendinopathy and selected non-traumatic shoulder presentations",
+          "Selected degenerative meniscal presentations",
           "Tennis and golfer's elbow",
-          "Many sports injuries",
+          "Selected sports injuries after appropriate assessment",
         ],
       },
       {
         heading: "Why physiotherapy works",
         paragraphs: [
-          "Physiotherapy addresses the underlying mechanics — restoring movement, building strength and correcting the patterns that caused the problem. This not only relieves pain but reduces the risk of it returning, something surgery alone cannot guarantee.",
+          "Physiotherapy aims to improve symptoms, strength, movement capacity and daily function through education and progressive rehabilitation. It does not reverse every structural change or guarantee that surgery will be avoided; the appropriate option depends on diagnosis, severity, clinical findings and patient goals.",
         ],
       },
       {
         heading: "When surgery is the right choice",
         paragraphs: [
-          "Surgery is appropriate for severe nerve compression, significant structural damage, progressive weakness, or when a well-conducted course of physiotherapy has not helped. Even then, physiotherapy before and after surgery improves outcomes.",
+          "Surgery may be urgent for cauda equina syndrome or significant progressive neurological deficit. It may also be considered for selected structural injuries or persistent disabling symptoms when non-operative care has not achieved acceptable improvement. Physiotherapy can be part of prehabilitation and postoperative recovery, but it should not delay indicated surgery.",
         ],
       },
     ],
     faqs: [
       {
         q: "Can physiotherapy replace surgery for a herniated disc?",
-        a: "In most cases, yes. The majority of disc herniations improve with physiotherapy, and surgery is reserved for severe or non-improving nerve compression.",
+        a: "Many symptomatic lumbar disc herniations improve with conservative care, which may include physiotherapy. Physiotherapy does not guarantee disc healing or replace urgent surgical assessment for cauda equina syndrome or significant progressive weakness.",
       },
       {
         q: "Should I try physiotherapy before knee surgery?",
-        a: "Yes. For knee osteoarthritis and many meniscus problems, physiotherapy is recommended first and often delays or avoids surgery.",
+        a: "For many people with knee osteoarthritis and selected degenerative meniscal presentations, exercise-based care is an appropriate initial option. Traumatic injuries, locking, major instability or other specific findings may need medical or orthopaedic assessment; the decision is individual.",
       },
       {
         q: "How long should I try physiotherapy before considering surgery?",
-        a: "A meaningful trial is usually 6–12 weeks of structured physiotherapy, depending on the condition.",
+        a: "There is no universal trial duration. The appropriate period depends on the diagnosis, severity, neurological findings, rate of change and whether delaying surgery would create risk. Red flags or progressive deficits require prompt referral, not a routine trial.",
       },
       {
         q: "Does physiotherapy help after surgery too?",
-        a: "Absolutely. Rehabilitation before and after surgery significantly improves recovery, strength and long-term outcomes.",
+        a: "Rehabilitation is commonly used before and after many orthopaedic procedures to prepare function and support recovery. The programme and expected benefit depend on the procedure, medical plan and individual factors.",
       },
       {
         q: "Is avoiding surgery safe?",
-        a: "When guided by proper assessment, yes. Your physiotherapist screens for signs that require surgical referral.",
+        a: "Avoiding surgery is appropriate only when conservative care is clinically suitable and progress is monitored. New bladder or bowel dysfunction, saddle numbness, progressive weakness, major trauma or other serious warning signs require urgent medical assessment.",
       },
       {
         q: "What if physiotherapy doesn't work?",
-        a: "If you do not improve, we coordinate onward referral for further investigation or a surgical opinion.",
+        a: "If symptoms or function do not improve as expected, the clinician should reassess the diagnosis and discuss medical review, further investigation or a specialist opinion where indicated.",
       },
     ],
     keyTakeaways: [
-      "Physiotherapy is first-line for many back, knee and shoulder conditions.",
-      "It addresses causes, reducing recurrence.",
-      "A 6–12 week trial is reasonable before surgery.",
-      "Rehab improves outcomes even when surgery is needed.",
+      "Structured rehabilitation is appropriate for many, but not all, musculoskeletal conditions.",
+      "Treatment options and evidence differ by diagnosis and severity.",
+      "There is no universal duration for trying physiotherapy before surgery.",
+      "Urgent neurological or structural indications should not be delayed for routine rehabilitation.",
     ],
     relatedServices: ["exercise-therapy", "manual-therapy", "post-surgical-rehabilitation"],
     relatedConditions: ["back-pain", "knee-pain", "osteoarthritis"],
@@ -772,12 +772,12 @@ export const blogPosts: BlogPost[] = [
     quickAnswer:
       "Ghar par physiotherapy means a qualified physiotherapist assesses and treats you in your own home. It can suit elderly patients, people recovering after surgery or stroke, and anyone with mobility or transport difficulties. In Multan, a home visit can include movement assessment, pain management, functional training, an exercise plan and family education. The programme should be based on your diagnosis and goals.",
     date: "2026-06-12",
-    updated: "2026-11-03",
+    updated: "2026-11-12",
     authorKey: "JD",
     sections: [
       {
         paragraphs: [
-          "Home physiotherapy brings a qualified physiotherapist directly to you, delivering the same assessment and treatment you would receive in clinic — in the comfort and privacy of your home. For many patients across Multan, it is the most practical and effective option.",
+          "Home physiotherapy allows assessment and rehabilitation in the patient's own environment. It can be practical for people with mobility, transport or access difficulties, and enables task-specific practice using the home layout. The scope of care and available equipment may differ from a clinic and should be confirmed before the visit.",
         ],
       },
       {
@@ -812,15 +812,15 @@ export const blogPosts: BlogPost[] = [
     faqs: [
       {
         q: "Multan mein ghar par physiotherapy kin patients ke liye hoti hai?",
-        a: "Yes. For many conditions it is equally effective, and functional training in your own home can be an advantage.",
+        a: "Home visits may suit older adults, people recovering after surgery or stroke, and people whose mobility or transport makes clinic attendance difficult. The clinician should confirm that home care is suitable for the person's clinical needs and safety.",
       },
       {
         q: "Kya home physiotherapy clinic treatment jitni effective hoti hai?",
-        a: "Elderly, post-surgical, stroke and mobility-limited patients, and anyone who finds travel difficult.",
+        a: "Home-based rehabilitation can be appropriate for many patients, but it is not automatically equivalent to clinic care for every condition. Suitability depends on clinical needs, safety, equipment, space, caregiver support and whether specialist facilities or investigations are required.",
       },
       {
         q: "Do I need any equipment at home?",
-        a: "Usually not. Your physiotherapist brings what is needed and uses your home environment for functional training.",
+        a: "Not always. Equipment needs depend on the condition and goals. The provider should confirm in advance what they can bring and what space or household items may be needed.",
       },
       {
         q: "Is home physiotherapy available across Multan?",
@@ -836,10 +836,10 @@ export const blogPosts: BlogPost[] = [
       },
     ],
     keyTakeaways: [
-      "Home physiotherapy is as effective as clinic care for many conditions.",
-      "It suits elderly, post-surgical and mobility-limited patients.",
-      "Functional training happens in your real environment.",
-      "Available across Multan on a scheduled basis.",
+      "Home physiotherapy can be practical for selected patients with mobility or transport barriers.",
+      "Home visits are not automatically equivalent to clinic care for every condition.",
+      "Equipment and treatment options depend on the patient's needs and home environment.",
+      "Confirm suitability, clinician availability and equipment before booking.",
     ],
     relatedServices: [
       "home-physiotherapy",
@@ -963,45 +963,45 @@ export const blogPosts: BlogPost[] = [
     quickAnswer:
       "Frozen shoulder (adhesive capsulitis / kandhe ki jakran) usually progresses through painful, stiff and recovery phases, but duration varies considerably between people. Symptoms commonly include shoulder pain and restriction of both active and passive movement, especially external rotation. Physiotherapy is tailored to the irritability and stage: pain-limited mobility and education early on, then progressive mobility, stretching and strengthening as tolerance improves. Forceful stretching can aggravate a highly painful shoulder.",
     date: "2026-06-08",
-    updated: "2026-11-03",
+    updated: "2026-11-12",
     authorKey: "JD",
     sections: [
       {
         paragraphs: [
-          "Frozen shoulder (adhesive capsulitis) develops when the capsule around the shoulder joint thickens and tightens, causing pain and progressive stiffness. It follows a predictable three-stage pattern, and physiotherapy helps at every stage.",
+          "Frozen shoulder (adhesive capsulitis) causes shoulder pain and restriction of active and passive movement, often including external rotation. It is commonly described in painful, stiff and recovery phases, but these phases overlap and their duration varies; not everyone follows a predictable timeline. Management should be matched to symptom irritability, function and individual response.",
         ],
       },
       {
         heading: "Frozen Shoulder Ke 3 Stages",
         paragraphs: [
-          "Lasting roughly 2–9 months, this stage is dominated by pain, especially at night, with gradually reducing movement. Treatment focuses on pain relief, gentle movement and protecting range of motion.",
+          "Pain and stiffness may increase over time, but the duration and pattern vary. When irritability is high, education, pain-limited movement and gentle mobility are usually better tolerated than forceful stretching.",
         ],
       },
       {
         heading: "Stage 2 — Frozen (stiff)",
         paragraphs: [
-          "Over 4–12 months, pain often eases but stiffness dominates, limiting daily tasks like dressing or reaching. Manual therapy and stretching are central here to preserve and slowly regain movement.",
+          "In some people, pain becomes less dominant while stiffness remains. Mobility work and manual therapy may be considered according to tolerance, alongside functional activity and gradual exercise; aggressive stretching can flare symptoms.",
         ],
       },
       {
         heading: "Stage 3 — Thawing (recovery)",
         paragraphs: [
-          "Movement gradually returns over 6–24 months. Progressive strengthening restores full function. Consistent physiotherapy through all stages shortens the overall timeline and improves the final range of motion.",
+          "Movement may gradually improve, but recovery can take many months and sometimes longer. Physiotherapy can help manage symptoms and function, but it cannot guarantee a shorter course or full restoration of range in a fixed period.",
         ],
       },
     ],
     faqs: [
       {
         q: "Frozen shoulder kitne arsay mein theek hota hai?",
-        a: "Without treatment it can last 1–3 years. Physiotherapy reduces pain and speeds the return of movement.",
+        a: "The course varies widely and may last many months or longer. Physiotherapy can help manage pain and maintain function, but it does not guarantee faster resolution.",
       },
       {
         q: "Kya frozen shoulder mein zor se stretching karni chahiye?",
-        a: "Physiotherapy is the mainstay of treatment and helps most people regain function and relieve pain across all stages.",
+        a: "Treatment depends on irritability and function. Gentle, pain-limited movement may suit a highly irritable shoulder; mobility work, stretching and strengthening can progress as tolerance improves. Forceful stretching may aggravate symptoms.",
       },
       {
         q: "Should I keep moving with a frozen shoulder?",
-        a: "Yes — gentle, guided movement within comfort helps preserve range. Aggressive stretching in the painful stage can worsen it.",
+        a: "Usually, comfortable movement is encouraged, but the range and intensity should match symptom irritability. Avoid forcing painful end range; seek assessment if pain or function is worsening.",
       },
       {
         q: "What triggers frozen shoulder?",
@@ -1009,18 +1009,18 @@ export const blogPosts: BlogPost[] = [
       },
       {
         q: "Is surgery needed for frozen shoulder?",
-        a: "Rarely. Most cases resolve with physiotherapy; surgery is considered only for severe, unresponsive cases.",
+        a: "Most people are initially managed without surgery, but the course varies. If pain and stiffness remain substantially limiting despite appropriate care, a medical specialist may discuss other options such as injection or procedures based on individual findings.",
       },
       {
         q: "How soon should I start physiotherapy?",
-        a: "Early treatment in the freezing stage helps control pain and limit stiffness, so start as soon as it is diagnosed.",
+        a: "Arrange assessment when symptoms affect sleep or daily function, but treatment intensity should match irritability. Early forceful stretching is not appropriate for every painful shoulder.",
       },
     ],
     keyTakeaways: [
-      "Frozen shoulder has three stages: freezing, frozen, thawing.",
-      "Recovery can take 1–3 years untreated.",
-      "Physiotherapy reduces pain and speeds recovery.",
-      "Early, guided movement is key.",
+      "Frozen shoulder often has painful, stiff and recovery phases, but timing varies.",
+      "Treatment intensity should match irritability, function and tolerance.",
+      "Forceful stretching can aggravate a highly irritable shoulder.",
+      "Physiotherapy may help manage symptoms and function but cannot guarantee a faster recovery.",
     ],
     relatedServices: ["manual-therapy", "exercise-therapy", "electrotherapy"],
     relatedConditions: ["frozen-shoulder", "neck-pain"],
@@ -1130,9 +1130,9 @@ export const blogPosts: BlogPost[] = [
     excerpt:
       "Small changes to your desk setup can prevent hours of neck and back pain. Here's how to get it right.",
     quickAnswer:
-      "Good office ergonomics means your screen top is at eye level, your elbows and knees are at about 90 degrees, your lower back is supported, and your feet are flat on the floor. Combine this setup with micro-breaks and posture changes every 30–45 minutes to prevent neck, back and wrist pain.",
+      "A comfortable office setup makes work easier but there is no single ideal posture or exact joint angle that prevents pain for everyone. Adjust the screen, chair, keyboard and desk to your body and task, then vary position and take movement breaks when practical. Workload, sleep, stress and individual factors also influence symptoms.",
     date: "2026-06-02",
-    updated: "2026-06-28",
+    updated: "2026-11-12",
     authorKey: "JD",
     sections: [
       {
@@ -1150,28 +1150,28 @@ export const blogPosts: BlogPost[] = [
         heading: "Chair and desk",
         paragraphs: ["Set your chair to support a neutral spine."],
         list: [
-          "Hips and knees at roughly 90 degrees",
+          "Adjust hip and knee positions to a comfortable range rather than enforcing an exact angle",
           "Feet flat on the floor or a footrest",
-          "Lower back supported by the chair or a cushion",
-          "Elbows at about 90 degrees, forearms supported",
+          "Use back support if it improves comfort",
+          "Keep keyboard and mouse within easy reach and avoid sustained shoulder elevation",
           "Wrists neutral, not bent up or down",
         ],
       },
       {
         heading: "Move often",
         paragraphs: [
-          "The single most important habit is movement. Stand, stretch or walk for a minute or two every 30–45 minutes. Alternate sitting and standing if possible. No posture is good if held for hours.",
+          "Regular position changes and movement can help break up long periods of static work. There is no evidence-based universal break interval for every worker; choose a practical frequency that fits the task and symptoms. Alternate sitting, standing and walking rather than replacing prolonged sitting with prolonged standing.",
         ],
       },
     ],
     faqs: [
       {
         q: "What is the correct desk posture?",
-        a: "Screen at eye level, elbows and knees around 90 degrees, back supported, feet flat, and wrists neutral.",
+        a: "Use a comfortable setup that lets you see the screen and reach the keyboard and mouse without sustained strain. Exact joint angles are not mandatory; adjust the setup to your body, task and comfort.",
       },
       {
         q: "How often should I take breaks at work?",
-        a: "Move for a minute or two every 30–45 minutes. Frequent movement matters more than any single posture.",
+        a: "Change position and move regularly when practical. There is no universal break interval that suits every worker; use a sustainable pattern that interrupts long static periods and fits your symptoms and workload.",
       },
       {
         q: "Does a standing desk prevent back pain?",
@@ -1187,14 +1187,14 @@ export const blogPosts: BlogPost[] = [
       },
       {
         q: "What is 'tech neck'?",
-        a: "Neck strain from looking down at screens and phones for long periods, which good ergonomics and exercises can prevent.",
+        a: "'Text neck' is a popular term for neck symptoms associated with prolonged device use, but one posture does not automatically cause pain. Vary positions, manage screen time and build activity tolerance; persistent symptoms may need assessment.",
       },
     ],
     keyTakeaways: [
-      "Set your screen at eye level and support your lower back.",
-      "Keep elbows and knees near 90 degrees.",
-      "Move every 30–45 minutes.",
-      "No single posture is safe if held too long.",
+      "Set up the workstation for comfort and task demands rather than exact joint angles.",
+      "Vary positions and interrupt long static periods when practical.",
+      "There is no universal break interval or posture that prevents all pain.",
+      "Persistent symptoms may need assessment beyond workstation changes.",
     ],
     relatedServices: ["posture-ergonomic-assessment", "exercise-therapy", "manual-therapy"],
     relatedConditions: ["neck-pain", "back-pain"],
@@ -1372,36 +1372,36 @@ export const blogPosts: BlogPost[] = [
     title: "ACL Rehabilitation After Surgery: What to Expect",
     seoTitle: "ACL Rehabilitation After Surgery | Physiotherapy — PainFix",
     metaDescription:
-      "A phase-by-phase guide to ACL rehabilitation after surgery. Learn the recovery timeline, key milestones and how physiotherapy ensures a safe return to sport.",
+      "A phase-by-phase guide to ACL rehabilitation after surgery, including strength, functional milestones and criteria-informed return-to-sport decisions.",
     category: "sports-injuries",
     tags: ["ACL", "knee", "surgery", "return to sport"],
     excerpt:
-      "ACL recovery is a marathon of progressive milestones. Here's the phase-by-phase rehab journey.",
+      "ACL rehabilitation follows progressive, criteria-based milestones. Learn what influences recovery and how clinicians assess readiness to return to sport.",
     quickAnswer:
-      "ACL rehabilitation after surgery progresses through phases: early recovery (restore movement and control swelling), strengthening (rebuild muscle and control), and return to sport (agility, power and sport-specific training). Full recovery typically takes 9–12 months, and passing objective return-to-sport tests is essential to avoid re-injury.",
+      "ACL rehabilitation after reconstruction progresses through criteria-based phases, including early motion and swelling management, progressive strength and neuromuscular training, running and sport-specific loading. Return to pivoting sport often takes 9–12 months or longer, but there is no universal clearance date. Decisions should combine time for biological recovery with strength, hop and movement testing, symptoms, psychological readiness and surgeon-specific factors.",
     date: "2026-05-24",
-    updated: "2026-06-22",
+    updated: "2026-11-12",
     authorKey: "ZA",
     sections: [
       {
         paragraphs: [
-          "The anterior cruciate ligament (ACL) is a key stabiliser of the knee. After reconstruction, structured physiotherapy is essential to rebuild strength, control and confidence, and to return to sport safely. Rushing the process is the leading cause of re-injury.",
+          "The anterior cruciate ligament (ACL) is a key stabiliser of the knee. After reconstruction, structured rehabilitation helps rebuild strength, neuromuscular control and sport-specific capacity. Returning before adequate recovery can increase reinjury risk, but reinjury is multifactorial and cannot be attributed to one factor alone.",
         ],
       },
       {
-        heading: "Phase 1 — Early recovery (weeks 0–6)",
+        heading: "Phase 1 — Early recovery",
         paragraphs: [
           "The priorities are controlling swelling, restoring full knee extension, regaining quadriceps activation, and walking normally. Gentle range-of-motion and activation exercises lay the foundation.",
         ],
       },
       {
-        heading: "Phase 2 — Strengthening (weeks 6–20)",
+        heading: "Phase 2 — Progressive strengthening",
         paragraphs: [
           "Progressive strengthening of the quadriceps, hamstrings and hips rebuilds the muscle support around the knee. Balance and single-leg control work restores stability and neuromuscular control.",
         ],
       },
       {
-        heading: "Phase 3 — Return to sport (months 5–12)",
+        heading: "Phase 3 — Running and return to sport",
         paragraphs: [
           "Running, agility, jumping and sport-specific drills are introduced gradually. Return to competition is guided by objective strength and hop tests — not just time — to minimise re-injury risk.",
         ],
@@ -1410,7 +1410,7 @@ export const blogPosts: BlogPost[] = [
     faqs: [
       {
         q: "How long does ACL rehabilitation take?",
-        a: "Typically 9–12 months to a safe return to pivoting sport, though everyday function returns much sooner.",
+        a: "Many athletes need at least 9 months and sometimes longer before pivoting sport, but time alone cannot establish readiness. Clearance requires objective strength and functional testing, movement quality, psychological readiness and review of the surgeon's protocol and any associated injuries.",
       },
       {
         q: "When can I walk after ACL surgery?",
@@ -1418,26 +1418,26 @@ export const blogPosts: BlogPost[] = [
       },
       {
         q: "Why is ACL rehab so important?",
-        a: "It rebuilds strength and control and reduces re-injury risk. Returning too soon is the main cause of a second ACL injury.",
+        a: "It rebuilds strength, neuromuscular control and sport-specific capacity. Return-to-sport decisions should consider multiple risk factors; no single factor explains every reinjury.",
       },
       {
         q: "Can I return to sport after 6 months?",
-        a: "Time alone is not enough. Return should be based on passing strength and functional tests, usually not before 9 months.",
+        a: "Time alone is not enough, and no single month guarantees safety. Return-to-sport decisions should be individualised using clinical review, strength symmetry and absolute strength, hop or sport-specific performance, movement quality, psychological readiness and the demands of the sport.",
       },
       {
         q: "Will my knee be as strong as before?",
-        a: "With complete rehabilitation, most people regain full strength and function and return to their sport.",
+        a: "Many people return to sport after reconstruction, but strength and function may not fully match the uninjured side and return is not guaranteed. Rehabilitation and objective testing help guide readiness and reduce avoidable risk.",
       },
       {
         q: "Do I need rehab before ACL surgery too?",
-        a: "Yes. 'Prehab' to restore movement and strength before surgery improves post-operative outcomes.",
+        a: "Prehabilitation may help address swelling, range of motion, quadriceps strength and functional capacity before surgery. The programme should follow the surgeon's plan, and its benefits depend on the person's presentation and the procedure.",
       },
     ],
     keyTakeaways: [
-      "ACL rehab progresses through clear phases.",
-      "Full recovery usually takes 9–12 months.",
-      "Return to sport is criteria-based, not time-based.",
-      "Rushing back is the main cause of re-injury.",
+      "ACL rehabilitation is criteria-based and progresses according to clinical milestones.",
+      "Return to pivoting sport often takes 9 months or longer, but time alone is not clearance.",
+      "Strength, functional performance, movement quality and psychological readiness all matter.",
+      "Follow the surgeon's protocol and account for associated injuries.",
     ],
     relatedServices: ["sports-rehabilitation", "post-surgical-rehabilitation", "exercise-therapy"],
     relatedConditions: ["sports-injuries", "knee-pain", "post-surgical-rehabilitation"],
@@ -1528,20 +1528,20 @@ export const blogPosts: BlogPost[] = [
     title: "Disc Herniation (Slipped Disc) Treatment | Slip Disc Ka Ilaj",
     seoTitle: "Slipped Disc Treatment | Slip Disc Ka Ilaj — PainFix Multan",
     metaDescription:
-      "Slipped disc (slip disc) rarely needs surgery. Learn how physiotherapy in Multan can help with disc-related pain and nerve symptoms.",
+      "Many people with slipped discs improve without surgery. Learn how physiotherapy may help and when specialist review is needed.",
     category: "back-pain",
     tags: ["disc herniation", "slip disc", "slip disc ka ilaj", "sciatica", "back pain"],
     excerpt:
-      "A 'slipped disc' (slip disc) sounds alarming, but most heal without surgery. Here's how physiotherapy treats disc herniation.",
+      "A 'slipped disc' (slip disc) does not always require surgery. Learn how conservative care and physiotherapy may help symptoms and function, and when specialist assessment is needed.",
     quickAnswer:
-      "Most disc herniations (slip disc ka ilaj) heal without surgery. Physiotherapy relieves nerve irritation and pain through directional exercises, nerve mobilisation, manual therapy and progressive core strengthening. The majority of patients improve significantly within 6–12 weeks, and surgery is reserved for severe nerve compression or persistent, non-improving symptoms.",
+      "Many people with a symptomatic lumbar disc herniation improve without surgery. Some herniations, particularly extrusions and sequestrations, can shrink through natural resorption, but an MRI finding does not predict symptoms or recovery on its own. Physiotherapy can help manage pain, restore activity and build function; treatment is tailored to examination findings. Recovery varies, and surgery remains appropriate for specific indications.",
     date: "2026-05-17",
-    updated: "2026-06-18",
+    updated: "2026-11-12",
     authorKey: "JD",
     sections: [
       {
         paragraphs: [
-          "A disc herniation occurs when the soft centre of a spinal disc pushes through its outer layer, sometimes irritating a nearby nerve. Despite the frightening name, most disc herniations resorb over time and respond very well to physiotherapy.",
+          "A disc herniation occurs when the soft centre of a spinal disc pushes through its outer layer, sometimes irritating a nearby nerve. Many symptomatic disc herniations improve over time, and some regress on imaging. This does not mean every disc bulge disappears or that physiotherapy physically pushes a disc back into place. Treatment focuses on symptoms, neurological function and activity.",
         ],
       },
       {
@@ -1557,7 +1557,7 @@ export const blogPosts: BlogPost[] = [
       {
         heading: "How physiotherapy treats disc herniation",
         paragraphs: [
-          "We identify positions and movements that reduce your symptoms and use them therapeutically, alongside nerve mobilisation and manual therapy. As pain settles, progressive core and back strengthening restores stability and prevents recurrence.",
+          "We assess symptom behaviour, movement, strength and neurological function. The plan may include education, activity modification, symptom-guided movement and progressive strengthening. Nerve mobilisation or manual therapy may be considered when appropriate, but neither is mandatory for every patient. Progress is monitored and the plan is changed if symptoms or neurological signs worsen.",
         ],
         list: [
           "Directional (centralising) exercises",
@@ -1570,18 +1570,18 @@ export const blogPosts: BlogPost[] = [
       {
         heading: "Do I need surgery?",
         paragraphs: [
-          "Most people do not. Surgery is considered only for severe or progressive nerve compression, or when a proper course of physiotherapy has not helped. We screen for the warning signs that need urgent referral.",
+          "Most people do not need surgery initially. Urgent surgical assessment is required for cauda equina syndrome and may be needed for severe or progressive motor deficit. A surgical opinion may also be appropriate for persistent, disabling radicular symptoms despite suitable conservative care. The decision is made with a spine specialist based on symptoms, examination, imaging when indicated and patient preference.",
         ],
       },
     ],
     faqs: [
       {
         q: "Can a herniated disc heal on its own?",
-        a: "Yes. Many disc herniations shrink over time, and symptoms usually improve with physiotherapy without surgery.",
+        a: "Many symptomatic herniations improve over time, and some reduce in size on follow-up imaging. Symptom improvement does not always require the disc to return to its original shape; physiotherapy supports function and symptom management rather than mechanically repositioning the disc.",
       },
       {
         q: "How long does a slipped disc take to heal?",
-        a: "Most people improve significantly within 6–12 weeks of consistent physiotherapy.",
+        a: "Many people improve over approximately 6–12 weeks, but this is not a guarantee or a deadline. Some recover sooner; others have persistent symptoms and need reassessment or a specialist opinion.",
       },
       {
         q: "Is it safe to exercise with a herniated disc?",
@@ -1589,22 +1589,22 @@ export const blogPosts: BlogPost[] = [
       },
       {
         q: "When does a disc herniation need surgery?",
-        a: "For severe or worsening nerve compression, significant weakness, or symptoms that don't respond to physiotherapy.",
+        a: "For cauda equina syndrome, significant or progressive motor weakness, or persistent disabling symptoms despite an appropriate conservative-care trial. Urgent referral should not be delayed to complete physiotherapy when red flags are present.",
       },
       {
         q: "What should I avoid with a herniated disc?",
-        a: "Prolonged sitting, heavy or twisting lifts, and complete bed rest. Your physiotherapist gives specific guidance.",
+        a: "Avoid activities that clearly aggravate your symptoms temporarily, but do not assume all bending, lifting or sitting is harmful. Prolonged bed rest is generally discouraged; return to activity should be gradual and symptom-guided.",
       },
       {
         q: "Can a herniated disc come back?",
-        a: "Recurrence is possible, but core strengthening and good movement habits substantially reduce the risk.",
+        a: "Symptoms can recur, but no exercise programme can guarantee prevention. Gradual strengthening, activity and load management may support function and help you manage future episodes.",
       },
     ],
     keyTakeaways: [
-      "Most slipped discs heal without surgery.",
-      "Directional exercises and nerve mobilisation help.",
-      "Recovery usually takes 6–12 weeks.",
-      "Core strengthening prevents recurrence.",
+      "Many symptomatic lumbar disc herniations improve without surgery, but outcomes vary.",
+      "Some herniations regress naturally; symptoms can improve without the disc returning to its original shape.",
+      "Physiotherapy supports symptom management, movement and function; it does not mechanically reposition a disc.",
+      "Cauda equina symptoms or progressive significant weakness require urgent referral.",
     ],
     relatedServices: ["manual-therapy", "exercise-therapy", "pain-management"],
     relatedConditions: ["back-pain", "sciatica", "slipped-disc"],
@@ -1620,14 +1620,14 @@ export const blogPosts: BlogPost[] = [
     excerpt:
       "Most rotator cuff problems (kandhe ka dard) respond to strengthening, not surgery. Here's how rehabilitation works.",
     quickAnswer:
-      "Rotator cuff rehabilitation (kandhe ke dard ka ilaj) uses progressive strengthening, movement retraining and manual therapy to restore pain-free shoulder function. Most rotator cuff injuries — including many partial tears and tendinopathy — improve without surgery. A structured programme typically produces meaningful improvement within 8–12 weeks.",
+      "Rotator cuff rehabilitation depends on the specific diagnosis. Many cases of tendinopathy and some partial-thickness tears improve with education, activity modification and progressive resistance or motor-control exercise. Manual therapy may be added for short-term symptom relief. Full-thickness tears, traumatic onset, marked weakness or loss of function need medical assessment; there is no guaranteed 8–12 week recovery timeline.",
     date: "2026-05-14",
-    updated: "2026-06-16",
+    updated: "2026-11-12",
     authorKey: "ZA",
     sections: [
       {
         paragraphs: [
-          "The rotator cuff is a group of muscles and tendons that stabilise and move the shoulder. Injuries range from tendinopathy (overload) to partial tears. The great majority respond well to physiotherapy, and strengthening is the cornerstone of recovery.",
+          "The rotator cuff is a group of muscles and tendons that stabilise and move the shoulder. Injuries range from tendinopathy (overload) to partial tears. Many people with rotator cuff tendinopathy improve with non-surgical care, but prognosis differs between tendinopathy, partial-thickness tears and full-thickness tears. A sudden traumatic loss of strength or substantial functional deficit warrants medical assessment.",
         ],
       },
       {
@@ -1643,7 +1643,7 @@ export const blogPosts: BlogPost[] = [
       {
         heading: "How physiotherapy rehabilitates the rotator cuff",
         paragraphs: [
-          "We settle pain, restore movement, and progressively load the rotator cuff and surrounding muscles to rebuild strength and control. Correcting movement patterns and posture reduces impingement and prevents recurrence.",
+          "Rehabilitation generally prioritises education, activity modification and progressive loading of the rotator cuff and shoulder muscles. Manual therapy can be used as a short-term adjunct when appropriate. Exercise selection and load are adjusted to irritability, capacity and response; no single posture correction is a universal cure.",
         ],
         list: [
           "Progressive rotator cuff strengthening",
@@ -1656,7 +1656,7 @@ export const blogPosts: BlogPost[] = [
       {
         heading: "Recovery expectations",
         paragraphs: [
-          "Most people notice meaningful improvement within 8–12 weeks, though full strengthening continues beyond that. Consistency with loading exercises is the key to a lasting result.",
+          "Some people notice improvement over several weeks, while strength and activity tolerance may take longer to rebuild. Progress depends on the diagnosis, tear characteristics, symptom duration, health factors and loading response; reassess if function is not improving.",
         ],
       },
     ],
@@ -1667,7 +1667,7 @@ export const blogPosts: BlogPost[] = [
       },
       {
         q: "How long does rotator cuff recovery take?",
-        a: "Meaningful improvement usually occurs within 8–12 weeks, with continued strengthening beyond that.",
+        a: "Improvement may begin over weeks, but there is no fixed recovery period. The course varies by diagnosis, tear severity, goals and response to progressive rehabilitation.",
       },
       {
         q: "What exercises help the rotator cuff?",
@@ -1679,7 +1679,7 @@ export const blogPosts: BlogPost[] = [
       },
       {
         q: "When is rotator cuff surgery needed?",
-        a: "For large or full-thickness tears with significant weakness, or when physiotherapy has not helped.",
+        a: "A traumatic full-thickness tear, marked weakness, major loss of function or persistent symptoms may warrant medical or orthopaedic assessment. Treatment decisions depend on age, tear size, function, goals and response to non-surgical care.",
       },
       {
         q: "Why is my shoulder worse at night?",
@@ -1687,10 +1687,10 @@ export const blogPosts: BlogPost[] = [
       },
     ],
     keyTakeaways: [
-      "Most rotator cuff problems don't need surgery.",
-      "Progressive strengthening is the key treatment.",
-      "Scapular control and posture matter.",
-      "Improvement usually comes within 8–12 weeks.",
+      "Many cases of rotator cuff tendinopathy improve with education and progressive exercise.",
+      "Partial-thickness and full-thickness tears require different assessment and prognosis.",
+      "Manual therapy may provide short-term relief as an adjunct to active rehabilitation.",
+      "Traumatic onset, marked weakness or major loss of function warrants medical assessment.",
     ],
     relatedServices: ["exercise-therapy", "manual-therapy", "sports-rehabilitation"],
     relatedConditions: ["shoulder-pain", "frozen-shoulder", "sports-injuries"],
@@ -1787,20 +1787,27 @@ export const blogPosts: BlogPost[] = [
     title: "Bell's Palsy Physiotherapy | Munh Terha Hona Ka Ilaj",
     seoTitle: "Bell's Palsy | Munh Terha Hona Ka Ilaj — PainFix Multan",
     metaDescription:
-      "Bell's palsy causes sudden facial weakness (munh terha hona). Learn how facial physiotherapy supports recovery through retraining and education.",
+      "Sudden facial weakness needs urgent assessment to exclude stroke. Learn about Bell's palsy treatment and eye protection.",
     category: "neurological-rehabilitation",
     tags: ["Bell's palsy", "munh terha hona", "facial", "neuro rehab", "recovery"],
     excerpt:
-      "Bell's palsy (munh terha hona) can be frightening, but most people recover well — and facial physiotherapy supports the process.",
+      "Sudden facial weakness needs urgent medical assessment before it is labelled Bell's palsy. Learn about timely treatment, eye protection and the selected role of facial rehabilitation.",
     quickAnswer:
-      "Bell's palsy (munh terha hona ka ilaj) is sudden, usually temporary weakness of one side of the face caused by facial nerve inflammation. Physiotherapy supports recovery through facial exercises, neuromuscular retraining, gentle massage and education. Most people recover within weeks to months, and physiotherapy helps restore symmetry and prevent abnormal movement patterns.",
+      "Sudden one-sided facial weakness needs urgent medical assessment to exclude stroke and other causes before it is labelled Bell's palsy. For confirmed Bell's palsy, timely medical treatment and eye protection are priorities; a clinician should assess corticosteroid treatment within 72 hours where appropriate. Facial rehabilitation may be considered as an adjunct, depending on the recovery pattern.",
     date: "2026-05-08",
-    updated: "2026-06-12",
+    updated: "2026-11-12",
     authorKey: "JD",
     sections: [
       {
         paragraphs: [
-          "Bell's palsy is a sudden weakness or paralysis of the muscles on one side of the face, caused by inflammation of the facial nerve. It can affect the ability to close the eye, smile or eat comfortably. The outlook is generally good, and facial physiotherapy supports and guides recovery.",
+          "Sudden facial weakness must be assessed urgently by a medical professional to exclude stroke and other identifiable causes; do not assume it is Bell's palsy. Once Bell's palsy is diagnosed, a prescribing clinician should assess eligibility for oral corticosteroids, which are recommended within 72 hours of symptom onset for many patients aged 16 and over. If the eye does not close fully, prompt eye protection and medical advice are essential. Facial rehabilitation may be considered as an adjunct, with an individualised programme.",
+        ],
+      },
+      {
+        heading: "What to do first",
+        paragraphs: [
+          "If facial weakness starts suddenly, seek urgent medical assessment rather than booking routine physiotherapy first. Stroke can present with facial droop, especially when there is arm or leg weakness, speech difficulty, vision change, imbalance, severe headache or other sudden neurological symptoms. Even when symptoms appear limited to the face, a clinician needs to assess the cause.",
+          "For diagnosed Bell's palsy, oral corticosteroids are commonly recommended for eligible patients aged 16 and over when started within 72 hours. A clinician must assess suitability and prescribe them. If the eye does not close fully, prompt eye protection is essential to prevent corneal injury.",
         ],
       },
       {
@@ -1816,7 +1823,7 @@ export const blogPosts: BlogPost[] = [
       {
         heading: "How physiotherapy helps",
         paragraphs: [
-          "Facial physiotherapy focuses on retraining the facial muscles with specific exercises, gentle massage and biofeedback. The aim is to restore balanced movement and prevent unwanted patterns (synkinesis) that can develop during recovery.",
+          "Facial rehabilitation may include education, carefully selected movement retraining and strategies for managing facial weakness or synkinesis. Evidence for physiotherapy in acute Bell's palsy is less certain than the evidence for timely medical assessment, corticosteroid treatment and eye protection. Avoid forceful repetitive facial exercises; the programme should be guided by the recovery pattern and a clinician experienced in facial nerve rehabilitation.",
         ],
         list: [
           "Targeted facial muscle exercises",
@@ -1829,41 +1836,41 @@ export const blogPosts: BlogPost[] = [
       {
         heading: "Recovery outlook",
         paragraphs: [
-          "Most people with Bell's palsy recover substantially within a few weeks to a few months. Early guidance helps ensure recovery is smooth and reduces the risk of long-term asymmetry.",
+          "Recovery varies with the severity of nerve involvement and other clinical factors. Many people improve over weeks to months, but new or worsening neurological signs, eye symptoms, or incomplete recovery by around three months warrant reassessment or specialist referral.",
         ],
       },
     ],
     faqs: [
       {
         q: "Does Bell's palsy go away?",
-        a: "Most people recover well within weeks to months. Physiotherapy supports a smoother, more complete recovery.",
+        a: "Many people recover substantially, but timing and completeness vary. Medical assessment, appropriate early treatment and eye protection are priorities; facial rehabilitation may be considered for selected patients.",
       },
       {
         q: "Can physiotherapy help Bell's palsy?",
-        a: "Yes. Facial retraining exercises and neuromuscular techniques help restore balanced movement and prevent abnormal patterns.",
+        a: "Facial rehabilitation may help selected patients, particularly when tailored to the stage of recovery or synkinesis. It is an adjunct and must not replace urgent medical assessment, timely medical treatment or eye care.",
       },
       {
         q: "When should I start facial exercises?",
-        a: "Your physiotherapist will guide timing based on your stage of recovery — gentle, correct exercises matter more than intensity.",
+        a: "Do not start forceful repetitive exercises on your own. Timing and exercise selection should be guided by a clinician familiar with facial nerve rehabilitation, based on recovery stage and whether synkinesis is present.",
       },
       {
         q: "What is synkinesis?",
-        a: "Unwanted linked facial movements that can develop during recovery. Proper retraining reduces this risk.",
+        a: "Unwanted linked facial movements in which an intended action triggers another movement, such as eye narrowing during a smile. Assessment by a clinician experienced in facial nerve disorders can guide management.",
       },
       {
         q: "How do I protect my eye with Bell's palsy?",
-        a: "If you cannot close the eye fully, use lubricating drops and protection as advised to prevent damage.",
+        a: "If the eyelid does not close fully, seek prompt medical advice about lubrication and protection, including nighttime measures when recommended. Eye pain, redness or visual change needs urgent eye assessment.",
       },
       {
         q: "Is Bell's palsy permanent?",
-        a: "Rarely. The majority recover, though some may have mild residual weakness that physiotherapy can help improve.",
+        a: "Many people recover substantially, but some have residual weakness or synkinesis. Persistent or worsening symptoms need medical reassessment; facial rehabilitation may help selected patients.",
       },
     ],
     keyTakeaways: [
-      "Bell's palsy is usually temporary facial nerve weakness.",
-      "Most people recover within weeks to months.",
-      "Facial retraining restores balanced movement.",
-      "Early guidance reduces long-term asymmetry.",
+      "Sudden facial weakness requires urgent medical assessment; do not assume it is Bell's palsy.",
+      "For confirmed Bell's palsy, timely clinician-led treatment and eye protection are priorities.",
+      "Facial rehabilitation may help selected patients but is an adjunct to medical care.",
+      "New neurological signs, eye symptoms or incomplete recovery need reassessment.",
     ],
     relatedServices: ["stroke-rehabilitation", "home-physiotherapy", "exercise-therapy"],
     relatedConditions: ["stroke-rehabilitation"],
@@ -2155,62 +2162,62 @@ export const blogPosts: BlogPost[] = [
     title: "Electrotherapy in Physiotherapy: TENS, Ultrasound and More",
     seoTitle: "Electrotherapy in Physiotherapy | TENS & Ultrasound — PainFix",
     metaDescription:
-      "Electrotherapy in physiotherapy: how TENS, ultrasound and other modalities may help manage pain and support rehabilitation.",
+      "TENS, ultrasound and interferential therapy: uses, evidence limitations and precautions for physiotherapy patients.",
     category: "electrotherapy",
     tags: ["electrotherapy", "TENS", "ultrasound", "pain relief"],
     excerpt:
-      "Electrotherapy can relieve pain and support healing, but it works best as part of an active treatment plan. Here's the balanced view.",
+      "Electrotherapy includes different modalities with different indications. Understand their evidence limitations and why active rehabilitation remains central.",
     quickAnswer:
-      "Electrotherapy uses modalities such as TENS, ultrasound and electrical stimulation to relieve pain, reduce muscle spasm and support healing. It is a useful adjunct in physiotherapy but is most effective when combined with manual therapy and exercise — not used alone. Your physiotherapist selects modalities based on your specific condition.",
+      "Electrotherapy is a broad term covering different modalities, and evidence is not interchangeable between them. Some forms of electrical stimulation may be used for a specific goal such as muscle activation, while others have limited or condition-specific evidence. TENS, ultrasound and interferential therapy are not recommended by NICE for low back pain or sciatica. Modalities should never replace appropriate education, activity and exercise-based rehabilitation.",
     date: "2026-04-24",
-    updated: "2026-06-04",
+    updated: "2026-11-12",
     authorKey: "JD",
     sections: [
       {
         paragraphs: [
-          "Electrotherapy refers to a range of treatments that use electrical energy, sound waves or currents to relieve pain and support healing. Used appropriately, it complements the core of physiotherapy — assessment, manual therapy and exercise.",
+          "Electrotherapy refers to a range of treatments that use electrical energy, sound waves or currents. Their effects and indications differ; a modality should not be assumed to relieve pain or accelerate tissue healing. Assessment, education, activity and exercise-based rehabilitation remain central.",
         ],
       },
       {
         heading: "Common modalities",
         paragraphs: ["Different modalities serve different purposes."],
         list: [
-          "TENS: reduces pain by stimulating nerves",
-          "Therapeutic ultrasound: may support soft-tissue healing",
-          "Electrical muscle stimulation: helps activate weak muscles",
-          "Interferential therapy: pain relief for deeper tissues",
-          "Heat and cold: manage pain and inflammation",
+          "TENS: provides sensory-level electrical stimulation; evidence and recommendations depend on the condition, and NICE advises against its use for low back pain or sciatica.",
+          "Therapeutic ultrasound: should not be presented as a general tissue-healing treatment; NICE advises against it for low back pain or sciatica, and the 2025 rotator cuff guideline advises against it for rotator cuff tendinopathy.",
+          "Neuromuscular electrical stimulation: may be considered for selected muscle-activation goals when clinically indicated; it is not a universal pain or healing treatment.",
+          "Interferential therapy: not recommended by NICE for low back pain or sciatica.",
+          "Heat or cold: may offer short-term comfort for some people, depending on the presentation and individual response.",
         ],
       },
       {
         heading: "What electrotherapy can and can't do",
         paragraphs: [
-          "Electrotherapy can provide helpful short-term pain relief and support certain phases of recovery. However, it does not replace the active rehabilitation — strengthening and movement retraining — that produces lasting change. Beware any clinic that offers only machines.",
+          "The effect depends on the modality and the condition being treated. Evidence for one device or diagnosis should not be used to claim that all electrotherapy relieves pain or accelerates tissue healing. For many musculoskeletal problems, education, activity and progressive exercise remain central; a modality should be used only when there is a clear, defensible clinical reason.",
         ],
       },
       {
         heading: "How we use it at PainFix",
         paragraphs: [
-          "We use electrotherapy selectively, as one tool within a comprehensive, personalized plan. This ensures you get symptom relief while also addressing the underlying cause through active treatment.",
+          "If a modality is being considered, the clinician should explain its specific purpose, supporting evidence, precautions and alternatives. It should be used only when there is a clear clinical rationale and should not displace active rehabilitation.",
         ],
       },
     ],
     faqs: [
       {
         q: "Does electrotherapy really work?",
-        a: "It can provide useful short-term pain relief and support recovery, but works best combined with manual therapy and exercise, not alone.",
+        a: "It depends on the modality and diagnosis. Some interventions may have a limited or specific role, while others are not recommended for certain conditions. For example, NICE advises against TENS, ultrasound and interferential therapy for low back pain or sciatica. Exercise and self-management remain central.",
       },
       {
         q: "Is TENS safe?",
-        a: "TENS is generally very safe when used appropriately, with some exceptions your physiotherapist will screen for.",
+        a: "TENS is not suitable for every person or every condition. A clinician should screen for relevant contraindications and device precautions, and it should not be promoted as an evidence-based treatment for low back pain or sciatica under NICE guidance.",
       },
       {
         q: "Can electrotherapy heal my injury?",
-        a: "It supports certain phases of healing but does not replace active rehabilitation, which drives lasting recovery.",
+        a: "Do not assume electrotherapy accelerates tissue healing. The evidence and indications differ by modality and diagnosis; active rehabilitation and condition-specific management remain important.",
       },
       {
         q: "Is ultrasound therapy effective?",
-        a: "Evidence is mixed; it may help some soft-tissue conditions and is used selectively as an adjunct.",
+        a: "Effectiveness depends on the diagnosis. Therapeutic ultrasound is not recommended for low back pain or sciatica by NICE, and the 2025 rotator cuff tendinopathy guideline recommends against it for rotator cuff tendinopathy.",
       },
       {
         q: "Should a clinic use only machines?",
@@ -2218,14 +2225,14 @@ export const blogPosts: BlogPost[] = [
       },
       {
         q: "Does electrotherapy hurt?",
-        a: "No. You typically feel a mild tingling or warmth; treatment is adjusted to your comfort.",
+        a: "Sensation depends on the modality and settings. Stop and tell the clinician if you experience pain, burning, skin irritation or an unexpected reaction; the clinician should explain the expected sensation and relevant precautions before treatment.",
       },
     ],
     keyTakeaways: [
-      "Electrotherapy relieves pain and supports healing.",
-      "It is an adjunct, not a standalone treatment.",
-      "Active rehabilitation drives lasting recovery.",
-      "Modalities are selected to fit your condition.",
+      "Electrotherapy evidence and indications differ by modality and diagnosis.",
+      "NICE advises against TENS, ultrasound and interferential therapy for low back pain or sciatica.",
+      "Some electrical stimulation may have a specific muscle-activation role when clinically indicated.",
+      "Modalities do not replace education, activity and progressive rehabilitation.",
     ],
     relatedServices: ["electrotherapy", "manual-therapy", "pain-management"],
     relatedConditions: ["back-pain", "neck-pain", "frozen-shoulder"],
@@ -2241,9 +2248,9 @@ export const blogPosts: BlogPost[] = [
     excerpt:
       "Children aren't just small adults. Pediatric physiotherapy supports development, movement and confidence in a child-friendly way.",
     quickAnswer:
-      "Pediatric physiotherapy helps children who have developmental delays, movement difficulties, injuries or neurological conditions. It uses play-based, child-friendly techniques to improve strength, coordination, balance and motor skills. Early intervention often leads to the best outcomes, so signs like delayed milestones or difficulty moving should be assessed promptly.",
+      "Pediatric physiotherapy may support children with movement difficulties, developmental conditions, neurological disorders or injury. Assessment considers the child's history, function and age-appropriate development. A missed milestone is not a diagnosis: concerns should be discussed with the child's doctor and may require validated developmental screening, formal evaluation or referral. Earlier support can be useful when a need is identified, but urgency and treatment depend on the child.",
     date: "2026-04-20",
-    updated: "2026-06-02",
+    updated: "2026-11-12",
     authorKey: "JD",
     sections: [
       {
@@ -2255,7 +2262,7 @@ export const blogPosts: BlogPost[] = [
         heading: "Signs your child may benefit",
         paragraphs: ["Consider an assessment if you notice any of the following."],
         list: [
-          "Delayed milestones (sitting, crawling, walking)",
+          "Parent or clinician concerns about movement or developmental progress (milestone timing varies between children)",
           "Difficulty with coordination or balance",
           "Toe-walking or an unusual walking pattern",
           "Muscle weakness or stiffness",
@@ -2271,7 +2278,7 @@ export const blogPosts: BlogPost[] = [
       {
         heading: "Why early intervention matters",
         paragraphs: [
-          "Children's nervous systems are highly adaptable, so early support often produces the best results. If you have concerns about your child's movement or development, an early assessment is worthwhile.",
+          "If a child is not meeting milestones, loses a skill they previously had, or a parent has concerns, discuss this with the child's doctor and ask about developmental screening or specialist evaluation. Milestone checklists are surveillance aids, not diagnostic tests. Physiotherapy is appropriate when assessment identifies a movement or functional need.",
         ],
       },
     ],
@@ -2282,11 +2289,11 @@ export const blogPosts: BlogPost[] = [
       },
       {
         q: "When should I take my child to physiotherapy?",
-        a: "If you notice delayed milestones, coordination difficulties, unusual walking, or after an injury — early assessment is best.",
+        a: "Discuss concerns with the child's doctor, particularly if a skill is lost, development appears delayed, movement is asymmetric, or daily function is affected. The next step may be developmental screening, medical assessment or referral; not every concern requires physiotherapy alone.",
       },
       {
         q: "Is pediatric physiotherapy safe for babies?",
-        a: "Yes. Techniques are gentle, age-appropriate and designed specifically for infants and children.",
+        a: "Paediatric assessment and treatment should be age-appropriate and tailored to the child's medical history, development, tolerance and goals. A clinician should explain the proposed techniques and safety considerations to the parent or caregiver.",
       },
       {
         q: "Does my child need a referral?",
@@ -2302,10 +2309,10 @@ export const blogPosts: BlogPost[] = [
       },
     ],
     keyTakeaways: [
-      "Pediatric physiotherapy supports movement and development.",
-      "Watch for delayed milestones and coordination issues.",
-      "Treatment is play-based and child-friendly.",
-      "Early intervention often gives the best results.",
+      "Paediatric physiotherapy is based on the child's individual movement and functional needs.",
+      "Milestone checklists are not diagnostic tools.",
+      "Developmental concerns should be discussed with the child's doctor for screening or evaluation.",
+      "Loss of previously acquired skills warrants prompt medical assessment.",
     ],
     relatedServices: ["exercise-therapy", "home-physiotherapy", "manual-therapy"],
     relatedConditions: ["balance-disorders"],
@@ -2315,20 +2322,20 @@ export const blogPosts: BlogPost[] = [
     title: "Postnatal Physiotherapy and Core Recovery",
     seoTitle: "Postnatal Physiotherapy | Core & Pelvic Recovery — PainFix",
     metaDescription:
-      "Postnatal physiotherapy helps mothers recover core strength, heal from birth and relieve back pain. Learn how to safely rebuild after pregnancy and childbirth.",
+      "Postnatal physiotherapy supports pelvic-floor and abdominal-wall recovery, symptom management and a gradual return to activity.",
     category: "womens-health",
     tags: ["postnatal", "women's health", "core", "pelvic floor"],
     excerpt:
       "Pregnancy and birth change your body. Postnatal physiotherapy helps you rebuild core strength safely and relieve back pain.",
     quickAnswer:
-      "Postnatal physiotherapy helps new mothers recover after pregnancy and childbirth by safely rebuilding core and pelvic floor strength, relieving back and pelvic pain, and addressing abdominal separation (diastasis recti). A gradual, guided programme restores strength and function and helps you return to exercise and daily activities with confidence.",
+      "Postnatal physiotherapy can help address pelvic-floor symptoms, abdominal wall function, pain and return to activity after pregnancy and birth. Progression should be individualised and symptom-based, taking account of delivery type, perineal or surgical healing, bleeding, pain, fatigue and medical complications. Diastasis recti management focuses on function and load tolerance, not simply closing a measured gap.",
     date: "2026-04-16",
-    updated: "2026-05-30",
+    updated: "2026-11-12",
     authorKey: "JD",
     sections: [
       {
         paragraphs: [
-          "Pregnancy and childbirth place significant demands on the core, pelvic floor and spine. Postnatal physiotherapy provides a safe, structured path back to strength and function, addressing common issues like back pain and abdominal separation.",
+          "Pregnancy and childbirth can affect pelvic-floor function, abdominal-wall capacity and tolerance for daily activity. Postnatal assessment considers symptoms, healing, medical factors and goals before building a progressive plan for strength and function.",
         ],
       },
       {
@@ -2345,7 +2352,7 @@ export const blogPosts: BlogPost[] = [
       {
         heading: "How physiotherapy helps",
         paragraphs: [
-          "Treatment starts with gentle core and pelvic floor reactivation, progressing carefully to full strengthening. We address posture, back pain, and abdominal separation, and guide a safe return to exercise at a pace that suits your recovery.",
+          "Assessment considers pelvic-floor symptoms, abdominal wall function, breathing, pain, daily tasks and goals. Exercise progresses from tolerable activity to strengthening and higher-impact work when healing and symptoms allow. Pelvic-floor training should be taught with correct technique and adapted if it causes pain or pressure symptoms.",
         ],
         list: [
           "Pelvic floor and deep core reactivation",
@@ -2358,30 +2365,30 @@ export const blogPosts: BlogPost[] = [
       {
         heading: "When to start",
         paragraphs: [
-          "Gentle recovery can begin soon after birth, with progression guided by your physiotherapist and your medical clearance. It is never too late to benefit — even months or years after childbirth.",
+          "Light activity such as comfortable walking and appropriately taught pelvic-floor work may begin early when there are no contraindications. Progression to more demanding exercise should be gradual and symptom-based, with medical guidance when complications or contraindications exist and after wounds or tears have sufficiently healed.",
         ],
       },
     ],
     faqs: [
       {
         q: "When can I start postnatal physiotherapy?",
-        a: "Gentle work can begin soon after birth with medical clearance, progressing gradually. It is beneficial even long after childbirth.",
+        a: "Timing depends on delivery, healing, symptoms and medical factors. Light activity may start early when appropriate; higher-intensity exercise should progress gradually once healing allows and symptoms do not worsen. Seek clinical advice for pain, heaviness, urinary or faecal leakage, wound concerns or increased bleeding.",
       },
       {
         q: "What is diastasis recti?",
-        a: "A separation of the abdominal muscles that can occur in pregnancy. Physiotherapy helps restore core function and reduce the gap.",
+        a: "Diastasis recti is widening and thinning of the linea alba between the rectus abdominis muscles. Rehabilitation focuses on abdominal-wall function, load management and symptoms; the measured gap does not need to close completely for function to improve.",
       },
       {
         q: "Can physiotherapy help postnatal back pain?",
-        a: "Yes. Core and pelvic strengthening plus posture correction relieve common postnatal back and pelvic pain.",
+        a: "A tailored programme may help manage postnatal back or pelvic pain by addressing strength, activity tolerance, pelvic-floor function and daily tasks. Pain has multiple possible contributors, so assessment guides treatment.",
       },
       {
         q: "Is it safe to exercise after having a baby?",
-        a: "Yes, with a gradual, guided approach. Physiotherapy ensures you rebuild strength safely before returning to intense exercise.",
+        a: "Return to exercise should be gradual and symptom-based, taking account of delivery, healing, pain, bleeding and any medical complications. Physiotherapy can help assess pelvic-floor and abdominal-wall function and guide progression; it cannot guarantee safety without individual assessment.",
       },
       {
         q: "How do I strengthen my pelvic floor?",
-        a: "Correct pelvic floor exercises, guided by a physiotherapist, are effective. Technique matters more than intensity.",
+        a: "Pelvic-floor muscle training can help, but the correct approach depends on symptoms and the ability to contract and relax the muscles. A pelvic-health physiotherapist can assess technique and adapt the programme, particularly if exercises cause pain or pressure.",
       },
       {
         q: "Is it too late to start if my baby is older?",
@@ -2389,10 +2396,10 @@ export const blogPosts: BlogPost[] = [
       },
     ],
     keyTakeaways: [
-      "Postnatal physiotherapy rebuilds core and pelvic strength.",
-      "It addresses diastasis recti and back pain.",
-      "Progression is gradual and guided.",
-      "It's beneficial even long after childbirth.",
+      "Postnatal rehabilitation should be individualised and symptom-based.",
+      "Pelvic-floor and abdominal-wall function matter more than a single measured gap.",
+      "Progression depends on delivery, healing, symptoms and medical factors.",
+      "Seek assessment for pain, heaviness, leakage, wound concerns or increased bleeding.",
     ],
     relatedServices: ["exercise-therapy", "manual-therapy", "home-physiotherapy"],
     relatedConditions: ["back-pain"],
@@ -2884,22 +2891,22 @@ export const blogPosts: BlogPost[] = [
     title: "Is Hijama Safe? Benefits, Risks and Precautions",
     seoTitle: "Is Hijama Safe? Benefits, Risks & Precautions — PainFix",
     metaDescription:
-      "Is Hijama safe? Learn the real benefits, risks and precautions of cupping therapy, who should avoid it, and how PainFix keeps sessions hygienic in Multan.",
+      "Learn about dry and wet cupping, possible benefits, infection risks, blood loss and precautions before Hijama.",
     category: "hijama",
     tags: ["hijama", "cupping safety", "contraindications", "hygiene", "wet cupping"],
     excerpt:
-      "Hijama is generally well tolerated when done correctly — but it is not for everyone. Here are the benefits, risks and precautions you should know before booking.",
+      "Cupping may have short-term effects for some symptoms, but evidence varies by condition. Understand the limitations, risks and precautions before considering Hijama.",
     quickAnswer:
-      "Hijama is generally safe when performed by trained practitioners using sterile, single-use equipment after a proper assessment. It should be avoided by people with bleeding disorders, those on blood thinners, during pregnancy without medical clearance, and over infected or broken skin. Always share your medical history first.",
+      "Hijama is not risk-free. Dry cupping can cause bruising, skin irritation and burns; wet cupping also involves skin incisions and blood loss, with risks including infection, fainting, scarring and anaemia, especially when repeated or performed with poor technique. Evidence for treating specific conditions is limited. Anyone considering it should discuss medical conditions and medicines with a qualified healthcare professional first.",
     date: "2026-06-27",
-    updated: "2026-06-27",
+    updated: "2026-11-12",
     authorKey: "JD",
     sections: [
       {
         heading: "Is Hijama safe?",
         paragraphs: [
-          "When Hijama is performed by a trained practitioner using sterile, single-use equipment and after a proper assessment, it is generally well tolerated. The most important safety factors are hygiene, correct technique and screening for conditions that make cupping unsafe.",
-          "At PainFix Physiotherapy Clinic we follow strict hygiene protocols, use single-use equipment for every client, and only proceed once we are satisfied it is appropriate for you.",
+          "Cupping can cause temporary marks, soreness or dizziness. Wet cupping carries additional risks because the skin is cut and blood is removed; poor infection control can transmit blood-borne infection, and repeated blood loss can contribute to iron deficiency or anaemia. Sterile single-use equipment reduces some risks but does not make the procedure risk-free.",
+          "Before any procedure, ask the provider to explain the infection-control process, whether all skin-contact and blood-contact equipment is sterile and single-use, how sharps are disposed of, and how contraindications are screened. Do not proceed if these safeguards cannot be clearly explained.",
         ],
       },
       {
@@ -2916,7 +2923,7 @@ export const blogPosts: BlogPost[] = [
       {
         heading: "Risks and side effects",
         paragraphs: [
-          "Side effects are usually mild and temporary. These can include circular marks, mild soreness, or light-headedness. With wet cupping there is a small risk of infection if hygiene is poor — which is exactly why single-use, sterile equipment matters.",
+          "Possible effects include bruising, persistent skin marks, pain, blistering or burns, dizziness or fainting. Wet cupping can also cause wound infection, scarring and clinically important blood loss or anaemia, particularly with repeated sessions. Seek medical care for spreading redness, fever, worsening pain or persistent bleeding.",
         ],
         list: [
           "Temporary circular marks or bruising",
@@ -2943,11 +2950,11 @@ export const blogPosts: BlogPost[] = [
     faqs: [
       {
         q: "Can Hijama be dangerous?",
-        a: "Serious problems are rare when it is done hygienically by a trained practitioner after screening. Risk rises with poor hygiene, reused equipment or ignoring contraindications.",
+        a: "Hijama can cause complications even when precautions are taken. Wet cupping adds risks of infection, scarring and blood loss; risk is higher with poor infection control, repeated procedures or relevant medical conditions. Evidence of benefit varies by condition and should not be overstated.",
       },
       {
         q: "Is wet cupping safe?",
-        a: "Wet cupping is safe when single-use, sterile equipment and proper technique are used. We never reuse equipment between clients.",
+        a: "Wet cupping has additional risks because it breaks the skin and removes blood. Sterile single-use equipment and appropriate infection control are essential, but cannot eliminate all risks; discuss bleeding risk, medicines and anaemia with a healthcare professional.",
       },
       {
         q: "Should I stop my medication before Hijama?",
@@ -2955,10 +2962,10 @@ export const blogPosts: BlogPost[] = [
       },
     ],
     keyTakeaways: [
-      "Hijama is generally safe with trained practitioners and sterile, single-use equipment.",
-      "Side effects are usually mild: marks, soreness or brief light-headedness.",
-      "Avoid it with bleeding disorders, blood thinners, pregnancy or broken skin.",
-      "Always share your full medical history before a session.",
+      "Hijama is not risk-free; wet cupping involves skin incisions and blood removal.",
+      "Possible complications include infection, scarring, fainting and blood-loss anaemia.",
+      "Evidence for cupping varies by condition and should not be overstated.",
+      "Discuss bleeding risks, medicines and medical conditions with a qualified clinician first.",
     ],
     relatedServices: ["hijama-cupping-therapy", "pain-management", "manual-therapy"],
     relatedConditions: ["back-pain", "neck-pain"],
