@@ -27,7 +27,7 @@ export function MeetDoctors({ initialProfiles }: { initialProfiles?: PublicClini
 
         <div className="home-team-list" aria-live="polite" aria-busy={isLoading}>
           {isLoading &&
-            Array.from({ length: 3 }).map((_, index) => (
+            Array.from({ length: 2 }).map((_, index) => (
               <div key={index} aria-hidden="true" className="home-team-card animate-pulse">
                 <div className="home-team-card__media" />
                 <div className="home-team-card__content w-full space-y-3">
@@ -70,7 +70,6 @@ export function MeetDoctors({ initialProfiles }: { initialProfiles?: PublicClini
                       role={doc.role}
                       className="home-team-card__portrait"
                     />
-                    <span className="home-team-card__photo-label">PainFix clinical team</span>
                   </div>
 
                   <div className="home-team-card__content min-w-0">
