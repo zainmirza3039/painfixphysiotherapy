@@ -42,11 +42,7 @@ test("P3.1 articles retain their SEO slugs and updated dates", () => {
   ];
 
   for (const slug of slugs) {
-    assert.equal(
-      post(slug).updated,
-      "2026-11-12",
-      `Unexpected update date for ${slug}`,
-    );
+    assert.equal(post(slug).updated, "2026-11-12", `Unexpected update date for ${slug}`);
   }
 });
 
@@ -120,10 +116,7 @@ test("Manual therapy is an adjunct to active low-back rehabilitation", () => {
 
 test("Surgery-avoidance copy does not generalise outcomes across diagnoses", () => {
   const text = articleText("can-physiotherapy-avoid-surgery").toLowerCase();
-  assert.match(
-    text,
-    /evidence and alternatives differ between lumbar disc herniation/,
-  );
+  assert.match(text, /evidence and alternatives differ between lumbar disc herniation/);
   assert.match(text, /no universal trial duration/);
   assert.doesNotMatch(text, /outcomes comparable to surgery in most patients/);
 });
