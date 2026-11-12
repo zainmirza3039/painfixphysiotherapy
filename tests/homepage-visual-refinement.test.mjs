@@ -36,15 +36,24 @@ test("homepage hero retains the earlier soft green art direction and photo edge"
   const source = await readFile(new URL("src/styles.css", repo), "utf8");
   assert.match(source, /\.home-hero \{[^}]*background: var\(--surface\)/);
   assert.match(source, /\.home-hero__visual::before/);
-  assert.match(source, /background: color-mix\(in srgb, var\(--secondary\) 9%, var\(--background\)\)/);
-  assert.match(source, /\.home-hero__image-frame \{[^}]*border-left: 5px solid var\(--brand-green\)/);
+  assert.match(
+    source,
+    /background: color-mix\(in srgb, var\(--secondary\) 9%, var\(--background\)\)/,
+  );
+  assert.match(
+    source,
+    /\.home-hero__image-frame \{[^}]*border-left: 5px solid var\(--brand-green\)/,
+  );
   assert.match(source, /border-radius: 0 1rem 1rem 0/);
 });
 
 test("homepage treatment cards use real treatment-specific Pexels photos and defer image loading", async () => {
   const source = await readFile(new URL("src/components/site/Services.tsx", repo), "utf8");
   for (const photoId of ["20860597", "20860594", "6076134", "30483049", "20860580"]) {
-    assert.ok(source.includes("/photos/" + photoId + "/"), "treatment photo " + photoId + " is mapped");
+    assert.ok(
+      source.includes("/photos/" + photoId + "/"),
+      "treatment photo " + photoId + " is mapped",
+    );
   }
   assert.match(source, /illustrative photograph/i);
   assert.match(source, /loading="lazy"/);
