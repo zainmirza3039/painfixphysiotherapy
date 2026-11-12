@@ -1855,7 +1855,7 @@ export const blogPosts: BlogPost[] = [
       },
       {
         q: "What is synkinesis?",
-        a: "Unwanted linked facial movements in which an intended action triggers another movement, such as eye narrowing during a smile. Assessment by a clinician experienced in facial nerve disorders can guide management." ,
+        a: "Unwanted linked facial movements in which an intended action triggers another movement, such as eye narrowing during a smile. Assessment by a clinician experienced in facial nerve disorders can guide management.",
       },
       {
         q: "How do I protect my eye with Bell's palsy?",
