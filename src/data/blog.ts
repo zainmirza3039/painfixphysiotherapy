@@ -2262,7 +2262,7 @@ export const blogPosts: BlogPost[] = [
         heading: "Signs your child may benefit",
         paragraphs: ["Consider an assessment if you notice any of the following."],
         list: [
-          "Delayed milestones (sitting, crawling, walking)",
+          "Parent or clinician concerns about movement or developmental progress (milestone timing varies between children)",
           "Difficulty with coordination or balance",
           "Toe-walking or an unusual walking pattern",
           "Muscle weakness or stiffness",
