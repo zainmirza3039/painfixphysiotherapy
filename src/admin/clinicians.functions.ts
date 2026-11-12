@@ -10,7 +10,6 @@ import {
   clinicianProfileInputSchema,
   extensionForClinicianPhotoType,
   isClinicianPhotoPathForId,
-  isSiteMediaPublicUrl,
   type AdminClinicianProfile,
   type PublicClinicianProfile,
 } from "@/admin/clinician-profile.contract";
@@ -129,15 +128,6 @@ export const saveAdminClinicianProfile = createServerFn({ method: "POST" })
     await assertAdmin(context);
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const { id, ...values } = data;
-    if (
-      values.photo_url &&
-      !isSiteMediaPublicUrl(values.photo_url, process.env.SUPABASE_URL ?? "")
-    ) {
-      throw new Error("Choose an image from the PainFix Media Library");
-    }
-    if (values.photo_path && values.photo_url) {
-      throw new Error("Choose either a direct upload or a Media Library image, not both");
-    }
     if (id && values.photo_path && !isClinicianPhotoPathForId(values.photo_path, id)) {
       throw new Error("The selected photo does not belong to this clinician");
     }
@@ -146,12 +136,7 @@ export const saveAdminClinicianProfile = createServerFn({ method: "POST" })
     }
     const payload = {
       ...values,
-      ...(values.photo_path ? { photo_url: null } : {}),
-      ...(values.photo_url !== undefined
-        ? { photo_url: values.photo_url }
-        : !id
-          ? { photo_url: null }
-          : {}),
+      ...(values.photo_path || !id ? { photo_url: null } : {}),
     };
     const query = id
       ? supabaseAdmin.from("clinician_profiles").update(payload).eq("id", id)
