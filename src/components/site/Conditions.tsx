@@ -108,9 +108,10 @@ export function Conditions() {
               Conditions We Treat
             </h2>
             <p className="mt-4 max-w-2xl text-sm leading-6 text-white/75 sm:text-base">
-              Explore common musculoskeletal and neurological conditions treated at PainFix in
-              Multan. Your care plan is based on an individual assessment, clinical findings and
-              recovery goals.
+              Looking for back pain physiotherapy, sciatica treatment, knee or neck pain
+              rehabilitation, frozen shoulder care, slipped-disc rehabilitation or stroke
+              physiotherapy in Multan? Explore our condition guides below. PainFix plans care around
+              your assessment, clinical findings and recovery goals.
             </p>
           </div>
           <Link
