@@ -34,10 +34,7 @@ test("Dr Zain's public identity separates leadership, clinical occupation, and d
 });
 
 test("robots and llms public files remain part of the production public root", async () => {
-  const [robots, llms] = await Promise.all([
-    read("public/robots.txt"),
-    read("public/llms.txt"),
-  ]);
+  const [robots, llms] = await Promise.all([read("public/robots.txt"), read("public/llms.txt")]);
   assert.match(robots, /Sitemap: https:\/\/painfixphysiotherapy\.com\/sitemap\.xml/);
   assert.match(robots, /User-agent: OAI-SearchBot[\s\S]*?Allow: \//);
   assert.match(robots, /User-agent: Claude-SearchBot[\s\S]*?Allow: \//);
