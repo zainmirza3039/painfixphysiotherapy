@@ -76,7 +76,7 @@ export const team: TeamMember[] = [
     profile: {
       metaTitle: "Dr. Zain Ul Abideen PT — Physiotherapist in Multan | DPT",
       metaDescription:
-        "Dr. Zain Ul Abideen PT is a physiotherapist in Multan with a Doctor of Physical Therapy (DPT) qualification, offering care for back pain, neck pain, sciatica, sports injuries and rehabilitation at PainFix.",
+        "Dr. Zain Ul Abideen PT is a physiotherapist in Multan with a DPT qualification at PainFix.",
       intro: [
         "Dr. Zain Ul Abideen PT is a Doctor of Physical Therapy (DPT) and one of the leading physiotherapists in Multan. At PainFix Physiotherapy Clinic he leads patient care with a focus on evidence-based physiotherapy, personalized rehabilitation and long-term recovery.",
         "Whether you are dealing with persistent back pain, a sports injury or recovering after surgery, Dr. Zain designs individualized treatment plans that target the root cause of your condition — helping you move better and live pain-free.",
