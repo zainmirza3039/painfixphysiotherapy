@@ -23,7 +23,7 @@ const articleText = (slug) => {
   ].join(" ");
 };
 
-test("P3.1 clinical articles retain their existing SEO slugs and update dates", () => {
+test("P3.1 articles retain their SEO slugs and updated dates", () => {
   const slugs = [
     "back-pain-treatment-in-multan",
     "how-physiotherapy-helps-sciatica",
@@ -42,11 +42,15 @@ test("P3.1 clinical articles retain their existing SEO slugs and update dates", 
   ];
 
   for (const slug of slugs) {
-    assert.equal(post(slug).updated, "2026-11-12", `Unexpected update date for ${slug}`);
+    assert.equal(
+      post(slug).updated,
+      "2026-11-12",
+      `Unexpected update date for ${slug}`,
+    );
   }
 });
 
-test("disc-herniation copy preserves conservative recovery without promising disc repositioning", () => {
+test("Disc-herniation copy retains non-surgical recovery without repositioning claims", () => {
   const text = articleText("disc-herniation-treatment").toLowerCase();
   assert.match(text, /improve without surgery/);
   assert.match(text, /rather than mechanically repositioning the disc/);
@@ -54,7 +58,7 @@ test("disc-herniation copy preserves conservative recovery without promising dis
   assert.doesNotMatch(text, /most slipped discs heal without surgery/);
 });
 
-test("Bell's palsy copy prioritises urgent assessment, timely medical care and eye protection", () => {
+test("Bell's palsy copy prioritises urgent assessment and eye protection", () => {
   const text = articleText("bells-palsy-physiotherapy").toLowerCase();
   assert.match(text, /exclude stroke/);
   assert.match(text, /within 72 hours/);
@@ -70,7 +74,7 @@ test("Hijama copy describes wet-cupping risks without calling it generally safe"
   assert.doesNotMatch(text, /hijama is generally safe/);
 });
 
-test("electrotherapy claims are modality- and condition-specific", () => {
+test("Electrotherapy claims are specific to modality and condition", () => {
   const text = articleText("electrotherapy-in-physiotherapy").toLowerCase();
   assert.match(text, /not recommended by nice for low back pain or sciatica/);
   assert.match(text, /never replace/);
@@ -87,7 +91,7 @@ test("ACL and rotator-cuff guidance avoids fixed recovery promises", () => {
   assert.doesNotMatch(cuff, /improvement usually comes within 8–12 weeks/);
 });
 
-test("frozen shoulder, paediatric and postnatal guidance is individualised", () => {
+test("Frozen-shoulder, paediatric and postnatal guidance is individualised", () => {
   const frozen = articleText("frozen-shoulder-recovery-timeline").toLowerCase();
   const paediatric = articleText("pediatric-physiotherapy-guide").toLowerCase();
   const postnatal = articleText("postnatal-physiotherapy").toLowerCase();
@@ -98,7 +102,7 @@ test("frozen shoulder, paediatric and postnatal guidance is individualised", () 
   assert.match(postnatal, /does not need to close completely/);
 });
 
-test("home physiotherapy and ergonomics copy avoids universal prescriptions", () => {
+test("Home-physiotherapy and ergonomics copy avoids universal prescriptions", () => {
   const home = articleText("home-physiotherapy-benefits").toLowerCase();
   const office = articleText("office-ergonomics").toLowerCase();
   assert.match(home, /not automatically equivalent to clinic care/);
@@ -107,16 +111,19 @@ test("home physiotherapy and ergonomics copy avoids universal prescriptions", ()
   assert.doesNotMatch(office, /elbows at about 90 degrees/);
 });
 
-test("manual therapy is described as an adjunct to active low-back rehabilitation", () => {
+test("Manual therapy is an adjunct to active low-back rehabilitation", () => {
   const text = articleText("back-pain-treatment-in-multan").toLowerCase();
   assert.match(text, /manual therapy may be an adjunct/);
   assert.match(text, /active rehabilitation/);
   assert.doesNotMatch(text, /manual therapy.*first-line treatment/);
 });
 
-test("surgery-avoidance copy does not generalise outcomes across diagnoses", () => {
+test("Surgery-avoidance copy does not generalise outcomes across diagnoses", () => {
   const text = articleText("can-physiotherapy-avoid-surgery").toLowerCase();
-  assert.match(text, /evidence and alternatives differ between lumbar disc herniation/);
+  assert.match(
+    text,
+    /evidence and alternatives differ between lumbar disc herniation/,
+  );
   assert.match(text, /no universal trial duration/);
   assert.doesNotMatch(text, /outcomes comparable to surgery in most patients/);
 });
