@@ -70,9 +70,14 @@ export function doctorProfileHead(doc: TeamMember) {
           alternateName: doc.name,
           url,
           ...(image ? { image } : {}),
-          jobTitle: doc.role,
+          jobTitle: isZainProfile ? "Founder & Head Physiotherapist" : doc.role,
           ...(isZainProfile
             ? {
+                hasCredential: {
+                  "@type": "EducationalOccupationalCredential",
+                  credentialCategory: "Doctor of Physical Therapy (DPT)",
+                  name: "Doctor of Physical Therapy (DPT)",
+                },
                 hasOccupation: {
                   "@type": "Occupation",
                   name: "Clinical Physiotherapist",
