@@ -58,7 +58,7 @@ function AuthPage() {
         const { error } = await supabase.auth.signUp({
           email: emailParsed.data,
           password: passParsed.data,
-          options: { emailRedirectTo: "https://www.painfixphysiotherapy.com/admin" },
+          options: { emailRedirectTo: "https://painfixphysiotherapy.com/admin" },
         });
         if (error) throw error;
         toast.success("Account created");
@@ -78,7 +78,7 @@ function AuthPage() {
     setResetBusy(true);
     try {
       const { error } = await supabase.auth.resetPasswordForEmail(parsed.data, {
-        redirectTo: "https://www.painfixphysiotherapy.com/reset-password",
+        redirectTo: "https://painfixphysiotherapy.com/reset-password",
       });
       if (error) throw error;
       toast.success("Password reset link sent. Check your inbox.");
