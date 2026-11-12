@@ -1,4 +1,87 @@
+# Public search and AI discovery
+# Explicit bot groups repeat the private-path exclusions because specific
+# user-agent groups do not inherit rules from the wildcard group.
+
 User-agent: *
+Allow: /
+Disallow: /admin
+Disallow: /auth
+Disallow: /reset-password
+
+# OpenAI: allow ChatGPT search and user-requested page fetches.
+User-agent: OAI-SearchBot
+Allow: /
+Disallow: /admin
+Disallow: /auth
+Disallow: /reset-password
+
+User-agent: ChatGPT-User
+Allow: /
+Disallow: /admin
+Disallow: /auth
+Disallow: /reset-password
+
+# OpenAI model-training crawler: disallow.
+User-agent: GPTBot
+Disallow: /
+
+# Anthropic: allow Claude search and user-requested fetches.
+User-agent: Claude-SearchBot
+Allow: /
+Disallow: /admin
+Disallow: /auth
+Disallow: /reset-password
+
+User-agent: Claude-User
+Allow: /
+Disallow: /admin
+Disallow: /auth
+Disallow: /reset-password
+
+# Anthropic model-training crawler: disallow.
+User-agent: ClaudeBot
+Disallow: /
+
+# Perplexity: allow search indexing and user-requested fetches.
+User-agent: PerplexityBot
+Allow: /
+Disallow: /admin
+Disallow: /auth
+Disallow: /reset-password
+
+User-agent: Perplexity-User
+Allow: /
+Disallow: /admin
+Disallow: /auth
+Disallow: /reset-password
+
+# Meta AI: allow search indexing and user-requested fetches.
+User-agent: meta-webindexer
+Allow: /
+Disallow: /admin
+Disallow: /auth
+Disallow: /reset-password
+
+User-agent: meta-externalfetcher
+Allow: /
+Disallow: /admin
+Disallow: /auth
+Disallow: /reset-password
+
+# Preserve Facebook/Instagram link previews.
+User-agent: facebookexternalhit
+Allow: /
+Disallow: /admin
+Disallow: /auth
+Disallow: /reset-password
+
+# Meta AI model-training/data crawler: disallow.
+User-agent: meta-externalagent
+Disallow: /
+
+# Google-Extended is a control token, not a separate crawler.
+# Allowing it enables Gemini grounding and also permits Gemini model training.
+User-agent: Google-Extended
 Allow: /
 Disallow: /admin
 Disallow: /auth
