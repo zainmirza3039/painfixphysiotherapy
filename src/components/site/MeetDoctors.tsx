@@ -32,12 +32,11 @@ export function MeetDoctors({ initialProfiles }: { initialProfiles?: PublicClini
             Array.from({ length: 2 }).map((_, index) => (
               <div key={index} aria-hidden="true" className="home-team-card animate-pulse">
                 <div className="home-team-card__media" />
-                <div className="home-team-card__content w-full space-y-4">
-                  <div className="h-3 w-36 rounded bg-muted" />
-                  <div className="h-8 w-3/4 rounded bg-muted" />
-                  <div className="h-4 w-2/5 rounded bg-muted" />
-                  <div className="mt-4 h-4 w-full rounded bg-muted" />
-                  <div className="h-4 w-5/6 rounded bg-muted" />
+                <div className="home-team-card__content w-full space-y-3">
+                  <div className="h-3 w-28 rounded bg-muted" />
+                  <div className="h-7 w-4/5 rounded bg-muted" />
+                  <div className="h-4 w-2/3 rounded bg-muted" />
+                  <div className="mt-3 h-8 w-full rounded bg-muted" />
                 </div>
               </div>
             ))}
@@ -63,71 +62,76 @@ export function MeetDoctors({ initialProfiles }: { initialProfiles?: PublicClini
 
           {!isLoading &&
             !isError &&
-            clinicians.map((doc, index) => (
-              <Reveal key={doc.slug} anim="up" delay={index * 45}>
-                <article className="home-team-card">
-                  <div className="home-team-card__media">
-                    <ClinicianPortrait
-                      photo={doc.photo}
-                      name={doc.name}
-                      role={doc.role}
-                      className="home-team-card__portrait"
-                    />
-                  </div>
-                  <div className="home-team-card__content min-w-0">
-                    <p className="home-team-card__credentials">
-                      <BadgeCheck className="h-4 w-4" aria-hidden="true" /> {doc.credentials}
-                    </p>
-                    <h3 className="home-team-card__name">{doc.fullName}</h3>
-                    <p className="home-team-card__role">{doc.role}</p>
-                    <div className="home-team-card__meta">
-                      <span className="home-team-card__meta-item">
-                        {clinicianServiceLabel(doc)}
-                      </span>
-                      {doc.yearsExperience !== null && doc.yearsExperience !== undefined && (
+            clinicians.map((doc, index) => {
+              const displayRole =
+                doc.slug === "dr-zain-ul-abideen-pt-multan"
+                  ? "Founder & Head Physiotherapist"
+                  : doc.role;
+
+              return (
+                <Reveal key={doc.slug} anim="up" delay={index * 45}>
+                  <article className="home-team-card">
+                    <div className="home-team-card__media">
+                      <ClinicianPortrait
+                        photo={doc.photo}
+                        name={doc.name}
+                        role={displayRole}
+                        className="home-team-card__portrait"
+                      />
+                    </div>
+                    <div className="home-team-card__content min-w-0">
+                      <p className="home-team-card__credentials">
+                        <BadgeCheck className="h-4 w-4" aria-hidden="true" />
+                        {doc.credentials}
+                      </p>
+                      <h3 className="home-team-card__name">{doc.fullName}</h3>
+                      <p className="home-team-card__role">{displayRole}</p>
+                      <div className="home-team-card__meta">
                         <span className="home-team-card__meta-item">
-                          {doc.yearsExperience} {doc.yearsExperience === 1 ? "year" : "years"} of
-                          experience
+                          {clinicianServiceLabel(doc)}
                         </span>
-                      )}
-                    </div>
-                    <p className="home-team-card__bio">{doc.bio}</p>
-                    {doc.tags.length > 0 && (
-                      <ul
-                        className="home-team-card__specialties"
-                        aria-label={`${doc.name} areas of practice`}
-                      >
-                        {doc.tags.slice(0, 3).map((tag) => (
-                          <li key={tag} className="text-xs text-muted-foreground">
-                            {tag}
-                          </li>
-                        ))}
-                      </ul>
-                    )}
-                    <div className="home-team-card__actions">
-                      <a
-                        href={`/${doc.slug}`}
-                        aria-label={`View profile of ${doc.fullName}`}
-                        className="home-team-card__link home-team-card__link--primary"
-                      >
-                        View profile <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
-                      </a>
-                      {doc.whatsapp && (
-                        <a
-                          href={clinicianWhatsAppUrl(doc) ?? undefined}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          aria-label={`Ask about an appointment with ${doc.name} on WhatsApp`}
-                          className="home-team-card__link home-team-card__link--secondary"
+                        {doc.yearsExperience !== null && doc.yearsExperience !== undefined && (
+                          <span className="home-team-card__meta-item">
+                            {doc.yearsExperience}{" "}
+                            {doc.yearsExperience === 1 ? "year" : "years"} of experience
+                          </span>
+                        )}
+                      </div>
+                      {doc.tags.length > 0 && (
+                        <ul
+                          className="home-team-card__specialties"
+                          aria-label={`${doc.name} areas of practice`}
                         >
-                          <MessageCircle className="h-4 w-4" aria-hidden="true" /> WhatsApp
-                        </a>
+                          {doc.tags.slice(0, 3).map((tag) => (
+                            <li key={tag}>{tag}</li>
+                          ))}
+                        </ul>
                       )}
+                      <div className="home-team-card__actions">
+                        <a
+                          href={`/${doc.slug}`}
+                          aria-label={`View profile of ${doc.fullName}`}
+                          className="home-team-card__link home-team-card__link--primary"
+                        >
+                          View profile <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
+                        </a>
+                        {doc.whatsapp && (
+                          <a
+                            href={clinicianWhatsAppUrl(doc) ?? undefined}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            aria-label={`Ask about an appointment with ${doc.name} on WhatsApp`}
+                            className="home-team-card__link home-team-card__link--secondary"
+                          >
+                            <MessageCircle className="h-4 w-4" aria-hidden="true" /> WhatsApp
+                          </a>
+                        )}
+                      </div>
                     </div>
-                  </div>
-                </article>
-              </Reveal>
-            ))}
+                  </article>
+                </Reveal>
+              );
+            })}
         </div>
       </div>
     </section>
