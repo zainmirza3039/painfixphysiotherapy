@@ -68,11 +68,11 @@ export function localPageHead(page: LocalPage) {
             "@type": "City",
             name: "Multan",
           },
-          founder: {
-            "@type": "Person",
-            name: "Dr. Zain Ul Abideen",
-            jobTitle: "Doctor of Physical Therapy",
-          },
+          employee: [
+            { "@id": SITE_URL + "/dr-zain-ul-abideen-pt-multan#person" },
+            { "@id": SITE_URL + "/dr-jalal-ud-din-pt-multan#person" },
+            { "@id": SITE_URL + "/dr-fatima-iqbal-dpt-multan#person" },
+          ],
           sameAs: Object.values(SOCIAL_LINKS).map((profile) => profile.url),
         }),
       },
