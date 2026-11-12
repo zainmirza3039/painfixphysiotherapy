@@ -1774,3 +1774,150 @@ body:has(.site-footer) :is(a[href], button, [role="button"], summary):focus-visi
     transform: none;
   }
 }
+
+/* Clinician cards: theme-aware surfaces, typography and action hierarchy. */
+.home-team-card {
+  border-color: color-mix(in srgb, var(--foreground) 14%, var(--border));
+  background: var(--card);
+  color: var(--card-foreground);
+}
+
+.home-team-card__media {
+  background: var(--muted);
+}
+
+.home-team-card__credentials {
+  color: var(--secondary);
+}
+
+.home-team-card__name {
+  color: var(--card-foreground);
+}
+
+.home-team-card__role {
+  color: var(--secondary);
+}
+
+.home-team-card__meta {
+  color: var(--muted-foreground);
+}
+
+.home-team-card__specialties li {
+  border-color: color-mix(in srgb, var(--secondary) 34%, var(--border));
+  background: color-mix(in srgb, var(--accent) 72%, var(--card));
+  color: var(--foreground);
+}
+
+.home-team-card__actions {
+  align-items: stretch;
+  gap: 0.55rem;
+}
+
+.home-team-card__link {
+  min-width: 0;
+  min-height: 2.75rem;
+  border-radius: 0.35rem;
+  padding: 0.6rem 0.8rem;
+  text-align: center;
+}
+
+.home-team-card__link--primary {
+  flex: 1 1 auto;
+  border-color: #032e61;
+  background: #032e61;
+  color: #ffffff;
+}
+
+.home-team-card__link--primary:hover {
+  border-color: #007a43;
+  background: #007a43;
+  color: #ffffff;
+}
+
+.home-team-card__link--secondary {
+  flex: 0 1 auto;
+  border: 1px solid color-mix(in srgb, #00a859 58%, var(--border));
+  background: color-mix(in srgb, #00a859 9%, var(--card));
+  color: #087747;
+}
+
+.home-team-card__link--secondary:hover {
+  border-color: #00a859;
+  background: color-mix(in srgb, #00a859 16%, var(--card));
+  color: #05663d;
+  text-decoration: none;
+}
+
+.dark .home-team-card {
+  border-color: #34495a;
+  background: #152434;
+  color: #f5f8f7;
+  box-shadow: 0 8px 24px rgb(0 0 0 / 18%);
+}
+
+.dark .home-team-card:hover {
+  border-color: #65d6a2;
+  box-shadow: 0 12px 28px rgb(0 0 0 / 26%);
+}
+
+.dark .home-team-card__media {
+  background: #1c3042;
+}
+
+.dark .home-team-card__credentials,
+.dark .home-team-card__role {
+  color: #7be0ad;
+}
+
+.dark .home-team-card__name {
+  color: #f5f8f7;
+}
+
+.dark .home-team-card__meta {
+  color: #adbdca;
+}
+
+.dark .home-team-card__specialties li {
+  border-color: rgb(101 214 162 / 35%);
+  background: rgb(101 214 162 / 9%);
+  color: #d8f5e5;
+}
+
+.dark .home-team-card__link--primary {
+  border-color: #65d6a2;
+  background: #65d6a2;
+  color: #09261a;
+}
+
+.dark .home-team-card__link--primary:hover {
+  border-color: #8ce8b5;
+  background: #8ce8b5;
+  color: #09261a;
+}
+
+.dark .home-team-card__link--secondary {
+  border-color: rgb(101 214 162 / 55%);
+  background: rgb(101 214 162 / 10%);
+  color: #8ce8b5;
+}
+
+.dark .home-team-card__link--secondary:hover {
+  border-color: #8ce8b5;
+  background: rgb(101 214 162 / 18%);
+  color: #c8f5dc;
+}
+
+@media (max-width: 639px) {
+  .home-team-card__actions {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.45rem;
+  }
+
+  .home-team-card__link {
+    width: 100%;
+    min-height: 2.5rem;
+    font-size: 0.68rem;
+  }
+}
+
