@@ -2,6 +2,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import type { TouchEvent as ReactTouchEvent } from "react";
 import {
   CalendarDays,
+  ArrowRight,
   ChevronLeft,
   ChevronRight,
   Clock3,
@@ -234,13 +235,15 @@ export function Hero() {
           <div className="mt-8 grid gap-3 sm:grid-cols-2">
             <a
               href="/book-appointment?city=multan&service=clinic"
-              className="inline-flex min-h-12 items-center justify-center gap-2 rounded-md bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+              className="group inline-flex min-h-14 w-full items-center justify-center gap-2 rounded-lg bg-primary px-6 py-4 text-base font-bold text-primary-foreground shadow-md shadow-primary/20 transition-all hover:-translate-y-0.5 hover:bg-primary/90 hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
             >
-              <CalendarDays className="h-4 w-4" aria-hidden="true" /> Multan clinic appointment
+              <CalendarDays className="h-5 w-5" aria-hidden="true" />
+              Book a Multan clinic appointment
+              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" aria-hidden="true" />
             </a>
             <a
               href="/book-appointment?city=rahim-yar-khan&service=online"
-              className="inline-flex min-h-12 items-center justify-center gap-2 rounded-md border border-primary/25 bg-background px-5 py-3 text-sm font-semibold text-primary transition-colors hover:border-secondary hover:text-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+              className="inline-flex min-h-14 items-center justify-center gap-2 rounded-lg border border-primary/25 bg-background px-5 py-4 text-sm font-semibold text-primary transition-colors hover:border-secondary hover:text-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
             >
               <Video className="h-4 w-4 shrink-0" aria-hidden="true" /> Rahim Yar Khan · Online
             </a>
