@@ -92,8 +92,8 @@ export function MeetDoctors({ initialProfiles }: { initialProfiles?: PublicClini
                         </span>
                         {doc.yearsExperience !== null && doc.yearsExperience !== undefined && (
                           <span className="home-team-card__meta-item">
-                            {doc.yearsExperience}{" "}
-                            {doc.yearsExperience === 1 ? "year" : "years"} of experience
+                            {doc.yearsExperience} {doc.yearsExperience === 1 ? "year" : "years"} of
+                            experience
                           </span>
                         )}
                       </div>
