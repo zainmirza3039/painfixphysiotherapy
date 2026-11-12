@@ -22,11 +22,13 @@ import {
   ShieldCheck,
   Stethoscope,
   UserRound,
+  Video,
   X,
   type LucideIcon,
 } from "lucide-react";
 import { Link, useNavigate, useRouterState } from "@tanstack/react-router";
 import {
+  CALENDLY_URL,
   CONDITIONS_MENU,
   MAP_DIRECTIONS_URL,
   PHONE_TEL,
@@ -240,13 +242,15 @@ export function Navbar({ onlineClinician }: { onlineClinician?: TeamMember }) {
             <div className="hidden sm:block">
               <ThemeToggle className="apple-press h-10 w-10 rounded-xl border-0 bg-transparent hover:bg-accent" />
             </div>
-            <Link
-              to="/book-appointment"
-              className="apple-press hidden min-h-10 items-center gap-2 rounded-xl bg-primary px-4 text-sm font-semibold text-primary-foreground shadow-sm transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 sm:inline-flex"
-            >
-              <CalendarDays className="h-4 w-4" aria-hidden="true" />
-              <span>Book appointment</span>
-            </Link>
+            {!onlineOnly && (
+              <Link
+                to="/book-appointment"
+                className="apple-press hidden min-h-10 items-center gap-2 rounded-xl bg-primary px-4 text-sm font-semibold text-primary-foreground shadow-sm transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 sm:inline-flex"
+              >
+                <CalendarDays className="h-4 w-4" aria-hidden="true" />
+                <span>Book appointment</span>
+              </Link>
+            )}
             <button
               type="button"
               onClick={() => setMenuOpen(true)}
@@ -462,14 +466,16 @@ export function Navbar({ onlineClinician }: { onlineClinician?: TeamMember }) {
               </div>
 
               <div className="flex flex-col gap-2 sm:flex-row">
-                <Link
-                  to="/book-appointment"
-                  onClick={closeMenu}
-                  className="apple-press inline-flex min-h-11 items-center justify-center gap-2 rounded-xl bg-primary px-5 text-sm font-semibold text-primary-foreground shadow-sm transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
-                >
-                  <CalendarDays className="h-4 w-4" aria-hidden="true" />
-                  Book an appointment
-                </Link>
+                {!onlineOnly && (
+                  <Link
+                    to="/book-appointment"
+                    onClick={closeMenu}
+                    className="apple-press inline-flex min-h-11 items-center justify-center gap-2 rounded-xl bg-primary px-5 text-sm font-semibold text-primary-foreground shadow-sm transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+                  >
+                    <CalendarDays className="h-4 w-4" aria-hidden="true" />
+                    Book an appointment
+                  </Link>
+                )}
                 {bookingUrl && (
                   <a
                     href={bookingUrl}
@@ -482,6 +488,16 @@ export function Navbar({ onlineClinician }: { onlineClinician?: TeamMember }) {
                     WhatsApp
                   </a>
                 )}
+                <a
+                  href={CALENDLY_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={closeMenu}
+                  className="apple-press inline-flex min-h-11 items-center justify-center gap-2 rounded-xl border border-border bg-background px-4 text-sm font-semibold text-foreground transition-colors hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+                >
+                  <Video className="h-4 w-4 text-secondary" aria-hidden="true" />
+                  Video consultation
+                </a>
                 <a
                   href={PHONE_TEL}
                   onClick={closeMenu}
