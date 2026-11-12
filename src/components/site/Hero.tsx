@@ -234,15 +234,15 @@ export function Hero() {
           <div className="mt-8 grid gap-3 sm:grid-cols-2">
             <a
               href="/book-appointment?city=multan&service=clinic"
-              className="inline-flex min-h-12 items-center justify-center gap-2 rounded-md bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+              className="inline-flex min-h-14 items-center justify-center gap-2 rounded-xl bg-secondary px-5 py-3.5 text-base font-bold text-white shadow-[0_8px_22px_rgba(0,168,89,0.22)] transition-[transform,background-color,box-shadow] duration-200 hover:-translate-y-0.5 hover:bg-[#008F4C] hover:shadow-[0_12px_28px_rgba(0,168,89,0.3)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary focus-visible:ring-offset-2"
             >
-              <CalendarDays className="h-4 w-4" aria-hidden="true" /> Multan clinic appointment
+              <CalendarDays className="h-5 w-5" aria-hidden="true" /> Book a Multan clinic appointment
             </a>
             <a
               href="/book-appointment?city=rahim-yar-khan&service=online"
-              className="inline-flex min-h-12 items-center justify-center gap-2 rounded-md border border-primary/25 bg-background px-5 py-3 text-sm font-semibold text-primary transition-colors hover:border-secondary hover:text-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+              className="inline-flex min-h-12 items-center justify-center gap-2 rounded-xl border border-primary/25 bg-background px-5 py-3 text-sm font-semibold text-primary transition-colors hover:border-secondary hover:text-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
             >
-              <Video className="h-4 w-4 shrink-0" aria-hidden="true" /> Rahim Yar Khan · Online
+              <Video className="h-4 w-4 shrink-0" aria-hidden="true" /> Online physiotherapy · RYK
             </a>
             <a
               href="/book-appointment?city=multan&service=home_visit"
