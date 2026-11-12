@@ -15,8 +15,8 @@ export function GoogleReviews() {
             <h2 className="home-section-title mt-4">Feedback on Google.</h2>
           </div>
           <p className="max-w-2xl text-base leading-7 text-muted-foreground">
-            See PainFix’s Google rating and patient reviews, displayed directly below.
-            You can also visit our Google Business Profile to read more feedback.
+            Reviews and ratings are kept on Google and displayed through the Google review feed
+            below. You can also visit our Google Business Profile to read more feedback.
           </p>
         </div>
 

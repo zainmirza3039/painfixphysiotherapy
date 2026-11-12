@@ -7,7 +7,6 @@ import {
   conditionImageAltFallback,
   conditionImageFitClass,
 } from "@/data/conditionImages";
-import { slippedDiscVisual } from "@/data/conditionImageGallery";
 import { Reveal } from "./Reveal";
 
 type FeaturedCondition = {
@@ -15,28 +14,78 @@ type FeaturedCondition = {
   title: string;
   description?: string;
   action?: string;
-  image?: string;
-  imageAlt?: string;
 };
 
 const featuredConditions: FeaturedCondition[] = [
-  { conditionSlug: "sciatica", title: "Sciatica" },
+  {
+    conditionSlug: "back-pain",
+    title: "Lower Back Pain",
+    description:
+      "Assessment and rehabilitation for back pain, stiffness and movement-related limitations.",
+  },
+  {
+    conditionSlug: "neck-pain",
+    title: "Neck Pain",
+    description: "Care for neck pain, stiffness and difficulty turning or moving the head.",
+  },
+  {
+    conditionSlug: "sciatica",
+    title: "Sciatica",
+    description:
+      "Assessment-led care for pain, tingling or altered sensation travelling into the leg.",
+  },
+  {
+    conditionSlug: "slipped-disc",
+    title: "Slip Disc / Disc Herniation",
+    description:
+      "Guidance for suspected disc-related symptoms, nerve irritation and safe rehabilitation.",
+  },
   {
     conditionSlug: "knee-pain",
     title: "Knee Pain & Osteoarthritis",
-  },
-  { conditionSlug: "back-pain", title: "Lower Back Pain" },
-  { conditionSlug: "neck-pain", title: "Neck Pain" },
-  { conditionSlug: "frozen-shoulder", title: "Frozen Shoulder" },
-  {
-    conditionSlug: "slipped-disc",
-    title: "Slipped Disc",
     description:
-      "Assessment-led guidance for herniated-disc symptoms, nerve irritation and safe rehabilitation.",
-    image: slippedDiscVisual.src,
-    imageAlt: slippedDiscVisual.alt,
+      "Rehabilitation for knee pain, arthritis-related symptoms and reduced walking capacity.",
   },
-  { conditionSlug: "stroke-rehabilitation", title: "Stroke Rehabilitation" },
+  {
+    conditionSlug: "frozen-shoulder",
+    title: "Frozen Shoulder",
+    description: "Individualised care for shoulder pain and progressive restriction of movement.",
+  },
+  {
+    conditionSlug: "shoulder-pain",
+    title: "Shoulder Pain",
+    description: "Assessment of shoulder pain affecting reaching, lifting and everyday activities.",
+  },
+  {
+    conditionSlug: "plantar-fasciitis",
+    title: "Heel Pain / Plantar Fasciitis",
+    description:
+      "Care for heel and plantar foot pain that can make standing and walking difficult.",
+  },
+  {
+    conditionSlug: "sports-injuries",
+    title: "Sports & Ankle Injuries",
+    description:
+      "Rehabilitation after common sports injuries, sprains and activity-related strains.",
+  },
+  {
+    conditionSlug: "stroke-rehabilitation",
+    title: "Stroke Rehabilitation",
+    description:
+      "Task-specific rehabilitation to improve mobility, balance and everyday function after stroke.",
+  },
+  {
+    conditionSlug: "cervical-radiculopathy",
+    title: "Cervical Radiculopathy",
+    description:
+      "Assessment and rehabilitation for neck-related arm pain, tingling or neurological symptoms.",
+  },
+  {
+    conditionSlug: "post-surgical-rehabilitation",
+    title: "Post-Surgical Rehabilitation",
+    description:
+      "Progressive rehabilitation following surgery, guided by the procedure and recovery stage.",
+  },
 ];
 
 export function Conditions() {
@@ -77,25 +126,21 @@ export function Conditions() {
           {featuredConditions.map((featured, index) => {
             const condition = conditionMap[featured.conditionSlug];
             if (!condition) return null;
-            const image = featured.image ?? conditionImages[condition.slug];
+            const image = conditionImages[condition.slug];
             const imageAlt =
-              featured.imageAlt ??
-              conditionImageAlt[condition.slug] ??
-              conditionImageAltFallback(condition.title);
-            const imageFitClass = featured.image
-              ? "object-contain"
-              : (conditionImageFitClass[condition.slug] ?? "object-cover");
+              conditionImageAlt[condition.slug] ?? conditionImageAltFallback(condition.title);
+            const imageFitClass = conditionImageFitClass[condition.slug] ?? "object-cover";
 
             return (
               <Reveal
                 key={`${featured.title}-${featured.conditionSlug}`}
                 anim="up"
-                delay={index * 45}
+                delay={index * 35}
               >
                 <Link
                   to="/conditions/$slug"
                   params={{ slug: featured.conditionSlug }}
-                  aria-label={`Learn more about ${featured.title}${featured.title === "Slip Disc" ? " in the existing Back Pain guide" : ""}`}
+                  aria-label={`Learn more about ${featured.title}`}
                   className="group flex h-full flex-col overflow-hidden rounded-2xl border border-white/20 bg-card shadow-soft transition-all hover:-translate-y-0.5 hover:border-secondary/60 hover:shadow-card focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary focus-visible:ring-offset-2 focus-visible:ring-offset-[#032e61]"
                 >
                   <div className="aspect-[4/3] overflow-hidden bg-surface p-2 sm:p-3">
@@ -116,10 +161,10 @@ export function Conditions() {
                       {featured.title}
                     </h3>
                     <p className="mt-2 flex-1 text-xs leading-5 text-muted-foreground sm:text-sm sm:leading-6">
-                      {featured.description ?? condition.summary}
+                      {featured.description}
                     </p>
                     <span className="mt-4 inline-flex items-center gap-1.5 text-xs font-semibold text-primary transition-colors group-hover:text-secondary sm:text-sm">
-                      {featured.action ?? "Learn More"}
+                      Learn More
                       <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
                     </span>
                   </div>

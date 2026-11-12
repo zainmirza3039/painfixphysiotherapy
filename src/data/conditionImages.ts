@@ -34,6 +34,8 @@ export const conditionImages: Record<string, string> = {
 /** Keep the supplied symptom illustrations fully visible instead of cropping them. */
 export const conditionImageFitClass: Record<string, string> = {
   "back-pain": "object-contain",
+  "slipped-disc": "object-contain",
+  "shoulder-pain": "object-contain",
   "neck-pain": "object-contain",
   sciatica: "object-contain",
   "frozen-shoulder": "object-contain",
