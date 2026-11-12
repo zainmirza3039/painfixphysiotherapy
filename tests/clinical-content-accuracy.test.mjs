@@ -49,7 +49,7 @@ test("P3.1 clinical articles retain their existing SEO slugs and update dates", 
 test("disc-herniation copy preserves conservative recovery without promising disc repositioning", () => {
   const text = articleText("disc-herniation-treatment").toLowerCase();
   assert.match(text, /improve without surgery/);
-  assert.match(text, /does not mechanically reposition a disc/);
+  assert.match(text, /rather than mechanically repositioning the disc/);
   assert.match(text, /cauda equina/);
   assert.doesNotMatch(text, /most slipped discs heal without surgery/);
 });
@@ -66,13 +66,13 @@ test("Hijama copy describes wet-cupping risks without calling it generally safe"
   const text = articleText("is-hijama-safe-benefits-and-precautions").toLowerCase();
   assert.match(text, /blood-loss anaemia/);
   assert.match(text, /infection/);
-  assert.match(text, /skin incisions and blood removal/);
+  assert.match(text, /skin incisions and blood loss/);
   assert.doesNotMatch(text, /hijama is generally safe/);
 });
 
 test("electrotherapy claims are modality- and condition-specific", () => {
   const text = articleText("electrotherapy-in-physiotherapy").toLowerCase();
-  assert.match(text, /nice advises against tens, ultrasound and interferential therapy for low back pain or sciatica/);
+  assert.match(text, /not recommended by nice for low back pain or sciatica/);
   assert.match(text, /never replace/);
   assert.doesNotMatch(text, /electrotherapy.*support healing/);
 });
@@ -80,7 +80,7 @@ test("electrotherapy claims are modality- and condition-specific", () => {
 test("ACL and rotator-cuff guidance avoids fixed recovery promises", () => {
   const acl = articleText("acl-rehabilitation").toLowerCase();
   const cuff = articleText("rotator-cuff-rehabilitation").toLowerCase();
-  assert.match(acl, /time alone cannot establish readiness/);
+  assert.match(acl, /time alone is not enough/);
   assert.match(acl, /psychological readiness/);
   assert.match(cuff, /partial-thickness tears/);
   assert.match(cuff, /full-thickness tears/);
@@ -91,7 +91,7 @@ test("frozen shoulder, paediatric and postnatal guidance is individualised", () 
   const frozen = articleText("frozen-shoulder-recovery-timeline").toLowerCase();
   const paediatric = articleText("pediatric-physiotherapy-guide").toLowerCase();
   const postnatal = articleText("postnatal-physiotherapy").toLowerCase();
-  assert.match(frozen, /duration varies/);
+  assert.match(frozen, /duration varies considerably/);
   assert.match(frozen, /irritability/);
   assert.match(paediatric, /milestone checklists are not diagnostic/);
   assert.match(postnatal, /individualised and symptom-based/);
@@ -102,7 +102,7 @@ test("home physiotherapy and ergonomics copy avoids universal prescriptions", ()
   const home = articleText("home-physiotherapy-benefits").toLowerCase();
   const office = articleText("office-ergonomics").toLowerCase();
   assert.match(home, /not automatically equivalent to clinic care/);
-  assert.match(home, /equipment needs depend/);
+  assert.match(home, /available equipment may differ from a clinic/);
   assert.match(office, /no universal break interval/);
   assert.doesNotMatch(office, /elbows at about 90 degrees/);
 });
@@ -116,7 +116,7 @@ test("manual therapy is described as an adjunct to active low-back rehabilitatio
 
 test("surgery-avoidance copy does not generalise outcomes across diagnoses", () => {
   const text = articleText("can-physiotherapy-avoid-surgery").toLowerCase();
-  assert.match(text, /evidence and alternatives differ/);
+  assert.match(text, /evidence and alternatives differ between lumbar disc herniation/);
   assert.match(text, /no universal trial duration/);
   assert.doesNotMatch(text, /outcomes comparable to surgery in most patients/);
 });
