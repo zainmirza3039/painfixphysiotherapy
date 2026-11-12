@@ -16,7 +16,7 @@ const nullableText = (maxLength: number) => z.string().trim().max(maxLength).nul
 const photoPathPattern =
   /^clinician-profiles\/[0-9a-f-]{36}\/[0-9a-f-]{36}\.(jpg|jpeg|png|webp|avif)$/;
 
-/** Full admin form payload. `photo_url` is intentionally omitted: legacy same-site portrait URLs are immutable fallbacks; uploaded photos use photo_path. */
+/** Full admin form payload. photo_path is used for dedicated clinician uploads; photo_url accepts only validated public site-media assets when supplied. */
 export const clinicianProfileInputSchema = z
   .object({
     id: z.string().uuid().optional(),
