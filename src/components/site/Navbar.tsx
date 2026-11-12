@@ -103,13 +103,7 @@ function useAuthState() {
   return state;
 }
 
-function ServiceLink({
-  item,
-  onNavigate,
-}: {
-  item: ServiceItem;
-  onNavigate: () => void;
-}) {
+function ServiceLink({ item, onNavigate }: { item: ServiceItem; onNavigate: () => void }) {
   const Icon = SERVICE_ICONS[item.label] ?? Activity;
   const className =
     "apple-press flex min-h-14 items-center gap-3 rounded-2xl px-2.5 py-2 transition-colors hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary";
@@ -121,9 +115,7 @@ function ServiceLink({
       </span>
       <span className="min-w-0 flex-1">
         <span className="block text-sm font-semibold text-foreground">{item.label}</span>
-        <span className="mt-0.5 block text-xs leading-5 text-muted-foreground">
-          {item.desc}
-        </span>
+        <span className="mt-0.5 block text-xs leading-5 text-muted-foreground">{item.desc}</span>
       </span>
       <ChevronRight className="h-4 w-4 text-muted-foreground/70" aria-hidden="true" />
     </>
@@ -149,13 +141,7 @@ function ServiceLink({
   );
 }
 
-function ConditionLink({
-  item,
-  onNavigate,
-}: {
-  item: ConditionItem;
-  onNavigate: () => void;
-}) {
+function ConditionLink({ item, onNavigate }: { item: ConditionItem; onNavigate: () => void }) {
   return (
     <Link
       to="/conditions/$slug"
@@ -187,9 +173,7 @@ const PRIMARY_LINKS = [
 export function Navbar({ onlineClinician }: { onlineClinician?: TeamMember }) {
   const onlineOnly = Boolean(onlineClinician && isOnlineClinician(onlineClinician));
   const bookingUrl =
-    onlineOnly && onlineClinician
-      ? clinicianWhatsAppUrl(onlineClinician)
-      : WHATSAPP_CONSULT_URL;
+    onlineOnly && onlineClinician ? clinicianWhatsAppUrl(onlineClinician) : WHATSAPP_CONSULT_URL;
   const { signedIn, isAdmin } = useAuthState();
   const navigate = useNavigate();
   const pathname = useRouterState({ select: (state) => state.location.pathname });
@@ -205,9 +189,7 @@ export function Navbar({ onlineClinician }: { onlineClinician?: TeamMember }) {
 
   const closeMenu = () => setMenuOpen(false);
   const isActive = (path: string) =>
-    path === "/"
-      ? pathname === "/"
-      : pathname === path || pathname.startsWith(path + "/");
+    path === "/" ? pathname === "/" : pathname === path || pathname.startsWith(path + "/");
 
   async function handleSignOut() {
     closeMenu();
@@ -225,9 +207,7 @@ export function Navbar({ onlineClinician }: { onlineClinician?: TeamMember }) {
         <div
           className={
             "mx-auto flex max-w-7xl items-center justify-between rounded-2xl border border-border/70 bg-background shadow-[0_4px_18px_rgba(22,50,74,0.08)] transition-[height,padding,box-shadow] duration-300 " +
-            (compact
-              ? "h-14 px-3 shadow-[0_5px_22px_rgba(22,50,74,0.10)]"
-              : "h-[68px] px-4")
+            (compact ? "h-14 px-3 shadow-[0_5px_22px_rgba(22,50,74,0.10)]" : "h-[68px] px-4")
           }
         >
           <Link
@@ -284,9 +264,7 @@ export function Navbar({ onlineClinician }: { onlineClinician?: TeamMember }) {
       <DialogPrimitive.Root open={menuOpen} onOpenChange={setMenuOpen}>
         <DialogPrimitive.Portal>
           <DialogPrimitive.Overlay className="fixed inset-0 z-[60] bg-foreground/25 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=open]:fade-in data-[state=closed]:fade-out duration-200" />
-          <DialogPrimitive.Content
-            className="fixed left-1/2 top-3 z-[61] flex max-h-[calc(100dvh-1.5rem)] w-[calc(100%-1.5rem)] max-w-5xl -translate-x-1/2 flex-col overflow-hidden rounded-[28px] border border-border bg-background shadow-2xl outline-none data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=open]:slide-in-from-top-3 data-[state=closed]:slide-out-to-top-3 duration-300 sm:top-5 sm:max-h-[calc(100dvh-2.5rem)]"
-          >
+          <DialogPrimitive.Content className="fixed left-1/2 top-3 z-[61] flex max-h-[calc(100dvh-1.5rem)] w-[calc(100%-1.5rem)] max-w-5xl -translate-x-1/2 flex-col overflow-hidden rounded-[28px] border border-border bg-background shadow-2xl outline-none data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=open]:slide-in-from-top-3 data-[state=closed]:slide-out-to-top-3 duration-300 sm:top-5 sm:max-h-[calc(100dvh-2.5rem)]">
             <div className="flex shrink-0 items-center justify-between border-b border-border/70 px-5 py-4 sm:px-7">
               <div>
                 <DialogPrimitive.Title className="font-heading text-xl font-semibold text-foreground">
@@ -322,9 +300,7 @@ export function Navbar({ onlineClinician }: { onlineClinician?: TeamMember }) {
                         aria-current={isActive(item.to) ? "page" : undefined}
                         className={
                           "apple-press flex min-h-12 items-center justify-between rounded-xl px-3 text-sm font-semibold transition-colors hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary " +
-                          (isActive(item.to)
-                            ? "bg-accent text-primary"
-                            : "text-foreground/85")
+                          (isActive(item.to) ? "bg-accent text-primary" : "text-foreground/85")
                         }
                       >
                         {item.label}
@@ -377,11 +353,7 @@ export function Navbar({ onlineClinician }: { onlineClinician?: TeamMember }) {
                     </div>
                     <div className="grid gap-1">
                       {services.map((item) => (
-                        <ServiceLink
-                          key={item.label}
-                          item={item}
-                          onNavigate={closeMenu}
-                        />
+                        <ServiceLink key={item.label} item={item} onNavigate={closeMenu} />
                       ))}
                       {!onlineOnly && (
                         <Link
@@ -427,11 +399,7 @@ export function Navbar({ onlineClinician }: { onlineClinician?: TeamMember }) {
                     </div>
                     <div className="grid gap-0.5">
                       {conditions.map((item) => (
-                        <ConditionLink
-                          key={item.slug}
-                          item={item}
-                          onNavigate={closeMenu}
-                        />
+                        <ConditionLink key={item.slug} item={item} onNavigate={closeMenu} />
                       ))}
                     </div>
                   </section>
