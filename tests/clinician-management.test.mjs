@@ -5,6 +5,7 @@ import {
   clinicianPhotoUploadRequestSchema,
   clinicianProfileInputSchema,
   isClinicianPhotoPathForId,
+  isSiteMediaPublicUrl,
   MAX_CLINICIAN_PHOTO_BYTES,
 } from "../src/admin/clinician-profile.contract.ts";
 
@@ -60,16 +61,53 @@ test("rejects invalid slugs, empty names, negative experience, and non-digit Wha
   }
 });
 
-test("requires strict payloads and does not accept a client-supplied photo URL", () => {
+test("accepts a Media Library URL in the profile payload and rejects malformed URLs", () => {
   assert.equal(
     clinicianProfileInputSchema.safeParse({
       ...validProfile,
-      photo_url: "https://untrusted.example/photo.jpg",
+      photo_url:
+        "https://project.supabase.co/storage/v1/object/public/site-media/clinician.webp",
+    }).success,
+    true,
+  );
+  assert.equal(
+    clinicianProfileInputSchema.safeParse({
+      ...validProfile,
+      photo_url: "not-a-url",
     }).success,
     false,
   );
   assert.equal(
     clinicianProfileInputSchema.safeParse({ ...validProfile, role: "admin" }).success,
+    false,
+  );
+});
+
+test("Media Library photo URLs are restricted to the configured public site-media bucket", () => {
+  const projectUrl = "https://project.supabase.co";
+  assert.equal(
+    isSiteMediaPublicUrl(
+      "https://project.supabase.co/storage/v1/object/public/site-media/clinician.webp",
+      projectUrl,
+    ),
+    true,
+  );
+  assert.equal(
+    isSiteMediaPublicUrl("https://untrusted.example/photo.jpg", projectUrl),
+    false,
+  );
+  assert.equal(
+    isSiteMediaPublicUrl(
+      "https://project.supabase.co/storage/v1/object/public/clinician-photos/photo.webp",
+      projectUrl,
+    ),
+    false,
+  );
+  assert.equal(
+    isSiteMediaPublicUrl(
+      "https://project.supabase.co/storage/v1/object/public/site-media/photo.webp?token=x",
+      projectUrl,
+    ),
     false,
   );
 });
