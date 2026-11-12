@@ -178,7 +178,16 @@ function CliniciansPage() {
       previousPhotoPath: string | null;
     }): Promise<SaveResult> => {
       const profile = await saveProfile({ data: vars.payload });
-      if (!vars.file) return { profile, uploadError: null, cleanupPath: null };
+      if (!vars.file) {
+        return {
+          profile,
+          uploadError: null,
+          cleanupPath:
+            vars.previousPhotoPath && vars.payload.photo_url && !vars.payload.photo_path
+              ? vars.previousPhotoPath
+              : null,
+        };
+      }
 
       let signedUpload: Awaited<ReturnType<typeof createPhotoUploadUrl>>;
       try {
