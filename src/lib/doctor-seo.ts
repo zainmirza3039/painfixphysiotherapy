@@ -71,6 +71,15 @@ export function doctorProfileHead(doc: TeamMember) {
           url,
           ...(image ? { image } : {}),
           jobTitle: doc.role,
+          ...(isZainProfile
+            ? {
+                hasOccupation: {
+                  "@type": "Occupation",
+                  name: "Clinical Physiotherapist",
+                  occupationalCategory: "Physiotherapist",
+                },
+              }
+            : {}),
           ...(doc.whatsapp || doc.phoneDisplay || !onlineOnly
             ? {
                 telephone: doc.whatsapp
@@ -86,6 +95,15 @@ export function doctorProfileHead(doc: TeamMember) {
                   "@id": `${SITE_URL}/#clinic`,
                   name: CLINIC_NAME,
                   url: SITE_URL,
+                  ...(isZainProfile
+                    ? {
+                        founder: {
+                          "@type": "Person",
+                          "@id": `${url}#person`,
+                          name: doc.fullName,
+                        },
+                      }
+                    : {}),
                 },
               }
             : {}),
