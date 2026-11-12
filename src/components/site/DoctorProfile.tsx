@@ -44,9 +44,7 @@ export function DoctorProfile({ doc }: { doc: TeamMember }) {
         eyebrow="Meet Our Doctors"
         title={doc.fullName}
         subtitle={
-          doc.slug === "dr-zain-ul-abideen-pt-multan"
-            ? "Founder & Head Physiotherapist"
-            : doc.title
+          doc.slug === "dr-zain-ul-abideen-pt-multan" ? "Founder & Head Physiotherapist" : doc.title
         }
         crumbs={[
           { label: "Home", path: "/" },
