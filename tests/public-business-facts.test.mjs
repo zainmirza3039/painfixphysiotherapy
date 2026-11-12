@@ -93,7 +93,6 @@ test("site footer renders the shared clinic-hours source instead of hardcoded ti
   assert.doesNotMatch(footer, /11:00 AM.{0,20}9:00 PM/i);
 });
 
-
 test("AI discovery facts identify the clinic and distinguish clinic-based from online-only clinicians", async () => {
   const [root, localSeo, doctorSeo, llms] = await Promise.all([
     read("src/routes/__root.tsx"),
