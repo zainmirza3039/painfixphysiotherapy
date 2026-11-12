@@ -498,7 +498,7 @@ export const blogPosts: BlogPost[] = [
     category: "sciatica",
     tags: ["sciatica", "tang ka dard", "nerve pain", "leg pain", "disc"],
     excerpt:
-      "Sciatica (tang ke nerve pain) can be intensely painful, but most cases settle with the right physiotherapy. Here's how we treat it.",
+      "Sciatica (tang ke nerve pain) can be intensely painful. Learn how assessment, activity advice and individualised rehabilitation may help manage symptoms and identify when medical review is needed.",
     quickAnswer:
       "Physiotherapy can help manage sciatica by supporting comfortable movement, activity and function while symptoms settle. Depending on assessment, care may include education, graded exercise, selected nerve-mobilising techniques and manual therapy as an adjunct. Many people improve without surgery, but recovery time varies and some need medical or surgical review.",
     date: "2026-06-20",
@@ -568,10 +568,10 @@ export const blogPosts: BlogPost[] = [
       },
     ],
     keyTakeaways: [
-      "Sciatica is usually caused by nerve irritation from a disc.",
-      "Physiotherapy relieves most sciatica within 4–8 weeks.",
-      "Nerve-gliding and directional exercises are key.",
-      "Surgery is rarely necessary.",
+      "Sciatica describes a pattern of radiating nerve-related pain, not one single cause.",
+      "Many people improve with time and appropriate conservative care, but recovery varies.",
+      "Exercise and nerve-mobilising techniques are selected according to assessment and symptom response.",
+      "Progressive weakness or cauda equina symptoms require urgent medical assessment.",
     ],
     relatedServices: ["manual-therapy", "exercise-therapy", "pain-management"],
     relatedConditions: ["sciatica", "back-pain", "cervical-radiculopathy"],
@@ -677,7 +677,7 @@ export const blogPosts: BlogPost[] = [
     category: "patient-education",
     tags: ["surgery", "conservative treatment", "back pain", "knee"],
     excerpt:
-      "For many common conditions, physiotherapy is the recommended first treatment — and often removes the need for surgery altogether.",
+      "For many musculoskeletal conditions, structured rehabilitation may be appropriate before surgery, but suitability depends on the diagnosis, severity and clinical findings.",
     quickAnswer:
       "Physiotherapy can help some people manage a condition without surgery, but this depends on the diagnosis and severity. Exercise-based rehabilitation is an appropriate initial option for many musculoskeletal problems, while other conditions benefit from early specialist or surgical assessment. Evidence and alternatives differ between lumbar disc herniation, knee osteoarthritis, rotator cuff disorders and traumatic injuries; outcomes should not be generalised across them.",
     date: "2026-06-15",
@@ -724,7 +724,7 @@ export const blogPosts: BlogPost[] = [
       },
       {
         q: "Should I try physiotherapy before knee surgery?",
-        a: "Yes. For knee osteoarthritis and many meniscus problems, physiotherapy is recommended first and often delays or avoids surgery.",
+        a: "For many people with knee osteoarthritis and selected degenerative meniscal presentations, exercise-based care is an appropriate initial option. Traumatic injuries, locking, major instability or other specific findings may need medical or orthopaedic assessment; the decision is individual.",
       },
       {
         q: "How long should I try physiotherapy before considering surgery?",
@@ -744,10 +744,10 @@ export const blogPosts: BlogPost[] = [
       },
     ],
     keyTakeaways: [
-      "Physiotherapy is first-line for many back, knee and shoulder conditions.",
-      "It addresses causes, reducing recurrence.",
-      "A 6–12 week trial is reasonable before surgery.",
-      "Rehab improves outcomes even when surgery is needed.",
+      "Structured physiotherapy is an initial option for many, but not all, musculoskeletal conditions.",
+      "Treatment and expected outcomes differ by diagnosis and severity.",
+      "There is no universal duration for a conservative-care trial.",
+      "Urgent neurological or structural indications should not be delayed for routine rehabilitation.",
     ],
     relatedServices: ["exercise-therapy", "manual-therapy", "post-surgical-rehabilitation"],
     relatedConditions: ["back-pain", "knee-pain", "osteoarthritis"],
@@ -812,11 +812,11 @@ export const blogPosts: BlogPost[] = [
     faqs: [
       {
         q: "Multan mein ghar par physiotherapy kin patients ke liye hoti hai?",
-        a: "Home-based rehabilitation can be suitable for many patients, but it is not automatically equivalent to clinic care for every condition. Suitability depends on clinical needs, safety, equipment, space, caregiver support and whether specialist facilities or investigations are required.",
+        a: "Home visits may suit older adults, people recovering after surgery or stroke, and people whose mobility or transport makes clinic attendance difficult. The clinician should confirm that home care is suitable for the person's clinical needs and safety.",
       },
       {
         q: "Kya home physiotherapy clinic treatment jitni effective hoti hai?",
-        a: "It may suit older adults, people after surgery or stroke, and people whose mobility or transport makes clinic attendance difficult. The clinician should first confirm that home care is appropriate for the person's needs.",
+        a: "Home-based rehabilitation can be appropriate for many patients, but it is not automatically equivalent to clinic care for every condition. Suitability depends on clinical needs, safety, equipment, space, caregiver support and whether specialist facilities or investigations are required.",
       },
       {
         q: "Do I need any equipment at home?",
@@ -1013,7 +1013,7 @@ export const blogPosts: BlogPost[] = [
       },
       {
         q: "How soon should I start physiotherapy?",
-        a: "Early treatment in the freezing stage helps control pain and limit stiffness, so start as soon as it is diagnosed.",
+        a: "Arrange assessment when symptoms affect sleep or daily function, but treatment intensity should match irritability. Early forceful stretching is not appropriate for every painful shoulder.",
       },
     ],
     keyTakeaways: [
@@ -1191,10 +1191,10 @@ export const blogPosts: BlogPost[] = [
       },
     ],
     keyTakeaways: [
-      "Set your screen at eye level and support your lower back.",
-      "Keep elbows and knees near 90 degrees.",
-      "Move every 30–45 minutes.",
-      "No single posture is safe if held too long.",
+      "Set up the workstation for comfort and task demands rather than chasing exact joint angles.",
+      "Vary positions and interrupt long static periods when practical.",
+      "There is no universal break interval or single posture that prevents all pain.",
+      "Persistent symptoms may need assessment beyond workstation changes.",
     ],
     relatedServices: ["posture-ergonomic-assessment", "exercise-therapy", "manual-therapy"],
     relatedConditions: ["neck-pain", "back-pain"],
@@ -1426,7 +1426,7 @@ export const blogPosts: BlogPost[] = [
       },
       {
         q: "Will my knee be as strong as before?",
-        a: "With complete rehabilitation, most people regain full strength and function and return to their sport.",
+        a: "Many people return to sport after reconstruction, but strength and function may not fully match the uninjured side and return is not guaranteed. Rehabilitation and objective testing help guide readiness and reduce avoidable risk.",
       },
       {
         q: "Do I need rehab before ACL surgery too?",
@@ -1532,7 +1532,7 @@ export const blogPosts: BlogPost[] = [
     category: "back-pain",
     tags: ["disc herniation", "slip disc", "slip disc ka ilaj", "sciatica", "back pain"],
     excerpt:
-      "A 'slipped disc' (slip disc) sounds alarming, but most heal without surgery. Here's how physiotherapy treats disc herniation.",
+      "A 'slipped disc' (slip disc) does not always require surgery. Learn how conservative care and physiotherapy may help symptoms and function, and when specialist assessment is needed.",
     quickAnswer:
       "Many people with a symptomatic lumbar disc herniation improve without surgery. Some herniations, particularly extrusions and sequestrations, can shrink through natural resorption, but an MRI finding does not predict symptoms or recovery on its own. Physiotherapy can help manage pain, restore activity and build function; treatment is tailored to examination findings. Recovery varies, and surgery remains appropriate for specific indications.",
     date: "2026-05-17",
@@ -1601,10 +1601,10 @@ export const blogPosts: BlogPost[] = [
       },
     ],
     keyTakeaways: [
-      "Most slipped discs heal without surgery.",
-      "Directional exercises and nerve mobilisation help.",
-      "Recovery usually takes 6–12 weeks.",
-      "Core strengthening prevents recurrence.",
+      "Many symptomatic lumbar disc herniations improve without surgery, although outcomes vary.",
+      "Some herniations regress naturally; symptom improvement does not require the disc to return to its original shape.",
+      "Exercise selection depends on symptoms and neurological findings.",
+      "Cauda equina symptoms or progressive significant weakness require urgent referral.",
     ],
     relatedServices: ["manual-therapy", "exercise-therapy", "pain-management"],
     relatedConditions: ["back-pain", "sciatica", "slipped-disc"],
@@ -2377,11 +2377,11 @@ export const blogPosts: BlogPost[] = [
       },
       {
         q: "What is diastasis recti?",
-        a: "A separation of the abdominal muscles that can occur in pregnancy. Physiotherapy helps restore core function and reduce the gap.",
+        a: "Diastasis recti is widening and thinning of the linea alba between the rectus abdominis muscles. Rehabilitation focuses on abdominal-wall function, load management and symptoms; the measured gap does not need to close completely for function to improve.",
       },
       {
         q: "Can physiotherapy help postnatal back pain?",
-        a: "Yes. Core and pelvic strengthening plus posture correction relieve common postnatal back and pelvic pain.",
+        a: "A tailored programme may help manage postnatal back or pelvic pain by addressing strength, activity tolerance, pelvic-floor function and daily tasks. Pain has multiple possible contributors, so assessment guides treatment.",
       },
       {
         q: "Is it safe to exercise after having a baby?",
@@ -2892,7 +2892,7 @@ export const blogPosts: BlogPost[] = [
     title: "Is Hijama Safe? Benefits, Risks and Precautions",
     seoTitle: "Is Hijama Safe? Benefits, Risks & Precautions — PainFix",
     metaDescription:
-      "Is Hijama safe? Learn the real benefits, risks and precautions of cupping therapy, who should avoid it, and how PainFix keeps sessions hygienic in Multan.",
+      "Understand the possible benefits, limitations and risks of dry and wet cupping, including infection control, blood loss and precautions before considering Hijama in Multan.",
     category: "hijama",
     tags: ["hijama", "cupping safety", "contraindications", "hygiene", "wet cupping"],
     excerpt:
