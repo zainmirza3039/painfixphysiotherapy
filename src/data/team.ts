@@ -47,7 +47,7 @@ export const team: TeamMember[] = [
   {
     name: "Dr. Zain Ul Abideen",
     fullName: "Dr. Zain Ul Abideen PT",
-    role: "Clinical Physiotherapist",
+    role: "Founder & Head Physiotherapist",
     title: "Physiotherapist in Multan | DPT",
     credentials: "DPT (Doctor of Physical Therapy)",
     bio: "Dr. Zain Ul Abideen leads patient care at PainFix with a focus on evidence-based, personalized rehabilitation. He is dedicated to helping patients overcome pain, recover from injury and restore lasting movement.",
