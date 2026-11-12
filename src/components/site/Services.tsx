@@ -167,14 +167,13 @@ export function Services() {
               Start with a clinical assessment. We’ll help you identify the next appropriate step.
             </p>
           </div>
-          <Link
-            to="/book-appointment"
-            search={{ city: "multan", service: "clinic" }}
+          <a
+            href="/book-appointment?city=multan&service=clinic"
             className="inline-flex min-h-12 shrink-0 items-center justify-center gap-2 rounded-md bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
           >
             Book your assessment
             <ArrowRight className="h-4 w-4" aria-hidden="true" />
-          </Link>
+          </a>
         </div>
       </div>
     </section>
