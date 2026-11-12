@@ -1703,13 +1703,69 @@ body:has(.site-footer) :is(a[href], button, [role="button"], summary):focus-visi
 
 @media (max-width: 639px) {
   .home-team-list {
-    grid-template-columns: minmax(0, 1fr);
-    max-width: 28rem;
-    gap: 1.5rem;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    max-width: 100%;
+    gap: 0.75rem;
+  }
+
+  .home-team-card {
+    min-width: 0;
   }
 
   .home-team-card__media {
     aspect-ratio: 4 / 5;
+  }
+
+  .home-team-card__content {
+    padding: 0.85rem 0.75rem 1rem;
+  }
+
+  .home-team-card__credentials {
+    gap: 0.3rem;
+    font-size: 0.58rem;
+    letter-spacing: 0.035em;
+  }
+
+  .home-team-card__credentials svg {
+    width: 0.8rem;
+    height: 0.8rem;
+    flex: 0 0 auto;
+  }
+
+  .home-team-card__name {
+    margin-top: 0.55rem;
+    font-size: clamp(1rem, 4.2vw, 1.3rem);
+    line-height: 1.2;
+    overflow-wrap: anywhere;
+  }
+
+  .home-team-card__role {
+    font-size: 0.76rem;
+    line-height: 1.35;
+  }
+
+  .home-team-card__meta {
+    gap: 0.35rem;
+    font-size: 0.68rem;
+  }
+
+  .home-team-card__specialties {
+    gap: 0.25rem;
+  }
+
+  .home-team-card__specialties li {
+    padding: 0.22rem 0.32rem;
+    font-size: 0.62rem;
+  }
+
+  .home-team-card__actions {
+    gap: 0.35rem;
+    padding-top: 0.8rem;
+  }
+
+  .home-team-card__link {
+    min-height: 2.35rem;
+    font-size: 0.68rem;
   }
 }
 
