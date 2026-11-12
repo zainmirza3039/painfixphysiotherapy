@@ -43,7 +43,11 @@ export function DoctorProfile({ doc }: { doc: TeamMember }) {
       <PageHero
         eyebrow="Meet Our Doctors"
         title={doc.fullName}
-        subtitle={doc.title}
+        subtitle={
+          doc.slug === "dr-zain-ul-abideen-pt-multan"
+            ? "Founder & Head Physiotherapist"
+            : doc.title
+        }
         crumbs={[
           { label: "Home", path: "/" },
           { label: doc.fullName, path: `/${doc.slug}` },
@@ -104,7 +108,11 @@ export function DoctorProfile({ doc }: { doc: TeamMember }) {
             <h2 className="mt-3 font-heading text-2xl font-extrabold text-foreground sm:text-3xl">
               About {doc.fullName}
             </h2>
-            <p className="mt-3 text-sm font-semibold text-primary">{clinicianServiceLabel(doc)}</p>
+            <p className="mt-3 text-sm font-semibold text-primary">
+              {doc.slug === "dr-zain-ul-abideen-pt-multan"
+                ? "Clinical Physiotherapist · Clinic-based physiotherapy · Multan"
+                : clinicianServiceLabel(doc)}
+            </p>
             <div className="mt-5 space-y-4">
               {doc.profile.intro.map((p) => (
                 <p key={p} className="break-words text-base leading-relaxed text-muted-foreground">
@@ -257,14 +265,20 @@ export function DoctorProfile({ doc }: { doc: TeamMember }) {
                       </p>
                     )}
                   <ul className="mt-5 space-y-4">
-                    {items.map((item) => (
+                    {items.map((item) => {
+                    const displayItem =
+                      doc.slug === "dr-zain-ul-abideen-pt-multan"
+                        ? item.replace("Founder & Lead Physiotherapist", "Founder & Head Physiotherapist")
+                        : item;
+                    return (
                       <li
                         key={item}
                         className="rounded-lg border border-border bg-card p-4 text-sm leading-relaxed text-muted-foreground"
                       >
-                        {item}
+                        {displayItem}
                       </li>
-                    ))}
+                    );
+                  })}
                   </ul>
                 </Reveal>
               </div>
