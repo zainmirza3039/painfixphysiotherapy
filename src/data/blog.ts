@@ -548,7 +548,7 @@ export const blogPosts: BlogPost[] = [
       },
       {
         q: "What is the best exercise for sciatica?",
-        a: "Nerve-gliding exercises and gentle directional movements are often best, but the ideal exercise depends on your assessment findings.",
+        a: "There is no single best exercise for everyone. The choice depends on symptom behaviour, neurological findings, irritability and functional goals; stop and seek advice if weakness or spreading symptoms develop.",
       },
       {
         q: "Should I rest or move with sciatica?",
@@ -564,7 +564,7 @@ export const blogPosts: BlogPost[] = [
       },
       {
         q: "When is sciatica an emergency?",
-        a: "Seek urgent care for loss of bladder or bowel control, or rapidly worsening leg weakness.",
+        a: "Seek emergency care for new bladder or bowel dysfunction, difficulty passing urine, saddle numbness, rapidly progressive leg weakness or severe new walking difficulty.",
       },
     ],
     keyTakeaways: [
@@ -673,7 +673,7 @@ export const blogPosts: BlogPost[] = [
     title: "Can Physiotherapy Help You Avoid Surgery?",
     seoTitle: "Can Physiotherapy Help You Avoid Surgery? — PainFix Multan",
     metaDescription:
-      "Can physiotherapy help you avoid surgery? For many back, knee and shoulder conditions, yes. Learn when physiotherapy is the recommended first-line treatment.",
+      "Learn when physiotherapy may be an appropriate non-surgical option, why suitability varies by diagnosis, and when medical or surgical assessment should not be delayed.",
     category: "patient-education",
     tags: ["surgery", "conservative treatment", "back pain", "knee"],
     excerpt:
@@ -1009,7 +1009,7 @@ export const blogPosts: BlogPost[] = [
       },
       {
         q: "Is surgery needed for frozen shoulder?",
-        a: "Rarely. Most cases resolve with physiotherapy; surgery is considered only for severe, unresponsive cases.",
+        a: "Most people are initially managed without surgery, but the course varies. If pain and stiffness remain substantially limiting despite appropriate care, a medical specialist may discuss other options such as injection or procedures based on individual findings.",
       },
       {
         q: "How soon should I start physiotherapy?",
@@ -1376,7 +1376,7 @@ export const blogPosts: BlogPost[] = [
     category: "sports-injuries",
     tags: ["ACL", "knee", "surgery", "return to sport"],
     excerpt:
-      "ACL recovery is a marathon of progressive milestones. Here's the phase-by-phase rehab journey.",
+      "ACL rehabilitation follows progressive, criteria-based milestones. Learn what influences recovery and how clinicians assess readiness to return to sport."
     quickAnswer:
       "ACL rehabilitation after reconstruction progresses through criteria-based phases, including early motion and swelling management, progressive strength and neuromuscular training, running and sport-specific loading. Return to pivoting sport often takes 9–12 months or longer, but there is no universal clearance date. Decisions should combine time for biological recovery with strength, hop and movement testing, symptoms, psychological readiness and surgeon-specific factors.",
     date: "2026-05-24",
@@ -1597,7 +1597,7 @@ export const blogPosts: BlogPost[] = [
       },
       {
         q: "Can a herniated disc come back?",
-        a: "Recurrence is possible, but core strengthening and good movement habits substantially reduce the risk.",
+        a: "Symptoms can recur, but no exercise programme can guarantee prevention. Gradual strengthening, activity and load management may support function and help you manage future episodes.",
       },
     ],
     keyTakeaways: [
@@ -1863,7 +1863,7 @@ export const blogPosts: BlogPost[] = [
       },
       {
         q: "Is Bell's palsy permanent?",
-        a: "Rarely. The majority recover, though some may have mild residual weakness that physiotherapy can help improve.",
+        a: "Many people recover substantially, but some have residual weakness or synkinesis. Persistent or worsening symptoms need medical reassessment; facial rehabilitation may help selected patients.",
       },
     ],
     keyTakeaways: [
@@ -2389,7 +2389,7 @@ export const blogPosts: BlogPost[] = [
       },
       {
         q: "How do I strengthen my pelvic floor?",
-        a: "Correct pelvic floor exercises, guided by a physiotherapist, are effective. Technique matters more than intensity.",
+        a: "Pelvic-floor muscle training can help, but the correct approach depends on symptoms and the ability to contract and relax the muscles. A pelvic-health physiotherapist can assess technique and adapt the programme, particularly if exercises cause pain or pressure.",
       },
       {
         q: "Is it too late to start if my baby is older?",
@@ -2963,7 +2963,7 @@ export const blogPosts: BlogPost[] = [
       },
     ],
     keyTakeaways: [
-      "Hijama is generally safe with trained practitioners and sterile, single-use equipment.",
+      "Wet cupping involves skin incisions and blood removal, so it carries risks that require careful screening and infection control."
       "Side effects are usually mild: marks, soreness or brief light-headedness.",
       "Avoid it with bleeding disorders, blood thinners, pregnancy or broken skin.",
       "Always share your full medical history before a session.",
