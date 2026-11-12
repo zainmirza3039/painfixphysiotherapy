@@ -691,23 +691,23 @@ export const blogPosts: BlogPost[] = [
         ],
       },
       {
-        heading: "Conditions where physiotherapy often avoids surgery",
+        heading: "Conditions where structured rehabilitation may be considered",
         paragraphs: [
-          "Evidence supports trying structured physiotherapy first for many conditions.",
+          "Exercise-based rehabilitation is an appropriate initial option for many presentations, but the evidence and referral thresholds differ by diagnosis.",
         ],
         list: [
-          "Back pain and sciatica (including many disc herniations)",
+          "Many non-specific low back pain and selected sciatica presentations",
           "Knee osteoarthritis",
-          "Rotator cuff and shoulder impingement",
-          "Meniscus tears (degenerative)",
+          "Rotator cuff tendinopathy and selected non-traumatic shoulder presentations",
+          "Selected degenerative meniscal presentations",
           "Tennis and golfer's elbow",
-          "Many sports injuries",
+          "Selected sports injuries after appropriate assessment",
         ],
       },
       {
         heading: "Why physiotherapy works",
         paragraphs: [
-          "Physiotherapy addresses the underlying mechanics — restoring movement, building strength and correcting the patterns that caused the problem. This not only relieves pain but reduces the risk of it returning, something surgery alone cannot guarantee.",
+          "Physiotherapy aims to improve symptoms, strength, movement capacity and daily function through education and progressive rehabilitation. It does not reverse every structural change or guarantee that surgery will be avoided; the appropriate option depends on diagnosis, severity, clinical findings and patient goals.",
         ],
       },
       {
@@ -732,7 +732,7 @@ export const blogPosts: BlogPost[] = [
       },
       {
         q: "Does physiotherapy help after surgery too?",
-        a: "Absolutely. Rehabilitation before and after surgery significantly improves recovery, strength and long-term outcomes.",
+        a: "Rehabilitation is commonly used before and after many orthopaedic procedures to prepare function and support recovery. The programme and expected benefit depend on the procedure, medical plan and individual factors.",
       },
       {
         q: "Is avoiding surgery safe?",
@@ -740,7 +740,7 @@ export const blogPosts: BlogPost[] = [
       },
       {
         q: "What if physiotherapy doesn't work?",
-        a: "If you do not improve, we coordinate onward referral for further investigation or a surgical opinion.",
+        a: "If symptoms or function do not improve as expected, the clinician should reassess the diagnosis and discuss medical review, further investigation or a specialist opinion where indicated.",
       },
     ],
     keyTakeaways: [
@@ -1787,11 +1787,11 @@ export const blogPosts: BlogPost[] = [
     title: "Bell's Palsy Physiotherapy | Munh Terha Hona Ka Ilaj",
     seoTitle: "Bell's Palsy | Munh Terha Hona Ka Ilaj — PainFix Multan",
     metaDescription:
-      "Bell's palsy causes sudden facial weakness (munh terha hona). Learn how facial physiotherapy supports recovery through retraining and education.",
+      "Sudden facial weakness (munh terha hona) needs urgent assessment to exclude stroke. Learn about Bell's palsy treatment, eye protection and selected facial rehabilitation.",
     category: "neurological-rehabilitation",
     tags: ["Bell's palsy", "munh terha hona", "facial", "neuro rehab", "recovery"],
     excerpt:
-      "Bell's palsy (munh terha hona) can be frightening, but most people recover well — and facial physiotherapy supports the process.",
+      "Sudden facial weakness needs urgent medical assessment before it is labelled Bell's palsy. Learn about timely treatment, eye protection and the selected role of facial rehabilitation.",
     quickAnswer:
       "Sudden one-sided facial weakness needs urgent medical assessment to exclude stroke and other causes before it is labelled Bell's palsy. For confirmed Bell's palsy, timely medical treatment and eye protection are priorities; a clinician should assess corticosteroid treatment within 72 hours where appropriate. Facial rehabilitation may be considered as an adjunct, depending on the recovery pattern.",
     date: "2026-05-08",
@@ -1851,7 +1851,7 @@ export const blogPosts: BlogPost[] = [
       },
       {
         q: "When should I start facial exercises?",
-        a: "Your physiotherapist will guide timing based on your stage of recovery — gentle, correct exercises matter more than intensity.",
+        a: "Do not start forceful repetitive exercises on your own. Timing and exercise selection should be guided by a clinician familiar with facial nerve rehabilitation, based on recovery stage and whether synkinesis is present.",
       },
       {
         q: "What is synkinesis?",
@@ -2162,11 +2162,11 @@ export const blogPosts: BlogPost[] = [
     title: "Electrotherapy in Physiotherapy: TENS, Ultrasound and More",
     seoTitle: "Electrotherapy in Physiotherapy | TENS & Ultrasound — PainFix",
     metaDescription:
-      "Electrotherapy in physiotherapy: how TENS, ultrasound and other modalities may help manage pain and support rehabilitation.",
+      "Understand TENS, ultrasound, electrical stimulation and interferential therapy: what each modality is used for, evidence limitations and condition-specific precautions.",
     category: "electrotherapy",
     tags: ["electrotherapy", "TENS", "ultrasound", "pain relief"],
     excerpt:
-      "Electrotherapy can relieve pain and support healing, but it works best as part of an active treatment plan. Here's the balanced view.",
+      "Electrotherapy includes different modalities with different indications. Understand their evidence limitations and why active rehabilitation remains central.",
     quickAnswer:
       "Electrotherapy is a broad term covering different modalities, and evidence is not interchangeable between them. Some forms of electrical stimulation may be used for a specific goal such as muscle activation, while others have limited or condition-specific evidence. TENS, ultrasound and interferential therapy are not recommended by NICE for low back pain or sciatica. Modalities should never replace appropriate education, activity and exercise-based rehabilitation.",
     date: "2026-04-24",
@@ -2225,7 +2225,7 @@ export const blogPosts: BlogPost[] = [
       },
       {
         q: "Does electrotherapy hurt?",
-        a: "No. You typically feel a mild tingling or warmth; treatment is adjusted to your comfort.",
+        a: "Sensation depends on the modality and settings. Stop and tell the clinician if you experience pain, burning, skin irritation or an unexpected reaction; the clinician should explain the expected sensation and relevant precautions before treatment.",
       },
     ],
     keyTakeaways: [
