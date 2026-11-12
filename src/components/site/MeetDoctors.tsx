@@ -81,16 +81,17 @@ export function MeetDoctors({ initialProfiles }: { initialProfiles?: PublicClini
                     <h3 className="home-team-card__name">{doc.fullName}</h3>
                     <p className="home-team-card__role">{doc.role}</p>
                     <div className="home-team-card__meta">
-                      <span className="home-team-card__meta-item">{clinicianServiceLabel(doc)}</span>
+                      <span className="home-team-card__meta-item">
+                        {clinicianServiceLabel(doc)}
+                      </span>
                       {doc.yearsExperience !== null && doc.yearsExperience !== undefined && (
                         <span className="home-team-card__meta-item">
-                          {doc.yearsExperience} {doc.yearsExperience === 1 ? "year" : "years"} of experience
+                          {doc.yearsExperience} {doc.yearsExperience === 1 ? "year" : "years"} of
+                          experience
                         </span>
                       )}
                     </div>
-                    <p className="home-team-card__bio">
-                      {doc.bio}
-                    </p>
+                    <p className="home-team-card__bio">{doc.bio}</p>
                     {doc.tags.length > 0 && (
                       <ul
                         className="home-team-card__specialties"
