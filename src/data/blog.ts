@@ -673,7 +673,7 @@ export const blogPosts: BlogPost[] = [
     title: "Can Physiotherapy Help You Avoid Surgery?",
     seoTitle: "Can Physiotherapy Help You Avoid Surgery? — PainFix Multan",
     metaDescription:
-      "Learn when physiotherapy may be an appropriate non-surgical option, why suitability varies by diagnosis, and when medical or surgical assessment should not be delayed.",
+      "Physiotherapy may be a non-surgical option for some conditions. Learn when specialist assessment is needed.",
     category: "patient-education",
     tags: ["surgery", "conservative treatment", "back pain", "knee"],
     excerpt:
@@ -1376,7 +1376,7 @@ export const blogPosts: BlogPost[] = [
     category: "sports-injuries",
     tags: ["ACL", "knee", "surgery", "return to sport"],
     excerpt:
-      "ACL rehabilitation follows progressive, criteria-based milestones. Learn what influences recovery and how clinicians assess readiness to return to sport."
+      "ACL rehabilitation follows progressive, criteria-based milestones. Learn what influences recovery and how clinicians assess readiness to return to sport.",
     quickAnswer:
       "ACL rehabilitation after reconstruction progresses through criteria-based phases, including early motion and swelling management, progressive strength and neuromuscular training, running and sport-specific loading. Return to pivoting sport often takes 9–12 months or longer, but there is no universal clearance date. Decisions should combine time for biological recovery with strength, hop and movement testing, symptoms, psychological readiness and surgeon-specific factors.",
     date: "2026-05-24",
@@ -1528,7 +1528,7 @@ export const blogPosts: BlogPost[] = [
     title: "Disc Herniation (Slipped Disc) Treatment | Slip Disc Ka Ilaj",
     seoTitle: "Slipped Disc Treatment | Slip Disc Ka Ilaj — PainFix Multan",
     metaDescription:
-      "Many people with symptomatic slipped discs improve without surgery. Learn how assessment and physiotherapy may help manage disc-related symptoms and when specialist review is needed.",
+      "Many people with slipped discs improve without surgery. Learn how physiotherapy may help and when specialist review is needed.",
     category: "back-pain",
     tags: ["disc herniation", "slip disc", "slip disc ka ilaj", "sciatica", "back pain"],
     excerpt:
@@ -1787,7 +1787,7 @@ export const blogPosts: BlogPost[] = [
     title: "Bell's Palsy Physiotherapy | Munh Terha Hona Ka Ilaj",
     seoTitle: "Bell's Palsy | Munh Terha Hona Ka Ilaj — PainFix Multan",
     metaDescription:
-      "Sudden facial weakness (munh terha hona) needs urgent assessment to exclude stroke. Learn about Bell's palsy treatment, eye protection and selected facial rehabilitation.",
+      "Sudden facial weakness needs urgent assessment to exclude stroke. Learn about Bell's palsy treatment and eye protection.",
     category: "neurological-rehabilitation",
     tags: ["Bell's palsy", "munh terha hona", "facial", "neuro rehab", "recovery"],
     excerpt:
@@ -2162,7 +2162,7 @@ export const blogPosts: BlogPost[] = [
     title: "Electrotherapy in Physiotherapy: TENS, Ultrasound and More",
     seoTitle: "Electrotherapy in Physiotherapy | TENS & Ultrasound — PainFix",
     metaDescription:
-      "Understand TENS, ultrasound, electrical stimulation and interferential therapy: what each modality is used for, evidence limitations and condition-specific precautions.",
+      "TENS, ultrasound and interferential therapy: uses, evidence limitations and precautions for physiotherapy patients.",
     category: "electrotherapy",
     tags: ["electrotherapy", "TENS", "ultrasound", "pain relief"],
     excerpt:
@@ -2322,7 +2322,7 @@ export const blogPosts: BlogPost[] = [
     title: "Postnatal Physiotherapy and Core Recovery",
     seoTitle: "Postnatal Physiotherapy | Core & Pelvic Recovery — PainFix",
     metaDescription:
-      "Postnatal physiotherapy can support pelvic-floor and abdominal-wall function, manage symptoms and guide a gradual return to activity after pregnancy and birth. Learn what assessment and individualised rehabilitation may involve.",
+      "Postnatal physiotherapy supports pelvic-floor and abdominal-wall recovery, symptom management and a gradual return to activity.",
     category: "womens-health",
     tags: ["postnatal", "women's health", "core", "pelvic floor"],
     excerpt:
@@ -2891,7 +2891,7 @@ export const blogPosts: BlogPost[] = [
     title: "Is Hijama Safe? Benefits, Risks and Precautions",
     seoTitle: "Is Hijama Safe? Benefits, Risks & Precautions — PainFix",
     metaDescription:
-      "Understand the possible benefits, limitations and risks of dry and wet cupping, including infection control, blood loss and precautions before considering Hijama in Multan.",
+      "Learn about dry and wet cupping, possible benefits, infection risks, blood loss and precautions before Hijama.",
     category: "hijama",
     tags: ["hijama", "cupping safety", "contraindications", "hygiene", "wet cupping"],
     excerpt:
