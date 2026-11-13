@@ -160,7 +160,6 @@ test("local Multan landing pages describe home visits as available citywide", as
   assert.match(homeVisit, /تمام علاقوں میں گھر پر فزیوتھراپی وزٹس/);
 });
 
-
 test("lower-back exercise article includes accessible, attributed exercise images", async () => {
   const gallery = await read("src/components/site/LowerBackExerciseGallery.tsx");
   const articleRoute = await read("src/routes/blog.$slug.tsx");
