@@ -34,7 +34,7 @@ test("Kamar Dard exercise guide targets the exercise query with practical safety
 
   assert.ok(article.includes('title: "Kamar Dard Ki 6 Exercises: Reps, Form & Safety"'));
   assert.ok(article.includes('seoTitle: "Kamar Dard Ki 6 Exercises: Reps & Sahi Tareeqa | PainFix"'));
-  assert.match(article, /updated: "2026-11-11"/);
+  assert.match(article, /updated: "2026-11-13"/);
   assert.match(article, /Kamar dard ki exercise/i);
   assert.match(article, /step-by-step positions, repetitions and safety tips/i);
   assert.match(article, /1–2 comfortable movements/);
