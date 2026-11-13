@@ -343,7 +343,6 @@ function BlogArticle() {
               authorKey={post.authorKey}
               authorName={post.authorName}
               medicalReviewerKey={post.medicalReviewerKey}
-              source={post.source}
               updated={post.updated}
             />
 
