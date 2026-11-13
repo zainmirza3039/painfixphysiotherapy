@@ -38,6 +38,11 @@ test("homepage hero uses the owner's responsive sign photo with a navy overlay a
   assert.match(hero, /painfix-sign-960\.webp/);
   assert.match(hero, /painfix-sign-1800\.webp/);
   assert.match(hero, /fetchPriority="high"/);
+  assert.match(hero, /className="home-hero__brand-mark"/);
+  assert.match(hero, /src="\/painfix-logo-96\.webp"/);
+  assert.match(styles, /\.home-hero::after \{[\s\S]*?linear-gradient/);
+  assert.match(styles, /\.home-hero__brand-mark \{[\s\S]*?mix-blend-mode: screen/);
+  assert.match(styles, /\.home-hero__inner \{[\s\S]*?padding: 9rem 1\.25rem 8rem/);
   assert.doesNotMatch(hero, /Move Better\. Recover Faster\. Live Pain-Free\./);
   assert.match(route, /type: "image\/webp"[\s\S]*imageSrcSet:[\s\S]*painfixSign960/);
   assert.match(styles, /\.home-hero::before \{[^}]*linear-gradient/);
