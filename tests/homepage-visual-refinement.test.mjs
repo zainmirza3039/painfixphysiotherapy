@@ -29,19 +29,31 @@ test("footer social links use recognisable platform brand marks", async () => {
   assert.match(footer, /<SocialBrandIcon label={s.label} \/>/);
 });
 
-test("homepage hero retains the earlier soft green art direction and photo edge", async () => {
-  const source = await readFile(new URL("src/styles.css", repo), "utf8");
-  assert.match(source, /\.home-hero \{[^}]*background: var\(--surface\)/);
-  assert.match(source, /\.home-hero__visual::before/);
+test("homepage hero uses the owner's responsive sign photo with a navy overlay and no photo frame", async () => {
+  const [hero, route, styles] = await Promise.all([
+    readFile(new URL("src/components/site/Hero.tsx", repo), "utf8"),
+    readFile(new URL("src/routes/index.tsx", repo), "utf8"),
+    readFile(new URL("src/styles.css", repo), "utf8"),
+  ]);
+  assert.match(hero, /painfix-sign-960\.webp/);
+  assert.match(hero, /painfix-sign-1800\.webp/);
+  assert.match(hero, /fetchPriority="high"/);
+  assert.doesNotMatch(hero, /Move Better\. Recover Faster\. Live Pain-Free\./);
+  assert.match(route, /type: "image\/webp"[\s\S]*imageSrcSet:[\s\S]*painfixSign960/);
+  assert.match(styles, /\.home-hero::before \{[^}]*linear-gradient/);
+  assert.match(styles, /\.home-hero__background \{[^}]*object-fit: cover/);
+  assert.match(styles, /rgb\(3 46 97 \/ 94%\)/);
+  const mobileRules = styles.match(/@media \(max-width: 767px\) \{([\s\S]*?)\n\}/);
+  assert.ok(mobileRules, "mobile hero styles exist");
   assert.match(
-    source,
-    /background: color-mix\(in srgb, var\(--secondary\) 9%, var\(--background\)\)/,
+    mobileRules[1],
+    /\.home-hero::before \{[\s\S]*?rgb\(3 46 97 \/ 100%\) 0%[\s\S]*?rgb\(3 46 97 \/ 70%\) 76%[\s\S]*?rgb\(3 46 97 \/ 78%\) 82%/,
   );
   assert.match(
-    source,
-    /\.home-hero__image-frame \{[^}]*border-left: 5px solid var\(--brand-green\)/,
+    mobileRules[1],
+    /\.home-hero__background \{[^}]*object-position: 0% 50%;[^}]*transform: translateY\(30%\);/,
   );
-  assert.match(source, /border-radius: 0 1rem 1rem 0/);
+  assert.doesNotMatch(styles, /\.home-hero__image-frame|\.home-hero__visual/);
 });
 
 test("homepage treatment cards use real treatment-specific Pexels photos and defer image loading", async () => {
