@@ -33,7 +33,9 @@ test("Kamar Dard exercise guide targets the exercise query with practical safety
   const article = source.slice(start, end);
 
   assert.ok(article.includes('title: "Kamar Dard Ki 6 Exercises: Reps, Form & Safety"'));
-  assert.ok(article.includes('seoTitle: "Kamar Dard Ki 6 Exercises: Reps & Sahi Tareeqa | PainFix"'));
+  assert.ok(
+    article.includes('seoTitle: "Kamar Dard Ki 6 Exercises: Reps & Sahi Tareeqa | PainFix"'),
+  );
   assert.match(article, /updated: "2026-11-13"/);
   assert.match(article, /Kamar dard ki exercise/i);
   assert.match(article, /step-by-step positions, repetitions and safety tips/i);
@@ -45,7 +47,9 @@ test("Kamar Dard exercise guide targets the exercise query with practical safety
   assert.notEqual(safetyStart, -1);
   const safetyEnd = source.indexOf("\n  },", safetyStart);
   const safetyArticle = source.slice(safetyStart, safetyEnd);
-  assert.ok(safetyArticle.includes('seoTitle: "Kamar Dard Exercise Safety: Stop Signals | PainFix"'));
+  assert.ok(
+    safetyArticle.includes('seoTitle: "Kamar Dard Exercise Safety: Stop Signals | PainFix"'),
+  );
   assert.doesNotMatch(safetyArticle, /tags: \[[\s\S]*?kamar dard ki exercise/);
   const articleRoute = await read("src/routes/blog.$slug.tsx");
   assert.match(articleRoute, /slug: "safe-kamar-dard-exercises"/);
