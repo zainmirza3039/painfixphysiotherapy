@@ -433,6 +433,9 @@
 }
 
 .home-hero__heading {
+  position: relative;
+  isolation: isolate;
+  width: fit-content;
   max-width: 15ch;
   margin: 0;
   color: #ffffff;
@@ -441,6 +444,22 @@
   line-height: 0.98;
   letter-spacing: -0.045em;
   overflow-wrap: break-word;
+}
+
+.home-hero__heading::before {
+  position: absolute;
+  z-index: -1;
+  inset: -0.3em -0.45em;
+  border-radius: 0.2rem;
+  background: linear-gradient(
+    90deg,
+    rgb(0 0 0 / 46%) 0%,
+    rgb(0 0 0 / 30%) 68%,
+    rgb(0 0 0 / 0%) 100%
+  );
+  content: "";
+  filter: blur(13px);
+  pointer-events: none;
 }
 
 .home-hero__accent {
