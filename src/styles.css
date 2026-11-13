@@ -446,19 +446,24 @@
   overflow-wrap: break-word;
 }
 
-.home-hero__heading::before {
+.home-hero__content {
+  position: relative;
+  isolation: isolate;
+}
+
+.home-hero__content::before {
   position: absolute;
   z-index: -1;
-  inset: -0.3em -0.45em;
-  border-radius: 0.2rem;
-  background: linear-gradient(
-    90deg,
-    rgb(0 0 0 / 46%) 0%,
-    rgb(0 0 0 / 30%) 68%,
-    rgb(0 0 0 / 0%) 100%
+  inset: -2.25rem -2.5rem;
+  background: radial-gradient(
+    ellipse at 32% 52%,
+    rgb(0 0 0 / 52%) 0%,
+    rgb(0 0 0 / 34%) 42%,
+    rgb(0 0 0 / 14%) 66%,
+    transparent 82%
   );
   content: "";
-  filter: blur(13px);
+  filter: blur(17px);
   pointer-events: none;
 }
 
@@ -578,14 +583,14 @@
 @media (min-width: 981px) {
   .home-hero__background {
     object-position: center 34%;
-    transform: scale(1.32);
+    transform: scale(1.58);
     transform-origin: center 34%;
   }
 }
 
 @media (min-width: 981px) and (max-width: 1199px) {
   .home-hero__background {
-    transform: scale(1.16);
+    transform: scale(1.32);
   }
 }
 
