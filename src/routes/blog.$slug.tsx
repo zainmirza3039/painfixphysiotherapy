@@ -21,6 +21,7 @@ import { FaqAccordion } from "@/components/site/FaqAccordion";
 import { AuthorCard } from "@/components/site/AuthorCard";
 import { Newsletter } from "@/components/site/Newsletter";
 import { BlogCard } from "@/components/site/BlogCard";
+import { LowerBackExerciseGallery } from "@/components/site/LowerBackExerciseGallery";
 import { Reveal } from "@/components/site/Reveal";
 import { pageMeta, canonical, breadcrumbLd, faqLd } from "@/lib/seo";
 import {
@@ -219,6 +220,12 @@ function BlogArticle() {
                 </Reveal>
               ))}
             </div>
+
+            {post.slug === "best-exercises-for-lower-back-pain" && (
+              <div className="mt-10">
+                <LowerBackExerciseGallery />
+              </div>
+            )}
 
             {/* Key Takeaways */}
             {post.keyTakeaways.length > 0 && (
