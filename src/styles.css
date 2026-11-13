@@ -288,6 +288,23 @@
   padding-bottom: calc(6rem + env(safe-area-inset-bottom, 0px));
 }
 
+@media (min-width: 1024px) {
+  .site-footer {
+    padding-bottom: 2rem;
+  }
+
+  .site-footer > div > .grid {
+    grid-template-columns: minmax(0, 1.15fr) minmax(13rem, 0.85fr) minmax(0, 1.15fr);
+    column-gap: clamp(2rem, 4vw, 4rem);
+    align-items: start;
+  }
+
+  .site-footer > div > .grid > div {
+    grid-column: auto;
+    min-width: 0;
+  }
+}
+
 .site-footer a {
   scroll-margin-block: 7rem 10rem;
   text-underline-offset: 0.2em;
@@ -537,6 +554,14 @@
   margin: 0.35rem 0 0 1.5rem;
   color: rgb(255 255 255 / 78%);
   font-size: 0.8rem;
+}
+
+@media (min-width: 981px) {
+  .home-hero__background {
+    object-position: center 34%;
+    transform: scale(1.32);
+    transform-origin: center 34%;
+  }
 }
 
 @media (min-width: 981px) and (max-width: 1100px) {
