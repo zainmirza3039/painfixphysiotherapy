@@ -52,11 +52,11 @@ test("homepage hero uses a full-bleed natural-colour sign photo with overlaid te
   assert.match(styles, /\.home-hero__content \{[^}]*max-width: 58rem/);
   assert.match(
     styles,
-    /@media \(min-width: 981px\)[\s\S]*?\.home-hero__background \{[^}]*object-position: center 34%;[^}]*transform: scale\(1\.32\)/,
+    /@media \(min-width: 981px\)[\s\S]*?\.home-hero__background \{[^}]*object-position: center 34%;[^}]*transform: scale\\(1\\.58\\)/,
   );
   assert.match(
     styles,
-    /@media \(min-width: 981px\) and \(max-width: 1199px\)[\s\S]*?transform: scale\(1\.16\)/,
+    /@media \(min-width: 981px\) and \(max-width: 1199px\)[\s\S]*?transform: scale\\(1\\.32\\)/,
   );
   assert.match(
     styles,
