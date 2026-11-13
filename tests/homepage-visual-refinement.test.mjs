@@ -41,16 +41,15 @@ test("homepage hero uses the owner's responsive sign photo with a navy overlay a
   assert.doesNotMatch(hero, /Move Better\. Recover Faster\. Live Pain-Free\./);
   assert.match(route, /type: "image\/webp"[\s\S]*imageSrcSet:[\s\S]*painfixSign960/);
   assert.match(styles, /\.home-hero::before \{[^}]*linear-gradient/);
-  assert.match(styles, /\.home-hero__background \{[^}]*object-fit: cover/);
-  assert.match(styles, /rgb\(3 46 97 \/ 94%\)/);
+  assert.match(styles, /\.home-hero::before \{[\s\S]*?rgb\(0 0 0 \/ 76%\)[\s\S]*?transparent 72%/);
+  assert.doesNotMatch(styles, /rgb\(3 46 97 \/ 94%\)/);
+  assert.match(styles, /\.home-hero__background \{[^}]*inset: 0;[^}]*width: 100%;[^}]*height: 100%;[^}]*object-fit: cover/);
+  assert.match(styles, /\.home-hero__inner \{[^}]*align-items: flex-end/);
+  assert.match(styles, /\.home-hero__content \{[^}]*max-width: 58rem/);
   const mobileRules = styles.match(/@media \(max-width: 767px\) \{([\s\S]*?)\n\}/);
   assert.ok(mobileRules, "mobile hero styles exist");
-  assert.match(mobileRules[1], /\.home-hero::before \{\s*content: none;/);
-  assert.match(
-    mobileRules[1],
-    /\.home-hero__background \{[^}]*object-fit: contain;[^}]*object-position: center top;[^}]*transform: none;/,
-  );
-  assert.match(mobileRules[1], /padding: calc\(min\(50svh, 30rem\) \+ 1\.25rem\)/);
+  assert.match(mobileRules[1], /\.home-hero__background \{\s*object-position: center center;/);
+  assert.match(mobileRules[1], /\.home-hero__inner \{[^}]*align-items: flex-end;[^}]*padding: 7rem 1\.25rem 2rem;/);
   assert.match(mobileRules[1], /animation: home-hero-content-enter 650ms/);
   assert.match(styles, /@keyframes home-hero-content-enter[\s\S]*?translateY\(18px\)[\s\S]*?opacity: 1/);
   assert.match(styles, /@media \(prefers-reduced-motion: reduce\)[\s\S]*?\.home-hero__content \{\s*animation: none !important;/);
