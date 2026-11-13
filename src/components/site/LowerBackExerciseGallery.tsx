@@ -5,7 +5,8 @@ const exercises = [
       "https://upload.wikimedia.org/wikipedia/commons/0/05/Pelvic_tilt-CDC_strength_training_for_older_adults.gif",
     alt: "CDC animation showing a pelvic tilt exercise in hook-lying",
     credit: "Centers for Disease Control and Prevention",
-    source: "https://commons.wikimedia.org/wiki/File:Pelvic_tilt-CDC_strength_training_for_older_adults.gif",
+    source:
+      "https://commons.wikimedia.org/wiki/File:Pelvic_tilt-CDC_strength_training_for_older_adults.gif",
     license: "Public domain",
     dimensions: { width: 250, height: 200 },
   },
@@ -49,6 +50,7 @@ const exercises = [
     credit: "PTPioneer",
     source: "https://commons.wikimedia.org/wiki/File:Bird_dog_exercise.jpg",
     license: "CC BY 2.0",
+    licenseUrl: "https://creativecommons.org/licenses/by/2.0/",
     dimensions: { width: 1000, height: 667 },
   },
 ];
