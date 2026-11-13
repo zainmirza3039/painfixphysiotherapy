@@ -46,12 +46,12 @@ test("homepage booking links use the city-aware appointment contract", async () 
   assert.match(cities, /href="\/dr-ariba-babar-pt"/);
 });
 
-test("homepage hero and metadata mention both cities", async () => {
+test("homepage hero retains both cities without the removed marketing slogan", async () => {
   const [hero, route] = await Promise.all([
     read("src/components/site/Hero.tsx"),
     read("src/routes/index.tsx"),
   ]);
-  assert.match(hero, /Move Better\. Recover Faster\. Live Pain-Free\./);
+  assert.doesNotMatch(hero, /Move Better\. Recover Faster\. Live Pain-Free\./);
   assert.match(
     hero,
     /Physiotherapist[\s\S]*?in <span className="home-hero__accent">Multan\.<\/span>/,
