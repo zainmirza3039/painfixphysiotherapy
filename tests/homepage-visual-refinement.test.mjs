@@ -38,6 +38,7 @@ test("homepage hero uses a full-bleed natural-colour sign photo with overlaid te
   assert.match(hero, /painfix-sign-960\.webp/);
   assert.match(hero, /painfix-sign-1800\.webp/);
   assert.match(hero, /fetchPriority="high"/);
+  assert.match(hero, /className="home-hero__titlebar"[\s\S]*?Physiotherapist in/);
   assert.doesNotMatch(hero, /Move Better\. Recover Faster\. Live Pain-Free\./);
   assert.match(route, /type: "image\/webp"[\s\S]*imageSrcSet:[\s\S]*painfixSign960/);
   assert.match(styles, /\.home-hero::before \{[^}]*linear-gradient/);
