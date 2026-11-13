@@ -155,7 +155,7 @@ test("public visual system uses a restrained radius scale and avoids decorative 
   assert.ok(!css.includes("--gradient-brand-soft"));
   const withoutHeroOverlays = css.replace(/\.home-hero::before\s*\{[^}]*\}/g, "");
   assert.ok(!withoutHeroOverlays.includes("linear-gradient("));
-  assert.equal((css.match(/linear-gradient\(/g) ?? []).length, 2);
+  assert.equal((css.match(/linear-gradient\(/g) ?? []).length, 1);
 });
 
 test("public shell and conversion pages avoid glass and gradient utility treatments", () => {
