@@ -29,7 +29,7 @@ test("footer social links use recognisable platform brand marks", async () => {
   assert.match(footer, /<SocialBrandIcon label={s.label} \/>/);
 });
 
-test("homepage hero uses the owner's responsive sign photo with a navy overlay and no photo frame", async () => {
+test("homepage hero uses a full-bleed natural-colour sign photo with overlaid text", async () => {
   const [hero, route, styles] = await Promise.all([
     readFile(new URL("src/components/site/Hero.tsx", repo), "utf8"),
     readFile(new URL("src/routes/index.tsx", repo), "utf8"),
