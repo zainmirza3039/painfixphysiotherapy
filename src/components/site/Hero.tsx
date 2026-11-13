@@ -224,10 +224,10 @@ export function Hero() {
             in <span className="home-hero__accent">Multan.</span>
           </h1>
           <p className="mt-6 max-w-xl text-base leading-7 text-muted-foreground sm:text-lg sm:leading-8">
-            Looking for a physiotherapist in Multan or a physiotherapy clinic near you? PainFix
-            is based in Shalimar Colony, Multan. Our DPT-led team provides individual clinical
-            assessment, hands-on treatment and progressive rehabilitation for back, neck, joint
-            and movement-related problems. Clinic appointments are available, with selected home
+            Looking for a physiotherapist in Multan or a physiotherapy clinic near you? PainFix is
+            based in Shalimar Colony, Multan. Our DPT-led team provides individual clinical
+            assessment, hands-on treatment and progressive rehabilitation for back, neck, joint and
+            movement-related problems. Clinic appointments are available, with selected home
             physiotherapy visits across Multan. Your plan is shaped around your condition, daily
             activities and recovery goals.
           </p>
