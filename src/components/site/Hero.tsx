@@ -20,6 +20,16 @@ export function Hero() {
         loading="eager"
         decoding="async"
       />
+      <img
+        className="home-hero__brand-mark"
+        src="/painfix-logo-96.webp"
+        alt=""
+        aria-hidden="true"
+        width={96}
+        height={96}
+        loading="lazy"
+        decoding="async"
+      />
       <div className="home-hero__inner">
         <div className="home-hero__content">
           <h1 id="home-heading" className="home-hero__heading">
