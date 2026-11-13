@@ -21,9 +21,9 @@ export function MeetDoctors({ initialProfiles }: { initialProfiles?: PublicClini
             <h2 className="home-section-title mt-4">Meet the people behind your care.</h2>
           </div>
           <p className="max-w-2xl text-base leading-7 text-muted-foreground">
-            PainFix’s clinical team includes Doctors of Physical Therapy working across clinic-based
-            and online physiotherapy and rehabilitation. Check each profile for service mode and
-            location.
+            Meet the Doctors of Physical Therapy at PainFix. Our Multan clinic team provides
+            clinic-based physiotherapy and rehabilitation, while individual profiles explain each
+            clinician’s qualifications, areas of practice and available service modes.
           </p>
         </div>
 
