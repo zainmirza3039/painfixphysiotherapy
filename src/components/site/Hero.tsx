@@ -48,7 +48,7 @@ export function Hero() {
                 <MapPin className="h-4 w-4" aria-hidden="true" /> Need a home visit in Multan?
               </a>
             </div>
-  
+
             <div className="home-hero__details">
               <span>
                 <MapPin className="home-hero__detail-icon h-4 w-4 shrink-0" aria-hidden="true" />
