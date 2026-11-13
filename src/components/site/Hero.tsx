@@ -6,7 +6,13 @@ const SIGN_SRCSET = `${painfixSign960} 960w, ${painfixSign1800} 1800w`;
 
 export function Hero() {
   return (
-    <section id="home" aria-labelledby="home-heading" className="home-hero scroll-mt-24">
+    <>
+      <div className="home-hero__titlebar">
+        <h1 id="home-heading" className="home-hero__heading">
+          Physiotherapist in <span className="home-hero__accent">Multan.</span>
+        </h1>
+      </div>
+      <section id="home" aria-labelledby="home-heading" className="home-hero scroll-mt-24">
       <img
         className="home-hero__background"
         src={painfixSign1800}
@@ -22,11 +28,6 @@ export function Hero() {
       />
       <div className="home-hero__inner">
         <div className="home-hero__content">
-          <h1 id="home-heading" className="home-hero__heading">
-            Physiotherapist
-            <br />
-            in <span className="home-hero__accent">Multan.</span>
-          </h1>
           <div className="home-hero__actions">
             <a
               href="/book-appointment?city=multan&service=clinic"
@@ -61,6 +62,7 @@ export function Hero() {
           <p className="home-hero__hours-note">Sunday by appointment</p>
         </div>
       </div>
-    </section>
+      </section>
+    </>
   );
 }
