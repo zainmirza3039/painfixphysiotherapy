@@ -33,10 +33,12 @@ test("Kamar Dard exercise guide targets the exercise query with practical safety
   const article = source.slice(start, end);
 
   assert.ok(article.includes('title: "Kamar Dard Ki 6 Exercises: Reps, Form & Safety"'));
-  assert.ok(article.includes('seoTitle: "Kamar Dard Ki Exercise: 6 Moves + Reps | PainFix"'));
-  assert.match(article, /updated: "2026-11-11"/);
+  assert.ok(
+    article.includes('seoTitle: "Kamar Dard Ki 6 Exercises: Reps & Sahi Tareeqa | PainFix"'),
+  );
+  assert.match(article, /updated: "2026-11-13"/);
   assert.match(article, /Kamar dard ki exercise/i);
-  assert.match(article, /starting positions, reps and safety cues/i);
+  assert.match(article, /step-by-step positions, repetitions and safety tips/i);
   assert.match(article, /1–2 comfortable movements/);
   assert.match(article, /leg symptoms ka aur neeche spread hona/);
   assert.match(article, /Kya mujhe tamam 6 exercises ek hi waqt karni chahiye/);
@@ -45,7 +47,10 @@ test("Kamar Dard exercise guide targets the exercise query with practical safety
   assert.notEqual(safetyStart, -1);
   const safetyEnd = source.indexOf("\n  },", safetyStart);
   const safetyArticle = source.slice(safetyStart, safetyEnd);
-  assert.ok(safetyArticle.includes('seoTitle: "Safe Lower-Back Exercises: Kamar Dard Guide"'));
+  assert.ok(
+    safetyArticle.includes('seoTitle: "Kamar Dard Exercise Safety: Stop Signals | PainFix"'),
+  );
+  assert.doesNotMatch(safetyArticle, /tags: \[[\s\S]*?kamar dard ki exercise/);
   const articleRoute = await read("src/routes/blog.$slug.tsx");
   assert.match(articleRoute, /slug: "safe-kamar-dard-exercises"/);
 });
@@ -157,4 +162,14 @@ test("local Multan landing pages describe home visits as available citywide", as
   );
   assert.match(homeVisit, /PainFix provides home physiotherapy visits across Multan/);
   assert.match(homeVisit, /تمام علاقوں میں گھر پر فزیوتھراپی وزٹس/);
+});
+
+test("lower-back exercise article includes accessible, attributed exercise images", async () => {
+  const gallery = await read("src/components/site/LowerBackExerciseGallery.tsx");
+  const articleRoute = await read("src/routes/blog.$slug.tsx");
+  assert.match(articleRoute, /LowerBackExerciseGallery/);
+  assert.match(gallery, /loading="lazy"/);
+  assert.match(gallery, /alt: "CDC animation showing a pelvic tilt/);
+  assert.match(gallery, /CC BY-SA 4\.0/);
+  assert.match(gallery, /Bird-dog/);
 });
