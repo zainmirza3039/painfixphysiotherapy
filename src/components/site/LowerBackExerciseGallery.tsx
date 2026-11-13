@@ -28,6 +28,7 @@ const exercises = [
     source:
       "https://commons.wikimedia.org/wiki/File:Woman_doing_yoga_exercise_at_home_on_a_mat_while_in_a_focused_position.jpg",
     license: "CC BY 2.0",
+    licenseUrl: "https://creativecommons.org/licenses/by/2.0/",
     dimensions: { width: 1000, height: 667 },
   },
   {
@@ -37,6 +38,7 @@ const exercises = [
     credit: "Marianne Gilbak",
     source: "https://commons.wikimedia.org/wiki/File:Glute-bridge.png",
     license: "CC BY-SA 4.0",
+    licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0/",
     dimensions: { width: 1000, height: 1000 },
   },
   {
@@ -95,7 +97,18 @@ export function LowerBackExerciseGallery() {
                   Source
                 </a>
                 {" · "}
-                {exercise.license}
+                {exercise.licenseUrl ? (
+                  <a
+                    href={exercise.licenseUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="font-medium text-primary underline underline-offset-2"
+                  >
+                    {exercise.license}
+                  </a>
+                ) : (
+                  exercise.license
+                )}
               </p>
             </figcaption>
           </figure>
