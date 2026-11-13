@@ -62,10 +62,7 @@ test("homepage hero uses a full-bleed natural-colour sign photo with overlaid te
     styles,
     /@media \(max-width: 767px\)[\s\S]*?\.home-hero \{\s*min-height: max\(100svh, 48rem\);/,
   );
-  assert.match(
-    styles,
-    /\.home-hero__inner \{\s*min-height: max\(100svh, 48rem\);/,
-  );
+  assert.match(styles, /\.home-hero__inner \{\s*min-height: max\(100svh, 48rem\);/);
   assert.match(
     styles,
     /@media \(min-width: 1024px\)[\s\S]*?\.site-footer \{\s*padding-bottom: 2rem;/,
@@ -83,7 +80,10 @@ test("homepage hero uses a full-bleed natural-colour sign photo with overlaid te
     /\.home-hero__inner \{[^}]*align-items: flex-end;[^}]*padding: 7rem 1\.25rem 2rem;/,
   );
   assert.match(mobileRules[1], /animation: home-hero-content-enter 650ms/);
-  assert.match(styles, /@keyframes home-hero-content-enter[\s\S]*?translateY\(18px\)[\s\S]*?opacity: 1/);
+  assert.match(
+    styles,
+    /@keyframes home-hero-content-enter[\s\S]*?translateY\(18px\)[\s\S]*?opacity: 1/,
+  );
   assert.match(
     styles,
     /@media \(prefers-reduced-motion: reduce\)[\s\S]*?\.home-hero__content \{\s*animation: none !important;/,
