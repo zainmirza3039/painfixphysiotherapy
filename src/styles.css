@@ -576,16 +576,16 @@
   }
 
   .home-hero__background {
-    inset: 4.5rem 0 0;
+    inset: 0;
     width: 100%;
-    height: calc(100% - 4.5rem);
-    object-position: 50% 0%;
-    transform: none;
+    object-position: 50% 50%;
+    transform: scale(1.1);
+    transform-origin: center center;
   }
 
   .home-hero__inner {
     min-height: 100svh;
-    padding: 9rem 1.25rem 2.5rem;
+    padding: 12rem 1.25rem 2.5rem;
   }
 
   .home-hero__heading {
