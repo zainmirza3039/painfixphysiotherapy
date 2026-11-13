@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { SITE_URL } from "@/components/site/constants";
+import { CLINIC_ADDRESS, CLINIC_NAME, GOOGLE_BUSINESS_PROFILE_URL, SITE_URL, SOCIAL_LINKS } from "@/components/site/constants";
 import { faqLd } from "@/lib/seo";
 import { listPublicClinicians } from "@/lib/public-clinicians";
 import { Navbar } from "@/components/site/Navbar";
@@ -25,7 +25,7 @@ import heroAvif960 from "@/assets/hero-960.avif";
 
 const TITLE = "Physiotherapist in Multan | PainFix Physiotherapy Clinic";
 const DESCRIPTION =
-  "PainFix Physiotherapy Clinic in Multan. Physiotherapy near you for back pain, rehabilitation and home visits across the city.";
+  "Looking for a physiotherapist in Multan? PainFix offers DPT-led assessment, hands-on treatment and rehabilitation at our Shalimar Colony clinic, with selected home visits.";
 
 export const Route = createFileRoute("/")({
   loader: () => listPublicClinicians(),
@@ -57,7 +57,51 @@ export const Route = createFileRoute("/")({
         fetchPriority: "high",
       },
     ],
-    scripts: [faqLd(homeFaqs.map((f) => ({ q: f.q, a: f.a })))],
+    scripts: [
+      faqLd(homeFaqs.map((f) => ({ q: f.q, a: f.a }))),
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "MedicalClinic",
+          "@id": SITE_URL + "/#clinic",
+          name: CLINIC_NAME,
+          url: SITE_URL,
+          image: `${SITE_URL}/painfix-logo.png`,
+          logo: `${SITE_URL}/painfix-logo.png`,
+          medicalSpecialty: "Physiotherapy",
+          telephone: "+92-314-3039582",
+          address: {
+            "@type": "PostalAddress",
+            streetAddress: CLINIC_ADDRESS,
+            addressLocality: "Multan",
+            addressRegion: "Punjab",
+            addressCountry: "PK",
+          },
+          geo: {
+            "@type": "GeoCoordinates",
+            latitude: 30.239469,
+            longitude: 71.4856386,
+          },
+          openingHoursSpecification: [
+            {
+              "@type": "OpeningHoursSpecification",
+              dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+              opens: "11:00",
+              closes: "16:00",
+            },
+          ],
+          hasMap: GOOGLE_BUSINESS_PROFILE_URL,
+          areaServed: { "@type": "City", name: "Multan" },
+          employee: [
+            { "@id": SITE_URL + "/dr-zain-ul-abideen-pt-multan#person" },
+            { "@id": SITE_URL + "/dr-jalal-ud-din-pt-multan#person" },
+            { "@id": SITE_URL + "/dr-fatima-iqbal-dpt-multan#person" },
+          ],
+          sameAs: Object.values(SOCIAL_LINKS).map((profile) => profile.url),
+        }),
+      },
+    ],
   }),
   component: Index,
 });
