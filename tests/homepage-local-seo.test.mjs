@@ -26,7 +26,7 @@ test("homepage metadata covers the clinic and core treatment-intent cluster with
 test("homepage hero keeps the local physiotherapist heading and home-visit action without the removed long paragraph", () => {
   const hero = normalize(source("components/site/Hero.tsx"));
   assert.ok(hero.includes("Physiotherapist"));
-  assert.ok(hero.includes("in <span className=\"home-hero__accent\">Multan."));
+  assert.ok(hero.includes('in <span className="home-hero__accent">Multan.'));
   assert.ok(hero.includes("Multan clinic appointment"));
   assert.ok(hero.includes("Need a home visit in Multan?"));
   assert.ok(hero.includes("Shalimar Colony, Multan"));
