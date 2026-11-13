@@ -47,6 +47,10 @@ test("homepage hero uses a full-bleed natural-colour sign photo with overlaid te
   assert.doesNotMatch(styles, /\.home-hero__background \{\s*width: (?:50|42)%;/);
   assert.match(styles, /\.home-hero__inner \{[^}]*align-items: flex-end/);
   assert.match(styles, /\.home-hero__content \{[^}]*max-width: 58rem/);
+  assert.match(styles, /@media \(min-width: 981px\)[\s\S]*?\.home-hero__background \{[^}]*object-position: center 34%;[^}]*transform: scale\(1\.32\)/);
+  assert.match(styles, /@media \(min-width: 1024px\)[\s\S]*?\.site-footer \{\s*padding-bottom: 2rem;/);
+  assert.match(styles, /\.site-footer > div > \.grid \{[^}]*grid-template-columns: minmax\(0, 1\.15fr\) minmax\(13rem, 0\.85fr\) minmax\(0, 1\.15fr\)/);
+  assert.match(styles, /\.site-footer > div > \.grid > div \{\s*grid-column: auto;/);
   const mobileRules = styles.match(/@media \(max-width: 767px\) \{([\s\S]*?)\n\}/);
   assert.ok(mobileRules, "mobile hero styles exist");
   assert.match(mobileRules[1], /\.home-hero__background \{\s*object-position: center center;/);
