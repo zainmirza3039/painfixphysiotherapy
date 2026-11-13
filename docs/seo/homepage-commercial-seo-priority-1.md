@@ -11,7 +11,7 @@
 2. **Hero introduction:** Clarified the clinic's location, care model and actual service scope. The existing H1 remains `Physiotherapist in Multan`.
 3. **Clinical authority:** Updated the clinician-section introduction to explain the DPT team and direct users to individual profiles for qualifications and areas of practice.
 4. **Internal linking:** Replaced the homepage's `/physiotherapy-in-multan` link, which redirects back to the homepage, with the canonical `/services` destination. Existing appointment, home-visit, service, condition and clinician-profile links remain intact.
-5. **Keyword discipline and entity clarity:** Kept `physiotherapist in Multan` as the sole H1/primary phrase. Did not add an unsupported “best” claim or repeat exact-match phrases unnaturally. Added the homepage's MedicalClinic JSON-LD using the same clinic entity ID, NAP, map, hours, area served, clinician references and social profiles already used by local SEO pages.
+5. **Keyword discipline and entity clarity:** Kept `physiotherapist in Multan` as the sole H1/primary phrase. Did not add an unsupported “best” claim or repeat exact-match phrases unnaturally. Reused the existing sitewide `MedicalClinic`/`LocalBusiness` entity (`/#clinic`) rather than emitting duplicate clinic schema on the homepage.
 
 ## Explicitly unchanged
 
@@ -25,7 +25,7 @@
 
 - TypeScript and lint checks.
 - Production build and route/head rendering.
-- Confirm one homepage canonical and one MedicalClinic entity with `@id=https://painfixphysiotherapy.com/#clinic`.
+- Confirm one homepage canonical and one sitewide clinic entity with `@id=https://painfixphysiotherapy.com/#clinic`; do not emit duplicate homepage schema.
 - Validate JSON-LD syntax and required fields.
 - Check meta description length and Open Graph/Twitter consistency.
 - Confirm the service link resolves to `/services` without redirecting to the homepage.
