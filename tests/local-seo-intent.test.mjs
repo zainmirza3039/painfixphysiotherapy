@@ -174,7 +174,6 @@ test("lower-back exercise article includes accessible, attributed exercise image
   assert.match(gallery, /Bird-dog/);
 });
 
-
 test("blog authorship is distinct from explicitly documented medical review", async () => {
   const route = await read("src/routes/blog.$slug.tsx");
   const authorCard = await read("src/components/site/AuthorCard.tsx");
@@ -194,7 +193,12 @@ test("blog authorship is distinct from explicitly documented medical review", as
 test("Dr Zain profile links to existing service and condition routes without changing profile claims", async () => {
   const profile = await read("src/components/site/DoctorProfile.tsx");
   assert.match(profile, /Physiotherapy Services & Conditions/);
-  for (const slug of ["manual-therapy", "exercise-therapy", "sports-rehabilitation", "home-physiotherapy"]) {
+  for (const slug of [
+    "manual-therapy",
+    "exercise-therapy",
+    "sports-rehabilitation",
+    "home-physiotherapy",
+  ]) {
     assert.ok(profile.includes(`["${slug}"`));
   }
   for (const slug of ["back-pain", "neck-pain", "sciatica", "slipped-disc", "frozen-shoulder"]) {
