@@ -1965,9 +1965,9 @@ export const blogPosts: BlogPost[] = [
   {
     slug: "best-exercises-for-lower-back-pain",
     title: "Kamar Dard Ki 6 Exercises: Reps, Form & Safety",
-    seoTitle: "Kamar Dard Ki Exercise: 6 Moves + Reps | PainFix",
+    seoTitle: "Kamar Dard Ki 6 Exercises: Reps & Sahi Tareeqa | PainFix",
     metaDescription:
-      "Kamar dard ki exercise: 6 gentle lower-back moves with starting positions, reps and safety cues. Roman Urdu guide to choosing and progressing exercises.",
+      "Kamar dard ki 6 exercises with step-by-step positions, repetitions and safety tips. Learn which movements may suit your symptoms and how to progress safely.",
     category: "exercise-therapy",
     tags: [
       "kamar dard ki exercise",
@@ -1984,7 +1984,7 @@ export const blogPosts: BlogPost[] = [
     quickAnswer:
       "Kamar dard ki exercise symptoms, medical history and movement tolerance ke mutabiq choose karein. Pelvic tilts, cat-cow, knee-to-chest, glute bridges, bird-dog and dead bug are options for some people with uncomplicated lower-back pain; short comfortable walks can also help maintain activity. Har exercise har person ke liye suitable nahi hoti. Start with one or two comfortable movements, monitor your response and progress gradually.",
     date: "2026-05-02",
-    updated: "2026-11-11",
+    updated: "2026-11-13",
     authorKey: "ZA",
     sections: [
       {
@@ -3161,14 +3161,15 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: "safe-kamar-dard-exercises",
-    title: "Safe Lower-Back Exercises: Kamar Dard Mein Kya Karein?",
-    seoTitle: "Safe Lower-Back Exercises: Kamar Dard Guide",
+    title: "Kamar Dard Mein Exercise Kab Rokni Chahiye?",
+    seoTitle: "Kamar Dard Exercise Safety: Stop Signals | PainFix",
     metaDescription:
-      "Kamar dard ki safe exercises ke basic rules, gentle movement steps, stop signals aur physiotherapy advice kab leni hai — English + Roman Urdu.",
+      "Kamar dard mein exercise ke stop signals, warning symptoms and common mistakes. Learn when gentle movement may be suitable and when medical assessment is needed.",
     category: "exercise-therapy",
     tags: [
-      "kamar dard ki exercise",
-      "lower back exercises",
+      "kamar dard exercise safety",
+      "exercise stop signals",
+      "lower back pain precautions",
       "safe movement",
       "Roman Urdu",
       "rehabilitation",
@@ -3178,7 +3179,7 @@ export const blogPosts: BlogPost[] = [
     quickAnswer:
       "Gentle walking and small-range movement may suit some people with uncomplicated low back pain, but exercise choice depends on symptoms, health history, pregnancy, recent injury and neurological signs. Stop if pain sharply worsens, spreads further down the leg, or numbness or weakness increases. Red flags need medical assessment, not an online exercise routine.",
     date: "2026-11-03",
-    updated: "2026-11-03",
+    updated: "2026-11-13",
     authorKey: "JD",
     medicalReviewerKey: "JD",
     sections: [
