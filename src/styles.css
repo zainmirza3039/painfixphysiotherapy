@@ -567,22 +567,24 @@
     background: linear-gradient(
       180deg,
       rgb(3 46 97 / 100%) 0%,
-      rgb(3 46 97 / 100%) 55%,
-      rgb(3 46 97 / 94%) 61%,
-      rgb(3 46 97 / 82%) 67%,
-      rgb(3 46 97 / 70%) 76%,
-      rgb(3 46 97 / 78%) 82%,
-      rgb(3 46 97 / 88%) 88%,
-      rgb(3 46 97 / 94%) 94%,
-      rgb(3 46 97 / 96%) 100%
+      rgb(3 46 97 / 100%) 18%,
+      rgb(3 46 97 / 96%) 28%,
+      rgb(3 46 97 / 92%) 38%,
+      rgb(3 46 97 / 88%) 46%,
+      rgb(3 46 97 / 70%) 50%,
+      rgb(3 46 97 / 70%) 58%,
+      rgb(3 46 97 / 90%) 66%,
+      rgb(3 46 97 / 95%) 76%,
+      rgb(3 46 97 / 98%) 100%
     );
   }
 
   .home-hero__background {
     inset: 0;
     width: 100%;
-    object-position: 0% 50%;
-    transform: translateY(30%);
+    object-position: 50% 50%;
+    transform: scale(1.1);
+    transform-origin: center center;
   }
 
   .home-hero__inner {

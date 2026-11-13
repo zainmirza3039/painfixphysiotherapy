@@ -47,11 +47,11 @@ test("homepage hero uses the owner's responsive sign photo with a navy overlay a
   assert.ok(mobileRules, "mobile hero styles exist");
   assert.match(
     mobileRules[1],
-    /\.home-hero::before \{[\s\S]*?rgb\(3 46 97 \/ 100%\) 0%[\s\S]*?rgb\(3 46 97 \/ 70%\) 76%[\s\S]*?rgb\(3 46 97 \/ 78%\) 82%/,
+    /\.home-hero::before \{[\s\S]*?rgb\(3 46 97 \/ 100%\) 0%[\s\S]*?rgb\(3 46 97 \/ 70%\) 50%[\s\S]*?rgb\(3 46 97 \/ 70%\) 58%/,
   );
   assert.match(
     mobileRules[1],
-    /\.home-hero__background \{[^}]*object-position: 0% 50%;[^}]*transform: translateY\(30%\);/,
+    /\.home-hero__background \{[^}]*object-position: 50% 50%;[^}]*transform: scale\(1\.1\);[^}]*transform-origin: center center;/,
   );
   assert.doesNotMatch(styles, /\.home-hero__image-frame|\.home-hero__visual/);
 });
