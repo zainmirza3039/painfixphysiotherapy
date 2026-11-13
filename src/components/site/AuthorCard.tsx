@@ -19,6 +19,8 @@ export function AuthorCard({
     medicalReviewerKey && medicalReviewerKey !== authorKey
       ? getTeamMember(medicalReviewerKey)
       : undefined;
+  const reviewerClassName =
+    author || authorName ? "relative mt-5 border-t border-border pt-5" : "relative";
 
   if (!author && !authorName && !reviewer) return null;
 
@@ -59,11 +61,7 @@ export function AuthorCard({
       )}
 
       {reviewer && (
-        <div
-          className={
-            (author || authorName ? "mt-5 border-t border-border pt-5 " : "") + "relative"
-          }
-        >
+        <div className={reviewerClassName}>
           <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-secondary">
             <BadgeCheck className="h-4 w-4" />
             Medically reviewed by
