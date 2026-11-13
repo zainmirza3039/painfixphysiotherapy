@@ -25,7 +25,7 @@ import heroAvif960 from "@/assets/hero-960.avif";
 
 const TITLE = "Physiotherapist in Multan | PainFix Physiotherapy Clinic";
 const DESCRIPTION =
-  "Looking for a physiotherapist in Multan? PainFix offers DPT-led assessment, hands-on treatment and rehabilitation at our Shalimar Colony clinic, with selected home visits.";
+  "Looking for a physiotherapist in Multan? PainFix offers DPT-led assessment and rehabilitation at its Shalimar Colony clinic, with selected home visits.";
 
 export const Route = createFileRoute("/")({
   loader: () => listPublicClinicians(),
