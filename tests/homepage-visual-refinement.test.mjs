@@ -45,14 +45,15 @@ test("homepage hero uses the owner's responsive sign photo with a navy overlay a
   assert.match(styles, /rgb\(3 46 97 \/ 94%\)/);
   const mobileRules = styles.match(/@media \(max-width: 767px\) \{([\s\S]*?)\n\}/);
   assert.ok(mobileRules, "mobile hero styles exist");
+  assert.match(mobileRules[1], /\.home-hero::before \{\s*content: none;/);
   assert.match(
     mobileRules[1],
-    /\.home-hero::before \{[\s\S]*?rgb\(3 46 97 \/ 84%\) 0%[\s\S]*?rgb\(3 46 97 \/ 48%\) 58%[\s\S]*?rgb\(3 46 97 \/ 94%\) 100%/,
+    /\.home-hero__background \{[^}]*object-fit: contain;[^}]*object-position: center top;[^}]*transform: none;/,
   );
-  assert.match(
-    mobileRules[1],
-    /\.home-hero__background \{[^}]*object-position: 50% 50%;[^}]*transform: scale\(1\.1\);[^}]*transform-origin: center center;/,
-  );
+  assert.match(mobileRules[1], /padding: calc\(min\(50svh, 30rem\) \+ 1\.25rem\)/);
+  assert.match(mobileRules[1], /animation: home-hero-content-enter 650ms/);
+  assert.match(styles, /@keyframes home-hero-content-enter[\s\S]*?translateY\(18px\)[\s\S]*?opacity: 1/);
+  assert.match(styles, /@media \(prefers-reduced-motion: reduce\)[\s\S]*?\.home-hero__content \{\s*animation: none !important;/);
   assert.doesNotMatch(styles, /\.home-hero__image-frame|\.home-hero__visual/);
 });
 
