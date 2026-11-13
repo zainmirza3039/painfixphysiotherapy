@@ -369,6 +369,26 @@
   color: #c1ebd4;
 }
 
+.home-hero__titlebar {
+  position: relative;
+  z-index: 1;
+  border-bottom: 1px solid #d7e1de;
+  padding: clamp(1.1rem, 2.2vw, 1.65rem) max(1.25rem, calc((100vw - 76rem) / 2));
+  background: #fafaf7;
+  color: #032e61;
+}
+
+.home-hero__titlebar .home-hero__heading {
+  max-width: 76rem;
+  margin: 0 auto;
+  color: #032e61;
+  font-size: clamp(2.15rem, 4.4vw, 3.4rem);
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -0.04em;
+  text-shadow: none;
+}
+
 .home-hero {
   position: relative;
   isolation: isolate;
