@@ -231,7 +231,8 @@ export function DoctorProfile({ doc }: { doc: TeamMember }) {
                 Physiotherapy Services & Conditions
               </h2>
               <p className="mt-2 max-w-3xl text-sm leading-relaxed text-muted-foreground">
-                Explore the existing PainFix service and condition guides related to Dr. Zain's clinical work.
+                Explore the existing PainFix service and condition guides related to Dr. Zain's
+                clinical work.
               </p>
               <div className="mt-5 grid gap-6 sm:grid-cols-2">
                 <div>
@@ -245,7 +246,11 @@ export function DoctorProfile({ doc }: { doc: TeamMember }) {
                       ["home-physiotherapy", "Home physiotherapy in Multan"],
                     ].map(([slug, label]) => (
                       <li key={slug}>
-                        <Link to="/services/$slug" params={{ slug }} className="font-medium text-primary underline-offset-4 hover:underline">
+                        <Link
+                          to="/services/$slug"
+                          params={{ slug }}
+                          className="font-medium text-primary underline-offset-4 hover:underline"
+                        >
                           {label}
                         </Link>
                       </li>
@@ -264,7 +269,11 @@ export function DoctorProfile({ doc }: { doc: TeamMember }) {
                       ["sports-injuries", "Sports injuries"],
                     ].map(([slug, label]) => (
                       <li key={slug}>
-                        <Link to="/conditions/$slug" params={{ slug }} className="font-medium text-primary underline-offset-4 hover:underline">
+                        <Link
+                          to="/conditions/$slug"
+                          params={{ slug }}
+                          className="font-medium text-primary underline-offset-4 hover:underline"
+                        >
                           {label}
                         </Link>
                       </li>
@@ -273,7 +282,8 @@ export function DoctorProfile({ doc }: { doc: TeamMember }) {
                 </div>
               </div>
               <p className="mt-6 text-sm text-muted-foreground">
-                For clinic location, opening hours and appointment details, see the Clinic Information section below or contact PainFix directly.
+                For clinic location, opening hours and appointment details, see the Clinic
+                Information section below or contact PainFix directly.
               </p>
             </Reveal>
           </div>
