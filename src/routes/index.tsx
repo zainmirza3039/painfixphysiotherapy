@@ -57,9 +57,7 @@ export const Route = createFileRoute("/")({
         fetchPriority: "high",
       },
     ],
-    scripts: [
-      faqLd(homeFaqs.map((f) => ({ q: f.q, a: f.a }))),
-    ],
+    scripts: [faqLd(homeFaqs.map((f) => ({ q: f.q, a: f.a })))],
   }),
   component: Index,
 });
