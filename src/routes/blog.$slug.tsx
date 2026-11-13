@@ -55,8 +55,9 @@ export const Route = createFileRoute("/blog/$slug")({
     }
     const post = loaderData;
     const path = `/blog/${params.slug}`;
-    const reviewerKey = post.source === "cms" ? post.medicalReviewerKey : post.authorKey;
-    const reviewer = reviewerKey ? getTeamMember(reviewerKey) : undefined;
+    const reviewerKey = post.medicalReviewerKey;
+    const reviewer =
+      reviewerKey && reviewerKey !== post.authorKey ? getTeamMember(reviewerKey) : undefined;
     return {
       meta: pageMeta({
         title: post.seoTitle,
@@ -340,8 +341,8 @@ function BlogArticle() {
           <aside className="space-y-6 lg:sticky lg:top-24 lg:self-start">
             <AuthorCard
               authorKey={post.authorKey}
+              authorName={post.authorName}
               medicalReviewerKey={post.medicalReviewerKey}
-              source={post.source}
               updated={post.updated}
             />
 

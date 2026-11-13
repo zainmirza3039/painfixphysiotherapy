@@ -173,3 +173,36 @@ test("lower-back exercise article includes accessible, attributed exercise image
   assert.match(gallery, /CC BY-SA 4\.0/);
   assert.match(gallery, /Bird-dog/);
 });
+
+test("blog authorship is distinct from explicitly documented medical review", async () => {
+  const route = await read("src/routes/blog.$slug.tsx");
+  const authorCard = await read("src/components/site/AuthorCard.tsx");
+  const dbBlog = await read("src/lib/dbBlog.ts");
+
+  assert.match(route, /const reviewerKey = post\.medicalReviewerKey/);
+  assert.match(route, /reviewerKey !== post\.authorKey/);
+  assert.match(route, /authorName=\{post\.authorName\}/);
+  assert.match(authorCard, /Written by/);
+  assert.match(authorCard, /Medically reviewed by/);
+  assert.match(authorCard, /Last updated:/);
+  assert.doesNotMatch(authorCard, /Last reviewed and updated/);
+  assert.match(dbBlog, /authorKey: ""/);
+  assert.match(dbBlog, /medicalReviewerKey: row\.medical_reviewer_key/);
+});
+
+test("Dr Zain profile links to existing service and condition routes without changing profile claims", async () => {
+  const profile = await read("src/components/site/DoctorProfile.tsx");
+  assert.match(profile, /Physiotherapy Services & Conditions/);
+  for (const slug of [
+    "manual-therapy",
+    "exercise-therapy",
+    "sports-rehabilitation",
+    "home-physiotherapy",
+  ]) {
+    assert.ok(profile.includes(`["${slug}"`));
+  }
+  for (const slug of ["back-pain", "neck-pain", "sciatica", "slipped-disc", "frozen-shoulder"]) {
+    assert.ok(profile.includes(`["${slug}"`));
+  }
+  assert.match(profile, /Clinic Information/);
+});

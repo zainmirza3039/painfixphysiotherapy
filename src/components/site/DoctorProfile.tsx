@@ -1,3 +1,4 @@
+import { Link } from "@tanstack/react-router";
 import {
   GraduationCap,
   Stethoscope,
@@ -216,6 +217,74 @@ export function DoctorProfile({ doc }: { doc: TeamMember }) {
                   </li>
                 ))}
               </ul>
+            </Reveal>
+          </div>
+        </section>
+      )}
+
+      {/* Relevant service and condition pathways */}
+      {!onlineOnly && doc.slug === "dr-zain-ul-abideen-pt-multan" && (
+        <section className="bg-surface py-12 sm:py-16">
+          <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+            <Reveal anim="up">
+              <h2 className="font-heading text-2xl font-extrabold text-foreground">
+                Physiotherapy Services & Conditions
+              </h2>
+              <p className="mt-2 max-w-3xl text-sm leading-relaxed text-muted-foreground">
+                Explore the existing PainFix service and condition guides related to Dr. Zain's
+                clinical work.
+              </p>
+              <div className="mt-5 grid gap-6 sm:grid-cols-2">
+                <div>
+                  <h3 className="font-semibold text-foreground">Treatment services</h3>
+                  <ul className="mt-3 space-y-2 text-sm">
+                    {[
+                      ["manual-therapy", "Manual therapy"],
+                      ["exercise-therapy", "Exercise therapy"],
+                      ["sports-rehabilitation", "Sports rehabilitation"],
+                      ["post-surgical-rehabilitation", "Post-surgical rehabilitation"],
+                      ["home-physiotherapy", "Home physiotherapy in Multan"],
+                    ].map(([slug, label]) => (
+                      <li key={slug}>
+                        <Link
+                          to="/services/$slug"
+                          params={{ slug }}
+                          className="font-medium text-primary underline-offset-4 hover:underline"
+                        >
+                          {label}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                <div>
+                  <h3 className="font-semibold text-foreground">Condition guides</h3>
+                  <ul className="mt-3 space-y-2 text-sm">
+                    {[
+                      ["back-pain", "Lower back pain"],
+                      ["neck-pain", "Neck pain"],
+                      ["sciatica", "Sciatica"],
+                      ["slipped-disc", "Slipped disc"],
+                      ["frozen-shoulder", "Frozen shoulder"],
+                      ["sports-injuries", "Sports injuries"],
+                    ].map(([slug, label]) => (
+                      <li key={slug}>
+                        <Link
+                          to="/conditions/$slug"
+                          params={{ slug }}
+                          className="font-medium text-primary underline-offset-4 hover:underline"
+                        >
+                          {label}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+              <p className="mt-6 text-sm text-muted-foreground">
+                For clinic location, opening hours and appointment details, see the Clinic
+                Information section below or contact PainFix directly.
+              </p>
             </Reveal>
           </div>
         </section>

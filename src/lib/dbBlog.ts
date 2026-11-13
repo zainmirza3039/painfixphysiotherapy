@@ -55,7 +55,7 @@ export function dbPostToBlogPost(row: PublicDbPost): BlogPost {
     quickAnswer: row.excerpt?.trim() || row.meta_description?.trim() || "",
     date,
     updated: row.updated_at ?? date,
-    authorKey: row.medical_reviewer_key ?? "",
+    authorKey: "",
     medicalReviewerKey: row.medical_reviewer_key ?? undefined,
     authorName: row.author?.trim() || undefined,
     heroImage: row.featured_image?.trim() || undefined,
