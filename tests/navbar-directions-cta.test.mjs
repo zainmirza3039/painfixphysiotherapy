@@ -3,24 +3,28 @@ import { readFileSync } from "node:fs";
 import test from "node:test";
 
 const navbar = readFileSync(new URL("../src/components/site/Navbar.tsx", import.meta.url), "utf8");
+const css = readFileSync(new URL("../src/styles.css", import.meta.url), "utf8");
 
-test("top Get Directions CTA keeps its Maps action and accessible interaction states", () => {
-  const cta = navbar.match(
-    /<a\s+href=\{MAP_DIRECTIONS_URL\}\s+target="_blank"\s+rel="noopener noreferrer"\s+className="([^"]+)"\s*>\s*<Navigation[^>]*\/>\s*<span>Get Directions<\/span>\s*<\/a>/,
-  );
+test("clinic directions remain available inside the minimal navigation panel", () => {
+  assert.match(navbar, /href=\{MAP_DIRECTIONS_URL\}/);
+  assert.match(navbar, /Get directions/);
+  assert.match(navbar, /target="_blank"/);
+  assert.match(navbar, /rel="noopener noreferrer"/);
+  assert.match(navbar, /aria-label="Open PainFix navigation"/);
+});
 
-  assert.ok(cta, "Get Directions remains a link using the existing Maps URL");
-  const className = cta[1];
-  const classes = new Set(className.split(/\s+/));
+test("public navigation uses a compact menu trigger rather than a persistent link row", () => {
+  assert.match(navbar, /DialogPrimitive\.Root/);
+  assert.match(navbar, /aria-expanded=\{menuOpen\}/);
+  assert.match(navbar, /Explore PainFix/);
+  assert.match(navbar, /Services/);
+  assert.match(navbar, /Conditions/);
+  assert.doesNotMatch(navbar, /hidden items-center gap-0\.5 xl:flex/);
+});
 
-  assert.ok(classes.has("border"));
-  assert.ok(classes.has("border-border/60"));
-  assert.ok(classes.has("bg-card/80"));
-  assert.ok(classes.has("hover:border-secondary/40"));
-  assert.ok(classes.has("hover:bg-secondary/10"));
-  assert.ok(classes.has("transition-colors"));
-  assert.ok(classes.has("focus-visible:outline-none"));
-  assert.ok(classes.has("focus-visible:ring-2"));
-  assert.ok(classes.has("focus-visible:ring-offset-2"));
-  assert.ok(classes.has("duration-150"));
+test("touch feedback is subtle and respects reduced-motion preferences", () => {
+  assert.match(css, /a\.apple-press:active\s*\{\s*transform: scale\(0\.985\)/);
+  assert.match(css, /prefers-reduced-motion: reduce/);
+  assert.match(css, /scroll-behavior: auto/);
+  assert.match(navbar, /className="apple-press/);
 });

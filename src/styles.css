@@ -1632,3 +1632,56 @@ body:has(.site-footer) :is(a[href], button, [role="button"], summary):focus-visi
     padding-inline: 0.75rem;
   }
 }
+
+
+/* Restrained, native-feeling press feedback for touch and pointer controls. */
+@layer base {
+  button,
+  [role="button"],
+  a.apple-press {
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+    transition:
+      transform 180ms cubic-bezier(0.2, 0.8, 0.2, 1),
+      background-color 180ms ease,
+      color 180ms ease,
+      border-color 180ms ease;
+  }
+
+  button:active,
+  [role="button"]:active,
+  a.apple-press:active {
+    transform: scale(0.985);
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  button,
+  [role="button"],
+  a.apple-press {
+    transition: none !important;
+  }
+
+  button:active,
+  [role="button"]:active,
+  a.apple-press:active {
+    transform: none;
+  }
+
+  .reveal,
+  .reveal.is-visible[data-anim="up"],
+  .reveal.is-visible[data-anim="left"],
+  .reveal.is-visible[data-anim="right"] {
+    animation: none !important;
+    opacity: 1;
+    transform: none;
+  }
+}
