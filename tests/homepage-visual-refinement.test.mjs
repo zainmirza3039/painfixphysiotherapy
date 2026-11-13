@@ -48,6 +48,9 @@ test("homepage hero uses a full-bleed natural-colour sign photo with overlaid te
   assert.match(styles, /\.home-hero__inner \{[^}]*align-items: flex-end/);
   assert.match(styles, /\.home-hero__content \{[^}]*max-width: 58rem/);
   assert.match(styles, /@media \(min-width: 981px\)[\s\S]*?\.home-hero__background \{[^}]*object-position: center 34%;[^}]*transform: scale\(1\.32\)/);
+  assert.match(styles, /@media \(min-width: 981px\) and \(max-width: 1199px\)[\s\S]*?transform: scale\(1\.16\)/);
+  assert.match(styles, /@media \(max-width: 767px\)[\s\S]*?\.home-hero \{\s*min-height: max\(100svh, 48rem\);/);
+  assert.match(styles, /\.home-hero__inner \{\s*min-height: max\(100svh, 48rem\);/);
   assert.match(styles, /@media \(min-width: 1024px\)[\s\S]*?\.site-footer \{\s*padding-bottom: 2rem;/);
   assert.match(styles, /\.site-footer > div > \.grid \{[^}]*grid-template-columns: minmax\(0, 1\.15fr\) minmax\(13rem, 0\.85fr\) minmax\(0, 1\.15fr\)/);
   assert.match(styles, /\.site-footer > div > \.grid > div \{\s*grid-column: auto;/);
