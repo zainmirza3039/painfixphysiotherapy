@@ -576,11 +576,11 @@
   }
 
   .home-hero__background {
-    inset: 0;
+    inset: 4.5rem 0 0;
     width: 100%;
-    object-position: 50% 50%;
-    transform: scale(1.1);
-    transform-origin: center center;
+    height: calc(100% - 4.5rem);
+    object-position: 50% 0%;
+    transform: none;
   }
 
   .home-hero__inner {
