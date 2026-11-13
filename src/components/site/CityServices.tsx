@@ -51,10 +51,10 @@ export function CityServices() {
             </p>
             <div className="mt-6 flex flex-col gap-3 min-[420px]:flex-row">
               <a
-                href="/physiotherapy-in-multan"
+                href="/services"
                 className="inline-flex min-h-11 items-center justify-center gap-2 rounded-md border border-primary/20 px-4 py-2.5 text-sm font-semibold text-primary transition-colors hover:border-secondary hover:text-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
               >
-                Explore Multan physiotherapy <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
+                Explore treatment services <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
               </a>
               <a
                 href="/book-appointment?city=multan&service=clinic"

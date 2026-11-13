@@ -25,7 +25,7 @@ import heroAvif960 from "@/assets/hero-960.avif";
 
 const TITLE = "Physiotherapist in Multan | PainFix Physiotherapy Clinic";
 const DESCRIPTION =
-  "PainFix Physiotherapy Clinic in Multan. Physiotherapy near you for back pain, rehabilitation and home visits across the city.";
+  "PainFix Physiotherapy Clinic in Multan: Physiotherapy near you for back pain, rehabilitation and home visits, with DPT-led assessment.";
 
 export const Route = createFileRoute("/")({
   loader: () => listPublicClinicians(),
