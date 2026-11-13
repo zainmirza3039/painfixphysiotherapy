@@ -3164,7 +3164,7 @@ export const blogPosts: BlogPost[] = [
     title: "Kamar Dard Mein Exercise Kab Rokni Chahiye?",
     seoTitle: "Kamar Dard Exercise Safety: Stop Signals | PainFix",
     metaDescription:
-      "Kamar dard mein exercise ke stop signals, warning symptoms and common mistakes. Learn when gentle movement may be suitable and when medical assessment is needed.",
+      "Kamar dard mein exercise stop signals, warning symptoms and common mistakes. Learn when to modify movement and when to seek medical assessment.",
     category: "exercise-therapy",
     tags: [
       "kamar dard exercise safety",
