@@ -47,7 +47,7 @@ test("homepage hero uses the owner's responsive sign photo with a navy overlay a
   assert.ok(mobileRules, "mobile hero styles exist");
   assert.match(
     mobileRules[1],
-    /\.home-hero::before \{[\s\S]*?rgb\(3 46 97 \/ 100%\) 0%[\s\S]*?rgb\(3 46 97 \/ 70%\) 50%[\s\S]*?rgb\(3 46 97 \/ 70%\) 58%/,
+    /\.home-hero::before \{[\s\S]*?rgb\(3 46 97 \/ 84%\) 0%[\s\S]*?rgb\(3 46 97 \/ 48%\) 58%[\s\S]*?rgb\(3 46 97 \/ 94%\) 100%/,
   );
   assert.match(
     mobileRules[1],
