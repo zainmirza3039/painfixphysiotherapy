@@ -43,24 +43,51 @@ test("homepage hero uses a full-bleed natural-colour sign photo with overlaid te
   assert.match(styles, /\.home-hero::before \{[^}]*linear-gradient/);
   assert.match(styles, /\.home-hero::before \{[\s\S]*?rgb\(0 0 0 \/ 76%\)[\s\S]*?transparent 72%/);
   assert.doesNotMatch(styles, /rgb\(3 46 97 \/ 94%\)/);
-  assert.match(styles, /\.home-hero__background \{[^}]*inset: 0;[^}]*width: 100%;[^}]*height: 100%;[^}]*object-fit: cover/);
+  assert.match(
+    styles,
+    /\.home-hero__background \{[^}]*inset: 0;[^}]*width: 100%;[^}]*height: 100%;[^}]*object-fit: cover/,
+  );
   assert.doesNotMatch(styles, /\.home-hero__background \{\s*width: (?:50|42)%;/);
   assert.match(styles, /\.home-hero__inner \{[^}]*align-items: flex-end/);
   assert.match(styles, /\.home-hero__content \{[^}]*max-width: 58rem/);
-  assert.match(styles, /@media \(min-width: 981px\)[\s\S]*?\.home-hero__background \{[^}]*object-position: center 34%;[^}]*transform: scale\(1\.32\)/);
-  assert.match(styles, /@media \(min-width: 981px\) and \(max-width: 1199px\)[\s\S]*?transform: scale\(1\.16\)/);
-  assert.match(styles, /@media \(max-width: 767px\)[\s\S]*?\.home-hero \{\s*min-height: max\(100svh, 48rem\);/);
-  assert.match(styles, /\.home-hero__inner \{\s*min-height: max\(100svh, 48rem\);/);
-  assert.match(styles, /@media \(min-width: 1024px\)[\s\S]*?\.site-footer \{\s*padding-bottom: 2rem;/);
-  assert.match(styles, /\.site-footer > div > \.grid \{[^}]*grid-template-columns: minmax\(0, 1\.15fr\) minmax\(13rem, 0\.85fr\) minmax\(0, 1\.15fr\)/);
+  assert.match(
+    styles,
+    /@media \(min-width: 981px\)[\s\S]*?\.home-hero__background \{[^}]*object-position: center 34%;[^}]*transform: scale\(1\.32\)/,
+  );
+  assert.match(
+    styles,
+    /@media \(min-width: 981px\) and \(max-width: 1199px\)[\s\S]*?transform: scale\(1\.16\)/,
+  );
+  assert.match(
+    styles,
+    /@media \(max-width: 767px\)[\s\S]*?\.home-hero \{\s*min-height: max\(100svh, 48rem\);/,
+  );
+  assert.match(
+    styles,
+    /\.home-hero__inner \{\s*min-height: max\(100svh, 48rem\);/,
+  );
+  assert.match(
+    styles,
+    /@media \(min-width: 1024px\)[\s\S]*?\.site-footer \{\s*padding-bottom: 2rem;/,
+  );
+  assert.match(
+    styles,
+    /\.site-footer > div > \.grid \{[^}]*grid-template-columns: minmax\(0, 1\.15fr\) minmax\(13rem, 0\.85fr\) minmax\(0, 1\.15fr\)/,
+  );
   assert.match(styles, /\.site-footer > div > \.grid > div \{\s*grid-column: auto;/);
   const mobileRules = styles.match(/@media \(max-width: 767px\) \{([\s\S]*?)\n\}/);
   assert.ok(mobileRules, "mobile hero styles exist");
   assert.match(mobileRules[1], /\.home-hero__background \{\s*object-position: center center;/);
-  assert.match(mobileRules[1], /\.home-hero__inner \{[^}]*align-items: flex-end;[^}]*padding: 7rem 1\.25rem 2rem;/);
+  assert.match(
+    mobileRules[1],
+    /\.home-hero__inner \{[^}]*align-items: flex-end;[^}]*padding: 7rem 1\.25rem 2rem;/,
+  );
   assert.match(mobileRules[1], /animation: home-hero-content-enter 650ms/);
   assert.match(styles, /@keyframes home-hero-content-enter[\s\S]*?translateY\(18px\)[\s\S]*?opacity: 1/);
-  assert.match(styles, /@media \(prefers-reduced-motion: reduce\)[\s\S]*?\.home-hero__content \{\s*animation: none !important;/);
+  assert.match(
+    styles,
+    /@media \(prefers-reduced-motion: reduce\)[\s\S]*?\.home-hero__content \{\s*animation: none !important;/,
+  );
   assert.doesNotMatch(styles, /\.home-hero__image-frame|\.home-hero__visual/);
 });
 
