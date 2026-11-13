@@ -44,6 +44,7 @@ test("homepage hero uses the owner's responsive sign photo with a navy overlay a
   assert.match(styles, /\.home-hero::before \{[\s\S]*?rgb\(0 0 0 \/ 76%\)[\s\S]*?transparent 72%/);
   assert.doesNotMatch(styles, /rgb\(3 46 97 \/ 94%\)/);
   assert.match(styles, /\.home-hero__background \{[^}]*inset: 0;[^}]*width: 100%;[^}]*height: 100%;[^}]*object-fit: cover/);
+  assert.doesNotMatch(styles, /\.home-hero__background \{\s*width: (?:50|42)%;/);
   assert.match(styles, /\.home-hero__inner \{[^}]*align-items: flex-end/);
   assert.match(styles, /\.home-hero__content \{[^}]*max-width: 58rem/);
   const mobileRules = styles.match(/@media \(max-width: 767px\) \{([\s\S]*?)\n\}/);
