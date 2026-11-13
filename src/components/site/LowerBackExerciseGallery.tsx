@@ -12,8 +12,7 @@ const exercises = [
   },
   {
     name: "Cat–cow (cow phase)",
-    image:
-      "https://upload.wikimedia.org/wikipedia/commons/4/48/Yoga_at_Your_Park_-_Bidalasana.jpg",
+    image: "https://upload.wikimedia.org/wikipedia/commons/4/48/Yoga_at_Your_Park_-_Bidalasana.jpg",
     alt: "Person on hands and knees demonstrating the cow phase of cat–cow",
     credit: "Mary O'Neill / U.S. National Park Service",
     source: "https://commons.wikimedia.org/wiki/File:Yoga_at_Your_Park_-_Bidalasana.jpg",
@@ -71,10 +70,7 @@ export function LowerBackExerciseGallery() {
       </p>
       <div className="mt-5 grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
         {exercises.map((exercise) => (
-          <figure
-            key={exercise.name}
-            className="overflow-hidden border border-border bg-card"
-          >
+          <figure key={exercise.name} className="overflow-hidden border border-border bg-card">
             <div className="flex h-52 items-center justify-center bg-muted/40 p-3">
               <img
                 src={exercise.image}
