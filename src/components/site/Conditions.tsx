@@ -42,9 +42,9 @@ const featuredConditions: FeaturedCondition[] = [
   },
   {
     conditionSlug: "knee-pain",
-    title: "Knee Pain & Osteoarthritis",
+    title: "Knee Pain",
     description:
-      "Rehabilitation for knee pain, arthritis-related symptoms and reduced walking capacity.",
+      "Assessment and rehabilitation for knee pain, reduced loading tolerance and difficulty with everyday activities.",
   },
   {
     conditionSlug: "frozen-shoulder",
@@ -64,15 +64,27 @@ const featuredConditions: FeaturedCondition[] = [
   },
   {
     conditionSlug: "sports-injuries",
-    title: "Sports & Ankle Injuries",
+    title: "Sports Injuries",
     description:
-      "Rehabilitation after common sports injuries, sprains and activity-related strains.",
+      "Rehabilitation for sports-related sprains, muscle strains, ligament injuries and return to activity.",
+  },
+  {
+    conditionSlug: "osteoarthritis",
+    title: "Osteoarthritis",
+    description:
+      "Physiotherapy for joint pain and stiffness, including knee and hip osteoarthritis, with a focus on mobility and function.",
   },
   {
     conditionSlug: "stroke-rehabilitation",
     title: "Stroke Rehabilitation",
     description:
       "Task-specific rehabilitation to improve mobility, balance and everyday function after stroke.",
+  },
+  {
+    conditionSlug: "balance-disorders",
+    title: "Balance & Gait Disorders",
+    description:
+      "Assessment and rehabilitation for unsteadiness, walking difficulty and reduced balance confidence.",
   },
   {
     conditionSlug: "cervical-radiculopathy",
