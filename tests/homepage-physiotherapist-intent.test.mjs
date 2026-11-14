@@ -11,11 +11,9 @@ test("homepage owns the primary physiotherapist in Multan search intent", async 
 
   assert.match(route, /const TITLE = "Physiotherapist in Multan \| PainFix Physiotherapy Clinic"/);
   assert.match(hero, /Physiotherapist[\s\S]*?home-hero__accent">Multan\./);
-  assert.match(
-    hero,
-    /DPT-led assessment, hands-on treatment and progressive rehabilitation for back, neck/,
-  );
-  assert.match(hero, /home-hero__intro/);
+  assert.match(hero, /home-hero__heading home-hero__heading--top/);
+  assert.match(hero, /Physiotherapist[\\s\\S]*?home-hero__accent">Multan\\./);
+  assert.doesNotMatch(hero, /home-hero__intro|DPT-led assessment/);
   assert.doesNotMatch(hero, /home-hero__titlebar/);
   assert.doesNotMatch(hero, /Move Better\. Recover Faster\. Live Pain-Free\./);
   assert.doesNotMatch(hero, /DPT-led assessment and rehabilitation/);
