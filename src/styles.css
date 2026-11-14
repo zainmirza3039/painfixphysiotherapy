@@ -674,8 +674,8 @@
   }
 
   .home-hero__background {
-    object-position: 47% 50%;
-    transform: translate(2%, -6%) scale(1.18);
+    object-position: 50% 50%;
+    transform: translateY(-10%) scale(1.18);
     transform-origin: 50% 50%;
   }
 
