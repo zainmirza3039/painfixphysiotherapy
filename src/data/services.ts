@@ -522,6 +522,7 @@ export const services: Service[] = [
       "Physiotherapy-led pain management in Multan for acute and persistent pain, focused on function, movement and individual goals at PainFix.",
     overview: [
       "Our pain management approach treats the root cause of your pain, not just the symptoms. We combine manual therapy, exercise, electrotherapy and education to provide lasting, drug-free relief.",
+      "Where appropriate, supportive techniques such as kinesiology taping may be used as an adjunct to an individual rehabilitation plan; they do not replace progressive exercise, load management or clinical assessment.",
       "Whether your pain is recent or long-standing, we build a personalized plan that helps you move better, feel better and return to the activities you enjoy.",
     ],
     conditionsTreated: [
