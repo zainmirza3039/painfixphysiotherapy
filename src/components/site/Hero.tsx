@@ -26,6 +26,19 @@ export function Hero() {
           loading="eager"
           decoding="async"
         />
+        <div className="home-hero__signboard-wrap" aria-hidden="true">
+          <span className="home-hero__signboard-mask" />
+          <img
+            className="home-hero__signboard"
+            src="https://raw.githubusercontent.com/zainmirza3039/painfixphysiotherapy/f61641e96e9595f7f1b4f1748ce930f9d0dcd1e6/src/assets/20261030_211721.png"
+            alt=""
+            width={654}
+            height={654}
+            fetchPriority="high"
+            loading="eager"
+            decoding="async"
+          />
+        </div>
         <div className="home-hero__inner">
           <div className="home-hero__content">
             <div className="home-hero__actions">
