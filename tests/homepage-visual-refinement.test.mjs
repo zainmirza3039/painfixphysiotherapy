@@ -53,7 +53,8 @@ test("homepage hero uses a responsive full-bleed signboard background with reada
   assert.ok(!styles.includes("scale(1.75)"));
   assert.ok(styles.includes("scale(1.15)"));
   assert.ok(styles.includes("scale(1.08)"));
-  assert.ok(styles.includes(".home-hero__content {\\n    animation: none !important;"));
+  assert.ok(styles.includes("@media (prefers-reduced-motion: reduce)"));
+  assert.ok(styles.includes("animation: none !important;"));
 });
 
 test("homepage treatment cards use real treatment-specific Pexels photos and defer image loading", async () => {
