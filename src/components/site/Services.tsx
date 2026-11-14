@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { Activity, ArrowUpRight, Dumbbell, Hand, HeartPulse, Zap } from "lucide-react";
+import { ArrowUpRight, Dumbbell, Hand, HeartPulse, Trophy, Zap } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { serviceMap } from "@/data/services";
 import { Reveal } from "./Reveal";
@@ -12,11 +12,11 @@ const TREATMENT_IMAGES: Record<string, string> = {
     "https://images.pexels.com/photos/20860597/pexels-photo-20860597.jpeg?auto=compress&cs=tinysrgb&w=720",
   "Exercise Therapy":
     "https://images.pexels.com/photos/20860594/pexels-photo-20860594.jpeg?auto=compress&cs=tinysrgb&w=720",
-  "Kinesiology Taping":
-    "https://images.pexels.com/photos/6076134/pexels-photo-6076134.jpeg?auto=compress&cs=tinysrgb&w=720",
   Electrotherapy:
     "https://images.pexels.com/photos/30483049/pexels-photo-30483049.jpeg?auto=compress&cs=tinysrgb&w=720",
-  Rehabilitation:
+  "Sports Injury Rehabilitation":
+    "https://images.pexels.com/photos/20860580/pexels-photo-20860580.jpeg?auto=compress&cs=tinysrgb&w=720",
+  "Post-Surgical & Neurological Rehabilitation":
     "https://images.pexels.com/photos/20860580/pexels-photo-20860580.jpeg?auto=compress&cs=tinysrgb&w=720",
 };
 
@@ -46,13 +46,6 @@ const treatmentServices: TreatmentService[] = [
     action: "Learn more",
   },
   {
-    title: "Kinesiology Taping",
-    description: "Ask the PainFix team whether taping is suitable for your care plan.",
-    icon: Activity,
-    to: "/contact",
-    action: "Ask our team",
-  },
-  {
     title: "Electrotherapy",
     description: serviceMap.electrotherapy.tagline,
     icon: Zap,
@@ -60,12 +53,21 @@ const treatmentServices: TreatmentService[] = [
     action: "Learn more",
   },
   {
-    title: "Rehabilitation",
-    description: "Explore physiotherapy and rehabilitation options for different recovery goals.",
+    title: "Sports Injury Rehabilitation",
+    description: serviceMap["sports-rehabilitation"].tagline,
+    icon: Trophy,
+    slug: "sports-rehabilitation",
+    action: "Learn more",
+  },
+  {
+    title: "Post-Surgical & Neurological Rehabilitation",
+    description:
+      "Structured rehabilitation after surgery and neurological conditions, including stroke. Explore the available programmes.",
     icon: HeartPulse,
     to: "/services",
     action: "Browse services",
   },
+
 ];
 
 const cardClassName =
@@ -79,12 +81,12 @@ function TreatmentCardContent({ service }: { service: TreatmentService }) {
       "Physiotherapist performing hands-on treatment on a patient's leg in a clinical setting; illustrative photograph.",
     "Exercise Therapy":
       "Physiotherapist instructing a patient during a supervised rehabilitation exercise session; illustrative photograph.",
-    "Kinesiology Taping":
-      "Physiotherapist applying kinesiology tape to a patient's shoulder; illustrative photograph.",
     Electrotherapy:
       "Electrotherapy applied during a knee physiotherapy session; illustrative photograph.",
-    Rehabilitation:
-      "Physiotherapist assisting a patient with rehabilitation exercises on a treatment table; illustrative photograph.",
+    "Sports Injury Rehabilitation":
+      "Physiotherapist assisting a patient with rehabilitation exercises; illustrative photograph.",
+    "Post-Surgical & Neurological Rehabilitation":
+      "Physiotherapist assisting a patient with rehabilitation exercises; illustrative photograph.",
   };
   const imageAlt =
     imageAltByTitle[service.title] ?? `${service.title} treatment; illustrative photograph.`;
