@@ -602,9 +602,9 @@
 
 @media (min-width: 981px) {
   .home-hero__background {
-    object-position: 50% 38%;
-    transform: scale(1.9);
-    transform-origin: 50% 38%;
+    object-position: 50% 42%;
+    transform: scale(2.15);
+    transform-origin: 50% 42%;
   }
 }
 
@@ -658,13 +658,13 @@
 
 @media (max-width: 767px) {
   .home-hero {
-    min-height: max(100svh, 48rem);
+    min-height: max(100svh, 46rem);
   }
 
   .home-hero__background {
-    object-position: 50% 50%;
-    transform: scale(1.1);
-    transform-origin: 50% 50%;
+    object-position: 50% 64%;
+    transform: scale(1.18);
+    transform-origin: 50% 64%;
   }
 
   .home-hero__inner {
