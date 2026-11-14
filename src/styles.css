@@ -674,9 +674,9 @@
   }
 
   .home-hero__background {
-    object-position: 53% 35%;
-    transform: scale(1.18);
-    transform-origin: 50% 64%;
+    object-position: 47% 50%;
+    transform: translate(2%, -6%) scale(1.18);
+    transform-origin: 50% 50%;
   }
 
   .home-hero__inner {
