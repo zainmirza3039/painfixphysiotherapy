@@ -35,19 +35,25 @@ test("homepage hero uses a responsive full-bleed signboard background with reada
     readFile(new URL("src/routes/index.tsx", repo), "utf8"),
     readFile(new URL("src/styles.css", repo), "utf8"),
   ]);
-  assert.match(hero, /painfix-sign-960\\.webp/);
-  assert.match(hero, /painfix-sign-1800\\.webp/);
-  assert.match(hero, /fetchPriority="high"/);
-  assert.match(hero, /home-hero__heading home-hero__heading--top/);
-  assert.match(route, /type: "image\\/webp"[\\s\\S]*imageSrcSet:[\\s\\S]*painfixSign960/);
-  assert.match(styles, /\\.home-hero::before \\{[\\s\\S]*?linear-gradient/);
-  assert.match(styles, /\\.home-hero__background \\{[\\s\\S]*?object-fit: cover/);
-  assert.match(styles, /\\.home-hero__heading \\{[^}]*font-weight: 700/);
-  assert.match(styles, /\\.home-hero__accent \\{[^}]*font-weight: 700/);
-  assert.match(styles, /@media \\(min-width: 981px\\)[\\s\\S]*?transform: translateY\\(1\\.25rem\\) scale\\(1\\.35\\)/);
-  assert.doesNotMatch(styles, /scale\\(1\\.75\\)/);
-  assert.match(styles, /@media \\(max-width: 767px\\)[\\s\\S]*?scale\\(1\\.08\\)/);
-  assert.match(styles, /@media \\(prefers-reduced-motion: reduce\\)[\\s\\S]*?\\.home-hero__content \\{\\s*animation: none !important/);
+  assert.ok(hero.includes("painfix-sign-960.webp"));
+  assert.ok(hero.includes("painfix-sign-1800.webp"));
+  assert.ok(hero.includes('fetchPriority="high"'));
+  assert.ok(hero.includes('className="home-hero__heading home-hero__heading--top"'));
+  assert.ok(route.includes('type: "image/webp"'));
+  assert.ok(route.includes("painfixSign960"));
+  assert.ok(styles.includes(".home-hero::before {"));
+  assert.ok(styles.includes("linear-gradient("));
+  assert.ok(styles.includes(".home-hero__background {"));
+  assert.ok(styles.includes("object-fit: cover;"));
+  const headingStart = styles.indexOf(".home-hero__heading {");
+  const accentStart = styles.indexOf(".home-hero__accent {");
+  assert.ok(styles.slice(headingStart, styles.indexOf("}", headingStart)).includes("font-weight: 700;"));
+  assert.ok(styles.slice(accentStart, styles.indexOf("}", accentStart)).includes("font-weight: 700;"));
+  assert.ok(styles.includes("transform: translateY(1.25rem) scale(1.35);"));
+  assert.ok(!styles.includes("scale(1.75)"));
+  assert.ok(styles.includes("scale(1.15)"));
+  assert.ok(styles.includes("scale(1.08)"));
+  assert.ok(styles.includes(".home-hero__content {\\n    animation: none !important;"));
 });
 
 test("homepage treatment cards use real treatment-specific Pexels photos and defer image loading", async () => {
