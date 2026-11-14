@@ -29,19 +29,36 @@ test("footer social links use recognisable platform brand marks", async () => {
   assert.match(footer, /<SocialBrandIcon label={s.label} \/>/);
 });
 
-test("homepage hero retains the earlier soft green art direction and photo edge", async () => {
-  const source = await readFile(new URL("src/styles.css", repo), "utf8");
-  assert.match(source, /\.home-hero \{[^}]*background: var\(--surface\)/);
-  assert.match(source, /\.home-hero__visual::before/);
-  assert.match(
-    source,
-    /background: color-mix\(in srgb, var\(--secondary\) 9%, var\(--background\)\)/,
+test("homepage hero uses a responsive full-bleed signboard background with readable overlay", async () => {
+  const [hero, route, styles] = await Promise.all([
+    readFile(new URL("src/components/site/Hero.tsx", repo), "utf8"),
+    readFile(new URL("src/routes/index.tsx", repo), "utf8"),
+    readFile(new URL("src/styles.css", repo), "utf8"),
+  ]);
+  assert.ok(hero.includes("painfix-sign-960.webp"));
+  assert.ok(hero.includes("painfix-sign-1800.webp"));
+  assert.ok(hero.includes('fetchPriority="high"'));
+  assert.ok(hero.includes('className="home-hero__heading home-hero__heading--top"'));
+  assert.ok(route.includes('type: "image/webp"'));
+  assert.ok(route.includes("painfixSign960"));
+  assert.ok(styles.includes(".home-hero::before {"));
+  assert.ok(styles.includes("linear-gradient("));
+  assert.ok(styles.includes(".home-hero__background {"));
+  assert.ok(styles.includes("object-fit: cover;"));
+  const headingStart = styles.indexOf(".home-hero__heading {");
+  const accentStart = styles.indexOf(".home-hero__accent {");
+  assert.ok(
+    styles.slice(headingStart, styles.indexOf("}", headingStart)).includes("font-weight: 700;"),
   );
-  assert.match(
-    source,
-    /\.home-hero__image-frame \{[^}]*border-left: 5px solid var\(--brand-green\)/,
+  assert.ok(
+    styles.slice(accentStart, styles.indexOf("}", accentStart)).includes("font-weight: 700;"),
   );
-  assert.match(source, /border-radius: 0 1rem 1rem 0/);
+  assert.ok(styles.includes("transform: translateY(1.25rem) scale(1.35);"));
+  assert.ok(!styles.includes("scale(1.75)"));
+  assert.ok(styles.includes("scale(1.15)"));
+  assert.ok(styles.includes("scale(1.08)"));
+  assert.ok(styles.includes("@media (prefers-reduced-motion: reduce)"));
+  assert.ok(styles.includes("animation: none !important;"));
 });
 
 test("homepage treatment cards use real treatment-specific Pexels photos and defer image loading", async () => {

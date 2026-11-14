@@ -153,7 +153,8 @@ test("public visual system uses a restrained radius scale and avoids decorative 
   assert.ok(css.includes("--radius-3xl: calc(var(--radius) + 8px);"));
   assert.ok(!css.includes("--gradient-hero"));
   assert.ok(!css.includes("--gradient-brand-soft"));
-  assert.ok(!css.includes("linear-gradient("));
+  const cssOutsideHeroOverlay = css.replace(/\.home-hero::before\s*\{[^}]*\}/s, "");
+  assert.ok(!cssOutsideHeroOverlay.includes("linear-gradient("));
 });
 
 test("public shell and conversion pages avoid glass and gradient utility treatments", () => {

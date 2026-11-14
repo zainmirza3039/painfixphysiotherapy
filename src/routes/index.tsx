@@ -19,9 +19,8 @@ import { FAQ } from "@/components/site/FAQ";
 import { homeFaqs } from "@/components/site/home-faqs";
 import { CTA } from "@/components/site/CTA";
 import { Footer } from "@/components/site/Footer";
-import heroAvif480 from "@/assets/hero-480.avif";
-import heroAvif768 from "@/assets/hero-768.avif";
-import heroAvif960 from "@/assets/hero-960.avif";
+import painfixSign960 from "@/assets/painfix-sign-960.webp";
+import painfixSign1800 from "@/assets/painfix-sign-1800.webp";
 
 const TITLE = "Physiotherapist in Multan | PainFix Physiotherapy Clinic";
 const DESCRIPTION =
@@ -50,10 +49,9 @@ export const Route = createFileRoute("/")({
       {
         rel: "preload",
         as: "image",
-        type: "image/avif",
-        imageSrcSet: `${heroAvif480} 480w, ${heroAvif768} 768w, ${heroAvif960} 960w`,
-        imageSizes:
-          "(min-width: 1280px) 552px, (min-width: 1024px) 42vw, (min-width: 640px) 80vw, 100vw",
+        type: "image/webp",
+        imageSrcSet: `${painfixSign960} 960w, ${painfixSign1800} 1800w`,
+        imageSizes: "100vw",
         fetchPriority: "high",
       },
     ],

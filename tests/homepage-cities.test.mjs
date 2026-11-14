@@ -51,7 +51,7 @@ test("homepage hero and metadata mention both cities", async () => {
     read("src/components/site/Hero.tsx"),
     read("src/routes/index.tsx"),
   ]);
-  assert.match(hero, /Move Better\. Recover Faster\. Live Pain-Free\./);
+  assert.ok(hero.includes("Shalimar Colony, Multan"));
   assert.match(
     hero,
     /Physiotherapist[\s\S]*?in <span className="home-hero__accent">Multan\.<\/span>/,

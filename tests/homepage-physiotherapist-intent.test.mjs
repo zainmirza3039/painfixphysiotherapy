@@ -10,13 +10,12 @@ test("homepage owns the primary physiotherapist in Multan search intent", async 
   const hero = (await read("src/components/site/Hero.tsx")).replace(/\s+/g, " ");
 
   assert.match(route, /const TITLE = "Physiotherapist in Multan \| PainFix Physiotherapy Clinic"/);
-  assert.match(hero, /Physiotherapist[\s\S]*?home-hero__accent">Multan\./);
-  assert.match(
-    hero,
-    /Looking for a physiotherapist in Multan or a physiotherapy clinic near you\?/,
-  );
-  assert.match(hero, /Move Better\. Recover Faster\. Live Pain-Free\./);
-  assert.doesNotMatch(hero, /DPT-led assessment and rehabilitation/);
+  assert.ok(hero.includes("home-hero__heading home-hero__heading--top"));
+  assert.ok(hero.includes('Physiotherapist in <span className="home-hero__accent">Multan.'));
+  assert.ok(hero.includes("Multan clinic appointment"));
+  assert.ok(hero.includes("Need a home visit in Multan?"));
+  assert.ok(hero.includes("Shalimar Colony, Multan"));
+  assert.ok(!hero.includes("home-hero__description"));
 });
 
 test("broad physiotherapist landing URL redirects home while booking stays on its dedicated route", async () => {
