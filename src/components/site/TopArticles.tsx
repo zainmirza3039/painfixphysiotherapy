@@ -134,7 +134,9 @@ export function TopArticles() {
                 aria-label={`Show article ${index + 1}: ${article.title}`}
                 aria-pressed={index === activeIndex}
                 className={`h-2.5 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 ${
-                  index === activeIndex ? "w-8 bg-secondary" : "w-2.5 bg-border hover:bg-secondary/60"
+                  index === activeIndex
+                    ? "w-8 bg-secondary"
+                    : "w-2.5 bg-border hover:bg-secondary/60"
                 }`}
               />
             ))}
