@@ -614,7 +614,7 @@
 
 @media (min-width: 981px) {
   .home-hero__background {
-    object-position: 50% 42%;
+    object-position: 50% 46%;
     transform: scale(2.15);
     transform-origin: 50% 42%;
   }
@@ -674,7 +674,7 @@
   }
 
   .home-hero__background {
-    object-position: 50% 64%;
+    object-position: 50% 67%;
     transform: scale(1.18);
     transform-origin: 50% 64%;
   }
