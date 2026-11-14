@@ -3488,7 +3488,7 @@ export const blogPosts: BlogPost[] = [
     ],
     relatedServices: ["exercise-therapy", "manual-therapy"],
     relatedConditions: ["back-pain", "sciatica", "neck-pain"],
-  },,
+  },
   {
     slug: "gym-injuries-physiotherapy",
     title: "Common Gym Injuries: Causes, Treatment and Physiotherapy Rehabilitation",
