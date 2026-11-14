@@ -6,7 +6,7 @@ import { Reveal } from "./Reveal";
 
 // Illustrative photographs under the Pexels free-use license.
 // Credits: manual/exercise/rehab — Funkcinės Terapijos Centras;
-// taping — Antoni Shkraba; electrotherapy — Cansu Hangül.
+// sports injury — Antoni Shkraba; electrotherapy — Cansu Hangül.
 const TREATMENT_IMAGES: Record<string, string> = {
   "Manual Therapy":
     "https://images.pexels.com/photos/20860597/pexels-photo-20860597.jpeg?auto=compress&cs=tinysrgb&w=720",
@@ -15,7 +15,7 @@ const TREATMENT_IMAGES: Record<string, string> = {
   Electrotherapy:
     "https://images.pexels.com/photos/30483049/pexels-photo-30483049.jpeg?auto=compress&cs=tinysrgb&w=720",
   "Sports Injury Rehabilitation":
-    "https://images.pexels.com/photos/20860580/pexels-photo-20860580.jpeg?auto=compress&cs=tinysrgb&w=720",
+    "https://images.pexels.com/photos/6076134/pexels-photo-6076134.jpeg?auto=compress&cs=tinysrgb&w=720",
   "Post-Surgical & Neurological Rehabilitation":
     "https://images.pexels.com/photos/20860580/pexels-photo-20860580.jpeg?auto=compress&cs=tinysrgb&w=720",
 };
@@ -67,7 +67,6 @@ const treatmentServices: TreatmentService[] = [
     to: "/services",
     action: "Browse services",
   },
-
 ];
 
 const cardClassName =
