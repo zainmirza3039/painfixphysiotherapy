@@ -29,19 +29,25 @@ test("footer social links use recognisable platform brand marks", async () => {
   assert.match(footer, /<SocialBrandIcon label={s.label} \/>/);
 });
 
-test("homepage hero retains the earlier soft green art direction and photo edge", async () => {
-  const source = await readFile(new URL("src/styles.css", repo), "utf8");
-  assert.match(source, /\.home-hero \{[^}]*background: var\(--surface\)/);
-  assert.match(source, /\.home-hero__visual::before/);
-  assert.match(
-    source,
-    /background: color-mix\(in srgb, var\(--secondary\) 9%, var\(--background\)\)/,
-  );
-  assert.match(
-    source,
-    /\.home-hero__image-frame \{[^}]*border-left: 5px solid var\(--brand-green\)/,
-  );
-  assert.match(source, /border-radius: 0 1rem 1rem 0/);
+test("homepage hero uses a responsive full-bleed signboard background with readable overlay", async () => {
+  const [hero, route, styles] = await Promise.all([
+    readFile(new URL("src/components/site/Hero.tsx", repo), "utf8"),
+    readFile(new URL("src/routes/index.tsx", repo), "utf8"),
+    readFile(new URL("src/styles.css", repo), "utf8"),
+  ]);
+  assert.match(hero, /painfix-sign-960\\.webp/);
+  assert.match(hero, /painfix-sign-1800\\.webp/);
+  assert.match(hero, /fetchPriority="high"/);
+  assert.match(hero, /home-hero__heading home-hero__heading--top/);
+  assert.match(route, /type: "image\\/webp"[\\s\\S]*imageSrcSet:[\\s\\S]*painfixSign960/);
+  assert.match(styles, /\\.home-hero::before \\{[\\s\\S]*?linear-gradient/);
+  assert.match(styles, /\\.home-hero__background \\{[\\s\\S]*?object-fit: cover/);
+  assert.match(styles, /\\.home-hero__heading \\{[^}]*font-weight: 700/);
+  assert.match(styles, /\\.home-hero__accent \\{[^}]*font-weight: 700/);
+  assert.match(styles, /@media \\(min-width: 981px\\)[\\s\\S]*?transform: translateY\\(1\\.25rem\\) scale\\(1\\.35\\)/);
+  assert.doesNotMatch(styles, /scale\\(1\\.75\\)/);
+  assert.match(styles, /@media \\(max-width: 767px\\)[\\s\\S]*?scale\\(1\\.08\\)/);
+  assert.match(styles, /@media \\(prefers-reduced-motion: reduce\\)[\\s\\S]*?\\.home-hero__content \\{\\s*animation: none !important/);
 });
 
 test("homepage treatment cards use real treatment-specific Pexels photos and defer image loading", async () => {

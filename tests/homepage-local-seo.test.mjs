@@ -23,10 +23,14 @@ test("homepage metadata covers the clinic and core treatment-intent cluster with
   assert.ok(home.includes("back pain, rehabilitation and home visits"));
 });
 
-test("homepage hero naturally supports local clinic and home-visit searches", () => {
+test("homepage hero keeps the primary local heading, booking actions and clinic context", () => {
   const hero = normalize(source("components/site/Hero.tsx"));
-  assert.ok(hero.includes("physiotherapist in Multan or a physiotherapy clinic near you"));
-  assert.ok(hero.includes("home physiotherapy visits across Multan"));
+  assert.ok(hero.includes('className="home-hero__heading home-hero__heading--top"'));
+  assert.ok(hero.includes('Physiotherapist in <span className="home-hero__accent">Multan.'));
+  assert.ok(hero.includes("Multan clinic appointment"));
+  assert.ok(hero.includes("Need a home visit in Multan?"));
+  assert.ok(hero.includes("Shalimar Colony, Multan"));
+  assert.ok(!hero.includes("home-hero__description"));
 });
 
 test("homepage links priority condition keywords to their own dedicated condition URLs", () => {
