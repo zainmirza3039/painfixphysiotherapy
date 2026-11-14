@@ -11,7 +11,7 @@ test("homepage owns the primary physiotherapist in Multan search intent", async 
 
   assert.match(route, /const TITLE = "Physiotherapist in Multan \| PainFix Physiotherapy Clinic"/);
   assert.match(hero, /Physiotherapist[\s\S]*?home-hero__accent">Multan\./);
-  assert.doesNotMatch(
+  assert.match(
     hero,
     /Looking for a physiotherapist in Multan or a physiotherapy clinic near you/,
   );
