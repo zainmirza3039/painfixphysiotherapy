@@ -21,14 +21,10 @@ export function Hero() {
           decoding="async"
         />
         <div className="home-hero__inner">
+          <h1 id="home-heading" className="home-hero__heading home-hero__heading--top">
+            Physiotherapist in <span className="home-hero__accent">Multan.</span>
+          </h1>
           <div className="home-hero__content">
-            <h1 id="home-heading" className="home-hero__heading">
-              Physiotherapist in <span className="home-hero__accent">Multan.</span>
-            </h1>
-            <p className="home-hero__intro">
-              DPT-led assessment, hands-on treatment and progressive rehabilitation for back, neck
-              and joint pain, with clinic appointments and selected home visits across Multan.
-            </p>
             <div className="home-hero__actions">
               <a
                 href="/book-appointment?city=multan&service=clinic"
