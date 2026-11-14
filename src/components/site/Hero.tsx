@@ -6,21 +6,7 @@ const SIGN_SRCSET = `${painfixSign960} 960w, ${painfixSign1800} 1800w`;
 
 export function Hero() {
   return (
-    <>
-      <div className="home-hero__titlebar">
-        <h1 id="home-heading" className="home-hero__heading">
-          Physiotherapist in <span className="home-hero__accent">Multan.</span>
-        </h1>
-        <p className="home-hero__intro">
-          Looking for a physiotherapist in Multan or a physiotherapy clinic near you? PainFix is
-          based in Shalimar Colony, Multan. Our DPT-led team provides individual clinical
-          assessment, hands-on treatment and progressive rehabilitation for back, neck, joint and
-          movement-related problems. Clinic appointments are available, with selected home
-          physiotherapy visits across Multan. Your plan is shaped around your condition, daily
-          activities and recovery goals.
-        </p>
-      </div>
-      <section id="home" aria-labelledby="home-heading" className="home-hero scroll-mt-24">
+    <section id="home" aria-labelledby="home-heading" className="home-hero scroll-mt-24">
         <img
           className="home-hero__background"
           src={painfixSign1800}
@@ -36,6 +22,13 @@ export function Hero() {
         />
         <div className="home-hero__inner">
           <div className="home-hero__content">
+            <h1 id="home-heading" className="home-hero__heading">
+              Physiotherapist in <span className="home-hero__accent">Multan.</span>
+            </h1>
+            <p className="home-hero__intro">
+              DPT-led assessment, hands-on treatment and progressive rehabilitation for back, neck
+              and joint pain, with clinic appointments and selected home visits across Multan.
+            </p>
             <div className="home-hero__actions">
               <a
                 href="/book-appointment?city=multan&service=clinic"
