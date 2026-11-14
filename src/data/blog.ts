@@ -3694,7 +3694,7 @@ export const blogPosts: BlogPost[] = [
     ],
     relatedServices: ["sports-rehabilitation", "post-surgical-rehabilitation", "exercise-therapy"],
     relatedConditions: ["sports-injuries", "knee-pain"],
-  }
+  },
 ];
 
 export const blogMap = Object.fromEntries(blogPosts.map((p) => [p.slug, p]));
