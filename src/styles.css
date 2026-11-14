@@ -598,14 +598,14 @@
 @media (min-width: 981px) {
   .home-hero__background {
     object-position: 50% 46%;
-    transform: scale(2.15);
+    transform: translateY(1.25rem) scale(2.15);
     transform-origin: 50% 42%;
   }
 }
 
 @media (min-width: 981px) and (max-width: 1199px) {
   .home-hero__background {
-    transform: scale(1.58);
+    transform: translateY(1.25rem) scale(1.58);
   }
 }
 
@@ -631,7 +631,7 @@
   .home-hero__background {
     width: 100%;
     object-position: 50% 44%;
-    transform: scale(1.28);
+    transform: translateY(1.25rem) scale(1.28);
     transform-origin: 50% 44%;
   }
 
@@ -658,7 +658,7 @@
 
   .home-hero__background {
     object-position: 46% 50%;
-    transform: translateY(-14%) scale(1.18);
+    transform: translateY(calc(-14% + 1.25rem)) scale(1.18);
     transform-origin: 50% 50%;
   }
 
