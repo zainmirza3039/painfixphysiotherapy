@@ -389,6 +389,14 @@
   text-shadow: none;
 }
 
+.home-hero__intro {
+  max-width: 54rem;
+  margin: 0.75rem auto 0;
+  color: #526477;
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
 .home-hero {
   position: relative;
   isolation: isolate;
@@ -674,7 +682,7 @@
   }
 
   .home-hero__background {
-    object-position: 50% 50%;
+    object-position: 46% 50%;
     transform: translateY(-14%) scale(1.18);
     transform-origin: 50% 50%;
   }
