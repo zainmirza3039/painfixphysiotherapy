@@ -13,8 +13,10 @@ test("homepage owns the primary physiotherapist in Multan search intent", async 
   assert.match(hero, /Physiotherapist[\s\S]*?home-hero__accent">Multan\./);
   assert.match(
     hero,
-    /Looking for a physiotherapist in Multan or a physiotherapy clinic near you/,
+    /DPT-led assessment, hands-on treatment and progressive rehabilitation for back, neck/,
   );
+  assert.match(hero, /home-hero__intro/);
+  assert.doesNotMatch(hero, /home-hero__titlebar/);
   assert.doesNotMatch(hero, /Move Better\. Recover Faster\. Live Pain-Free\./);
   assert.doesNotMatch(hero, /DPT-led assessment and rehabilitation/);
 });
