@@ -455,9 +455,10 @@
   color: #ffffff;
   font-family: var(--font-heading);
   font-size: clamp(2.2rem, 4.6vw, 3.65rem);
-  font-weight: 700;
+  font-weight: 800;
   line-height: 0.98;
   letter-spacing: -0.045em;
+  text-shadow: 0 2px 16px rgb(0 0 0 / 48%);
   overflow-wrap: break-word;
 }
 
@@ -483,9 +484,10 @@
 }
 
 .home-hero__accent {
-  color: #8ce8b5;
-  font-style: italic;
-  font-weight: 500;
+  color: #9af0c1;
+  font-style: normal;
+  font-weight: 800;
+  text-shadow: 0 2px 18px rgb(0 0 0 / 58%);
 }
 
 .home-hero__description {
@@ -598,14 +600,14 @@
 @media (min-width: 981px) {
   .home-hero__background {
     object-position: 50% 46%;
-    transform: translateY(1.25rem) scale(2.0);
+    transform: translateY(1.25rem) scale(1.75);
     transform-origin: 50% 42%;
   }
 }
 
 @media (min-width: 981px) and (max-width: 1199px) {
   .home-hero__background {
-    transform: translateY(1.25rem) scale(1.5);
+    transform: translateY(1.25rem) scale(1.35);
   }
 }
 
@@ -631,7 +633,7 @@
   .home-hero__background {
     width: 100%;
     object-position: 50% 44%;
-    transform: translateY(1.25rem) scale(1.23);
+    transform: translateY(1.25rem) scale(1.15);
     transform-origin: 50% 44%;
   }
 
@@ -658,7 +660,7 @@
 
   .home-hero__background {
     object-position: 46% 50%;
-    transform: translateY(calc(-14% + 1.25rem)) scale(1.14);
+    transform: translateY(calc(-14% + 1.25rem)) scale(1.08);
     transform-origin: 50% 50%;
   }
 
