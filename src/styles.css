@@ -369,32 +369,13 @@
   color: #c1ebd4;
 }
 
-.home-hero__titlebar {
-  position: relative;
-  z-index: 1;
-  border-bottom: 1px solid #d7e1de;
-  padding: clamp(1.1rem, 2.2vw, 1.65rem) max(1.25rem, calc((100vw - 76rem) / 2));
-  background: #fafaf7;
-  color: #032e61;
-}
-
-.home-hero__titlebar .home-hero__heading {
-  max-width: 76rem;
-  margin: 0 auto;
-  color: #032e61;
-  font-size: clamp(2.15rem, 4.4vw, 3.4rem);
-  font-weight: 700;
-  line-height: 1.05;
-  letter-spacing: -0.04em;
-  text-shadow: none;
-}
-
 .home-hero__intro {
-  max-width: 54rem;
-  margin: 0.75rem auto 0;
-  color: #526477;
-  font-size: 0.95rem;
-  line-height: 1.6;
+  max-width: 42rem;
+  margin: 0.7rem 0 0;
+  color: rgb(255 255 255 / 94%);
+  font-size: clamp(0.9rem, 1.05vw, 1rem);
+  line-height: 1.5;
+  text-wrap: pretty;
 }
 
 .home-hero {
@@ -476,13 +457,13 @@
   position: relative;
   isolation: isolate;
   width: fit-content;
-  max-width: 15ch;
+  max-width: 22ch;
   margin: 0;
   color: #ffffff;
-  font-size: clamp(3.25rem, 6.4vw, 5.25rem);
+  font-size: clamp(2rem, 4.2vw, 3.35rem);
   font-weight: 700;
-  line-height: 0.98;
-  letter-spacing: -0.045em;
+  line-height: 1.02;
+  letter-spacing: -0.04em;
   overflow-wrap: break-word;
 }
 
@@ -702,7 +683,14 @@
   }
 
   .home-hero__heading {
-    font-size: clamp(2.75rem, 12vw, 4.25rem);
+    font-size: clamp(1.8rem, 7.4vw, 2.45rem);
+  }
+
+  .home-hero__intro {
+    max-width: 34rem;
+    margin-top: 0.55rem;
+    font-size: 0.88rem;
+    line-height: 1.42;
   }
 
   .home-hero__description {
