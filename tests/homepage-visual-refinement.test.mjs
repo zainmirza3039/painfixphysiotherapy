@@ -47,8 +47,12 @@ test("homepage hero uses a responsive full-bleed signboard background with reada
   assert.ok(styles.includes("object-fit: cover;"));
   const headingStart = styles.indexOf(".home-hero__heading {");
   const accentStart = styles.indexOf(".home-hero__accent {");
-  assert.ok(styles.slice(headingStart, styles.indexOf("}", headingStart)).includes("font-weight: 700;"));
-  assert.ok(styles.slice(accentStart, styles.indexOf("}", accentStart)).includes("font-weight: 700;"));
+  assert.ok(
+    styles.slice(headingStart, styles.indexOf("}", headingStart)).includes("font-weight: 700;"),
+  );
+  assert.ok(
+    styles.slice(accentStart, styles.indexOf("}", accentStart)).includes("font-weight: 700;"),
+  );
   assert.ok(styles.includes("transform: translateY(1.25rem) scale(1.35);"));
   assert.ok(!styles.includes("scale(1.75)"));
   assert.ok(styles.includes("scale(1.15)"));
