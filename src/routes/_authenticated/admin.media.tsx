@@ -161,7 +161,9 @@ function MediaPage() {
       if (updateError || !updatedRows?.length) {
         await supabase.storage.from("site-media").remove([objectPath]);
         if (updateError) throw updateError;
-        throw new Error("This file is no longer linked to the website gallery. No changes were kept.");
+        throw new Error(
+          "This file is no longer linked to the website gallery. No changes were kept.",
+        );
       }
 
       return { optimized: true, savedBytes: source.size - optimized.size };
