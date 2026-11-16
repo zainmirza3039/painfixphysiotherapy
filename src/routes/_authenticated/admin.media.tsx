@@ -37,9 +37,55 @@ interface MediaFile {
   isImage: boolean;
 }
 
+async function convertImageToWebP(file: File): Promise<File> {
+  if (!["image/jpeg", "image/png"].includes(file.type)) return file;
+
+  let bitmap: ImageBitmap;
+  try {
+    bitmap = await createImageBitmap(file);
+  } catch {
+    return file;
+  }
+
+  try {
+    const canvas = document.createElement("canvas");
+    canvas.width = bitmap.width;
+    canvas.height = bitmap.height;
+    const context = canvas.getContext("2d");
+    if (!context) return file;
+
+    context.drawImage(bitmap, 0, 0);
+    const webpBlob = await new Promise<Blob | null>((resolve) =>
+      canvas.toBlob(resolve, "image/webp", 0.82),
+    );
+
+    // Keep the source when WebP does not provide a meaningful saving.
+    if (!webpBlob || webpBlob.size >= file.size * 0.92) return file;
+
+    const webpName = file.name.replace(/\.(jpe?g|png)$/i, ".webp");
+    return new File([webpBlob], webpName, {
+      type: "image/webp",
+      lastModified: file.lastModified,
+    });
+  } finally {
+    bitmap.close();
+  }
+}
+
 function MediaPage() {
   const qc = useQueryClient();
   const { user, isAdmin } = useAdminAuth();
+  const { data: galleryPaths = [] } = useQuery({
+    queryKey: ["admin", "site-gallery-storage-paths"],
+    enabled: isAdmin,
+    queryFn: async (): Promise<string[]> => {
+      const { data, error } = await supabase.from("site_gallery").select("storage_path");
+      if (error) throw error;
+      return (data ?? []).map((item) => item.storage_path);
+    },
+  });
+  const galleryPathSet = new Set(galleryPaths);
+
   const fileInput = useRef<HTMLInputElement>(null);
   const [uploading, setUploading] = useState(false);
   const [deleteName, setDeleteName] = useState<string | null>(null);
@@ -79,6 +125,66 @@ function MediaPage() {
       );
       return mediaFiles;
     },
+  });
+
+  const optimizeMutation = useMutation({
+    mutationFn: async (file: MediaFile) => {
+      const response = await fetch(file.url);
+      if (!response.ok) throw new Error(`Unable to read ${file.label}`);
+
+      const source = new File([await response.blob()], file.label, {
+        type: file.label.toLowerCase().endsWith(".png") ? "image/png" : "image/jpeg",
+      });
+      const optimized = await convertImageToWebP(source);
+
+      if (optimized === source) {
+        return { optimized: false, savedBytes: 0 };
+      }
+
+      const baseName = optimized.name.replace(/[^a-zA-Z0-9._-]/g, "_");
+      const objectPath = withPrefix(`${crypto.randomUUID()}-${baseName}`);
+      const { error: uploadError } = await supabase.storage
+        .from("site-media")
+        .upload(objectPath, optimized, {
+          cacheControl: "31536000",
+          contentType: "image/webp",
+          upsert: false,
+        });
+      if (uploadError) throw uploadError;
+
+      const { data: updatedRows, error: updateError } = await supabase
+        .from("site_gallery")
+        .update({ storage_path: objectPath })
+        .eq("storage_path", file.name)
+        .select("id");
+
+      if (updateError || !updatedRows?.length) {
+        await supabase.storage.from("site-media").remove([objectPath]);
+        if (updateError) throw updateError;
+        throw new Error(
+          "This file is no longer linked to the website gallery. No changes were kept.",
+        );
+      }
+
+      return { optimized: true, savedBytes: source.size - optimized.size };
+    },
+    onSuccess: async (result) => {
+      if (result.optimized) {
+        toast.success(
+          `WebP created. Saved ${(result.savedBytes / 1024).toFixed(0)} KB. Original retained.`,
+        );
+      } else {
+        toast.info("WebP would not meaningfully reduce this image. Original retained.");
+      }
+      await Promise.all([
+        qc.invalidateQueries({ queryKey: ["admin", "media"] }),
+        qc.invalidateQueries({ queryKey: ["admin", "site-gallery"] }),
+        qc.invalidateQueries({ queryKey: ["admin", "site-gallery-storage-paths"] }),
+        qc.invalidateQueries({ queryKey: ["public", "site-gallery"] }),
+      ]);
+    },
+    onError: (error) =>
+      toast.error(error instanceof Error ? error.message : "Image optimisation failed"),
   });
 
   const deleteMutation = useMutation({
@@ -128,14 +234,17 @@ function MediaPage() {
 
     try {
       for (const file of selected) {
-        const safeName = file.name.replace(/[^a-zA-Z0-9._-]/g, "_");
-        const objectPath = withPrefix(`${crypto.randomUUID()}-${safeName}`);
-
         try {
-          const { error } = await supabase.storage.from("site-media").upload(objectPath, file, {
-            cacheControl: "31536000",
-            upsert: false,
-          });
+          const optimized = await convertImageToWebP(file);
+          const safeName = optimized.name.replace(/[^a-zA-Z0-9._-]/g, "_");
+          const objectPath = withPrefix(`${crypto.randomUUID()}-${safeName}`);
+          const { error } = await supabase.storage
+            .from("site-media")
+            .upload(objectPath, optimized, {
+              cacheControl: "31536000",
+              contentType: optimized.type,
+              upsert: false,
+            });
           if (error) throw error;
           uploaded += 1;
         } catch (error) {
@@ -156,7 +265,9 @@ function MediaPage() {
             : failures[0],
         );
       } else {
-        toast.success(`${uploaded} image${uploaded === 1 ? "" : "s"} uploaded`);
+        toast.success(
+          `${uploaded} image${uploaded === 1 ? "" : "s"} uploaded; eligible JPG/PNG files were converted to WebP when at least 8% smaller.`,
+        );
       }
     } finally {
       setUploading(false);
@@ -220,7 +331,16 @@ function MediaPage() {
       ) : (
         <div className="grid gap-4 sm:grid-cols-3 lg:grid-cols-4">
           {files.map((f) => (
-            <MediaCard key={f.name} file={f} onDelete={() => setDeleteName(f.name)} />
+            <MediaCard
+              key={f.name}
+              file={f}
+              onDelete={() => setDeleteName(f.name)}
+              onOptimize={() => optimizeMutation.mutate(f)}
+              canOptimize={isAdmin && galleryPathSet.has(f.name)}
+              isOptimizing={
+                optimizeMutation.isPending && optimizeMutation.variables?.name === f.name
+              }
+            />
           ))}
         </div>
       )}
@@ -246,7 +366,19 @@ function MediaPage() {
   );
 }
 
-function MediaCard({ file, onDelete }: { file: MediaFile; onDelete: () => void }) {
+function MediaCard({
+  file,
+  onDelete,
+  onOptimize,
+  canOptimize,
+  isOptimizing,
+}: {
+  file: MediaFile;
+  onDelete: () => void;
+  onOptimize: () => void;
+  canOptimize: boolean;
+  isOptimizing: boolean;
+}) {
   const [copied, setCopied] = useState(false);
   useEffect(() => {
     if (!copied) return;
@@ -288,6 +420,18 @@ function MediaCard({ file, onDelete }: { file: MediaFile; onDelete: () => void }
           >
             <Copy className="mr-1 h-3.5 w-3.5" /> {copied ? "Copied" : "Copy URL"}
           </Button>
+          {canOptimize && /\.(jpe?g|png)$/i.test(file.label) && (
+            <Button
+              variant="outline"
+              size="sm"
+              className="h-8 px-2 text-xs"
+              disabled={isOptimizing}
+              onClick={onOptimize}
+              title="Create a WebP copy and update any website gallery reference; keep the original"
+            >
+              {isOptimizing ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : "WebP"}
+            </Button>
+          )}
           <Button
             variant="ghost"
             size="icon"
