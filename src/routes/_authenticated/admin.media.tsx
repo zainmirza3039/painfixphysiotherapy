@@ -132,11 +132,13 @@ function MediaPage() {
 
       const baseName = optimized.name.replace(/[^a-zA-Z0-9._-]/g, "_");
       const objectPath = withPrefix(`${crypto.randomUUID()}-${baseName}`);
-      const { error: uploadError } = await supabase.storage.from("site-media").upload(
-        objectPath,
-        optimized,
-        { cacheControl: "31536000", contentType: "image/webp", upsert: false },
-      );
+      const { error: uploadError } = await supabase.storage
+        .from("site-media")
+        .upload(objectPath, optimized, {
+          cacheControl: "31536000",
+          contentType: "image/webp",
+          upsert: false,
+        });
       if (uploadError) throw uploadError;
 
       const { error: updateError } = await supabase
@@ -153,7 +155,9 @@ function MediaPage() {
     },
     onSuccess: async (result) => {
       if (result.optimized) {
-        toast.success(`WebP created. Saved ${(result.savedBytes / 1024).toFixed(0)} KB. Original retained.`);
+        toast.success(
+          `WebP created. Saved ${(result.savedBytes / 1024).toFixed(0)} KB. Original retained.`,
+        );
       } else {
         toast.info("WebP would not meaningfully reduce this image. Original retained.");
       }
@@ -243,7 +247,9 @@ function MediaPage() {
             : failures[0],
         );
       } else {
-        toast.success(`${uploaded} image${uploaded === 1 ? "" : "s"} uploaded; eligible JPG/PNG files were converted to WebP when at least 8% smaller.`);
+        toast.success(
+          `${uploaded} image${uploaded === 1 ? "" : "s"} uploaded; eligible JPG/PNG files were converted to WebP when at least 8% smaller.`,
+        );
       }
     } finally {
       setUploading(false);
@@ -313,7 +319,9 @@ function MediaPage() {
               onDelete={() => setDeleteName(f.name)}
               onOptimize={() => optimizeMutation.mutate(f)}
               canOptimize={isAdmin}
-              isOptimizing={optimizeMutation.isPending && optimizeMutation.variables?.name === f.name}
+              isOptimizing={
+                optimizeMutation.isPending && optimizeMutation.variables?.name === f.name
+              }
             />
           ))}
         </div>
@@ -394,7 +402,7 @@ function MediaCard({
           >
             <Copy className="mr-1 h-3.5 w-3.5" /> {copied ? "Copied" : "Copy URL"}
           </Button>
-          {/\.(jpe?g|png)$/i.test(file.label) && (
+          {canOptimize && /\.(jpe?g|png)$/i.test(file.label) && (
             <Button
               variant="outline"
               size="sm"
@@ -403,11 +411,7 @@ function MediaCard({
               onClick={onOptimize}
               title="Create a WebP copy and update any website gallery reference; keep the original"
             >
-              {isOptimizing ? (
-                <Loader2 className="h-3.5 w-3.5 animate-spin" />
-              ) : (
-                "WebP"
-              )}
+              {isOptimizing ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : "WebP"}
             </Button>
           )}
           <Button
