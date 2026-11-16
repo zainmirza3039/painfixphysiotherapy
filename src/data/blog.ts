@@ -3489,6 +3489,212 @@ export const blogPosts: BlogPost[] = [
     relatedServices: ["exercise-therapy", "manual-therapy"],
     relatedConditions: ["back-pain", "sciatica", "neck-pain"],
   },
+  {
+    slug: "gym-injuries-physiotherapy",
+    title: "Common Gym Injuries: Causes, Treatment and Physiotherapy Rehabilitation",
+    seoTitle: "Gym Injuries & Physiotherapy Rehabilitation | PainFix",
+    metaDescription:
+      "Learn about common gym injuries, including shoulder, back, knee and muscle injuries, and how physiotherapy guides recovery and a safe return to training.",
+    category: "sports-injuries",
+    tags: [
+      "gym injuries",
+      "weightlifting injuries",
+      "gym injury physiotherapy",
+      "shoulder pain after gym",
+      "back pain after deadlift",
+      "knee pain during squats",
+      "muscle strain",
+    ],
+    excerpt:
+      "Understand common weight-training injuries, what to do when pain starts, and how to return to lifting with a progressive rehabilitation plan.",
+    quickAnswer:
+      "Gym-related pain can follow a sudden overload, a rapid increase in training volume, inadequate recovery or a movement demand that currently exceeds tissue capacity. The right response depends on the injury: modify painful loading, assess symptoms and function, then progressively rebuild range of motion, strength and tolerance before returning to heavier lifts. Persistent, severe or unexplained symptoms need an individual clinical assessment.",
+    date: "2026-11-15",
+    updated: "2026-11-15",
+    authorKey: "ZA",
+    sections: [
+      {
+        paragraphs: [
+          "Gym injuries can affect beginners and experienced lifters. Pain during or after training does not automatically mean a muscle or joint is damaged, and poor technique is not the only possible cause. Training load, recent changes in volume or intensity, fatigue, recovery and previous injury all influence how a person responds to exercise.",
+          "Physiotherapy identifies the likely source of symptoms and the activities that need modification. The aim is not simply to stop training indefinitely, but to maintain safe activity while rebuilding the capacity needed for the person's programme.",
+        ],
+      },
+      {
+        heading: "Common gym-related injuries and pain patterns",
+        paragraphs: [
+          "Shoulder pain may develop with pressing, overhead lifting or repeated high-volume work. Possible contributors include rotator cuff-related shoulder pain, tendon irritation, joint problems or referred pain from the neck. The exact diagnosis should be based on history and examination.",
+          "Lower-back pain can occur after deadlifts, squats or other loaded movements. It may reflect temporary sensitivity to load, a muscle-related episode or another spinal presentation. Leg pain, numbness or weakness changes the assessment and may require neurological examination.",
+          "Knee pain during squats or lunges can be associated with patellofemoral pain, tendon-related problems, joint irritation or other conditions. Pain location, swelling, locking, instability and response to loading help guide the differential diagnosis.",
+          "Muscle strains can occur during sprinting, explosive lifts or high-effort sets. Sudden sharp pain, bruising, marked weakness or loss of function warrants assessment, especially when a significant tear is suspected.",
+        ],
+      },
+      {
+        heading: "What to do when pain starts during a workout",
+        paragraphs: [
+          "Stop or modify the set or exercise that produces sharp, escalating or unfamiliar pain. Do not repeatedly test the painful movement under heavy load. If symptoms are mild and settle quickly, temporarily reduce load, range, sets or training frequency while monitoring the response over the next day.",
+          "Avoid complete rest unless the injury or clinician's advice requires protection. Maintain comfortable daily movement and train unaffected areas when this does not aggravate the problem. A sudden pop with major swelling, inability to bear weight, obvious deformity or rapidly progressive weakness needs prompt medical assessment.",
+        ],
+        list: [
+          "Reduce the load and range that provoke symptoms rather than pushing through worsening pain.",
+          "Track how symptoms respond during training and over the following 24 hours.",
+          "Substitute a tolerable exercise that trains a similar capacity.",
+          "Seek assessment if pain persists, repeatedly returns or limits function.",
+        ],
+      },
+      {
+        heading: "How physiotherapy rehabilitation helps",
+        paragraphs: [
+          "A physiotherapy assessment reviews training history, recent load changes, symptom behaviour, previous injuries and the movements important to the lifter. Examination may include joint range, muscle strength, tissue loading tolerance, neurological screening where indicated, and task-specific movements such as a squat, hinge, press or single-leg task.",
+          "Treatment is individualised. Symptom-modifying strategies or manual therapy may help when appropriate, but progressive exercise and load management are central to restoring capacity. The programme may include mobility where restricted, graded isometrics, resistance work, progressive strengthening, balance and eventually heavier or faster task-specific loading.",
+          "Progress is based on symptoms, function and response to training rather than a fixed calendar. The final stage rehearses the person's actual gym demands, including appropriate technique, volume, intensity and recovery.",
+        ],
+      },
+      {
+        heading: "Returning to lifting safely",
+        paragraphs: [
+          "Return to training is not an all-or-nothing decision. Start with a version of the lift that can be performed with acceptable symptoms and good control, then increase training variables gradually. Avoid increasing load, total sets and weekly frequency aggressively at the same time.",
+          "Before maximal or high-volume lifting, the person should demonstrate adequate range, strength and control, tolerate progressively heavier sessions, and recover without a sustained symptom flare. Criteria differ for shoulder, back, knee and muscle injuries; there is no universal return-to-gym test.",
+        ],
+      },
+      {
+        heading: "When should you seek a physiotherapy assessment?",
+        paragraphs: [
+          "Arrange an assessment when pain is not settling, keeps returning with the same exercise, affects everyday activity, causes noticeable loss of strength or movement, or makes it difficult to plan a safe return to training. A clinician can distinguish a load-related problem from an injury that needs further investigation or referral.",
+          "At PainFix Physiotherapy Clinic in Multan, rehabilitation is planned around individual findings, training goals and current capacity. The aim is a measured return to exercise, not a generic list of gym exercises.",
+        ],
+      },
+    ],
+    faqs: [
+      {
+        q: "Should I stop going to the gym if I have an injury?",
+        a: "Not always. The painful exercise or load may need modification, while comfortable activities and unaffected training can often continue. The decision depends on the injury, symptoms and examination findings.",
+      },
+      {
+        q: "Can physiotherapy help with shoulder pain after weightlifting?",
+        a: "Yes. Assessment can identify likely contributors and guide load modification, progressive shoulder strengthening and a graded return to pressing or overhead work.",
+      },
+      {
+        q: "Why does my knee hurt when I squat?",
+        a: "Squat-related knee pain has several possible causes, including patellofemoral pain and tendon or joint-related problems. Pain location, swelling, function and examination findings help determine the plan.",
+      },
+      {
+        q: "How long does a gym injury take to heal?",
+        a: "There is no single timeline. Recovery depends on the tissue involved, injury severity, training demands, health factors and response to progressive loading.",
+      },
+      {
+        q: "Can I train around an injury?",
+        a: "Often, yes. Training can be adjusted to avoid aggravating the injured area while maintaining general fitness, provided alternatives are safe for that presentation.",
+      },
+    ],
+    keyTakeaways: [
+      "Gym pain can reflect a mismatch between current capacity and training demand; it does not always mean serious tissue damage.",
+      "Modify aggravating loads while maintaining safe activity where possible.",
+      "Rehabilitation combines individual assessment, progressive strengthening and task-specific loading.",
+      "Return to heavy lifting should be based on function and load tolerance, not a fixed number of days.",
+    ],
+    relatedServices: ["sports-rehabilitation", "exercise-therapy", "pain-management"],
+    relatedConditions: ["sports-injuries", "knee-pain"],
+  },
+  {
+    slug: "ligament-injury-rehabilitation",
+    title: "Ligament Injury Rehabilitation: Knee and Ankle Recovery Guide",
+    seoTitle: "Ligament Injury Rehabilitation & Physiotherapy | PainFix",
+    metaDescription:
+      "A practical guide to MCL, PCL and ankle ligament injury rehabilitation, including assessment, progressive loading and criteria for returning to activity.",
+    category: "sports-injuries",
+    tags: [
+      "ligament injury rehabilitation",
+      "knee ligament injury",
+      "MCL injury",
+      "PCL injury",
+      "ankle ligament sprain",
+      "ATFL injury",
+      "ligament physiotherapy",
+    ],
+    excerpt:
+      "Learn how physiotherapy assesses and rehabilitates knee and ankle ligament injuries, from early protection to strength, balance and return to activity.",
+    quickAnswer:
+      "Ligament injury rehabilitation depends on the ligament involved, injury grade, associated damage and the person's stability and functional demands. Early care protects the injured structure while maintaining safe movement; later stages progressively restore range, strength, balance and task-specific control. Persistent instability, major swelling, inability to bear weight or a suspected high-grade injury needs clinical assessment and sometimes imaging or specialist review.",
+    date: "2026-11-15",
+    updated: "2026-11-15",
+    authorKey: "ZA",
+    sections: [
+      {
+        paragraphs: [
+          "Ligaments connect bones and help guide or limit joint movement. A sprain ranges from mild fibre injury to complete rupture. Pain and swelling alone cannot reliably determine the grade, and different ligaments have different roles and healing considerations.",
+          "A rehabilitation plan should follow clinical assessment rather than a generic protocol. The clinician considers the injury mechanism, swelling, tenderness, range of motion, joint stability, weight-bearing ability and associated meniscal, cartilage, tendon or fracture concerns.",
+        ],
+      },
+      {
+        heading: "Common knee ligament injuries",
+        paragraphs: [
+          "The medial collateral ligament (MCL) helps resist excessive valgus stress at the knee. MCL injuries often follow a force applied to the outside of the knee, although mechanisms vary. Rehabilitation commonly restores comfortable motion, quadriceps and hamstring strength, single-leg control and tolerance to running or change of direction when appropriate.",
+          "The posterior cruciate ligament (PCL) helps limit posterior translation of the tibia. Injury may follow a direct blow to the front of the tibia with the knee flexed or a fall onto a bent knee. Early exercise selection may need to protect the healing PCL by limiting posterior tibial stress in line with the treating specialist's protocol.",
+          "ACL injuries are a separate category. Our dedicated ACL rehabilitation guide explains post-operative, criteria-based progression. Not every ACL injury requires reconstruction; decisions depend on instability, activity goals, associated injuries and discussion with an orthopaedic specialist.",
+        ],
+      },
+      {
+        heading: "Ankle ligament sprains",
+        paragraphs: [
+          "Lateral ankle sprains commonly involve the anterior talofibular ligament (ATFL), sometimes with the calcaneofibular ligament. They often occur when the foot rolls inward, but injury pattern and severity vary. Assessment checks weight-bearing ability, bony tenderness, swelling, range, strength and balance, while considering whether fracture or a more complex injury needs exclusion.",
+          "Rehabilitation usually progresses from comfortable weight-bearing and range of motion to calf and peroneal strengthening, balance, hopping and sport-specific drills. Recurrent giving-way or repeated sprains may indicate persistent sensorimotor or mechanical instability and should be assessed.",
+        ],
+      },
+      {
+        heading: "Stages of ligament rehabilitation",
+        paragraphs: [
+          "Early phase: protect the injured ligament from excessive stress, manage swelling, restore safe weight-bearing and begin appropriate movement. Bracing, crutches or activity restrictions may be required for some injuries and should follow clinical advice.",
+          "Strength and control phase: progressively restore quadriceps, hamstring, calf and hip capacity as relevant. Add balance and neuromuscular training, progressing from stable to more demanding tasks as symptoms and control allow.",
+          "Functional phase: build tolerance to stairs, brisk walking, jogging, landing, hopping and directional changes where these match the person's goals. Progression is specific to the injured ligament and must respect surgical or specialist restrictions.",
+          "Return-to-sport phase: assess strength, range, confidence, balance, hopping or change-of-direction ability and sport-specific demands. A calendar date alone is not enough to establish readiness.",
+        ],
+      },
+      {
+        heading: "When is imaging or specialist review needed?",
+        paragraphs: [
+          "Imaging is not required for every sprain. It may be considered when examination suggests fracture, complete rupture, significant associated injury or when the result would change management. Inability to take four steps after an acute ankle injury, focal bony tenderness, major instability, a locked knee or a large rapid effusion warrants prompt clinical assessment.",
+          "Seek urgent medical care for obvious deformity, a cold or numb foot, rapidly worsening symptoms or inability to bear weight after significant trauma. A locked knee, recurrent giving-way or suspected multi-ligament injury needs timely medical or orthopaedic review.",
+        ],
+      },
+      {
+        heading: "How PainFix approaches ligament rehabilitation",
+        paragraphs: [
+          "At PainFix Physiotherapy Clinic in Multan, the programme is selected according to the ligament involved, injury severity, examination findings, medical or surgical guidance and activity goals. Treatment may include symptom-modifying manual techniques when appropriate, followed by progressive mobility, strengthening, balance and functional retraining.",
+          "The aim is to restore the capacity needed for daily activity, work or sport while monitoring symptoms and stability. For post-operative cases, the surgeon's protocol and tissue-healing restrictions take priority.",
+        ],
+      },
+    ],
+    faqs: [
+      {
+        q: "How long does a ligament injury take to heal?",
+        a: "It varies with the ligament, injury grade, associated damage and treatment. A mild sprain may settle over weeks, while complete ruptures or post-operative rehabilitation can take several months or longer.",
+      },
+      {
+        q: "Can a knee ligament injury heal without surgery?",
+        a: "Some ligament injuries are managed without surgery, but this depends on which ligament is injured, instability, associated injuries and activity goals. Orthopaedic assessment may be needed.",
+      },
+      {
+        q: "Should I walk on a sprained ankle?",
+        a: "Many uncomplicated ankle sprains benefit from progressive weight-bearing as tolerated, but severe pain, bony tenderness or inability to take steps needs assessment to rule out fracture or significant injury.",
+      },
+      {
+        q: "Do ligament injuries need an MRI?",
+        a: "Not all do. Imaging is considered when examination suggests a significant tear or associated injury, or when imaging would change treatment decisions.",
+      },
+      {
+        q: "When can I return to sports after a ligament injury?",
+        a: "Return depends on restored range, strength, balance, stability, confidence and sport-specific performance. Criteria and timeline differ by ligament and injury severity.",
+      },
+    ],
+    keyTakeaways: [
+      "Ligament injury severity cannot be graded reliably from pain alone.",
+      "Rehabilitation must match the ligament, injury grade and associated damage.",
+      "Progressive strength, balance and functional loading are central to recovery.",
+      "Return to sport should be based on clinical and functional criteria, not time alone.",
+    ],
+    relatedServices: ["sports-rehabilitation", "post-surgical-rehabilitation", "exercise-therapy"],
+    relatedConditions: ["sports-injuries", "knee-pain"],
+  },
 ];
 
 export const blogMap = Object.fromEntries(blogPosts.map((p) => [p.slug, p]));
