@@ -76,7 +76,7 @@ function MediaPage() {
   const qc = useQueryClient();
   const { user, isAdmin } = useAdminAuth();
   const { data: galleryPaths = [] } = useQuery({
-    queryKey: ["admin", "site-gallery"],
+    queryKey: ["admin", "site-gallery-storage-paths"],
     enabled: isAdmin,
     queryFn: async (): Promise<string[]> => {
       const { data, error } = await supabase.from("site_gallery").select("storage_path");
@@ -177,6 +177,7 @@ function MediaPage() {
       await Promise.all([
         qc.invalidateQueries({ queryKey: ["admin", "media"] }),
         qc.invalidateQueries({ queryKey: ["admin", "site-gallery"] }),
+        qc.invalidateQueries({ queryKey: ["admin", "site-gallery-storage-paths"] }),
         qc.invalidateQueries({ queryKey: ["public", "site-gallery"] }),
       ]);
     },
