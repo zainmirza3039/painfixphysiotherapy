@@ -40,7 +40,13 @@ interface MediaFile {
 async function convertImageToWebP(file: File): Promise<File> {
   if (!["image/jpeg", "image/png"].includes(file.type)) return file;
 
-  const bitmap = await createImageBitmap(file);
+  let bitmap: ImageBitmap;
+  try {
+    bitmap = await createImageBitmap(file);
+  } catch {
+    return file;
+  }
+
   try {
     const canvas = document.createElement("canvas");
     canvas.width = bitmap.width;
@@ -301,7 +307,14 @@ function MediaPage() {
       ) : (
         <div className="grid gap-4 sm:grid-cols-3 lg:grid-cols-4">
           {files.map((f) => (
-            <MediaCard key={f.name} file={f} onDelete={() => setDeleteName(f.name)} />
+            <MediaCard
+              key={f.name}
+              file={f}
+              onDelete={() => setDeleteName(f.name)}
+              onOptimize={() => optimizeMutation.mutate(f)}
+              canOptimize={isAdmin}
+              isOptimizing={optimizeMutation.isPending && optimizeMutation.variables?.name === f.name}
+            />
           ))}
         </div>
       )}
@@ -327,7 +340,19 @@ function MediaPage() {
   );
 }
 
-function MediaCard({ file, onDelete }: { file: MediaFile; onDelete: () => void }) {
+function MediaCard({
+  file,
+  onDelete,
+  onOptimize,
+  canOptimize,
+  isOptimizing,
+}: {
+  file: MediaFile;
+  onDelete: () => void;
+  onOptimize: () => void;
+  canOptimize: boolean;
+  isOptimizing: boolean;
+}) {
   const [copied, setCopied] = useState(false);
   useEffect(() => {
     if (!copied) return;
@@ -374,11 +399,11 @@ function MediaCard({ file, onDelete }: { file: MediaFile; onDelete: () => void }
               variant="outline"
               size="sm"
               className="h-8 px-2 text-xs"
-              disabled={optimizeMutation.isPending || deleteMutation.isPending}
-              onClick={() => optimizeMutation.mutate(file)}
+              disabled={isOptimizing}
+              onClick={onOptimize}
               title="Create a WebP copy and update any website gallery reference; keep the original"
             >
-              {optimizeMutation.isPending ? (
+              {isOptimizing ? (
                 <Loader2 className="h-3.5 w-3.5 animate-spin" />
               ) : (
                 "WebP"
