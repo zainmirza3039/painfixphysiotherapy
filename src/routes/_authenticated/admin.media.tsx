@@ -222,11 +222,13 @@ function MediaPage() {
           const optimized = await convertImageToWebP(file);
           const safeName = optimized.name.replace(/[^a-zA-Z0-9._-]/g, "_");
           const objectPath = withPrefix(`${crypto.randomUUID()}-${safeName}`);
-          const { error } = await supabase.storage.from("site-media").upload(objectPath, optimized, {
-            cacheControl: "31536000",
-            contentType: optimized.type,
-            upsert: false,
-          });
+          const { error } = await supabase.storage
+            .from("site-media")
+            .upload(objectPath, optimized, {
+              cacheControl: "31536000",
+              contentType: optimized.type,
+              upsert: false,
+            });
           if (error) throw error;
           uploaded += 1;
         } catch (error) {
