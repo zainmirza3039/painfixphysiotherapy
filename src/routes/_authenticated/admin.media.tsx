@@ -75,6 +75,17 @@ async function convertImageToWebP(file: File): Promise<File> {
 function MediaPage() {
   const qc = useQueryClient();
   const { user, isAdmin } = useAdminAuth();
+  const { data: galleryPaths = [] } = useQuery({
+    queryKey: ["admin", "site-gallery"],
+    enabled: isAdmin,
+    queryFn: async (): Promise<string[]> => {
+      const { data, error } = await supabase.from("site_gallery").select("storage_path");
+      if (error) throw error;
+      return (data ?? []).map((item) => item.storage_path);
+    },
+  });
+  const galleryPathSet = new Set(galleryPaths);
+
   const fileInput = useRef<HTMLInputElement>(null);
   const [uploading, setUploading] = useState(false);
   const [deleteName, setDeleteName] = useState<string | null>(null);
@@ -141,14 +152,16 @@ function MediaPage() {
         });
       if (uploadError) throw uploadError;
 
-      const { error: updateError } = await supabase
+      const { data: updatedRows, error: updateError } = await supabase
         .from("site_gallery")
         .update({ storage_path: objectPath })
-        .eq("storage_path", file.name);
+        .eq("storage_path", file.name)
+        .select("id");
 
-      if (updateError) {
+      if (updateError || !updatedRows?.length) {
         await supabase.storage.from("site-media").remove([objectPath]);
-        throw updateError;
+        if (updateError) throw updateError;
+        throw new Error("This file is no longer linked to the website gallery. No changes were kept.");
       }
 
       return { optimized: true, savedBytes: source.size - optimized.size };
@@ -320,7 +333,7 @@ function MediaPage() {
               file={f}
               onDelete={() => setDeleteName(f.name)}
               onOptimize={() => optimizeMutation.mutate(f)}
-              canOptimize={isAdmin}
+              canOptimize={isAdmin && galleryPathSet.has(f.name)}
               isOptimizing={
                 optimizeMutation.isPending && optimizeMutation.variables?.name === f.name
               }
