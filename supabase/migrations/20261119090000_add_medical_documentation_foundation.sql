@@ -413,3 +413,112 @@ grant execute on function public.complete_medical_document_issuance(uuid,text,uu
 grant execute on function public.cancel_medical_document_issuance(uuid,text,uuid) to service_role;
 
 commit;
+
+
+-- Patient portal PIN verification and session validation.
+-- These functions are callable only by service_role; browser roles receive no table access.
+create or replace function public.verify_personal_patient_portal_pin(
+  p_token_digest text,
+  p_pin_digest text,
+  p_session_digest text,
+  p_expires_at timestamptz
+)
+returns table(verified boolean, session_expires_at timestamptz)
+language plpgsql
+security definer
+set search_path = pg_catalog, public
+as $$
+declare
+  v_credential public.personal_patient_portal_credentials%rowtype;
+  v_attempts integer;
+begin
+  if p_token_digest !~ '^[a-f0-9]{64}$'
+     or p_pin_digest !~ '^[a-f0-9]{64}$'
+     or p_session_digest !~ '^[a-f0-9]{64}$'
+     or p_expires_at <= now()
+     or p_expires_at > now() + interval '2 hours' then
+    raise exception 'Invalid portal verification request';
+  end if;
+
+  select * into v_credential
+  from public.personal_patient_portal_credentials c
+  where c.token_digest = p_token_digest
+  for update;
+
+  if not found or v_credential.is_revoked
+     or (v_credential.locked_until is not null and v_credential.locked_until > now()) then
+    return query select false, null::timestamptz;
+    return;
+  end if;
+
+  if v_credential.pin_hash = p_pin_digest then
+    update public.personal_patient_portal_credentials
+      set failed_attempts = 0, locked_until = null, last_accessed_at = now(), updated_at = now()
+      where patient_id = v_credential.patient_id;
+
+    insert into public.personal_patient_portal_sessions(
+      patient_id, clinician_id, session_token_digest, expires_at
+    ) values (
+      v_credential.patient_id, v_credential.clinician_id, p_session_digest, p_expires_at
+    );
+
+    return query select true, p_expires_at;
+    return;
+  end if;
+
+  v_attempts := v_credential.failed_attempts + 1;
+  update public.personal_patient_portal_credentials
+    set failed_attempts = v_attempts,
+        locked_until = case when v_attempts >= 8 then now() + interval '30 minutes' else locked_until end,
+        updated_at = now()
+    where patient_id = v_credential.patient_id;
+
+  return query select false, null::timestamptz;
+end;
+$$;
+
+create or replace function public.resolve_personal_patient_portal_session(
+  p_session_digest text
+)
+returns table(patient_id uuid, clinician_id uuid)
+language plpgsql
+security definer
+set search_path = pg_catalog, public
+as $$
+begin
+  if p_session_digest !~ '^[a-f0-9]{64}$' then
+    return;
+  end if;
+
+  return query
+  update public.personal_patient_portal_sessions s
+    set expires_at = s.expires_at
+    from public.personal_patient_portal_credentials c
+    where s.session_token_digest = p_session_digest
+      and s.expires_at > now()
+      and s.revoked_at is null
+      and c.patient_id = s.patient_id
+      and c.clinician_id = s.clinician_id
+      and c.is_revoked = false
+    returning s.patient_id, s.clinician_id;
+
+  update public.personal_patient_portal_credentials c
+    set last_accessed_at = now()
+    where c.patient_id in (
+      select s.patient_id
+      from public.personal_patient_portal_sessions s
+      where s.session_token_digest = p_session_digest
+        and s.expires_at > now()
+        and s.revoked_at is null
+    );
+end;
+$$;
+
+revoke all on function public.verify_personal_patient_portal_pin(text,text,text,timestamptz)
+  from public, anon, authenticated;
+revoke all on function public.resolve_personal_patient_portal_session(text)
+  from public, anon, authenticated;
+grant execute on function public.verify_personal_patient_portal_pin(text,text,text,timestamptz)
+  to service_role;
+grant execute on function public.resolve_personal_patient_portal_session(text)
+  to service_role;
