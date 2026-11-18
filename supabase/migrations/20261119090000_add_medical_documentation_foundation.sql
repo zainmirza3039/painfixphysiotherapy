@@ -330,13 +330,16 @@ begin
   ) then
     raise exception 'Administrator access required';
   end if;
-  if p_pdf_storage_path is null
-     or p_pdf_storage_path <> 'medical-documents/' || v_doc.patient_id::text || '/' || v_doc.id::text || '.pdf' then
-    raise exception 'Invalid private PDF storage path';
-  end if;
   select * into v_doc from public.medical_documents where id = p_document_id for update;
   if not found or v_doc.status <> 'pending' then
     raise exception 'Pending document not found';
+  end if;
+  if v_doc.clinician_id is distinct from p_actor_id then
+    raise exception 'Document owner does not match administrator';
+  end if;
+  if p_pdf_storage_path is null
+     or p_pdf_storage_path <> 'medical-documents/' || v_doc.patient_id::text || '/' || v_doc.id::text || '.pdf' then
+    raise exception 'Invalid private PDF storage path';
   end if;
   if not exists (
     select 1 from storage.objects so
@@ -392,6 +395,9 @@ begin
   select * into v_doc from public.medical_documents where id = p_document_id for update;
   if not found or v_doc.status <> 'pending' then
     raise exception 'Pending document not found';
+  end if;
+  if v_doc.clinician_id is distinct from p_actor_id then
+    raise exception 'Document owner does not match administrator';
   end if;
   update public.medical_documents
     set status = 'cancelled', cancelled_at = now(), cancellation_reason = trim(p_reason)
