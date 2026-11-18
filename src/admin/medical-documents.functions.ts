@@ -7,6 +7,73 @@ import { calculateReceiptTotal, summarizeExpenseLedger } from "@/admin/medical-d
 
 type AdminContext = { supabase: SupabaseClient<Database>; userId: string };
 
+type DatabaseError = { message: string };
+interface DatabaseRows<Row> { data: Row[] | null; error: DatabaseError | null }
+interface DatabaseSingle<Row> { data: Row | null; error: DatabaseError | null }
+
+interface MedicalDocumentQuery<Row> extends PromiseLike<DatabaseRows<Row>> {
+  then: PromiseLike<DatabaseRows<Row>>["then"];
+  select(columns: string): MedicalDocumentQuery<Row>;
+  eq(column: string, value: unknown): MedicalDocumentQuery<Row>;
+  is(column: string, value: null | boolean): MedicalDocumentQuery<Row>;
+  in(column: string, values: readonly unknown[]): MedicalDocumentQuery<Row>;
+  gte(column: string, value: unknown): MedicalDocumentQuery<Row>;
+  lte(column: string, value: unknown): MedicalDocumentQuery<Row>;
+  order(column: string, options: { ascending: boolean }): MedicalDocumentQuery<Row>;
+  limit(count: number): MedicalDocumentQuery<Row>;
+  maybeSingle(): Promise<DatabaseSingle<Row>>;
+}
+
+interface MedicalDocumentDatabase {
+  from<Row>(table: string): MedicalDocumentQuery<Row>;
+  rpc<Result>(functionName: string, parameters: Record<string, unknown>): PromiseLike<DatabaseSingle<Result>>;
+  storage: {
+    from(bucket: string): {
+      upload(path: string, body: Uint8Array, options: { contentType: string; upsert: boolean }): Promise<{ error: DatabaseError | null }>;
+      remove(paths: string[]): Promise<{ error: DatabaseError | null }>;
+      createSignedUrl(path: string, expiresIn: number): Promise<{ data: { signedUrl: string } | null; error: DatabaseError | null }>;
+    };
+  };
+}
+
+type PatientSummaryRow = MedicalDocumentPatient;
+type PatientIdentityRow = { id: string; clinician_id: string; full_name: string };
+type MedicalDocumentListRow = MedicalDocumentListItem;
+type VerificationDocumentRow = {
+  patient_name_snapshot: string;
+  document_number: string;
+  document_type: string;
+  status: "issued" | "cancelled" | "superseded";
+  issued_at: string | null;
+};
+type MedicalDocumentLedgerRow = {
+  id: string;
+  entry_type: string;
+  amount: number | string;
+  occurred_at: string;
+  description: string | null;
+  payment_method: string | null;
+  reference: string | null;
+};
+type MedicalDocumentSessionRow = { id: string; session_date: string; status: string; session_label: string | null };
+type IssuedEstimateRow = { id: string; document_number: string; snapshot: unknown };
+type IssuanceRecord = { document_id: string; document_number: string };
+type MedicalDocumentPdfRow = { pdf_storage_path: string | null; status: string };
+type MedicalDocumentSnapshot = Record<string, unknown>;
+
+function medicalDocumentDatabase(client: unknown): MedicalDocumentDatabase {
+  // These additive tables are not yet present in the generated Database type.
+  // Keep the escape hatch narrow and type every queried row and operation here.
+  return client as MedicalDocumentDatabase;
+}
+
+function snapshotRecord(value: unknown): MedicalDocumentSnapshot {
+  return value !== null && typeof value === "object" && !Array.isArray(value)
+    ? (value as MedicalDocumentSnapshot)
+    : {};
+}
+
+
 async function assertAdmin(context: AdminContext) {
   const [{ data: isAdmin, error: adminError }, { data: isSuper, error: superError }] =
     await Promise.all([
@@ -39,9 +106,9 @@ export const listMedicalDocumentPatients = createServerFn({ method: "GET" })
   .handler(async ({ context }): Promise<MedicalDocumentPatient[]> => {
     await assertAdmin(context);
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
-    const db = supabaseAdmin as any;
+    const db = medicalDocumentDatabase(supabaseAdmin);
     const { data, error } = await db
-      .from("personal_patients")
+      .from<PatientSummaryRow>("personal_patients")
       .select("id, full_name, status, created_at")
       .eq("clinician_id", context.userId)
       .is("archived_at", null)
@@ -56,9 +123,9 @@ export const listMedicalDocuments = createServerFn({ method: "GET" })
   .handler(async ({ context }): Promise<MedicalDocumentListItem[]> => {
     await assertAdmin(context);
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
-    const db = supabaseAdmin as any;
+    const db = medicalDocumentDatabase(supabaseAdmin);
     const { data, error } = await db
-      .from("medical_documents")
+      .from<MedicalDocumentListRow>("medical_documents")
       .select(
         "id, document_number, document_type, status, patient_name_snapshot, issued_at, created_at",
       )
@@ -99,9 +166,9 @@ export const verifyMedicalDocument = createServerFn({ method: "GET" })
     ).join("");
 
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
-    const db = supabaseAdmin as any;
+    const db = medicalDocumentDatabase(supabaseAdmin);
     const { data: row, error } = await db
-      .from("medical_documents")
+      .from<VerificationDocumentRow>("medical_documents")
       .select("patient_name_snapshot, document_number, document_type, status, issued_at")
       .eq("verification_token_hash", tokenHash)
       .in("status", ["issued", "cancelled", "superseded"])
@@ -189,10 +256,10 @@ export const createMedicalDocument = createServerFn({ method: "POST" })
       await assertAdmin(context);
       const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
       const { createMedicalDocumentPdf } = await import("@/lib/medical-document-pdf.server");
-      const db = supabaseAdmin as any;
+      const db = medicalDocumentDatabase(supabaseAdmin);
 
       const { data: patient, error: patientError } = await db
-        .from("personal_patients")
+        .from<PatientIdentityRow>("personal_patients")
         .select("id, clinician_id, full_name")
         .eq("id", data.patientId)
         .eq("clinician_id", context.userId)
@@ -225,13 +292,13 @@ export const createMedicalDocument = createServerFn({ method: "POST" })
         const [{ data: ledger, error: ledgerError }, { data: sessions, error: sessionError }] =
           await Promise.all([
             db
-              .from("personal_patient_ledger")
+              .from<MedicalDocumentLedgerRow>("personal_patient_ledger")
               .select("id, entry_type, amount, occurred_at, description, payment_method, reference")
               .eq("clinician_id", context.userId)
               .eq("patient_id", data.patientId)
               .in("id", ids),
             db
-              .from("personal_patient_sessions")
+              .from<MedicalDocumentSessionRow>("personal_patient_sessions")
               .select("id, session_date, status")
               .eq("clinician_id", context.userId)
               .eq("patient_id", data.patientId)
@@ -241,7 +308,7 @@ export const createMedicalDocument = createServerFn({ method: "POST" })
           ]);
         if (ledgerError || !ledger || ledger.length !== ids.length)
           throw new Error("Unable to validate selected payment records");
-        if (ledger.some((row: any) => row.entry_type !== "payment" || Number(row.amount) >= 0)) {
+        if (ledger.some((row) => row.entry_type !== "payment" || Number(row.amount) >= 0)) {
           throw new Error("A receipt can include only actual negative payment ledger entries");
         }
         if (sessionError || !sessions?.length)
@@ -257,7 +324,7 @@ export const createMedicalDocument = createServerFn({ method: "POST" })
           diagnosisOrIndication: diagnosis,
           servicesDelivered: services,
           sessionsCompleted: sessions.length,
-          payments: ledger.map((row: any) => ({
+          payments: ledger.map((row) => ({
             ledgerEntryId: row.id,
             amountReceived: Math.abs(Number(row.amount)),
             occurredAt: row.occurred_at,
@@ -283,7 +350,7 @@ export const createMedicalDocument = createServerFn({ method: "POST" })
           {
             heading: "Payments received",
             rows: [
-              ...ledger.map((row: any, index: number) => ({
+              ...ledger.map((row, index: number) => ({
                 label: `Payment ${index + 1} · ${row.payment_method ?? "Not recorded"}`,
                 value: `${formatMoney(Math.abs(Number(row.amount)))} · ${new Date(row.occurred_at).toLocaleDateString("en-GB")}${row.reference ? ` · Ref: ${row.reference}` : ""}${row.description ? ` · ${row.description}` : ""}`,
               })),
@@ -362,7 +429,7 @@ export const createMedicalDocument = createServerFn({ method: "POST" })
         const remaining = data.remainingSessions;
         if (remaining === undefined) throw new Error("Remaining sessions must be specified");
         const { data: sessions, error } = await db
-          .from("personal_patient_sessions")
+          .from<MedicalDocumentSessionRow>("personal_patient_sessions")
           .select("id, session_date, status, session_label")
           .eq("clinician_id", context.userId)
           .eq("patient_id", data.patientId)
@@ -372,7 +439,7 @@ export const createMedicalDocument = createServerFn({ method: "POST" })
         if (error || !sessions || sessions.length !== ids.length)
           throw new Error("Every selected session must be completed and belong to this patient");
         sourceIds.push(...ids);
-        const dates = sessions.map((row: any) => row.session_date).sort();
+        const dates = sessions.map((row) => row.session_date).sort();
         snapshot = {
           patient: { id: patient.id, fullName: patient.full_name },
           issuedAt,
@@ -380,7 +447,7 @@ export const createMedicalDocument = createServerFn({ method: "POST" })
           diagnosis,
           baselineFindings: baseline,
           documentedProgress: progress,
-          completedSessions: sessions.map((row: any) => ({
+          completedSessions: sessions.map((row) => ({
             sessionId: row.id,
             sessionDate: row.session_date,
             label: row.session_label,
@@ -406,7 +473,7 @@ export const createMedicalDocument = createServerFn({ method: "POST" })
             rows: [
               {
                 label: "Completed sessions",
-                value: sessions.map((row: any) => row.session_date).join(", "),
+                value: sessions.map((row) => row.session_date).join(", "),
               },
               { label: "Remaining sessions", value: String(remaining) },
               { label: "Current rehabilitation plan", value: plan },
@@ -419,7 +486,7 @@ export const createMedicalDocument = createServerFn({ method: "POST" })
         if (!ids.length || new Set(ids).size !== ids.length)
           throw new Error("Select unique financial ledger entries for the statement");
         const { data: ledger, error } = await db
-          .from("personal_patient_ledger")
+          .from<MedicalDocumentLedgerRow>("personal_patient_ledger")
           .select("id, entry_type, amount, occurred_at, payment_method, reference, description")
           .eq("clinician_id", context.userId)
           .eq("patient_id", data.patientId)
@@ -427,24 +494,24 @@ export const createMedicalDocument = createServerFn({ method: "POST" })
         if (error || !ledger || ledger.length !== ids.length)
           throw new Error("Unable to validate selected financial records");
         if (
-          ledger.some((row: any) => !["payment", "refund", "adjustment"].includes(row.entry_type))
+          ledger.some((row) => !["payment", "refund", "adjustment"].includes(row.entry_type))
         ) {
           throw new Error("Statements may include payment, refund and adjustment entries only");
         }
-        const payments = ledger.filter((row: any) => row.entry_type === "payment");
-        const refunds = ledger.filter((row: any) => row.entry_type === "refund");
-        const adjustments = ledger.filter((row: any) => row.entry_type === "adjustment");
+        const payments = ledger.filter((row) => row.entry_type === "payment");
+        const refunds = ledger.filter((row) => row.entry_type === "refund");
+        const adjustments = ledger.filter((row) => row.entry_type === "adjustment");
         if (
-          payments.some((row: any) => Number(row.amount) >= 0) ||
-          refunds.some((row: any) => Number(row.amount) <= 0)
+          payments.some((row) => Number(row.amount) >= 0) ||
+          refunds.some((row) => Number(row.amount) <= 0)
         ) {
           throw new Error("Financial ledger signs are inconsistent with payment/refund types");
         }
         sourceIds.push(...ids);
-        let futureEstimate: any = null;
+        let futureEstimate: { documentId: string; estimateNumber: string; amount: number; validUntil: string } | null = null;
         if (data.futureEstimateDocumentId) {
           const { data: estimate, error: estimateError } = await db
-            .from("medical_documents")
+            .from<IssuedEstimateRow>("medical_documents")
             .select("id, document_number, document_type, status, snapshot")
             .eq("id", data.futureEstimateDocumentId)
             .eq("patient_id", data.patientId)
@@ -457,8 +524,8 @@ export const createMedicalDocument = createServerFn({ method: "POST" })
           futureEstimate = {
             documentId: estimate.id,
             estimateNumber: estimate.document_number,
-            amount: Number(estimate.snapshot?.estimatedTotal ?? 0),
-            validUntil: String(estimate.snapshot?.validUntil ?? ""),
+            amount: Number(snapshotRecord(estimate.snapshot).estimatedTotal ?? 0),
+            validUntil: String(snapshotRecord(estimate.snapshot).validUntil ?? ""),
           };
         }
         const accounting = summarizeExpenseLedger(ledger);
@@ -468,21 +535,21 @@ export const createMedicalDocument = createServerFn({ method: "POST" })
         snapshot = {
           patient: { id: patient.id, fullName: patient.full_name },
           issuedAt,
-          historicalPainFixPayments: payments.map((row: any) => ({
+          historicalPainFixPayments: payments.map((row) => ({
             ledgerEntryId: row.id,
             amount: Math.abs(Number(row.amount)),
             date: row.occurred_at,
             method: row.payment_method,
             reference: row.reference,
           })),
-          historicalPainFixRefunds: refunds.map((row: any) => ({
+          historicalPainFixRefunds: refunds.map((row) => ({
             ledgerEntryId: row.id,
             amount: Number(row.amount),
             date: row.occurred_at,
             method: row.payment_method,
             reference: row.reference,
           })),
-          historicalAdjustments: adjustments.map((row: any) => ({
+          historicalAdjustments: adjustments.map((row) => ({
             ledgerEntryId: row.id,
             amount: Number(row.amount),
             date: row.occurred_at,
@@ -501,7 +568,7 @@ export const createMedicalDocument = createServerFn({ method: "POST" })
           {
             heading: "Historical PainFix payments",
             rows: [
-              ...payments.map((row: any, index: number) => ({
+              ...payments.map((row, index: number) => ({
                 label: `Payment ${index + 1} · ${row.payment_method ?? "Not recorded"}`,
                 value: `${formatMoney(Math.abs(Number(row.amount)))} · ${new Date(row.occurred_at).toLocaleDateString("en-GB")}`,
               })),
@@ -511,11 +578,11 @@ export const createMedicalDocument = createServerFn({ method: "POST" })
           {
             heading: "Refunds and adjustments",
             rows: [
-              ...refunds.map((row: any, index: number) => ({
+              ...refunds.map((row, index: number) => ({
                 label: `Refund ${index + 1}`,
                 value: `${formatMoney(Number(row.amount))} · ${new Date(row.occurred_at).toLocaleDateString("en-GB")}${row.reference ? ` · Ref: ${row.reference}` : ""}`,
               })),
-              ...adjustments.map((row: any, index: number) => ({
+              ...adjustments.map((row, index: number) => ({
                 label: `Adjustment ${index + 1}`,
                 value: `${formatMoney(Number(row.amount))} · ${new Date(row.occurred_at).toLocaleDateString("en-GB")}`,
               })),
@@ -654,24 +721,24 @@ export const listMedicalDocumentSources = createServerFn({ method: "GET" })
   .handler(async ({ data, context }): Promise<MedicalDocumentSourceData> => {
     await assertAdmin(context);
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
-    const db = supabaseAdmin as any;
+    const db = medicalDocumentDatabase(supabaseAdmin);
     const [ledgerResult, sessionResult, estimateResult] = await Promise.all([
       db
-        .from("personal_patient_ledger")
+        .from<MedicalDocumentLedgerRow>("personal_patient_ledger")
         .select("id, entry_type, amount, occurred_at, payment_method, description, reference")
         .eq("clinician_id", context.userId)
         .eq("patient_id", data.patientId)
         .order("occurred_at", { ascending: false })
         .limit(250),
       db
-        .from("personal_patient_sessions")
+        .from<MedicalDocumentSessionRow>("personal_patient_sessions")
         .select("id, session_date, status, session_label")
         .eq("clinician_id", context.userId)
         .eq("patient_id", data.patientId)
         .order("session_date", { ascending: false })
         .limit(250),
       db
-        .from("medical_documents")
+        .from<IssuedEstimateRow>("medical_documents")
         .select("id, document_number, snapshot")
         .eq("clinician_id", context.userId)
         .eq("patient_id", data.patientId)
@@ -684,16 +751,18 @@ export const listMedicalDocumentSources = createServerFn({ method: "GET" })
       throw new Error("Unable to load the selected patient's source records");
     }
     return {
-      ledger: (ledgerResult.data ?? []).map((row: any) => ({
+      ledger: (ledgerResult.data ?? []).map((row) => ({
         ...row,
         amount: Number(row.amount),
       })),
       sessions: sessionResult.data ?? [],
-      estimates: (estimateResult.data ?? []).map((row: any) => ({
+      estimates: (estimateResult.data ?? []).map((row) => ({
         id: row.id,
         document_number: row.document_number,
-        estimated_total: Number(row.snapshot?.estimatedTotal ?? 0),
-        valid_until: row.snapshot?.validUntil ?? null,
+        estimated_total: Number(snapshotRecord(row.snapshot).estimatedTotal ?? 0),
+        valid_until: typeof snapshotRecord(row.snapshot).validUntil === "string"
+          ? (snapshotRecord(row.snapshot).validUntil as string)
+          : null,
       })),
     };
   });
@@ -704,9 +773,9 @@ export const getMedicalDocumentPdfUrl = createServerFn({ method: "GET" })
   .handler(async ({ data, context }): Promise<{ pdfUrl: string }> => {
     await assertAdmin(context);
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
-    const db = supabaseAdmin as any;
+    const db = medicalDocumentDatabase(supabaseAdmin);
     const { data: document, error } = await db
-      .from("medical_documents")
+      .from<MedicalDocumentPdfRow>("medical_documents")
       .select("pdf_storage_path, status")
       .eq("id", data.documentId)
       .eq("clinician_id", context.userId)
