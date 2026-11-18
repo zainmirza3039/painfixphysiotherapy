@@ -53,7 +53,7 @@ create table if not exists public.medical_document_source_items (
   created_at timestamptz not null default now()
 );
 
-create unique index if not exists medical_document_receipt_payment_once_idx
+create index if not exists medical_document_receipt_payment_once_idx
   on public.medical_document_source_items (source_id)
   where document_type = 'receipt' and source_kind = 'payment_ledger';
 
@@ -244,6 +244,28 @@ begin
       and l.amount < 0;
     if v_source_count <> cardinality(p_source_ids) then
       raise exception 'Receipt sources must be payment entries for this patient';
+    end if;
+
+    -- Serialize receipt creation on the underlying payment rows. A payment can
+    -- have one active receipt, while a cancelled/superseded receipt may be replaced.
+    perform l.id
+    from public.personal_patient_ledger l
+    where l.id = any(p_source_ids)
+      and l.clinician_id = p_clinician_id
+      and l.patient_id = p_patient_id
+    order by l.id
+    for update;
+
+    if exists (
+      select 1
+      from public.medical_document_source_items si
+      join public.medical_documents existing on existing.id = si.document_id
+      where si.source_id = any(p_source_ids)
+        and si.document_type = 'receipt'
+        and si.source_kind = 'payment_ledger'
+        and existing.status in ('pending', 'issued')
+    ) then
+      raise exception 'One or more payments already belong to an active receipt';
     end if;
   elsif p_document_type = 'treatment_report' then
     if coalesce(cardinality(p_source_ids), 0) = 0 then
