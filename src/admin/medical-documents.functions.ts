@@ -239,7 +239,7 @@ export const createMedicalDocument = createServerFn({ method: "POST" })
         { heading: "Payments received", rows: [
           ...ledger.map((row: any, index: number) => ({
             label: `Payment ${index + 1} · ${row.payment_method ?? "Not recorded"}`,
-            value: `${formatMoney(Math.abs(Number(row.amount)))} · ${new Date(row.occurred_at).toLocaleDateString("en-GB")}`,
+            value: `${formatMoney(Math.abs(Number(row.amount)))} · ${new Date(row.occurred_at).toLocaleDateString("en-GB")}${row.reference ? ` · Ref: ${row.reference}` : ""}${row.description ? ` · ${row.description}` : ""}`,
           })),
           { label: "Total received", value: formatMoney(total) },
         ] },
@@ -373,6 +373,8 @@ export const createMedicalDocument = createServerFn({ method: "POST" })
           { label: "Total paid to PainFix", value: formatMoney(totalPaid) },
         ] },
         { heading: "Refunds and adjustments", rows: [
+          ...refunds.map((row: any, index: number) => ({ label: `Refund ${index + 1}`, value: `${formatMoney(Number(row.amount))} · ${new Date(row.occurred_at).toLocaleDateString("en-GB")}${row.reference ? ` · Ref: ${row.reference}` : ""}` })),
+          ...adjustments.map((row: any, index: number) => ({ label: `Adjustment ${index + 1}`, value: `${formatMoney(Number(row.amount))} · ${new Date(row.occurred_at).toLocaleDateString("en-GB")}` })),
           { label: "Total refunded", value: formatMoney(totalRefunded) },
           { label: "Net adjustments", value: formatMoney(totalAdjustments) },
           { label: "Net recorded", value: formatMoney(totalPaid - totalRefunded + totalAdjustments) },
