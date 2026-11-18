@@ -182,6 +182,10 @@ begin
     raise exception 'Administrator access required';
   end if;
 
+  if p_clinician_id is distinct from p_actor_id then
+    raise exception 'Documents can only be issued for the authenticated clinician';
+  end if;
+
   if p_document_type not in ('receipt','estimate','treatment_report','expense_statement') then
     raise exception 'Unsupported document type';
   end if;
@@ -200,6 +204,17 @@ begin
   end if;
   if trim(coalesce(p_patient_name_snapshot,'')) <> trim(v_patient_name) then
     raise exception 'Patient name snapshot does not match the patient record';
+  end if;
+
+  if p_supersedes_document_id is not null and not exists (
+    select 1 from public.medical_documents prior
+    where prior.id = p_supersedes_document_id
+      and prior.clinician_id = p_clinician_id
+      and prior.patient_id = p_patient_id
+      and prior.document_type = p_document_type
+      and prior.status = 'issued'
+  ) then
+    raise exception 'Replacement must reference an issued document of the same patient and type';
   end if;
 
   v_prefix := case p_document_type
@@ -316,18 +331,41 @@ begin
     raise exception 'Administrator access required';
   end if;
   if p_pdf_storage_path is null
-     or p_pdf_storage_path !~ '^medical-documents/[0-9a-f-]{36}/[0-9a-f-]{36}[.]pdf$' then
+     or p_pdf_storage_path <> 'medical-documents/' || v_doc.patient_id::text || '/' || v_doc.id::text || '.pdf' then
     raise exception 'Invalid private PDF storage path';
   end if;
   select * into v_doc from public.medical_documents where id = p_document_id for update;
   if not found or v_doc.status <> 'pending' then
     raise exception 'Pending document not found';
   end if;
+  if not exists (
+    select 1 from storage.objects so
+    where so.bucket_id = 'medical-documents'
+      and so.name = v_doc.patient_id::text || '/' || v_doc.id::text || '.pdf'
+  ) then
+    raise exception 'Private PDF object is missing from storage';
+  end if;
+
   update public.medical_documents
     set status = 'issued', issued_at = now(), pdf_storage_path = p_pdf_storage_path
     where id = p_document_id;
   insert into public.medical_document_events(document_id, actor_id, event_type, details)
     values (p_document_id, p_actor_id, 'issued', jsonb_build_object('pdf_stored', true));
+
+  if v_doc.supersedes_document_id is not null then
+    update public.medical_documents
+      set status = 'superseded'
+      where id = v_doc.supersedes_document_id
+        and clinician_id = v_doc.clinician_id
+        and patient_id = v_doc.patient_id
+        and document_type = v_doc.document_type
+        and status = 'issued';
+    if not found then
+      raise exception 'Prior issued document could not be superseded';
+    end if;
+    insert into public.medical_document_events(document_id, actor_id, event_type, details)
+      values (v_doc.supersedes_document_id, p_actor_id, 'superseded', jsonb_build_object('replacement_document_id', p_document_id));
+  end if;
 end;
 $function$;
 
