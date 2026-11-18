@@ -59,8 +59,8 @@ Deno.serve(async (req: Request) => {
       const clinicianId = session.clinician_id as string;
       const [patientResult, planResult, sessionResult, ledgerResult, summaryResult] = await Promise.all([
         admin.from("personal_patients")
-          .select("id,full_name,status")
-          .eq("id", patientId).eq("clinician_id", clinicianId).maybeSingle(),
+          .select("id,full_name,status,archived_at")
+          .eq("id", patientId).eq("clinician_id", clinicianId).is("archived_at", null).maybeSingle(),
         admin.from("personal_patient_plans")
           .select("id,title,plan_type,package_sessions,package_fee,per_session_fee")
           .eq("patient_id", patientId).eq("clinician_id", clinicianId)
@@ -80,7 +80,7 @@ Deno.serve(async (req: Request) => {
       ]);
 
       if (patientResult.error || planResult.error || sessionResult.error || ledgerResult.error ||
-          summaryResult.error || !patientResult.data || patientResult.data.status === "archived") {
+          summaryResult.error || !patientResult.data) {
         console.error("Portal record query failed", {
           patient: patientResult.error?.message,
           plan: planResult.error?.message,
