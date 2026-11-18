@@ -173,7 +173,10 @@ test("document replacement and stale pending recovery preserve issuance integrit
   assert.match(migration, /existing\.status in \('pending', 'issued'\)/i);
   assert.match(migration, /cancel_stale_medical_document_issuances/i);
   assert.match(migration, /created_at < now\(\) - interval '30 minutes'/i);
-  assert.match(migration, /grant execute on function public\.cancel_stale_medical_document_issuances[\s\S]*?to service_role/i);
+  assert.match(
+    migration,
+    /grant execute on function public\.cancel_stale_medical_document_issuances[\s\S]*?to service_role/i,
+  );
   const functions = fs.readFileSync(
     path.join(root, "src/admin/medical-documents.functions.ts"),
     "utf8",
