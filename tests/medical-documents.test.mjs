@@ -119,32 +119,32 @@ test("migration restricts browser access and binds documents to clinical source 
 
 test("patient portal uses PIN lockout, hashed bearer tokens and scoped read-only records", () => {
   assert.match(migration, /verify_personal_patient_portal_pin/i);
-  assert.match(migration, /v_attempts >= 8[\\s\\S]*?interval '30 minutes'/i);
+  assert.match(migration, /v_attempts >= 8[\s\S]*?interval '30 minutes'/i);
   assert.match(migration, /resolve_personal_patient_portal_session/i);
   assert.match(migration, /get_personal_patient_portal_summary/i);
   assert.match(migration, /manage_personal_patient_portal/i);
   assert.match(
     migration,
-    /grant execute on function public\\.verify_personal_patient_portal_pin[\\s\\S]*?to service_role/i,
+    /grant execute on function public\.verify_personal_patient_portal_pin[\s\S]*?to service_role/i,
   );
   assert.match(
     migration,
-    /grant execute on function public\\.manage_personal_patient_portal[\\s\\S]*?to service_role/i,
+    /grant execute on function public\.manage_personal_patient_portal[\s\S]*?to service_role/i,
   );
-  assert.match(portalFunction, /pinDigest\\(body\\.pin\\)/);
+  assert.match(portalFunction, /pinDigest\(body\.pin\)/);
   assert.match(portalFunction, /resolve_personal_patient_portal_session/);
   assert.match(portalFunction, /get_personal_patient_portal_summary/);
   assert.match(
     portalFunction,
-    /eq\\("patient_id", patientId\\)\\.eq\\("clinician_id", clinicianId\\)/,
+    /eq\("patient_id", patientId\)\.eq\("clinician_id", clinicianId\)/,
   );
   assert.doesNotMatch(portalFunction, /private_notes/);
   assert.doesNotMatch(portalFunction, /password/);
-  assert.match(portalManager, /requireAdmin\\(req, admin\\)/);
+  assert.match(portalManager, /requireAdmin\(req, admin\)/);
   assert.match(portalManager, /manage_personal_patient_portal/);
-  assert.match(portalConfig, /\\[functions\\.patient-portal\\][\\s\\S]*?verify_jwt = false/);
-  assert.match(portalConfig, /\\[functions\\.manage-patient-portal\\][\\s\\S]*?verify_jwt = false/);
-  assert.equal((migration.match(/\\bcommit;/gi) ?? []).length, 1);
+  assert.match(portalConfig, /\[functions\.patient-portal\][\s\S]*?verify_jwt = false/);
+  assert.match(portalConfig, /\[functions\.manage-patient-portal\][\s\S]*?verify_jwt = false/);
+  assert.equal((migration.match(/\bcommit;/gi) ?? []).length, 1);
   assert.ok(migration.trimEnd().endsWith("commit;"));
 });
 
@@ -155,17 +155,17 @@ test("public document verification has a bounded keyed-IP rate limit", () => {
   assert.match(migration, /return v_count <= 20/i);
   assert.match(
     migration,
-    /revoke all on function public\\.consume_medical_document_verification_limit[\\s\\S]*?from public, anon, authenticated/i,
+    /revoke all on function public\.consume_medical_document_verification_limit[\s\S]*?from public, anon, authenticated/i,
   );
   assert.match(
     migration,
-    /grant execute on function public\\.consume_medical_document_verification_limit[\\s\\S]*?to service_role/i,
+    /grant execute on function public\.consume_medical_document_verification_limit[\s\S]*?to service_role/i,
   );
   const functions = fs.readFileSync(
     path.join(root, "src/admin/medical-documents.functions.ts"),
     "utf8",
   );
-  assert.match(functions, /getRequest\\(\\)/);
+  assert.match(functions, /getRequest\(\)/);
   assert.match(functions, /x-real-ip/);
   assert.match(functions, /consume_medical_document_verification_limit/);
   assert.match(functions, /status: "rate_limited"/);
