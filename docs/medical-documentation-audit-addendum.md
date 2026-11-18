@@ -166,3 +166,20 @@ The following source changes have now been prepared on the feat/medical-document
 - Owner-level leaked-password protection remains a separate Auth dashboard action.
 
 No production database, Auth setting, Storage bucket, patient record, Edge Function deployment, or production website was changed by this implementation pass.
+
+
+## 11. Automated validation result — 2026-11-19
+
+The latest feature-branch head (b284e902f4b15bad7bf9a7306e3dc3848fcd3c58) passed the repository validation workflow:
+
+- Prettier formatting: passed.
+- Deno Edge Function type-check: passed.
+- Repository tests: 226 passed, 0 failed.
+- TypeScript typecheck: passed.
+- ESLint: passed.
+- Production application build: passed.
+- GitHub PR CI run 44403303475: passed.
+
+The Vercel check remains failed because the connected Hobby account reached its deployment/build-rate limit. No Vercel deployment or preview was created.
+
+These results validate source formatting, static tests, TypeScript/Deno checks, lint and application bundling. They do not validate SQL execution, Supabase RPC permissions at runtime, Storage upload behavior, or end-to-end patient/document workflows. The additive migration and Edge Functions remain undeployed.
