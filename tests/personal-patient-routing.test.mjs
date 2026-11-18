@@ -19,7 +19,10 @@ test("personal patient detail route is rendered through its parent outlet", () =
   assert.match(parentRoute, /<Outlet\s*\/>/);
   assert.match(parentRoute, /useRouterState/);
   assert.match(parentRoute, /pathname\s*===\s*["']\/admin\/personal-patients["']/);
-  assert.match(detailRoute, /createFileRoute\(["']\/_authenticated\/admin\/personal-patients\/\$patientId["']\)/);
+  assert.match(
+    detailRoute,
+    /createFileRoute\(["']\/_authenticated\/admin\/personal-patients\/\$patientId["']\)/,
+  );
   assert.match(routeTree, /fullPath: ["']\/admin\/personal-patients\/\$patientId["']/);
 });
 
