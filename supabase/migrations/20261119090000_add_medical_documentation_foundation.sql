@@ -485,34 +485,131 @@ language plpgsql
 security definer
 set search_path = pg_catalog, public
 as $$
+declare
+  v_session public.personal_patient_portal_sessions%rowtype;
+  v_credential public.personal_patient_portal_credentials%rowtype;
 begin
   if p_session_digest !~ '^[a-f0-9]{64}$' then
     return;
   end if;
 
-  return query
-  update public.personal_patient_portal_sessions s
-    set expires_at = s.expires_at
-    from public.personal_patient_portal_credentials c
-    where s.session_token_digest = p_session_digest
-      and s.expires_at > now()
-      and s.revoked_at is null
-      and c.patient_id = s.patient_id
-      and c.clinician_id = s.clinician_id
-      and c.is_revoked = false
-    returning s.patient_id, s.clinician_id;
+  select * into v_session
+  from public.personal_patient_portal_sessions s
+  where s.session_token_digest = p_session_digest
+    and s.expires_at > now()
+    and s.revoked_at is null
+  for update;
 
-  update public.personal_patient_portal_credentials c
+  if not found then
+    return;
+  end if;
+
+  select * into v_credential
+  from public.personal_patient_portal_credentials c
+  where c.patient_id = v_session.patient_id
+    and c.clinician_id = v_session.clinician_id
+  for update;
+
+  if not found or v_credential.is_revoked then
+    return;
+  end if;
+
+  update public.personal_patient_portal_credentials
     set last_accessed_at = now()
-    where c.patient_id in (
-      select s.patient_id
-      from public.personal_patient_portal_sessions s
-      where s.session_token_digest = p_session_digest
-        and s.expires_at > now()
-        and s.revoked_at is null
-    );
+    where patient_id = v_session.patient_id;
+
+  return query select v_session.patient_id, v_session.clinician_id;
 end;
 $$;
+
+create or replace function public.get_personal_patient_portal_summary(
+  p_patient_id uuid,
+  p_clinician_id uuid
+)
+returns jsonb
+language plpgsql
+security definer
+set search_path = pg_catalog, public
+as $$
+declare
+  v_plan public.personal_patient_plans%rowtype;
+  v_completed integer;
+  v_upcoming integer;
+  v_total_charges numeric;
+  v_total_received numeric;
+  v_balance numeric;
+  v_remaining integer;
+  v_next jsonb;
+begin
+  if p_patient_id is null or p_clinician_id is null then
+    raise exception 'Patient and clinician identity are required';
+  end if;
+  if not exists (
+    select 1 from public.personal_patients p
+    where p.id = p_patient_id and p.clinician_id = p_clinician_id
+  ) then
+    raise exception 'Patient account not found';
+  end if;
+
+  select * into v_plan
+  from public.personal_patient_plans p
+  where p.patient_id = p_patient_id and p.clinician_id = p_clinician_id
+    and p.is_active = true
+  order by p.created_at desc
+  limit 1;
+
+  select count(*)::integer into v_completed
+  from public.personal_patient_sessions s
+  where s.patient_id = p_patient_id and s.clinician_id = p_clinician_id
+    and s.status = 'completed';
+
+  select count(*)::integer into v_upcoming
+  from public.personal_patient_sessions s
+  where s.patient_id = p_patient_id and s.clinician_id = p_clinician_id
+    and s.status = 'scheduled' and s.session_date >= now();
+
+  select coalesce(sum(case when l.entry_type = 'charge' then l.amount else 0 end), 0),
+         coalesce(sum(case when l.entry_type = 'payment' then abs(l.amount) else 0 end), 0),
+         coalesce(sum(l.amount), 0)
+    into v_total_charges, v_total_received, v_balance
+  from public.personal_patient_ledger l
+  where l.patient_id = p_patient_id and l.clinician_id = p_clinician_id;
+
+  if v_plan.id is not null and v_plan.plan_type = 'package' and v_plan.package_sessions is not null then
+    select greatest(0, v_plan.package_sessions - count(*)::integer)
+      into v_remaining
+    from public.personal_patient_sessions s
+    where s.patient_id = p_patient_id and s.clinician_id = p_clinician_id
+      and s.plan_id = v_plan.id and s.status = 'completed';
+  else
+    v_remaining := null;
+  end if;
+
+  select jsonb_build_object('session_date', s.session_date, 'session_label', s.session_label)
+    into v_next
+  from public.personal_patient_sessions s
+  where s.patient_id = p_patient_id and s.clinician_id = p_clinician_id
+    and s.status = 'scheduled' and s.session_date >= now()
+  order by s.session_date asc
+  limit 1;
+
+  return jsonb_build_object(
+    'completedSessions', v_completed,
+    'upcomingSessions', v_upcoming,
+    'totalCharges', v_total_charges,
+    'totalReceived', v_total_received,
+    'outstandingDues', greatest(0, v_balance),
+    'advanceCredit', greatest(0, -v_balance),
+    'packageSessionsRemaining', v_remaining,
+    'nextSession', v_next
+  );
+end;
+$$;
+
+revoke all on function public.get_personal_patient_portal_summary(uuid,uuid)
+  from public, anon, authenticated;
+grant execute on function public.get_personal_patient_portal_summary(uuid,uuid)
+  to service_role;
 
 revoke all on function public.verify_personal_patient_portal_pin(text,text,text,timestamptz)
   from public, anon, authenticated;
