@@ -123,12 +123,21 @@ test("patient portal uses PIN lockout, hashed bearer tokens and scoped read-only
   assert.match(migration, /resolve_personal_patient_portal_session/i);
   assert.match(migration, /get_personal_patient_portal_summary/i);
   assert.match(migration, /manage_personal_patient_portal/i);
-  assert.match(migration, /grant execute on function public\\.verify_personal_patient_portal_pin[\\s\\S]*?to service_role/i);
-  assert.match(migration, /grant execute on function public\\.manage_personal_patient_portal[\\s\\S]*?to service_role/i);
+  assert.match(
+    migration,
+    /grant execute on function public\\.verify_personal_patient_portal_pin[\\s\\S]*?to service_role/i,
+  );
+  assert.match(
+    migration,
+    /grant execute on function public\\.manage_personal_patient_portal[\\s\\S]*?to service_role/i,
+  );
   assert.match(portalFunction, /pinDigest\\(body\\.pin\\)/);
   assert.match(portalFunction, /resolve_personal_patient_portal_session/);
   assert.match(portalFunction, /get_personal_patient_portal_summary/);
-  assert.match(portalFunction, /eq\\("patient_id", patientId\\)\\.eq\\("clinician_id", clinicianId\\)/);
+  assert.match(
+    portalFunction,
+    /eq\\("patient_id", patientId\\)\\.eq\\("clinician_id", clinicianId\\)/,
+  );
   assert.doesNotMatch(portalFunction, /private_notes/);
   assert.doesNotMatch(portalFunction, /password/);
   assert.match(portalManager, /requireAdmin\\(req, admin\\)/);
