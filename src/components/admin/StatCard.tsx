@@ -18,14 +18,7 @@ const accents: Record<NonNullable<StatCardProps["accent"]>, { icon: string; rule
   rose: { icon: "bg-[#f7e9e7] text-[#a23c32]", rule: "before:bg-[#b94a40]" },
 };
 
-export function StatCard({
-  label,
-  value,
-  icon,
-  hint,
-  accent = "primary",
-  href,
-}: StatCardProps) {
+export function StatCard({ label, value, icon, hint, accent = "primary", href }: StatCardProps) {
   const style = accents[accent];
   const content = (
     <>
@@ -54,7 +47,7 @@ export function StatCard({
     "relative flex min-h-[96px] min-w-0 items-start gap-3 overflow-hidden border border-border bg-card px-3 py-3.5 text-left",
     "before:absolute before:inset-x-0 before:top-0 before:h-[2px]",
     style.rule,
-    href && "transition-colors hover:bg-muted/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
+    href &&\n      "transition-colors hover:bg-muted/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
   );
 
   if (href) {
