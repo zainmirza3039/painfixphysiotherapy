@@ -3,7 +3,7 @@ import type { SupabaseClient } from "@supabase/supabase-js";
 import { z } from "zod";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 import type { Database } from "@/integrations/supabase/types";
-import { calculateReceiptTotal, summarizeExpenseLedger, assertCompletedSessionSources } from "@/admin/medical-documents.contract";
+import { calculateReceiptTotal } from "@/admin/medical-documents.contract";
 
 type AdminContext = { supabase: SupabaseClient<Database>; userId: string };
 
@@ -143,7 +143,7 @@ function requiredText(value: string | undefined, label: string): string {
 }
 
 function isoDate(value: string | undefined, label: string): string {
-  if (!value || !/^\\d{4}-\\d{2}-\\d{2}$/.test(value)) throw new Error(`${label} is required`);
+  if (!value || !/^\d{4}-\d{2}-\d{2}$/.test(value)) throw new Error(`${label} is required`);
   return value;
 }
 
