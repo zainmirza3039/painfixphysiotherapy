@@ -47,7 +47,8 @@ export function StatCard({ label, value, icon, hint, accent = "primary", href }:
     "relative flex min-h-[96px] min-w-0 items-start gap-3 overflow-hidden border border-border bg-card px-3 py-3.5 text-left",
     "before:absolute before:inset-x-0 before:top-0 before:h-[2px]",
     style.rule,
-    href &&\n      "transition-colors hover:bg-muted/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
+    href &&
+      "transition-colors hover:bg-muted/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
   );
 
   if (href) {
