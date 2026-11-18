@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, Outlet, useRouterState } from "@tanstack/react-router";
 import { useEffect, useMemo, useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
@@ -109,6 +109,7 @@ const money = (n: number) =>
 
 function PersonalPatientsPage() {
   const { user } = useAdminAuth();
+  const pathname = useRouterState({ select: (state) => state.location.pathname });
   const qc = useQueryClient();
   const [lang, setLang] = useState<"en" | "ur">("en");
   const [search, setSearch] = useState("");
@@ -235,7 +236,11 @@ function PersonalPatientsPage() {
   });
 
   return (
-    <div className="personal-patients-portal" dir={lang === "ur" ? "rtl" : "ltr"}>
+    <>
+      <div
+        className={`personal-patients-portal ${pathname === "/admin/personal-patients" ? "" : "hidden"}`}
+        dir={lang === "ur" ? "rtl" : "ltr"}
+      >
       <div className="mb-5 flex justify-end">
         <Button variant="outline" size="sm" onClick={() => setLang(lang === "en" ? "ur" : "en")}>
           {t.language}
@@ -444,6 +449,8 @@ function PersonalPatientsPage() {
           </form>
         </DialogContent>
       </Dialog>
-    </div>
+      </div>
+      <Outlet />
+    </>
   );
 }
