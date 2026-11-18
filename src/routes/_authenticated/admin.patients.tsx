@@ -363,15 +363,18 @@ function PatientsPage() {
               if (!form.name.trim()) return toast.error("Name is required");
               saveMutation.mutate();
             }}
-            className="grid gap-4 sm:grid-cols-2"
+            className="space-y-5"
           >
-            <Field label="Full name" required>
+            <section className="space-y-3">
+              <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">Patient details</p>
+              <Field label="Full name" required>
               <Input
                 value={form.name}
                 onChange={(e) => setForm({ ...form, name: e.target.value })}
                 required
               />
             </Field>
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             <Field label="Phone">
               <Input
                 value={form.phone}
@@ -409,6 +412,10 @@ function PatientsPage() {
                 </Select>
               </Field>
             </div>
+            </div>
+            </section>
+            <section className="space-y-3 border-t border-border pt-4">
+              <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">Care and follow-up</p>
             <Field label="Assigned physiotherapist">
               <Input
                 value={form.assigned_physiotherapist}
@@ -436,6 +443,9 @@ function PatientsPage() {
                 onChange={(e) => setForm({ ...form, follow_up_date: e.target.value })}
               />
             </Field>
+            </section>
+            <section className="space-y-3 border-t border-border pt-4">
+              <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">Clinical information</p>
             <Field label="Address" full>
               <Input
                 value={form.address}
@@ -462,6 +472,9 @@ function PatientsPage() {
                 onChange={(e) => setForm({ ...form, treatment_plan: e.target.value })}
               />
             </Field>
+            </section>
+            <section className="space-y-3 border-t border-border pt-4">
+              <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">Additional notes</p>
             <Field label="Notes" full>
               <Textarea
                 rows={2}
@@ -469,7 +482,8 @@ function PatientsPage() {
                 onChange={(e) => setForm({ ...form, notes: e.target.value })}
               />
             </Field>
-            <DialogFooter className="sticky bottom-0 -mx-1 border-t border-border bg-background/95 pt-4 sm:col-span-2">
+            </section>
+            <DialogFooter className="sticky bottom-0 -mx-1 border-t border-border bg-background/95 pt-4">
               <Button type="button" variant="outline" onClick={() => setDialogOpen(false)}>
                 Cancel
               </Button>
