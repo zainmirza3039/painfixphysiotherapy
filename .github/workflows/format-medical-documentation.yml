@@ -1,0 +1,74 @@
+name: Format and verify medical documentation
+
+on:
+  push:
+    branches:
+      - feat/medical-documentation
+    paths:
+      - .github/workflows/format-medical-documentation.yml
+
+permissions:
+  contents: write
+
+concurrency:
+  group: medical-documentation-format-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  format-and-verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Check out feature branch
+        uses: actions/checkout@v4
+        with:
+          ref: feat/medical-documentation
+          fetch-depth: 0
+
+      - name: Set up Bun
+        uses: oven-sh/setup-bun@v2
+
+      - name: Install locked dependencies
+        run: bun install --frozen-lockfile
+
+      - name: Format only files changed by this feature
+        run: |
+          bunx prettier --write \
+            src/admin/medical-documents.contract.ts \
+            src/admin/medical-documents.functions.ts \
+            src/components/admin/AdminShell.tsx \
+            src/lib/medical-document-pdf.server.ts \
+            src/routes/_authenticated/admin.medical-documents.tsx \
+            src/routes/verify-medical-document.tsx \
+            tests/medical-documents.test.mjs
+
+      - name: Commit formatting changes to feature branch
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add \
+            src/admin/medical-documents.contract.ts \
+            src/admin/medical-documents.functions.ts \
+            src/components/admin/AdminShell.tsx \
+            src/lib/medical-document-pdf.server.ts \
+            src/routes/_authenticated/admin.medical-documents.tsx \
+            src/routes/verify-medical-document.tsx \
+            tests/medical-documents.test.mjs
+          if ! git diff --cached --quiet; then
+            git commit -m "style: format medical documentation feature"
+            git push origin HEAD:feat/medical-documentation
+          else
+            echo "Formatting produced no changes."
+          fi
+
+      - name: Run tests
+        run: bun run test
+
+      - name: TypeScript typecheck
+        run: bun run typecheck
+
+      - name: Lint
+        run: bun run lint
+
+      - name: Production build
+        run: bun run build
