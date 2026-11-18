@@ -148,6 +148,20 @@ test("patient portal uses PIN lockout, hashed bearer tokens and scoped read-only
   assert.ok(migration.trimEnd().endsWith("commit;"));
 });
 
+test("public document verification has a bounded keyed-IP rate limit", () => {
+  assert.match(migration, /medical_document_verification_limits/i);
+  assert.match(migration, /consume_medical_document_verification_limit/i);
+  assert.match(migration, /interval '15 minutes'/i);
+  assert.match(migration, /return v_count <= 20/i);
+  assert.match(migration, /revoke all on function public\\.consume_medical_document_verification_limit[\\s\\S]*?from public, anon, authenticated/i);
+  assert.match(migration, /grant execute on function public\\.consume_medical_document_verification_limit[\\s\\S]*?to service_role/i);
+  const functions = fs.readFileSync(path.join(root, "src/admin/medical-documents.functions.ts"), "utf8");
+  assert.match(functions, /getRequest\\(\\)/);
+  assert.match(functions, /x-real-ip/);
+  assert.match(functions, /consume_medical_document_verification_limit/);
+  assert.match(functions, /status: "rate_limited"/);
+});
+
 test("admin and public routes preserve separate clinical source and privacy boundaries", () => {
   assert.match(adminRoute, /listMedicalDocumentPatients/);
   assert.doesNotMatch(adminRoute, /personalPatientDb/);
