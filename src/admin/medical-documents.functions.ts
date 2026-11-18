@@ -8,8 +8,14 @@ import { calculateReceiptTotal, summarizeExpenseLedger } from "@/admin/medical-d
 type AdminContext = { supabase: SupabaseClient<Database>; userId: string };
 
 type DatabaseError = { message: string };
-interface DatabaseRows<Row> { data: Row[] | null; error: DatabaseError | null }
-interface DatabaseSingle<Row> { data: Row | null; error: DatabaseError | null }
+interface DatabaseRows<Row> {
+  data: Row[] | null;
+  error: DatabaseError | null;
+}
+interface DatabaseSingle<Row> {
+  data: Row | null;
+  error: DatabaseError | null;
+}
 
 interface MedicalDocumentQuery<Row> extends PromiseLike<DatabaseRows<Row>> {
   then: PromiseLike<DatabaseRows<Row>>["then"];
@@ -26,12 +32,22 @@ interface MedicalDocumentQuery<Row> extends PromiseLike<DatabaseRows<Row>> {
 
 interface MedicalDocumentDatabase {
   from<Row>(table: string): MedicalDocumentQuery<Row>;
-  rpc<Result>(functionName: string, parameters: Record<string, unknown>): PromiseLike<DatabaseSingle<Result>>;
+  rpc<Result>(
+    functionName: string,
+    parameters: Record<string, unknown>,
+  ): PromiseLike<DatabaseSingle<Result>>;
   storage: {
     from(bucket: string): {
-      upload(path: string, body: Uint8Array, options: { contentType: string; upsert: boolean }): Promise<{ error: DatabaseError | null }>;
+      upload(
+        path: string,
+        body: Uint8Array,
+        options: { contentType: string; upsert: boolean },
+      ): Promise<{ error: DatabaseError | null }>;
       remove(paths: string[]): Promise<{ error: DatabaseError | null }>;
-      createSignedUrl(path: string, expiresIn: number): Promise<{ data: { signedUrl: string } | null; error: DatabaseError | null }>;
+      createSignedUrl(
+        path: string,
+        expiresIn: number,
+      ): Promise<{ data: { signedUrl: string } | null; error: DatabaseError | null }>;
     };
   };
 }
@@ -55,7 +71,12 @@ type MedicalDocumentLedgerRow = {
   payment_method: string | null;
   reference: string | null;
 };
-type MedicalDocumentSessionRow = { id: string; session_date: string; status: string; session_label: string | null };
+type MedicalDocumentSessionRow = {
+  id: string;
+  session_date: string;
+  status: string;
+  session_label: string | null;
+};
 type IssuedEstimateRow = { id: string; document_number: string; snapshot: unknown };
 type IssuanceRecord = { document_id: string; document_number: string };
 type MedicalDocumentPdfRow = { pdf_storage_path: string | null; status: string };
@@ -72,7 +93,6 @@ function snapshotRecord(value: unknown): MedicalDocumentSnapshot {
     ? (value as MedicalDocumentSnapshot)
     : {};
 }
-
 
 async function assertAdmin(context: AdminContext) {
   const [{ data: isAdmin, error: adminError }, { data: isSuper, error: superError }] =
@@ -493,9 +513,7 @@ export const createMedicalDocument = createServerFn({ method: "POST" })
           .in("id", ids);
         if (error || !ledger || ledger.length !== ids.length)
           throw new Error("Unable to validate selected financial records");
-        if (
-          ledger.some((row) => !["payment", "refund", "adjustment"].includes(row.entry_type))
-        ) {
+        if (ledger.some((row) => !["payment", "refund", "adjustment"].includes(row.entry_type))) {
           throw new Error("Statements may include payment, refund and adjustment entries only");
         }
         const payments = ledger.filter((row) => row.entry_type === "payment");
@@ -508,7 +526,12 @@ export const createMedicalDocument = createServerFn({ method: "POST" })
           throw new Error("Financial ledger signs are inconsistent with payment/refund types");
         }
         sourceIds.push(...ids);
-        let futureEstimate: { documentId: string; estimateNumber: string; amount: number; validUntil: string } | null = null;
+        let futureEstimate: {
+          documentId: string;
+          estimateNumber: string;
+          amount: number;
+          validUntil: string;
+        } | null = null;
         if (data.futureEstimateDocumentId) {
           const { data: estimate, error: estimateError } = await db
             .from<IssuedEstimateRow>("medical_documents")
@@ -760,9 +783,10 @@ export const listMedicalDocumentSources = createServerFn({ method: "GET" })
         id: row.id,
         document_number: row.document_number,
         estimated_total: Number(snapshotRecord(row.snapshot).estimatedTotal ?? 0),
-        valid_until: typeof snapshotRecord(row.snapshot).validUntil === "string"
-          ? (snapshotRecord(row.snapshot).validUntil as string)
-          : null,
+        valid_until:
+          typeof snapshotRecord(row.snapshot).validUntil === "string"
+            ? (snapshotRecord(row.snapshot).validUntil as string)
+            : null,
       })),
     };
   });
