@@ -264,6 +264,7 @@ begin
         and si.document_type = 'receipt'
         and si.source_kind = 'payment_ledger'
         and existing.status in ('pending', 'issued')
+        and existing.id is distinct from p_supersedes_document_id
     ) then
       raise exception 'One or more payments already belong to an active receipt';
     end if;
