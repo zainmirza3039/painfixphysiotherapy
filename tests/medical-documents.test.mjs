@@ -63,6 +63,14 @@ test("expense statement accounting separates receipts, refunds and signed adjust
   assert.throws(() => summarizeExpenseLedger([{ id: "c1", entry_type: "charge", amount: 2000 }]));
 });
 
+test("receipt treatment-period filtering includes the entire final calendar day", () => {
+  const end = "2026-11-19";
+  const endExclusive = new Date(`${end}T00:00:00.000Z`);
+  endExclusive.setUTCDate(endExclusive.getUTCDate() + 1);
+  assert.equal(endExclusive.toISOString(), "2026-11-20T00:00:00.000Z");
+  assert.match(fs.readFileSync(path.join(root, "src/admin/medical-documents.functions.ts"), "utf8"), /\.gte\("session_date", `\$\{start\}T00:00:00\.000Z`\)\s*\.lt\("session_date", endExclusive\.toISOString\(\)\)/);
+});
+
 test("treatment reports reject planned or duplicate sessions", () => {
   assert.deepEqual(
     assertCompletedSessionSources([
