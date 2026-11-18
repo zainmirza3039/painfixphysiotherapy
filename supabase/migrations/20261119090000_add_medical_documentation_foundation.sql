@@ -77,6 +77,18 @@ language plpgsql
 set search_path = pg_catalog, public
 as $$
 begin
+  if old.status <> new.status and not (
+       (old.status = 'pending' and new.status in ('issued','cancelled'))
+       or (old.status = 'issued' and new.status = 'superseded')
+     ) then
+    raise exception 'Invalid medical document status transition';
+  end if;
+  if old.pdf_storage_path is not null and old.pdf_storage_path is distinct from new.pdf_storage_path then
+    raise exception 'Stored PDF path is immutable once assigned';
+  end if;
+  if old.issued_at is not null and old.issued_at is distinct from new.issued_at then
+    raise exception 'Issue timestamp is immutable once assigned';
+  end if;
   if old.clinician_id is distinct from new.clinician_id
      or old.patient_id is distinct from new.patient_id
      or old.document_type is distinct from new.document_type
@@ -197,5 +209,64 @@ $$;
 
 revoke all on function public.begin_medical_document_issuance(uuid,uuid,text,text,jsonb,text,uuid,uuid) from public, anon, authenticated;
 grant execute on function public.begin_medical_document_issuance(uuid,uuid,text,text,jsonb,text,uuid,uuid) to service_role;
+
+
+-- Finalize only a pending record after the private PDF upload succeeds.
+create or replace function public.complete_medical_document_issuance(
+  p_document_id uuid, p_pdf_storage_path text, p_actor_id uuid
+)
+returns void language plpgsql security definer
+set search_path = pg_catalog, public
+as $
+declare v_doc public.medical_documents%rowtype;
+begin
+  if p_actor_id is null or not (
+    coalesce(public.has_role(p_actor_id, 'admin'), false)
+    or coalesce(public.has_role(p_actor_id, 'super_admin'), false)
+  ) then raise exception 'Administrator access required'; end if;
+  if p_pdf_storage_path is null
+     or p_pdf_storage_path !~ '^medical-documents/[0-9a-f-]{36}/[0-9a-f-]{36}[.]pdf
+ then
+    raise exception 'Invalid private PDF storage path';
+  end if;
+  select * into v_doc from public.medical_documents where id = p_document_id for update;
+  if not found or v_doc.status <> 'pending' then raise exception 'Pending document not found'; end if;
+  update public.medical_documents
+    set status = 'issued', issued_at = now(), pdf_storage_path = p_pdf_storage_path
+    where id = p_document_id;
+  insert into public.medical_document_events(document_id, actor_id, event_type, details)
+    values (p_document_id, p_actor_id, 'issued', jsonb_build_object('pdf_stored', true));
+end;
+$;
+
+create or replace function public.cancel_medical_document_issuance(
+  p_document_id uuid, p_reason text, p_actor_id uuid
+)
+returns void language plpgsql security definer
+set search_path = pg_catalog, public
+as $
+declare v_doc public.medical_documents%rowtype;
+begin
+  if p_actor_id is null or not (
+    coalesce(public.has_role(p_actor_id, 'admin'), false)
+    or coalesce(public.has_role(p_actor_id, 'super_admin'), false)
+  ) then raise exception 'Administrator access required'; end if;
+  if length(trim(coalesce(p_reason,''))) < 8 or length(p_reason) > 500 then
+    raise exception 'A cancellation reason of 8-500 characters is required';
+  end if;
+  select * into v_doc from public.medical_documents where id = p_document_id for update;
+  if not found or v_doc.status <> 'pending' then raise exception 'Pending document not found'; end if;
+  update public.medical_documents
+    set status = 'cancelled', cancelled_at = now(), cancellation_reason = trim(p_reason)
+    where id = p_document_id;
+  insert into public.medical_document_events(document_id, actor_id, event_type, details)
+    values (p_document_id, p_actor_id, 'cancelled', jsonb_build_object('reason', trim(p_reason)));
+end;
+$;
+
+revoke all on function public.complete_medical_document_issuance(uuid,text,uuid) from public, anon, authenticated;
+revoke all on function public.cancel_medical_document_issuance(uuid,text,uuid) from public, anon, authenticated;
+grant execute on function public.complete_medical_document_issuance(uuid,text,uuid) to service_role;
+grant execute on function public.cancel_medical_document_issuance(uuid,text,uuid) to service_role;
 
 commit;
