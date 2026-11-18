@@ -12,6 +12,8 @@ import { Textarea } from "@/components/ui/textarea";
 import {
   listMedicalDocumentPatients,
   listMedicalDocuments,
+  listMedicalDocumentSources,
+  createMedicalDocument,
 } from "@/admin/medical-documents.functions";
 
 export const Route = createFileRoute("/_authenticated/admin/medical-documents")({
