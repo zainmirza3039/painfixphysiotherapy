@@ -165,7 +165,7 @@ function formatMoney(value: number): string {
 export const createMedicalDocument = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((input) => issueInput.parse(input))
-  .handler(async ({ data, context }): Promise<{ documentNumber: string; status: string; pdfUrl: string }> => {
+  .handler(async ({ data, context }): Promise<{ documentNumber: string; status: string; pdfUrl: string | null }> => {
     await assertAdmin(context);
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const { createMedicalDocumentPdf } = await import("@/lib/medical-document-pdf.server");
@@ -448,8 +448,7 @@ export const createMedicalDocument = createServerFn({ method: "POST" })
 
     const { data: signed, error: signedError } = await db.storage.from("medical-documents")
       .createSignedUrl(storagePath, 60);
-    if (signedError || !signed?.signedUrl) throw new Error("Document issued, but a temporary PDF link could not be created");
-    return { documentNumber: record.document_number, status: "issued", pdfUrl: signed.signedUrl };
+    return { documentNumber: record.document_number, status: "issued", pdfUrl: signedError ? null : (signed?.signedUrl ?? null) };
   });
 
 

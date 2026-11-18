@@ -195,12 +195,12 @@ function MedicalDocumentationPage() {
         <form onSubmit={submitDocument} className="space-y-4 p-4">
           <div className="grid gap-3 sm:grid-cols-2">
             <label className="space-y-1 text-xs font-medium">Patient
-              <select required value={selectedPatientId} onChange={(e) => { setSelectedPatientId(e.target.value); setSelectedLedgerIds([]); setSelectedSessionIds([]); }} className="h-10 w-full border border-input bg-background px-3 text-sm">
+              <select required value={selectedPatientId} onChange={(e) => { setSelectedPatientId(e.target.value); setSelectedLedgerIds([]); setSelectedSessionIds([]); createMutation.reset(); setIssuedPdf(null); }} className="h-10 w-full border border-input bg-background px-3 text-sm">
                 <option value="">Select patient</option>{(patients.data ?? []).map((p) => <option key={p.id} value={p.id}>{p.full_name}</option>)}
               </select>
             </label>
             <label className="space-y-1 text-xs font-medium">Document
-              <select value={documentType} onChange={(e) => { setDocumentType(e.target.value as typeof documentType); setSelectedLedgerIds([]); setSelectedSessionIds([]); setIssuedPdf(null); }} className="h-10 w-full border border-input bg-background px-3 text-sm">
+              <select value={documentType} onChange={(e) => { setDocumentType(e.target.value as typeof documentType); setSelectedLedgerIds([]); setSelectedSessionIds([]); setIssuedPdf(null); createMutation.reset(); }} className="h-10 w-full border border-input bg-background px-3 text-sm">
                 <option value="receipt">Payment Receipt</option><option value="estimate">Treatment Cost Estimate</option><option value="treatment_report">Treatment Verification Report</option><option value="expense_statement">Medical Expense Statement</option>
               </select>
             </label>
@@ -246,7 +246,7 @@ function MedicalDocumentationPage() {
           {createMutation.isError && <p role="alert" className="text-sm text-destructive">{createMutation.error.message}</p>}
           {pdfError && <p role="alert" className="text-sm text-destructive">{pdfError}</p>}
           {createMutation.isSuccess && <div className="border border-secondary/40 bg-secondary/5 p-3 text-sm"><p className="font-semibold">Document {createMutation.data.documentNumber} issued.</p>{issuedPdf ? <a href={issuedPdf} target="_blank" rel="noreferrer" className="text-primary underline">Open private PDF (link expires in 60 seconds)</a> : <p className="mt-1 text-xs text-muted-foreground">Use the document list to open its PDF.</p>}</div>}
-          <div className="flex flex-wrap items-center gap-3 border-t border-border pt-4"><button type="submit" disabled={!selectedPatientId || createMutation.isPending || sources.isLoading || sources.isError} className="h-10 bg-primary px-5 text-sm font-semibold text-primary-foreground disabled:opacity-50">{createMutation.isPending ? "Validating and issuing…" : "Generate and issue PDF"}</button><span className="text-xs text-muted-foreground">Issued records are immutable. Corrections require a replacement or cancellation.</span></div>
+          <div className="flex flex-wrap items-center gap-3 border-t border-border pt-4"><button type="submit" disabled={!selectedPatientId || createMutation.isPending || sources.isLoading || sources.isError || ((documentType === "receipt" || documentType === "expense_statement") && selectedLedgerIds.length === 0) || (documentType === "treatment_report" && selectedSessionIds.length === 0)} className="h-10 bg-primary px-5 text-sm font-semibold text-primary-foreground disabled:opacity-50">{createMutation.isPending ? "Validating and issuing…" : "Generate and issue PDF"}</button><span className="text-xs text-muted-foreground">Issued records are immutable. Corrections require a replacement or cancellation.</span></div>
         </form>
       </section>
       <p className="text-xs leading-5 text-muted-foreground">
