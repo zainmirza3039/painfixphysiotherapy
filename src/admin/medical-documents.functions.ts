@@ -189,6 +189,7 @@ export const verifyMedicalDocument = createServerFn({ method: "GET" })
   .inputValidator((input) => verificationInput.parse(input))
   .handler(async ({ data }): Promise<MedicalDocumentVerification> => {
     const request = getRequest();
+    if (!request?.headers) throw new Error("Verification request context is unavailable");
     const ipAddress =
       request.headers.get("x-real-ip")?.trim() ||
       request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ||
