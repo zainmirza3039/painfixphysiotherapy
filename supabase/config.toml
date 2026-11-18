@@ -1,1 +1,7 @@
 project_id = "vagsksstptqqcloccavs"
+
+[functions.patient-portal]
+verify_jwt = false
+
+[functions.manage-patient-portal]
+verify_jwt = false
