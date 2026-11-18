@@ -5,7 +5,7 @@ export const corsHeaders = {
   "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
   "Access-Control-Allow-Methods": "POST, OPTIONS",
   "Cache-Control": "no-store",
-  "Pragma": "no-cache",
+  Pragma: "no-cache",
 };
 
 export function json(body: unknown, status = 200): Response {
@@ -51,8 +51,10 @@ export function randomToken(): string {
 }
 
 export function validUuid(value: unknown): value is string {
-  return typeof value === "string" &&
-    /^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(value);
+  return (
+    typeof value === "string" &&
+    /^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(value)
+  );
 }
 
 export async function requireAdmin(req: Request, admin: SupabaseClient) {

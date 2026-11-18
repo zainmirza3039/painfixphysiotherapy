@@ -441,7 +441,8 @@ function MedicalDocumentationPage() {
                 ))}
             </select>
             <span className="block text-[11px] font-normal text-muted-foreground">
-              The previous document is marked superseded only after its replacement PDF is stored successfully.
+              The previous document is marked superseded only after its replacement PDF is stored
+              successfully.
             </span>
           </label>
           {selectedPatientId && sources.isLoading && (
