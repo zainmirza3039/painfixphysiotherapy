@@ -478,6 +478,7 @@ export interface FileRoutesByFullPath {
   '/terms': typeof TermsRoute
   '/verify-certificate': typeof VerifyCertificateRoute
   '/verify-medical-document': typeof VerifyMedicalDocumentRoute
+  '/verify-medical-document': typeof VerifyMedicalDocumentRoute
   '/admin': typeof AuthenticatedAdminRouteWithChildren
   '/blog/$slug': typeof BlogSlugRoute
   '/conditions/$slug': typeof ConditionsSlugRoute
@@ -506,6 +507,7 @@ export interface FileRoutesByFullPath {
   '/admin/internships': typeof AuthenticatedAdminInternshipsRoute
   '/admin/media': typeof AuthenticatedAdminMediaRoute
   '/admin/messages': typeof AuthenticatedAdminMessagesRoute
+  '/admin/medical-documents': typeof AuthenticatedAdminMedicalDocumentsRoute
   '/admin/medical-documents': typeof AuthenticatedAdminMedicalDocumentsRoute
   '/admin/patients': typeof AuthenticatedAdminPatientsRoute
   '/admin/profile': typeof AuthenticatedAdminProfileRoute
@@ -547,6 +549,7 @@ export interface FileRoutesByTo {
   '/success-stories': typeof SuccessStoriesRoute
   '/terms': typeof TermsRoute
   '/verify-certificate': typeof VerifyCertificateRoute
+  '/verify-medical-document': typeof VerifyMedicalDocumentRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/conditions/$slug': typeof ConditionsSlugRoute
   '/diet-nutrition/$slug': typeof DietNutritionSlugRoute
@@ -574,6 +577,7 @@ export interface FileRoutesByTo {
   '/admin/internships': typeof AuthenticatedAdminInternshipsRoute
   '/admin/media': typeof AuthenticatedAdminMediaRoute
   '/admin/messages': typeof AuthenticatedAdminMessagesRoute
+  '/admin/medical-documents': typeof AuthenticatedAdminMedicalDocumentsRoute
   '/admin/patients': typeof AuthenticatedAdminPatientsRoute
   '/admin/profile': typeof AuthenticatedAdminProfileRoute
   '/admin/reports': typeof AuthenticatedAdminReportsRoute
@@ -616,6 +620,7 @@ export interface FileRoutesById {
   '/success-stories': typeof SuccessStoriesRoute
   '/terms': typeof TermsRoute
   '/verify-certificate': typeof VerifyCertificateRoute
+  '/verify-medical-document': typeof VerifyMedicalDocumentRoute
   '/_authenticated/admin': typeof AuthenticatedAdminRouteWithChildren
   '/blog/$slug': typeof BlogSlugRoute
   '/conditions/$slug': typeof ConditionsSlugRoute
