@@ -50,3 +50,29 @@ The remote Supabase migration history and repository migration files are materia
 3. Test document eligibility, ledger reconciliation, cancellation/supersession, token guessing/rate limiting, data minimization, and PDF/QR rendering.
 4. Run typecheck, lint, unit tests, build, and preview smoke tests.
 5. Submit preview for explicit approval. Production deployment and live database migration require separate explicit approval.
+
+
+## 2026-11-19 audit update
+
+The live audit and detailed design are recorded in:
+- `docs/medical-documentation-audit-addendum.md`
+- `docs/medical-documentation-schema-design.md`
+- `docs/supabase-migration-history-reconciliation.md`
+
+Additional implementation constraints:
+- The current visible `/admin/patients` route is backed by legacy `public.patients`; it is not the dedicated `personal_patients` workflow. The new documentation UI must not assume these are interchangeable.
+- No personal-patient portal route/server endpoint was found in the inspected repository tree. Portal credential/session tables have RLS enabled and no anon/authenticated grants or policies; preserve this fail-closed state.
+- The receipt source must be ledger `entry_type = 'payment'` rows only. Package and completed-session triggers create `charge` rows, which are not proof of payment. Ledger payment amounts are negative by convention.
+- The live medical-reports bucket is private, 5 MiB and limited to JPEG/PNG/PDF, while frontend validation advertises 10 MiB and additional formats. This separate mismatch is not to be changed under this feature without a distinct approval.
+- Leaked-password protection is disabled. Supabase documentation states this feature is available on Pro and above; it requires owner-level Auth settings and is not exposed by the connected Supabase project tools.
+
+### Updated stop conditions
+
+Before any schema migration:
+1. Obtain and review a schema-only dump from the live project using a controlled local checkout.
+2. Recover remote migration SQL provenance where possible; otherwise document the unmatched history as unrecoverable rather than fabricating equivalence.
+3. Decide the intended source/UI route for personal patients.
+4. Owner enables leaked-password protection if available on the current Supabase plan.
+5. Keep portal tables server-only unless a separate portal authorization design is approved.
+
+No feature source code, schema migration, live database setting, or deployment has been changed by this audit update.
