@@ -134,7 +134,10 @@ test("patient portal uses PIN lockout, hashed bearer tokens and scoped read-only
   assert.match(portalFunction, /pinDigest\(body\.pin\)/);
   assert.match(portalFunction, /resolve_personal_patient_portal_session/);
   assert.match(portalFunction, /get_personal_patient_portal_summary/);
-  assert.match(portalFunction, /eq\("patient_id", patientId\)[\s\S]*?eq\("clinician_id", clinicianId\)/);
+  assert.match(
+    portalFunction,
+    /eq\("patient_id", patientId\)[\s\S]*?eq\("clinician_id", clinicianId\)/,
+  );
   assert.doesNotMatch(portalFunction, /private_notes/);
   assert.doesNotMatch(portalFunction, /password/);
   assert.match(portalManager, /requireAdmin\(req, admin\)/);
