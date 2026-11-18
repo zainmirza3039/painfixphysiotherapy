@@ -785,4 +785,53 @@ revoke all on function public.consume_medical_document_verification_limit(text)
 grant execute on function public.consume_medical_document_verification_limit(text)
   to service_role;
 
+
+create or replace function public.cancel_stale_medical_document_issuances(
+  p_clinician_id uuid,
+  p_actor_id uuid
+)
+returns integer
+language plpgsql
+security definer
+set search_path = pg_catalog, public
+as $$
+declare
+  v_doc public.medical_documents%rowtype;
+  v_cancelled integer := 0;
+  v_reason constant text := 'Automatically cancelled after 30 minutes without finalization.';
+begin
+  if p_actor_id is null or p_clinician_id is distinct from p_actor_id
+     or not (
+       coalesce(public.has_role(p_actor_id, 'admin'), false)
+       or coalesce(public.has_role(p_actor_id, 'super_admin'), false)
+     ) then
+    raise exception 'Administrator access required';
+  end if;
+
+  for v_doc in
+    select d.*
+    from public.medical_documents d
+    where d.clinician_id = p_clinician_id
+      and d.status = 'pending'
+      and d.created_at < now() - interval '30 minutes'
+    order by d.created_at
+    for update
+  loop
+    update public.medical_documents
+      set status = 'cancelled', cancelled_at = now(), cancellation_reason = v_reason
+      where id = v_doc.id;
+    insert into public.medical_document_events(document_id, actor_id, event_type, details)
+      values (v_doc.id, p_actor_id, 'cancelled', jsonb_build_object('reason', v_reason));
+    v_cancelled := v_cancelled + 1;
+  end loop;
+
+  return v_cancelled;
+end;
+$$;
+
+revoke all on function public.cancel_stale_medical_document_issuances(uuid,uuid)
+  from public, anon, authenticated;
+grant execute on function public.cancel_stale_medical_document_issuances(uuid,uuid)
+  to service_role;
+
 commit;
