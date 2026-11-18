@@ -153,3 +153,79 @@ comment on column public.medical_documents.verification_token_hash is
   'SHA-256 hex digest of a high-entropy raw verification token; never expose this field.';
 comment on function public.allocate_medical_document_number(text) is
   'Atomically allocates a clinic-wide document number. Gaps are permitted; numbers are never reused.';
+
+
+create or replace function public.create_medical_document_draft(
+  p_clinician_id uuid,
+  p_patient_id uuid,
+  p_document_type text,
+  p_patient_name_snapshot text,
+  p_document_snapshot jsonb,
+  p_verification_token_hash text,
+  p_created_by uuid,
+  p_supersedes_document_id uuid default null
+)
+returns table (medical_document_id uuid, document_number text)
+language plpgsql
+security definer
+set search_path = ''
+as $$
+declare
+  v_document_number text;
+  v_document_id uuid;
+begin
+  if p_clinician_id is distinct from p_created_by then
+    raise exception 'Creator must match authenticated clinician';
+  end if;
+  if p_patient_name_snapshot is null or length(trim(p_patient_name_snapshot)) = 0 then
+    raise exception 'Patient name snapshot is required';
+  end if;
+  if p_verification_token_hash !~ '^[a-f0-9]{64}$' then
+    raise exception 'Invalid verification token digest';
+  end if;
+  if jsonb_typeof(p_document_snapshot) <> 'object' then
+    raise exception 'Document snapshot must be a JSON object';
+  end if;
+  if not exists (
+    select 1 from public.personal_patients p
+    where p.id = p_patient_id and p.clinician_id = p_clinician_id
+  ) then
+    raise exception 'Patient not found for this clinician';
+  end if;
+  if p_supersedes_document_id is not null and not exists (
+    select 1 from public.medical_documents d
+    where d.id = p_supersedes_document_id
+      and d.clinician_id = p_clinician_id
+      and d.patient_id = p_patient_id
+      and d.document_type = p_document_type
+      and d.status in ('issued', 'cancelled')
+  ) then
+    raise exception 'Superseded document does not match patient and type';
+  end if;
+
+  v_document_number := public.allocate_medical_document_number(p_document_type);
+  insert into public.medical_documents (
+    clinician_id, patient_id, document_type, document_number,
+    patient_name_snapshot, document_snapshot, verification_token_hash,
+    created_by, supersedes_document_id
+  ) values (
+    p_clinician_id, p_patient_id, p_document_type, v_document_number,
+    trim(p_patient_name_snapshot), p_document_snapshot, p_verification_token_hash,
+    p_created_by, p_supersedes_document_id
+  ) returning id into v_document_id;
+
+  insert into public.medical_document_events (
+    medical_document_id, actor_id, event_type, event_details
+  ) values (
+    v_document_id, p_created_by, 'created',
+    jsonb_build_object('document_number', v_document_number, 'document_type', p_document_type)
+  );
+
+  return query select v_document_id, v_document_number;
+end;
+$$;
+
+revoke all on function public.create_medical_document_draft(uuid, uuid, text, text, jsonb, text, uuid, uuid)
+  from public, anon, authenticated;
+grant execute on function public.create_medical_document_draft(uuid, uuid, text, text, jsonb, text, uuid, uuid)
+  to service_role;
