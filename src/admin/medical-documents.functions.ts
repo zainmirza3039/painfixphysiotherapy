@@ -146,6 +146,11 @@ export const listMedicalDocuments = createServerFn({ method: "GET" })
     await assertAdmin(context);
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const db = medicalDocumentDatabase(supabaseAdmin);
+    const { error: cleanupError } = await db.rpc<number>(
+      "cancel_stale_medical_document_issuances",
+      { p_clinician_id: context.userId, p_actor_id: context.userId },
+    );
+    if (cleanupError) throw new Error("Unable to reconcile pending medical documents");
     const { data, error } = await db
       .from<MedicalDocumentListRow>("medical_documents")
       .select(
