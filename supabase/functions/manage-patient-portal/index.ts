@@ -25,78 +25,37 @@ Deno.serve(async (req: Request) => {
     }
 
     if (body.action === "revoke") {
-      const now = new Date().toISOString();
-      const [credentialUpdate, sessionUpdate] = await Promise.all([
-        admin.from("personal_patient_portal_credentials")
-          .update({ is_revoked: true, locked_until: null, failed_attempts: 0, updated_at: now })
-          .eq("patient_id", patient.id).eq("clinician_id", clinicianId),
-        admin.from("personal_patient_portal_sessions")
-          .update({ revoked_at: now })
-          .eq("patient_id", patient.id).eq("clinician_id", clinicianId)
-          .is("revoked_at", null),
-      ]);
-      if (credentialUpdate.error || sessionUpdate.error) {
-        console.error("Portal revocation failed", credentialUpdate.error?.message, sessionUpdate.error?.message);
-        return json({ error: "Portal access could not be revoked." }, 503);
-      }
-      const { error: auditError } = await admin.from("personal_patient_audit_events").insert({
-        clinician_id: clinicianId,
-        patient_id: patient.id,
-        entity_type: "portal",
-        entity_id: patient.id,
-        action: "portal_revoked",
-        details: { revoked_at: now },
+      const { error } = await admin.rpc("manage_personal_patient_portal", {
+        p_clinician_id: clinicianId,
+        p_patient_id: patient.id,
+        p_action: "revoke",
+        p_token_digest: null,
+        p_pin_hash: null,
       });
-      if (auditError) {
-        console.error("Portal revoke audit event failed:", auditError.message);
-        return json({ error: "Portal was revoked but its audit event could not be recorded. Contact support." }, 503);
+      if (error) {
+        console.error("Portal revocation failed:", error.message);
+        return json({ error: "Portal access could not be revoked." }, 503);
       }
       return json({ revoked: true });
     }
 
-    if (body.action !== "create_or_rotate" || typeof body.pin !== "string" || !/^\d{6}$/.test(body.pin)) {
+    if (body.action !== "create_or_rotate" || typeof body.pin !== "string" || !/^\\d{6}$/.test(body.pin)) {
       return json({ error: "Choose a valid action and enter a six-digit PIN." }, 400);
     }
 
     const token = randomToken();
     const [tokenDigest, hashedPin] = await Promise.all([sha256(token), pinDigest(body.pin)]);
-    const now = new Date().toISOString();
-
-    const { error: sessionError } = await admin.from("personal_patient_portal_sessions")
-      .update({ revoked_at: now })
-      .eq("patient_id", patient.id).eq("clinician_id", clinicianId)
-      .is("revoked_at", null);
-    if (sessionError) return json({ error: "Existing portal sessions could not be closed." }, 503);
-
-    const { error: credentialError } = await admin.from("personal_patient_portal_credentials")
-      .upsert({
-        patient_id: patient.id,
-        clinician_id: clinicianId,
-        token_digest: tokenDigest,
-        pin_hash: hashedPin,
-        is_revoked: false,
-        failed_attempts: 0,
-        locked_until: null,
-        updated_at: now,
-      }, { onConflict: "patient_id" });
-    if (credentialError) {
-      console.error("Portal credential rotation failed:", credentialError.message);
+    const { error } = await admin.rpc("manage_personal_patient_portal", {
+      p_clinician_id: clinicianId,
+      p_patient_id: patient.id,
+      p_action: "create_or_rotate",
+      p_token_digest: tokenDigest,
+      p_pin_hash: hashedPin,
+    });
+    if (error) {
+      console.error("Portal credential rotation failed:", error.message);
       return json({ error: "Portal access could not be created." }, 503);
     }
-
-    const { error: auditError } = await admin.from("personal_patient_audit_events").insert({
-      clinician_id: clinicianId,
-      patient_id: patient.id,
-      entity_type: "portal",
-      entity_id: patient.id,
-      action: "portal_created_or_rotated",
-      details: { created_at: now },
-    });
-    if (auditError) {
-      console.error("Portal credential audit event failed:", auditError.message);
-      return json({ error: "Portal credentials were updated but the audit event failed. Contact support." }, 503);
-    }
-
     return json({ token });
   } catch (error) {
     const message = error instanceof Error ? error.message : "Portal management failed";
