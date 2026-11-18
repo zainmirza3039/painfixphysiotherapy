@@ -511,16 +511,17 @@ declare
   v_session public.personal_patient_portal_sessions%rowtype;
   v_credential public.personal_patient_portal_credentials%rowtype;
 begin
-  if p_session_digest !~ '^[a-f0-9]{64}$' then
+  if p_session_digest is null or p_session_digest !~ '^[a-f0-9]{64}$' then
     return;
   end if;
 
+  -- Read the session identity first, then lock credential before session.
+  -- Credential management and PIN verification use the same lock order.
   select * into v_session
   from public.personal_patient_portal_sessions s
   where s.session_token_digest = p_session_digest
     and s.expires_at > now()
-    and s.revoked_at is null
-  for update;
+    and s.revoked_at is null;
 
   if not found then
     return;
@@ -536,6 +537,17 @@ begin
   for update of c;
 
   if not found or v_credential.is_revoked then
+    return;
+  end if;
+
+  select * into v_session
+  from public.personal_patient_portal_sessions s
+  where s.id = v_session.id
+    and s.expires_at > now()
+    and s.revoked_at is null
+  for update;
+
+  if not found then
     return;
   end if;
 
@@ -693,10 +705,290 @@ begin
     );
   elsif p_action = 'create_or_rotate' then
     if p_token_digest is null or p_pin_hash is null
-       or p_token_digest !~ '^[a-f0-9]{64}$'
-       or p_pin_hash !~ '^[a-f0-9]{64}$' then
+       or p_token_digest !~ '^[a-f0-9]{64}
+      set revoked_at = v_now
+      where patient_id = p_patient_id and clinician_id = p_clinician_id and revoked_at is null;
+    insert into public.personal_patient_portal_credentials(
+      patient_id, clinician_id, token_digest, pin_hash, is_revoked,
+      failed_attempts, locked_until, updated_at
+    ) values (
+      p_patient_id, p_clinician_id, p_token_digest, p_pin_hash, false, 0, null, v_now
+    )
+    on conflict (patient_id) do update set
+      clinician_id = excluded.clinician_id,
+      token_digest = excluded.token_digest,
+      pin_hash = excluded.pin_hash,
+      is_revoked = false,
+      failed_attempts = 0,
+      locked_until = null,
+      updated_at = v_now;
+    insert into public.personal_patient_audit_events(
+      clinician_id, patient_id, entity_type, entity_id, action, details
+    ) values (
+      p_clinician_id, p_patient_id, 'portal', p_patient_id, 'portal_created_or_rotated',
+      jsonb_build_object('created_at', v_now)
+    );
+  else
+    raise exception 'Unsupported portal action';
+  end if;
+end;
+$$;
+
+revoke all on function public.manage_personal_patient_portal(uuid,uuid,text,text,text)
+  from public, anon, authenticated;
+grant execute on function public.manage_personal_patient_portal(uuid,uuid,text,text,text)
+  to service_role;
+
+
+-- Per-client public verification throttling. Only a keyed digest is persisted, never the raw IP.
+create table if not exists public.medical_document_verification_limits (
+  ip_digest text primary key check (ip_digest ~ '^[a-f0-9]{64}$'),
+  window_started_at timestamptz not null default now(),
+  request_count integer not null default 0 check (request_count >= 0),
+  updated_at timestamptz not null default now()
+);
+
+alter table public.medical_document_verification_limits enable row level security;
+revoke all on public.medical_document_verification_limits from public, anon, authenticated;
+grant all on public.medical_document_verification_limits to service_role;
+
+create or replace function public.consume_medical_document_verification_limit(
+  p_ip_digest text
+)
+returns boolean
+language plpgsql
+security definer
+set search_path = pg_catalog, public
+as $$
+declare
+  v_count integer;
+begin
+  if p_ip_digest is null or p_ip_digest !~ '^[a-f0-9]{64}$' then
+    raise exception 'Invalid verification throttle key';
+  end if;
+
+  insert into public.medical_document_verification_limits(
+    ip_digest, window_started_at, request_count, updated_at
+  ) values (p_ip_digest, now(), 1, now())
+  on conflict (ip_digest) do update set
+    window_started_at = case
+      when public.medical_document_verification_limits.window_started_at <= now() - interval '15 minutes'
+        then now()
+      else public.medical_document_verification_limits.window_started_at
+    end,
+    request_count = case
+      when public.medical_document_verification_limits.window_started_at <= now() - interval '15 minutes'
+        then 1
+      else public.medical_document_verification_limits.request_count + 1
+    end,
+    updated_at = now()
+  returning request_count into v_count;
+
+  return v_count <= 20;
+end;
+$$;
+
+revoke all on function public.consume_medical_document_verification_limit(text)
+  from public, anon, authenticated;
+grant execute on function public.consume_medical_document_verification_limit(text)
+  to service_role;
+
+
+create or replace function public.cancel_stale_medical_document_issuances(
+  p_clinician_id uuid,
+  p_actor_id uuid
+)
+returns integer
+language plpgsql
+security definer
+set search_path = pg_catalog, public
+as $$
+declare
+  v_doc public.medical_documents%rowtype;
+  v_cancelled integer := 0;
+  v_reason constant text := 'Automatically cancelled after 30 minutes without finalization.';
+begin
+  if p_actor_id is null or p_clinician_id is distinct from p_actor_id
+     or not (
+       coalesce(public.has_role(p_actor_id, 'admin'), false)
+       or coalesce(public.has_role(p_actor_id, 'super_admin'), false)
+     ) then
+    raise exception 'Administrator access required';
+  end if;
+
+  for v_doc in
+    select d.*
+    from public.medical_documents d
+    where d.clinician_id = p_clinician_id
+      and d.status = 'pending'
+      and d.created_at < now() - interval '30 minutes'
+    order by d.created_at
+    for update
+  loop
+    update public.medical_documents
+      set status = 'cancelled', cancelled_at = now(), cancellation_reason = v_reason
+      where id = v_doc.id;
+    insert into public.medical_document_events(document_id, actor_id, event_type, details)
+      values (v_doc.id, p_actor_id, 'cancelled', jsonb_build_object('reason', v_reason));
+    v_cancelled := v_cancelled + 1;
+  end loop;
+
+  return v_cancelled;
+end;
+$$;
+
+revoke all on function public.cancel_stale_medical_document_issuances(uuid,uuid)
+  from public, anon, authenticated;
+grant execute on function public.cancel_stale_medical_document_issuances(uuid,uuid)
+  to service_role;
+
+commit;
+
+       or p_pin_hash !~ '^[a-f0-9]{64}
+      set revoked_at = v_now
+      where patient_id = p_patient_id and clinician_id = p_clinician_id and revoked_at is null;
+    insert into public.personal_patient_portal_credentials(
+      patient_id, clinician_id, token_digest, pin_hash, is_revoked,
+      failed_attempts, locked_until, updated_at
+    ) values (
+      p_patient_id, p_clinician_id, p_token_digest, p_pin_hash, false, 0, null, v_now
+    )
+    on conflict (patient_id) do update set
+      clinician_id = excluded.clinician_id,
+      token_digest = excluded.token_digest,
+      pin_hash = excluded.pin_hash,
+      is_revoked = false,
+      failed_attempts = 0,
+      locked_until = null,
+      updated_at = v_now;
+    insert into public.personal_patient_audit_events(
+      clinician_id, patient_id, entity_type, entity_id, action, details
+    ) values (
+      p_clinician_id, p_patient_id, 'portal', p_patient_id, 'portal_created_or_rotated',
+      jsonb_build_object('created_at', v_now)
+    );
+  else
+    raise exception 'Unsupported portal action';
+  end if;
+end;
+$$;
+
+revoke all on function public.manage_personal_patient_portal(uuid,uuid,text,text,text)
+  from public, anon, authenticated;
+grant execute on function public.manage_personal_patient_portal(uuid,uuid,text,text,text)
+  to service_role;
+
+
+-- Per-client public verification throttling. Only a keyed digest is persisted, never the raw IP.
+create table if not exists public.medical_document_verification_limits (
+  ip_digest text primary key check (ip_digest ~ '^[a-f0-9]{64}$'),
+  window_started_at timestamptz not null default now(),
+  request_count integer not null default 0 check (request_count >= 0),
+  updated_at timestamptz not null default now()
+);
+
+alter table public.medical_document_verification_limits enable row level security;
+revoke all on public.medical_document_verification_limits from public, anon, authenticated;
+grant all on public.medical_document_verification_limits to service_role;
+
+create or replace function public.consume_medical_document_verification_limit(
+  p_ip_digest text
+)
+returns boolean
+language plpgsql
+security definer
+set search_path = pg_catalog, public
+as $$
+declare
+  v_count integer;
+begin
+  if p_ip_digest is null or p_ip_digest !~ '^[a-f0-9]{64}$' then
+    raise exception 'Invalid verification throttle key';
+  end if;
+
+  insert into public.medical_document_verification_limits(
+    ip_digest, window_started_at, request_count, updated_at
+  ) values (p_ip_digest, now(), 1, now())
+  on conflict (ip_digest) do update set
+    window_started_at = case
+      when public.medical_document_verification_limits.window_started_at <= now() - interval '15 minutes'
+        then now()
+      else public.medical_document_verification_limits.window_started_at
+    end,
+    request_count = case
+      when public.medical_document_verification_limits.window_started_at <= now() - interval '15 minutes'
+        then 1
+      else public.medical_document_verification_limits.request_count + 1
+    end,
+    updated_at = now()
+  returning request_count into v_count;
+
+  return v_count <= 20;
+end;
+$$;
+
+revoke all on function public.consume_medical_document_verification_limit(text)
+  from public, anon, authenticated;
+grant execute on function public.consume_medical_document_verification_limit(text)
+  to service_role;
+
+
+create or replace function public.cancel_stale_medical_document_issuances(
+  p_clinician_id uuid,
+  p_actor_id uuid
+)
+returns integer
+language plpgsql
+security definer
+set search_path = pg_catalog, public
+as $$
+declare
+  v_doc public.medical_documents%rowtype;
+  v_cancelled integer := 0;
+  v_reason constant text := 'Automatically cancelled after 30 minutes without finalization.';
+begin
+  if p_actor_id is null or p_clinician_id is distinct from p_actor_id
+     or not (
+       coalesce(public.has_role(p_actor_id, 'admin'), false)
+       or coalesce(public.has_role(p_actor_id, 'super_admin'), false)
+     ) then
+    raise exception 'Administrator access required';
+  end if;
+
+  for v_doc in
+    select d.*
+    from public.medical_documents d
+    where d.clinician_id = p_clinician_id
+      and d.status = 'pending'
+      and d.created_at < now() - interval '30 minutes'
+    order by d.created_at
+    for update
+  loop
+    update public.medical_documents
+      set status = 'cancelled', cancelled_at = now(), cancellation_reason = v_reason
+      where id = v_doc.id;
+    insert into public.medical_document_events(document_id, actor_id, event_type, details)
+      values (v_doc.id, p_actor_id, 'cancelled', jsonb_build_object('reason', v_reason));
+    v_cancelled := v_cancelled + 1;
+  end loop;
+
+  return v_cancelled;
+end;
+$$;
+
+revoke all on function public.cancel_stale_medical_document_issuances(uuid,uuid)
+  from public, anon, authenticated;
+grant execute on function public.cancel_stale_medical_document_issuances(uuid,uuid)
+  to service_role;
+
+commit;
+ then
       raise exception 'Invalid portal credentials';
     end if;
+    perform 1
+    from public.personal_patient_portal_credentials c
+    where c.patient_id = p_patient_id and c.clinician_id = p_clinician_id
+    for update;
     update public.personal_patient_portal_sessions
       set revoked_at = v_now
       where patient_id = p_patient_id and clinician_id = p_clinician_id and revoked_at is null;
