@@ -57,7 +57,7 @@ Deno.serve(async (req: Request) => {
 
       const patientId = session.patient_id as string;
       const clinicianId = session.clinician_id as string;
-      const [patientResult, planResult, sessionResult, ledgerResult] = await Promise.all([
+      const [patientResult, planResult, sessionResult, ledgerResult, summaryResult] = await Promise.all([
         admin.from("personal_patients")
           .select("id,full_name,status")
           .eq("id", patientId).eq("clinician_id", clinicianId).maybeSingle(),
@@ -73,15 +73,20 @@ Deno.serve(async (req: Request) => {
           .select("id,entry_type,amount,description,payment_method,occurred_at")
           .eq("patient_id", patientId).eq("clinician_id", clinicianId)
           .order("occurred_at", { ascending: false }).limit(100),
+        admin.rpc("get_personal_patient_portal_summary", {
+          p_patient_id: patientId,
+          p_clinician_id: clinicianId,
+        }),
       ]);
 
       if (patientResult.error || planResult.error || sessionResult.error || ledgerResult.error ||
-          !patientResult.data || patientResult.data.status === "archived") {
+          summaryResult.error || !patientResult.data || patientResult.data.status === "archived") {
         console.error("Portal record query failed", {
           patient: patientResult.error?.message,
           plan: planResult.error?.message,
           sessions: sessionResult.error?.message,
           ledger: ledgerResult.error?.message,
+          summary: summaryResult.error?.message,
         });
         return json({ error: "Unable to load this patient record." }, 503);
       }
@@ -101,20 +106,7 @@ Deno.serve(async (req: Request) => {
         occurred_at: String(row.occurred_at),
       }));
       const planRow = Array.isArray(planResult.data) ? planResult.data[0] ?? null : null;
-      const now = Date.now();
-      const completedSessions = sessions.filter((s) => s.status === "completed").length;
-      const upcoming = sessions
-        .filter((s) => s.status === "scheduled" && new Date(s.session_date).getTime() >= now)
-        .sort((a, b) => a.session_date.localeCompare(b.session_date));
-      const totalCharges = ledger.filter((e) => e.entry_type === "charge")
-        .reduce((sum, e) => sum + e.amount, 0);
-      const totalReceived = ledger.filter((e) => e.entry_type === "payment")
-        .reduce((sum, e) => sum + Math.abs(e.amount), 0);
-      const balance = ledger.reduce((sum, e) => sum + e.amount, 0);
-      const packageSessionsRemaining = planRow?.plan_type === "package" && planRow.package_sessions != null
-        ? Math.max(0, Number(planRow.package_sessions) -
-            sessions.filter((s) => s.plan_id === planRow.id && s.status === "completed").length)
-        : null;
+      const summary = summaryResult.data as Record<string, unknown>;
 
       return json({
         patient: { full_name: patientResult.data.full_name, status: patientResult.data.status },
@@ -127,19 +119,7 @@ Deno.serve(async (req: Request) => {
         } : null,
         sessions: sessions.map(({ plan_id: _planId, ...row }) => row),
         ledger,
-        summary: {
-          completedSessions,
-          upcomingSessions: upcoming.length,
-          totalCharges,
-          totalReceived,
-          outstandingDues: Math.max(0, balance),
-          advanceCredit: Math.max(0, -balance),
-          packageSessionsRemaining,
-          nextSession: upcoming[0] ? {
-            session_date: upcoming[0].session_date,
-            session_label: upcoming[0].session_label,
-          } : null,
-        },
+        summary,
       });
     }
 
