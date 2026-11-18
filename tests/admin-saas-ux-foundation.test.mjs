@@ -55,7 +55,9 @@ test("admin shell exposes a role-filtered command palette and persistent desktop
   assert.match(shell, /setCommandOpen\(\(open\) => !open\)/);
   assert.match(shell, /const items = NAV\.filter/);
   assert.match(shell, /items\.map\(\(item\) => \(/);
-  assert.match(shell, /<Sheet open=\{mobileOpen\}/);\n  assert.match(shell, /aria-label="Primary mobile navigation"/);\n  assert.match(shell, /onClick=\{\(\) => setMobileOpen\(true\)\}/);
+  assert.match(shell, /<Sheet open=\{mobileOpen\}/);
+  assert.match(shell, /aria-label="Primary mobile navigation"/);
+  assert.match(shell, /onClick=\{\(\) => setMobileOpen\(true\)\}/);
 });
 
 test("root route retains dedicated not-found and recoverable error views", () => {
