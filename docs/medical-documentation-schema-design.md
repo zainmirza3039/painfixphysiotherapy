@@ -137,7 +137,7 @@ Use no-store response headers, strict input length/format validation, generic no
 
 - A4 portrait, English, restrained navy `#032E61`, green `#00A859`, white.
 - Reuse existing `pdf-lib`, `@pdf-lib/fontkit`, and `qrcode` dependencies and certificate PDF implementation patterns.
-- Digital stamp plus reserved physical stamp area; signatory: **Dr. Zain Ul Abideen, PT**.
+- Digital stamp plus reserved physical stamp area; signatory: **Dr. Zain Ul Abideen, DPT**.
 - Private Storage bucket, separate from `medical-reports`; object paths keyed by document UUID and generated server-side.
 - PDFs are generated only from the stored immutable snapshot. Re-downloads must not reconstruct a document from mutable current patient data.
 
