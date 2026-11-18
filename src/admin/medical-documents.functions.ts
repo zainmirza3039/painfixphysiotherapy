@@ -607,7 +607,7 @@ export const createMedicalDocument = createServerFn({ method: "POST" })
         );
       }
 
-      const { data: created, error: createError } = await db.rpc(
+      const { data: created, error: createError } = await db.rpc<IssuanceRecord[]>(
         "begin_medical_document_issuance",
         {
           p_clinician_id: context.userId,
