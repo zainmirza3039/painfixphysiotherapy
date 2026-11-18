@@ -139,3 +139,30 @@ Implement Medical Documentation as a separate admin area backed exclusively by `
 The live catalog and migration ledger can be inspected directly through the connected Supabase project, so a user-generated SQL dump is not required for routine inspection. However, the exact historical SQL bodies for unmatched remote versions are not present in the Git branch and cannot be reconstructed from the current catalog alone. The defensible disposition is to preserve the remote ledger, record the unmatched historical provenance as unrecoverable unless a verified backup/CI artifact is found, and make all future feature migrations strictly additive against the inspected live schema. Never fabricate historical equivalence or run migration repair/reset/push as a shortcut.
 
 This is an operational reconciliation decision, not proof that every historical migration body has been recovered. Production migration execution remains blocked until the additive feature migration is reviewed and separately approved.
+
+
+## 10. Feature-branch implementation update — 2026-11-19
+
+The following source changes have now been prepared on the feat/medical-documentation branch only:
+
+- Added patient-portal and manage-patient-portal Edge Function source files, with service-role-only database access and explicit admin verification for management actions.
+- Added opaque 256-bit portal link/session tokens; only SHA-256 digests are stored. Six-digit PINs are HMAC-SHA-256 digests keyed with the server-side Supabase service-role key. Rotating that key requires resetting portal PINs.
+- Added database routines in the draft additive migration for atomic PIN attempt counting/30-minute lockout, session validation, credential rotation/revocation, and exact portal financial/session summary totals.
+- Portal data projection excludes private clinical notes and is scoped by both patient and clinician IDs. Archived patient records are denied.
+- Added a keyed-IP public verification throttle: 20 attempts per 15-minute window. Only an HMAC digest of the client IP is persisted.
+- Added automatic cancellation of pending document issuances older than 30 minutes when the admin register is loaded.
+- Added a replacement-document workflow. The prior issued document becomes superseded only after the replacement PDF is uploaded and finalization succeeds. Receipt source rows are locked during issuance; a payment cannot belong to two active receipts, but may be reissued after cancellation/supersession.
+- Added a clinician/patient filter to personal-patient session status updates.
+- Corrected the final calendar-day receipt date filter and signatory designation to DPT.
+- Added static contract/security tests for the new portal and verification boundaries.
+
+### Validation still required
+
+- The migration has not been applied. Its SQL routines must be validated against a disposable, non-production database before any live migration.
+- The Edge Functions have not been deployed. Their required RPCs do not exist in the live database yet.
+- The Vercel build check is blocked by the account's deployment/build-rate limit; no deployment is needed for this source audit.
+- The latest branch head does not yet have a completed GitHub CI result. The source has not been represented as end-to-end tested.
+- Migration-history provenance remains unresolved. Preserve the existing remote migration ledger and do not run migration repair/reset/push.
+- Owner-level leaked-password protection remains a separate Auth dashboard action.
+
+No production database, Auth setting, Storage bucket, patient record, Edge Function deployment, or production website was changed by this implementation pass.
