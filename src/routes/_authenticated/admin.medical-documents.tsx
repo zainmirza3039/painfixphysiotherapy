@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useMemo, useState } from "react";
-import { useQuery } from "@tanstack/react-query";
+import { useMemo, useState, type FormEvent } from "react";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { FileText, Search, Users, ReceiptText, ClipboardCheck, FileClock, Wallet } from "lucide-react";
 import { AdminOnly } from "@/components/admin/AdminOnly";
 import { AdminPageHeader } from "@/components/admin/AdminPageHeader";
@@ -8,6 +8,7 @@ import { AdminQueryError } from "@/components/admin/AdminQueryError";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Skeleton } from "@/components/ui/skeleton";
+import { Textarea } from "@/components/ui/textarea";
 import {
   listMedicalDocumentPatients,
   listMedicalDocuments,
@@ -31,6 +32,12 @@ const documentTypes = [
 function MedicalDocumentationPage() {
   const [patientSearch, setPatientSearch] = useState("");
   const [documentSearch, setDocumentSearch] = useState("");
+  const [selectedPatientId, setSelectedPatientId] = useState("");
+  const [documentType, setDocumentType] = useState<"receipt" | "estimate" | "treatment_report" | "expense_statement">("receipt");
+  const [selectedLedgerIds, setSelectedLedgerIds] = useState<string[]>([]);
+  const [selectedSessionIds, setSelectedSessionIds] = useState<string[]>([]);
+  const [issuedPdf, setIssuedPdf] = useState<string | null>(null);
+  const queryClient = useQueryClient();
   const patients = useQuery({
     queryKey: ["admin", "medical-documents", "patients"],
     queryFn: () => listMedicalDocumentPatients(),
@@ -39,6 +46,9 @@ function MedicalDocumentationPage() {
     queryKey: ["admin", "medical-documents", "list"],
     queryFn: () => listMedicalDocuments(),
   });
+
+  const sources = useQuery({ queryKey: ["admin", "medical-documents", "sources", selectedPatientId], queryFn: () => listMedicalDocumentSources({ data: { patientId: selectedPatientId } }), enabled: Boolean(selectedPatientId) });
+  const createMutation = useMutation({ mutationFn: (payload: Record<string, unknown>) => createMedicalDocument({ data: payload as never }), onSuccess: (result) => { setIssuedPdf(result.pdfUrl); setSelectedLedgerIds([]); setSelectedSessionIds([]); void queryClient.invalidateQueries({ queryKey: ["admin", "medical-documents", "list"] }); } });
 
   const filteredPatients = useMemo(() => {
     const term = patientSearch.trim().toLowerCase();
@@ -172,6 +182,67 @@ function MedicalDocumentationPage() {
           )}
         </section>
       </div>
+      <section className="border border-border bg-card">
+        <div className="border-b border-border px-4 py-3">
+          <h2 className="text-sm font-semibold text-foreground">Create a medical document</h2>
+          <p className="mt-1 text-xs text-muted-foreground">Server-validated, uniquely numbered PDFs. Files remain private; issuance is recorded only after secure storage succeeds.</p>
+        </div>
+        <form onSubmit={submitDocument} className="space-y-4 p-4">
+          <div className="grid gap-3 sm:grid-cols-2">
+            <label className="space-y-1 text-xs font-medium">Patient
+              <select required value={selectedPatientId} onChange={(e) => { setSelectedPatientId(e.target.value); setSelectedLedgerIds([]); setSelectedSessionIds([]); }} className="h-10 w-full border border-input bg-background px-3 text-sm">
+                <option value="">Select patient</option>{(patients.data ?? []).map((p) => <option key={p.id} value={p.id}>{p.full_name}</option>)}
+              </select>
+            </label>
+            <label className="space-y-1 text-xs font-medium">Document
+              <select value={documentType} onChange={(e) => { setDocumentType(e.target.value as typeof documentType); setSelectedLedgerIds([]); setSelectedSessionIds([]); setIssuedPdf(null); }} className="h-10 w-full border border-input bg-background px-3 text-sm">
+                <option value="receipt">Payment Receipt</option><option value="estimate">Treatment Cost Estimate</option><option value="treatment_report">Treatment Verification Report</option><option value="expense_statement">Medical Expense Statement</option>
+              </select>
+            </label>
+          </div>
+          {selectedPatientId && sources.isLoading && <p className="text-xs text-muted-foreground">Loading source records…</p>}
+          {sources.isError && <p role="alert" className="text-xs text-destructive">Unable to load source records for this patient.</p>}
+          {documentType === "receipt" && <>
+            <div className="space-y-2"><p className="text-xs font-semibold">Select recorded payments</p>
+              {(sources.data?.ledger ?? []).filter((x) => x.entry_type === "payment" && x.amount < 0).map((x) => <label key={x.id} className="flex items-center gap-3 border border-border p-2 text-xs"><input type="checkbox" checked={selectedLedgerIds.includes(x.id)} onChange={() => toggle(selectedLedgerIds, x.id, setSelectedLedgerIds)} /><span className="flex-1">{new Date(x.occurred_at).toLocaleDateString("en-GB")} · {x.payment_method ?? "Method not recorded"}</span><strong>{Math.abs(x.amount).toLocaleString("en-PK")} PKR</strong></label>)}
+              {selectedPatientId && !sources.isLoading && !(sources.data?.ledger ?? []).some((x) => x.entry_type === "payment" && x.amount < 0) && <p className="text-xs text-muted-foreground">No eligible payments. Charges and package fees are not proof of payment.</p>}
+            </div>
+            <div className="grid gap-3 sm:grid-cols-2"><label className="space-y-1 text-xs font-medium">Treatment from <Input name="treatmentStart" type="date" required /></label><label className="space-y-1 text-xs font-medium">Treatment to <Input name="treatmentEnd" type="date" required /></label></div>
+            <label className="block space-y-1 text-xs font-medium">Diagnosis / clinical indication <Input name="diagnosis" required /></label>
+            <label className="block space-y-1 text-xs font-medium">Services delivered, one per line <Textarea name="servicesDelivered" rows={3} required /></label>
+            <p className="text-xs text-muted-foreground">Server verifies completed PainFix sessions within this treatment period.</p>
+          </>}
+          {documentType === "estimate" && <>
+            <div className="grid gap-3 sm:grid-cols-2"><label className="space-y-1 text-xs font-medium">Assessment date <Input name="assessmentDate" type="date" required /></label><label className="space-y-1 text-xs font-medium">Valid until <Input name="validUntil" type="date" required /></label></div>
+            <label className="block space-y-1 text-xs font-medium">Diagnosis <Input name="diagnosis" required /></label>
+            <label className="block space-y-1 text-xs font-medium">Clinical justification <Textarea name="clinicalJustification" required /></label>
+            <label className="block space-y-1 text-xs font-medium">Recommended intervention <Textarea name="recommendedIntervention" required /></label>
+            <div className="grid gap-3 sm:grid-cols-3"><label className="space-y-1 text-xs font-medium">Sessions <Input name="proposedSessions" type="number" min="1" required /></label><label className="space-y-1 text-xs font-medium">Duration <Input name="proposedDuration" required /></label><label className="space-y-1 text-xs font-medium">Fee/session PKR <Input name="perSessionFee" type="number" min="1" step="0.01" required /></label></div>
+            <p className="text-xs font-semibold text-amber-700">This document is marked NOT PAID and does not create a payment entry.</p>
+          </>}
+          {documentType === "treatment_report" && <>
+            <div className="space-y-2"><p className="text-xs font-semibold">Select completed sessions</p>
+              {(sources.data?.sessions ?? []).filter((x) => x.status === "completed").map((x) => <label key={x.id} className="flex items-center gap-3 border border-border p-2 text-xs"><input type="checkbox" checked={selectedSessionIds.includes(x.id)} onChange={() => toggle(selectedSessionIds, x.id, setSelectedSessionIds)} />{new Date(x.session_date).toLocaleDateString("en-GB")} · {x.session_label ?? "Completed session"}</label>)}
+            </div>
+            <label className="block space-y-1 text-xs font-medium">Diagnosis <Input name="diagnosis" required /></label>
+            <label className="block space-y-1 text-xs font-medium">Baseline findings <Textarea name="baselineFindings" required /></label>
+            <label className="block space-y-1 text-xs font-medium">Documented progress <Textarea name="documentedProgress" required /></label>
+            <div className="grid gap-3 sm:grid-cols-2"><label className="space-y-1 text-xs font-medium">Remaining sessions <Input name="remainingSessions" type="number" min="0" required /></label><label className="space-y-1 text-xs font-medium">Current rehabilitation plan <Textarea name="currentRehabilitationPlan" required /></label></div>
+          </>}
+          {documentType === "expense_statement" && <>
+            <div className="space-y-2"><p className="text-xs font-semibold">Select historical payment, refund and adjustment entries</p>
+              {(sources.data?.ledger ?? []).filter((x) => ["payment", "refund", "adjustment"].includes(x.entry_type)).map((x) => <label key={x.id} className="flex items-center gap-3 border border-border p-2 text-xs"><input type="checkbox" checked={selectedLedgerIds.includes(x.id)} onChange={() => toggle(selectedLedgerIds, x.id, setSelectedLedgerIds)} /><span className="flex-1">{new Date(x.occurred_at).toLocaleDateString("en-GB")} · {x.entry_type}</span><strong>{Number(x.amount).toLocaleString("en-PK")} PKR</strong></label>)}
+            </div>
+            <label className="block max-w-xl space-y-1 text-xs font-medium">Optional issued future estimate
+              <select name="futureEstimateDocumentId" defaultValue="" className="h-10 w-full border border-input bg-background px-3 text-sm"><option value="">No future estimate</option>{(sources.data?.estimates ?? []).map((x) => <option key={x.id} value={x.id}>{x.document_number} · {x.estimated_total.toLocaleString("en-PK")} PKR</option>)}</select>
+            </label>
+            <p className="text-xs text-muted-foreground">Future estimates remain separate from historical amounts paid.</p>
+          </>}
+          {createMutation.isError && <p role="alert" className="text-sm text-destructive">{createMutation.error.message}</p>}
+          {issuedPdf && <div className="border border-secondary/40 bg-secondary/5 p-3 text-sm"><p className="font-semibold">Document issued.</p><a href={issuedPdf} target="_blank" rel="noreferrer" className="text-primary underline">Open private PDF (link expires in 60 seconds)</a></div>}
+          <div className="flex flex-wrap items-center gap-3 border-t border-border pt-4"><button type="submit" disabled={!selectedPatientId || createMutation.isPending || sources.isLoading || sources.isError} className="h-10 bg-primary px-5 text-sm font-semibold text-primary-foreground disabled:opacity-50">{createMutation.isPending ? "Validating and issuing…" : "Generate and issue PDF"}</button><span className="text-xs text-muted-foreground">Issued records are immutable. Corrections require a replacement or cancellation.</span></div>
+        </form>
+      </section>
       <p className="text-xs leading-5 text-muted-foreground">
         This workspace reads from the dedicated personal-patient records. The legacy Patients page remains unchanged. Public verification exposes only the approved identity and document-status fields; private clinical and financial details remain restricted.
       </p>
