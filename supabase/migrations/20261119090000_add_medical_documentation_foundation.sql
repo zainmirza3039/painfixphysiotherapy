@@ -55,7 +55,7 @@ create table if not exists public.medical_document_events (
 
 insert into storage.buckets (id, name, public, file_size_limit, allowed_mime_types)
 values ('medical-documents', 'medical-documents', false, 10485760, array['application/pdf'])
-on conflict (id) do nothing;
+on conflict (id) do update set public = false, file_size_limit = 10485760, allowed_mime_types = array['application/pdf'];
 
 create index if not exists medical_documents_clinician_created_idx
   on public.medical_documents (clinician_id, created_at desc);
