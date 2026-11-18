@@ -400,16 +400,26 @@ export const createMedicalDocument = createServerFn({ method: "POST" })
     if (createError || !created?.[0]) throw new Error("Unable to create a pending medical document");
 
     const record = created[0];
-    const pdfBytes = await createMedicalDocumentPdf({
-      documentNumber: record.document_number,
-      documentType: documentTypeLabel,
-      patientName: patient.full_name,
-      issuedAt,
-      verificationUrl,
-      sections,
-      signatoryName: "Dr. Zain Ul Abideen, PT",
-      signatoryDesignation: "Clinical Physiotherapist · PainFix Physiotherapy Clinic",
-    });
+    let pdfBytes: Uint8Array;
+    try {
+      pdfBytes = await createMedicalDocumentPdf({
+        documentNumber: record.document_number,
+        documentType: documentTypeLabel,
+        patientName: patient.full_name,
+        issuedAt,
+        verificationUrl,
+        sections,
+        signatoryName: "Dr. Zain Ul Abideen, PT",
+        signatoryDesignation: "Clinical Physiotherapist · PainFix Physiotherapy Clinic",
+      });
+    } catch (error) {
+      await db.rpc("cancel_medical_document_issuance", {
+        p_document_id: record.document_id,
+        p_reason: "PDF rendering failed; pending issuance was cancelled.",
+        p_actor_id: context.userId,
+      });
+      throw error;
+    }
 
     const storagePath = `${data.patientId}/${record.document_id}.pdf`;
     const { error: uploadError } = await db.storage.from("medical-documents").upload(storagePath, pdfBytes, {
