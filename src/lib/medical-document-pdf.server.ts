@@ -1,4 +1,4 @@
-import { PDFDocument, StandardFonts, rgb } from "pdf-lib";
+import { PDFDocument, StandardFonts, rgb, type PDFFont } from "pdf-lib";
 import QRCode from "qrcode";
 
 export interface MedicalDocumentPdfInput {
@@ -27,7 +27,7 @@ function dateLabel(value: string): string {
   });
 }
 
-function wrap(text: string, font: Awaited<ReturnType<PDFDocument["embedFont"]>>, size: number, width: number): string[] {
+function wrap(text: string, font: PDFFont, size: number, width: number): string[] {
   const result: string[] = [];
   let line = "";
   for (const word of String(text).replace(/[\r\n\t]/g, " ").split(/\s+/)) {
