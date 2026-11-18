@@ -3,6 +3,7 @@ import type { SupabaseClient } from "@supabase/supabase-js";
 import { z } from "zod";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 import type { Database } from "@/integrations/supabase/types";
+import { calculateReceiptTotal, summarizeExpenseLedger, assertCompletedSessionSources } from "@/admin/medical-documents.contract";
 
 type AdminContext = { supabase: SupabaseClient<Database>; userId: string };
 
@@ -212,7 +213,7 @@ export const createMedicalDocument = createServerFn({ method: "POST" })
         throw new Error("A receipt can include only actual negative payment ledger entries");
       }
       if (sessionError || !sessions?.length) throw new Error("No completed PainFix sessions are recorded in this treatment period");
-      const total = ledger.reduce((sum: number, row: any) => sum + Math.abs(Number(row.amount)), 0);
+      const total = calculateReceiptTotal(ledger);
       if (!Number.isFinite(total) || total <= 0) throw new Error("Recorded payment total is invalid");
       sourceIds.push(...ids);
       snapshot = {
