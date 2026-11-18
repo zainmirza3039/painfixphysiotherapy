@@ -43,7 +43,11 @@ export const Route = createFileRoute("/verify-medical-document")({
 
 function VerifyMedicalDocumentPage() {
   const { hasReference, result } = Route.useLoaderData();
-  const verified = result && result.status !== "not_found" && result.status !== "unavailable";
+  const verified =
+    result &&
+    result.status !== "not_found" &&
+    result.status !== "unavailable" &&
+    result.status !== "rate_limited";
   const issuedDate =
     verified && result.issued_at
       ? new Date(result.issued_at).toLocaleDateString("en-GB", {
@@ -132,14 +136,18 @@ function VerifyMedicalDocumentPage() {
           <div className="border border-border bg-card p-6 text-center">
             <CircleAlert className="mx-auto h-8 w-8 text-muted-foreground" />
             <h2 className="mt-3 text-lg font-semibold text-foreground">
-              {result?.status === "unavailable"
-                ? "Verification temporarily unavailable"
-                : "No matching document found"}
+              {result?.status === "rate_limited"
+                ? "Too many verification attempts"
+                : result?.status === "unavailable"
+                  ? "Verification temporarily unavailable"
+                  : "No matching document found"}
             </h2>
             <p className="mt-2 text-sm text-muted-foreground">
-              {result?.status === "unavailable"
-                ? "The verification service could not complete this request. Please try again later."
-                : "This reference does not match an issued PainFix medical document."}
+              {result?.status === "rate_limited"
+                ? "Too many requests were received from this connection. Wait 15 minutes before trying again."
+                : result?.status === "unavailable"
+                  ? "The verification service could not complete this request. Please try again later."
+                  : "This reference does not match an issued PainFix medical document."}
             </p>
           </div>
         )}
