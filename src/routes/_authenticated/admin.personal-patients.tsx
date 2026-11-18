@@ -137,25 +137,25 @@ function PersonalPatientsPage() {
     enabled: Boolean(user?.id),
     queryFn: async () => {
       const db = personalPatientDb;
-      const p = await db
-        .from("personal_patients")
-        .select("id,full_name,phone,email,status,created_at")
-        .order("created_at", { ascending: false });
-      if (p.error) throw p.error;
-      const [sessionsResult, ledgerResult] = await Promise.allSettled([
-        db.from("personal_patient_sessions").select("patient_id,status"),
-        db.from("personal_patient_ledger").select("patient_id,entry_type,amount"),
+      if (!user?.id) throw new Error("Please sign in again.");
+      const [p, s, l] = await Promise.all([
+        db
+          .from("personal_patients")
+          .select("id,full_name,phone,email,status,created_at")
+          .eq("clinician_id", user.id)
+          .order("created_at", { ascending: false }),
+        db
+          .from("personal_patient_sessions")
+          .select("patient_id,status")
+          .eq("clinician_id", user.id),
+        db
+          .from("personal_patient_ledger")
+          .select("patient_id,entry_type,amount")
+          .eq("clinician_id", user.id),
       ]);
-      const s =
-        sessionsResult.status === "fulfilled"
-          ? sessionsResult.value
-          : { data: [], error: sessionsResult.reason };
-      const l =
-        ledgerResult.status === "fulfilled"
-          ? ledgerResult.value
-          : { data: [], error: ledgerResult.reason };
-      if (s.error) console.warn("Patient session summary could not be loaded:", s.error);
-      if (l.error) console.warn("Patient ledger summary could not be loaded:", l.error);
+      if (p.error) throw new Error(`Unable to load patients: ${p.error.message}`);
+      if (s.error) throw new Error(`Unable to load patient sessions: ${s.error.message}`);
+      if (l.error) throw new Error(`Unable to load patient billing: ${l.error.message}`);
       return {
         patients: p.data as Patient[],
         sessions: s.data as Session[],
