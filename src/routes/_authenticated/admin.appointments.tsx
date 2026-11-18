@@ -394,7 +394,7 @@ function AppointmentsPage() {
               if (!form.patient_name.trim()) return toast.error("Patient name is required");
               saveMutation.mutate();
             }}
-            className="space-y-4"
+            className="space-y-5"
           >
             <div className="space-y-1.5">
               <Label>
@@ -406,7 +406,9 @@ function AppointmentsPage() {
                 required
               />
             </div>
-            <div className="grid grid-cols-2 gap-3">
+            <section className="space-y-3 border-t border-border pt-4">
+              <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">Contact details</p>
+              <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
               <div className="space-y-1.5">
                 <Label>Phone</Label>
                 <Input
@@ -422,8 +424,11 @@ function AppointmentsPage() {
                   onChange={(e) => setForm({ ...form, email: e.target.value })}
                 />
               </div>
-            </div>
-            <div className="grid grid-cols-2 gap-3">
+              </div>
+            </section>
+            <section className="space-y-3 border-t border-border pt-4">
+              <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">Appointment details</p>
+              <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
               <div className="space-y-1.5">
                 <Label>Service</Label>
                 <Input
@@ -438,8 +443,8 @@ function AppointmentsPage() {
                   onChange={(e) => setForm({ ...form, assigned_therapist: e.target.value })}
                 />
               </div>
-            </div>
-            <div className="grid grid-cols-2 gap-3">
+              </div>
+              <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
               <div className="space-y-1.5">
                 <Label>Date & time</Label>
                 <Input
@@ -457,7 +462,7 @@ function AppointmentsPage() {
                   <SelectContent>
                     {STATUSES.map((s) => (
                       <SelectItem key={s} value={s}>
-                        {s}
+                        {statusLabel(s)}
                       </SelectItem>
                     ))}
                   </SelectContent>
@@ -467,11 +472,12 @@ function AppointmentsPage() {
             <div className="space-y-1.5">
               <Label>Notes</Label>
               <Textarea
-                rows={2}
+                rows={3}
                 value={form.notes}
                 onChange={(e) => setForm({ ...form, notes: e.target.value })}
               />
-            </div>
+              </div>
+            </section>
             <DialogFooter className="sticky bottom-0 -mx-1 border-t border-border bg-background/95 pt-4">
               <Button type="button" variant="outline" onClick={() => setDialogOpen(false)}>
                 Cancel
