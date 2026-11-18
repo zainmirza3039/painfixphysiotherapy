@@ -86,7 +86,13 @@ const NAV_SECTIONS = [
   { label: "Overview", routes: ["/admin"] },
   {
     label: "Clinic",
-    routes: ["/admin/patients", "/admin/medical-documents", "/admin/appointments", "/admin/home-visits", "/admin/messages"],
+    routes: [
+      "/admin/patients",
+      "/admin/medical-documents",
+      "/admin/appointments",
+      "/admin/home-visits",
+      "/admin/messages",
+    ],
   },
   {
     label: "Content",
