@@ -169,7 +169,10 @@ function DashboardPage() {
             )}
           </section>
 
-          <section\n            aria-labelledby="quick-actions-heading"\n            className="border-y border-border bg-card"\n          >
+          <section
+            aria-labelledby="quick-actions-heading"
+            className="border-y border-border bg-card"
+          >
             <div className="flex items-center justify-between gap-3 border-b border-border px-3 py-3 sm:px-4">
               <h2 id="quick-actions-heading" className="text-sm font-semibold text-foreground">
                 Clinic shortcuts
@@ -229,7 +232,10 @@ function DashboardPage() {
                 isEmpty={(data?.visits.length ?? 0) === 0}
               >
                 {(data?.visits ?? []).map((visit) => (
-                  <li\n                    key={visit.id}\n                    className="flex min-w-0 items-center justify-between gap-3 py-3"\n                  >
+                  <li
+                    key={visit.id}
+                    className="flex min-w-0 items-center justify-between gap-3 py-3"
+                  >
                     <div className="min-w-0">
                       <p className="truncate text-sm font-medium text-foreground">
                         {visit.full_name}
@@ -256,7 +262,10 @@ function DashboardPage() {
                 isEmpty={(data?.messages.length ?? 0) === 0}
               >
                 {(data?.messages ?? []).map((message) => (
-                  <li\n                    key={message.id}\n                    className="flex min-w-0 items-center justify-between gap-3 py-3"\n                  >
+                  <li
+                    key={message.id}
+                    className="flex min-w-0 items-center justify-between gap-3 py-3"
+                  >
                     <div className="min-w-0">
                       <p className="truncate text-sm font-medium text-foreground">{message.name}</p>
                       <p className="mt-0.5 truncate text-xs text-muted-foreground">
