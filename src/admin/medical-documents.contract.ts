@@ -28,7 +28,7 @@ export interface MedicalLedgerSource {
   payment_method?: string | null;
   reference?: string | null;
   occurred_at?: string;
-  description?: string;
+  description?: string | null;
 }
 
 function toMinorUnits(value: number | string): number {
