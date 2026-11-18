@@ -98,7 +98,9 @@ test("migration restricts browser access and binds documents to clinical source 
 });
 
 test("admin and public routes preserve separate clinical source and privacy boundaries", () => {
-  assert.match(adminRoute, /listMedicalDocumentPatients/);
+  assert.match(adminRoute, /personalPatientDb/);
+  assert.match(adminRoute, /from\("personal_patients"\)/);
+  assert.match(adminRoute, /neq\("status", "archived"\)/);
   assert.match(adminRoute, /listMedicalDocuments/);
   assert.match(publicRoute, /Cache-Control.*no-store/i);
   assert.match(publicRoute, /X-Robots-Tag.*noindex/i);
