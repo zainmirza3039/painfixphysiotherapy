@@ -1,6 +1,7 @@
 name: Format and verify medical documentation
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - feat/medical-documentation
