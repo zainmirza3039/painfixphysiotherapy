@@ -54,6 +54,72 @@ function MedicalDocumentationPage() {
   const sources = useQuery({ queryKey: ["admin", "medical-documents", "sources", selectedPatientId], queryFn: () => listMedicalDocumentSources({ data: { patientId: selectedPatientId } }), enabled: Boolean(selectedPatientId) });
   const createMutation = useMutation({ mutationFn: (payload: Record<string, unknown>) => createMedicalDocument({ data: payload as never }), onSuccess: (result) => { setIssuedPdf(result.pdfUrl); setSelectedLedgerIds([]); setSelectedSessionIds([]); void queryClient.invalidateQueries({ queryKey: ["admin", "medical-documents", "list"] }); } });
 
+  function toggle(values: string[], id: string, setter: (next: string[]) => void) {
+    setter(values.includes(id) ? values.filter((value) => value !== id) : [...values, id]);
+  }
+
+  async function openIssuedPdf(documentId: string) {
+    setPdfError(null);
+    try {
+      const result = await getMedicalDocumentPdfUrl({ data: { documentId } });
+      window.open(result.pdfUrl, "_blank", "noopener,noreferrer");
+    } catch (error) {
+      setPdfError(error instanceof Error ? error.message : "Unable to open the PDF");
+    }
+  }
+
+  function submitDocument(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    setPdfError(null);
+    const form = new FormData(event.currentTarget);
+    const text = (name: string) => String(form.get(name) ?? "").trim();
+    const number = (name: string) => {
+      const value = text(name);
+      return value ? Number(value) : undefined;
+    };
+    const payload: Record<string, unknown> = {
+      patientId: selectedPatientId,
+      documentType,
+    };
+
+    if (documentType === "receipt") {
+      Object.assign(payload, {
+        paymentEntryIds: selectedLedgerIds,
+        treatmentStart: text("treatmentStart"),
+        treatmentEnd: text("treatmentEnd"),
+        diagnosis: text("diagnosis"),
+        servicesDelivered: text("servicesDelivered").split(/\\r?\\n/).map((value) => value.trim()).filter(Boolean),
+      });
+    } else if (documentType === "estimate") {
+      Object.assign(payload, {
+        assessmentDate: text("assessmentDate"),
+        validUntil: text("validUntil"),
+        diagnosis: text("diagnosis"),
+        clinicalJustification: text("clinicalJustification"),
+        recommendedIntervention: text("recommendedIntervention"),
+        proposedSessions: number("proposedSessions"),
+        proposedDuration: text("proposedDuration"),
+        perSessionFee: number("perSessionFee"),
+      });
+    } else if (documentType === "treatment_report") {
+      Object.assign(payload, {
+        sessionIds: selectedSessionIds,
+        diagnosis: text("diagnosis"),
+        baselineFindings: text("baselineFindings"),
+        documentedProgress: text("documentedProgress"),
+        remainingSessions: number("remainingSessions"),
+        currentRehabilitationPlan: text("currentRehabilitationPlan"),
+      });
+    } else {
+      const futureEstimateDocumentId = text("futureEstimateDocumentId");
+      Object.assign(payload, {
+        statementEntryIds: selectedLedgerIds,
+        ...(futureEstimateDocumentId ? { futureEstimateDocumentId } : {}),
+      });
+    }
+    createMutation.mutate(payload);
+  }
+
   const filteredPatients = useMemo(() => {
     const term = patientSearch.trim().toLowerCase();
     return (patients.data ?? []).filter((patient) =>
