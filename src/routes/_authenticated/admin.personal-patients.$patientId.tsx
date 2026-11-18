@@ -216,42 +216,43 @@ function PersonalPatientDetailPage() {
         .from("personal_patients")
         .select("id,full_name,phone,email,private_notes,status")
         .eq("id", patientId)
+        .eq("clinician_id", user!.id)
         .single();
       if (p.error || !p.data) throw p.error ?? new Error("Patient account not found.");
-      const optional = await Promise.allSettled([
+      const [plansResult, sessionsResult, ledgerResult, auditResult] = await Promise.all([
         db
           .from("personal_patient_plans")
           .select("id,plan_type,title,package_sessions,package_fee,per_session_fee,is_active")
           .eq("patient_id", patientId)
+          .eq("clinician_id", user!.id)
           .order("created_at", { ascending: false }),
         db
           .from("personal_patient_sessions")
           .select("id,plan_id,session_date,status,session_label,charge_amount,private_note")
           .eq("patient_id", patientId)
+          .eq("clinician_id", user!.id)
           .order("session_date", { ascending: false }),
         db
           .from("personal_patient_ledger")
           .select("id,entry_type,amount,description,payment_method,occurred_at,reference")
           .eq("patient_id", patientId)
+          .eq("clinician_id", user!.id)
           .order("occurred_at", { ascending: false }),
         db
           .from("personal_patient_audit_events")
           .select("id,entity_type,action,details,created_at")
           .eq("patient_id", patientId)
+          .eq("clinician_id", user!.id)
           .order("created_at", { ascending: false })
           .limit(50),
       ]);
-      const [plansResult, sessionsResult, ledgerResult, auditResult] = optional.map((result) =>
-        result.status === "fulfilled" ? result.value : { data: [], error: result.reason },
-      );
       for (const [label, result] of [
         ["billing plans", plansResult],
         ["sessions", sessionsResult],
         ["ledger", ledgerResult],
         ["audit history", auditResult],
       ] as const) {
-        if (result.error)
-          console.warn(`Personal patient ${label} could not be loaded:`, result.error);
+        if (result.error) throw new Error(`Unable to load patient ${label}: ${result.error.message}`);
       }
       return {
         patient: p.data as Patient,
