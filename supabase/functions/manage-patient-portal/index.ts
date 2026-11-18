@@ -15,12 +15,12 @@ Deno.serve(async (req: Request) => {
 
     const { data: patient, error: patientError } = await admin
       .from("personal_patients")
-      .select("id,clinician_id,status")
+      .select("id,clinician_id,archived_at")
       .eq("id", body.patientId)
       .eq("clinician_id", clinicianId)
       .maybeSingle();
 
-    if (patientError || !patient || patient.status === "archived") {
+    if (patientError || !patient || patient.archived_at !== null) {
       return json({ error: "Patient account not found." }, 404);
     }
 
