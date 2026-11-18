@@ -774,4 +774,58 @@ revoke all on function public.manage_personal_patient_portal(uuid,uuid,text,text
 grant execute on function public.manage_personal_patient_portal(uuid,uuid,text,text,text)
   to service_role;
 
+
+-- Per-client public verification throttling. Only a keyed digest is persisted, never the raw IP.
+create table if not exists public.medical_document_verification_limits (
+  ip_digest text primary key check (ip_digest ~ '^[a-f0-9]{64}$'),
+  window_started_at timestamptz not null default now(),
+  request_count integer not null default 0 check (request_count >= 0),
+  updated_at timestamptz not null default now()
+);
+
+alter table public.medical_document_verification_limits enable row level security;
+revoke all on public.medical_document_verification_limits from public, anon, authenticated;
+grant all on public.medical_document_verification_limits to service_role;
+
+create or replace function public.consume_medical_document_verification_limit(
+  p_ip_digest text
+)
+returns boolean
+language plpgsql
+security definer
+set search_path = pg_catalog, public
+as $$
+declare
+  v_count integer;
+begin
+  if p_ip_digest is null or p_ip_digest !~ '^[a-f0-9]{64}$' then
+    raise exception 'Invalid verification throttle key';
+  end if;
+
+  insert into public.medical_document_verification_limits(
+    ip_digest, window_started_at, request_count, updated_at
+  ) values (p_ip_digest, now(), 1, now())
+  on conflict (ip_digest) do update set
+    window_started_at = case
+      when public.medical_document_verification_limits.window_started_at <= now() - interval '15 minutes'
+        then now()
+      else public.medical_document_verification_limits.window_started_at
+    end,
+    request_count = case
+      when public.medical_document_verification_limits.window_started_at <= now() - interval '15 minutes'
+        then 1
+      else public.medical_document_verification_limits.request_count + 1
+    end,
+    updated_at = now()
+  returning request_count into v_count;
+
+  return v_count <= 20;
+end;
+$$;
+
+revoke all on function public.consume_medical_document_verification_limit(text)
+  from public, anon, authenticated;
+grant execute on function public.consume_medical_document_verification_limit(text)
+  to service_role;
+
 commit;
