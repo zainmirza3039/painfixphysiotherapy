@@ -2,7 +2,7 @@
 
 ## Approved identity and presentation
 - Clinic: PainFix Physiotherapy Clinic
-- Authorized signatory: Dr. Zain Ul Abideen, PT
+- Authorized signatory: Dr. Zain Ul Abideen, DPT
 - Language: English
 - Page: A4 portrait
 - Visual system: hybrid clinical/corporate; navy #032E61, green #00A859, white
