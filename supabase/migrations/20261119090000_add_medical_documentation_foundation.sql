@@ -504,11 +504,14 @@ begin
     return;
   end if;
 
-  select * into v_credential
+  select c.* into v_credential
   from public.personal_patient_portal_credentials c
+  join public.personal_patients p
+    on p.id = c.patient_id and p.clinician_id = c.clinician_id
   where c.patient_id = v_session.patient_id
     and c.clinician_id = v_session.clinician_id
-  for update;
+    and p.archived_at is null
+  for update of c;
 
   if not found or v_credential.is_revoked then
     return;
