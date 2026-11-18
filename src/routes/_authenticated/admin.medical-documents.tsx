@@ -17,9 +17,8 @@ import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Textarea } from "@/components/ui/textarea";
-import { personalPatientDb } from "@/admin/personal-patients.db";
-import type { MedicalDocumentPatient } from "@/admin/medical-documents.functions";
 import {
+  listMedicalDocumentPatients,
   listMedicalDocuments,
   listMedicalDocumentSources,
   createMedicalDocument,
@@ -75,16 +74,10 @@ function MedicalDocumentationPage() {
   const queryClient = useQueryClient();
   const patients = useQuery({
     queryKey: ["admin", "medical-documents", "patients"],
-    queryFn: async () => {
-      const { data, error } = await personalPatientDb
-        .from("personal_patients")
-        .select("id, full_name, status, created_at")
-        .neq("status", "archived")
-        .order("full_name", { ascending: true })
-        .limit(500);
-      if (error) throw new Error(error.message || "Unable to load your clinical patient records");
-      return (data ?? []) as MedicalDocumentPatient[];
-    },
+    // Use the same authenticated server boundary as the document register.
+    // The browser-side query bypassed the server admin check and depended on
+    // the client's generated schema/RLS state, causing the patient list to fail.
+    queryFn: () => listMedicalDocumentPatients(),
   });
   const documents = useQuery({
     queryKey: ["admin", "medical-documents", "list"],
