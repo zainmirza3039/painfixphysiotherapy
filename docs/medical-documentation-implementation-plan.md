@@ -76,3 +76,15 @@ Before any schema migration:
 5. Keep portal tables server-only unless a separate portal authorization design is approved.
 
 No feature source code, schema migration, live database setting, or deployment has been changed by this audit update.
+
+
+## 2026-11-19 implementation direction
+
+- Source of truth is decided: the new Medical Documentation admin area will use the dedicated `personal_patient*` domain only.
+- Preserve the existing `/admin/patients` legacy `public.patients` workflow unchanged; do not merge the two patient stores.
+- Keep portal credential/session tables server-only and fail-closed. The medical-document feature does not require patient portal access.
+- Use the established `requireSupabaseAuth` middleware and explicit database-backed admin authorization for server functions. Service-role access stays in server-only modules.
+- Historical migration provenance cannot be fully reconstructed from the current ledger/catalog. Preserve it as an explicit historical gap; future feature migration must be additive against the live schema, reviewed on the feature branch, and never applied to production without separate approval.
+- Leaked-password protection remains an owner-level Auth setting. It is recommended security hardening but is not a reason to expose portal tables or to alter production from this implementation branch.
+
+The source/UI ambiguity is resolved for this feature. The remaining implementation gate is validating the additive migration and application code in a non-production environment without creating a paid Supabase branch. If no free non-production database is available, stop before schema execution and report the exact validation limitation.
