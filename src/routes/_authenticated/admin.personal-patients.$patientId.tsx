@@ -252,7 +252,9 @@ function PersonalPatientDetailPage() {
         ["ledger", ledgerResult],
         ["audit history", auditResult],
       ] as const) {
-        if (result.error) throw new Error(`Unable to load patient ${label}: ${result.error.message}`);
+        if (result.error) {
+          throw new Error(`Unable to load patient ${label}: ${result.error.message}`);
+        }
       }
       return {
         patient: p.data as Patient,
