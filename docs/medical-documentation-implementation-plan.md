@@ -123,7 +123,7 @@ On feature-branch head b284e902f4b15bad7bf9a7306e3dc3848fcd3c58:
 - Production application build passed.
 - GitHub PR CI passed.
 
-The Vercel status check is blocked by the connected Hobby account's deployment/build-rate limit. No preview deployment was created.
+The Vercel status check is blocked by the connected Hobby account's deployment/build-rate limit. Git integration automatically created preview deployments for some intermediate branch commits; these did not target production. Several were cancelled, but READY previews require manual deletion in the Vercel dashboard because the connected Vercel actions do not expose deletion.
 
 ### Still blocked
 
