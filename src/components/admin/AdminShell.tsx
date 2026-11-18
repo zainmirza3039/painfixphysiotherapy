@@ -51,6 +51,7 @@ interface NavItem {
 const NAV: NavItem[] = [
   { to: "/admin", label: "Dashboard", icon: LayoutDashboard, gate: "staff" },
   { to: "/admin/patients", label: "Patients", icon: Users, gate: "staff" },
+  { to: "/admin/personal-patients", label: "Personal Patients", icon: UserCircle, gate: "admin" },
   { to: "/admin/medical-documents", label: "Medical Documentation", icon: FileText, gate: "admin" },
   { to: "/admin/appointments", label: "Appointments", icon: CalendarClock, gate: "staff" },
   { to: "/admin/home-visits", label: "Home Visits", icon: Home, gate: "staff" },
@@ -88,6 +89,7 @@ const NAV_SECTIONS = [
     label: "Clinic",
     routes: [
       "/admin/patients",
+      "/admin/personal-patients",
       "/admin/medical-documents",
       "/admin/appointments",
       "/admin/home-visits",
