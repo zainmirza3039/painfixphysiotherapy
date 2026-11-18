@@ -14,6 +14,7 @@ import {
   listMedicalDocuments,
   listMedicalDocumentSources,
   createMedicalDocument,
+  getMedicalDocumentPdfUrl,
 } from "@/admin/medical-documents.functions";
 
 export const Route = createFileRoute("/_authenticated/admin/medical-documents")({
@@ -39,6 +40,7 @@ function MedicalDocumentationPage() {
   const [selectedLedgerIds, setSelectedLedgerIds] = useState<string[]>([]);
   const [selectedSessionIds, setSelectedSessionIds] = useState<string[]>([]);
   const [issuedPdf, setIssuedPdf] = useState<string | null>(null);
+  const [pdfError, setPdfError] = useState<string | null>(null);
   const queryClient = useQueryClient();
   const patients = useQuery({
     queryKey: ["admin", "medical-documents", "patients"],
@@ -165,7 +167,7 @@ function MedicalDocumentationPage() {
             <div className="overflow-x-auto">
               <table className="w-full text-left text-sm">
                 <thead className="border-b border-border bg-muted/30 text-xs text-muted-foreground">
-                  <tr><th className="px-4 py-2 font-medium">Reference</th><th className="px-4 py-2 font-medium">Patient</th><th className="px-4 py-2 font-medium">Status</th></tr>
+                  <tr><th className="px-4 py-2 font-medium">Reference</th><th className="px-4 py-2 font-medium">Patient</th><th className="px-4 py-2 font-medium">Status</th><th className="px-4 py-2 font-medium">PDF</th></tr>
                 </thead>
                 <tbody className="divide-y divide-border">
                   {filteredDocuments.map((doc) => (
@@ -176,6 +178,7 @@ function MedicalDocumentationPage() {
                       </td>
                       <td className="max-w-[180px] truncate px-4 py-3 text-xs text-foreground">{doc.patient_name_snapshot}</td>
                       <td className="px-4 py-3"><Badge variant={doc.status === "issued" ? "default" : "outline"} className="capitalize">{doc.status}</Badge></td>
+                      <td className="px-4 py-3">{doc.status === "issued" ? <button type="button" onClick={() => void openIssuedPdf(doc.id)} className="text-xs font-medium text-primary underline">Open PDF</button> : <span className="text-xs text-muted-foreground">—</span>}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -241,7 +244,8 @@ function MedicalDocumentationPage() {
             <p className="text-xs text-muted-foreground">Future estimates remain separate from historical amounts paid.</p>
           </>}
           {createMutation.isError && <p role="alert" className="text-sm text-destructive">{createMutation.error.message}</p>}
-          {issuedPdf && <div className="border border-secondary/40 bg-secondary/5 p-3 text-sm"><p className="font-semibold">Document issued.</p><a href={issuedPdf} target="_blank" rel="noreferrer" className="text-primary underline">Open private PDF (link expires in 60 seconds)</a></div>}
+          {pdfError && <p role="alert" className="text-sm text-destructive">{pdfError}</p>}
+          {createMutation.isSuccess && <div className="border border-secondary/40 bg-secondary/5 p-3 text-sm"><p className="font-semibold">Document {createMutation.data.documentNumber} issued.</p>{issuedPdf ? <a href={issuedPdf} target="_blank" rel="noreferrer" className="text-primary underline">Open private PDF (link expires in 60 seconds)</a> : <p className="mt-1 text-xs text-muted-foreground">Use the document list to open its PDF.</p>}</div>}
           <div className="flex flex-wrap items-center gap-3 border-t border-border pt-4"><button type="submit" disabled={!selectedPatientId || createMutation.isPending || sources.isLoading || sources.isError} className="h-10 bg-primary px-5 text-sm font-semibold text-primary-foreground disabled:opacity-50">{createMutation.isPending ? "Validating and issuing…" : "Generate and issue PDF"}</button><span className="text-xs text-muted-foreground">Issued records are immutable. Corrections require a replacement or cancellation.</span></div>
         </form>
       </section>

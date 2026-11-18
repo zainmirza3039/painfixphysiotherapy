@@ -255,7 +255,7 @@ export const createMedicalDocument = createServerFn({ method: "POST" })
       const duration = requiredText(data.proposedDuration, "Proposed duration");
       const sessions = data.proposedSessions;
       const fee = data.perSessionFee;
-      if (!sessions || !fee || !Number.isFinite(fee)) throw new Error("Proposed sessions and per-session fee are required");
+      if (!sessions || !fee || !Number.isFinite(fee) || Math.round(fee * 100) !== fee * 100) throw new Error("Proposed sessions and a valid per-session fee (maximum two decimals) are required");
       const total = sessions * fee;
       if (!Number.isSafeInteger(Math.round(total * 100))) throw new Error("Estimate total exceeds supported range");
       snapshot = {
@@ -499,4 +499,31 @@ export const listMedicalDocumentSources = createServerFn({ method: "GET" })
         valid_until: row.snapshot?.validUntil ?? null,
       })),
     };
+  });
+
+
+export const getMedicalDocumentPdfUrl = createServerFn({ method: "GET" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((input) => z.object({ documentId: z.string().uuid() }).strict().parse(input))
+  .handler(async ({ data, context }): Promise<{ pdfUrl: string }> => {
+    await assertAdmin(context);
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const db = supabaseAdmin as any;
+    const { data: document, error } = await db
+      .from("medical_documents")
+      .select("pdf_storage_path, status")
+      .eq("id", data.documentId)
+      .eq("clinician_id", context.userId)
+      .maybeSingle();
+    if (error || !document || document.status !== "issued" || !document.pdf_storage_path) {
+      throw new Error("Issued PDF not found for this account");
+    }
+    const prefix = "medical-documents/";
+    if (!document.pdf_storage_path.startsWith(prefix)) throw new Error("Invalid private document path");
+    const objectPath = document.pdf_storage_path.slice(prefix.length);
+    const { data: signed, error: signedError } = await db.storage
+      .from("medical-documents")
+      .createSignedUrl(objectPath, 300);
+    if (signedError || !signed?.signedUrl) throw new Error("Unable to create a temporary PDF link");
+    return { pdfUrl: signed.signedUrl };
   });
