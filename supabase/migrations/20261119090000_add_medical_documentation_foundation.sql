@@ -53,6 +53,10 @@ create table if not exists public.medical_document_events (
   created_at timestamptz not null default now()
 );
 
+insert into storage.buckets (id, name, public, file_size_limit, allowed_mime_types)
+values ('medical-documents', 'medical-documents', false, 10485760, array['application/pdf'])
+on conflict (id) do nothing;
+
 create index if not exists medical_documents_clinician_created_idx
   on public.medical_documents (clinician_id, created_at desc);
 create index if not exists medical_documents_patient_created_idx
