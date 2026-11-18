@@ -49,13 +49,15 @@ test("throttle cancellation prevents a queued trailing call", async () => {
 test("admin shell exposes a role-filtered command palette and persistent desktop navigation", () => {
   const shell = source("components/admin/AdminShell.tsx");
   assert.match(shell, /lg:flex/);
-  assert.match(shell, /sticky top-0 hidden h-screen w-\[272px\]/);
+  assert.match(shell, /sticky top-0 hidden h-screen w-\[248px\]/);
   assert.match(shell, /CommandDialog open=\{commandOpen\}/);
   assert.match(shell, /event\.metaKey \|\| event\.ctrlKey/);
   assert.match(shell, /setCommandOpen\(\(open\) => !open\)/);
   assert.match(shell, /const items = NAV\.filter/);
   assert.match(shell, /items\.map\(\(item\) => \(/);
   assert.match(shell, /<Sheet open=\{mobileOpen\}/);
+  assert.match(shell, /aria-label="Primary mobile navigation"/);
+  assert.match(shell, /onClick=\{\(\) => setMobileOpen\(true\)\}/);
 });
 
 test("root route retains dedicated not-found and recoverable error views", () => {
@@ -115,4 +117,15 @@ test("blog editor keeps an explicit local autosave and restore workflow", () => 
   assert.match(editor, /setHasEdited\(true\)/);
   assert.match(editor, /Add article content before publishing/);
   assert.match(editor, /maxLength=\{160\}/);
+});
+
+test("dashboard uses bounded queries, Multan day boundaries, and explicit query recovery", () => {
+  const dashboard = source("routes/_authenticated/admin.index.tsx");
+  assert.match(dashboard, /timeZone: "Asia\/Karachi"/);
+  assert.match(dashboard, /\.gte\("appointment_at", start\)/);
+  assert.match(dashboard, /\.lt\("appointment_at", end\)/);
+  assert.match(dashboard, /\.select\("id", \{ count: "exact", head: true \}\)/);
+  assert.match(dashboard, /\.limit\(6\)/);
+  assert.match(dashboard, /if \(failed\) throw failed/);
+  assert.match(dashboard, /<AdminQueryError onRetry=\{\(\) => void refetch\(\)\} \/>/);
 });

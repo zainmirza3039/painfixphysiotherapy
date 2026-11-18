@@ -47,6 +47,17 @@ type Appointment = Database["public"]["Tables"]["appointments"]["Row"];
 
 const STATUSES = ["pending", "confirmed", "completed", "cancelled", "no-show"] as const;
 
+function statusLabel(status: string) {
+  switch (status) {
+    case "pending": return "Awaiting confirmation";
+    case "confirmed": return "Booked";
+    case "completed": return "Completed";
+    case "cancelled": return "Cancelled";
+    case "no-show": return "No-show";
+    default: return status;
+  }
+}
+
 const empty = {
   patient_name: "",
   phone: "",
@@ -264,32 +275,38 @@ function AppointmentsPage() {
         }
       />
 
-      <div className="mb-4 flex flex-wrap items-center gap-3">
-        <div className="relative max-w-sm flex-1">
-          <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-          <Input
-            className="pl-9"
-            placeholder="Search…"
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-          />
-        </div>
-        <Select value={statusFilter} onValueChange={setStatusFilter}>
-          <SelectTrigger className="w-40">
+      <div className="mb-5 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+        <div className="flex w-full flex-col gap-3 sm:flex-row sm:items-center">
+          <div className="relative w-full sm:max-w-md">
+            <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+            <Input
+              className="h-10 pl-9"
+              placeholder="Search by patient, phone or service"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              aria-label="Search appointments"
+            />
+          </div>
+          <Select value={statusFilter} onValueChange={setStatusFilter}>
+            <SelectTrigger className="h-10 w-full sm:w-[220px]">
             <SelectValue />
           </SelectTrigger>
           <SelectContent>
             <SelectItem value="all">All statuses</SelectItem>
             {STATUSES.map((s) => (
               <SelectItem key={s} value={s}>
-                {s}
+                {statusLabel(s)}
               </SelectItem>
             ))}
-          </SelectContent>
-        </Select>
+            </SelectContent>
+          </Select>
+        </div>
+        <p className="text-sm text-muted-foreground" aria-live="polite">
+          {filtered.length} {filtered.length === 1 ? "appointment" : "appointments"}
+        </p>
       </div>
 
-      <div className="overflow-hidden rounded-2xl border border-border bg-card shadow-soft">
+      <div className="overflow-hidden rounded-xl border border-border bg-card shadow-sm">
         {isLoading ? (
           <div className="space-y-2 p-4">
             {Array.from({ length: 5 }).map((_, i) => (
@@ -305,7 +322,7 @@ function AppointmentsPage() {
           </div>
         ) : (
           <div className="overflow-x-auto">
-            <Table>
+            <Table className="min-w-[760px]">
               <TableHeader>
                 <TableRow>
                   <TableHead>Patient</TableHead>
@@ -334,13 +351,13 @@ function AppointmentsPage() {
                       >
                         <SelectTrigger className="h-8 w-[130px]">
                           <Badge variant="secondary" className={statusColor(a.status)}>
-                            {a.status}
+                            {statusLabel(a.status)}
                           </Badge>
                         </SelectTrigger>
                         <SelectContent>
                           {STATUSES.map((s) => (
                             <SelectItem key={s} value={s}>
-                              {s}
+                              {statusLabel(s)}
                             </SelectItem>
                           ))}
                         </SelectContent>
@@ -348,12 +365,14 @@ function AppointmentsPage() {
                     </TableCell>
                     <TableCell className="text-right">
                       <Button
-                        variant="ghost"
-                        size="icon"
-                        aria-label="Edit appointment"
+                        variant="outline"
+                        size="sm"
+                        className="h-8 gap-1.5 px-2.5"
+                        aria-label={`Edit appointment for ${a.patient_name}`}
                         onClick={() => openEdit(a)}
                       >
-                        <Pencil className="h-4 w-4" />
+                        <Pencil className="h-3.5 w-3.5" />
+                        Edit
                       </Button>
                     </TableCell>
                   </TableRow>
@@ -375,7 +394,7 @@ function AppointmentsPage() {
               if (!form.patient_name.trim()) return toast.error("Patient name is required");
               saveMutation.mutate();
             }}
-            className="space-y-4"
+            className="space-y-5"
           >
             <div className="space-y-1.5">
               <Label>
@@ -387,7 +406,9 @@ function AppointmentsPage() {
                 required
               />
             </div>
-            <div className="grid grid-cols-2 gap-3">
+            <section className="space-y-3 border-t border-border pt-4">
+              <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">Contact details</p>
+              <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
               <div className="space-y-1.5">
                 <Label>Phone</Label>
                 <Input
@@ -403,8 +424,11 @@ function AppointmentsPage() {
                   onChange={(e) => setForm({ ...form, email: e.target.value })}
                 />
               </div>
-            </div>
-            <div className="grid grid-cols-2 gap-3">
+              </div>
+            </section>
+            <section className="space-y-3 border-t border-border pt-4">
+              <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">Appointment details</p>
+              <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
               <div className="space-y-1.5">
                 <Label>Service</Label>
                 <Input
@@ -419,8 +443,8 @@ function AppointmentsPage() {
                   onChange={(e) => setForm({ ...form, assigned_therapist: e.target.value })}
                 />
               </div>
-            </div>
-            <div className="grid grid-cols-2 gap-3">
+              </div>
+              <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
               <div className="space-y-1.5">
                 <Label>Date & time</Label>
                 <Input
@@ -438,7 +462,7 @@ function AppointmentsPage() {
                   <SelectContent>
                     {STATUSES.map((s) => (
                       <SelectItem key={s} value={s}>
-                        {s}
+                        {statusLabel(s)}
                       </SelectItem>
                     ))}
                   </SelectContent>
@@ -448,18 +472,19 @@ function AppointmentsPage() {
             <div className="space-y-1.5">
               <Label>Notes</Label>
               <Textarea
-                rows={2}
+                rows={3}
                 value={form.notes}
                 onChange={(e) => setForm({ ...form, notes: e.target.value })}
               />
-            </div>
-            <DialogFooter>
-              <Button type="button" variant="ghost" onClick={() => setDialogOpen(false)}>
+              </div>
+            </section>
+            <DialogFooter className="sticky bottom-0 -mx-1 border-t border-border bg-background/95 pt-4">
+              <Button type="button" variant="outline" onClick={() => setDialogOpen(false)}>
                 Cancel
               </Button>
-              <Button type="submit" disabled={saveMutation.isPending}>
+              <Button type="submit" disabled={saveMutation.isPending} className="min-w-[140px]">
                 {saveMutation.isPending && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                {editing ? "Save changes" : "Create"}
+                {editing ? "Save changes" : "Create appointment"}
               </Button>
             </DialogFooter>
           </form>
