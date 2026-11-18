@@ -41,6 +41,7 @@ import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as SuccessStoriesRouteImport } from './routes/success-stories'
 import { Route as TermsRouteImport } from './routes/terms'
 import { Route as VerifyCertificateRouteImport } from './routes/verify-certificate'
+import { Route as VerifyMedicalDocumentRouteImport } from './routes/verify-medical-document'
 import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
 import { Route as BlogIndexRouteImport } from './routes/blog.index'
 import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
@@ -70,6 +71,7 @@ import { Route as AuthenticatedAdminInternshipParticipantsRouteImport } from './
 import { Route as AuthenticatedAdminInternshipsRouteImport } from './routes/_authenticated/admin.internships'
 import { Route as AuthenticatedAdminMediaRouteImport } from './routes/_authenticated/admin.media'
 import { Route as AuthenticatedAdminMessagesRouteImport } from './routes/_authenticated/admin.messages'
+import { Route as AuthenticatedAdminMedicalDocumentsRouteImport } from './routes/_authenticated/admin.medical-documents'
 import { Route as AuthenticatedAdminPatientsRouteImport } from './routes/_authenticated/admin.patients'
 import { Route as AuthenticatedAdminProfileRouteImport } from './routes/_authenticated/admin.profile'
 import { Route as AuthenticatedAdminReportsRouteImport } from './routes/_authenticated/admin.reports'
@@ -239,6 +241,11 @@ const VerifyCertificateRoute = VerifyCertificateRouteImport.update({
   path: '/verify-certificate',
   getParentRoute: () => rootRouteImport,
 } as any)
+const VerifyMedicalDocumentRoute = VerifyMedicalDocumentRouteImport.update({
+  id: '/verify-medical-document',
+  path: '/verify-medical-document',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AuthenticatedAdminRoute = AuthenticatedAdminRouteImport.update({
   id: '/admin',
   path: '/admin',
@@ -397,6 +404,12 @@ const AuthenticatedAdminMessagesRoute =
     path: '/messages',
     getParentRoute: () => AuthenticatedAdminRoute,
   } as any)
+const AuthenticatedAdminMedicalDocumentsRoute =
+  AuthenticatedAdminMedicalDocumentsRouteImport.update({
+    id: '/medical-documents',
+    path: '/medical-documents',
+    getParentRoute: () => AuthenticatedAdminRoute,
+  } as any)
 const AuthenticatedAdminPatientsRoute =
   AuthenticatedAdminPatientsRouteImport.update({
     id: '/patients',
@@ -464,6 +477,7 @@ export interface FileRoutesByFullPath {
   '/success-stories': typeof SuccessStoriesRoute
   '/terms': typeof TermsRoute
   '/verify-certificate': typeof VerifyCertificateRoute
+  '/verify-medical-document': typeof VerifyMedicalDocumentRoute
   '/admin': typeof AuthenticatedAdminRouteWithChildren
   '/blog/$slug': typeof BlogSlugRoute
   '/conditions/$slug': typeof ConditionsSlugRoute
@@ -492,6 +506,7 @@ export interface FileRoutesByFullPath {
   '/admin/internships': typeof AuthenticatedAdminInternshipsRoute
   '/admin/media': typeof AuthenticatedAdminMediaRoute
   '/admin/messages': typeof AuthenticatedAdminMessagesRoute
+  '/admin/medical-documents': typeof AuthenticatedAdminMedicalDocumentsRoute
   '/admin/patients': typeof AuthenticatedAdminPatientsRoute
   '/admin/profile': typeof AuthenticatedAdminProfileRoute
   '/admin/reports': typeof AuthenticatedAdminReportsRoute
@@ -629,6 +644,7 @@ export interface FileRoutesById {
   '/_authenticated/admin/internships': typeof AuthenticatedAdminInternshipsRoute
   '/_authenticated/admin/media': typeof AuthenticatedAdminMediaRoute
   '/_authenticated/admin/messages': typeof AuthenticatedAdminMessagesRoute
+  '/_authenticated/admin/medical-documents': typeof AuthenticatedAdminMedicalDocumentsRoute
   '/_authenticated/admin/patients': typeof AuthenticatedAdminPatientsRoute
   '/_authenticated/admin/profile': typeof AuthenticatedAdminProfileRoute
   '/_authenticated/admin/reports': typeof AuthenticatedAdminReportsRoute
@@ -671,6 +687,7 @@ export interface FileRouteTypes {
     | '/success-stories'
     | '/terms'
     | '/verify-certificate'
+    | '/verify-medical-document'
     | '/admin'
     | '/blog/$slug'
     | '/conditions/$slug'
@@ -699,6 +716,7 @@ export interface FileRouteTypes {
     | '/admin/internships'
     | '/admin/media'
     | '/admin/messages'
+    | '/admin/medical-documents'
     | '/admin/patients'
     | '/admin/profile'
     | '/admin/reports'
@@ -739,6 +757,7 @@ export interface FileRouteTypes {
     | '/success-stories'
     | '/terms'
     | '/verify-certificate'
+    | '/verify-medical-document'
     | '/blog/$slug'
     | '/conditions/$slug'
     | '/diet-nutrition/$slug'
@@ -766,6 +785,7 @@ export interface FileRouteTypes {
     | '/admin/internships'
     | '/admin/media'
     | '/admin/messages'
+    | '/admin/medical-documents'
     | '/admin/patients'
     | '/admin/profile'
     | '/admin/reports'
@@ -807,6 +827,7 @@ export interface FileRouteTypes {
     | '/success-stories'
     | '/terms'
     | '/verify-certificate'
+    | '/verify-medical-document'
     | '/_authenticated/admin'
     | '/blog/$slug'
     | '/conditions/$slug'
@@ -835,6 +856,7 @@ export interface FileRouteTypes {
     | '/_authenticated/admin/internships'
     | '/_authenticated/admin/media'
     | '/_authenticated/admin/messages'
+    | '/_authenticated/admin/medical-documents'
     | '/_authenticated/admin/patients'
     | '/_authenticated/admin/profile'
     | '/_authenticated/admin/reports'
@@ -877,6 +899,7 @@ export interface RootRouteChildren {
   SuccessStoriesRoute: typeof SuccessStoriesRoute
   TermsRoute: typeof TermsRoute
   VerifyCertificateRoute: typeof VerifyCertificateRoute
+  VerifyMedicalDocumentRoute: typeof VerifyMedicalDocumentRoute
   BlogSlugRoute: typeof BlogSlugRoute
   ConditionsSlugRoute: typeof ConditionsSlugRoute
   DietNutritionSlugRoute: typeof DietNutritionSlugRoute
@@ -1118,6 +1141,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof VerifyCertificateRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/verify-medical-document': {
+      id: '/verify-medical-document'
+      path: '/verify-medical-document'
+      fullPath: '/verify-medical-document'
+      preLoaderRoute: typeof VerifyMedicalDocumentRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/_authenticated/admin': {
       id: '/_authenticated/admin'
       path: '/admin'
@@ -1321,6 +1351,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminMessagesRouteImport
       parentRoute: typeof AuthenticatedAdminRoute
     }
+    '/_authenticated/admin/medical-documents': {
+      id: '/_authenticated/admin/medical-documents'
+      path: '/medical-documents'
+      fullPath: '/admin/medical-documents'
+      preLoaderRoute: typeof AuthenticatedAdminMedicalDocumentsRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
     '/_authenticated/admin/patients': {
       id: '/_authenticated/admin/patients'
       path: '/patients'
@@ -1382,6 +1419,7 @@ interface AuthenticatedAdminRouteChildren {
   AuthenticatedAdminInternshipsRoute: typeof AuthenticatedAdminInternshipsRoute
   AuthenticatedAdminMediaRoute: typeof AuthenticatedAdminMediaRoute
   AuthenticatedAdminMessagesRoute: typeof AuthenticatedAdminMessagesRoute
+  AuthenticatedAdminMedicalDocumentsRoute: typeof AuthenticatedAdminMedicalDocumentsRoute
   AuthenticatedAdminPatientsRoute: typeof AuthenticatedAdminPatientsRoute
   AuthenticatedAdminProfileRoute: typeof AuthenticatedAdminProfileRoute
   AuthenticatedAdminReportsRoute: typeof AuthenticatedAdminReportsRoute
@@ -1409,6 +1447,7 @@ const AuthenticatedAdminRouteChildren: AuthenticatedAdminRouteChildren = {
   AuthenticatedAdminInternshipsRoute: AuthenticatedAdminInternshipsRoute,
   AuthenticatedAdminMediaRoute: AuthenticatedAdminMediaRoute,
   AuthenticatedAdminMessagesRoute: AuthenticatedAdminMessagesRoute,
+  AuthenticatedAdminMedicalDocumentsRoute: AuthenticatedAdminMedicalDocumentsRoute,
   AuthenticatedAdminPatientsRoute: AuthenticatedAdminPatientsRoute,
   AuthenticatedAdminProfileRoute: AuthenticatedAdminProfileRoute,
   AuthenticatedAdminReportsRoute: AuthenticatedAdminReportsRoute,
@@ -1464,6 +1503,7 @@ const rootRouteChildren: RootRouteChildren = {
   SuccessStoriesRoute: SuccessStoriesRoute,
   TermsRoute: TermsRoute,
   VerifyCertificateRoute: VerifyCertificateRoute,
+  VerifyMedicalDocumentRoute: VerifyMedicalDocumentRoute,
   BlogSlugRoute: BlogSlugRoute,
   ConditionsSlugRoute: ConditionsSlugRoute,
   DietNutritionSlugRoute: DietNutritionSlugRoute,
