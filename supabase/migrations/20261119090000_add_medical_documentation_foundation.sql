@@ -539,9 +539,8 @@ as $$
 declare
   v_now timestamptz := now();
 begin
-  if p_clinician_id is null or p_patient_id is null
-     or p_clinician_id is distinct from auth.uid() then
-    raise exception 'Authenticated clinician identity required';
+  if p_clinician_id is null or p_patient_id is null then
+    raise exception 'Clinician and patient identity are required';
   end if;
   if not (
     coalesce(public.has_role(p_clinician_id, 'admin'), false)
