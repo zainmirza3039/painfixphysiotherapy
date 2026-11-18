@@ -22,6 +22,15 @@ const publicRoute = fs.readFileSync(
   path.join(root, "src/routes/verify-medical-document.tsx"),
   "utf8",
 );
+const portalFunction = fs.readFileSync(
+  path.join(root, "supabase/functions/patient-portal/index.ts"),
+  "utf8",
+);
+const portalManager = fs.readFileSync(
+  path.join(root, "supabase/functions/manage-patient-portal/index.ts"),
+  "utf8",
+);
+const portalConfig = fs.readFileSync(path.join(root, "supabase/config.toml"), "utf8");
 
 test("document numbering uses separate fixed prefixes and rejects invalid sequences", () => {
   assert.equal(formatMedicalDocumentNumber("receipt", 1), "PF-R-00001");
@@ -106,6 +115,28 @@ test("migration restricts browser access and binds documents to clinical source 
   assert.match(migration, /s\.status = 'completed'/i);
   assert.match(migration, /medical-documents', 'medical-documents', false/i);
   assert.match(migration, /Invalid medical document status transition/i);
+});
+
+test("patient portal uses PIN lockout, hashed bearer tokens and scoped read-only records", () => {
+  assert.match(migration, /verify_personal_patient_portal_pin/i);
+  assert.match(migration, /v_attempts >= 8[\\s\\S]*?interval '30 minutes'/i);
+  assert.match(migration, /resolve_personal_patient_portal_session/i);
+  assert.match(migration, /get_personal_patient_portal_summary/i);
+  assert.match(migration, /manage_personal_patient_portal/i);
+  assert.match(migration, /grant execute on function public\\.verify_personal_patient_portal_pin[\\s\\S]*?to service_role/i);
+  assert.match(migration, /grant execute on function public\\.manage_personal_patient_portal[\\s\\S]*?to service_role/i);
+  assert.match(portalFunction, /pinDigest\\(body\\.pin\\)/);
+  assert.match(portalFunction, /resolve_personal_patient_portal_session/);
+  assert.match(portalFunction, /get_personal_patient_portal_summary/);
+  assert.match(portalFunction, /eq\\("patient_id", patientId\\)\\.eq\\("clinician_id", clinicianId\\)/);
+  assert.doesNotMatch(portalFunction, /private_notes/);
+  assert.doesNotMatch(portalFunction, /password/);
+  assert.match(portalManager, /requireAdmin\\(req, admin\\)/);
+  assert.match(portalManager, /manage_personal_patient_portal/);
+  assert.match(portalConfig, /\\[functions\\.patient-portal\\][\\s\\S]*?verify_jwt = false/);
+  assert.match(portalConfig, /\\[functions\\.manage-patient-portal\\][\\s\\S]*?verify_jwt = false/);
+  assert.equal((migration.match(/\\bcommit;/gi) ?? []).length, 1);
+  assert.ok(migration.trimEnd().endsWith("commit;"));
 });
 
 test("admin and public routes preserve separate clinical source and privacy boundaries", () => {
