@@ -536,7 +536,9 @@ function PersonalPatientDetailPage() {
           status,
           completed_at: status === "completed" ? new Date().toISOString() : null,
         })
-        .eq("id", id);
+        .eq("id", id)
+        .eq("patient_id", patientId)
+        .eq("clinician_id", user!.id);
       if (error) throw error;
     },
     onSuccess: async () => {
