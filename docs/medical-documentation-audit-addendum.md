@@ -103,3 +103,18 @@ Not completed:
 - Feature code, migration, tests or preview.
 
 No production schema, migration ledger, Storage bucket, Auth setting, patient data, deployment or branch billing was changed.
+
+
+## 8. Safe schema-dump handoff
+
+Use a read-only schema dump, not `supabase db pull`, for this reconciliation. Current Supabase documentation states that `db pull` records a baseline migration in the remote migration ledger. That would mutate the very history under investigation.
+
+After linking the CLI locally to the existing project, the safe public-schema dump command is:
+
+```bash
+supabase db dump --linked --schema public --file painfix-public-schema.sql
+```
+
+This dumps schema definitions without application table data. Do not run `supabase db pull`, `supabase db push`, `supabase migration repair`, or `supabase db reset --linked` during this audit. The Storage policies/bucket settings and Auth settings should continue to be inspected separately through read-only queries/dashboard because managed schemas are excluded from the normal dump.
+
+The dump can be uploaded here for comparison. Remove any secrets if present before sharing; do not share database passwords, access tokens, or service-role keys.
