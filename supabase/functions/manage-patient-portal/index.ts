@@ -39,7 +39,7 @@ Deno.serve(async (req: Request) => {
       return json({ revoked: true });
     }
 
-    if (body.action !== "create_or_rotate" || typeof body.pin !== "string" || !/^\\d{6}$/.test(body.pin)) {
+    if (body.action !== "create_or_rotate" || typeof body.pin !== "string" || !/^\d{6}$/.test(body.pin)) {
       return json({ error: "Choose a valid action and enter a six-digit PIN." }, 400);
     }
 
