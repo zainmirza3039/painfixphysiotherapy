@@ -44,6 +44,22 @@ create table if not exists public.medical_documents (
   )
 );
 
+create table if not exists public.medical_document_source_items (
+  id uuid primary key default gen_random_uuid(),
+  document_id uuid not null references public.medical_documents(id) on delete restrict,
+  document_type text not null check (document_type in ('receipt','estimate','treatment_report','expense_statement')),
+  source_kind text not null check (source_kind in ('payment_ledger','statement_ledger','completed_session','estimate_document')),
+  source_id uuid not null,
+  created_at timestamptz not null default now()
+);
+
+create unique index if not exists medical_document_receipt_payment_once_idx
+  on public.medical_document_source_items (source_id)
+  where document_type = 'receipt' and source_kind = 'payment_ledger';
+
+create index if not exists medical_document_source_items_document_idx
+  on public.medical_document_source_items (document_id);
+
 create table if not exists public.medical_document_events (
   id uuid primary key default gen_random_uuid(),
   document_id uuid not null references public.medical_documents(id) on delete restrict,
@@ -67,13 +83,16 @@ create index if not exists medical_document_events_document_created_idx
 alter table public.medical_document_sequences enable row level security;
 alter table public.medical_documents enable row level security;
 alter table public.medical_document_events enable row level security;
+alter table public.medical_document_source_items enable row level security;
 
 revoke all on public.medical_document_sequences from public, anon, authenticated;
 revoke all on public.medical_documents from public, anon, authenticated;
 revoke all on public.medical_document_events from public, anon, authenticated;
+revoke all on public.medical_document_source_items from public, anon, authenticated;
 grant all on public.medical_document_sequences to service_role;
 grant all on public.medical_documents to service_role;
 grant all on public.medical_document_events to service_role;
+grant all on public.medical_document_source_items to service_role;
 
 create or replace function public.guard_medical_document_immutability()
 returns trigger
@@ -139,7 +158,8 @@ create or replace function public.begin_medical_document_issuance(
   p_snapshot jsonb,
   p_token_hash text,
   p_actor_id uuid,
-  p_supersedes_document_id uuid default null
+  p_supersedes_document_id uuid default null,
+  p_source_ids uuid[] default null
 )
 returns table(document_id uuid, document_number text)
 language plpgsql
@@ -152,6 +172,8 @@ declare
   v_doc_number text;
   v_document_id uuid;
   v_patient_name text;
+  v_source_count bigint;
+  v_inserted_count bigint;
 begin
   if p_actor_id is null or not (
     coalesce(public.has_role(p_actor_id, 'admin'), false)
@@ -194,6 +216,50 @@ begin
         updated_at = now()
   returning last_number into v_number;
 
+  if p_document_type = 'receipt' then
+    if coalesce(cardinality(p_source_ids), 0) = 0 then
+      raise exception 'A receipt requires at least one recorded payment';
+    end if;
+    select count(*) into v_source_count
+    from public.personal_patient_ledger l
+    where l.id = any(p_source_ids)
+      and l.clinician_id = p_clinician_id
+      and l.patient_id = p_patient_id
+      and l.entry_type = 'payment'
+      and l.amount < 0;
+    if v_source_count <> cardinality(p_source_ids) then
+      raise exception 'Receipt sources must be payment entries for this patient';
+    end if;
+  elsif p_document_type = 'treatment_report' then
+    if coalesce(cardinality(p_source_ids), 0) = 0 then
+      raise exception 'A treatment report requires completed treatment sessions';
+    end if;
+    select count(*) into v_source_count
+    from public.personal_patient_sessions s
+    where s.id = any(p_source_ids)
+      and s.clinician_id = p_clinician_id
+      and s.patient_id = p_patient_id
+      and s.status = 'completed';
+    if v_source_count <> cardinality(p_source_ids) then
+      raise exception 'Treatment report sources must be completed sessions for this patient';
+    end if;
+  elsif p_document_type = 'expense_statement' then
+    if coalesce(cardinality(p_source_ids), 0) = 0 then
+      raise exception 'An expense statement requires recorded financial entries';
+    end if;
+    select count(*) into v_source_count
+    from public.personal_patient_ledger l
+    where l.id = any(p_source_ids)
+      and l.clinician_id = p_clinician_id
+      and l.patient_id = p_patient_id
+      and l.entry_type in ('payment','refund','adjustment');
+    if v_source_count <> cardinality(p_source_ids) then
+      raise exception 'Statement sources must be payment, refund or adjustment entries';
+    end if;
+  elsif coalesce(cardinality(p_source_ids), 0) > 0 then
+    raise exception 'Treatment estimates must not reference payment ledger entries';
+  end if;
+
   v_doc_number := v_prefix || lpad(v_number::text, 5, '0');
 
   insert into public.medical_documents(
@@ -204,6 +270,22 @@ begin
     p_snapshot, p_token_hash, p_actor_id, p_supersedes_document_id
   ) returning id into v_document_id;
 
+  if coalesce(cardinality(p_source_ids), 0) > 0 then
+    insert into public.medical_document_source_items(document_id, document_type, source_kind, source_id)
+    select v_document_id, p_document_type,
+      case
+        when p_document_type = 'receipt' then 'payment_ledger'
+        when p_document_type = 'treatment_report' then 'completed_session'
+        else 'statement_ledger'
+      end,
+      source_id
+    from unnest(p_source_ids) as source_id;
+    get diagnostics v_inserted_count = row_count;
+    if v_inserted_count <> cardinality(p_source_ids) then
+      raise exception 'Unable to register all document source records';
+    end if;
+  end if;
+
   insert into public.medical_document_events(document_id, actor_id, event_type, details)
   values (v_document_id, p_actor_id, 'created_pending', jsonb_build_object('document_type', p_document_type));
 
@@ -211,8 +293,8 @@ begin
 end;
 $$;
 
-revoke all on function public.begin_medical_document_issuance(uuid,uuid,text,text,jsonb,text,uuid,uuid) from public, anon, authenticated;
-grant execute on function public.begin_medical_document_issuance(uuid,uuid,text,text,jsonb,text,uuid,uuid) to service_role;
+revoke all on function public.begin_medical_document_issuance(uuid,uuid,text,text,jsonb,text,uuid,uuid,uuid[]) from public, anon, authenticated;
+grant execute on function public.begin_medical_document_issuance(uuid,uuid,text,text,jsonb,text,uuid,uuid,uuid[]) to service_role;
 
 
 -- Finalize only a pending record after the private PDF upload succeeds.
