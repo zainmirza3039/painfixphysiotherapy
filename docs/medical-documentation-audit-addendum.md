@@ -118,3 +118,24 @@ supabase db dump --linked --schema public --file painfix-public-schema.sql
 This dumps schema definitions without application table data. Do not run `supabase db pull`, `supabase db push`, `supabase migration repair`, or `supabase db reset --linked` during this audit. The Storage policies/bucket settings and Auth settings should continue to be inspected separately through read-only queries/dashboard because managed schemas are excluded from the normal dump.
 
 The dump can be uploaded here for comparison. Remove any secrets if present before sharing; do not share database passwords, access tokens, or service-role keys.
+
+
+## 9. Follow-up source and server-architecture inspection
+
+A second read-only pass inspected the current admin route, server-function patterns, server-only Supabase client and auth middleware.
+
+- The existing `src/routes/_authenticated/admin.patients.tsx` is definitively a legacy `public.patients` CRUD screen. It selects, inserts, updates and deletes that table directly from the browser. It is not a personal-patient screen.
+- The repo has a server-only `supabaseAdmin` client in `src/integrations/supabase/client.server.ts`; its service-role key is read only inside server code. Existing protected server functions use `requireSupabaseAuth`, then perform an explicit database-backed role check before importing the admin client.
+- Existing public verification pages use `no-store`, `noindex` and `no-referrer` headers; the medical-document verification route can follow this established pattern while returning a stricter projection.
+- The inspected route tree contains no personal-patient admin route and no patient portal route. The only patient route is the legacy route above.
+- Live personal-patient trigger definitions were retrieved. All inspected trigger functions are SECURITY INVOKER with an empty search path. Plan creation and completed-session triggers insert `charge` rows, not `payment` rows. The financial-history mutation trigger rejects updates/deletes.
+
+### Source-of-truth decision for implementation
+
+Implement Medical Documentation as a separate admin area backed exclusively by `personal_patients`, `personal_patient_plans`, `personal_patient_sessions`, and `personal_patient_ledger`. Preserve the existing `/admin/patients` legacy workflow unchanged. Do not link the new documents to legacy `public.patients`, and do not add any direct portal-table grants or policies. This keeps the financial/clinical source coherent and avoids silently migrating or merging two different patient stores.
+
+### Migration reconciliation disposition
+
+The live catalog and migration ledger can be inspected directly through the connected Supabase project, so a user-generated SQL dump is not required for routine inspection. However, the exact historical SQL bodies for unmatched remote versions are not present in the Git branch and cannot be reconstructed from the current catalog alone. The defensible disposition is to preserve the remote ledger, record the unmatched historical provenance as unrecoverable unless a verified backup/CI artifact is found, and make all future feature migrations strictly additive against the inspected live schema. Never fabricate historical equivalence or run migration repair/reset/push as a shortcut.
+
+This is an operational reconciliation decision, not proof that every historical migration body has been recovered. Production migration execution remains blocked until the additive feature migration is reviewed and separately approved.
