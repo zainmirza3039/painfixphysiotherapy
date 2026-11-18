@@ -52,7 +52,7 @@ jobs:
             src/lib/medical-document-pdf.server.ts \
             src/routes/_authenticated/admin.medical-documents.tsx \
             src/routes/verify-medical-document.tsx \
-            src/routes/_authenticated/admin.personal-patients.$patientId.tsx \
+            'src/routes/_authenticated/admin.personal-patients.$patientId.tsx' \
             supabase/functions/_shared/portal.ts \
             supabase/functions/manage-patient-portal/index.ts \
             supabase/functions/patient-portal/index.ts \
@@ -69,7 +69,7 @@ jobs:
             src/lib/medical-document-pdf.server.ts \
             src/routes/_authenticated/admin.medical-documents.tsx \
             src/routes/verify-medical-document.tsx \
-            src/routes/_authenticated/admin.personal-patients.$patientId.tsx \
+            'src/routes/_authenticated/admin.personal-patients.$patientId.tsx' \
             supabase/functions/_shared/portal.ts \
             supabase/functions/manage-patient-portal/index.ts \
             supabase/functions/patient-portal/index.ts \
