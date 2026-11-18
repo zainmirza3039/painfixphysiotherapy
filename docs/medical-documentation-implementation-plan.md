@@ -88,3 +88,25 @@ No feature source code, schema migration, live database setting, or deployment h
 - Leaked-password protection remains an owner-level Auth setting. It is recommended security hardening but is not a reason to expose portal tables or to alter production from this implementation branch.
 
 The source/UI ambiguity is resolved for this feature. The remaining implementation gate is validating the additive migration and application code in a non-production environment without creating a paid Supabase branch. If no free non-production database is available, stop before schema execution and report the exact validation limitation.
+
+
+## 2026-11-19 implementation progress
+
+The feature branch now contains the initial application implementation and a draft additive schema extension:
+
+- Medical Documentation admin workspace and server-side document issuance/PDF storage.
+- Public verification with a database-backed keyed-IP limit (20 attempts per 15 minutes).
+- Pending issuance timeout reconciliation and replacement issuance; prior documents are superseded only after successful replacement finalization.
+- Patient portal Edge Function source with PIN lockout, opaque session tokens, clinician-scoped read-only data, atomic credential management, and revocation.
+- Regression/security contract tests and an updated audit addendum.
+
+These are source changes only. The additive migration has not been applied, Edge Functions have not been deployed, and no preview or production deployment has been created.
+
+### Remaining release gates
+
+1. Run the repository format/test/typecheck/lint/build workflow and separately type-check the Deno Edge Functions.
+2. Validate the complete migration in a disposable non-production database. Do not use the live project as the test target.
+3. Test concurrent PIN attempts, rotation/revocation races, archived-patient denial, session expiry, and portal data minimization.
+4. Test document numbering, payment-only receipts, reissue after cancellation, supersession atomicity, PDF upload/finalization failures, stale pending cleanup, and public verification rate limiting.
+5. Resolve or formally preserve the historical migration provenance gap without changing remote migration history.
+6. Submit a working preview for explicit approval. Production migration and deployment remain separate approval steps.
