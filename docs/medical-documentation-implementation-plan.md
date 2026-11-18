@@ -110,3 +110,24 @@ These are source changes only. The additive migration has not been applied, Edge
 4. Test document numbering, payment-only receipts, reissue after cancellation, supersession atomicity, PDF upload/finalization failures, stale pending cleanup, and public verification rate limiting.
 5. Resolve or formally preserve the historical migration provenance gap without changing remote migration history.
 6. Submit a working preview for explicit approval. Production migration and deployment remain separate approval steps.
+
+
+### Automated validation completed
+
+On feature-branch head b284e902f4b15bad7bf9a7306e3dc3848fcd3c58:
+- 226 repository tests passed.
+- Deno Edge Function type-check passed.
+- TypeScript typecheck passed.
+- ESLint passed.
+- Prettier passed.
+- Production application build passed.
+- GitHub PR CI passed.
+
+The Vercel status check is blocked by the connected Hobby account's deployment/build-rate limit. No preview deployment was created.
+
+### Still blocked
+
+- No disposable non-production Supabase database is available in this workflow for executing the migration and exercising the RPCs.
+- The live migration history remains materially divergent; do not apply the feature migration to production as a workaround.
+- Edge Functions remain source-only until the schema migration is safely validated and approved.
+- Runtime integration tests, preview smoke tests, and explicit preview/production approvals remain outstanding.
