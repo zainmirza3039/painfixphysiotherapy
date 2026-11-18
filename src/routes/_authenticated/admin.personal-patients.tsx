@@ -241,214 +241,214 @@ function PersonalPatientsPage() {
         className={`personal-patients-portal ${pathname === "/admin/personal-patients" ? "" : "hidden"}`}
         dir={lang === "ur" ? "rtl" : "ltr"}
       >
-      <div className="mb-5 flex justify-end">
-        <Button variant="outline" size="sm" onClick={() => setLang(lang === "en" ? "ur" : "en")}>
-          {t.language}
-        </Button>
-      </div>
-      <AdminPageHeader
-        title={t.title}
-        description={t.desc}
-        actions={
-          <Button size="sm" onClick={() => setOpen(true)}>
-            <Plus className="mr-2 h-4 w-4" />
-            {t.add}
+        <div className="mb-5 flex justify-end">
+          <Button variant="outline" size="sm" onClick={() => setLang(lang === "en" ? "ur" : "en")}>
+            {t.language}
           </Button>
-        }
-      />
-      <div className="mb-5 grid gap-3 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-6">
-        {[
-          { label: t.active, value: totals.active, Icon: Users },
-          { label: t.sessions, value: totals.completed, Icon: CalendarCheck2 },
-          { label: t.charges, value: money(totals.charges), Icon: CircleDollarSign },
-          { label: t.received, value: money(totals.received), Icon: CircleDollarSign },
-          { label: t.credit, value: money(totals.credit), Icon: CircleDollarSign },
-          { label: t.dues, value: money(totals.due), Icon: CircleDollarSign },
-        ].map(({ label, value, Icon }) => (
-          <div key={label} className="rounded-xl border border-border bg-card p-4 shadow-sm">
-            <div className="flex justify-between text-sm text-muted-foreground">
-              <span>{label}</span>
-              <Icon className="h-4 w-4" />
-            </div>
-            <p className="mt-3 text-2xl font-semibold">{value}</p>
-          </div>
-        ))}
-      </div>
-      <div className="mb-4 flex flex-wrap items-center gap-3">
-        <div className="relative max-w-md flex-1">
-          <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-          <Input
-            className="pl-9"
-            placeholder={t.search}
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-          />
         </div>
-        <Button
-          variant={showArchived ? "default" : "outline"}
-          size="sm"
-          onClick={() => setShowArchived((value) => !value)}
-        >
-          <Archive className="mr-2 h-4 w-4" />
-          {t.archived}
-        </Button>
-      </div>
-      {query.isLoading ? (
-        <div className="space-y-3">
-          {[1, 2, 3].map((n) => (
-            <Skeleton key={n} className="h-24 rounded-xl" />
-          ))}
-        </div>
-      ) : query.isError ? (
-        <AdminQueryError onRetry={() => void query.refetch()} />
-      ) : filtered.length === 0 ? (
-        <div className="rounded-2xl border border-dashed border-border bg-card px-6 py-14 text-center">
-          <Users className="mx-auto h-9 w-9 text-muted-foreground" />
-          <h2 className="mt-3 font-semibold">
-            {query.data?.patients.length ? t.noResults : t.empty}
-          </h2>
-          <p className="mt-1 text-sm text-muted-foreground">
-            {query.data?.patients.length ? "" : t.emptyHint}
-          </p>
-          {!query.data?.patients.length && (
-            <Button className="mt-5" onClick={() => setOpen(true)}>
+        <AdminPageHeader
+          title={t.title}
+          description={t.desc}
+          actions={
+            <Button size="sm" onClick={() => setOpen(true)}>
               <Plus className="mr-2 h-4 w-4" />
               {t.add}
             </Button>
-          )}
+          }
+        />
+        <div className="mb-5 grid gap-3 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-6">
+          {[
+            { label: t.active, value: totals.active, Icon: Users },
+            { label: t.sessions, value: totals.completed, Icon: CalendarCheck2 },
+            { label: t.charges, value: money(totals.charges), Icon: CircleDollarSign },
+            { label: t.received, value: money(totals.received), Icon: CircleDollarSign },
+            { label: t.credit, value: money(totals.credit), Icon: CircleDollarSign },
+            { label: t.dues, value: money(totals.due), Icon: CircleDollarSign },
+          ].map(({ label, value, Icon }) => (
+            <div key={label} className="rounded-xl border border-border bg-card p-4 shadow-sm">
+              <div className="flex justify-between text-sm text-muted-foreground">
+                <span>{label}</span>
+                <Icon className="h-4 w-4" />
+              </div>
+              <p className="mt-3 text-2xl font-semibold">{value}</p>
+            </div>
+          ))}
         </div>
-      ) : (
-        <div className="grid gap-3 lg:grid-cols-2">
-          {filtered.map((p) => {
-            const ss = (query.data?.sessions ?? []).filter((s) => s.patient_id === p.id);
-            const entries = (query.data?.ledger ?? []).filter((e) => e.patient_id === p.id);
-            const received = entries
-              .filter((e) => e.entry_type === "payment")
-              .reduce((n, e) => n + Math.abs(Number(e.amount)), 0);
-            const balance = entries.reduce((n, e) => n + Number(e.amount), 0);
-            return (
-              <article
-                key={p.id}
-                className="rounded-xl border border-border bg-card p-4 shadow-sm transition-colors hover:border-primary/40"
-              >
-                <div className="flex items-start justify-between gap-3">
-                  <div>
-                    <h2 className="font-semibold">{p.full_name}</h2>
-                    <p className="mt-1 text-sm text-muted-foreground">
-                      {p.phone || p.email || "—"}
-                    </p>
-                  </div>
-                  <Badge variant="secondary">
-                    {p.status === "on_hold"
-                      ? t.hold
-                      : p.status === "discharged"
-                        ? t.discharged
-                        : t.activeStatus}
-                  </Badge>
-                </div>
-                <div className="mt-4 grid grid-cols-3 gap-2 border-t border-border pt-3 text-sm">
-                  <div>
-                    <p className="text-xs text-muted-foreground">{t.sessions}</p>
-                    <p className="mt-1 font-semibold">
-                      {ss.filter((s) => s.status === "completed").length}
-                    </p>
-                  </div>
-                  <div>
-                    <p className="text-xs text-muted-foreground">{t.received}</p>
-                    <p className="mt-1 font-semibold">{money(received)}</p>
-                  </div>
-                  <div>
-                    <p className="text-xs text-muted-foreground">{t.dues}</p>
-                    <p className="mt-1 font-semibold">
-                      {balance > 0
-                        ? money(balance)
-                        : balance < 0
-                          ? `+${money(-balance)} credit`
-                          : money(0)}
-                    </p>
-                  </div>
-                </div>
-                <div className="mt-3 border-t border-border pt-3">
-                  <div className="flex flex-wrap gap-2">
-                    <Button
-                      asChild
-                      type="button"
-                      variant="outline"
-                      size="sm"
-                      className="min-w-0 flex-1"
-                    >
-                      <Link to="/admin/personal-patients/$patientId" params={{ patientId: p.id }}>
-                        {t.open}
-                      </Link>
-                    </Button>
-                    <Button
-                      type="button"
-                      variant="ghost"
-                      size="sm"
-                      disabled={updateStatus.isPending}
-                      onClick={() =>
-                        updateStatus.mutate({
-                          id: p.id,
-                          status: p.status === "archived" ? "active" : "archived",
-                        })
-                      }
-                    >
-                      {p.status === "archived" ? t.restore : t.archive}
-                    </Button>
-                  </div>
-                </div>
-              </article>
-            );
-          })}
-        </div>
-      )}
-      <Dialog open={open} onOpenChange={setOpen}>
-        <DialogContent className="sm:max-w-lg">
-          <DialogHeader>
-            <DialogTitle>{t.add}</DialogTitle>
-            <DialogDescription>{t.noteHint}</DialogDescription>
-          </DialogHeader>
-          <form
-            onSubmit={(e) => {
-              e.preventDefault();
-              save.mutate();
-            }}
-            className="space-y-4"
+        <div className="mb-4 flex flex-wrap items-center gap-3">
+          <div className="relative max-w-md flex-1">
+            <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+            <Input
+              className="pl-9"
+              placeholder={t.search}
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+            />
+          </div>
+          <Button
+            variant={showArchived ? "default" : "outline"}
+            size="sm"
+            onClick={() => setShowArchived((value) => !value)}
           >
-            <div className="space-y-2">
-              <Label>{t.name}</Label>
-              <Input
-                autoFocus
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                maxLength={160}
-                required
-              />
-            </div>
-            <div className="space-y-2">
-              <Label>{t.phone}</Label>
-              <Input value={phone} onChange={(e) => setPhone(e.target.value)} />
-            </div>
-            <div className="space-y-2">
-              <Label>{t.email}</Label>
-              <Input type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
-            </div>
-            <div className="space-y-2">
-              <Label>{t.notes}</Label>
-              <Textarea value={notes} onChange={(e) => setNotes(e.target.value)} rows={3} />
-              <p className="text-xs text-muted-foreground">{t.noteHint}</p>
-            </div>
-            <DialogFooter>
-              <Button type="button" variant="outline" onClick={() => setOpen(false)}>
-                {t.cancel}
+            <Archive className="mr-2 h-4 w-4" />
+            {t.archived}
+          </Button>
+        </div>
+        {query.isLoading ? (
+          <div className="space-y-3">
+            {[1, 2, 3].map((n) => (
+              <Skeleton key={n} className="h-24 rounded-xl" />
+            ))}
+          </div>
+        ) : query.isError ? (
+          <AdminQueryError onRetry={() => void query.refetch()} />
+        ) : filtered.length === 0 ? (
+          <div className="rounded-2xl border border-dashed border-border bg-card px-6 py-14 text-center">
+            <Users className="mx-auto h-9 w-9 text-muted-foreground" />
+            <h2 className="mt-3 font-semibold">
+              {query.data?.patients.length ? t.noResults : t.empty}
+            </h2>
+            <p className="mt-1 text-sm text-muted-foreground">
+              {query.data?.patients.length ? "" : t.emptyHint}
+            </p>
+            {!query.data?.patients.length && (
+              <Button className="mt-5" onClick={() => setOpen(true)}>
+                <Plus className="mr-2 h-4 w-4" />
+                {t.add}
               </Button>
-              <Button type="submit" disabled={save.isPending}>
-                {save.isPending ? t.saving : t.save}
-              </Button>
-            </DialogFooter>
-          </form>
-        </DialogContent>
-      </Dialog>
+            )}
+          </div>
+        ) : (
+          <div className="grid gap-3 lg:grid-cols-2">
+            {filtered.map((p) => {
+              const ss = (query.data?.sessions ?? []).filter((s) => s.patient_id === p.id);
+              const entries = (query.data?.ledger ?? []).filter((e) => e.patient_id === p.id);
+              const received = entries
+                .filter((e) => e.entry_type === "payment")
+                .reduce((n, e) => n + Math.abs(Number(e.amount)), 0);
+              const balance = entries.reduce((n, e) => n + Number(e.amount), 0);
+              return (
+                <article
+                  key={p.id}
+                  className="rounded-xl border border-border bg-card p-4 shadow-sm transition-colors hover:border-primary/40"
+                >
+                  <div className="flex items-start justify-between gap-3">
+                    <div>
+                      <h2 className="font-semibold">{p.full_name}</h2>
+                      <p className="mt-1 text-sm text-muted-foreground">
+                        {p.phone || p.email || "—"}
+                      </p>
+                    </div>
+                    <Badge variant="secondary">
+                      {p.status === "on_hold"
+                        ? t.hold
+                        : p.status === "discharged"
+                          ? t.discharged
+                          : t.activeStatus}
+                    </Badge>
+                  </div>
+                  <div className="mt-4 grid grid-cols-3 gap-2 border-t border-border pt-3 text-sm">
+                    <div>
+                      <p className="text-xs text-muted-foreground">{t.sessions}</p>
+                      <p className="mt-1 font-semibold">
+                        {ss.filter((s) => s.status === "completed").length}
+                      </p>
+                    </div>
+                    <div>
+                      <p className="text-xs text-muted-foreground">{t.received}</p>
+                      <p className="mt-1 font-semibold">{money(received)}</p>
+                    </div>
+                    <div>
+                      <p className="text-xs text-muted-foreground">{t.dues}</p>
+                      <p className="mt-1 font-semibold">
+                        {balance > 0
+                          ? money(balance)
+                          : balance < 0
+                            ? `+${money(-balance)} credit`
+                            : money(0)}
+                      </p>
+                    </div>
+                  </div>
+                  <div className="mt-3 border-t border-border pt-3">
+                    <div className="flex flex-wrap gap-2">
+                      <Button
+                        asChild
+                        type="button"
+                        variant="outline"
+                        size="sm"
+                        className="min-w-0 flex-1"
+                      >
+                        <Link to="/admin/personal-patients/$patientId" params={{ patientId: p.id }}>
+                          {t.open}
+                        </Link>
+                      </Button>
+                      <Button
+                        type="button"
+                        variant="ghost"
+                        size="sm"
+                        disabled={updateStatus.isPending}
+                        onClick={() =>
+                          updateStatus.mutate({
+                            id: p.id,
+                            status: p.status === "archived" ? "active" : "archived",
+                          })
+                        }
+                      >
+                        {p.status === "archived" ? t.restore : t.archive}
+                      </Button>
+                    </div>
+                  </div>
+                </article>
+              );
+            })}
+          </div>
+        )}
+        <Dialog open={open} onOpenChange={setOpen}>
+          <DialogContent className="sm:max-w-lg">
+            <DialogHeader>
+              <DialogTitle>{t.add}</DialogTitle>
+              <DialogDescription>{t.noteHint}</DialogDescription>
+            </DialogHeader>
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                save.mutate();
+              }}
+              className="space-y-4"
+            >
+              <div className="space-y-2">
+                <Label>{t.name}</Label>
+                <Input
+                  autoFocus
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  maxLength={160}
+                  required
+                />
+              </div>
+              <div className="space-y-2">
+                <Label>{t.phone}</Label>
+                <Input value={phone} onChange={(e) => setPhone(e.target.value)} />
+              </div>
+              <div className="space-y-2">
+                <Label>{t.email}</Label>
+                <Input type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+              </div>
+              <div className="space-y-2">
+                <Label>{t.notes}</Label>
+                <Textarea value={notes} onChange={(e) => setNotes(e.target.value)} rows={3} />
+                <p className="text-xs text-muted-foreground">{t.noteHint}</p>
+              </div>
+              <DialogFooter>
+                <Button type="button" variant="outline" onClick={() => setOpen(false)}>
+                  {t.cancel}
+                </Button>
+                <Button type="submit" disabled={save.isPending}>
+                  {save.isPending ? t.saving : t.save}
+                </Button>
+              </DialogFooter>
+            </form>
+          </DialogContent>
+        </Dialog>
       </div>
       <Outlet />
     </>
