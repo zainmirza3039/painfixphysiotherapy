@@ -243,7 +243,7 @@ export function AdminShell({ children }: { children: ReactNode }) {
     "/admin/appointments",
     "/admin/home-visits",
   ];
-  const mobilePrimaryItems = items.filter((item) => mobilePrimaryRoutes.includes(item.to)).slice(0, 4);
+  const mobilePrimaryItems = items\n    .filter((item) => mobilePrimaryRoutes.includes(item.to))\n    .slice(0, 4);
   const mobileNavItems = mobilePrimaryItems.length > 0 ? mobilePrimaryItems : items.slice(0, 3);
   const navigation = NAV_SECTIONS.map((section) => ({
     ...section,
