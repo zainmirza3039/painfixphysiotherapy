@@ -25,6 +25,7 @@ interface MedicalDocumentQuery<Row> extends PromiseLike<DatabaseRows<Row>> {
   in(column: string, values: readonly unknown[]): MedicalDocumentQuery<Row>;
   gte(column: string, value: unknown): MedicalDocumentQuery<Row>;
   lte(column: string, value: unknown): MedicalDocumentQuery<Row>;
+  lt(column: string, value: unknown): MedicalDocumentQuery<Row>;
   order(column: string, options: { ascending: boolean }): MedicalDocumentQuery<Row>;
   limit(count: number): MedicalDocumentQuery<Row>;
   maybeSingle(): Promise<DatabaseSingle<Row>>;
@@ -304,6 +305,8 @@ export const createMedicalDocument = createServerFn({ method: "POST" })
         const start = isoDate(data.treatmentStart, "Treatment start date");
         const end = isoDate(data.treatmentEnd, "Treatment end date");
         if (end < start) throw new Error("Treatment end date cannot precede start date");
+        const endExclusive = new Date(`${end}T00:00:00.000Z`);
+        endExclusive.setUTCDate(endExclusive.getUTCDate() + 1);
         const diagnosis = requiredText(data.diagnosis, "Diagnosis / clinical indication");
         const services = data.servicesDelivered ?? [];
         if (!services.length || services.some((item) => !item.trim()))
@@ -323,8 +326,8 @@ export const createMedicalDocument = createServerFn({ method: "POST" })
               .eq("clinician_id", context.userId)
               .eq("patient_id", data.patientId)
               .eq("status", "completed")
-              .gte("session_date", start)
-              .lte("session_date", end),
+              .gte("session_date", `${start}T00:00:00.000Z`)
+              .lt("session_date", endExclusive.toISOString()),
           ]);
         if (ledgerError || !ledger || ledger.length !== ids.length)
           throw new Error("Unable to validate selected payment records");
@@ -657,7 +660,7 @@ export const createMedicalDocument = createServerFn({ method: "POST" })
           issuedAt,
           verificationUrl,
           sections,
-          signatoryName: "Dr. Zain Ul Abideen, PT",
+          signatoryName: "Dr. Zain Ul Abideen, DPT",
           signatoryDesignation: "Clinical Physiotherapist · PainFix Physiotherapy Clinic",
         });
       } catch (error) {
