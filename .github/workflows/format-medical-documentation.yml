@@ -6,6 +6,13 @@ on:
       - feat/medical-documentation
     paths:
       - .github/workflows/format-medical-documentation.yml
+      - src/admin/medical-documents.contract.ts
+      - src/admin/medical-documents.functions.ts
+      - src/components/admin/AdminShell.tsx
+      - src/lib/medical-document-pdf.server.ts
+      - src/routes/_authenticated/admin.medical-documents.tsx
+      - src/routes/verify-medical-document.tsx
+      - tests/medical-documents.test.mjs
 
 permissions:
   contents: write
