@@ -160,7 +160,7 @@ The following source changes have now been prepared on the feat/medical-document
 
 - The migration has not been applied. Its SQL routines must be validated against a disposable, non-production database before any live migration.
 - The Edge Functions have not been deployed. Their required RPCs do not exist in the live database yet.
-- The Vercel build check is blocked by the account's deployment/build-rate limit; no deployment is needed for this source audit.
+- The Vercel build check is blocked by the account's deployment/build-rate limit. Git integration automatically created preview deployments for some intermediate feature-branch commits; these have no production target/custom-domain alias. Several are READY and several were cancelled. The connected Vercel actions can cancel in-progress deployments but do not expose deletion of READY deployments; remove those previews manually from the Vercel dashboard before requesting a deliberate preview.
 - The latest branch head does not yet have a completed GitHub CI result. The source has not been represented as end-to-end tested.
 - Migration-history provenance remains unresolved. Preserve the existing remote migration ledger and do not run migration repair/reset/push.
 - Owner-level leaked-password protection remains a separate Auth dashboard action.
@@ -180,6 +180,6 @@ The latest feature-branch head (b284e902f4b15bad7bf9a7306e3dc3848fcd3c58) passed
 - Production application build: passed.
 - GitHub PR CI run 44403303475: passed.
 
-The Vercel check remains failed because the connected Hobby account reached its deployment/build-rate limit. No Vercel deployment or preview was created.
+The Vercel check remains failed because the connected Hobby account reached its deployment/build-rate limit. Git integration nevertheless created preview deployments automatically for some intermediate feature-branch commits. They have no production target/custom-domain alias, so production was not changed. Several in-progress builds were cancelled; READY preview deployments cannot be deleted through the connected Vercel actions and require manual removal from the Vercel dashboard.
 
 These results validate source formatting, static tests, TypeScript/Deno checks, lint and application bundling. They do not validate SQL execution, Supabase RPC permissions at runtime, Storage upload behavior, or end-to-end patient/document workflows. The additive migration and Edge Functions remain undeployed.
