@@ -115,6 +115,7 @@ export interface MedicalDocumentPatient {
 
 export interface MedicalDocumentListItem {
   id: string;
+  patient_id: string;
   document_number: string;
   document_type: "receipt" | "estimate" | "treatment_report" | "expense_statement";
   status: "pending" | "issued" | "cancelled" | "superseded";
@@ -154,7 +155,7 @@ export const listMedicalDocuments = createServerFn({ method: "GET" })
     const { data, error } = await db
       .from<MedicalDocumentListRow>("medical_documents")
       .select(
-        "id, document_number, document_type, status, patient_name_snapshot, issued_at, created_at",
+        "id, patient_id, document_number, document_type, status, patient_name_snapshot, issued_at, created_at",
       )
       .eq("clinician_id", context.userId)
       .order("created_at", { ascending: false })
@@ -244,6 +245,7 @@ const issueInput = z
   .object({
     patientId: z.string().uuid(),
     documentType: z.enum(["receipt", "estimate", "treatment_report", "expense_statement"]),
+    supersedesDocumentId: z.string().uuid().optional(),
     paymentEntryIds: z.array(z.string().uuid()).max(100).optional(),
     statementEntryIds: z.array(z.string().uuid()).max(200).optional(),
     sessionIds: z.array(z.string().uuid()).max(100).optional(),
@@ -677,7 +679,7 @@ export const createMedicalDocument = createServerFn({ method: "POST" })
           p_snapshot: snapshot,
           p_token_hash: tokenHash,
           p_actor_id: context.userId,
-          p_supersedes_document_id: null,
+          p_supersedes_document_id: data.supersedesDocumentId ?? null,
           p_source_ids: sourceIds.length ? sourceIds : null,
         },
       );
