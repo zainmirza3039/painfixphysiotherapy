@@ -522,3 +522,88 @@ grant execute on function public.verify_personal_patient_portal_pin(text,text,te
   to service_role;
 grant execute on function public.resolve_personal_patient_portal_session(text)
   to service_role;
+
+
+create or replace function public.manage_personal_patient_portal(
+  p_clinician_id uuid,
+  p_patient_id uuid,
+  p_action text,
+  p_token_digest text default null,
+  p_pin_hash text default null
+)
+returns void
+language plpgsql
+security definer
+set search_path = pg_catalog, public
+as $$
+declare
+  v_now timestamptz := now();
+begin
+  if p_clinician_id is null or p_patient_id is null
+     or p_clinician_id is distinct from auth.uid() then
+    raise exception 'Authenticated clinician identity required';
+  end if;
+  if not (
+    coalesce(public.has_role(p_clinician_id, 'admin'), false)
+    or coalesce(public.has_role(p_clinician_id, 'super_admin'), false)
+  ) then
+    raise exception 'Administrator access required';
+  end if;
+  if not exists (
+    select 1 from public.personal_patients p
+    where p.id = p_patient_id and p.clinician_id = p_clinician_id
+      and coalesce(p.status, '') <> 'archived'
+  ) then
+    raise exception 'Patient account not found';
+  end if;
+
+  if p_action = 'revoke' then
+    update public.personal_patient_portal_credentials
+      set is_revoked = true, failed_attempts = 0, locked_until = null, updated_at = v_now
+      where patient_id = p_patient_id and clinician_id = p_clinician_id;
+    update public.personal_patient_portal_sessions
+      set revoked_at = v_now
+      where patient_id = p_patient_id and clinician_id = p_clinician_id and revoked_at is null;
+    insert into public.personal_patient_audit_events(
+      clinician_id, patient_id, entity_type, entity_id, action, details
+    ) values (
+      p_clinician_id, p_patient_id, 'portal', p_patient_id, 'portal_revoked',
+      jsonb_build_object('revoked_at', v_now)
+    );
+  elsif p_action = 'create_or_rotate' then
+    if p_token_digest !~ '^[a-f0-9]{64}$' or p_pin_hash !~ '^[a-f0-9]{64}$' then
+      raise exception 'Invalid portal credentials';
+    end if;
+    update public.personal_patient_portal_sessions
+      set revoked_at = v_now
+      where patient_id = p_patient_id and clinician_id = p_clinician_id and revoked_at is null;
+    insert into public.personal_patient_portal_credentials(
+      patient_id, clinician_id, token_digest, pin_hash, is_revoked,
+      failed_attempts, locked_until, updated_at
+    ) values (
+      p_patient_id, p_clinician_id, p_token_digest, p_pin_hash, false, 0, null, v_now
+    )
+    on conflict (patient_id) do update set
+      clinician_id = excluded.clinician_id,
+      token_digest = excluded.token_digest,
+      pin_hash = excluded.pin_hash,
+      is_revoked = false,
+      failed_attempts = 0,
+      locked_until = null,
+      updated_at = v_now;
+    insert into public.personal_patient_audit_events(
+      clinician_id, patient_id, entity_type, entity_id, action, details
+    ) values (
+      p_clinician_id, p_patient_id, 'portal', p_patient_id, 'portal_created_or_rotated',
+      jsonb_build_object('created_at', v_now)
+    );
+  else
+    raise exception 'Unsupported portal action';
+  end if;
+end;
+$$;
+
+revoke all on function public.manage_personal_patient_portal(uuid,uuid,text,text,text)
+  from public, anon, authenticated;
+grant execute on function public.manage_personal_patient_portal(uuid,uuid,text,text,text)
+  to service_role;
