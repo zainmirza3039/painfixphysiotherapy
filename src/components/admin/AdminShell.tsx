@@ -237,6 +237,14 @@ export function AdminShell({ children }: { children: ReactNode }) {
     professional: isProfessional,
   };
   const items = NAV.filter((n) => gatePass[n.gate]);
+  const mobilePrimaryRoutes = [
+    "/admin",
+    "/admin/patients",
+    "/admin/appointments",
+    "/admin/home-visits",
+  ];
+  const mobilePrimaryItems = items.filter((item) => mobilePrimaryRoutes.includes(item.to)).slice(0, 4);
+  const mobileNavItems = mobilePrimaryItems.length > 0 ? mobilePrimaryItems : items.slice(0, 3);
   const navigation = NAV_SECTIONS.map((section) => ({
     ...section,
     items: items.filter((item) => section.routes.some((route) => route === item.to)),
@@ -254,9 +262,9 @@ export function AdminShell({ children }: { children: ReactNode }) {
 
   const SidebarInner = (
     <div className="flex h-full flex-col">
-      <div className="border-b border-border px-5 py-5">
+      <div className="border-b border-border px-4 py-4">
         <div className="flex items-center gap-3">
-          <span className="relative grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-primary text-primary-foreground shadow-sm">
+          <span className="relative grid h-9 w-9 shrink-0 place-items-center rounded-md bg-primary text-primary-foreground shadow-sm">
             <Activity className="h-5 w-5" />
             <span
               aria-hidden="true"
@@ -272,15 +280,15 @@ export function AdminShell({ children }: { children: ReactNode }) {
             </p>
           </div>
         </div>
-        <div className="mt-4 flex items-center gap-2 border-t border-border/70 pt-3 text-xs font-medium text-muted-foreground">
+        <div className="mt-3 flex items-center gap-2 border-t border-border/70 pt-3 text-xs font-medium text-muted-foreground">
           <span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-secondary" />
           {panelLabel} access
         </div>
       </div>
-      <nav aria-label="Admin navigation" className="flex-1 space-y-5 overflow-y-auto px-3 py-4">
+      <nav aria-label="Admin navigation" className="flex-1 space-y-4 overflow-y-auto px-2 py-3">
         {navigation.map((section) => (
           <div key={section.label} className="space-y-1">
-            <p className="px-3 pb-1 text-[10px] font-semibold uppercase tracking-[0.15em] text-muted-foreground/80">
+            <p className="px-2.5 pb-1 text-[10px] font-semibold uppercase tracking-[0.15em] text-muted-foreground/80">
               {section.label}
             </p>
             {section.items.map((item) => {
@@ -293,7 +301,7 @@ export function AdminShell({ children }: { children: ReactNode }) {
                   onClick={() => setMobileOpen(false)}
                   aria-current={active ? "page" : undefined}
                   className={cn(
-                    "group relative flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm outline-none transition-colors focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-card",
+                    "group relative flex items-center gap-3 rounded-md px-2.5 py-2.5 text-[13px] outline-none transition-colors focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-card",
                     active
                       ? "font-semibold text-primary before:absolute before:inset-y-2 before:left-0 before:w-1 before:rounded-r-full before:bg-secondary"
                       : "font-medium text-foreground/75 hover:bg-muted hover:text-foreground",
@@ -324,12 +332,12 @@ export function AdminShell({ children }: { children: ReactNode }) {
           </div>
         ))}
       </nav>
-      <div className="space-y-1 border-t border-border px-3 py-3">
+      <div className="space-y-1 border-t border-border px-2 py-3">
         <a
           href="/"
           target="_blank"
           rel="noreferrer"
-          className="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-foreground/70 hover:bg-muted hover:text-foreground"
+          className="flex items-center gap-3 rounded-md px-2.5 py-2.5 text-[13px] font-medium text-foreground/70 hover:bg-muted hover:text-foreground"
         >
           <ExternalLink className="h-4.5 w-4.5" /> View website
         </a>
@@ -345,12 +353,12 @@ export function AdminShell({ children }: { children: ReactNode }) {
 
   return (
     <div className="admin-shell min-h-screen bg-surface lg:flex">
-      <aside className="sticky top-0 hidden h-screen w-[272px] shrink-0 border-r border-border bg-card lg:block">
+      <aside className="sticky top-0 hidden h-screen w-[248px] shrink-0 border-r border-border bg-card lg:block">
         {SidebarInner}
       </aside>
       <div className="min-w-0 flex-1">
         <header className="sticky top-0 z-40 border-b border-border bg-card/95 shadow-sm backdrop-blur">
-          <div className="mx-auto flex min-h-[68px] max-w-[1600px] items-center justify-between gap-4 px-4 sm:px-6 xl:px-8">
+          <div className="mx-auto flex min-h-[60px] max-w-[1600px] items-center justify-between gap-4 px-4 sm:px-6 xl:px-8">
             <div className="flex min-w-0 items-center gap-2 sm:gap-3">
               <span className="hidden text-xs font-medium text-muted-foreground sm:inline">
                 PainFix <span className="mx-1 text-border">/</span>
@@ -422,18 +430,8 @@ export function AdminShell({ children }: { children: ReactNode }) {
                 <LogOut className="mr-2 h-4 w-4" /> Sign out
               </Button>
               <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
-                <SheetTrigger asChild>
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    className="lg:hidden"
-                    aria-label="Open admin navigation"
-                  >
-                    <Menu className="h-5 w-5" />
-                  </Button>
-                </SheetTrigger>
                 <SheetContent side="right" className="admin-sidebar-sheet w-80 p-0">
-                  <SheetTitle className="sr-only">Admin navigation</SheetTitle>
+                  <SheetTitle className="sr-only">More clinic navigation</SheetTitle>
                   {SidebarInner}
                 </SheetContent>
               </Sheet>
@@ -441,10 +439,55 @@ export function AdminShell({ children }: { children: ReactNode }) {
           </div>
         </header>
 
-        <main className="mx-auto w-full max-w-[1600px] px-4 py-5 sm:px-6 sm:py-7 xl:px-8">
+        <main className="mx-auto w-full max-w-[1600px] px-4 py-5 pb-24 sm:px-6 sm:py-6 sm:pb-24 lg:pb-7 xl:px-8">
           <div className="min-w-0">{children}</div>
         </main>
       </div>
+      <nav
+        aria-label="Primary mobile navigation"
+        className="fixed inset-x-0 bottom-0 z-50 border-t border-border bg-card/95 shadow-[0_-4px_18px_rgba(15,23,42,0.06)] backdrop-blur lg:hidden"
+        style={{ paddingBottom: "env(safe-area-inset-bottom)" }}
+      >
+        <div className="mx-auto flex min-h-[62px] max-w-xl items-stretch justify-around px-1">
+          {mobileNavItems.map((item) => {
+            const active =
+              item.to === "/admin" ? pathname === item.to : pathname.startsWith(item.to);
+            return (
+              <Link
+                key={item.to}
+                to={item.to}
+                aria-current={active ? "page" : undefined}
+                className={cn(
+                  "flex min-w-0 flex-1 flex-col items-center justify-center gap-1 px-1 py-2 text-[10px] font-medium transition-colors",
+                  active ? "text-primary" : "text-muted-foreground hover:text-foreground",
+                )}
+              >
+                <span
+                  className={cn(
+                    "grid h-7 min-w-10 place-items-center rounded-full px-3 transition-colors",
+                    active && "bg-primary/10 text-primary",
+                  )}
+                >
+                  <item.icon className="h-[18px] w-[18px]" aria-hidden="true" />
+                </span>
+                <span className="max-w-full truncate">{item.label}</span>
+              </Link>
+            );
+          })}
+          <button
+            type="button"
+            onClick={() => setMobileOpen(true)}
+            aria-expanded={mobileOpen}
+            aria-label="Open more clinic sections"
+            className="flex min-w-0 flex-1 flex-col items-center justify-center gap-1 px-1 py-2 text-[10px] font-medium text-muted-foreground transition-colors hover:text-foreground"
+          >
+            <span className="grid h-7 min-w-10 place-items-center rounded-full px-3">
+              <Menu className="h-[18px] w-[18px]" aria-hidden="true" />
+            </span>
+            <span>More</span>
+          </button>
+        </div>
+      </nav>
       <CommandDialog open={commandOpen} onOpenChange={setCommandOpen}>
         <CommandInput placeholder="Search admin pages and actions..." />
         <CommandList>
