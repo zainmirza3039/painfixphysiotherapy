@@ -88,7 +88,7 @@ function MedicalDocumentationPage() {
         treatmentStart: text("treatmentStart"),
         treatmentEnd: text("treatmentEnd"),
         diagnosis: text("diagnosis"),
-        servicesDelivered: text("servicesDelivered").split(/\\r?\\n/).map((value) => value.trim()).filter(Boolean),
+        servicesDelivered: text("servicesDelivered").split(/\r?\n/).map((value) => value.trim()).filter(Boolean),
       });
     } else if (documentType === "estimate") {
       Object.assign(payload, {
