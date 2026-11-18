@@ -437,10 +437,13 @@ begin
     raise exception 'Invalid portal verification request';
   end if;
 
-  select * into v_credential
+  select c.* into v_credential
   from public.personal_patient_portal_credentials c
+  join public.personal_patients p
+    on p.id = c.patient_id and p.clinician_id = c.clinician_id
   where c.token_digest = p_token_digest
-  for update;
+    and p.archived_at is null
+  for update of c;
 
   if not found or v_credential.is_revoked
      or (v_credential.locked_until is not null and v_credential.locked_until > now()) then
@@ -645,7 +648,7 @@ begin
   if not exists (
     select 1 from public.personal_patients p
     where p.id = p_patient_id and p.clinician_id = p_clinician_id
-      and coalesce(p.status, '') <> 'archived'
+      and p.archived_at is null
   ) then
     raise exception 'Patient account not found';
   end if;
