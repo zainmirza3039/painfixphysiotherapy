@@ -75,6 +75,16 @@ const empty = {
   notes: "",
 };
 
+function statusLabel(status: string) {
+  switch (status) {
+    case "active": return "Active";
+    case "recovering": return "Recovering";
+    case "discharged": return "Discharged";
+    case "on-hold": return "On hold";
+    default: return status;
+  }
+}
+
 function statusColor(status: string) {
   switch (status) {
     case "active":
@@ -244,17 +254,23 @@ function PatientsPage() {
         }
       />
 
-      <div className="relative mb-4 max-w-sm">
-        <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-        <Input
-          className="pl-9"
-          placeholder="Search name, phone, code…"
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-        />
+      <div className="mb-5 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+        <div className="relative w-full sm:max-w-md">
+          <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+          <Input
+            className="h-10 pl-9"
+            placeholder="Search patients by name, phone or ID"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            aria-label="Search patients"
+          />
+        </div>
+        <p className="text-sm text-muted-foreground" aria-live="polite">
+          {filtered.length} {filtered.length === 1 ? "patient" : "patients"}
+        </p>
       </div>
 
-      <div className="overflow-hidden rounded-2xl border border-border bg-card shadow-soft">
+      <div className="overflow-hidden rounded-xl border border-border bg-card shadow-sm">
         {isLoading ? (
           <div className="space-y-2 p-4">
             {Array.from({ length: 5 }).map((_, i) => (
@@ -270,7 +286,7 @@ function PatientsPage() {
           </div>
         ) : (
           <div className="overflow-x-auto">
-            <Table>
+            <Table className="min-w-[900px]">
               <TableHeader>
                 <TableRow>
                   <TableHead>Code</TableHead>
@@ -296,25 +312,28 @@ function PatientsPage() {
                     <TableCell>{fmtDate(p.follow_up_date)}</TableCell>
                     <TableCell>
                       <Badge variant="secondary" className={statusColor(p.status)}>
-                        {p.status}
+                        {statusLabel(p.status)}
                       </Badge>
                     </TableCell>
                     <TableCell className="text-right">
                       <div className="flex justify-end gap-1">
                         <Button
-                          variant="ghost"
-                          size="icon"
-                          aria-label="Edit patient"
+                          variant="outline"
+                          size="sm"
+                          className="h-8 gap-1.5 px-2.5"
+                          aria-label={`Edit ${p.name}`}
                           onClick={() => openEdit(p)}
                         >
-                          <Pencil className="h-4 w-4" />
+                          <Pencil className="h-3.5 w-3.5" />
+                          Edit
                         </Button>
                         {isAdmin && (
                           <Button
                             variant="ghost"
                             size="icon"
-                            aria-label="Delete patient"
-                            className="text-rose-600 hover:text-rose-700"
+                            aria-label={`Delete ${p.name}`}
+                            title="Delete patient"
+                            className="text-destructive hover:bg-destructive/10 hover:text-destructive"
                             onClick={() => setDeleteId(p.id)}
                           >
                             <Trash2 className="h-4 w-4" />
@@ -404,7 +423,7 @@ function PatientsPage() {
                 <SelectContent>
                   {STATUSES.map((s) => (
                     <SelectItem key={s} value={s}>
-                      {s}
+                      {statusLabel(s)}
                     </SelectItem>
                   ))}
                 </SelectContent>
@@ -450,8 +469,8 @@ function PatientsPage() {
                 onChange={(e) => setForm({ ...form, notes: e.target.value })}
               />
             </Field>
-            <DialogFooter className="sm:col-span-2">
-              <Button type="button" variant="ghost" onClick={() => setDialogOpen(false)}>
+            <DialogFooter className="sticky bottom-0 -mx-1 border-t border-border bg-background/95 pt-4 sm:col-span-2">
+              <Button type="button" variant="outline" onClick={() => setDialogOpen(false)}>
                 Cancel
               </Button>
               <Button type="submit" disabled={saveMutation.isPending}>
