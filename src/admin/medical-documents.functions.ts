@@ -440,3 +440,52 @@ export const createMedicalDocument = createServerFn({ method: "POST" })
     if (signedError || !signed?.signedUrl) throw new Error("Document issued, but a temporary PDF link could not be created");
     return { documentNumber: record.document_number, status: "issued", pdfUrl: signed.signedUrl };
   });
+
+
+export interface MedicalDocumentSourceData {
+  ledger: Array<{
+    id: string; entry_type: string; amount: number; occurred_at: string;
+    payment_method: string | null; description: string | null; reference: string | null;
+  }>;
+  sessions: Array<{ id: string; session_date: string; status: string; session_label: string | null }>;
+  estimates: Array<{ id: string; document_number: string; estimated_total: number; valid_until: string | null }>;
+}
+
+export const listMedicalDocumentSources = createServerFn({ method: "GET" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((input) => z.object({ patientId: z.string().uuid() }).strict().parse(input))
+  .handler(async ({ data, context }): Promise<MedicalDocumentSourceData> => {
+    await assertAdmin(context);
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const db = supabaseAdmin as any;
+    const [ledgerResult, sessionResult, estimateResult] = await Promise.all([
+      db.from("personal_patient_ledger")
+        .select("id, entry_type, amount, occurred_at, payment_method, description, reference")
+        .eq("clinician_id", context.userId).eq("patient_id", data.patientId)
+        .order("occurred_at", { ascending: false }).limit(250),
+      db.from("personal_patient_sessions")
+        .select("id, session_date, status, session_label")
+        .eq("clinician_id", context.userId).eq("patient_id", data.patientId)
+        .order("session_date", { ascending: false }).limit(250),
+      db.from("medical_documents")
+        .select("id, document_number, snapshot")
+        .eq("clinician_id", context.userId).eq("patient_id", data.patientId)
+        .eq("document_type", "estimate").eq("status", "issued")
+        .order("issued_at", { ascending: false }).limit(100),
+    ]);
+    if (ledgerResult.error || sessionResult.error || estimateResult.error) {
+      throw new Error("Unable to load the selected patient's source records");
+    }
+    return {
+      ledger: (ledgerResult.data ?? []).map((row: any) => ({
+        ...row, amount: Number(row.amount),
+      })),
+      sessions: sessionResult.data ?? [],
+      estimates: (estimateResult.data ?? []).map((row: any) => ({
+        id: row.id,
+        document_number: row.document_number,
+        estimated_total: Number(row.snapshot?.estimatedTotal ?? 0),
+        valid_until: row.snapshot?.validUntil ?? null,
+      })),
+    };
+  });
