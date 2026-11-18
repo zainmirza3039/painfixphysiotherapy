@@ -13,6 +13,10 @@ on:
       - src/lib/medical-document-pdf.server.ts
       - src/routes/_authenticated/admin.medical-documents.tsx
       - src/routes/verify-medical-document.tsx
+      - src/routes/_authenticated/admin.personal-patients.$patientId.tsx
+      - supabase/config.toml
+      - supabase/functions/**
+      - supabase/migrations/20261119090000_add_medical_documentation_foundation.sql
       - tests/medical-documents.test.mjs
 
 permissions:
@@ -48,6 +52,10 @@ jobs:
             src/lib/medical-document-pdf.server.ts \
             src/routes/_authenticated/admin.medical-documents.tsx \
             src/routes/verify-medical-document.tsx \
+            src/routes/_authenticated/admin.personal-patients.$patientId.tsx \
+            supabase/functions/_shared/portal.ts \
+            supabase/functions/manage-patient-portal/index.ts \
+            supabase/functions/patient-portal/index.ts \
             tests/medical-documents.test.mjs
 
       - name: Commit formatting changes to feature branch
@@ -61,6 +69,10 @@ jobs:
             src/lib/medical-document-pdf.server.ts \
             src/routes/_authenticated/admin.medical-documents.tsx \
             src/routes/verify-medical-document.tsx \
+            src/routes/_authenticated/admin.personal-patients.$patientId.tsx \
+            supabase/functions/_shared/portal.ts \
+            supabase/functions/manage-patient-portal/index.ts \
+            supabase/functions/patient-portal/index.ts \
             tests/medical-documents.test.mjs
           if ! git diff --cached --quiet; then
             git commit -m "style: format medical documentation feature"
@@ -68,6 +80,18 @@ jobs:
           else
             echo "Formatting produced no changes."
           fi
+
+      - name: Set up Deno
+        uses: denoland/setup-deno@v2
+        with:
+          deno-version: v2.x
+
+      - name: Type-check Supabase Edge Functions
+        run: |
+          deno check \
+            supabase/functions/_shared/portal.ts \
+            supabase/functions/patient-portal/index.ts \
+            supabase/functions/manage-patient-portal/index.ts
 
       - name: Run tests
         run: bun run test
