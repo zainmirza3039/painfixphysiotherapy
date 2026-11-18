@@ -69,6 +69,7 @@ function MedicalDocumentationPage() {
   >("receipt");
   const [selectedLedgerIds, setSelectedLedgerIds] = useState<string[]>([]);
   const [selectedSessionIds, setSelectedSessionIds] = useState<string[]>([]);
+  const [supersedesDocumentId, setSupersedesDocumentId] = useState("");
   const [issuedPdf, setIssuedPdf] = useState<string | null>(null);
   const [pdfError, setPdfError] = useState<string | null>(null);
   const queryClient = useQueryClient();
@@ -126,6 +127,7 @@ function MedicalDocumentationPage() {
     const payload: Record<string, unknown> = {
       patientId: selectedPatientId,
       documentType,
+      ...(supersedesDocumentId ? { supersedesDocumentId } : {}),
     };
 
     if (documentType === "receipt") {
@@ -381,6 +383,7 @@ function MedicalDocumentationPage() {
                   setSelectedPatientId(e.target.value);
                   setSelectedLedgerIds([]);
                   setSelectedSessionIds([]);
+                  setSupersedesDocumentId("");
                   createMutation.reset();
                   setIssuedPdf(null);
                 }}
@@ -402,6 +405,7 @@ function MedicalDocumentationPage() {
                   setDocumentType(e.target.value as typeof documentType);
                   setSelectedLedgerIds([]);
                   setSelectedSessionIds([]);
+                  setSupersedesDocumentId("");
                   setIssuedPdf(null);
                   createMutation.reset();
                 }}
@@ -414,6 +418,32 @@ function MedicalDocumentationPage() {
               </select>
             </label>
           </div>
+          <label className="block max-w-xl space-y-1 text-xs font-medium">
+            Replace an existing issued document (optional)
+            <select
+              value={supersedesDocumentId}
+              onChange={(event) => setSupersedesDocumentId(event.target.value)}
+              disabled={!selectedPatientId}
+              className="h-10 w-full border border-input bg-background px-3 text-sm"
+            >
+              <option value="">Create as a new document</option>
+              {(documents.data ?? [])
+                .filter(
+                  (doc) =>
+                    doc.status === "issued" &&
+                    doc.patient_id === selectedPatientId &&
+                    doc.document_type === documentType,
+                )
+                .map((doc) => (
+                  <option key={doc.id} value={doc.id}>
+                    {doc.document_number} · {doc.patient_name_snapshot}
+                  </option>
+                ))}
+            </select>
+            <span className="block text-[11px] font-normal text-muted-foreground">
+              The previous document is marked superseded only after its replacement PDF is stored successfully.
+            </span>
+          </label>
           {selectedPatientId && sources.isLoading && (
             <p className="text-xs text-muted-foreground">Loading source records…</p>
           )}
