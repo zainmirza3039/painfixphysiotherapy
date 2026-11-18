@@ -169,23 +169,23 @@ test("public document verification has a bounded keyed-IP rate limit", () => {
 });
 
 test("document replacement and stale pending recovery preserve issuance integrity", () => {
-  assert.match(migration, /existing\\.id is distinct from p_supersedes_document_id/i);
-  assert.match(migration, /existing\\.status in \\('pending', 'issued'\\)/i);
+  assert.match(migration, /existing\.id is distinct from p_supersedes_document_id/i);
+  assert.match(migration, /existing\.status in \('pending', 'issued'\)/i);
   assert.match(migration, /cancel_stale_medical_document_issuances/i);
-  assert.match(migration, /created_at < now\\(\\) - interval '30 minutes'/i);
-  assert.match(migration, /grant execute on function public\\.cancel_stale_medical_document_issuances[\\s\\S]*?to service_role/i);
+  assert.match(migration, /created_at < now\(\) - interval '30 minutes'/i);
+  assert.match(migration, /grant execute on function public\.cancel_stale_medical_document_issuances[\s\S]*?to service_role/i);
   const functions = fs.readFileSync(
     path.join(root, "src/admin/medical-documents.functions.ts"),
     "utf8",
   );
-  assert.match(functions, /p_supersedes_document_id: data\\.supersedesDocumentId \\?\\? null/);
+  assert.match(functions, /p_supersedes_document_id: data\.supersedesDocumentId \?\? null/);
   assert.match(functions, /cancel_stale_medical_document_issuances/);
   const adminUi = fs.readFileSync(
     path.join(root, "src/routes/_authenticated/admin.medical-documents.tsx"),
     "utf8",
   );
   assert.match(adminUi, /Replace an existing issued document/);
-  assert.match(adminUi, /doc\\.status === "issued"/);
+  assert.match(adminUi, /doc\.status === "issued"/);
 });
 
 test("admin and public routes preserve separate clinical source and privacy boundaries", () => {
