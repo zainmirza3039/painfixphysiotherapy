@@ -3,7 +3,7 @@ import type { SupabaseClient } from "@supabase/supabase-js";
 import { z } from "zod";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 import type { Database } from "@/integrations/supabase/types";
-import { calculateReceiptTotal } from "@/admin/medical-documents.contract";
+import { calculateReceiptTotal, summarizeExpenseLedger } from "@/admin/medical-documents.contract";
 
 type AdminContext = { supabase: SupabaseClient<Database>; userId: string };
 
@@ -144,6 +144,10 @@ function requiredText(value: string | undefined, label: string): string {
 
 function isoDate(value: string | undefined, label: string): string {
   if (!value || !/^\d{4}-\d{2}-\d{2}$/.test(value)) throw new Error(`${label} is required`);
+  const parsed = new Date(`${value}T00:00:00.000Z`);
+  if (!Number.isFinite(parsed.getTime()) || parsed.toISOString().slice(0, 10) !== value) {
+    throw new Error(`${label} must be a valid calendar date`);
+  }
   return value;
 }
 
@@ -353,16 +357,17 @@ export const createMedicalDocument = createServerFn({ method: "POST" })
           validUntil: String(estimate.snapshot?.validUntil ?? ""),
         };
       }
-      const totalPaid = payments.reduce((sum: number, row: any) => sum + Math.abs(Number(row.amount)), 0);
-      const totalRefunded = refunds.reduce((sum: number, row: any) => sum + Number(row.amount), 0);
-      const totalAdjustments = adjustments.reduce((sum: number, row: any) => sum + Number(row.amount), 0);
+      const accounting = summarizeExpenseLedger(ledger);
+      const totalPaid = accounting.payments;
+      const totalRefunded = accounting.refunds;
+      const totalAdjustments = accounting.adjustments;
       snapshot = {
         patient: { id: patient.id, fullName: patient.full_name }, issuedAt,
         historicalPainFixPayments: payments.map((row: any) => ({ ledgerEntryId: row.id, amount: Math.abs(Number(row.amount)), date: row.occurred_at, method: row.payment_method, reference: row.reference })),
         historicalPainFixRefunds: refunds.map((row: any) => ({ ledgerEntryId: row.id, amount: Number(row.amount), date: row.occurred_at, method: row.payment_method, reference: row.reference })),
         historicalAdjustments: adjustments.map((row: any) => ({ ledgerEntryId: row.id, amount: Number(row.amount), date: row.occurred_at, description: row.description })),
         totalPaidToPainFix: totalPaid, totalRefundedByPainFix: totalRefunded,
-        totalAdjustments, netRecorded: totalPaid - totalRefunded + totalAdjustments,
+        totalAdjustments, netRecorded: accounting.netReceived,
         futureProjectedEstimate: futureEstimate,
         accountingNotice: "Paid amounts represent recorded PainFix payments only. Future estimates are projections and are not included in amounts paid.",
       };
@@ -377,7 +382,7 @@ export const createMedicalDocument = createServerFn({ method: "POST" })
           ...adjustments.map((row: any, index: number) => ({ label: `Adjustment ${index + 1}`, value: `${formatMoney(Number(row.amount))} · ${new Date(row.occurred_at).toLocaleDateString("en-GB")}` })),
           { label: "Total refunded", value: formatMoney(totalRefunded) },
           { label: "Net adjustments", value: formatMoney(totalAdjustments) },
-          { label: "Net recorded", value: formatMoney(totalPaid - totalRefunded + totalAdjustments) },
+          { label: "Net recorded", value: formatMoney(accounting.netReceived) },
         ] },
         ...(futureEstimate ? [{ heading: "Future projection (not paid)", rows: [
           { label: "Estimate reference", value: futureEstimate.estimateNumber },
