@@ -1,4 +1,5 @@
 import { createServerFn } from "@tanstack/react-start";
+import { getRequest } from "@tanstack/react-start/server";
 import type { SupabaseClient } from "@supabase/supabase-js";
 import { z } from "zod";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
@@ -168,6 +169,7 @@ const verificationInput = z
 
 export type MedicalDocumentVerification =
   | { status: "not_found" }
+  | { status: "rate_limited" }
   | {
       status: "issued" | "cancelled" | "superseded";
       patient_name: string;
@@ -180,14 +182,41 @@ export type MedicalDocumentVerification =
 export const verifyMedicalDocument = createServerFn({ method: "GET" })
   .inputValidator((input) => verificationInput.parse(input))
   .handler(async ({ data }): Promise<MedicalDocumentVerification> => {
+    const request = getRequest();
+    const ipAddress =
+      request.headers.get("x-real-ip")?.trim() ||
+      request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ||
+      "unknown";
+    const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+    if (!serviceKey) throw new Error("Verification service is not configured");
+    const hmacKey = await crypto.subtle.importKey(
+      "raw",
+      new TextEncoder().encode(serviceKey),
+      { name: "HMAC", hash: "SHA-256" },
+      false,
+      ["sign"],
+    );
+    const ipDigest = Array.from(
+      new Uint8Array(
+        await crypto.subtle.sign("HMAC", hmacKey, new TextEncoder().encode(ipAddress)),
+      ),
+      (byte) => byte.toString(16).padStart(2, "0"),
+    ).join("");
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const db = medicalDocumentDatabase(supabaseAdmin);
+    const { data: withinLimit, error: limitError } = await db.rpc<boolean>(
+      "consume_medical_document_verification_limit",
+      { p_ip_digest: ipDigest },
+    );
+    if (limitError) throw new Error("Verification is temporarily unavailable");
+    if (!withinLimit) return { status: "rate_limited" };
+
     const tokenBytes = new TextEncoder().encode(data.reference.toLowerCase());
     const digest = await crypto.subtle.digest("SHA-256", tokenBytes);
     const tokenHash = Array.from(new Uint8Array(digest), (byte) =>
       byte.toString(16).padStart(2, "0"),
     ).join("");
 
-    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
-    const db = medicalDocumentDatabase(supabaseAdmin);
     const { data: row, error } = await db
       .from<VerificationDocumentRow>("medical_documents")
       .select("patient_name_snapshot, document_number, document_type, status, issued_at")
