@@ -15,7 +15,7 @@ The existing SEO title, H1, homepage URL, canonical, local business schema, redi
 
 Updated only the homepage meta description:
 
-> Looking for a physiotherapist in Multan? Visit PainFix in Shalimar Colony for DPT-led assessment and rehabilitation. Book a clinic appointment or ask about a home visit.
+> PainFix Physiotherapy Clinic in Multan: Physiotherapy near you for back pain and rehab. DPT-led care in Shalimar Colony. Book a clinic or home visit.
 
 The wording introduces a clear local proposition (Shalimar Colony), a relevant care signal (DPT-led assessment and rehabilitation), and an appointment action. CTR improvement is a hypothesis to measure, not a guaranteed ranking gain.
 
