@@ -53,9 +53,7 @@ test("Kamar Dard exercise guide targets the exercise query with practical safety
     ),
   );
   assert.doesNotMatch(safetyArticle, /tags: \[[\s\S]*?kamar dard ki exercise/);
-  assert.ok(
-    safetyArticle.includes('title: "Kamar Dard Mein Exercise Kab Rokni Chahiye?"'),
-  );
+  assert.ok(safetyArticle.includes('title: "Kamar Dard Mein Exercise Kab Rokni Chahiye?"'));
   assert.ok(
     safetyArticle.includes('seoTitle: "Kamar Dard Exercise Safety: Stop Signals | PainFix"'),
   );
