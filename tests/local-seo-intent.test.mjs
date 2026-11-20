@@ -226,7 +226,7 @@ test("homepage local-commercial metadata is clear while existing ownership and c
   const hero = await read("src/components/site/Hero.tsx");
   const bookingForm = await read("src/components/site/CityBookingForm.tsx");
   assert.ok(homepage.includes('const TITLE = "Physiotherapist in Multan | PainFix Physiotherapy Clinic"'));
-  assert.ok(homepage.includes("Looking for a physiotherapist in Multan? Visit PainFix in Shalimar Colony for DPT-led assessment and rehabilitation. Book a clinic appointment or ask about a home visit."));
+  assert.ok(homepage.includes("PainFix Physiotherapy Clinic in Multan: Physiotherapy near you for back pain and rehab. DPT-led care in Shalimar Colony. Book a clinic or home visit."));
   assert.match(hero, /Physiotherapist in <span[^>]*>Multan\.<\/span>/);
   assert.match(hero, /Shalimar Colony, Multan/);
   assert.match(hero, /Multan clinic appointment/);
