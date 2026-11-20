@@ -226,9 +226,7 @@ test("homepage local-commercial metadata is clear while existing ownership and c
   const hero = await read("src/components/site/Hero.tsx");
   const bookingForm = await read("src/components/site/CityBookingForm.tsx");
   assert.ok(
-    homepage.includes(
-      'const TITLE = "Physiotherapist in Multan | PainFix Physiotherapy Clinic"',
-    ),
+    homepage.includes('const TITLE = "Physiotherapist in Multan | PainFix Physiotherapy Clinic"'),
   );
   assert.ok(
     homepage.includes(
