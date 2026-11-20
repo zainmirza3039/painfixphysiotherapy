@@ -48,11 +48,28 @@ test("Kamar Dard exercise guide targets the exercise query with practical safety
   const safetyEnd = source.indexOf("\n  },", safetyStart);
   const safetyArticle = source.slice(safetyStart, safetyEnd);
   assert.ok(
-    safetyArticle.includes('seoTitle: "Kamar Dard Exercise Safety: Stop Signals | PainFix"'),
+    article.includes(
+      'metaDescription:\n      "Kamar dard exercise guide: 6 practical exercises for lower back pain, with clear positions, repetitions and safety tips. Learn how to start and progress.",',
+    ),
   );
   assert.doesNotMatch(safetyArticle, /tags: \[[\s\S]*?kamar dard ki exercise/);
+  assert.ok(
+    safetyArticle.includes('title: "Kamar Dard Mein Exercise Kab Rokni Chahiye?"'),
+  );
+  assert.ok(
+    safetyArticle.includes('seoTitle: "Kamar Dard Exercise Safety: Stop Signals | PainFix"'),
+  );
+  assert.ok(
+    safetyArticle.includes(
+      'metaDescription:\n      "Kamar dard mein exercise stop signals, warning symptoms and common mistakes. Learn when to modify movement and when to seek medical assessment.",',
+    ),
+  );
   const articleRoute = await read("src/routes/blog.$slug.tsx");
-  assert.match(articleRoute, /slug: "safe-kamar-dard-exercises"/);
+  assert.match(articleRoute, /post\.slug === "best-exercises-for-lower-back-pain"/);
+  assert.match(articleRoute, /params=\{\{ slug: "safe-kamar-dard-exercises" \}\}/);
+  assert.match(articleRoute, /post\.slug === "safe-kamar-dard-exercises"/);
+  assert.match(articleRoute, /params=\{\{ slug: "best-exercises-for-lower-back-pain" \}\}/);
+  assert.match(articleRoute, /six-exercise lower-back guide/);
 });
 
 test("broad Multan landing URLs consolidate to homepage and home-visit", async () => {
