@@ -229,8 +229,9 @@ function BlogArticle() {
                   Looking for step-by-step exercise instructions?
                 </h2>
                 <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-                  This guide focuses on warning signs and safe movement. For six practical lower-back
-                  exercises with starting positions, repetitions and progression guidance, read our
+                  This guide focuses on warning signs and safe movement. For six practical
+                  lower-back exercises with starting positions, repetitions and progression
+                  guidance, read our
                   <Link
                     to="/blog/$slug"
                     params={{ slug: "best-exercises-for-lower-back-pain" }}
