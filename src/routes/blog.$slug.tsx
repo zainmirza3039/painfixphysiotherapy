@@ -222,6 +222,28 @@ function BlogArticle() {
               ))}
             </div>
 
+            {/* Contextual link from the safety article to practical exercise instructions */}
+            {post.slug === "safe-kamar-dard-exercises" && (
+              <section className="mt-10 rounded-xl border border-border bg-surface p-6">
+                <h2 className="font-heading text-xl font-bold text-foreground">
+                  Looking for step-by-step exercise instructions?
+                </h2>
+                <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+                  This guide focuses on warning signs and safe movement. For six practical
+                  lower-back exercises with starting positions, repetitions and progression
+                  guidance, read our
+                  <Link
+                    to="/blog/$slug"
+                    params={{ slug: "best-exercises-for-lower-back-pain" }}
+                    className="mx-1 font-semibold text-primary underline underline-offset-4"
+                  >
+                    six-exercise lower-back guide
+                  </Link>
+                  . Choose movements according to your symptoms and stop if warning signs develop.
+                </p>
+              </section>
+            )}
+
             {post.slug === "best-exercises-for-lower-back-pain" && (
               <div className="mt-10">
                 <LowerBackExerciseGallery />
