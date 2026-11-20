@@ -1965,9 +1965,9 @@ export const blogPosts: BlogPost[] = [
   {
     slug: "best-exercises-for-lower-back-pain",
     title: "Kamar Dard Ki 6 Exercises: Reps, Form & Safety",
-    seoTitle: "Kamar Dard Ki 6 Exercises: Reps & Sahi Tareeqa | PainFix",
+    seoTitle: "Kamar Dard Exercise: 6 Exercises, Reps & Safety | PainFix",
     metaDescription:
-      "Kamar dard ki 6 exercises with step-by-step positions, repetitions and safety tips. Learn which movements may suit your symptoms and how to progress safely.",
+      "Kamar dard exercise guide: 6 practical exercises for lower back pain, with clear positions, repetitions and safety tips. Learn how to start and progress.",
     category: "exercise-therapy",
     tags: [
       "kamar dard ki exercise",
@@ -1984,7 +1984,7 @@ export const blogPosts: BlogPost[] = [
     quickAnswer:
       "Kamar dard ki exercise symptoms, medical history and movement tolerance ke mutabiq choose karein. Pelvic tilts, cat-cow, knee-to-chest, glute bridges, bird-dog and dead bug are options for some people with uncomplicated lower-back pain; short comfortable walks can also help maintain activity. Har exercise har person ke liye suitable nahi hoti. Start with one or two comfortable movements, monitor your response and progress gradually.",
     date: "2026-05-02",
-    updated: "2026-11-13",
+    updated: "2026-11-21",
     authorKey: "ZA",
     sections: [
       {
