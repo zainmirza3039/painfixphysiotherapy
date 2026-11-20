@@ -221,3 +221,22 @@ test("Dr Zain profile links to existing service and condition routes without cha
   }
   assert.match(profile, /Clinic Information/);
 });
+test("homepage local-commercial metadata is clear while existing ownership and conversion paths stay intact", async () => {
+  const homepage = await read("src/routes/index.tsx");
+  const hero = await read("src/components/site/Hero.tsx");
+  const bookingForm = await read("src/components/site/CityBookingForm.tsx");
+  assert.ok(homepage.includes('const TITLE = "Physiotherapist in Multan | PainFix Physiotherapy Clinic"'));
+  assert.ok(homepage.includes("Looking for a physiotherapist in Multan? Visit PainFix in Shalimar Colony for DPT-led assessment and rehabilitation. Book a clinic appointment or ask about a home visit."));
+  assert.match(hero, /Physiotherapist in <span[^>]*>Multan\.<\/span>/);
+  assert.match(hero, /Shalimar Colony, Multan/);
+  assert.match(hero, /Multan clinic appointment/);
+  assert.match(hero, /Need a home visit in Multan/);
+  assert.match(homepage, /rel: "canonical"/);
+  const config = JSON.parse(await read("vercel.json"));
+  for (const source of ["/best-physiotherapist-in-multan", "/physiotherapist-in-multan", "/physiotherapy-in-multan", "/physiotherapy-clinic-in-multan"]) {
+    assert.ok(config.redirects.some((rule) => rule.source === source && rule.destination === "/" && rule.permanent === true));
+  }
+  assert.match(bookingForm, /clinicCalendarUrl\(CALENDLY_URL, values\)/);
+  assert.match(bookingForm, /bookingWhatsAppUrl\(city, values, WHATSAPP_URL\)/);
+  assert.match(bookingForm, /No request is saved on this website/);
+});
