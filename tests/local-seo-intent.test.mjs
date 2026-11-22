@@ -49,7 +49,7 @@ test("Kamar Dard exercise guide targets the exercise query with practical safety
   const safetyArticle = source.slice(safetyStart, safetyEnd);
   assert.ok(
     article.includes(
-      'metaDescription:\n      "Kamar dard exercise guide: 6 practical exercises for lower back pain, with clear positions, repetitions and safety tips. Learn how to start and progress.",',
+      'metaDescription:\n      "Kamar dard ki exercise guide: 6 lower-back movements with clear positions, repetitions and safety cues. Learn how to start comfortably and progress safely.",',
     ),
   );
   assert.doesNotMatch(safetyArticle, /tags: \[[\s\S]*?kamar dard ki exercise/);
