@@ -25,6 +25,10 @@ export function Hero() {
           Physiotherapist in <span className="home-hero__accent">Multan.</span>
         </h1>
         <div className="home-hero__content">
+          <p className="home-hero__description">
+            PainFix Physiotherapy Clinic provides assessment-led care, hands-on treatment and
+            rehabilitation at our Shalimar Colony clinic, with home visits available across Multan.
+          </p>
           <div className="home-hero__actions">
             <a
               href="/book-appointment?city=multan&service=clinic"
