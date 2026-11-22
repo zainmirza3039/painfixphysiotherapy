@@ -19,10 +19,7 @@ test("Dr Jalal profile metadata focuses on his verified clinical role rather tha
   const source = await readFile(new URL("src/lib/doctor-seo.ts", repo), "utf8");
   assert.match(source, /isJalalProfile = doc\.slug === "dr-jalal-ud-din-pt-multan"/);
   assert.match(source, /Dr\. Jalal Ud Din, DPT \| Clinical Physiotherapist \| PainFix/);
-  assert.match(
-    source,
-    assert.ok(source.includes("Dr. Jalal Ud Din PT, Clinical Physiotherapist at PainFix"));
-  );
+  assert.ok(source.includes("Dr. Jalal Ud Din PT, Clinical Physiotherapist at PainFix"));
   assert.doesNotMatch(source, /Dr\. Jalal Ud Din, DPT \| Physiotherapist in Multan/);
   assert.doesNotMatch(source, /trusted physiotherapist|leading physiotherapist/);
 });
