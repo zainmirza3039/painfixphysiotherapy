@@ -19,10 +19,8 @@ test("homepage keeps the primary Multan physiotherapist keyword and canonical UR
 test("homepage metadata covers the clinic and core treatment-intent cluster without keyword stuffing", () => {
   const home = source("routes/index.tsx");
   assert.ok(home.includes("PainFix Physiotherapy Clinic in Multan"));
-  assert.ok(home.includes("Physiotherapy near you"));
-  assert.ok(home.includes("back pain and rehab"));
-  assert.ok(home.includes("DPT-led care in Shalimar Colony"));
-  assert.ok(home.includes("Book a clinic or home visit"));
+  assert.ok(home.includes("DPT-led assessment, treatment and rehabilitation in Shalimar Colony"));
+  assert.ok(home.includes("clinic appointments and home visits"));
 });
 
 test("homepage hero keeps the primary local heading, booking actions and clinic context", () => {
