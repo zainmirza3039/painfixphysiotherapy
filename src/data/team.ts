@@ -140,7 +140,7 @@ export const team: TeamMember[] = [
     profile: {
       metaTitle: "Dr. Jalal Ud Din PT | Clinical Physiotherapist at PainFix",
       metaDescription:
-        "Meet Dr. Jalal Ud Din PT, a Clinical Physiotherapist at PainFix. Review his clinical interests in neurological and orthopaedic rehabilitation, exercise therapy and pain management.",
+        "Dr. Jalal Ud Din PT, Clinical Physiotherapist at PainFix. Interests: neurological and orthopaedic rehabilitation, exercise therapy, pain management.",
       intro: [
         "Dr. Jalal Ud Din PT is a Doctor of Physical Therapy (DPT) and Clinical Physiotherapist at PainFix Physiotherapy Clinic.",
         "His clinical interests include neurological rehabilitation, orthopaedic rehabilitation, exercise therapy and pain management. Patients can review his listed areas of practice and contact PainFix to ask about current clinic appointments.",
