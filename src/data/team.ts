@@ -138,12 +138,12 @@ export const team: TeamMember[] = [
     phoneDisplay: "0314-3039582",
     whatsapp: "923143039582",
     profile: {
-      metaTitle: "Dr. Jalal Ud Din PT — Physiotherapist in Multan | DPT",
+      metaTitle: "Dr. Jalal Ud Din PT | Clinical Physiotherapist at PainFix",
       metaDescription:
-        "Dr. Jalal Ud Din, DPT, provides physiotherapy in Multan for back and neck pain, sciatica, and neurological and orthopaedic rehabilitation at PainFix.",
+        "Meet Dr. Jalal Ud Din PT, a Clinical Physiotherapist at PainFix. Review his clinical interests in neurological and orthopaedic rehabilitation, exercise therapy and pain management.",
       intro: [
-        "Dr. Jalal Ud Din PT is a clinical physiotherapist in Multan and a Doctor of Physical Therapy (DPT). At PainFix Physiotherapy Clinic he specialises in rehabilitation and recovery, designing individualized treatment plans that address the root cause of each patient's condition.",
-        "From neurological rehabilitation to orthopaedic recovery and pain management, Dr. Jalal is committed to evidence-based physiotherapy that delivers real, long-term results for patients across Multan.",
+        "Dr. Jalal Ud Din PT is a Doctor of Physical Therapy (DPT) and Clinical Physiotherapist at PainFix Physiotherapy Clinic.",
+        "His clinical interests include neurological rehabilitation, orthopaedic rehabilitation, exercise therapy and pain management. Patients can review his listed areas of practice and contact PainFix to ask about current clinic appointments.",
       ],
       qualifications: [
         "Doctor of Physical Therapy (DPT)",
