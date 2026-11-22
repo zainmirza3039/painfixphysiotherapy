@@ -20,6 +20,10 @@ export const homeFaqs = [
     a: "We treat a wide range of conditions including back and neck pain, sciatica, sports injuries, arthritis, frozen shoulder, and post-surgical rehabilitation.",
   },
   {
+    q: "How should I choose a physiotherapist in Multan?",
+    a: "Check the physiotherapist's published qualification, relevant clinical experience and area of practice. Ask whether the first visit includes a proper history and movement assessment, and whether treatment goals and options will be explained before care begins. PainFix publishes its DPT clinicians' profiles and areas of practice; contact the clinic to discuss which clinician's scope best matches your needs and confirm appointment availability.",
+  },
+  {
     q: "How do I book an appointment?",
     a: "The easiest way is to tap any 'WhatsApp Consultation' button and message us — we'll answer your questions and confirm a time. You can also call us at 0314-3039582 or use the 'Book Appointment' option on the homepage or contact page.",
   },
