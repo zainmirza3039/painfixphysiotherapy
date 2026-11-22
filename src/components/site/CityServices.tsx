@@ -19,11 +19,12 @@ export function CityServices() {
             id="city-services-heading"
             className="mt-4 font-heading text-3xl font-bold tracking-tight sm:text-4xl"
           >
-            Physiotherapy in Multan and Rahim Yar Khan
+            Physiotherapy in Multan
           </h2>
           <p className="mt-4 max-w-2xl text-sm leading-7 text-primary-foreground/75 sm:text-base">
-            Choose the right way to start care. Multan patients can visit our clinic or request a
-            home visit; Rahim Yar Khan patients can connect with our physiotherapy team online.
+            Visit PainFix Physiotherapy Clinic in Shalimar Colony for an in-person assessment, or
+            request a home physiotherapy visit anywhere in Multan. Online appointments are also
+            available for patients in Rahim Yar Khan.
           </p>
         </div>
 
