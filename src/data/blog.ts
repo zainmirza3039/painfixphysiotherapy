@@ -1965,9 +1965,9 @@ export const blogPosts: BlogPost[] = [
   {
     slug: "best-exercises-for-lower-back-pain",
     title: "Kamar Dard Ki 6 Exercises: Reps, Form & Safety",
-    seoTitle: "Kamar Dard Exercise: 6 Exercises, Reps & Safety | PainFix",
+    seoTitle: "Kamar Dard Ki Exercise: 6 Exercises & Reps | PainFix",
     metaDescription:
-      "Kamar dard exercise guide: 6 practical exercises for lower back pain, with clear positions, repetitions and safety tips. Learn how to start and progress.",
+      "Kamar dard ki exercise guide: 6 lower-back movements with clear positions, repetitions and safety cues. Learn how to start comfortably and progress safely.",
     category: "exercise-therapy",
     tags: [
       "kamar dard ki exercise",
