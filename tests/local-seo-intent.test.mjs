@@ -244,7 +244,7 @@ test("homepage local-commercial metadata is clear while existing ownership and c
   assert.match(cityServices, /Physiotherapy in Multan/);
   assert.doesNotMatch(cityServices, /Physiotherapy in Multan and Rahim Yar Khan/);
   const clinicianSection = await read("src/components/site/MeetDoctors.tsx");
-  assert.match(clinicianSection, /Dr\\. Zain Ul Abideen, DPT, Founder & Head/);
+  assert.match(clinicianSection, /Dr\. Zain Ul Abideen, DPT, Founder & Head/);
   const config = JSON.parse(await read("vercel.json"));
   for (const source of [
     "/best-physiotherapist-in-multan",
