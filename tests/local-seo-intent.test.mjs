@@ -231,14 +231,20 @@ test("homepage local-commercial metadata is clear while existing ownership and c
   );
   assert.ok(
     homepage.includes(
-      "PainFix Physiotherapy Clinic in Multan: Physiotherapy near you for back pain and rehab. DPT-led care in Shalimar Colony. Book a clinic or home visit.",
+      "Need physiotherapy in Multan? PainFix is a DPT-led physiotherapy clinic in Shalimar Colony, offering assessment, treatment and rehabilitation, plus home visits across Multan.",
     ),
   );
   assert.match(hero, /Physiotherapist in <span[^>]*>Multan\.<\/span>/);
   assert.match(hero, /Shalimar Colony, Multan/);
   assert.match(hero, /Multan clinic appointment/);
   assert.match(hero, /Need a home visit in Multan/);
+  assert.match(hero, /assessment-led care, hands-on treatment and/);
   assert.match(homepage, /rel: "canonical"/);
+  const cityServices = await read("src/components/site/CityServices.tsx");
+  assert.match(cityServices, /Physiotherapy in Multan/);
+  assert.doesNotMatch(cityServices, /Physiotherapy in Multan and Rahim Yar Khan/);
+  const clinicianSection = await read("src/components/site/MeetDoctors.tsx");
+  assert.match(clinicianSection, /Dr\\. Zain Ul Abideen, DPT, Founder & Head/);
   const config = JSON.parse(await read("vercel.json"));
   for (const source of [
     "/best-physiotherapist-in-multan",
