@@ -13,6 +13,7 @@ test("clinician profile ownership keeps broad Multan commercial intent on the ho
   assert.doesNotMatch(seo, /Dr\. Jalal Ud Din, DPT \| Physiotherapist in Multan/);
   assert.match(team, /Clinical Physiotherapist \| Neuro & Orthopaedic Rehabilitation/);
   assert.match(team, /Dr\. Jalal Ud Din PT \| Clinical Physiotherapist at PainFix/);
+  assert.doesNotMatch(team, /Dr\. Jalal Ud Din PT — Physiotherapist in Multan/);
 });
 
 test("Dr Jalal live profile migration is guarded against overwriting newer admin edits", async () => {
@@ -22,5 +23,8 @@ test("Dr Jalal live profile migration is guarded against overwriting newer admin
   assert.match(files, /AND is_published = true/);
   assert.match(files, /AND professional_title = 'Physiotherapist in Multan \| DPT'/);
   assert.match(files, /AND meta_title = 'Dr\. Jalal Ud Din PT — Physiotherapist in Multan \| DPT'/);
+  assert.match(files, /AND seo_bio = 'Dr\. Jalal Ud Din PT is a clinical physiotherapist in Multan/);
+  assert.match(files, /AND meta_description = 'Dr\. Jalal Ud Din PT is a clinical physiotherapist in Multan/);
+  assert.match(files, /AND intro = ARRAY\[/);
   assert.match(files, /Clinical Physiotherapist \| Neuro & Orthopaedic Rehabilitation/);
 });
