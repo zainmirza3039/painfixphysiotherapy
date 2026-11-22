@@ -21,9 +21,10 @@ export function MeetDoctors({ initialProfiles }: { initialProfiles?: PublicClini
             <h2 className="home-section-title mt-4">Meet the people behind your care.</h2>
           </div>
           <p className="max-w-2xl text-base leading-7 text-muted-foreground">
-            Meet the Doctors of Physical Therapy at PainFix. Our Multan clinic team provides
-            clinic-based physiotherapy and rehabilitation, while individual profiles explain each
-            clinician’s qualifications, areas of practice and available service modes.
+            PainFix Physiotherapy Clinic is led by Dr. Zain Ul Abideen, DPT, Founder & Head
+            Physiotherapist. Our Multan team provides assessment-led physiotherapy and rehabilitation;
+            individual profiles explain each clinician’s qualifications, areas of practice and
+            available service modes.
           </p>
         </div>
 
