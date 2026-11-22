@@ -21,7 +21,7 @@ test("Dr Jalal profile metadata focuses on his verified clinical role rather tha
   assert.match(source, /Dr\. Jalal Ud Din, DPT \| Clinical Physiotherapist \| PainFix/);
   assert.match(
     source,
-    /Dr\. Jalal Ud Din PT, Clinical Physiotherapist at PainFix/,
+    assert.ok(source.includes("Dr. Jalal Ud Din PT, Clinical Physiotherapist at PainFix"));
   );
   assert.doesNotMatch(source, /Dr\. Jalal Ud Din, DPT \| Physiotherapist in Multan/);
   assert.doesNotMatch(source, /trusted physiotherapist|leading physiotherapist/);
