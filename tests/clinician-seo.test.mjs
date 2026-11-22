@@ -7,8 +7,8 @@ const repo = new URL("../", import.meta.url);
 test("Dr Zain profile metadata identifies the clinician and Multan clinic without promotional claims", async () => {
   const source = await readFile(new URL("src/lib/doctor-seo.ts", repo), "utf8");
   assert.match(source, /isZainProfile = doc\.slug === "dr-zain-ul-abideen-pt-multan"/);
-  assert.match(source, /\$\{doc\.fullName\} \| Physiotherapist in Multan \| PainFix/);
-  assert.match(source, /is a Doctor of Physical Therapy at PainFix in Multan/);
+  assert.match(source, /Dr\. Zain Ul Abideen, DPT \| Physiotherapist in Multan \| PainFix/);
+  assert.match(source, /Meet Dr\. Zain Ul Abideen, DPT, Founder & Head Physiotherapist at PainFix in Multan/);
   assert.doesNotMatch(source, /trusted physiotherapist|leading physiotherapist/);
 });
 
