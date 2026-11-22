@@ -113,11 +113,11 @@ export const team: TeamMember[] = [
     name: "Dr. Jalal Ud Din",
     fullName: "Dr. Jalal Ud Din PT",
     role: "Clinical Physiotherapist",
-    title: "Physiotherapist in Multan | DPT",
+    title: "Clinical Physiotherapist | Neuro & Orthopaedic Rehabilitation",
     credentials: "DPT (Doctor of Physical Therapy)",
-    bio: "Dr. Jalal Ud Din specialises in rehabilitation and recovery, designing individualized treatment plans that target the root cause of each patient's condition for long-term results.",
+    bio: "Dr. Jalal Ud Din specialises in neurological and orthopaedic rehabilitation, exercise therapy and pain management, with individualized treatment planning based on each patient's assessment.",
     seoBio:
-      "Dr. Jalal Ud Din PT is a clinical physiotherapist in Multan offering evidence-based physiotherapy and rehabilitation. He treats back pain, neck pain, sciatica, neurological and orthopaedic conditions with individualized, patient-focused care.",
+      "Dr. Jalal Ud Din PT is a Clinical Physiotherapist at PainFix Physiotherapy Clinic. His clinical interests include neurological rehabilitation, orthopaedic rehabilitation, exercise therapy and pain management.",
     specialties: [
       "Exercise Therapy",
       "Neurological Rehabilitation",
