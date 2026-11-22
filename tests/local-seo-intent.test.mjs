@@ -33,12 +33,13 @@ test("Kamar Dard exercise guide targets the exercise query with practical safety
   const article = source.slice(start, end);
 
   assert.ok(article.includes('title: "Kamar Dard Ki 6 Exercises: Reps, Form & Safety"'));
-  assert.ok(
-    article.includes('seoTitle: "Kamar Dard Ki Exercise: 6 Exercises & Reps | PainFix"'),
-  );
+  assert.ok(article.includes('seoTitle: "Kamar Dard Ki Exercise: 6 Exercises & Reps | PainFix"'));
   assert.match(article, /updated: "2026-11-21"/);
   assert.match(article, /Kamar dard ki exercise/i);
-  assert.match(article, /Kamar dard ki exercise guide: 6 lower-back movements with clear positions, repetitions and safety cues/i);
+  assert.match(
+    article,
+    /Kamar dard ki exercise guide: 6 lower-back movements with clear positions, repetitions and safety cues/i,
+  );
   assert.match(article, /1–2 comfortable movements/);
   assert.match(article, /leg symptoms ka aur neeche spread hona/);
   assert.match(article, /Kya mujhe tamam 6 exercises ek hi waqt karni chahiye/);
