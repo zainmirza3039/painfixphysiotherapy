@@ -18,6 +18,7 @@ import { FaqAccordion } from "@/components/site/FaqAccordion";
 import { PageCTA } from "@/components/site/PageCTA";
 import { Reveal } from "@/components/site/Reveal";
 import { pageMeta, canonical, breadcrumbLd, faqLd } from "@/lib/seo";
+import { SITE_URL } from "@/components/site/constants";
 
 export const Route = createFileRoute("/conditions/$slug")({
   loader: ({ params }) => {
@@ -46,6 +47,23 @@ export const Route = createFileRoute("/conditions/$slug")({
           { label: loaderData.title, path },
         ]),
         faqLd(loaderData.faqs),
+        {
+          type: "application/ld+json",
+          children: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "MedicalWebPage",
+            "@id": `${SITE_URL}${path}#webpage`,
+            url: `${SITE_URL}${path}`,
+            name: loaderData.metaTitle,
+            description: loaderData.metaDescription,
+            about: {
+              "@type": "MedicalCondition",
+              name: loaderData.title,
+              description: loaderData.summary,
+            },
+            publisher: { "@id": `${SITE_URL}/#clinic` },
+          }),
+        },
       ],
     };
   },
