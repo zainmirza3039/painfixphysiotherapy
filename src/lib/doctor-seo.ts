@@ -20,7 +20,7 @@ export function doctorProfileHead(doc: TeamMember) {
       ? "Ariba Babar DPT | Online Physiotherapist in Rahim Yar Khan"
       : `${doc.fullName} — Online Physiotherapy in ${city} | PainFix`
     : isZainProfile
-      ? doc.profile.metaTitle || `${doc.fullName} | Physiotherapist in Multan | PainFix`
+      ? "Dr. Zain Ul Abideen, DPT | Physiotherapist in Multan | PainFix"
       : isJalalProfile
         ? "Dr. Jalal Ud Din, DPT | Physiotherapist in Multan | PainFix"
         : doc.profile.metaTitle;
@@ -31,8 +31,7 @@ export function doctorProfileHead(doc: TeamMember) {
         ? doc.profile.metaDescription
         : `Online physiotherapy consultation enquiries with ${doc.fullName}, based in ${city}.`
     : isZainProfile
-      ? doc.profile.metaDescription ||
-        `${doc.fullName} is a Doctor of Physical Therapy at PainFix in Multan. View professional qualifications, clinical focus and appointment details.`
+      ? "Meet Dr. Zain Ul Abideen, DPT, Founder & Head Physiotherapist at PainFix in Multan. Explore his clinical focus, treatment approach and appointment details."
       : isJalalProfile
         ? "Dr. Jalal Ud Din, DPT, is a clinical physiotherapist at PainFix in Multan, focusing on neurological and orthopaedic rehabilitation."
         : doc.profile.metaDescription;
