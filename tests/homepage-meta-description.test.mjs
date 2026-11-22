@@ -10,8 +10,6 @@ test("homepage meta description is concise and includes primary local intent", a
   assert.ok(match, "homepage DESCRIPTION constant should exist");
   assert.ok(match[1].length <= 160, `description is ${match[1].length} characters`);
   assert.match(match[1], /PainFix Physiotherapy Clinic in Multan/);
-  assert.match(match[1], /Physiotherapy near you/);
-  assert.match(match[1], /back pain and rehab/);
-  assert.match(match[1], /DPT-led care in Shalimar Colony/);
-  assert.match(match[1], /home visit/);
+  assert.match(match[1], /DPT-led assessment, treatment and rehabilitation in Shalimar Colony/);
+  assert.match(match[1], /clinic appointments and home visits/);
 });

@@ -5,8 +5,8 @@ import { isOnlineClinician } from "@/lib/clinician-service";
 
 /**
  * Builds the full head() payload (meta, canonical, breadcrumb + Person JSON-LD)
- * for a dedicated doctor profile page — optimized for doctor entity recognition
- * and local search ("Dr … PT Multan", "Physiotherapist in Multan").
+ * for a dedicated clinician profile page. The homepage owns broad local clinic
+ * searches; clinician profiles focus on named-clinician and verified role queries.
  */
 export function doctorProfileHead(doc: TeamMember) {
   const path = `/${doc.slug}`;
@@ -22,7 +22,7 @@ export function doctorProfileHead(doc: TeamMember) {
     : isZainProfile
       ? "Dr. Zain Ul Abideen, DPT | Physiotherapist in Multan | PainFix"
       : isJalalProfile
-        ? "Dr. Jalal Ud Din, DPT | Physiotherapist in Multan | PainFix"
+        ? "Dr. Jalal Ud Din, DPT | Clinical Physiotherapist | PainFix"
         : doc.profile.metaTitle;
   const metaDescription = onlineOnly
     ? doc.slug === "dr-ariba-babar-pt"
@@ -33,7 +33,7 @@ export function doctorProfileHead(doc: TeamMember) {
     : isZainProfile
       ? "Meet Dr. Zain Ul Abideen, DPT, Founder & Head Physiotherapist at PainFix in Multan. Explore his clinical focus, treatment approach and appointment details."
       : isJalalProfile
-        ? "Dr. Jalal Ud Din, DPT, is a clinical physiotherapist at PainFix in Multan, focusing on neurological and orthopaedic rehabilitation."
+        ? "Dr. Jalal Ud Din PT, Clinical Physiotherapist at PainFix. Interests: neurological and orthopaedic rehabilitation, exercise therapy, pain management."
         : doc.profile.metaDescription;
   // Static imports are root-relative paths; admin-uploaded photos may be absolute URLs.
   const image = doc.photo
