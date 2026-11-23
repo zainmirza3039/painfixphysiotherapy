@@ -24,16 +24,9 @@ export function treatmentVerificationUrl(token: string) {
     throw new Error("Invalid verification token.");
   }
 
-  const origin =
-    typeof window !== "undefined"
-      ? window.location.origin
-      : "https://painfixphysiotherapy.com";
+  const origin = typeof window !== "undefined" ? window.location.origin : "https://painfixphysiotherapy.com";
 
-  return (
-    origin +
-    "/verify-certificate?type=treatment&reference=" +
-    encodeURIComponent(token)
-  );
+  return origin + "/verify-certificate?type=treatment&reference=" + encodeURIComponent(token);
 }
 
 export async function createTreatmentCertificatePdf(
@@ -51,13 +44,7 @@ export async function createTreatmentCertificatePdf(
   const left = 48;
   const right = 547;
 
-  const draw = (
-    value: string,
-    x: number,
-    y: number,
-    size = 10,
-    color = navy,
-  ) => {
+  const draw = (value: string, x: number, y: number, size = 10, color = navy) => {
     page.drawText(value.replace(/[\r\n\t]/g, " "), {
       x,
       y,
@@ -80,7 +67,10 @@ export async function createTreatmentCertificatePdf(
     const output: string[] = [];
     let line = "";
 
-    for (const word of value.replace(/[\r\n\t]/g, " ").trim().split(/\s+/)) {
+    for (const word of value
+      .replace(/[\r\n\t]/g, " ")
+      .trim()
+      .split(/\s+/)) {
       const nextLine = line ? line + " " + word : word;
       if (font.widthOfTextAtSize(nextLine, size) > maxWidth && line) {
         output.push(line);
@@ -131,13 +121,7 @@ export async function createTreatmentCertificatePdf(
   });
 
   draw("PHYSIOTHERAPY TREATMENT & PAYMENT CERTIFICATE", left, 700, 14);
-  draw(
-    "Issued from the PainFix patient treatment and financial ledger",
-    left,
-    680,
-    8,
-    muted,
-  );
+  draw("Issued from the PainFix patient treatment and financial ledger", left, 680, 8, muted);
 
   const field = (label: string, value: string, y: number) => {
     draw(label.toUpperCase(), left, y, 7, muted);
@@ -150,28 +134,14 @@ export async function createTreatmentCertificatePdf(
 
   let y = 642;
   y = field("Patient", snapshot.patientName, y);
-  y = field(
-    "Diagnosis / presenting condition",
-    snapshot.diagnosis,
-    y - 5,
-  );
+  y = field("Diagnosis / presenting condition", snapshot.diagnosis, y - 5);
   y = field(
     "Treatment period",
-    formatDate(snapshot.treatmentStart) +
-      " to " +
-      formatDate(snapshot.treatmentEnd),
+    formatDate(snapshot.treatmentStart) + " to " + formatDate(snapshot.treatmentEnd),
     y - 5,
   );
-  y = field(
-    "Completed physiotherapy sessions",
-    String(snapshot.completedSessions),
-    y - 5,
-  );
-  y = field(
-    "Treatment / services provided",
-    snapshot.treatmentSummary,
-    y - 5,
-  );
+  y = field("Completed physiotherapy sessions", String(snapshot.completedSessions), y - 5);
+  y = field("Treatment / services provided", snapshot.treatmentSummary, y - 5);
 
   const summaryTop = Math.max(y - 18, 250);
   page.drawRectangle({
@@ -230,13 +200,7 @@ export async function createTreatmentCertificatePdf(
     8,
     muted,
   );
-  draw(
-    "Issued by: Dr. Zain Ul Abideen, DPT | Clinical Physiotherapist",
-    left,
-    130,
-    8,
-    muted,
-  );
+  draw("Issued by: Dr. Zain Ul Abideen, DPT | Clinical Physiotherapist", left, 130, 8, muted);
   draw(
     "This certificate records treatment and payments documented by PainFix. It does not guarantee",
     left,
@@ -252,34 +216,21 @@ export async function createTreatmentCertificatePdf(
     muted,
   );
 
-  const qr = await QRCode.toDataURL(
-    treatmentVerificationUrl(snapshot.verificationToken),
-    {
-      errorCorrectionLevel: "M",
-      margin: 2,
-      width: 360,
-    },
-  );
-  const image = await pdf.embedPng(qr);
-  page.drawImage(image, {
-    x: 445,
-    y: 38,
-    width: 75,
-    height: 75,
+  const qr = await QRCode.toDataURL(treatmentVerificationUrl(snapshot.verificationToken), {
+    errorCorrectionLevel: "M",
+    margin: 2,
+    width: 360,
   });
+  const image = await pdf.embedPng(qr);
+  page.drawImage(image, { x: 445, y: 38, width: 75, height: 75 });
   draw("Scan to verify", 449, 28, 7);
 
-  pdf.setTitle(
-    snapshot.documentNumber +
-      " | Physiotherapy Treatment & Payment Certificate",
-  );
+  pdf.setTitle(snapshot.documentNumber + " | Physiotherapy Treatment & Payment Certificate");
   pdf.setAuthor("PainFix Physiotherapy Clinic");
   return pdf.save();
 }
 
-export async function downloadTreatmentCertificatePdf(
-  snapshot: TreatmentCertificateSnapshot,
-) {
+export async function downloadTreatmentCertificatePdf(snapshot: TreatmentCertificateSnapshot) {
   const [fontResponse, logoResponse] = await Promise.all([
     fetch("/fonts/painfix-certificate-sans.ttf"),
     fetch("/painfix-icon-180.png"),
@@ -291,14 +242,10 @@ export async function downloadTreatmentCertificatePdf(
 
   const bytes = await createTreatmentCertificatePdf(snapshot, {
     font: new Uint8Array(await fontResponse.arrayBuffer()),
-    ...(logoResponse.ok
-      ? { logo: new Uint8Array(await logoResponse.arrayBuffer()) }
-      : {}),
+    ...(logoResponse.ok ? { logo: new Uint8Array(await logoResponse.arrayBuffer()) } : {}),
   });
 
-  const url = URL.createObjectURL(
-    new Blob([new Uint8Array(bytes)], { type: "application/pdf" }),
-  );
+  const url = URL.createObjectURL(new Blob([new Uint8Array(bytes)], { type: "application/pdf" }));
   const anchor = document.createElement("a");
   anchor.href = url;
   anchor.download = snapshot.documentNumber + ".pdf";
