@@ -6,10 +6,7 @@ const migration = readFileSync(
   "supabase/migrations/20261124120000_personal_patient_treatment_documents.sql",
   "utf8",
 );
-const component = readFileSync(
-  "src/components/admin/PatientTreatmentCertificate.tsx",
-  "utf8",
-);
+const component = readFileSync("src/components/admin/PatientTreatmentCertificate.tsx", "utf8");
 const pdf = readFileSync("src/lib/treatment-certificate-pdf.ts", "utf8");
 const route = readFileSync("src/routes/verify-certificate.tsx", "utf8");
 
