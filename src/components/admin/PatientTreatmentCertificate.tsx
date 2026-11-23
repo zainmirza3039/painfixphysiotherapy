@@ -17,7 +17,8 @@ export function PatientTreatmentCertificate({clinicianId,patient,sessions,ledger
  const completed=useMemo(()=>sessions.filter(s=>s.status==="completed"),[sessions]);
  const docs=useQuery({queryKey:["admin","personal-patient-treatment-documents",clinicianId,patient.id],enabled:!!clinicianId,queryFn:async()=>{const {data,error}=await personalPatientDb.from("personal_patient_treatment_documents").select("id,document_number,status,issued_at,snapshot").eq("patient_id",patient.id).order("issued_at",{ascending:false});if(error)throw error;return (data??[]) as Doc[];}});
  const charges=ledger.filter(e=>e.entry_type==="charge").reduce((n,e)=>n+Number(e.amount),0);
- const payments=ledger.filter(e=>e.entry_type==="payment").reduce((n,e)=>n+Math.abs(Number(e.amount)),0);\n const refunds=ledger.filter(e=>e.entry_type==="refund").reduce((n,e)=>n+Math.max(0,Number(e.amount)),0);\n const paid=Math.max(0,payments-refunds);
+ const payments=ledger.filter(e=>e.entry_type==="payment").reduce((n,e)=>n+Math.abs(Number(e.amount)),0);
+ const refunds=ledger.filter(e=>e.entry_type==="refund").reduce((n,e)=>n+Math.max(0,Number(e.amount)),0);\n const paid=Math.max(0,payments-refunds);
  const balance=ledger.reduce((n,e)=>n+Number(e.amount),0);
  const issue=useMutation({mutationFn:async()=>{
   if(!clinicianId)throw new Error("Please sign in again.");if(!completed.length)throw new Error("No completed sessions are recorded.");
