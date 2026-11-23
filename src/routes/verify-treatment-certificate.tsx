@@ -1,12 +1,12 @@
 import {createFileRoute} from "@tanstack/react-router";
 import {PageLayout} from "@/components/site/PageLayout";import {PageHero} from "@/components/site/PageHero";
 import {supabase} from "@/integrations/supabase/client";import {canonical,pageMeta} from "@/lib/seo";import {z} from "zod";
-const schema=z.object({reference:z.string().regex(/^[a-f0-9]{64}$/).optional().default("")});
+const schema=z.object({reference:z.string().max(64).optional().default("")});
 type Result={status:"valid"|"revoked"|"superseded"|"not_found";document_number?:string;issued_at?:string;clinic?:string;patient?:string;treatment_start?:string;treatment_end?:string;completed_sessions?:number;amount_paid?:number;currency?:string;message?:string};
 export const Route=createFileRoute("/verify-treatment-certificate")({
  validateSearch:schema,
  headers:()=>({"Cache-Control":"no-store, max-age=0","X-Robots-Tag":"noindex, nofollow, noarchive","Referrer-Policy":"no-referrer"}),
- loader:async({location})=>{const reference=String((location.search as {reference?:string}).reference??"");if(!reference)return {result:null as Result|null};const {data,error}=await supabase.rpc("verify_personal_patient_treatment_document" as never,{p_token:reference} as never);if(error||!data)return {result:{status:"not_found" as const}};return {result:data as Result};},
+ loader:async({location})=>{const reference=String((location.search as {reference?:string}).reference??"");if(!reference)return {result:null as Result|null};if(!/^[a-f0-9]{64}$/.test(reference))return {result:{status:"not_found" as const}};const {data,error}=await supabase.rpc("verify_personal_patient_treatment_document" as never,{p_token:reference} as never);if(error||!data)return {result:{status:"not_found" as const}};return {result:data as Result};},
  head:()=>({meta:[...pageMeta({title:"Verify a physiotherapy treatment certificate | PainFix",description:"Verify the authenticity and current status of a PainFix treatment and payment certificate.",path:"/verify-treatment-certificate"}),{name:"robots",content:"noindex, nofollow, noarchive"}],links:canonical("/verify-treatment-certificate")}),
  component:VerifyTreatmentPage
 });
