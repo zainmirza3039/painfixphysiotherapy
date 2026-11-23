@@ -24,7 +24,10 @@ export function treatmentVerificationUrl(token: string) {
     throw new Error("Invalid verification token.");
   }
 
-  const origin = typeof window !== "undefined" ? window.location.origin : "https://painfixphysiotherapy.com";
+  const origin =
+    typeof window !== "undefined"
+      ? window.location.origin
+      : "https://painfixphysiotherapy.com";
 
   return origin + "/verify-certificate?type=treatment&reference=" + encodeURIComponent(token);
 }
