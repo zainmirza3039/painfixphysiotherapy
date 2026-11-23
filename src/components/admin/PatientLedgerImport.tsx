@@ -54,8 +54,10 @@ export function PatientLedgerImport({ clinicianId, patients, onImported }: Props
     const matches = rows.filter((row) =>
       patients.some(
         (patient) =>
-          (row.phone && patient.phone && row.phone.replace(/\D/g, "") === patient.phone.replace(/\D/g, "")) ||
-            patient.full_name.trim().toLowerCase() === row.name.trim().toLowerCase(),
+          (row.phone &&
+            patient.phone &&
+            row.phone.replace(/\D/g, "") === patient.phone.replace(/\D/g, "")) ||
+          patient.full_name.trim().toLowerCase() === row.name.trim().toLowerCase(),
       ),
     ).length;
 
@@ -77,8 +79,10 @@ export function PatientLedgerImport({ clinicianId, patients, onImported }: Props
 
         const existing = patients.find(
           (patient) =>
-            (row.phone && patient.phone && row.phone.replace(/\D/g, "") === patient.phone.replace(/\D/g, "")) ||
-              patient.full_name.trim().toLowerCase() === row.name.trim().toLowerCase(),
+            (row.phone &&
+              patient.phone &&
+              row.phone.replace(/\D/g, "") === patient.phone.replace(/\D/g, "")) ||
+            patient.full_name.trim().toLowerCase() === row.name.trim().toLowerCase(),
         );
 
         if (existing) {
