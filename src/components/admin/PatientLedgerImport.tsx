@@ -3,10 +3,7 @@ import { useMutation } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { AlertTriangle, FileUp } from "lucide-react";
 import { personalPatientDb } from "@/admin/personal-patients.db";
-import {
-  parsePatientCsv,
-  type ImportedPatientRow,
-} from "@/admin/patient-ledger-import";
+import { parsePatientCsv, type ImportedPatientRow } from "@/admin/patient-ledger-import";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -30,12 +27,7 @@ type Props = {
 };
 
 function requireInsertedId(data: unknown, recordType: string): string {
-  if (
-    !data ||
-    typeof data !== "object" ||
-    !("id" in data) ||
-    typeof data.id !== "string"
-  ) {
+  if (!data || typeof data !== "object" || !("id" in data) || typeof data.id !== "string") {
     throw new Error(
       "The saved " +
         recordType +
@@ -46,11 +38,7 @@ function requireInsertedId(data: unknown, recordType: string): string {
   return data.id;
 }
 
-export function PatientLedgerImport({
-  clinicianId,
-  patients,
-  onImported,
-}: Props) {
+export function PatientLedgerImport({ clinicianId, patients, onImported }: Props) {
   const [open, setOpen] = useState(false);
   const [rows, setRows] = useState<ImportedPatientRow[]>([]);
   const [fileName, setFileName] = useState("");
@@ -60,21 +48,14 @@ export function PatientLedgerImport({
     const unique = new Map<string, ImportedPatientRow>();
 
     rows.forEach((row) => {
-      unique.set(
-        (row.phone || row.name).toLowerCase().replace(/\s/g, ""),
-        row,
-      );
+      unique.set((row.phone || row.name).toLowerCase().replace(/\s/g, ""), row);
     });
 
     const matches = rows.filter((row) =>
       patients.some(
         (patient) =>
-          (row.phone &&
-            patient.phone &&
-            row.phone.replace(/\D/g, "") ===
-              patient.phone.replace(/\D/g, "")) ||
-          patient.full_name.trim().toLowerCase() ===
-            row.name.trim().toLowerCase(),
+          (row.phone && patient.phone && row.phone.replace(/\D/g, "") === patient.phone.replace(/\D/g, "")) ||
+            patient.full_name.trim().toLowerCase() === row.name.trim().toLowerCase(),
       ),
     ).length;
 
@@ -96,12 +77,8 @@ export function PatientLedgerImport({
 
         const existing = patients.find(
           (patient) =>
-            (row.phone &&
-              patient.phone &&
-              row.phone.replace(/\D/g, "") ===
-                patient.phone.replace(/\D/g, "")) ||
-            patient.full_name.trim().toLowerCase() ===
-              row.name.trim().toLowerCase(),
+            (row.phone && patient.phone && row.phone.replace(/\D/g, "") === patient.phone.replace(/\D/g, "")) ||
+              patient.full_name.trim().toLowerCase() === row.name.trim().toLowerCase(),
         );
 
         if (existing) {
@@ -133,20 +110,10 @@ export function PatientLedgerImport({
         if (!patientId) continue;
 
         const planKey =
-          patientId +
-          "|" +
-          row.packageTitle +
-          "|" +
-          row.packageSessions +
-          "|" +
-          row.packageFee;
+          patientId + "|" + row.packageTitle + "|" + row.packageSessions + "|" + row.packageFee;
         let planId: string | null = null;
 
-        if (
-          row.packageTitle &&
-          row.packageSessions &&
-          row.packageFee != null
-        ) {
+        if (row.packageTitle && row.packageSessions && row.packageFee != null) {
           const existingPlanId = plans.get(planKey);
 
           if (existingPlanId) {
@@ -199,10 +166,7 @@ export function PatientLedgerImport({
                 .from("personal_patient_sessions")
                 .update({
                   status: row.sessionStatus,
-                  completed_at:
-                    row.sessionStatus === "completed"
-                      ? new Date().toISOString()
-                      : null,
+                  completed_at: row.sessionStatus === "completed" ? new Date().toISOString() : null,
                 })
                 .eq("id", sessionId)
                 .eq("patient_id", patientId)
@@ -214,17 +178,14 @@ export function PatientLedgerImport({
         }
 
         if (row.payment && row.payment > 0) {
-          const { error } = await personalPatientDb
-            .from("personal_patient_ledger")
-            .insert({
-              clinician_id: clinicianId,
-              patient_id: patientId,
-              entry_type: "payment",
-              amount: -row.payment,
-              description: "Payment imported from file",
-              reference:
-                "file-import:" + fileName + ":row-" + row.sourceRow,
-            });
+          const { error } = await personalPatientDb.from("personal_patient_ledger").insert({
+            clinician_id: clinicianId,
+            patient_id: patientId,
+            entry_type: "payment",
+            amount: -row.payment,
+            description: "Payment imported from file",
+            reference: "file-import:" + fileName + ":row-" + row.sourceRow,
+          });
 
           if (error) throw error;
         }
@@ -251,9 +212,7 @@ export function PatientLedgerImport({
     if (!file) return;
 
     if (!file.name.toLowerCase().endsWith(".csv")) {
-      toast.error(
-        "For now, export your Excel or Google Sheet as CSV, then upload that file.",
-      );
+      toast.error("For now, export your Excel or Google Sheet as CSV, then upload that file.");
       return;
     }
 
@@ -265,11 +224,7 @@ export function PatientLedgerImport({
       setFileName(file.name);
       setOpen(true);
     } catch (error) {
-      toast.error(
-        error instanceof Error
-          ? error.message
-          : "Could not read this CSV file.",
-      );
+      toast.error(error instanceof Error ? error.message : "Could not read this CSV file.");
     } finally {
       setBusyFile(false);
     }
@@ -281,11 +236,7 @@ export function PatientLedgerImport({
         variant="outline"
         size="sm"
         disabled={busyFile}
-        onClick={() =>
-          document
-            .getElementById("patient-ledger-import-file")
-            ?.click()
-        }
+        onClick={() => document.getElementById("patient-ledger-import-file")?.click()}
       >
         <FileUp className="mr-2 h-4 w-4" />
         {busyFile ? "Reading…" : "Import file"}
@@ -322,9 +273,7 @@ export function PatientLedgerImport({
               <p className="text-xl font-semibold">{summary.patients}</p>
             </div>
             <div className="rounded-lg border p-3">
-              <p className="text-xs text-muted-foreground">
-                Existing matches
-              </p>
+              <p className="text-xs text-muted-foreground">Existing matches</p>
               <p className="text-xl font-semibold">{summary.matches}</p>
             </div>
             <div className="rounded-lg border p-3">
@@ -356,24 +305,17 @@ export function PatientLedgerImport({
                     <td className="p-2">{row.phone || "—"}</td>
                     <td className="p-2">
                       {row.packageTitle || "—"}
-                      {row.packageSessions
-                        ? " (" + row.packageSessions + ")"
-                        : ""}
+                      {row.packageSessions ? " (" + row.packageSessions + ")" : ""}
                     </td>
                     <td className="p-2">
-                      {row.sessionDate
-                        ? new Date(row.sessionDate).toLocaleDateString()
-                        : "—"}
+                      {row.sessionDate ? new Date(row.sessionDate).toLocaleDateString() : "—"}
                     </td>
                     <td className="p-2">
-                      {row.sessionStatus ||
-                        (row.sessionDate ? "Unclear" : "—")}
+                      {row.sessionStatus || (row.sessionDate ? "Unclear" : "—")}
                     </td>
                     <td className="p-2">
                       {row.warnings.length ? (
-                        <span className="text-amber-600">
-                          {row.warnings.join(", ")}
-                        </span>
+                        <span className="text-amber-600">{row.warnings.join(", ")}</span>
                       ) : (
                         "—"
                       )}
@@ -386,8 +328,7 @@ export function PatientLedgerImport({
 
           {rows.length > 150 && (
             <p className="text-xs text-muted-foreground">
-              Showing first 150 of {rows.length} rows. All valid rows will be
-              processed.
+              Showing first 150 of {rows.length} rows. All valid rows will be processed.
             </p>
           )}
 
@@ -410,9 +351,7 @@ export function PatientLedgerImport({
               onClick={() => importMutation.mutate()}
               disabled={importMutation.isPending || !rows.length}
             >
-              {importMutation.isPending
-                ? "Importing…"
-                : "Confirm and import"}
+              {importMutation.isPending ? "Importing…" : "Confirm and import"}
             </Button>
           </DialogFooter>
         </DialogContent>
