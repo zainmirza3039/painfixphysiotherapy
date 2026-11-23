@@ -42,7 +42,7 @@ export async function createTreatmentCertificatePdf(s:TreatmentCertificateSnapsh
  pdf.setTitle(s.documentNumber+" | Physiotherapy Treatment & Payment Certificate");pdf.setAuthor("PainFix Physiotherapy Clinic");return pdf.save();
 }
 export async function downloadTreatmentCertificatePdf(s:TreatmentCertificateSnapshot) {
- const [f,l]=await Promise.all([fetch("/fonts/painfix-certificate-sans.ttf"),fetch("/painfix-logo.png")]);
+ const [f,l]=await Promise.all([fetch("/fonts/painfix-certificate-sans.ttf"),fetch("/painfix-icon-180.png"]);
  if(!f.ok)throw new Error("Certificate font could not be loaded.");
  const bytes=await createTreatmentCertificatePdf(s,{font:new Uint8Array(await f.arrayBuffer()),...(l.ok?{logo:new Uint8Array(await l.arrayBuffer())}:{})});
  const url=URL.createObjectURL(new Blob([new Uint8Array(bytes)],{type:"application/pdf"}));const a=document.createElement("a");a.href=url;a.download=s.documentNumber+".pdf";a.click();window.setTimeout(()=>URL.revokeObjectURL(url),60000);
