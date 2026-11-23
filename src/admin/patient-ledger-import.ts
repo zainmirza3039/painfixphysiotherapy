@@ -71,9 +71,7 @@ function parseDate(value: string): string | null {
   if (year < 100) year += 2000;
 
   const parsed = new Date(year, month, day);
-  return parsed.getFullYear() === year &&
-    parsed.getMonth() === month &&
-    parsed.getDate() === day
+  return parsed.getFullYear() === year && parsed.getMonth() === month && parsed.getDate() === day
     ? parsed.toISOString()
     : null;
 }
@@ -102,9 +100,7 @@ export function parsePatientCsv(text: string): ImportedPatientRow[] {
   ) as Record<keyof typeof aliases, number>;
 
   if (indexes.name < 0) {
-    throw new Error(
-      "Could not identify a patient-name column. Use a header such as Patient Name.",
-    );
+    throw new Error("Could not identify a patient-name column. Use a header such as Patient Name.");
   }
 
   const get = (cells: string[], key: keyof typeof aliases) =>
