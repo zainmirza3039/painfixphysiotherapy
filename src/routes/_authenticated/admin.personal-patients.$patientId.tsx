@@ -532,6 +532,7 @@ function PersonalPatientDetailPage() {
       id: string;
       status: "completed" | "cancelled" | "rescheduled";
     }) => {
+      if (!user?.id) throw new Error("Your admin session has expired. Sign in again.");
       const { error } = await personalPatientDb
         .from("personal_patient_sessions")
         .update({
