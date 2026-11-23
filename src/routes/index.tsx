@@ -24,7 +24,7 @@ import painfixSign1800 from "@/assets/hero.webp";
 
 const TITLE = "Physiotherapist in Multan | PainFix Physiotherapy Clinic";
 const DESCRIPTION =
-  "PainFix Physiotherapy Clinic in Multan treats back pain, sciatica, knee pain, injuries and offers home visits.";
+  "PainFix Physiotherapy Clinic in Shalimar Colony, Multan: back pain, sciatica, knee pain, injuries and home visits.";
 
 export const Route = createFileRoute("/")({
   loader: () => listPublicClinicians(),
