@@ -143,7 +143,8 @@ export function PatientTreatmentCertificate({
 
       const verificationToken = createVerificationToken();
       const issuedAt = new Date().toISOString();
-      const documentNumber = "PFX-PT-" + new Date().getFullYear() + "-" + crypto.randomUUID().slice(0, 8).toUpperCase();
+      const documentNumber =
+        "PFX-PT-" + new Date().getFullYear() + "-" + crypto.randomUUID().slice(0, 8).toUpperCase();
       const treatmentSummary =
         summary.trim() ||
         Array.from(
