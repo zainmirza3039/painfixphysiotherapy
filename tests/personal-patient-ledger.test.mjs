@@ -53,6 +53,22 @@ test("patient portal has noindex and no-referrer metadata", () => {
   assert.match(portal, /name: "referrer", content: "no-referrer"/);
 });
 
+test("ledger query failures are not silently presented as zero balances", () => {
+  assert.match(detail, /Could not load patient/);
+  assert.match(list, /Could not load patient financial records/);
+});
+
+test("adjustments can increase or reduce the patient balance", () => {
+  assert.match(detail, /correctionDirection === "reduce_due" \\? -amount : amount/);
+  assert.match(detail, /value="reduce_due">Reduce outstanding balance/);
+});
+
+test("patient lifecycle supports active, on-hold, discharged and archived", () => {
+  for (const status of ["active", "on_hold", "discharged", "archived"]) {
+    assert.ok(list.includes(`value="${status}"`));
+  }
+});
+
 test("portal functions do not use wildcard CORS", () => {
   assert.doesNotMatch(portalFunction, /Access-Control-Allow-Origin.*\*/);
   assert.doesNotMatch(manageFunction, /Access-Control-Allow-Origin.*\*/);
