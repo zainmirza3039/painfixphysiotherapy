@@ -147,16 +147,12 @@ function PersonalPatientsPage() {
         db.from("personal_patient_sessions").select("patient_id,status"),
         db.from("personal_patient_ledger").select("patient_id,entry_type,amount"),
       ]);
-      const s =
-        sessionsResult.status === "fulfilled"
-          ? sessionsResult.value
-          : { data: [], error: sessionsResult.reason };
-      const l =
-        ledgerResult.status === "fulfilled"
-          ? ledgerResult.value
-          : { data: [], error: ledgerResult.reason };
-      if (s.error) console.warn("Patient session summary could not be loaded:", s.error);
-      if (l.error) console.warn("Patient ledger summary could not be loaded:", l.error);
+      if (sessionsResult.status === "rejected") throw sessionsResult.reason;
+      if (ledgerResult.status === "rejected") throw ledgerResult.reason;
+      const s = sessionsResult.value;
+      const l = ledgerResult.value;
+      if (s.error) throw new Error(`Could not load patient sessions: ${s.error.message}`);
+      if (l.error) throw new Error(`Could not load patient financial records: ${l.error.message}`);
       return {
         patients: p.data as Patient[],
         sessions: s.data as Session[],
@@ -220,11 +216,20 @@ function PersonalPatientsPage() {
   });
 
   const updateStatus = useMutation({
-    mutationFn: async ({ id, status }: { id: string; status: "active" | "archived" }) => {
+    mutationFn: async ({
+      id,
+      status,
+    }: {
+      id: string;
+      status: "active" | "on_hold" | "discharged" | "archived";
+    }) => {
       const { error } = await personalPatientDb
         .from("personal_patients")
         .update({ status, archived_at: status === "archived" ? new Date().toISOString() : null })
-        .eq("id", id);
+        .eq("id", id)
+        .eq("clinician_id", user?.id ?? "")
+        .select("id")
+        .single();
       if (error) throw error;
     },
     onSuccess: async (_, variables) => {
@@ -381,20 +386,23 @@ function PersonalPatientsPage() {
                         {t.open}
                       </Link>
                     </Button>
-                    <Button
-                      type="button"
-                      variant="ghost"
-                      size="sm"
+                    <select
+                      aria-label={`Status for ${p.full_name}`}
+                      className="h-9 rounded-md border border-input bg-background px-2 text-xs"
+                      value={p.status}
                       disabled={updateStatus.isPending}
-                      onClick={() =>
+                      onChange={(event) =>
                         updateStatus.mutate({
                           id: p.id,
-                          status: p.status === "archived" ? "active" : "archived",
+                          status: event.target.value as "active" | "on_hold" | "discharged" | "archived",
                         })
                       }
                     >
-                      {p.status === "archived" ? t.restore : t.archive}
-                    </Button>
+                      <option value="active">Active</option>
+                      <option value="on_hold">On hold</option>
+                      <option value="discharged">Discharged</option>
+                      <option value="archived">Archived</option>
+                    </select>
                   </div>
                 </div>
               </article>
