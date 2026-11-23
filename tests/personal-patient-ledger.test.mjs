@@ -58,7 +58,7 @@ test("ledger query failures are not silently presented as zero balances", () => 
 });
 
 test("adjustments can increase or reduce the patient balance", () => {
-  assert.match(detail, /correctionDirection === "reduce_due" \\? -amount : amount/);
+  assert.match(detail, /correctionDirection === "reduce_due" \? -amount : amount/);
   assert.match(detail, /value="reduce_due">Reduce outstanding balance/);
 });
 
