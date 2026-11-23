@@ -8,6 +8,13 @@ import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 
 type ExistingPatient = { id: string; full_name: string; phone: string | null };
+
+function requireInsertedId(data: unknown, recordType: string): string {
+  if (!data || typeof data !== "object" || !("id" in data) || typeof data.id !== "string") {
+    throw new Error(`The saved ${recordType} could not be confirmed. Stop and review the import before retrying.`);
+  }
+  return data.id;
+}
 type Props = { clinicianId: string; patients: ExistingPatient[]; onImported: () => void };
 
 export function PatientLedgerImport({ clinicianId, patients, onImported }: Props) {
@@ -41,10 +48,10 @@ export function PatientLedgerImport({ clinicianId, patients, onImported }: Props
           .insert({ clinician_id: clinicianId, full_name: row.name, phone: row.phone || null, email: row.email || null })
           .select("id").single();
         if (error) throw error;
-        patientMap.set(key, data.id);
+        patientMap.set(key, requireInsertedId(data, "patient"));
       }
 
-      const plans = new Set<string>();
+      const plans = new Map<string, string>();
       const sessionKeys = new Set<string>();
       for (const row of rows) {
         const key = (row.phone || row.name).toLowerCase().replace(/\s/g, "");
@@ -53,13 +60,17 @@ export function PatientLedgerImport({ clinicianId, patients, onImported }: Props
         const planKey = patientId + "|" + row.packageTitle + "|" + row.packageSessions + "|" + row.packageFee;
         let planId: string | null = null;
         if (row.packageTitle && row.packageSessions && row.packageFee != null) {
-          if (!plans.has(planKey)) {
+          const existingPlanId = plans.get(planKey);
+          if (existingPlanId) {
+            planId = existingPlanId;
+          } else {
             const { data: plan, error } = await personalPatientDb.from("personal_patient_plans").insert({
               clinician_id: clinicianId, patient_id: patientId, plan_type: "package",
               title: row.packageTitle, package_sessions: row.packageSessions, package_fee: row.packageFee,
             }).select("id").single();
             if (error) throw error;
-            plans.add(planKey); planId = plan.id;
+            planId = requireInsertedId(plan, "billing plan");
+            plans.set(planKey, planId);
           }
         }
         if (row.sessionDate) {
@@ -71,11 +82,12 @@ export function PatientLedgerImport({ clinicianId, patients, onImported }: Props
               session_label: row.sessionLabel || "Imported session", charge_amount: 0,
             }).select("id").single();
             if (error) throw error;
+            const sessionId = requireInsertedId(session, "session");
             sessionKeys.add(sessionKey);
             if (row.sessionStatus && row.sessionStatus !== "scheduled") {
               const { error: updateError } = await personalPatientDb.from("personal_patient_sessions")
                 .update({ status: row.sessionStatus, completed_at: row.sessionStatus === "completed" ? new Date().toISOString() : null })
-                .eq("id", session.id).eq("patient_id", patientId).eq("clinician_id", clinicianId);
+                .eq("id", sessionId).eq("patient_id", patientId).eq("clinician_id", clinicianId);
               if (updateError) throw updateError;
             }
           }
