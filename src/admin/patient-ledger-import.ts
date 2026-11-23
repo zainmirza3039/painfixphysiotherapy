@@ -78,7 +78,7 @@ export function parsePatientCsv(text: string): ImportedPatientRow[] {
     const sessionDate = parseDate(dateRaw);
     if (dateRaw && !sessionDate) warnings.push("Unrecognised session date");
     const statusRaw = normalise(get(cells, "sessionStatus"));
-    const sessionStatus = statusRaw
+    const sessionStatus: ImportedPatientRow["sessionStatus"] = statusRaw
       ? statusRaw.includes("complete") || statusRaw === "done" ? "completed"
         : statusRaw.includes("cancel") ? "cancelled"
         : statusRaw.includes("resched") ? "rescheduled"
