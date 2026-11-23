@@ -257,7 +257,7 @@ function PersonalPatientsPage() {
         description={t.desc}
         actions={
           <div className="flex flex-wrap gap-2">
-          {user?.id && query.data?.patients && <PatientLedgerImport clinicianId={user.id} patients={query.data.patients} onImported={() => void qc.invalidateQueries({ queryKey: ["admin", "personal-patients", user.id] })} />}
+          {user?.id && <PatientLedgerImport clinicianId={user.id} patients={query.data?.patients ?? []} onImported={() => void qc.invalidateQueries({ queryKey: ["admin", "personal-patients", user.id] })} />}
           <Button size="sm" onClick={() => setOpen(true)}>
             <Plus className="mr-2 h-4 w-4" />
             {t.add}
