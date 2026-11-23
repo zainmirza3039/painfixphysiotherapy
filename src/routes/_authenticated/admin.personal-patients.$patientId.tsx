@@ -108,7 +108,9 @@ function PersonalPatientDetailPage() {
   const [editOpen, setEditOpen] = useState(false);
   const [correctionOpen, setCorrectionOpen] = useState(false);
   const [correctionType, setCorrectionType] = useState<"refund" | "adjustment">("refund");
-  const [correctionDirection, setCorrectionDirection] = useState<"increase_due" | "reduce_due">("increase_due");
+  const [correctionDirection, setCorrectionDirection] = useState<
+    "increase_due" | "reduce_due"
+  >("increase_due");
   const [correctionAmount, setCorrectionAmount] = useState("");
   const [correctionDescription, setCorrectionDescription] = useState("");
   const [editName, setEditName] = useState("");
@@ -481,7 +483,12 @@ function PersonalPatientDetailPage() {
         clinician_id: user.id,
         patient_id: patientId,
         entry_type: correctionType,
-        amount: correctionType === "refund" ? amount : correctionDirection === "reduce_due" ? -amount : amount,
+        amount:
+          correctionType === "refund"
+            ? amount
+            : correctionDirection === "reduce_due"
+              ? -amount
+              : amount,
         description:
           correctionDescription.trim() ||
           (correctionType === "refund" ? "Patient refund" : "Account adjustment"),
@@ -1057,7 +1064,9 @@ function PersonalPatientDetailPage() {
                 <select
                   className="h-10 w-full rounded-md border border-input bg-background px-3 text-sm"
                   value={correctionDirection}
-                  onChange={(event) => setCorrectionDirection(event.target.value as typeof correctionDirection)}
+                  onChange={(event) =>
+                    setCorrectionDirection(event.target.value as typeof correctionDirection)
+                  }
                 >
                   <option value="increase_due">Increase outstanding balance</option>
                   <option value="reduce_due">Reduce outstanding balance / add credit</option>
