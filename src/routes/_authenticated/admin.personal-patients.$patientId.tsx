@@ -671,7 +671,12 @@ function PersonalPatientDetailPage() {
           </div>
         ))}
       </div>
-      <PatientTreatmentCertificate clinicianId={user?.id ?? ""} patient={data.patient} sessions={data.sessions} ledger={data.ledger} />
+      <PatientTreatmentCertificate
+        clinicianId={user?.id ?? ""}
+        patient={data.patient}
+        sessions={data.sessions}
+        ledger={data.ledger}
+      />
       <div className="grid gap-4 xl:grid-cols-2">
         <section className="rounded-xl border border-border bg-card p-4">
           <div className="flex items-center justify-between gap-3">
