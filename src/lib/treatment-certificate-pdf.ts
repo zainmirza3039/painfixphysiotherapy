@@ -25,9 +25,7 @@ export function treatmentVerificationUrl(token: string) {
   }
 
   const origin =
-    typeof window !== "undefined"
-      ? window.location.origin
-      : "https://painfixphysiotherapy.com";
+    typeof window !== "undefined" ? window.location.origin : "https://painfixphysiotherapy.com";
 
   return origin + "/verify-certificate?type=treatment&reference=" + encodeURIComponent(token);
 }
