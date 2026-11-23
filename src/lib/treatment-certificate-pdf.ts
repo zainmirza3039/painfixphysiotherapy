@@ -8,7 +8,7 @@ export interface TreatmentCertificateSnapshot {
 }
 export function treatmentVerificationUrl(token:string) {
  if(!/^[a-f0-9]{64}$/.test(token)) throw new Error("Invalid verification token.");
- const origin=typeof window!=="undefined"?window.location.origin:"https://painfixphysiotherapy.com";return origin+"/verify-treatment-certificate?reference="+encodeURIComponent(token);
+ const origin=typeof window!=="undefined"?window.location.origin:"https://painfixphysiotherapy.com";return origin+"/verify-certificate?type=treatment&reference="+encodeURIComponent(token);
 }
 export async function createTreatmentCertificatePdf(s:TreatmentCertificateSnapshot,assets:{font:Uint8Array;logo?:Uint8Array}) {
  const pdf=await PDFDocument.create(); pdf.registerFontkit(fontkit);
