@@ -257,11 +257,21 @@ function PersonalPatientsPage() {
         description={t.desc}
         actions={
           <div className="flex flex-wrap gap-2">
-          {user?.id && <PatientLedgerImport clinicianId={user.id} patients={query.data?.patients ?? []} onImported={() => void qc.invalidateQueries({ queryKey: ["admin", "personal-patients", user.id] })} />}
-          <Button size="sm" onClick={() => setOpen(true)}>
-            <Plus className="mr-2 h-4 w-4" />
-            {t.add}
-          </Button>
+            {user?.id && (
+              <PatientLedgerImport
+                clinicianId={user.id}
+                patients={query.data?.patients ?? []}
+                onImported={() =>
+                  void qc.invalidateQueries({
+                    queryKey: ["admin", "personal-patients", user.id],
+                  })
+                }
+              />
+            )}
+            <Button size="sm" onClick={() => setOpen(true)}>
+              <Plus className="mr-2 h-4 w-4" />
+              {t.add}
+            </Button>
           </div>
         }
       />
@@ -400,7 +410,11 @@ function PersonalPatientsPage() {
                       onChange={(event) =>
                         updateStatus.mutate({
                           id: p.id,
-                          status: event.target.value as "active" | "on_hold" | "discharged" | "archived",
+                          status: event.target.value as
+                            | "active"
+                            | "on_hold"
+                            | "discharged"
+                            | "archived",
                         })
                       }
                     >
