@@ -477,12 +477,11 @@ function PersonalPatientDetailPage() {
       const amount = Number(correctionAmount);
       if (!Number.isFinite(amount) || amount <= 0)
         throw new Error("Enter an amount greater than zero.");
-      const adjustmentAmount = correctionDirection === "reduce_due" ? -amount : amount;
       const { error } = await personalPatientDb.from("personal_patient_ledger").insert({
         clinician_id: user.id,
         patient_id: patientId,
         entry_type: correctionType,
-        amount: correctionType === "adjustment" ? adjustmentAmount : amount,
+        amount: correctionType === "adjustment" && correctionDirection === "reduce_due" ? -amount : amount,
         description:
           correctionDescription.trim() ||
           (correctionType === "refund" ? "Patient refund" : "Account adjustment"),
