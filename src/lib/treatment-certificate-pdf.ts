@@ -8,7 +8,7 @@ export interface TreatmentCertificateSnapshot {
 }
 export function treatmentVerificationUrl(token:string) {
  if(!/^[a-f0-9]{64}$/.test(token)) throw new Error("Invalid verification token.");
- return "https://painfixphysiotherapy.com/verify-treatment-certificate?reference="+encodeURIComponent(token);
+ const origin=typeof window!=="undefined"?window.location.origin:"https://painfixphysiotherapy.com";return origin+"/verify-treatment-certificate?reference="+encodeURIComponent(token);
 }
 export async function createTreatmentCertificatePdf(s:TreatmentCertificateSnapshot,assets:{font:Uint8Array;logo?:Uint8Array}) {
  const pdf=await PDFDocument.create(); pdf.registerFontkit(fontkit);
@@ -30,7 +30,7 @@ export async function createTreatmentCertificatePdf(s:TreatmentCertificateSnapsh
  y=field("Treatment period",date(s.treatmentStart)+" to "+date(s.treatmentEnd),y-5);
  y=field("Completed physiotherapy sessions",String(s.completedSessions),y-5);
  y=field("Treatment / services provided",s.treatmentSummary,y-5);
- const ty=Math.max(y-18,250);page.drawRectangle({x:left,y:ty-6,width:right-left,height:22,color:navy});draw("FINANCIAL SUMMARY",left+10,ty+1,8,rgb(1,1,1));
+ const ty=Math.max(y-18,250);page.drawRectangle({x:left,y:ty-6,width:right-left,height:22,color:navy});draw("FINANCIAL SUMMARY — LEDGER TOTALS AT ISSUE DATE",left+10,ty+1,7,rgb(1,1,1));
  [["Total treatment charges",s.totalCharges],["Amount actually received",s.amountPaid],["Outstanding balance / (credit)",s.balance]].forEach(([label,amount],i)=>{const ry=ty-28-i*25;draw(String(label),left+8,ry,9,muted);draw("PKR "+Number(amount).toLocaleString("en-PK",{maximumFractionDigits:2}),365,ry,9,navy);page.drawLine({start:{x:left,y:ry-8},end:{x:right,y:ry-8},thickness:.35,color:rgb(.82,.85,.88)});});
  page.drawLine({start:{x:left,y:177},end:{x:right,y:177},thickness:.8,color:green});
  draw("Document number: "+s.documentNumber,left,160,8);draw("Issue date: "+new Date(s.issuedAt).toLocaleDateString("en-GB"),left,145,8,muted);
