@@ -6,6 +6,7 @@ import { Archive, CalendarCheck2, CircleDollarSign, Plus, Search, Users } from "
 import { personalPatientDb } from "@/admin/personal-patients.db";
 import { useAdminAuth } from "@/admin/AdminAuthProvider";
 import { AdminPageHeader } from "@/components/admin/AdminPageHeader";
+import { PatientLedgerImport } from "@/components/admin/PatientLedgerImport";
 import { AdminQueryError } from "@/components/admin/AdminQueryError";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -255,10 +256,13 @@ function PersonalPatientsPage() {
         title={t.title}
         description={t.desc}
         actions={
+          <div className="flex flex-wrap gap-2">
+          {user?.id && query.data?.patients && <PatientLedgerImport clinicianId={user.id} patients={query.data.patients} onImported={() => void qc.invalidateQueries({ queryKey: ["admin", "personal-patients", user.id] })} />}
           <Button size="sm" onClick={() => setOpen(true)}>
             <Plus className="mr-2 h-4 w-4" />
             {t.add}
           </Button>
+          </div>
         }
       />
       <div className="mb-5 grid gap-3 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-6">
