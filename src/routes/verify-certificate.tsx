@@ -37,7 +37,12 @@ export const Route = createFileRoute("/verify-certificate")({
     const reference = String(search.reference ?? "").trim();
     if (search.type === "treatment") {
       if (!/^[a-f0-9]{64}$/.test(reference)) {
-        return { reference, kind: "treatment" as const, treatmentResult: { status: "not_found" as const }, certificateResult: null };
+        return {
+          reference,
+          kind: "treatment" as const,
+          treatmentResult: { status: "not_found" as const },
+          certificateResult: null,
+        };
       }
       try {
         const { data, error } = await supabase.rpc(
@@ -47,15 +52,28 @@ export const Route = createFileRoute("/verify-certificate")({
         return {
           reference,
           kind: "treatment" as const,
-          treatmentResult: error || !data ? { status: "not_found" as const } : (data as TreatmentVerificationResult),
+          treatmentResult:
+            error || !data
+              ? { status: "not_found" as const }
+              : (data as TreatmentVerificationResult),
           certificateResult: null,
         };
       } catch {
-        return { reference, kind: "treatment" as const, treatmentResult: { status: "not_found" as const }, certificateResult: null };
+        return {
+          reference,
+          kind: "treatment" as const,
+          treatmentResult: { status: "not_found" as const },
+          certificateResult: null,
+        };
       }
     }
     if (!reference) {
-      return { reference: "", kind: "certificate" as const, treatmentResult: null, certificateResult: null };
+      return {
+        reference: "",
+        kind: "certificate" as const,
+        treatmentResult: null,
+        certificateResult: null,
+      };
     }
     try {
       return {
@@ -131,7 +149,9 @@ function TreatmentVerification({ result }: { result: TreatmentVerificationResult
           ["Completed sessions", String(result.completed_sessions ?? "—")],
           [
             "Amount received",
-            (result.currency ?? "PKR") + " " + Number(result.amount_paid ?? 0).toLocaleString("en-PK"),
+            (result.currency ?? "PKR") +
+              " " +
+              Number(result.amount_paid ?? 0).toLocaleString("en-PK"),
           ],
           [
             "Issue date",
