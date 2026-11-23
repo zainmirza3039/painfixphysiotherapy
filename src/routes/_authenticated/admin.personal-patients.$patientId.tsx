@@ -108,9 +108,9 @@ function PersonalPatientDetailPage() {
   const [editOpen, setEditOpen] = useState(false);
   const [correctionOpen, setCorrectionOpen] = useState(false);
   const [correctionType, setCorrectionType] = useState<"refund" | "adjustment">("refund");
-  const [correctionDirection, setCorrectionDirection] = useState<
-    "increase_due" | "reduce_due"
-  >("increase_due");
+  const [correctionDirection, setCorrectionDirection] = useState<"increase_due" | "reduce_due">(
+    "increase_due",
+  );
   const [correctionAmount, setCorrectionAmount] = useState("");
   const [correctionDescription, setCorrectionDescription] = useState("");
   const [editName, setEditName] = useState("");
