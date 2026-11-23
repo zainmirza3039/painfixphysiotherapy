@@ -348,7 +348,9 @@ function PersonalPatientsPage() {
                       ? t.hold
                       : p.status === "discharged"
                         ? t.discharged
-                        : t.activeStatus}
+                        : p.status === "archived"
+                          ? "Archived"
+                          : t.activeStatus}
                   </Badge>
                 </div>
                 <div className="mt-4 grid grid-cols-3 gap-2 border-t border-border pt-3 text-sm">
