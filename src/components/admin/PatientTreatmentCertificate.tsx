@@ -1,0 +1,49 @@
+import {useMemo,useState} from "react";
+import {useMutation,useQuery,useQueryClient} from "@tanstack/react-query";
+import {toast} from "sonner";
+import {FileCheck2,Download,Ban} from "lucide-react";
+import {personalPatientDb} from "@/admin/personal-patients.db";
+import {downloadTreatmentCertificatePdf,type TreatmentCertificateSnapshot} from "@/lib/treatment-certificate-pdf";
+import {Button} from "@/components/ui/button";import {Input} from "@/components/ui/input";import {Label} from "@/components/ui/label";import {Textarea} from "@/components/ui/textarea";import {Badge} from "@/components/ui/badge";
+import {Dialog,DialogContent,DialogDescription,DialogFooter,DialogHeader,DialogTitle} from "@/components/ui/dialog";
+type Patient={id:string;full_name:string};type Session={id:string;session_date:string;status:string;session_label:string|null};type Entry={entry_type:string;amount:number};
+type Doc={id:string;document_number:string;status:string;issued_at:string;snapshot:TreatmentCertificateSnapshot};
+const money=(n:number)=>new Intl.NumberFormat("en-PK",{style:"currency",currency:"PKR",maximumFractionDigits:0}).format(n);
+const token=()=>Array.from(crypto.getRandomValues(new Uint8Array(32)),b=>b.toString(16).padStart(2,"0")).join("");
+async function hash(v:string){const d=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(v));return Array.from(new Uint8Array(d),b=>b.toString(16).padStart(2,"0")).join("");}
+export function PatientTreatmentCertificate({clinicianId,patient,sessions,ledger}:{clinicianId:string;patient:Patient;sessions:Session[];ledger:Entry[]}) {
+ const qc=useQueryClient(),[open,setOpen]=useState(false),[diagnosis,setDiagnosis]=useState(""),[summary,setSummary]=useState(""),[start,setStart]=useState(""),[end,setEnd]=useState("");
+ const completed=useMemo(()=>sessions.filter(s=>s.status==="completed"),[sessions]);
+ const docs=useQuery({queryKey:["admin","personal-patient-treatment-documents",clinicianId,patient.id],enabled:!!clinicianId,queryFn:async()=>{const {data,error}=await personalPatientDb.from("personal_patient_treatment_documents").select("id,document_number,status,issued_at,snapshot").eq("patient_id",patient.id).order("issued_at",{ascending:false});if(error)throw error;return (data??[]) as Doc[];}});
+ const charges=ledger.filter(e=>e.entry_type==="charge").reduce((n,e)=>n+Number(e.amount),0);
+ const paid=ledger.filter(e=>e.entry_type==="payment").reduce((n,e)=>n+Math.abs(Number(e.amount)),0);
+ const balance=ledger.reduce((n,e)=>n+Number(e.amount),0);
+ const issue=useMutation({mutationFn:async()=>{
+  if(!clinicianId)throw new Error("Please sign in again.");if(!completed.length)throw new Error("No completed sessions are recorded.");
+  if(!diagnosis.trim())throw new Error("Enter the documented diagnosis or presenting condition.");
+  if(!start||!end||start>end)throw new Error("Select a valid treatment period.");
+  const selected=completed.filter(s=>{const d=new Date(s.session_date).toISOString().slice(0,10);return d>=start&&d<=end;});
+  if(!selected.length)throw new Error("No completed sessions fall within this treatment period.");
+  const verificationToken=token(),issuedAt=new Date().toISOString(),documentNumber="PFX-PT-"+new Date().getFullYear()+"-"+crypto.randomUUID().slice(0,8).toUpperCase();
+  const treatmentSummary=summary.trim()||Array.from(new Set(selected.map(s=>s.session_label?.trim()).filter(Boolean))).join("; ")||"Physiotherapy sessions as recorded in the clinic ledger.";
+  const snapshot:TreatmentCertificateSnapshot={patientName:patient.full_name,diagnosis:diagnosis.trim(),treatmentStart:start,treatmentEnd:end,completedSessions:selected.length,treatmentSummary,totalCharges:charges,amountPaid:paid,balance,issuedAt,documentNumber,verificationToken};
+  const publicSnapshot={patient:patient.full_name.trim().slice(0,1)+"••••",treatment_start:start,treatment_end:end,completed_sessions:selected.length,amount_paid:paid};
+  const {error}=await personalPatientDb.from("personal_patient_treatment_documents").insert({clinician_id:clinicianId,patient_id:patient.id,document_number:documentNumber,verification_token_hash:await hash(verificationToken),snapshot,public_snapshot:publicSnapshot});
+  if(error)throw error;await downloadTreatmentCertificatePdf(snapshot);return documentNumber;
+ },onSuccess:async n=>{await qc.invalidateQueries({queryKey:["admin","personal-patient-treatment-documents",clinicianId,patient.id]});toast.success("Certificate issued: "+n);setOpen(false);},onError:e=>toast.error(e instanceof Error?e.message:"Could not issue certificate.")});
+ const revoke=useMutation({mutationFn:async(id:string)=>{const reason=window.prompt("Reason for revoking this certificate:");if(!reason?.trim())throw new Error("A revocation reason is required.");const {error}=await personalPatientDb.from("personal_patient_treatment_documents").update({status:"revoked",revoked_at:new Date().toISOString(),revoked_reason:reason.trim()}).eq("id",id).eq("clinician_id",clinicianId).select("id").single();if(error)throw error;},onSuccess:async()=>{await qc.invalidateQueries({queryKey:["admin","personal-patient-treatment-documents",clinicianId,patient.id]});toast.success("Certificate revoked.");},onError:e=>toast.error(e instanceof Error?e.message:"Could not revoke certificate.")});
+ const prepare=()=>{const ds=completed.map(s=>new Date(s.session_date).toISOString().slice(0,10)).sort();setStart(ds[0]??"");setEnd(ds.at(-1)??"");setSummary(Array.from(new Set(completed.map(s=>s.session_label?.trim()).filter(Boolean))).join("; "));setDiagnosis("");setOpen(true);};
+ return <section className="rounded-xl border border-border bg-card p-4">
+  <div className="flex flex-wrap items-center justify-between gap-3"><div><div className="flex items-center gap-2"><FileCheck2 className="h-5 w-5 text-muted-foreground"/><h2 className="font-semibold">Treatment & payment certificates</h2></div><p className="mt-1 text-sm text-muted-foreground">Issue a PDF certificate with QR-based online verification.</p></div><Button onClick={prepare} disabled={!completed.length}><FileCheck2 className="mr-2 h-4 w-4"/>Issue certificate</Button></div>
+  {!completed.length&&<p className="mt-3 text-sm text-muted-foreground">Complete and record treatment sessions before issuing a certificate.</p>}
+  {docs.isLoading?<p className="mt-4 text-sm text-muted-foreground">Loading issued documents…</p>:docs.isError?<p className="mt-4 text-sm text-destructive">Could not load issued certificates.</p>:docs.data?.length?<div className="mt-4 divide-y divide-border">{docs.data.map(doc=><div key={doc.id} className="flex flex-wrap items-center justify-between gap-3 py-3"><div><p className="font-medium">{doc.document_number}</p><p className="text-xs text-muted-foreground">Issued {new Date(doc.issued_at).toLocaleDateString("en-PK")}</p></div><div className="flex items-center gap-2"><Badge variant={doc.status==="valid"?"default":"destructive"}>{doc.status}</Badge>{doc.status==="valid"&&<Button size="sm" variant="outline" onClick={()=>revoke.mutate(doc.id)} disabled={revoke.isPending}><Ban className="mr-1 h-4 w-4"/>Revoke</Button>}<Button size="sm" variant="outline" onClick={()=>void downloadTreatmentCertificatePdf(doc.snapshot).catch(e=>toast.error(e.message))}><Download className="mr-1 h-4 w-4"/>Download PDF</Button></div></div>)}</div>:<p className="mt-4 text-sm text-muted-foreground">No treatment certificates issued for this patient.</p>}
+  <Dialog open={open} onOpenChange={v=>!issue.isPending&&setOpen(v)}><DialogContent className="sm:max-w-xl"><DialogHeader><DialogTitle>Physiotherapy Treatment & Payment Certificate</DialogTitle><DialogDescription>Only completed sessions within the selected period are included. Issued documents are immutable snapshots.</DialogDescription></DialogHeader>
+   <div className="space-y-3"><div className="space-y-1"><Label>Patient</Label><Input value={patient.full_name} readOnly/></div><div className="space-y-1"><Label>Diagnosis / presenting condition</Label><Input value={diagnosis} onChange={e=>setDiagnosis(e.target.value)} maxLength={240} placeholder="Enter documented diagnosis"/></div>
+   <div className="grid grid-cols-2 gap-3"><div className="space-y-1"><Label>Treatment start</Label><Input type="date" value={start} onChange={e=>setStart(e.target.value)}/></div><div className="space-y-1"><Label>Treatment end</Label><Input type="date" value={end} onChange={e=>setEnd(e.target.value)}/></div></div>
+   <div className="space-y-1"><Label>Treatment / services provided</Label><Textarea rows={3} value={summary} onChange={e=>setSummary(e.target.value)} maxLength={1200} placeholder="Documented treatment details only; do not include private notes."/></div>
+   <div className="rounded-lg border p-3 text-sm"><div className="flex justify-between"><span>Completed sessions in period</span><strong>{completed.filter(s=>{const d=new Date(s.session_date).toISOString().slice(0,10);return d>=start&&d<=end;}).length}</strong></div><div className="mt-2 flex justify-between"><span>Total charges</span><strong>{money(charges)}</strong></div><div className="mt-2 flex justify-between"><span>Amount received</span><strong>{money(paid)}</strong></div><div className="mt-2 flex justify-between"><span>Outstanding balance / (credit)</span><strong>{money(balance)}</strong></div></div>
+   <p className="text-xs text-muted-foreground">Public verification shows only a masked patient label, treatment dates, completed session count and amount received. Diagnosis and treatment details remain in the PDF. Reimbursement is not guaranteed.</p></div>
+   <DialogFooter><Button variant="outline" onClick={()=>setOpen(false)}>Cancel</Button><Button onClick={()=>issue.mutate()} disabled={issue.isPending||!diagnosis.trim()||!start||!end}>{issue.isPending?"Issuing…":"Issue & download PDF"}</Button></DialogFooter>
+  </DialogContent></Dialog>
+ </section>;
+}
