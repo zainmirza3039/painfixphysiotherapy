@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, Outlet, useRouterState } from "@tanstack/react-router";
 import { useEffect, useMemo, useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
@@ -118,6 +118,7 @@ function PersonalPatientsPage() {
   const [email, setEmail] = useState("");
   const [notes, setNotes] = useState("");
   const [showArchived, setShowArchived] = useState(false);
+  const pathname = useRouterState({ select: (state) => state.location.pathname });
   const t = words[lang];
 
   useEffect(() => {
@@ -233,6 +234,10 @@ function PersonalPatientsPage() {
     onError: (e) =>
       toast.error(e instanceof Error ? e.message : "Could not update patient status."),
   });
+
+  if (pathname.startsWith("/admin/personal-patients/")) {
+    return <Outlet />;
+  }
 
   return (
     <div className="personal-patients-portal" dir={lang === "ur" ? "rtl" : "ltr"}>
