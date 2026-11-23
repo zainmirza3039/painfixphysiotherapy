@@ -481,7 +481,7 @@ function PersonalPatientDetailPage() {
         clinician_id: user.id,
         patient_id: patientId,
         entry_type: correctionType,
-        amount: correctionType === "adjustment" && correctionDirection === "reduce_due" ? -amount : amount,
+        amount: correctionType === "refund" ? amount : correctionDirection === "reduce_due" ? -amount : amount,
         description:
           correctionDescription.trim() ||
           (correctionType === "refund" ? "Patient refund" : "Account adjustment"),
