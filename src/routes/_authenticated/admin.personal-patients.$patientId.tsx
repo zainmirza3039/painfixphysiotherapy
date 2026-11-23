@@ -1181,7 +1181,7 @@ function PersonalPatientDetailPage() {
             <Button
               variant="destructive"
               className="w-full"
-              disabled={managePortal.isPending || !portalUrl}
+              disabled={managePortal.isPending}
               onClick={() => managePortal.mutate("revoke")}
             >
               {language === "ur" ? "پورٹل رسائی بند کریں" : "Disable patient portal access"}
