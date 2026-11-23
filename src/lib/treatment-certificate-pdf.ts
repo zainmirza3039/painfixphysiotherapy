@@ -4,7 +4,7 @@ import QRCode from "qrcode";
 export interface TreatmentCertificateSnapshot {
  patientName:string; diagnosis:string; treatmentStart:string; treatmentEnd:string;
  completedSessions:number; treatmentSummary:string; totalCharges:number; amountPaid:number;
- balance:number; issuedAt:string; documentNumber:string; verificationToken:string;
+ balance:number; issuedAt:string; documentNumber:string; verificationToken:string; patientConsentConfirmedAt:string; patientConsentStatement:string;
 }
 export function treatmentVerificationUrl(token:string) {
  if(!/^[a-f0-9]{64}$/.test(token)) throw new Error("Invalid verification token.");
