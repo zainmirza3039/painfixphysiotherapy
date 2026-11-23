@@ -108,6 +108,7 @@ function PersonalPatientDetailPage() {
   const [editOpen, setEditOpen] = useState(false);
   const [correctionOpen, setCorrectionOpen] = useState(false);
   const [correctionType, setCorrectionType] = useState<"refund" | "adjustment">("refund");
+  const [correctionDirection, setCorrectionDirection] = useState<"increase_due" | "reduce_due">("increase_due");
   const [correctionAmount, setCorrectionAmount] = useState("");
   const [correctionDescription, setCorrectionDescription] = useState("");
   const [editName, setEditName] = useState("");
@@ -250,8 +251,9 @@ function PersonalPatientDetailPage() {
         ["ledger", ledgerResult],
         ["audit history", auditResult],
       ] as const) {
-        if (result.error)
-          console.warn(`Personal patient ${label} could not be loaded:`, result.error);
+        if (result.error) {
+          throw new Error(`Could not load patient ${label}: ${result.error.message}`);
+        }
       }
       return {
         patient: p.data as Patient,
@@ -456,7 +458,9 @@ function PersonalPatientDetailPage() {
           private_notes: editNotes.trim() || null,
         })
         .eq("id", patientId)
-        .eq("clinician_id", user.id);
+        .eq("clinician_id", user.id)
+        .select("id")
+        .single();
       if (error) throw error;
     },
     onSuccess: async () => {
@@ -477,7 +481,7 @@ function PersonalPatientDetailPage() {
         clinician_id: user.id,
         patient_id: patientId,
         entry_type: correctionType,
-        amount,
+        amount: correctionType === "adjustment" && correctionDirection === "reduce_due" ? -amount : amount,
         description:
           correctionDescription.trim() ||
           (correctionType === "refund" ? "Patient refund" : "Account adjustment"),
@@ -490,6 +494,7 @@ function PersonalPatientDetailPage() {
       setCorrectionOpen(false);
       setCorrectionAmount("");
       setCorrectionDescription("");
+      setCorrectionDirection("increase_due");
       toast.success("Ledger correction recorded as an immutable entry.");
     },
     onError: (e) => toast.error(e instanceof Error ? e.message : "Could not record correction."),
@@ -533,7 +538,11 @@ function PersonalPatientDetailPage() {
           status,
           completed_at: status === "completed" ? new Date().toISOString() : null,
         })
-        .eq("id", id);
+        .eq("id", id)
+        .eq("patient_id", patientId)
+        .eq("clinician_id", user.id)
+        .select("id")
+        .single();
       if (error) throw error;
     },
     onSuccess: async () => {
@@ -1041,6 +1050,19 @@ function PersonalPatientDetailPage() {
                 <option value="adjustment">Adjustment</option>
               </select>
             </div>
+            {correctionType === "adjustment" && (
+              <div className="space-y-1">
+                <Label>Adjustment effect</Label>
+                <select
+                  className="h-10 w-full rounded-md border border-input bg-background px-3 text-sm"
+                  value={correctionDirection}
+                  onChange={(event) => setCorrectionDirection(event.target.value as typeof correctionDirection)}
+                >
+                  <option value="increase_due">Increase outstanding balance</option>
+                  <option value="reduce_due">Reduce outstanding balance / add credit</option>
+                </select>
+              </div>
+            )}
             <div className="space-y-1">
               <Label>Amount (PKR)</Label>
               <Input
