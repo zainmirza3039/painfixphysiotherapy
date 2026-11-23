@@ -16,7 +16,7 @@ function corsHeaders(req: Request) {
   );
   const isProjectPreview =
     origin != null &&
-    /^https:\/\/painfixphysiotherapy-[a-z0-9-]+-zainmirza3039s-projects\\.vercel\\.app$/.test(origin);
+    /^https:\/\/painfixphysiotherapy-[a-z0-9-]+-zainmirza3039s-projects\.vercel\.app$/.test(origin);
   return {
     ...baseCorsHeaders,
     ...(origin && (allowed.has(origin) || isProjectPreview)
