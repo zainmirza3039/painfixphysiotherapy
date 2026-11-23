@@ -59,13 +59,8 @@ const localDay = (value: string) => {
 };
 
 async function sha256(value: string) {
-  const digest = await crypto.subtle.digest(
-    "SHA-256",
-    new TextEncoder().encode(value),
-  );
-  return Array.from(new Uint8Array(digest), (byte) =>
-    byte.toString(16).padStart(2, "0"),
-  ).join("");
+  const digest = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(value));
+  return Array.from(new Uint8Array(digest), (byte) => byte.toString(16).padStart(2, "0")).join("");
 }
 
 export function PatientTreatmentCertificate({
@@ -93,12 +88,7 @@ export function PatientTreatmentCertificate({
   );
 
   const documents = useQuery({
-    queryKey: [
-      "admin",
-      "personal-patient-treatment-documents",
-      clinicianId,
-      patient.id,
-    ],
+    queryKey: ["admin", "personal-patient-treatment-documents", clinicianId, patient.id],
     enabled: Boolean(clinicianId),
     queryFn: async () => {
       const { data, error } = await personalPatientDb
@@ -120,15 +110,9 @@ export function PatientTreatmentCertificate({
     .reduce((total, entry) => total + Math.abs(Number(entry.amount)), 0);
   const refunds = ledger
     .filter((entry) => entry.entry_type === "refund")
-    .reduce(
-      (total, entry) => total + Math.max(0, Number(entry.amount)),
-      0,
-    );
+    .reduce((total, entry) => total + Math.max(0, Number(entry.amount)), 0);
   const paid = Math.max(0, payments - refunds);
-  const balance = ledger.reduce(
-    (total, entry) => total + Number(entry.amount),
-    0,
-  );
+  const balance = ledger.reduce((total, entry) => total + Number(entry.amount), 0);
 
   const issue = useMutation({
     mutationFn: async () => {
@@ -154,26 +138,16 @@ export function PatientTreatmentCertificate({
       });
 
       if (!selected.length) {
-        throw new Error(
-          "No completed sessions fall within this treatment period.",
-        );
+        throw new Error("No completed sessions fall within this treatment period.");
       }
 
       const verificationToken = createVerificationToken();
       const issuedAt = new Date().toISOString();
-      const documentNumber =
-        "PFX-PT-" +
-        new Date().getFullYear() +
-        "-" +
-        crypto.randomUUID().slice(0, 8).toUpperCase();
+      const documentNumber = "PFX-PT-" + new Date().getFullYear() + "-" + crypto.randomUUID().slice(0, 8).toUpperCase();
       const treatmentSummary =
         summary.trim() ||
         Array.from(
-          new Set(
-            selected
-              .map((session) => session.session_label?.trim())
-              .filter(Boolean),
-          ),
+          new Set(selected.map((session) => session.session_label?.trim()).filter(Boolean)),
         ).join("; ") ||
         "Physiotherapy sessions as recorded in the clinic ledger.";
 
@@ -226,11 +200,7 @@ export function PatientTreatmentCertificate({
       setOpen(false);
     },
     onError: (error) => {
-      toast.error(
-        error instanceof Error
-          ? error.message
-          : "Could not issue certificate.",
-      );
+      toast.error(error instanceof Error ? error.message : "Could not issue certificate.");
     },
   });
 
@@ -257,12 +227,7 @@ export function PatientTreatmentCertificate({
     },
     onSuccess: async () => {
       await queryClient.invalidateQueries({
-        queryKey: [
-          "admin",
-          "personal-patient-treatment-documents",
-          clinicianId,
-          patient.id,
-        ],
+        queryKey: ["admin", "personal-patient-treatment-documents", clinicianId, patient.id],
       });
       toast.success("Certificate revoked.");
     },
@@ -378,8 +343,8 @@ export function PatientTreatmentCertificate({
           <DialogHeader>
             <DialogTitle>Physiotherapy Treatment &amp; Payment Certificate</DialogTitle>
             <DialogDescription>
-              Only completed sessions within the selected period are included. Issued
-              documents are immutable snapshots.
+              Only completed sessions within the selected period are included. Issued documents are
+              immutable snapshots.
             </DialogDescription>
           </DialogHeader>
 
