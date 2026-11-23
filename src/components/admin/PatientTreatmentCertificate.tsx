@@ -220,12 +220,7 @@ export function PatientTreatmentCertificate({
     },
     onSuccess: async (documentNumber) => {
       await queryClient.invalidateQueries({
-        queryKey: [
-          "admin",
-          "personal-patient-treatment-documents",
-          clinicianId,
-          patient.id,
-        ],
+        queryKey: ["admin", "personal-patient-treatment-documents", clinicianId, patient.id],
       });
       toast.success("Certificate issued: " + documentNumber);
       setOpen(false);
@@ -272,27 +267,17 @@ export function PatientTreatmentCertificate({
       toast.success("Certificate revoked.");
     },
     onError: (error) => {
-      toast.error(
-        error instanceof Error
-          ? error.message
-          : "Could not revoke certificate.",
-      );
+      toast.error(error instanceof Error ? error.message : "Could not revoke certificate.");
     },
   });
 
   const prepareIssue = () => {
-    const dates = completed
-      .map((session) => localDay(session.session_date))
-      .sort();
+    const dates = completed.map((session) => localDay(session.session_date)).sort();
     setStart(dates[0] ?? "");
     setEnd(dates.at(-1) ?? "");
     setSummary(
       Array.from(
-        new Set(
-          completed
-            .map((session) => session.session_label?.trim())
-            .filter(Boolean),
-        ),
+        new Set(completed.map((session) => session.session_label?.trim()).filter(Boolean)),
       ).join("; "),
     );
     setDiagnosis("");
@@ -311,9 +296,7 @@ export function PatientTreatmentCertificate({
         <div>
           <div className="flex items-center gap-2">
             <FileCheck2 className="h-5 w-5 text-muted-foreground" />
-            <h2 className="font-semibold">
-              Treatment &amp; payment certificates
-            </h2>
+            <h2 className="font-semibold">Treatment &amp; payment certificates</h2>
           </div>
           <p className="mt-1 text-sm text-muted-foreground">
             Issue a PDF certificate with QR-based online verification.
@@ -332,13 +315,9 @@ export function PatientTreatmentCertificate({
       )}
 
       {documents.isLoading ? (
-        <p className="mt-4 text-sm text-muted-foreground">
-          Loading issued documents…
-        </p>
+        <p className="mt-4 text-sm text-muted-foreground">Loading issued documents…</p>
       ) : documents.isError ? (
-        <p className="mt-4 text-sm text-destructive">
-          Could not load issued certificates.
-        </p>
+        <p className="mt-4 text-sm text-destructive">Could not load issued certificates.</p>
       ) : documents.data?.length ? (
         <div className="mt-4 divide-y divide-border">
           {documents.data.map((document) => (
@@ -349,16 +328,11 @@ export function PatientTreatmentCertificate({
               <div>
                 <p className="font-medium">{document.document_number}</p>
                 <p className="text-xs text-muted-foreground">
-                  Issued{" "}
-                  {new Date(document.issued_at).toLocaleDateString("en-PK")}
+                  Issued {new Date(document.issued_at).toLocaleDateString("en-PK")}
                 </p>
               </div>
               <div className="flex items-center gap-2">
-                <Badge
-                  variant={
-                    document.status === "valid" ? "default" : "destructive"
-                  }
-                >
+                <Badge variant={document.status === "valid" ? "default" : "destructive"}>
                   {document.status}
                 </Badge>
                 {document.status === "valid" && (
@@ -376,9 +350,9 @@ export function PatientTreatmentCertificate({
                   size="sm"
                   variant="outline"
                   onClick={() =>
-                    void downloadTreatmentCertificatePdf(
-                      document.snapshot,
-                    ).catch((error: Error) => toast.error(error.message))
+                    void downloadTreatmentCertificatePdf(document.snapshot).catch((error: Error) =>
+                      toast.error(error.message),
+                    )
                   }
                 >
                   <Download className="mr-1 h-4 w-4" />
@@ -402,12 +376,10 @@ export function PatientTreatmentCertificate({
       >
         <DialogContent className="sm:max-w-xl">
           <DialogHeader>
-            <DialogTitle>
-              Physiotherapy Treatment &amp; Payment Certificate
-            </DialogTitle>
+            <DialogTitle>Physiotherapy Treatment &amp; Payment Certificate</DialogTitle>
             <DialogDescription>
-              Only completed sessions within the selected period are included.
-              Issued documents are immutable snapshots.
+              Only completed sessions within the selected period are included. Issued
+              documents are immutable snapshots.
             </DialogDescription>
           </DialogHeader>
 
@@ -436,11 +408,7 @@ export function PatientTreatmentCertificate({
               </div>
               <div className="space-y-1">
                 <Label>Treatment end</Label>
-                <Input
-                  type="date"
-                  value={end}
-                  onChange={(event) => setEnd(event.target.value)}
-                />
+                <Input type="date" value={end} onChange={(event) => setEnd(event.target.value)} />
               </div>
             </div>
             <div className="space-y-1">
@@ -456,8 +424,7 @@ export function PatientTreatmentCertificate({
 
             <div className="rounded-lg border p-3 text-sm">
               <p className="mb-2 text-xs text-muted-foreground">
-                Financial figures reflect the patient ledger at the time of
-                issue.
+                Financial figures reflect the patient ledger at the time of issue.
               </p>
               <div className="flex justify-between">
                 <span>Completed sessions in period</span>
@@ -485,16 +452,15 @@ export function PatientTreatmentCertificate({
                 className="mt-1"
               />
               <span>
-                I confirm the patient has consented to sharing this treatment
-                and payment certificate with the receiving organization. Public
-                QR verification reveals only limited, masked details.
+                I confirm the patient has consented to sharing this treatment and payment
+                certificate with the receiving organization. Public QR verification reveals only
+                limited, masked details.
               </span>
             </label>
             <p className="text-xs text-muted-foreground">
-              Public verification shows only a masked patient label, treatment
-              dates, completed session count and amount received. Diagnosis and
-              treatment details remain in the PDF. Reimbursement is not
-              guaranteed.
+              Public verification shows only a masked patient label, treatment dates, completed
+              session count and amount received. Diagnosis and treatment details remain in the PDF.
+              Reimbursement is not guaranteed.
             </p>
           </div>
 
@@ -504,13 +470,7 @@ export function PatientTreatmentCertificate({
             </Button>
             <Button
               onClick={() => issue.mutate()}
-              disabled={
-                issue.isPending ||
-                !diagnosis.trim() ||
-                !start ||
-                !end ||
-                !consent
-              }
+              disabled={issue.isPending || !diagnosis.trim() || !start || !end || !consent}
             >
               {issue.isPending ? "Issuing…" : "Issue & download PDF"}
             </Button>
