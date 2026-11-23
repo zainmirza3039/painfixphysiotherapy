@@ -14,9 +14,12 @@ function corsHeaders(req: Request) {
       Deno.env.get("PREVIEW_ORIGIN"),
     ].filter((value): value is string => Boolean(value)),
   );
+  const isProjectPreview =
+    origin != null &&
+    /^https:\/\/painfixphysiotherapy-[a-z0-9-]+-zainmirza3039s-projects\\.vercel\\.app$/.test(origin);
   return {
     ...baseCorsHeaders,
-    ...(origin && allowed.has(origin)
+    ...(origin && (allowed.has(origin) || isProjectPreview)
       ? { "Access-Control-Allow-Origin": origin, Vary: "Origin" }
       : {}),
   };
