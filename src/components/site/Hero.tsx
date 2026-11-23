@@ -26,7 +26,7 @@ export function Hero() {
         </h1>
         <div className="home-hero__content">
           <p className="home-hero__description">
-            Looking for a physiotherapist in Multan or a physiotherapy clinic near you? PainFix provides assessment-led physiotherapy and rehabilitation, with clinic appointments and home visits in Multan.
+            Looking for a physiotherapist in Multan or a physiotherapy clinic near you? PainFix provides assessment-led physiotherapy for back pain, sciatica, knee pain, injuries and rehabilitation, with clinic appointments and home physiotherapy visits across Multan.
           </p>
           <p className="home-hero__tagline">Move Better. Recover Faster. Live Pain-Free.</p>
           <div className="home-hero__actions">
