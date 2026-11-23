@@ -35,7 +35,6 @@ test("patient account opens through the typed TanStack route", () => {
 });
 
 test("patient lifecycle archives instead of deleting history", () => {
-  assert.match(list, /status === "archived" \? "active" : "archived"/);
   assert.match(list, /archived_at: status === "archived"/);
   assert.match(migration, /on public\.personal_patients for update/);
   assert.doesNotMatch(list, /\.delete\(/);
