@@ -102,9 +102,7 @@ export function PatientLedgerImport({ clinicianId, patients, onImported }: Props
     },
     onError: (error) =>
       toast.error(
-        error instanceof Error
-          ? error.message
-          : "Import failed. No partial batch was committed.",
+        error instanceof Error ? error.message : "Import failed. No partial batch was committed.",
       ),
   });
 
