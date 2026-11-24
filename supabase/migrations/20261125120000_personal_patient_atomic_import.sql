@@ -27,6 +27,9 @@ declare
   v_title text;
   v_sessions integer;
   v_fee numeric(12,2);
+  v_session_fee numeric(12,2);
+  v_plan_type text;
+  v_session_charge numeric(12,2) := 0;
   v_session_date timestamptz;
   v_session_id uuid;
   v_session_status text;
@@ -60,6 +63,7 @@ begin
     v_title := nullif(trim(v_row->>'packageTitle'), '');
     v_sessions := nullif(v_row->>'packageSessions', '')::integer;
     v_fee := nullif(v_row->>'packageFee', '')::numeric(12,2);
+    v_session_fee := nullif(v_row->>'sessionFee', '')::numeric(12,2);
     v_session_date := nullif(v_row->>'sessionDate', '')::timestamptz;
     v_session_status := nullif(v_row->>'sessionStatus', '');
     v_session_label := nullif(trim(v_row->>'sessionLabel'), '');
@@ -74,6 +78,16 @@ begin
     end if;
     if v_payment is not null and v_payment < 0 then
       raise exception 'Payment cannot be negative.';
+    end if;
+    if v_session_fee is not null and v_session_fee < 0 then
+      raise exception 'Per-session fee cannot be negative.';
+    end if;
+    if (v_title is not null or v_sessions is not null or v_fee is not null)
+       and (v_title is null or v_sessions is null or v_fee is null) then
+      raise exception 'Package title, session count and package fee must be supplied together.';
+    end if;
+    if v_fee is not null and v_session_fee is not null and v_session_fee > 0 then
+      raise exception 'A package row cannot also have a per-session fee.';
     end if;
     if v_session_status is not null and v_session_status not in ('scheduled','completed','cancelled','rescheduled') then
       v_session_status := null;
@@ -105,8 +119,10 @@ begin
     end if;
 
     v_plan := null;
+    v_plan_type := null;
+    v_session_charge := 0;
     if v_title is not null and v_sessions is not null and v_fee is not null then
-      select p.id into v_plan
+      select p.id, p.plan_type into v_plan, v_plan_type
       from public.personal_patient_plans p
       where p.clinician_id = v_clinician
         and p.patient_id = v_patient
@@ -122,7 +138,27 @@ begin
         ) values (
           v_clinician, v_patient, 'package', v_title, v_sessions, v_fee
         ) returning id into v_plan;
+        v_plan_type := 'package';
       end if;
+    elsif v_session_fee is not null then
+      select p.id, p.plan_type into v_plan, v_plan_type
+      from public.personal_patient_plans p
+      where p.clinician_id = v_clinician
+        and p.patient_id = v_patient
+        and p.plan_type = 'per_session'
+        and p.title = 'Imported per-session treatment'
+        and p.per_session_fee = v_session_fee
+      order by p.created_at desc
+      limit 1;
+      if v_plan is null then
+        insert into public.personal_patient_plans (
+          clinician_id, patient_id, plan_type, title, per_session_fee
+        ) values (
+          v_clinician, v_patient, 'per_session', 'Imported per-session treatment', v_session_fee
+        ) returning id into v_plan;
+        v_plan_type := 'per_session';
+      end if;
+      v_session_charge := v_session_fee;
     end if;
 
     if v_session_date is not null then
@@ -138,7 +174,7 @@ begin
           session_label, charge_amount
         ) values (
           v_clinician, v_patient, v_plan, v_session_date, 'scheduled',
-          coalesce(v_session_label, 'Imported session'), 0
+          coalesce(v_session_label, 'Imported session'), v_session_charge
         ) returning id into v_session_id;
         if v_session_status in ('completed','cancelled','rescheduled') then
           update public.personal_patient_sessions
