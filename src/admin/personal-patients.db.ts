@@ -12,7 +12,7 @@ export interface PersonalPatientQueryBuilder extends PromiseLike<
     columns: string,
     options?: { count?: "exact" | "planned" | "estimated"; head?: boolean },
   ): PersonalPatientQueryBuilder;
-  eq(column: string, value: string | number): PersonalPatientQueryBuilder;
+  eq(column: string, value: string | number | boolean): PersonalPatientQueryBuilder;
   neq(column: string, value: string | number): PersonalPatientQueryBuilder;
   order(
     column: string,
