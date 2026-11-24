@@ -77,3 +77,35 @@ test("portal functions do not use wildcard CORS", () => {
   assert.match(portalFunction, /PREVIEW_ORIGIN/);
   assert.match(manageFunction, /PREVIEW_ORIGIN/);
 });
+
+const importUi = fs.readFileSync(
+  path.join(root, "src/components/admin/PatientLedgerImport.tsx"),
+  "utf8",
+);
+const importMigration = fs.readFileSync(
+  path.join(root, "supabase/migrations/20261125120000_personal_patient_atomic_import.sql"),
+  "utf8",
+);
+
+test("personal patient import is available from the personal-patient workspace", () => {
+  assert.match(list, /<PatientLedgerImport/);
+  assert.match(importUi, /import_personal_patient_batch/);
+});
+
+test("bulk import is one authenticated database transaction, not sequential client writes", () => {
+  assert.match(importMigration, /security invoker/);
+  assert.match(importMigration, /auth\.uid\(\)/);
+  assert.match(importMigration, /jsonb_array_length\(p_rows\) > 1000/);
+  assert.match(importMigration, /grant execute on function public\.import_personal_patient_batch\(jsonb, text\) to authenticated/);
+  assert.doesNotMatch(importUi, /for \(const row of rows\)/);
+  assert.doesNotMatch(importUi, /\.from\("personal_patient_ledger"\)/);
+});
+
+test("portal session storage has row-level security enabled", () => {
+  assert.match(importMigration, /alter table public\.personal_patient_portal_sessions enable row level security/);
+});
+
+test("imported payments have a batch-scoped idempotency reference", () => {
+  assert.match(importMigration, /personal-patient-import:/);
+  assert.match(importMigration, /on conflict \(clinician_id, reference\)/);
+});
