@@ -102,7 +102,7 @@ export function PatientLedgerImport({ clinicianId, patients, onImported }: Props
   const handleFile = async (file?: File) => {
     if (!file) return;
 
-    if (!/\\.(csv|xlsx)$/i.test(file.name)) {
+    if (!/\.(csv|xlsx)$/i.test(file.name)) {
       toast.error("Choose a CSV or modern Excel (.xlsx) file. Download Google Sheets as CSV or Excel first.");
       return;
     }
