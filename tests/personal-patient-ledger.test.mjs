@@ -217,9 +217,9 @@ test("prepaid package sessions are not charged twice", () => {
 const adminShell = fs.readFileSync(path.join(root, "src/components/admin/AdminShell.tsx"), "utf8");
 
 test("Patient Ledger is included in a visible admin navigation section", () => {
-  assert.match(adminShell, /to: "\/admin\/personal-patients", label: "Personal patient ledger"/);
+  assert.match(adminShell, /to: "\/admin\/personal-patients",\s*label: "Personal patient ledger",\s*icon: UserCircle,\s*gate: "staff"/);
   assert.match(
     adminShell,
-    /label: "Patient care", routes: \["\/admin\/personal-patients", "\/admin\/patients", "\/admin\/appointments", "\/admin\/home-visits"\]/,
+    /label: "Patient care",\s*routes: \[\s*"\/admin\/personal-patients",\s*"\/admin\/patients",\s*"\/admin\/appointments",\s*"\/admin\/home-visits",\s*\]/,
   );
 });
