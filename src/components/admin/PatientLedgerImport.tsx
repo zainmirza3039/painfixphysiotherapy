@@ -259,6 +259,7 @@ export function PatientLedgerImport({ clinicianId, patients, onImported }: Props
                   <th className="p-2">Package fee</th>
                   <th className="p-2">Session date</th>
                   <th className="p-2">Status</th>
+                  <th className="p-2">Session fee</th>
                   <th className="p-2">Payment</th>
                   <th className="p-2">Warnings</th>
                 </tr>
@@ -353,6 +354,17 @@ export function PatientLedgerImport({ clinicianId, patients, onImported }: Props
                           <option value="cancelled">Cancelled</option>
                           <option value="rescheduled">Rescheduled</option>
                         </select>
+                      </td>
+                      <td className="p-2">
+                        <Input
+                          className="h-8 w-28"
+                          type="number"
+                          min="0"
+                          value={row.sessionFee ?? ""}
+                          onChange={(event) =>
+                            update({ sessionFee: event.target.value ? Number(event.target.value) : null })
+                          }
+                        />
                       </td>
                       <td className="p-2">
                         <Input
