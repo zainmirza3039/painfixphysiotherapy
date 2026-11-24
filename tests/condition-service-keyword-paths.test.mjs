@@ -22,9 +22,17 @@ test("condition H1s reinforce existing Multan treatment intent without changing 
 
 test("condition pages provide direct local clinic and home-visit booking paths", () => {
   const route = normalize(source("routes/conditions.$slug.tsx"));
-  assert.ok(route.includes('to="/physiotherapist-in-multan"'));
+  assert.ok(route.includes('to="/book-appointment"'));
+  assert.ok(route.includes('search={{ city: "multan", service: "clinic" }}'));
+  assert.ok(!route.includes('to="/physiotherapist-in-multan"'));
   assert.ok(route.includes('to="/home-visit"'));
   assert.ok(route.includes("Book a Physiotherapy Assessment in Multan"));
+
+  const booking = source("lib/city-booking.ts");
+  assert.ok(booking.includes('{ value: "clinic", label: "Clinic appointment" }'));
+  assert.ok(
+    booking.includes("bookingServices(city).find((entry) => entry.value === search.service)"),
+  );
 });
 
 test("home physiotherapy service page routes booking to the dedicated home-visit page", () => {

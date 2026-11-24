@@ -257,7 +257,8 @@ function ConditionDetail() {
             </p>
             <div className="mt-6 flex flex-wrap gap-3">
               <Link
-                to="/physiotherapist-in-multan"
+                to="/book-appointment"
+                search={{ city: "multan", service: "clinic" }}
                 className="inline-flex min-h-11 items-center gap-2 rounded-md bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary/90"
               >
                 Book a Clinic Assessment <ArrowRight className="h-4 w-4" />
