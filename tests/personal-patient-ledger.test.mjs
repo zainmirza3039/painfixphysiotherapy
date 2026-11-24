@@ -43,6 +43,11 @@ test("patient lifecycle archives instead of deleting history", () => {
   assert.doesNotMatch(list, /\.delete\(/);
 });
 
+test("patient creation confirms the inserted record before reporting success", () => {
+  assert.match(list, /\.insert\(\{[\s\S]*?\}\)\s*\.select\("id"\)\s*\.single\(\)/);
+  assert.match(list, /Patient creation could not be confirmed/);
+});
+
 test("ledger corrections are additive and historical rows are immutable", () => {
   assert.match(detail, /entry_type: correctionType/);
   assert.match(detail, /reference: crypto\.randomUUID\(\)/);
