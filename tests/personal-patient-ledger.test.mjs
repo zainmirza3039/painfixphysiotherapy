@@ -180,7 +180,10 @@ test("attendance batch is atomic and owner-scoped", () => {
   assert.match(attendanceMigration, /jsonb_array_length\(p_rows\) > 250/);
   assert.match(attendanceMigration, /p\.clinician_id = v_clinician/);
   assert.match(attendanceMigration, /status = 'completed'/);
-  assert.match(attendanceMigration, /grant execute on function public\.record_personal_patient_attendance_batch\(jsonb\) to authenticated/);
+  assert.match(
+    attendanceMigration,
+    /grant execute on function public\.record_personal_patient_attendance_batch\(jsonb\) to authenticated/,
+  );
 });
 
 test("prepaid package sessions are not charged twice", () => {
