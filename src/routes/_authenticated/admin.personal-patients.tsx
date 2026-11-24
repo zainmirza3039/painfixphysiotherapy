@@ -275,17 +275,55 @@ function PersonalPatientsPage() {
       />
       <section className="mb-6 grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
         {[
-          { label: t.active, value: totals.active, Icon: Users, detail: "Currently in your caseload" },
-          { label: t.sessions, value: totals.completed, Icon: CalendarCheck2, detail: "Across all patient records" },
-          { label: t.received, value: money(totals.received), Icon: CircleDollarSign, detail: "Payments recorded" },
-          { label: t.dues, value: money(totals.due), Icon: CircleDollarSign, detail: "Outstanding patient balance", emphasis: true },
+          {
+            label: t.active,
+            value: totals.active,
+            Icon: Users,
+            detail: "Currently in your caseload",
+          },
+          {
+            label: t.sessions,
+            value: totals.completed,
+            Icon: CalendarCheck2,
+            detail: "Across all patient records",
+          },
+          {
+            label: t.received,
+            value: money(totals.received),
+            Icon: CircleDollarSign,
+            detail: "Payments recorded",
+          },
+          {
+            label: t.dues,
+            value: money(totals.due),
+            Icon: CircleDollarSign,
+            detail: "Outstanding patient balance",
+            emphasis: true,
+          },
         ].map(({ label, value, Icon, detail, emphasis }) => (
-          <div key={label} className={`rounded-xl border bg-card px-4 py-4 shadow-sm ${emphasis ? "border-amber-300/70 dark:border-amber-700/60" : "border-border"}`}>
+          <div
+            key={label}
+            className={`rounded-xl border bg-card px-4 py-4 shadow-sm ${
+              emphasis ? "border-amber-300/70 dark:border-amber-700/60" : "border-border"
+            }`}
+          >
             <div className="flex items-center justify-between gap-3">
-              <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">{label}</p>
-              <span className={`grid h-8 w-8 place-items-center rounded-lg ${emphasis ? "bg-amber-500/10 text-amber-700 dark:text-amber-300" : "bg-primary/8 text-primary"}`}><Icon className="h-4 w-4" /></span>
+              <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
+                {label}
+              </p>
+              <span
+                className={`grid h-8 w-8 place-items-center rounded-lg ${
+                  emphasis
+                    ? "bg-amber-500/10 text-amber-700 dark:text-amber-300"
+                    : "bg-primary/8 text-primary"
+                }`}
+              >
+                <Icon className="h-4 w-4" />
+              </span>
             </div>
-            <p className="mt-3 text-2xl font-semibold tracking-tight tabular-nums text-foreground">{value}</p>
+            <p className="mt-3 text-2xl font-semibold tracking-tight tabular-nums text-foreground">
+              {value}
+            </p>
             <p className="mt-1 text-xs text-muted-foreground">{detail}</p>
           </div>
         ))}
@@ -311,16 +349,31 @@ function PersonalPatientsPage() {
       </div>
       {query.isLoading ? (
         <div className="space-y-2 rounded-xl border border-border bg-card p-4">
-          {[1, 2, 3, 4].map((n) => <Skeleton key={n} className="h-14 rounded-lg" />)}
+          {[1, 2, 3, 4].map((n) => (
+            <Skeleton key={n} className="h-14 rounded-lg" />
+          ))}
         </div>
       ) : query.isError ? (
-        <div className="rounded-xl border border-border bg-card p-4"><AdminQueryError onRetry={() => void query.refetch()} /></div>
+        <div className="rounded-xl border border-border bg-card p-4">
+          <AdminQueryError onRetry={() => void query.refetch()} />
+        </div>
       ) : filtered.length === 0 ? (
         <div className="rounded-xl border border-dashed border-border bg-card px-6 py-14 text-center">
           <Users className="mx-auto h-9 w-9 text-muted-foreground" />
-          <h3 className="mt-3 text-sm font-semibold text-foreground">{query.data?.patients.length ? t.noResults : t.empty}</h3>
-          <p className="mt-1 text-sm text-muted-foreground">{query.data?.patients.length ? "Try another name, phone number or patient ID." : t.emptyHint}</p>
-          {!query.data?.patients.length && <Button className="mt-5" onClick={() => setOpen(true)}><Plus className="mr-2 h-4 w-4" />{t.add}</Button>}
+          <h3 className="mt-3 text-sm font-semibold text-foreground">
+            {query.data?.patients.length ? t.noResults : t.empty}
+          </h3>
+          <p className="mt-1 text-sm text-muted-foreground">
+            {query.data?.patients.length
+              ? "Try another name, phone number or patient ID."
+              : t.emptyHint}
+          </p>
+          {!query.data?.patients.length && (
+            <Button className="mt-5" onClick={() => setOpen(true)}>
+              <Plus className="mr-2 h-4 w-4" />
+              {t.add}
+            </Button>
+          )}
         </div>
       ) : (
         <section className="overflow-hidden rounded-xl border border-border bg-card shadow-sm">
@@ -328,7 +381,8 @@ function PersonalPatientsPage() {
             <div>
               <h2 className="text-sm font-semibold text-foreground">Patient accounts</h2>
               <p className="mt-1 text-xs text-muted-foreground">
-                {filtered.length} patient{filtered.length === 1 ? "" : "s"} shown · balances update from the financial ledger
+                {filtered.length} patient{filtered.length === 1 ? "" : "s"} shown · balances update
+                from the financial ledger
               </p>
             </div>
             <span className="text-xs font-medium text-muted-foreground">
@@ -381,9 +435,7 @@ function PersonalPatientsPage() {
                       <td className="px-4 py-4">
                         <span
                           className={`font-semibold tabular-nums ${
-                            balance > 0
-                              ? "text-amber-700 dark:text-amber-300"
-                              : "text-foreground"
+                            balance > 0 ? "text-amber-700 dark:text-amber-300" : "text-foreground"
                           }`}
                         >
                           {balance > 0
