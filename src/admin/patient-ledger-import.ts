@@ -166,7 +166,6 @@ export function parsePatientCsv(text: string): ImportedPatientRow[] {
     .filter((row) => row.name);
 }
 
-
 function readU16(view: DataView, offset: number) {
   return view.getUint16(offset, true);
 }
@@ -244,7 +243,9 @@ async function parseXlsx(file: File): Promise<ImportedPatientRow[]> {
   const sharedBytes = entries.get("xl/sharedStrings.xml");
   const shared = sharedBytes
     ? Array.from(xmlDocument(decoder.decode(sharedBytes)).querySelectorAll("si")).map((item) =>
-        Array.from(item.querySelectorAll("t")).map((node) => node.textContent ?? "").join(""),
+        Array.from(item.querySelectorAll("t"))
+          .map((node) => node.textContent ?? "")
+          .join(""),
       )
     : [];
   const sheet = xmlDocument(decoder.decode(sheetBytes));
@@ -258,7 +259,7 @@ async function parseXlsx(file: File): Promise<ImportedPatientRow[]> {
       const raw = cell.querySelector("v")?.textContent ?? "";
       const value =
         type === "s"
-          ? shared[Number(raw)] ?? ""
+          ? (shared[Number(raw)] ?? "")
           : type === "inlineStr"
             ? Array.from(cell.querySelectorAll("is t"))
                 .map((node) => node.textContent ?? "")
@@ -288,11 +289,7 @@ async function parseXlsx(file: File): Promise<ImportedPatientRow[]> {
   }
 
   const csv = matrix
-    .map((row) =>
-      row
-        .map((value) => `"${String(value ?? "").replaceAll('"', '""')}"`)
-        .join(","),
-    )
+    .map((row) => row.map((value) => `"${String(value ?? "").replaceAll('"', '""')}"`).join(","))
     .join("\\n");
   return parsePatientCsv(csv);
 }
@@ -302,8 +299,13 @@ export async function parsePatientFile(file: File): Promise<ImportedPatientRow[]
   if (name.endsWith(".csv") || file.type === "text/csv") {
     return parsePatientCsv(await file.text());
   }
-  if (name.endsWith(".xlsx") || file.type === "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet") {
+  if (
+    name.endsWith(".xlsx") ||
+    file.type === "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+  ) {
     return parseXlsx(file);
   }
-  throw new Error("Choose a CSV or modern Excel (.xlsx) file. For Google Sheets, download as CSV or Excel first.");
+  throw new Error(
+    "Choose a CSV or modern Excel (.xlsx) file. For Google Sheets, download as CSV or Excel first.",
+  );
 }
