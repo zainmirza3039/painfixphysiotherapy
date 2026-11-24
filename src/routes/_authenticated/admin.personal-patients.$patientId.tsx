@@ -327,6 +327,51 @@ function PersonalPatientDetailPage() {
     anchor.click();
     URL.revokeObjectURL(url);
   };
+  const printAttendanceCertificate = () => {
+    if (!data) return;
+    const completedSessions = data.sessions
+      .filter((session) => session.status === "completed")
+      .sort((a, b) => a.session_date.localeCompare(b.session_date));
+    if (!completedSessions.length) {
+      toast.error("At least one completed session is required.");
+      return;
+    }
+    const escapeHtml = (value: string) =>
+      value.replace(/[&<>"']/g, (char) =>
+        ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[char] ?? char,
+      );
+    const printWindow = window.open("", "_blank", "width=900,height=700");
+    if (!printWindow) {
+      toast.error("Allow pop-ups to print the certificate.");
+      return;
+    }
+    const first = date(completedSessions[0].session_date);
+    const last = date(completedSessions[completedSessions.length - 1].session_date);
+    printWindow.document.write(`<!doctype html><html><head><meta charset="utf-8">
+      <title>PainFix Certificate of Attendance</title>
+      <style>
+        body{font-family:Georgia,serif;color:#172033;padding:56px;text-align:center}
+        .frame{border:8px double #032e61;padding:54px 42px;min-height:480px;display:flex;flex-direction:column;justify-content:center}
+        .brand{font:700 16px Arial,sans-serif;letter-spacing:3px;color:#00854a}
+        h1{font-size:38px;color:#032e61;margin:36px 0 18px}
+        .name{font-size:30px;font-weight:700;margin:22px 0}
+        .body{font-size:18px;line-height:1.7;max-width:680px;margin:0 auto}
+        .meta{margin-top:32px;font:14px Arial,sans-serif;color:#64748b}
+        .note{margin-top:44px;font:11px Arial,sans-serif;color:#64748b}
+        @media print{body{padding:20px}}
+      </style></head><body><main class="frame">
+      <div class="brand">PAINFIX PHYSIOTHERAPY CLINIC · MULTAN</div>
+      <h1>Certificate of Attendance</h1>
+      <p class="body">This certificate confirms that</p>
+      <div class="name">${escapeHtml(data.patient.full_name)}</div>
+      <p class="body">attended <strong>${completedSessions.length}</strong> completed physiotherapy session(s) at PainFix.</p>
+      <p class="meta">Attendance period: ${escapeHtml(first)} – ${escapeHtml(last)}</p>
+      <p class="note">This document confirms attendance only. It is not a medical fitness certificate, prognosis, or certification of treatment outcome.</p>
+      </main><script>window.onload=()=>window.print();</script></body></html>`);
+    printWindow.document.close();
+    printWindow.focus();
+  };
+
   const printReceipt = (entry: Entry) => {
     if (!data) return;
     const escapeHtml = (value: string) =>
@@ -642,6 +687,12 @@ function PersonalPatientDetailPage() {
         }
         actions={
           <div className="flex flex-wrap gap-2">
+            {data.sessions.some((session) => session.status === "completed") && (
+              <Button variant="outline" onClick={printAttendanceCertificate}>
+                <Printer className="mr-2 h-4 w-4" />
+                {language === "ur" ? "حاضری سرٹیفکیٹ" : "Attendance certificate"}
+              </Button>
+            )}
             <Button
               variant="outline"
               onClick={() => {
