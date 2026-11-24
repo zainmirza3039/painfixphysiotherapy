@@ -2,7 +2,7 @@ import { createFileRoute, Link, Navigate } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import {
   Activity, ArrowRight, CalendarClock, CheckCircle2, Clock3, Home, MessageSquare,
-  Plus, UserRound, Users, UserRoundPlus,
+  UserRound, Users, UserRoundPlus,
 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useAdminAuth } from "@/admin/AdminAuthProvider";

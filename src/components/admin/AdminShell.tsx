@@ -6,7 +6,7 @@ import {
   Activity, ArrowUpRight, BarChart3, Bell, BookOpen, CalendarClock, Calculator,
   ChevronRight, Dumbbell, ExternalLink, FileImage, Home, LayoutDashboard, LogOut,
   Menu, MessageSquare, Moon, Newspaper, Search, Settings, ShieldCheck, Sun,
-  Stethoscope, UserCircle, Users, X,
+  Stethoscope, UserCircle, Users,
 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useAdminAuth } from "@/admin/AdminAuthProvider";
