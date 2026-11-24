@@ -191,10 +191,7 @@ test("prepaid package sessions are not charged twice", () => {
   assert.match(attendanceMigration, /v_plan_type = 'package' and v_charge <> 0/);
 });
 
-const adminShell = fs.readFileSync(
-  path.join(root, "src/components/admin/AdminShell.tsx"),
-  "utf8",
-);
+const adminShell = fs.readFileSync(path.join(root, "src/components/admin/AdminShell.tsx"), "utf8");
 
 test("Patient Ledger is included in a visible admin navigation section", () => {
   assert.match(adminShell, /to: "\/admin\/personal-patients", label: "Patient Ledger"/);
