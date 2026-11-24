@@ -117,6 +117,14 @@ test("portal session storage has row-level security enabled", () => {
   );
 });
 
+test("imported per-session visits retain their fee and package visits remain prepaid", () => {
+  assert.match(importParser, /sessionFee: number \| null/);
+  assert.match(importUi, /value=\{row\.sessionFee \?\? ""\}/);
+  assert.match(importMigration, /v_session_charge := v_session_fee/);
+  assert.match(importMigration, /v_plan_type := 'package'/);
+  assert.match(importMigration, /coalesce\(v_session_label, 'Imported session'\), v_session_charge/);
+});
+
 test("imported payments have a batch-scoped idempotency reference", () => {
   assert.match(importMigration, /personal-patient-import:/);
   assert.match(importMigration, /on conflict \(clinician_id, reference\)/);
@@ -132,7 +140,8 @@ test("spreadsheet parser supports CSV and XLSX without an untracked dependency",
 test("XLSX rows are separated with real newlines and slash dates use day/month/year", () => {
   assert.match(importParser, /\.join\("\\n"\)/);
   assert.match(importParser, /Slash-formatted dates use day\/month\/year/);
-  assert.match(importParser, /const match = value\.match/);
+  assert.match(importParser, /value\.match\(\/\^\(\\d\{1,2\}\)/);
+  assert.match(importParser, /Date\.UTC\(year, month, day, 12\)/);
 });
 
 test("import preview remains explicit before committing the batch", () => {
