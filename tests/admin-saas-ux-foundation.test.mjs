@@ -55,7 +55,7 @@ test("admin shell exposes a role-filtered command palette and persistent desktop
   assert.match(shell, /event\.metaKey \|\| event\.ctrlKey/);
   assert.match(shell, /setCommandOpen\(\(open\) => !open\)/);
   assert.match(shell, /const items = NAV\.filter/);
-  assert.match(shell, /section\.items\.map\(\(item\) => \(/);
+  assert.match(shell, /section\.items\.map\(\(item\) => \{/);
   assert.match(shell, /<Sheet open=\{mobileOpen\}/);
 });
 
