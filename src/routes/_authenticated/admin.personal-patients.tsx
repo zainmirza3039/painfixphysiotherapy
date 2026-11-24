@@ -196,14 +196,19 @@ function PersonalPatientsPage() {
     mutationFn: async () => {
       if (!user?.id) throw new Error("Please sign in again.");
       if (!name.trim()) throw new Error("Patient name is required.");
-      const { error } = await personalPatientDb.from("personal_patients").insert({
-        clinician_id: user.id,
-        full_name: name.trim(),
-        phone: phone.trim() || null,
-        email: email.trim() || null,
-        private_notes: notes.trim() || null,
-      });
+      const { data, error } = await personalPatientDb
+        .from("personal_patients")
+        .insert({
+          clinician_id: user.id,
+          full_name: name.trim(),
+          phone: phone.trim() || null,
+          email: email.trim() || null,
+          private_notes: notes.trim() || null,
+        })
+        .select("id")
+        .single();
       if (error) throw error;
+      if (!data?.id) throw new Error("Patient creation could not be confirmed.");
     },
     onSuccess: async () => {
       await qc.invalidateQueries({ queryKey: ["admin", "personal-patients", user?.id] });
