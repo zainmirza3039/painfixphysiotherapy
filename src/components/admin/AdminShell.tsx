@@ -50,6 +50,7 @@ interface NavItem {
 const NAV: NavItem[] = [
   { to: "/admin", label: "Dashboard", icon: LayoutDashboard, gate: "staff" },
   { to: "/admin/patients", label: "Patients", icon: Users, gate: "staff" },
+  { to: "/admin/personal-patients", label: "Personal Patients", icon: UserCircle, gate: "staff" },
   { to: "/admin/appointments", label: "Appointments", icon: CalendarClock, gate: "staff" },
   { to: "/admin/home-visits", label: "Home Visits", icon: Home, gate: "staff" },
   { to: "/admin/messages", label: "Messages", icon: MessageSquare, gate: "admin" },
@@ -84,7 +85,13 @@ const NAV_SECTIONS = [
   { label: "Overview", routes: ["/admin"] },
   {
     label: "Clinic",
-    routes: ["/admin/patients", "/admin/appointments", "/admin/home-visits", "/admin/messages"],
+    routes: [
+      "/admin/patients",
+      "/admin/personal-patients",
+      "/admin/appointments",
+      "/admin/home-visits",
+      "/admin/messages",
+    ],
   },
   {
     label: "Content",
@@ -344,23 +351,27 @@ export function AdminShell({ children }: { children: ReactNode }) {
   );
 
   return (
-    <div className="admin-shell min-h-screen bg-surface lg:flex">
+    <div className="min-h-screen bg-surface lg:flex">
       <aside className="sticky top-0 hidden h-screen w-[272px] shrink-0 border-r border-border bg-card lg:block">
         {SidebarInner}
       </aside>
       <div className="min-w-0 flex-1">
         <header className="sticky top-0 z-40 border-b border-border bg-card/95 shadow-sm backdrop-blur">
           <div className="mx-auto flex min-h-[68px] max-w-[1600px] items-center justify-between gap-4 px-4 sm:px-6 xl:px-8">
-            <div className="flex min-w-0 items-center gap-2 sm:gap-3">
-              <span className="hidden text-xs font-medium text-muted-foreground sm:inline">
-                PainFix <span className="mx-1 text-border">/</span>
+            <div className="flex min-w-0 items-center gap-3">
+              <span className="relative grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-primary text-primary-foreground">
+                <Activity className="h-5 w-5" />
+                <span
+                  aria-hidden="true"
+                  className="absolute -bottom-0.5 -right-0.5 h-3 w-3 rounded-full border-2 border-card bg-secondary"
+                />
               </span>
               <div className="min-w-0">
-                <p className="truncate text-sm font-semibold tracking-tight text-foreground sm:text-[15px]">
-                  {activePage?.label ?? "Workspace"}
+                <p className="truncate font-heading text-base font-semibold tracking-tight text-foreground">
+                  PainFix Admin
                 </p>
-                <p className="mt-0.5 text-[10px] font-medium uppercase tracking-[0.12em] text-muted-foreground">
-                  {panelLabel} · Clinic management
+                <p className="mt-0.5 text-[10px] font-semibold uppercase tracking-[0.14em] text-muted-foreground">
+                  {panelLabel} workspace
                 </p>
               </div>
             </div>
@@ -432,7 +443,7 @@ export function AdminShell({ children }: { children: ReactNode }) {
                     <Menu className="h-5 w-5" />
                   </Button>
                 </SheetTrigger>
-                <SheetContent side="right" className="admin-sidebar-sheet w-80 p-0">
+                <SheetContent side="right" className="w-80 p-0">
                   <SheetTitle className="sr-only">Admin navigation</SheetTitle>
                   {SidebarInner}
                 </SheetContent>
