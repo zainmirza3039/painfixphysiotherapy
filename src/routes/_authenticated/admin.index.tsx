@@ -80,7 +80,10 @@ function DashboardPage() {
         }
       />
 
-      <section aria-label="Clinic performance indicators" className="admin-dashboard__metrics space-y-3">
+      <section
+        aria-label="Clinic performance indicators"
+        className="admin-dashboard__metrics space-y-3"
+      >
         <div className="flex items-center justify-between gap-3">
           <h2 className="text-[12px] font-semibold uppercase tracking-[0.12em] text-foreground">
             At a glance
@@ -126,7 +129,10 @@ function DashboardPage() {
         )}
       </section>
 
-      <section aria-labelledby="quick-actions-heading" className="admin-dashboard__quick-actions border border-border bg-card">
+      <section
+        aria-labelledby="quick-actions-heading"
+        className="admin-dashboard__quick-actions border border-border bg-card"
+      >
         <div className="flex flex-wrap items-center justify-between gap-2 border-b border-border px-4 py-3">
           <h2
             id="quick-actions-heading"
@@ -255,7 +261,12 @@ function QuickAction({
   label,
   detail,
 }: {
-  to: "/admin/personal-patients" | "/admin/patients" | "/admin/appointments" | "/admin/home-visits" | "/admin/messages";
+  to:
+    | "/admin/personal-patients"
+    | "/admin/patients"
+    | "/admin/appointments"
+    | "/admin/home-visits"
+    | "/admin/messages";
   icon: React.ReactNode;
   label: string;
   detail: string;
