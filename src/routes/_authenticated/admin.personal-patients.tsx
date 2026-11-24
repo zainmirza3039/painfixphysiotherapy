@@ -275,10 +275,7 @@ function PersonalPatientsPage() {
         }
       />
       {user?.id && (
-        <DailyAttendanceLedger
-          clinicianId={user.id}
-          patients={query.data?.patients ?? []}
-        />
+        <DailyAttendanceLedger clinicianId={user.id} patients={query.data?.patients ?? []} />
       )}
       <section className="mb-6 grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
         {[
