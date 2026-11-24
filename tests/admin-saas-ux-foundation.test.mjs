@@ -49,12 +49,13 @@ test("throttle cancellation prevents a queued trailing call", async () => {
 test("admin shell exposes a role-filtered command palette and persistent desktop navigation", () => {
   const shell = source("components/admin/AdminShell.tsx");
   assert.match(shell, /lg:flex/);
-  assert.match(shell, /sticky top-0 hidden h-screen w-\[272px\]/);
+  assert.match(shell, /admin-sidebar hidden lg:sticky/);
+  assert.match(shell, /lg:h-screen lg:w-\[252px\]/);
   assert.match(shell, /CommandDialog open=\{commandOpen\}/);
   assert.match(shell, /event\.metaKey \|\| event\.ctrlKey/);
   assert.match(shell, /setCommandOpen\(\(open\) => !open\)/);
   assert.match(shell, /const items = NAV\.filter/);
-  assert.match(shell, /items\.map\(\(item\) => \(/);
+  assert.match(shell, /section\.items\.map\(\(item\) => \(/);
   assert.match(shell, /<Sheet open=\{mobileOpen\}/);
 });
 

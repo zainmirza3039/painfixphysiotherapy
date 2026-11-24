@@ -23,7 +23,7 @@ export function StatCard({ label, value, icon, hint, accent = "primary" }: StatC
         <span className="admin-stat-card__label">{label}</span>
         <span className="admin-stat-card__icon">{icon}</span>
       </div>
-      <p className="admin-stat-card__value">{value}</p>
+      <p className="admin-stat-card__value tabular-nums">{value}</p>
       {hint && <p className="admin-stat-card__hint">{hint}</p>}
     </article>
   );
