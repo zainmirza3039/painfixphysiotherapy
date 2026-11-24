@@ -327,43 +327,123 @@ function PersonalPatientsPage() {
           <div className="flex flex-col gap-3 border-b border-border px-4 py-4 sm:flex-row sm:items-center sm:justify-between sm:px-5">
             <div>
               <h2 className="text-sm font-semibold text-foreground">Patient accounts</h2>
-              <p className="mt-1 text-xs text-muted-foreground">{filtered.length} patient{filtered.length === 1 ? "" : "s"} shown · balances update from the financial ledger</p>
+              <p className="mt-1 text-xs text-muted-foreground">
+                {filtered.length} patient{filtered.length === 1 ? "" : "s"} shown · balances update from the financial ledger
+              </p>
             </div>
-            <span className="text-xs font-medium text-muted-foreground">{new Intl.DateTimeFormat("en-PK", { dateStyle: "full" }).format(new Date())}</span>
+            <span className="text-xs font-medium text-muted-foreground">
+              {new Intl.DateTimeFormat("en-PK", { dateStyle: "full" }).format(new Date())}
+            </span>
           </div>
           <div className="overflow-x-auto">
             <table className="w-full min-w-[760px] border-collapse text-left text-sm">
               <thead className="bg-muted/50 text-xs font-medium uppercase tracking-wide text-muted-foreground">
                 <tr>
-                  <th className="px-5 py-3">Patient</th><th className="px-4 py-3">Sessions</th><th className="px-4 py-3">Payments received</th><th className="px-4 py-3">Balance</th><th className="px-4 py-3">Status</th><th className="px-5 py-3 text-right">Actions</th>
+                  <th className="px-5 py-3">Patient</th>
+                  <th className="px-4 py-3">Sessions</th>
+                  <th className="px-4 py-3">Payments received</th>
+                  <th className="px-4 py-3">Balance</th>
+                  <th className="px-4 py-3">Status</th>
+                  <th className="px-5 py-3 text-right">Actions</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-border">
                 {filtered.map((p) => {
-                  const ss = (query.data?.sessions ?? []).filter((s) => s.patient_id === p.id);
-                  const entries = (query.data?.ledger ?? []).filter((e) => e.patient_id === p.id);
-                  const received = entries.filter((e) => e.entry_type === "payment").reduce((n, e) => n + Math.abs(Number(e.amount)), 0);
-                  const balance = entries.reduce((n, e) => n + Number(e.amount), 0);
+                  const patientSessions = (query.data?.sessions ?? []).filter(
+                    (session) => session.patient_id === p.id,
+                  );
+                  const entries = (query.data?.ledger ?? []).filter(
+                    (entry) => entry.patient_id === p.id,
+                  );
+                  const received = entries
+                    .filter((entry) => entry.entry_type === "payment")
+                    .reduce((total, entry) => total + Math.abs(Number(entry.amount)), 0);
+                  const balance = entries.reduce((total, entry) => total + Number(entry.amount), 0);
                   return (
                     <tr key={p.id} className="transition-colors hover:bg-muted/30">
                       <td className="px-5 py-4">
                         <p className="font-semibold text-foreground">{p.full_name}</p>
-                        <p className="mt-0.5 text-xs text-muted-foreground">{p.phone || p.email || "No contact details"} <span className="mx-1 text-border">·</span><span className="font-mono">{p.id.slice(0, 8).toUpperCase()}</span></p>
+                        <p className="mt-0.5 text-xs text-muted-foreground">
+                          {p.phone || p.email || "No contact details"}
+                          <span className="mx-1 text-border">·</span>
+                          <span className="font-mono">{p.id.slice(0, 8).toUpperCase()}</span>
+                        </p>
                       </td>
-                      <td className="px-4 py-4"><span className="font-semibold tabular-nums text-foreground">{ss.filter((s) => s.status === "completed").length}</span><span className="ml-1 text-xs text-muted-foreground">completed</span></td>
-                      <td className="px-4 py-4 font-medium tabular-nums text-foreground">{money(received)}</td>
-                      <td className="px-4 py-4"><span className={`font-semibold tabular-nums ${balance > 0 ? "text-amber-700 dark:text-amber-300" : "text-foreground"}`}>{balance > 0 ? money(balance) : balance < 0 ? `+${money(-balance)} credit` : money(0)}</span></td>
                       <td className="px-4 py-4">
-                        <Badge variant="secondary" className={p.status === "active" ? "bg-emerald-500/10 text-emerald-700 dark:text-emerald-300" : p.status === "on_hold" ? "bg-amber-500/10 text-amber-700 dark:text-amber-300" : "bg-muted text-muted-foreground"}>
-                          {p.status === "on_hold" ? t.hold : p.status === "discharged" ? t.discharged : p.status === "archived" ? "Archived" : t.activeStatus}
+                        <span className="font-semibold tabular-nums text-foreground">
+                          {patientSessions.filter((session) => session.status === "completed").length}
+                        </span>
+                        <span className="ml-1 text-xs text-muted-foreground">completed</span>
+                      </td>
+                      <td className="px-4 py-4 font-medium tabular-nums text-foreground">
+                        {money(received)}
+                      </td>
+                      <td className="px-4 py-4">
+                        <span
+                          className={`font-semibold tabular-nums ${
+                            balance > 0
+                              ? "text-amber-700 dark:text-amber-300"
+                              : "text-foreground"
+                          }`}
+                        >
+                          {balance > 0
+                            ? money(balance)
+                            : balance < 0
+                              ? `+${money(-balance)} credit`
+                              : money(0)}
+                        </span>
+                      </td>
+                      <td className="px-4 py-4">
+                        <Badge
+                          variant="secondary"
+                          className={
+                            p.status === "active"
+                              ? "bg-emerald-500/10 text-emerald-700 dark:text-emerald-300"
+                              : p.status === "on_hold"
+                                ? "bg-amber-500/10 text-amber-700 dark:text-amber-300"
+                                : "bg-muted text-muted-foreground"
+                          }
+                        >
+                          {p.status === "on_hold"
+                            ? t.hold
+                            : p.status === "discharged"
+                              ? t.discharged
+                              : p.status === "archived"
+                                ? "Archived"
+                                : t.activeStatus}
                         </Badge>
                       </td>
                       <td className="px-5 py-4 text-right">
                         <div className="flex items-center justify-end gap-2">
-                          <select aria-label={`Status for ${p.full_name}`} className="h-8 max-w-28 rounded-md border border-input bg-background px-2 text-xs" value={p.status} disabled={updateStatus.isPending} onChange={(event) => updateStatus.mutate({ id: p.id, status: event.target.value as "active" | "on_hold" | "discharged" | "archived" })}>
-                            <option value="active">Active</option><option value="on_hold">On hold</option><option value="discharged">Discharged</option><option value="archived">Archived</option>
+                          <select
+                            aria-label={`Status for ${p.full_name}`}
+                            className="h-8 max-w-28 rounded-md border border-input bg-background px-2 text-xs"
+                            value={p.status}
+                            disabled={updateStatus.isPending}
+                            onChange={(event) =>
+                              updateStatus.mutate({
+                                id: p.id,
+                                status: event.target.value as
+                                  | "active"
+                                  | "on_hold"
+                                  | "discharged"
+                                  | "archived",
+                              })
+                            }
+                          >
+                            <option value="active">Active</option>
+                            <option value="on_hold">On hold</option>
+                            <option value="discharged">Discharged</option>
+                            <option value="archived">Archived</option>
                           </select>
-                          <Button asChild size="sm" className="h-8 px-3"><Link to="/admin/personal-patients/$patientId" params={{ patientId: p.id }}>{t.open}</Link></Button>
+                          <Button asChild size="sm" className="h-8 px-3">
+                            <Link
+                              to="/admin/personal-patients/$patientId"
+                              params={{ patientId: p.id }}
+                            >
+                              {t.open}
+                            </Link>
+                          </Button>
                         </div>
                       </td>
                     </tr>
