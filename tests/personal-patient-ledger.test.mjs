@@ -147,3 +147,12 @@ test("attendance certificates only report completed-session attendance", () => {
   assert.match(detail, /session\.status === "completed"/);
   assert.match(detail, /not a medical fitness certificate/);
 });
+
+test("patient portal package balance uses the selected plan identifier", () => {
+  const portalFunction = fs.readFileSync(
+    path.join(root, "supabase/functions/patient-portal/index.ts"),
+    "utf8",
+  );
+  assert.match(portalFunction, /select\("id,title,plan_type,package_sessions/);
+  assert.match(portalFunction, /session\.plan_id === activePlan\.id/);
+});
