@@ -3,7 +3,7 @@ import { useMutation } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { AlertTriangle, FileUp } from "lucide-react";
 import { personalPatientDb } from "@/admin/personal-patients.db";
-import { parsePatientCsv, type ImportedPatientRow } from "@/admin/patient-ledger-import";
+import { parsePatientFile, type ImportedPatientRow } from "@/admin/patient-ledger-import";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -100,15 +100,15 @@ export function PatientLedgerImport({ clinicianId, patients, onImported }: Props
   const handleFile = async (file?: File) => {
     if (!file) return;
 
-    if (!file.name.toLowerCase().endsWith(".csv")) {
-      toast.error("For now, export your Excel or Google Sheet as CSV, then upload that file.");
+    if (!/\\.(csv|xlsx)$/i.test(file.name)) {
+      toast.error("Choose a CSV or modern Excel (.xlsx) file. Download Google Sheets as CSV or Excel first.");
       return;
     }
 
     setBusyFile(true);
 
     try {
-      const parsed = parsePatientCsv(await file.text());
+      const parsed = await parsePatientFile(file);
       setRows(parsed);
       setFileName(file.name);
       setOpen(true);
@@ -134,7 +134,7 @@ export function PatientLedgerImport({ clinicianId, patients, onImported }: Props
       <input
         id="patient-ledger-import-file"
         type="file"
-        accept=".csv,text/csv"
+        accept=".csv,.xlsx,text/csv,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
         className="hidden"
         onChange={(event) => {
           void handleFile(event.target.files?.[0]);
