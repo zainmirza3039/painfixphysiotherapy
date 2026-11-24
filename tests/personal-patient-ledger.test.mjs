@@ -156,3 +156,34 @@ test("patient portal package balance uses the selected plan identifier", () => {
   assert.match(portalFunction, /select\("id,title,plan_type,package_sessions/);
   assert.match(portalFunction, /session\.plan_id === activePlan\.id/);
 });
+
+const attendance = fs.readFileSync(
+  path.join(root, "src/components/admin/DailyAttendanceLedger.tsx"),
+  "utf8",
+);
+const attendanceMigration = fs.readFileSync(
+  path.join(root, "supabase/migrations/20261125130000_personal_patient_attendance_batch.sql"),
+  "utf8",
+);
+
+test("daily attendance is staged before a single final confirmation", () => {
+  assert.match(attendance, /Nothing is saved and no charge is posted until you confirm/);
+  assert.match(attendance, /Review attendance/);
+  assert.match(attendance, /Confirm and save/);
+  assert.match(attendance, /type="datetime-local"/);
+  assert.match(attendance, /Session fee \(PKR\)/);
+});
+
+test("attendance batch is atomic and owner-scoped", () => {
+  assert.match(attendanceMigration, /security invoker/);
+  assert.match(attendanceMigration, /auth\.uid\(\)/);
+  assert.match(attendanceMigration, /jsonb_array_length\(p_rows\) > 250/);
+  assert.match(attendanceMigration, /p\.clinician_id = v_clinician/);
+  assert.match(attendanceMigration, /status = 'completed'/);
+  assert.match(attendanceMigration, /grant execute on function public\.record_personal_patient_attendance_batch\(jsonb\) to authenticated/);
+});
+
+test("prepaid package sessions are not charged twice", () => {
+  assert.match(attendanceMigration, /Package fees are charged when the plan is created/);
+  assert.match(attendanceMigration, /v_plan_type = 'package' and v_charge <> 0/);
+});
