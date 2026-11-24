@@ -230,41 +230,66 @@ export function PatientLedgerImport({ clinicianId, patients, onImported }: Props
           </div>
 
           <div className="max-h-72 overflow-auto rounded-lg border">
-            <table className="w-full text-left text-sm">
+            <table className="w-full min-w-[1050px] text-left text-sm">
               <thead className="sticky top-0 bg-muted">
                 <tr>
                   <th className="p-2">Patient</th>
                   <th className="p-2">Phone</th>
                   <th className="p-2">Package</th>
+                  <th className="p-2">Sessions</th>
+                  <th className="p-2">Package fee</th>
                   <th className="p-2">Session date</th>
                   <th className="p-2">Status</th>
+                  <th className="p-2">Payment</th>
                   <th className="p-2">Warnings</th>
                 </tr>
               </thead>
               <tbody>
-                {rows.slice(0, 150).map((row) => (
-                  <tr key={row.sourceRow} className="border-t">
-                    <td className="p-2">{row.name}</td>
-                    <td className="p-2">{row.phone || "—"}</td>
-                    <td className="p-2">
-                      {row.packageTitle || "—"}
-                      {row.packageSessions ? " (" + row.packageSessions + ")" : ""}
-                    </td>
-                    <td className="p-2">
-                      {row.sessionDate ? new Date(row.sessionDate).toLocaleDateString() : "—"}
-                    </td>
-                    <td className="p-2">
-                      {row.sessionStatus || (row.sessionDate ? "Unclear" : "—")}
-                    </td>
-                    <td className="p-2">
-                      {row.warnings.length ? (
-                        <span className="text-amber-600">{row.warnings.join(", ")}</span>
-                      ) : (
-                        "—"
-                      )}
-                    </td>
-                  </tr>
-                ))}
+                {rows.slice(0, 150).map((row) => {
+                  const update = (patch: Partial<ImportedPatientRow>) =>
+                    setRows((current) =>
+                      current.map((item) =>
+                        item.sourceRow === row.sourceRow ? { ...item, ...patch } : item,
+                      ),
+                    );
+                  return (
+                    <tr key={row.sourceRow} className="border-t">
+                      <td className="p-2">
+                        <Input className="h-8 min-w-36" value={row.name} onChange={(event) => update({ name: event.target.value })} />
+                      </td>
+                      <td className="p-2">
+                        <Input className="h-8 min-w-32" value={row.phone} onChange={(event) => update({ phone: event.target.value })} />
+                      </td>
+                      <td className="p-2">
+                        <Input className="h-8 min-w-36" value={row.packageTitle} onChange={(event) => update({ packageTitle: event.target.value })} />
+                      </td>
+                      <td className="p-2">
+                        <Input className="h-8 w-20" type="number" min="1" value={row.packageSessions ?? ""} onChange={(event) => update({ packageSessions: event.target.value ? Number(event.target.value) : null })} />
+                      </td>
+                      <td className="p-2">
+                        <Input className="h-8 w-28" type="number" min="0" value={row.packageFee ?? ""} onChange={(event) => update({ packageFee: event.target.value ? Number(event.target.value) : null })} />
+                      </td>
+                      <td className="p-2">
+                        <Input className="h-8 w-36" type="date" value={row.sessionDate?.slice(0, 10) ?? ""} onChange={(event) => update({ sessionDate: event.target.value ? new Date(`${event.target.value}T12:00:00.000Z`).toISOString() : null })} />
+                      </td>
+                      <td className="p-2">
+                        <select className="h-8 rounded-md border bg-background px-2" value={row.sessionStatus ?? ""} onChange={(event) => update({ sessionStatus: (event.target.value || null) as ImportedPatientRow["sessionStatus"] })}>
+                          <option value="">Unspecified</option>
+                          <option value="scheduled">Scheduled</option>
+                          <option value="completed">Completed</option>
+                          <option value="cancelled">Cancelled</option>
+                          <option value="rescheduled">Rescheduled</option>
+                        </select>
+                      </td>
+                      <td className="p-2">
+                        <Input className="h-8 w-28" type="number" min="0" value={row.payment ?? ""} onChange={(event) => update({ payment: event.target.value ? Number(event.target.value) : null })} />
+                      </td>
+                      <td className="p-2">
+                        {row.warnings.length ? <span className="text-amber-600">{row.warnings.join(", ")}</span> : "—"}
+                      </td>
+                    </tr>
+                  );
+                })}
               </tbody>
             </table>
           </div>
