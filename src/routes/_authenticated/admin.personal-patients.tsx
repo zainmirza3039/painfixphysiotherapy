@@ -4,6 +4,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { Archive, CalendarCheck2, CircleDollarSign, Plus, Search, Users } from "lucide-react";
 import { personalPatientDb } from "@/admin/personal-patients.db";
+import { PatientLedgerImport } from "@/components/admin/PatientLedgerImport";
 import { useAdminAuth } from "@/admin/AdminAuthProvider";
 import { AdminPageHeader } from "@/components/admin/AdminPageHeader";
 import { AdminQueryError } from "@/components/admin/AdminQueryError";
@@ -255,10 +256,21 @@ function PersonalPatientsPage() {
         title={t.title}
         description={t.desc}
         actions={
-          <Button size="sm" onClick={() => setOpen(true)}>
-            <Plus className="mr-2 h-4 w-4" />
-            {t.add}
-          </Button>
+          <div className="flex flex-wrap gap-2">
+            {user?.id && (
+              <PatientLedgerImport
+                clinicianId={user.id}
+                patients={query.data?.patients ?? []}
+                onImported={() => {
+                  void qc.invalidateQueries({ queryKey: ["admin", "personal-patients", user.id] });
+                }}
+              />
+            )}
+            <Button size="sm" onClick={() => setOpen(true)}>
+              <Plus className="mr-2 h-4 w-4" />
+              {t.add}
+            </Button>
+          </div>
         }
       />
       <div className="mb-5 grid gap-3 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-6">
