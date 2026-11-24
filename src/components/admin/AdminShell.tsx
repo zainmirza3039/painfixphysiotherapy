@@ -97,7 +97,7 @@ const NAV_SECTIONS = [
       "/admin/gallery",
     ],
   },
-  { label: "My workspace", routes: ["/admin/profile"] },
+  { label: "My workspace", routes: ["/admin/personal-patients", "/admin/profile"] },
   {
     label: "Administration",
     routes: [
