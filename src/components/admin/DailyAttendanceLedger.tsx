@@ -256,8 +256,8 @@ export function DailyAttendanceLedger({
           <DialogHeader>
             <DialogTitle>Review today’s attendance</DialogTitle>
             <DialogDescription>
-              Check each attendance time and session fee. Confirm once to save all selected
-              patients together.
+              Check each attendance time and session fee. Confirm once to save all selected patients
+              together.
             </DialogDescription>
           </DialogHeader>
           <div className="space-y-3">
