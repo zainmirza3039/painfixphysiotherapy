@@ -689,7 +689,9 @@ function PersonalPatientDetailPage() {
           [data.patient.phone, data.patient.email].filter(Boolean).join(" · "),
           `Patient ID ${data.patient.id.slice(0, 8).toUpperCase()}`,
           data.patient.status.replace("_", " "),
-        ].filter(Boolean).join("  ·  ")}
+        ]
+          .filter(Boolean)
+          .join("  ·  ")}
         actions={
           <div className="flex flex-wrap gap-2">
             {data.sessions.some((session) => session.status === "completed") && (
@@ -752,15 +754,64 @@ function PersonalPatientDetailPage() {
       )}
       <section className="grid gap-3 sm:grid-cols-2 xl:grid-cols-5">
         {[
-          { label: t.completed, value: completed, hint: "Sessions attended", tone: "default" },
-          { label: t.upcoming, value: scheduled, hint: "Scheduled visits", tone: "default" },
-          { label: t.charges, value: money(totalCharges), hint: "Total billed", tone: "default" },
-          { label: t.received, value: money(received), hint: "Payments received", tone: "success" },
-          { label: t.due, value: money(Math.max(0, balance)), hint: balance < 0 ? "Account has advance credit" : balance === 0 ? "Account settled" : "Payment required", tone: balance > 0 ? "warning" : "default" },
+          {
+            label: t.completed,
+            value: completed,
+            hint: "Sessions attended",
+            tone: "default",
+          },
+          {
+            label: t.upcoming,
+            value: scheduled,
+            hint: "Scheduled visits",
+            tone: "default",
+          },
+          {
+            label: t.charges,
+            value: money(totalCharges),
+            hint: "Total billed",
+            tone: "default",
+          },
+          {
+            label: t.received,
+            value: money(received),
+            hint: "Payments received",
+            tone: "success",
+          },
+          {
+            label: t.due,
+            value: money(Math.max(0, balance)),
+            hint:
+              balance < 0
+                ? "Account has advance credit"
+                : balance === 0
+                  ? "Account settled"
+                  : "Payment required",
+            tone: balance > 0 ? "warning" : "default",
+          },
         ].map((x) => (
-          <div key={x.label} className={`rounded-xl border bg-card px-4 py-4 shadow-sm ${x.tone === "warning" ? "border-amber-300/70 dark:border-amber-700/60" : "border-border"}`}>
-            <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">{x.label}</p>
-            <p className={`mt-3 text-xl font-semibold tracking-tight tabular-nums ${x.tone === "success" ? "text-emerald-700 dark:text-emerald-300" : x.tone === "warning" ? "text-amber-700 dark:text-amber-300" : "text-foreground"}`}>{x.value}</p>
+          <div
+            key={x.label}
+            className={`rounded-xl border bg-card px-4 py-4 shadow-sm ${
+              x.tone === "warning"
+                ? "border-amber-300/70 dark:border-amber-700/60"
+                : "border-border"
+            }`}
+          >
+            <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
+              {x.label}
+            </p>
+            <p
+              className={`mt-3 text-xl font-semibold tracking-tight tabular-nums ${
+                x.tone === "success"
+                  ? "text-emerald-700 dark:text-emerald-300"
+                  : x.tone === "warning"
+                    ? "text-amber-700 dark:text-amber-300"
+                    : "text-foreground"
+              }`}
+            >
+              {x.value}
+            </p>
             <p className="mt-1 text-xs text-muted-foreground">{x.hint}</p>
           </div>
         ))}
