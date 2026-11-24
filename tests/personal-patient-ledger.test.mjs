@@ -97,13 +97,19 @@ test("bulk import is one authenticated database transaction, not sequential clie
   assert.match(importMigration, /security invoker/);
   assert.match(importMigration, /auth\.uid\(\)/);
   assert.match(importMigration, /jsonb_array_length\(p_rows\) > 1000/);
-  assert.match(importMigration, /grant execute on function public\.import_personal_patient_batch\(jsonb, text\) to authenticated/);
+  assert.match(
+    importMigration,
+    /grant execute on function public\.import_personal_patient_batch\(jsonb, text\) to authenticated/,
+  );
   assert.doesNotMatch(importUi, /for \(const row of rows\)/);
   assert.doesNotMatch(importUi, /\.from\("personal_patient_ledger"\)/);
 });
 
 test("portal session storage has row-level security enabled", () => {
-  assert.match(importMigration, /alter table public\.personal_patient_portal_sessions enable row level security/);
+  assert.match(
+    importMigration,
+    /alter table public\.personal_patient_portal_sessions enable row level security/,
+  );
 });
 
 test("imported payments have a batch-scoped idempotency reference", () => {
