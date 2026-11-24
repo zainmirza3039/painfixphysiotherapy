@@ -36,7 +36,7 @@ export function CityServices() {
                   Multan
                 </p>
                 <h3 className="mt-2 font-heading text-2xl font-bold text-primary">
-                  Visit our physiotherapy clinic
+                  Clinic and home physiotherapy
                 </h3>
               </div>
               <span
