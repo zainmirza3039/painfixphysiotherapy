@@ -34,7 +34,7 @@ declare
   v_payment numeric(12,2);
   v_source_row integer;
   v_reference text;
-  v_imported integer := 0;
+  v_patient_ids uuid[] := array[]::uuid[];
 begin
   if v_clinician is null then
     raise exception 'Authentication required.';
@@ -163,10 +163,12 @@ begin
         do nothing;
     end if;
 
-    v_imported := v_imported + 1;
+    if not (v_patient = any(v_patient_ids)) then
+      v_patient_ids := array_append(v_patient_ids, v_patient);
+    end if;
   end loop;
 
-  return v_imported;
+  return coalesce(array_length(v_patient_ids, 1), 0);
 end;
 $$;
 
