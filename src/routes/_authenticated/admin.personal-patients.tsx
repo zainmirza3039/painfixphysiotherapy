@@ -406,6 +406,9 @@ function PersonalPatientsPage() {
                   const patientSessions = (query.data?.sessions ?? []).filter(
                     (session) => session.patient_id === p.id,
                   );
+                  const completedCount = patientSessions.filter(
+                    (session) => session.status === "completed",
+                  ).length;
                   const entries = (query.data?.ledger ?? []).filter(
                     (entry) => entry.patient_id === p.id,
                   );
@@ -425,9 +428,7 @@ function PersonalPatientsPage() {
                       </td>
                       <td className="px-4 py-4">
                         <span className="font-semibold tabular-nums text-foreground">
-                          {patientSessions
-                            .filter((session) => session.status === "completed")
-                            .length}
+                          {completedCount}
                         </span>
                         <span className="ml-1 text-xs text-muted-foreground">completed</span>
                       </td>
