@@ -186,7 +186,7 @@ Deno.serve(async (req) => {
           .single(),
         supabase
           .from("personal_patient_plans")
-          .select("title,plan_type,package_sessions,package_fee,per_session_fee,is_active")
+          .select("id,title,plan_type,package_sessions,package_fee,per_session_fee,is_active")
           .eq("patient_id", patientId)
           .eq("clinician_id", clinicianId)
           .order("created_at", { ascending: false }),
