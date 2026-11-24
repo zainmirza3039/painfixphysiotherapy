@@ -408,7 +408,11 @@ function PersonalPatientsPage() {
                       onChange={(event) =>
                         updateStatus.mutate({
                           id: p.id,
-                          status: event.target.value as "active" | "on_hold" | "discharged" | "archived",
+                          status: event.target.value as
+                            | "active"
+                            | "on_hold"
+                            | "discharged"
+                            | "archived",
                         })
                       }
                     >
