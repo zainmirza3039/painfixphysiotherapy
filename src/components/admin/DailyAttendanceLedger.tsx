@@ -111,13 +111,16 @@ export function DailyAttendanceLedger({
     onSuccess: async () => {
       setDrafts([]);
       setReviewOpen(false);
-      await queryClient.invalidateQueries({ queryKey: ["admin", "personal-patients", clinicianId] });
+      await queryClient.invalidateQueries({
+        queryKey: ["admin", "personal-patients", clinicianId],
+      });
       await queryClient.invalidateQueries({
         queryKey: ["admin", "personal-patient-active-plans", clinicianId],
       });
       toast.success("Attendance and session charges saved.");
     },
-    onError: (error) => toast.error(error instanceof Error ? error.message : "Could not save attendance."),
+    onError: (error) =>
+      toast.error(error instanceof Error ? error.message : "Could not save attendance."),
   });
 
   const togglePatient = (patient: PatientOption, checked: boolean) => {
@@ -153,7 +156,8 @@ export function DailyAttendanceLedger({
             <h2 className="text-base font-semibold text-foreground">Daily attendance ledger</h2>
           </div>
           <p className="mt-1 text-sm text-muted-foreground">
-            Mark today’s attended patients. Date, time and fee remain editable until final confirmation.
+            Mark today’s attended patients. Date, time and fee remain editable until final
+            confirmation.
           </p>
         </div>
         <div className="flex items-center gap-2 text-sm">
@@ -252,7 +256,8 @@ export function DailyAttendanceLedger({
           <DialogHeader>
             <DialogTitle>Review today’s attendance</DialogTitle>
             <DialogDescription>
-              Check each attendance time and session fee. Confirm once to save all selected patients together.
+              Check each attendance time and session fee. Confirm once to save all selected
+              patients together.
             </DialogDescription>
           </DialogHeader>
           <div className="space-y-3">
