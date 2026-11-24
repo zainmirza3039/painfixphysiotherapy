@@ -290,7 +290,7 @@ async function parseXlsx(file: File): Promise<ImportedPatientRow[]> {
 
   const csv = matrix
     .map((row) => row.map((value) => `"${String(value ?? "").replaceAll('"', '""')}"`).join(","))
-    .join("\\n");
+    .join("\n");
   return parsePatientCsv(csv);
 }
 
