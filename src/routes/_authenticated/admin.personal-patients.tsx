@@ -273,24 +273,23 @@ function PersonalPatientsPage() {
           </div>
         }
       />
-      <div className="mb-5 grid gap-3 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-6">
+      <section className="mb-6 grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
         {[
-          { label: t.active, value: totals.active, Icon: Users },
-          { label: t.sessions, value: totals.completed, Icon: CalendarCheck2 },
-          { label: t.charges, value: money(totals.charges), Icon: CircleDollarSign },
-          { label: t.received, value: money(totals.received), Icon: CircleDollarSign },
-          { label: t.credit, value: money(totals.credit), Icon: CircleDollarSign },
-          { label: t.dues, value: money(totals.due), Icon: CircleDollarSign },
-        ].map(({ label, value, Icon }) => (
-          <div key={label} className="rounded-xl border border-border bg-card p-4 shadow-sm">
-            <div className="flex justify-between text-sm text-muted-foreground">
-              <span>{label}</span>
-              <Icon className="h-4 w-4" />
+          { label: t.active, value: totals.active, Icon: Users, detail: "Currently in your caseload" },
+          { label: t.sessions, value: totals.completed, Icon: CalendarCheck2, detail: "Across all patient records" },
+          { label: t.received, value: money(totals.received), Icon: CircleDollarSign, detail: "Payments recorded" },
+          { label: t.dues, value: money(totals.due), Icon: CircleDollarSign, detail: "Outstanding patient balance", emphasis: true },
+        ].map(({ label, value, Icon, detail, emphasis }) => (
+          <div key={label} className={`rounded-xl border bg-card px-4 py-4 shadow-sm ${emphasis ? "border-amber-300/70 dark:border-amber-700/60" : "border-border"}`}>
+            <div className="flex items-center justify-between gap-3">
+              <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">{label}</p>
+              <span className={`grid h-8 w-8 place-items-center rounded-lg ${emphasis ? "bg-amber-500/10 text-amber-700 dark:text-amber-300" : "bg-primary/8 text-primary"}`}><Icon className="h-4 w-4" /></span>
             </div>
-            <p className="mt-3 text-2xl font-semibold">{value}</p>
+            <p className="mt-3 text-2xl font-semibold tracking-tight tabular-nums text-foreground">{value}</p>
+            <p className="mt-1 text-xs text-muted-foreground">{detail}</p>
           </div>
         ))}
-      </div>
+      </section>
       <div className="mb-4 flex flex-wrap items-center gap-3">
         <div className="relative max-w-md flex-1">
           <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
@@ -335,100 +334,57 @@ function PersonalPatientsPage() {
           )}
         </div>
       ) : (
-        <div className="grid gap-3 lg:grid-cols-2">
-          {filtered.map((p) => {
-            const ss = (query.data?.sessions ?? []).filter((s) => s.patient_id === p.id);
-            const entries = (query.data?.ledger ?? []).filter((e) => e.patient_id === p.id);
-            const received = entries
-              .filter((e) => e.entry_type === "payment")
-              .reduce((n, e) => n + Math.abs(Number(e.amount)), 0);
-            const balance = entries.reduce((n, e) => n + Number(e.amount), 0);
-            return (
-              <article
-                key={p.id}
-                className="rounded-xl border border-border bg-card p-4 shadow-sm transition-colors hover:border-primary/40"
-              >
-                <div className="flex items-start justify-between gap-3">
-                  <div>
-                    <h2 className="font-semibold">{p.full_name}</h2>
-                    <p className="mt-1 text-sm text-muted-foreground">
-                      {p.phone || p.email || "—"}
-                    </p>
-                  </div>
-                  <Badge variant="secondary">
-                    {p.status === "on_hold"
-                      ? t.hold
-                      : p.status === "discharged"
-                        ? t.discharged
-                        : p.status === "archived"
-                          ? "Archived"
-                          : t.activeStatus}
-                  </Badge>
-                </div>
-                <div className="mt-4 grid grid-cols-3 gap-2 border-t border-border pt-3 text-sm">
-                  <div>
-                    <p className="text-xs text-muted-foreground">{t.sessions}</p>
-                    <p className="mt-1 font-semibold">
-                      {ss.filter((s) => s.status === "completed").length}
-                    </p>
-                  </div>
-                  <div>
-                    <p className="text-xs text-muted-foreground">{t.received}</p>
-                    <p className="mt-1 font-semibold">{money(received)}</p>
-                  </div>
-                  <div>
-                    <p className="text-xs text-muted-foreground">{t.dues}</p>
-                    <p className="mt-1 font-semibold">
-                      {balance > 0
-                        ? money(balance)
-                        : balance < 0
-                          ? `+${money(-balance)} credit`
-                          : money(0)}
-                    </p>
-                  </div>
-                </div>
-                <div className="mt-3 border-t border-border pt-3">
-                  <div className="flex flex-wrap gap-2">
-                    <Button
-                      asChild
-                      type="button"
-                      variant="outline"
-                      size="sm"
-                      className="min-w-0 flex-1"
-                    >
-                      <Link to="/admin/personal-patients/$patientId" params={{ patientId: p.id }}>
-                        {t.open}
-                      </Link>
-                    </Button>
-                    <select
-                      aria-label={`Status for ${p.full_name}`}
-                      className="h-9 rounded-md border border-input bg-background px-2 text-xs"
-                      value={p.status}
-                      disabled={updateStatus.isPending}
-                      onChange={(event) =>
-                        updateStatus.mutate({
-                          id: p.id,
-                          status: event.target.value as
-                            | "active"
-                            | "on_hold"
-                            | "discharged"
-                            | "archived",
-                        })
-                      }
-                    >
-                      <option value="active">Active</option>
-                      <option value="on_hold">On hold</option>
-                      <option value="discharged">Discharged</option>
-                      <option value="archived">Archived</option>
-                    </select>
-                  </div>
-                </div>
-              </article>
-            );
-          })}
+        <section className="overflow-hidden rounded-xl border border-border bg-card shadow-sm">
+        <div className="flex flex-col gap-3 border-b border-border px-4 py-4 sm:flex-row sm:items-center sm:justify-between sm:px-5">
+          <div>
+            <h2 className="text-sm font-semibold text-foreground">Patient accounts</h2>
+            <p className="mt-1 text-xs text-muted-foreground">{filtered.length} patient{filtered.length === 1 ? "" : "s"} shown · balances update from the financial ledger</p>
+          </div>
+          <span className="text-xs font-medium text-muted-foreground">{new Intl.DateTimeFormat("en-PK", { dateStyle: "full" }).format(new Date())}</span>
         </div>
-      )}
-      <Dialog open={open} onOpenChange={setOpen}>
+        {query.isLoading ? (
+          <div className="space-y-2 p-4">{[1, 2, 3, 4].map((n) => <Skeleton key={n} className="h-14 rounded-lg" />)}</div>
+        ) : query.isError ? (
+          <div className="p-4"><AdminQueryError onRetry={() => void query.refetch()} /></div>
+        ) : filtered.length === 0 ? (
+          <div className="px-6 py-14 text-center">
+            <Users className="mx-auto h-9 w-9 text-muted-foreground" />
+            <h3 className="mt-3 text-sm font-semibold text-foreground">{query.data?.patients.length ? t.noResults : t.empty}</h3>
+            <p className="mt-1 text-sm text-muted-foreground">{query.data?.patients.length ? "Try another name, phone number or patient ID." : t.emptyHint}</p>
+            {!query.data?.patients.length && <Button className="mt-5" onClick={() => setOpen(true)}><Plus className="mr-2 h-4 w-4" />{t.add}</Button>}
+          </div>
+        ) : (
+          <div className="overflow-x-auto">
+            <table className="w-full min-w-[760px] border-collapse text-left text-sm">
+              <thead className="bg-muted/50 text-xs font-medium uppercase tracking-wide text-muted-foreground">
+                <tr><th className="px-5 py-3">Patient</th><th className="px-4 py-3">Sessions</th><th className="px-4 py-3">Payments received</th><th className="px-4 py-3">Balance</th><th className="px-4 py-3">Status</th><th className="px-5 py-3 text-right">Actions</th></tr>
+              </thead>
+              <tbody className="divide-y divide-border">
+                {filtered.map((p) => {
+                  const ss = (query.data?.sessions ?? []).filter((s) => s.patient_id === p.id);
+                  const entries = (query.data?.ledger ?? []).filter((e) => e.patient_id === p.id);
+                  const received = entries.filter((e) => e.entry_type === "payment").reduce((n, e) => n + Math.abs(Number(e.amount)), 0);
+                  const balance = entries.reduce((n, e) => n + Number(e.amount), 0);
+                  return (
+                    <tr key={p.id} className="transition-colors hover:bg-muted/30">
+                      <td className="px-5 py-4"><p className="font-semibold text-foreground">{p.full_name}</p><p className="mt-0.5 text-xs text-muted-foreground">{p.phone || p.email || "No contact details"} <span className="mx-1 text-border">·</span><span className="font-mono">{p.id.slice(0, 8).toUpperCase()}</span></p></td>
+                      <td className="px-4 py-4"><span className="font-semibold tabular-nums text-foreground">{ss.filter((s) => s.status === "completed").length}</span><span className="ml-1 text-xs text-muted-foreground">completed</span></td>
+                      <td className="px-4 py-4 font-medium tabular-nums text-foreground">{money(received)}</td>
+                      <td className="px-4 py-4"><span className={`font-semibold tabular-nums ${balance > 0 ? "text-amber-700 dark:text-amber-300" : "text-foreground"}`}>{balance > 0 ? money(balance) : balance < 0 ? `+${money(-balance)} credit` : money(0)}</span></td>
+                      <td className="px-4 py-4"><Badge variant="secondary" className={p.status === "active" ? "bg-emerald-500/10 text-emerald-700 dark:text-emerald-300" : p.status === "on_hold" ? "bg-amber-500/10 text-amber-700 dark:text-amber-300" : "bg-muted text-muted-foreground"}>{p.status === "on_hold" ? t.hold : p.status === "discharged" ? t.discharged : p.status === "archived" ? "Archived" : t.activeStatus}</Badge></td>
+                      <td className="px-5 py-4 text-right"><div className="flex items-center justify-end gap-2">
+                        <select aria-label={`Status for ${p.full_name}`} className="h-8 max-w-28 rounded-md border border-input bg-background px-2 text-xs" value={p.status} disabled={updateStatus.isPending} onChange={(event) => updateStatus.mutate({ id: p.id, status: event.target.value as "active" | "on_hold" | "discharged" | "archived" })}><option value="active">Active</option><option value="on_hold">On hold</option><option value="discharged">Discharged</option><option value="archived">Archived</option></select>
+                        <Button asChild size="sm" className="h-8 px-3"><Link to="/admin/personal-patients/$patientId" params={{ patientId: p.id }}>{t.open}</Link></Button>
+                      </div></td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+        )}
+      </section>
+            <Dialog open={open} onOpenChange={setOpen}>
         <DialogContent className="sm:max-w-lg">
           <DialogHeader>
             <DialogTitle>{t.add}</DialogTitle>
