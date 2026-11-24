@@ -84,9 +84,9 @@ begin
       select p.id into v_patient
       from public.personal_patients p
       where p.clinician_id = v_clinician
-        and regexp_replace(coalesce(p.phone, ''), '\\D', '', 'g') =
-            regexp_replace(v_phone, '\\D', '', 'g')
-        and regexp_replace(v_phone, '\\D', '', 'g') <> ''
+        and regexp_replace(coalesce(p.phone, ''), '[^0-9]', '', 'g') =
+            regexp_replace(v_phone, '[^0-9]', '', 'g')
+        and regexp_replace(v_phone, '[^0-9]', '', 'g') <> ''
       order by p.created_at desc
       limit 1;
     end if;
