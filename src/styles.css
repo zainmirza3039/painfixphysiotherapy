@@ -1826,3 +1826,32 @@ body:has(.site-footer) :is(a[href], button, [role="button"], summary):focus-visi
     display: none !important;
   }
 }
+
+/* Authenticated admin workspace: restrained SaaS layout, isolated from public pages. */
+.admin-shell { background: #f3f6f5; }
+.admin-shell > aside { width: 256px; border-color: #dce5e1; background: #fff; }
+.admin-shell > aside > div > div:first-child { padding: 1.35rem 1.25rem 1.1rem; }
+.admin-shell nav a { min-height: 2.55rem; border-radius: .45rem; padding-inline: .8rem; transition: background-color 140ms ease, color 140ms ease; }
+.admin-shell nav a[aria-current="page"] { background: #edf5f0; color: #032e61; }
+.admin-shell nav a[aria-current="page"]::before { width: 3px; border-radius: 0 3px 3px 0; }
+.admin-shell header { border-color: #dce5e1; background: rgb(255 255 255 / 96%); box-shadow: none; backdrop-filter: none; }
+.admin-shell main { max-width: 1520px; padding-top: clamp(1.5rem, 3vw, 2.4rem); }
+.admin-shell .admin-sidebar-sheet { background: var(--card); }
+.admin-dashboard { color: #16324a; }
+.admin-dashboard > div:first-child { margin-bottom: 1.6rem; border-color: #dce5e1; padding-bottom: 1.35rem; }
+.admin-dashboard > div:first-child h1 { font-family: var(--font-sans); font-size: clamp(1.65rem, 2.3vw, 2rem); font-weight: 650; letter-spacing: -.045em; }
+.admin-dashboard__metrics article { min-height: 122px; border-color: #dce5e1; border-radius: .5rem; background: #fff; padding: 1.1rem 1.15rem; box-shadow: 0 1px 2px rgb(20 50 65 / 3%); }
+.admin-dashboard__metrics article::before { height: 2px; }
+.admin-dashboard__quick-actions, .admin-dashboard__activity section { overflow: hidden; border-color: #dce5e1; border-radius: .5rem; background: #fff; box-shadow: 0 1px 2px rgb(20 50 65 / 3%); }
+.admin-dashboard__quick-actions > div:first-child, .admin-dashboard__activity section > div:first-child { padding: .95rem 1.15rem; }
+.admin-dashboard__quick-actions > div:last-child > a { min-height: 76px; padding: 1rem 1.15rem; }
+.admin-dashboard__activity li { padding-block: .9rem; }
+.dark .admin-shell { background: #0b1622; }
+.dark .admin-shell > aside, .dark .admin-shell header, .dark .admin-dashboard__metrics article, .dark .admin-dashboard__quick-actions, .dark .admin-dashboard__activity section { border-color: #34495b; background: #152434; }
+.dark .admin-shell nav a[aria-current="page"] { background: #17352e; color: #f5f8f7; }
+.dark .admin-dashboard { color: #f5f8f7; }
+@media (max-width: 640px) {
+  .admin-shell main { padding: 1.1rem 1rem 5rem; }
+  .admin-dashboard > div:first-child { gap: .8rem; }
+  .admin-dashboard__metrics article { min-height: 108px; }
+}

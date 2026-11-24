@@ -68,7 +68,7 @@ function DashboardPage() {
   }).format(new Date());
 
   return (
-    <div className="space-y-6">
+    <div className="admin-dashboard space-y-7">
       <AdminPageHeader
         title="Clinic overview"
         description="Operational snapshot of patients, appointments and incoming requests."
@@ -80,7 +80,7 @@ function DashboardPage() {
         }
       />
 
-      <section aria-label="Clinic performance indicators" className="space-y-3">
+      <section aria-label="Clinic performance indicators" className="admin-dashboard__metrics space-y-3">
         <div className="flex items-center justify-between gap-3">
           <h2 className="text-[12px] font-semibold uppercase tracking-[0.12em] text-foreground">
             At a glance
@@ -126,7 +126,7 @@ function DashboardPage() {
         )}
       </section>
 
-      <section aria-labelledby="quick-actions-heading" className="border border-border bg-card">
+      <section aria-labelledby="quick-actions-heading" className="admin-dashboard__quick-actions border border-border bg-card">
         <div className="flex flex-wrap items-center justify-between gap-2 border-b border-border px-4 py-3">
           <h2
             id="quick-actions-heading"
@@ -138,10 +138,16 @@ function DashboardPage() {
         </div>
         <div className="grid divide-y divide-border sm:grid-cols-2 sm:divide-x sm:divide-y-0 xl:grid-cols-4">
           <QuickAction
-            to="/admin/patients"
+            to="/admin/personal-patients"
             icon={<UserRoundPlus />}
-            label="Patient records"
-            detail="Find or add a patient"
+            label="Personal patient ledger"
+            detail="Manage your own caseload"
+          />
+          <QuickAction
+            to="/admin/patients"
+            icon={<Users />}
+            label="Clinic patients"
+            detail="Find or add a clinic patient"
           />
           <QuickAction
             to="/admin/appointments"
@@ -249,7 +255,7 @@ function QuickAction({
   label,
   detail,
 }: {
-  to: "/admin/patients" | "/admin/appointments" | "/admin/home-visits" | "/admin/messages";
+  to: "/admin/personal-patients" | "/admin/patients" | "/admin/appointments" | "/admin/home-visits" | "/admin/messages";
   icon: React.ReactNode;
   label: string;
   detail: string;
