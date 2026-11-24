@@ -666,7 +666,7 @@ function PersonalPatientDetailPage() {
   if (query.isError || !data) return <AdminQueryError onRetry={() => void query.refetch()} />;
 
   return (
-    <div className="personal-patients-portal space-y-5" dir={language === "ur" ? "rtl" : "ltr"}>
+    <div className="personal-patients-portal space-y-6" dir={language === "ur" ? "rtl" : "ltr"}>
       <div className="flex justify-end">
         <Button
           variant="outline"
@@ -685,10 +685,11 @@ function PersonalPatientDetailPage() {
       </Link>
       <AdminPageHeader
         title={data.patient.full_name}
-        description={
-          [data.patient.phone, data.patient.email].filter(Boolean).join(" · ") ||
-          "Personal patient account"
-        }
+        description={[
+          [data.patient.phone, data.patient.email].filter(Boolean).join(" · "),
+          `Patient ID ${data.patient.id.slice(0, 8).toUpperCase()}`,
+          data.patient.status.replace("_", " "),
+        ].filter(Boolean).join("  ·  ")}
         actions={
           <div className="flex flex-wrap gap-2">
             {data.sessions.some((session) => session.status === "completed") && (
@@ -749,21 +750,23 @@ function PersonalPatientDetailPage() {
           <p className="mt-2 whitespace-pre-wrap text-sm">{data.patient.private_notes}</p>
         </div>
       )}
-      <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
+      <section className="grid gap-3 sm:grid-cols-2 xl:grid-cols-5">
         {[
-          { label: t.completed, value: completed },
-          { label: t.upcoming, value: scheduled },
-          { label: t.charges, value: money(totalCharges) },
-          { label: t.received, value: money(received) },
+          { label: t.completed, value: completed, hint: "Sessions attended", tone: "default" },
+          { label: t.upcoming, value: scheduled, hint: "Scheduled visits", tone: "default" },
+          { label: t.charges, value: money(totalCharges), hint: "Total billed", tone: "default" },
+          { label: t.received, value: money(received), hint: "Payments received", tone: "success" },
+          { label: t.due, value: money(Math.max(0, balance)), hint: balance < 0 ? "Account has advance credit" : balance === 0 ? "Account settled" : "Payment required", tone: balance > 0 ? "warning" : "default" },
         ].map((x) => (
-          <div key={x.label} className="rounded-xl border border-border bg-card p-4">
-            <p className="text-sm text-muted-foreground">{x.label}</p>
-            <p className="mt-2 text-xl font-semibold">{x.value}</p>
+          <div key={x.label} className={`rounded-xl border bg-card px-4 py-4 shadow-sm ${x.tone === "warning" ? "border-amber-300/70 dark:border-amber-700/60" : "border-border"}`}>
+            <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">{x.label}</p>
+            <p className={`mt-3 text-xl font-semibold tracking-tight tabular-nums ${x.tone === "success" ? "text-emerald-700 dark:text-emerald-300" : x.tone === "warning" ? "text-amber-700 dark:text-amber-300" : "text-foreground"}`}>{x.value}</p>
+            <p className="mt-1 text-xs text-muted-foreground">{x.hint}</p>
           </div>
         ))}
-      </div>
-      <div className="grid gap-4 xl:grid-cols-2">
-        <section className="rounded-xl border border-border bg-card p-4">
+      </section>
+      <div className="grid items-start gap-4 xl:grid-cols-2">
+        <section className="rounded-xl border border-border bg-card p-5 shadow-sm">
           <div className="flex items-center justify-between gap-3">
             <h2 className="font-semibold">{t.billing}</h2>
             <Badge variant={balance > 0 ? "destructive" : "secondary"}>
