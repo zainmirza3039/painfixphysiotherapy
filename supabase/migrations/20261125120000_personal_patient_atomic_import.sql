@@ -28,6 +28,7 @@ declare
   v_sessions integer;
   v_fee numeric(12,2);
   v_session_date timestamptz;
+  v_session_id uuid;
   v_session_status text;
   v_session_label text;
   v_payment numeric(12,2);
@@ -41,7 +42,7 @@ begin
   if p_batch_id is null or p_batch_id !~ '^[a-f0-9-]{36}$' then
     raise exception 'Invalid import batch identifier.';
   end if;
-  if jsonb_typeof(p_rows) <> 'array' or jsonb_array_length(p_rows) = 0 then
+  if p_rows is null or jsonb_typeof(p_rows) is distinct from 'array' or jsonb_array_length(p_rows) = 0 then
     raise exception 'Import must contain at least one patient row.';
   end if;
   if jsonb_array_length(p_rows) > 1000 then
@@ -138,12 +139,12 @@ begin
         ) values (
           v_clinician, v_patient, v_plan, v_session_date, 'scheduled',
           coalesce(v_session_label, 'Imported session'), 0
-        ) returning id into v_reference;
+        ) returning id into v_session_id;
         if v_session_status in ('completed','cancelled','rescheduled') then
           update public.personal_patient_sessions
           set status = v_session_status,
               completed_at = case when v_session_status = 'completed' then now() else null end
-          where id = v_reference::uuid
+          where id = v_session_id
             and clinician_id = v_clinician
             and patient_id = v_patient;
         end if;
