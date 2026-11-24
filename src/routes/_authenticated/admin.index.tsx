@@ -136,7 +136,7 @@ function DashboardPage() {
           </h2>
           <span className="text-[11px] text-muted-foreground">Common clinic tasks</span>
         </div>
-        <div className="grid divide-y divide-border sm:grid-cols-2 sm:divide-x sm:divide-y-0 xl:grid-cols-4">
+        <div className="grid divide-y divide-border sm:grid-cols-2 sm:divide-x sm:divide-y-0 xl:grid-cols-5">
           <QuickAction
             to="/admin/personal-patients"
             icon={<UserRoundPlus />}
@@ -170,7 +170,7 @@ function DashboardPage() {
         </div>
       </section>
 
-      <section aria-labelledby="activity-heading" className="space-y-3">
+      <section aria-labelledby="activity-heading" className="admin-dashboard__activity space-y-3">
         <div className="flex flex-wrap items-end justify-between gap-2">
           <div>
             <h2
