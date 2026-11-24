@@ -123,3 +123,9 @@ test("import preview remains explicit before committing the batch", () => {
   assert.match(importUi, /Confirm and import/);
   assert.match(importUi, /SHA-256/);
 });
+
+test("import preview supports editing before confirmation and public Sheets links", () => {
+  assert.match(importUi, /setRows\(\(current\)/);
+  assert.match(importUi, /Google Sheets link/);
+  assert.match(importUi, /docs\.google\.com/);
+});
