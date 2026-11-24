@@ -78,6 +78,7 @@ test("portal functions do not use wildcard CORS", () => {
   assert.match(manageFunction, /PREVIEW_ORIGIN/);
 });
 
+const importParser = fs.readFileSync(path.join(root, "src/admin/patient-ledger-import.ts"), "utf8");
 const importUi = fs.readFileSync(
   path.join(root, "src/components/admin/PatientLedgerImport.tsx"),
   "utf8",
@@ -108,4 +109,17 @@ test("portal session storage has row-level security enabled", () => {
 test("imported payments have a batch-scoped idempotency reference", () => {
   assert.match(importMigration, /personal-patient-import:/);
   assert.match(importMigration, /on conflict \(clinician_id, reference\)/);
+});
+
+test("spreadsheet parser supports CSV and XLSX without an untracked dependency", () => {
+  assert.match(importParser, /export async function parsePatientFile/);
+  assert.match(importParser, /\.xlsx/);
+  assert.match(importParser, /DecompressionStream\("deflate-raw"\)/);
+  assert.match(importUi, /accept="\.csv,\.xlsx/);
+});
+
+test("import preview remains explicit before committing the batch", () => {
+  assert.match(importUi, /No records are saved until you confirm/);
+  assert.match(importUi, /Confirm and import/);
+  assert.match(importUi, /SHA-256/);
 });
