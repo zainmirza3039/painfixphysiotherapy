@@ -337,8 +337,10 @@ function PersonalPatientDetailPage() {
       return;
     }
     const escapeHtml = (value: string) =>
-      value.replace(/[&<>"']/g, (char) =>
-        ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[char] ?? char,
+      value.replace(
+        /[&<>"']/g,
+        (char) =>
+          ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[char] ?? char,
       );
     const printWindow = window.open("", "_blank", "width=900,height=700");
     if (!printWindow) {
@@ -375,8 +377,10 @@ function PersonalPatientDetailPage() {
   const printReceipt = (entry: Entry) => {
     if (!data) return;
     const escapeHtml = (value: string) =>
-      value.replace(/[&<>"']/g, (char) =>
-        ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[char] ?? char,
+      value.replace(
+        /[&<>"']/g,
+        (char) =>
+          ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[char] ?? char,
       );
     const receiptNumber = entry.reference || entry.id;
     const receiptWindow = window.open("", "_blank", "width=760,height=720");
