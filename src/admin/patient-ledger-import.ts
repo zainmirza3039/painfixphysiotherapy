@@ -9,6 +9,7 @@ export type ImportedPatientRow = {
   sessionStatus: "scheduled" | "completed" | "cancelled" | "rescheduled" | null;
   sessionLabel: string;
   payment: number | null;
+  sessionFee: number | null;
   sourceRow: number;
   warnings: string[];
 };
@@ -53,6 +54,7 @@ const aliases: Record<string, string[]> = {
   sessionStatus: ["sessionstatus", "status", "visitstatus"],
   sessionLabel: ["sessionlabel", "treatment", "notes", "description"],
   payment: ["payment", "paid", "amountpaid", "paymentamount", "received"],
+  sessionFee: ["sessionfee", "persessionfee", "visitfee", "treatmentfee", "sessioncharge", "fee"],
 };
 
 function parseDate(value: string): string | null {
@@ -60,7 +62,7 @@ function parseDate(value: string): string | null {
 
   // Slash-formatted dates use day/month/year in the clinic's locale.
   // Parse them before Date() to avoid browser-dependent US month/day parsing.
-  const match = value.match(/^(\\d{1,2})[/-](\\d{1,2})[/-](\\d{2,4})$/);
+  const match = value.match(/^(\d{1,2})[/-](\d{1,2})[/-](\d{2,4})$/);
   if (match) {
     const day = Number(match[1]);
     const month = Number(match[2]) - 1;
@@ -69,7 +71,7 @@ function parseDate(value: string): string | null {
 
     const parsed = new Date(year, month, day);
     return parsed.getFullYear() === year && parsed.getMonth() === month && parsed.getDate() === day
-      ? parsed.toISOString()
+      ? new Date(Date.UTC(year, month, day, 12)).toISOString()
       : null;
   }
 
@@ -160,6 +162,7 @@ export function parsePatientCsv(text: string): ImportedPatientRow[] {
         sessionStatus,
         sessionLabel: get(cells, "sessionLabel"),
         payment: number("payment"),
+        sessionFee: number("sessionFee"),
         sourceRow: index + 2,
         warnings,
       };
