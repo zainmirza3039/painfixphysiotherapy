@@ -208,7 +208,10 @@ function PersonalPatientsPage() {
         .select("id")
         .single();
       if (error) throw error;
-      if (!data?.id) throw new Error("Patient creation could not be confirmed.");
+      const insertedPatient = data as { id?: string } | null;
+      if (!insertedPatient?.id) {
+        throw new Error("Patient creation could not be confirmed.");
+      }
     },
     onSuccess: async () => {
       await qc.invalidateQueries({ queryKey: ["admin", "personal-patients", user?.id] });
