@@ -3,7 +3,11 @@ import { useMutation } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { AlertTriangle, FileUp } from "lucide-react";
 import { personalPatientDb } from "@/admin/personal-patients.db";
-import { parsePatientCsv, parsePatientFile, type ImportedPatientRow } from "@/admin/patient-ledger-import";
+import {
+  parsePatientCsv,
+  parsePatientFile,
+  type ImportedPatientRow,
+} from "@/admin/patient-ledger-import";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -26,7 +30,6 @@ type Props = {
   patients: ExistingPatient[];
   onImported: () => void;
 };
-
 
 export function PatientLedgerImport({ clinicianId, patients, onImported }: Props) {
   const [open, setOpen] = useState(false);
@@ -84,7 +87,9 @@ export function PatientLedgerImport({ clinicianId, patients, onImported }: Props
       });
       if (error) throw new Error(error.message);
       if (typeof data !== "number") {
-        throw new Error("The import result could not be confirmed. Check the patient ledger before retrying.");
+        throw new Error(
+          "The import result could not be confirmed. Check the patient ledger before retrying.",
+        );
       }
       return data;
     },
@@ -103,7 +108,9 @@ export function PatientLedgerImport({ clinicianId, patients, onImported }: Props
     if (!file) return;
 
     if (!/\.(csv|xlsx)$/i.test(file.name)) {
-      toast.error("Choose a CSV or modern Excel (.xlsx) file. Download Google Sheets as CSV or Excel first.");
+      toast.error(
+        "Choose a CSV or modern Excel (.xlsx) file. Download Google Sheets as CSV or Excel first.",
+      );
       return;
     }
 
@@ -121,7 +128,6 @@ export function PatientLedgerImport({ clinicianId, patients, onImported }: Props
     }
   };
 
-
   const handleGoogleSheet = async () => {
     const raw = sheetUrl.trim();
     if (!raw) return;
@@ -132,7 +138,10 @@ export function PatientLedgerImport({ clinicianId, patients, onImported }: Props
       toast.error("Paste a valid Google Sheets sharing link.");
       return;
     }
-    if (parsedUrl.hostname !== "docs.google.com" || !parsedUrl.pathname.includes("/spreadsheets/d/")) {
+    if (
+      parsedUrl.hostname !== "docs.google.com" ||
+      !parsedUrl.pathname.includes("/spreadsheets/d/")
+    ) {
       toast.error("Use a Google Sheets link from docs.google.com.");
       return;
     }
@@ -144,7 +153,9 @@ export function PatientLedgerImport({ clinicianId, patients, onImported }: Props
     const gid = parsedUrl.searchParams.get("gid") ?? parsedUrl.hash.match(/gid=(\d+)/)?.[1] ?? "0";
     setBusyFile(true);
     try {
-      const exportUrl = new URL(`https://docs.google.com/spreadsheets/d/${encodeURIComponent(match[1])}/export`);
+      const exportUrl = new URL(
+        `https://docs.google.com/spreadsheets/d/${encodeURIComponent(match[1])}/export`,
+      );
       exportUrl.searchParams.set("format", "csv");
       exportUrl.searchParams.set("gid", gid);
       const response = await fetch(exportUrl.toString(), { credentials: "omit" });
@@ -154,12 +165,13 @@ export function PatientLedgerImport({ clinicianId, patients, onImported }: Props
       setFileName("Google Sheets import");
       setOpen(true);
     } catch {
-      toast.error("Could not read this sheet directly. Set sharing to Anyone with the link, or download it as CSV/XLSX and upload the file.");
+      toast.error(
+        "Could not read this sheet directly. Set sharing to Anyone with the link, or download it as CSV/XLSX and upload the file.",
+      );
     } finally {
       setBusyFile(false);
     }
   };
-
 
   return (
     <>
@@ -180,7 +192,12 @@ export function PatientLedgerImport({ clinicianId, patients, onImported }: Props
           value={sheetUrl}
           onChange={(event) => setSheetUrl(event.target.value)}
         />
-        <Button variant="outline" size="sm" disabled={busyFile || !sheetUrl.trim()} onClick={() => void handleGoogleSheet()}>
+        <Button
+          variant="outline"
+          size="sm"
+          disabled={busyFile || !sheetUrl.trim()}
+          onClick={() => void handleGoogleSheet()}
+        >
           Load sheet
         </Button>
       </div>
@@ -255,25 +272,79 @@ export function PatientLedgerImport({ clinicianId, patients, onImported }: Props
                   return (
                     <tr key={row.sourceRow} className="border-t">
                       <td className="p-2">
-                        <Input className="h-8 min-w-36" value={row.name} onChange={(event) => update({ name: event.target.value })} />
+                        <Input
+                          className="h-8 min-w-36"
+                          value={row.name}
+                          onChange={(event) => update({ name: event.target.value })}
+                        />
                       </td>
                       <td className="p-2">
-                        <Input className="h-8 min-w-32" value={row.phone} onChange={(event) => update({ phone: event.target.value })} />
+                        <Input
+                          className="h-8 min-w-32"
+                          value={row.phone}
+                          onChange={(event) => update({ phone: event.target.value })}
+                        />
                       </td>
                       <td className="p-2">
-                        <Input className="h-8 min-w-36" value={row.packageTitle} onChange={(event) => update({ packageTitle: event.target.value })} />
+                        <Input
+                          className="h-8 min-w-36"
+                          value={row.packageTitle}
+                          onChange={(event) => update({ packageTitle: event.target.value })}
+                        />
                       </td>
                       <td className="p-2">
-                        <Input className="h-8 w-20" type="number" min="1" value={row.packageSessions ?? ""} onChange={(event) => update({ packageSessions: event.target.value ? Number(event.target.value) : null })} />
+                        <Input
+                          className="h-8 w-20"
+                          type="number"
+                          min="1"
+                          value={row.packageSessions ?? ""}
+                          onChange={(event) =>
+                            update({
+                              packageSessions: event.target.value
+                                ? Number(event.target.value)
+                                : null,
+                            })
+                          }
+                        />
                       </td>
                       <td className="p-2">
-                        <Input className="h-8 w-28" type="number" min="0" value={row.packageFee ?? ""} onChange={(event) => update({ packageFee: event.target.value ? Number(event.target.value) : null })} />
+                        <Input
+                          className="h-8 w-28"
+                          type="number"
+                          min="0"
+                          value={row.packageFee ?? ""}
+                          onChange={(event) =>
+                            update({
+                              packageFee: event.target.value ? Number(event.target.value) : null,
+                            })
+                          }
+                        />
                       </td>
                       <td className="p-2">
-                        <Input className="h-8 w-36" type="date" value={row.sessionDate?.slice(0, 10) ?? ""} onChange={(event) => update({ sessionDate: event.target.value ? new Date(`${event.target.value}T12:00:00.000Z`).toISOString() : null })} />
+                        <Input
+                          className="h-8 w-36"
+                          type="date"
+                          value={row.sessionDate?.slice(0, 10) ?? ""}
+                          onChange={(event) =>
+                            update({
+                              sessionDate: event.target.value
+                                ? new Date(`${event.target.value}T12:00:00.000Z`).toISOString()
+                                : null,
+                            })
+                          }
+                        />
                       </td>
                       <td className="p-2">
-                        <select className="h-8 rounded-md border bg-background px-2" value={row.sessionStatus ?? ""} onChange={(event) => update({ sessionStatus: (event.target.value || null) as ImportedPatientRow["sessionStatus"] })}>
+                        <select
+                          className="h-8 rounded-md border bg-background px-2"
+                          value={row.sessionStatus ?? ""}
+                          onChange={(event) =>
+                            update({
+                              sessionStatus: (event.target.value ||
+                                null) as ImportedPatientRow["sessionStatus"],
+                            })
+                          }
+                        >
                           <option value="">Unspecified</option>
                           <option value="scheduled">Scheduled</option>
                           <option value="completed">Completed</option>
@@ -282,10 +353,24 @@ export function PatientLedgerImport({ clinicianId, patients, onImported }: Props
                         </select>
                       </td>
                       <td className="p-2">
-                        <Input className="h-8 w-28" type="number" min="0" value={row.payment ?? ""} onChange={(event) => update({ payment: event.target.value ? Number(event.target.value) : null })} />
+                        <Input
+                          className="h-8 w-28"
+                          type="number"
+                          min="0"
+                          value={row.payment ?? ""}
+                          onChange={(event) =>
+                            update({
+                              payment: event.target.value ? Number(event.target.value) : null,
+                            })
+                          }
+                        />
                       </td>
                       <td className="p-2">
-                        {row.warnings.length ? <span className="text-amber-600">{row.warnings.join(", ")}</span> : "—"}
+                        {row.warnings.length ? (
+                          <span className="text-amber-600">{row.warnings.join(", ")}</span>
+                        ) : (
+                          "—"
+                        )}
                       </td>
                     </tr>
                   );
