@@ -122,7 +122,10 @@ test("imported per-session visits retain their fee and package visits remain pre
   assert.match(importUi, /value=\{row\.sessionFee \?\? ""\}/);
   assert.match(importMigration, /v_session_charge := v_session_fee/);
   assert.match(importMigration, /v_plan_type := 'package'/);
-  assert.match(importMigration, /coalesce\(v_session_label, 'Imported session'\), v_session_charge/);
+  assert.match(
+    importMigration,
+    /coalesce\(v_session_label, 'Imported session'\), v_session_charge/,
+  );
 });
 
 test("imported payments have a batch-scoped idempotency reference", () => {
