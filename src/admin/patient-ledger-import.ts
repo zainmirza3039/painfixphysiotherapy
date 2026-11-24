@@ -58,22 +58,23 @@ const aliases: Record<string, string[]> = {
 function parseDate(value: string): string | null {
   if (!value) return null;
 
+  // Slash-formatted dates use day/month/year in the clinic's locale.
+  // Parse them before Date() to avoid browser-dependent US month/day parsing.
+  const match = value.match(/^(\\d{1,2})[/-](\\d{1,2})[/-](\\d{2,4})$/);
+  if (match) {
+    const day = Number(match[1]);
+    const month = Number(match[2]) - 1;
+    let year = Number(match[3]);
+    if (year < 100) year += 2000;
+
+    const parsed = new Date(year, month, day);
+    return parsed.getFullYear() === year && parsed.getMonth() === month && parsed.getDate() === day
+      ? parsed.toISOString()
+      : null;
+  }
+
   const date = new Date(value);
-  if (!Number.isNaN(date.getTime())) return date.toISOString();
-
-  const match = value.match(/^(\d{1,2})[/-](\d{1,2})[/-](\d{2,4})$/);
-  if (!match) return null;
-
-  const day = Number(match[1]);
-  const month = Number(match[2]) - 1;
-  let year = Number(match[3]);
-
-  if (year < 100) year += 2000;
-
-  const parsed = new Date(year, month, day);
-  return parsed.getFullYear() === year && parsed.getMonth() === month && parsed.getDate() === day
-    ? parsed.toISOString()
-    : null;
+  return Number.isNaN(date.getTime()) ? null : date.toISOString();
 }
 
 export function parsePatientCsv(text: string): ImportedPatientRow[] {
