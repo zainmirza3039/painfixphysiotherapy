@@ -425,7 +425,9 @@ function PersonalPatientsPage() {
                       </td>
                       <td className="px-4 py-4">
                         <span className="font-semibold tabular-nums text-foreground">
-                          {patientSessions.filter((session) => session.status === "completed").length}
+                          {patientSessions
+                            .filter((session) => session.status === "completed")
+                            .length}
                         </span>
                         <span className="ml-1 text-xs text-muted-foreground">completed</span>
                       </td>
