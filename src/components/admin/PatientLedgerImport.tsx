@@ -26,17 +26,6 @@ type Props = {
   onImported: () => void;
 };
 
-function requireInsertedId(data: unknown, recordType: string): string {
-  if (!data || typeof data !== "object" || !("id" in data) || typeof data.id !== "string") {
-    throw new Error(
-      "The saved " +
-        recordType +
-        " could not be confirmed. Stop and review the import before retrying.",
-    );
-  }
-
-  return data.id;
-}
 
 export function PatientLedgerImport({ clinicianId, patients, onImported }: Props) {
   const [open, setOpen] = useState(false);
@@ -71,131 +60,23 @@ export function PatientLedgerImport({ clinicianId, patients, onImported }: Props
 
   const importMutation = useMutation({
     mutationFn: async () => {
-      const patientMap = new Map<string, string>();
-
-      for (const row of rows) {
-        const key = (row.phone || row.name).toLowerCase().replace(/\s/g, "");
-        if (patientMap.has(key)) continue;
-
-        const existing = patients.find(
-          (patient) =>
-            (row.phone &&
-              patient.phone &&
-              row.phone.replace(/\D/g, "") === patient.phone.replace(/\D/g, "")) ||
-            patient.full_name.trim().toLowerCase() === row.name.trim().toLowerCase(),
-        );
-
-        if (existing) {
-          patientMap.set(key, existing.id);
-          continue;
-        }
-
-        const { data, error } = await personalPatientDb
-          .from("personal_patients")
-          .insert({
-            clinician_id: clinicianId,
-            full_name: row.name,
-            phone: row.phone || null,
-            email: row.email || null,
-          })
-          .select("id")
-          .single();
-
-        if (error) throw error;
-        patientMap.set(key, requireInsertedId(data, "patient"));
+      if (!rows.length) throw new Error("There are no valid rows to import.");
+      const rpcClient = personalPatientDb as unknown as {
+        rpc: (
+          fn: string,
+          args: Record<string, unknown>,
+        ) => Promise<{ data: unknown; error: { message: string } | null }>;
+      };
+      const batchId = crypto.randomUUID();
+      const { data, error } = await rpcClient.rpc("import_personal_patient_batch", {
+        p_rows: rows,
+        p_batch_id: batchId,
+      });
+      if (error) throw new Error(error.message);
+      if (typeof data !== "number") {
+        throw new Error("The import result could not be confirmed. Check the patient ledger before retrying.");
       }
-
-      const plans = new Map<string, string>();
-      const sessionKeys = new Set<string>();
-
-      for (const row of rows) {
-        const key = (row.phone || row.name).toLowerCase().replace(/\s/g, "");
-        const patientId = patientMap.get(key);
-        if (!patientId) continue;
-
-        const planKey =
-          patientId + "|" + row.packageTitle + "|" + row.packageSessions + "|" + row.packageFee;
-        let planId: string | null = null;
-
-        if (row.packageTitle && row.packageSessions && row.packageFee != null) {
-          const existingPlanId = plans.get(planKey);
-
-          if (existingPlanId) {
-            planId = existingPlanId;
-          } else {
-            const { data: plan, error } = await personalPatientDb
-              .from("personal_patient_plans")
-              .insert({
-                clinician_id: clinicianId,
-                patient_id: patientId,
-                plan_type: "package",
-                title: row.packageTitle,
-                package_sessions: row.packageSessions,
-                package_fee: row.packageFee,
-              })
-              .select("id")
-              .single();
-
-            if (error) throw error;
-            planId = requireInsertedId(plan, "billing plan");
-            plans.set(planKey, planId);
-          }
-        }
-
-        if (row.sessionDate) {
-          const sessionKey = patientId + "|" + row.sessionDate;
-
-          if (!sessionKeys.has(sessionKey)) {
-            const { data: session, error } = await personalPatientDb
-              .from("personal_patient_sessions")
-              .insert({
-                clinician_id: clinicianId,
-                patient_id: patientId,
-                plan_id: planId,
-                session_date: row.sessionDate,
-                status: "scheduled",
-                session_label: row.sessionLabel || "Imported session",
-                charge_amount: 0,
-              })
-              .select("id")
-              .single();
-
-            if (error) throw error;
-
-            const sessionId = requireInsertedId(session, "session");
-            sessionKeys.add(sessionKey);
-
-            if (row.sessionStatus && row.sessionStatus !== "scheduled") {
-              const { error: updateError } = await personalPatientDb
-                .from("personal_patient_sessions")
-                .update({
-                  status: row.sessionStatus,
-                  completed_at: row.sessionStatus === "completed" ? new Date().toISOString() : null,
-                })
-                .eq("id", sessionId)
-                .eq("patient_id", patientId)
-                .eq("clinician_id", clinicianId);
-
-              if (updateError) throw updateError;
-            }
-          }
-        }
-
-        if (row.payment && row.payment > 0) {
-          const { error } = await personalPatientDb.from("personal_patient_ledger").insert({
-            clinician_id: clinicianId,
-            patient_id: patientId,
-            entry_type: "payment",
-            amount: -row.payment,
-            description: "Payment imported from file",
-            reference: "file-import:" + fileName + ":row-" + row.sourceRow,
-          });
-
-          if (error) throw error;
-        }
-      }
-
-      return patientMap.size;
+      return data;
     },
     onSuccess: (count) => {
       toast.success("Imported data for " + count + " patients.");
@@ -205,11 +86,7 @@ export function PatientLedgerImport({ clinicianId, patients, onImported }: Props
       setOpen(false);
     },
     onError: (error) =>
-      toast.error(
-        error instanceof Error
-          ? error.message
-          : "Import failed. Check the ledger and retry carefully.",
-      ),
+      toast.error(error instanceof Error ? error.message : "Import failed. No partial batch was committed."),
   });
 
   const handleFile = async (file?: File) => {
