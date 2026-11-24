@@ -3,8 +3,9 @@ import { useMutation } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { AlertTriangle, FileUp } from "lucide-react";
 import { personalPatientDb } from "@/admin/personal-patients.db";
-import { parsePatientFile, type ImportedPatientRow } from "@/admin/patient-ledger-import";
+import { parsePatientCsv, parsePatientFile, type ImportedPatientRow } from "@/admin/patient-ledger-import";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import {
   Dialog,
   DialogContent,
@@ -32,6 +33,7 @@ export function PatientLedgerImport({ clinicianId, patients, onImported }: Props
   const [rows, setRows] = useState<ImportedPatientRow[]>([]);
   const [fileName, setFileName] = useState("");
   const [busyFile, setBusyFile] = useState(false);
+  const [sheetUrl, setSheetUrl] = useState("");
 
   const summary = useMemo(() => {
     const unique = new Map<string, ImportedPatientRow>();
@@ -119,17 +121,69 @@ export function PatientLedgerImport({ clinicianId, patients, onImported }: Props
     }
   };
 
+
+  const handleGoogleSheet = async () => {
+    const raw = sheetUrl.trim();
+    if (!raw) return;
+    let parsedUrl: URL;
+    try {
+      parsedUrl = new URL(raw);
+    } catch {
+      toast.error("Paste a valid Google Sheets sharing link.");
+      return;
+    }
+    if (parsedUrl.hostname !== "docs.google.com" || !parsedUrl.pathname.includes("/spreadsheets/d/")) {
+      toast.error("Use a Google Sheets link from docs.google.com.");
+      return;
+    }
+    const match = parsedUrl.pathname.match(/\/spreadsheets\/d\/([^/]+)/);
+    if (!match?.[1]) {
+      toast.error("Could not identify the spreadsheet in this link.");
+      return;
+    }
+    const gid = parsedUrl.searchParams.get("gid") ?? parsedUrl.hash.match(/gid=(\d+)/)?.[1] ?? "0";
+    setBusyFile(true);
+    try {
+      const exportUrl = new URL(`https://docs.google.com/spreadsheets/d/${encodeURIComponent(match[1])}/export`);
+      exportUrl.searchParams.set("format", "csv");
+      exportUrl.searchParams.set("gid", gid);
+      const response = await fetch(exportUrl.toString(), { credentials: "omit" });
+      if (!response.ok) throw new Error("Google Sheets did not allow this sheet to be exported.");
+      const parsed = parsePatientCsv(await response.text());
+      setRows(parsed);
+      setFileName("Google Sheets import");
+      setOpen(true);
+    } catch {
+      toast.error("Could not read this sheet directly. Set sharing to Anyone with the link, or download it as CSV/XLSX and upload the file.");
+    } finally {
+      setBusyFile(false);
+    }
+  };
+
+
   return (
     <>
-      <Button
-        variant="outline"
-        size="sm"
-        disabled={busyFile}
-        onClick={() => document.getElementById("patient-ledger-import-file")?.click()}
-      >
-        <FileUp className="mr-2 h-4 w-4" />
-        {busyFile ? "Reading…" : "Import file"}
-      </Button>
+      <div className="flex flex-wrap items-center gap-2">
+        <Button
+          variant="outline"
+          size="sm"
+          disabled={busyFile}
+          onClick={() => document.getElementById("patient-ledger-import-file")?.click()}
+        >
+          <FileUp className="mr-2 h-4 w-4" />
+          {busyFile ? "Reading…" : "Import CSV / XLSX"}
+        </Button>
+        <Input
+          aria-label="Google Sheets link"
+          className="w-64"
+          placeholder="Paste Google Sheets link"
+          value={sheetUrl}
+          onChange={(event) => setSheetUrl(event.target.value)}
+        />
+        <Button variant="outline" size="sm" disabled={busyFile || !sheetUrl.trim()} onClick={() => void handleGoogleSheet()}>
+          Load sheet
+        </Button>
+      </div>
 
       <input
         id="patient-ledger-import-file"
