@@ -67,7 +67,15 @@ export function PatientLedgerImport({ clinicianId, patients, onImported }: Props
           args: Record<string, unknown>,
         ) => Promise<{ data: unknown; error: { message: string } | null }>;
       };
-      const batchId = crypto.randomUUID();
+      const digest = await crypto.subtle.digest(
+        "SHA-256",
+        new TextEncoder().encode(JSON.stringify(rows)),
+      );
+      const fingerprint = Array.from(new Uint8Array(digest))
+        .map((byte) => byte.toString(16).padStart(2, "0"))
+        .join("")
+        .slice(0, 32);
+      const batchId = `${fingerprint.slice(0, 8)}-${fingerprint.slice(8, 12)}-4${fingerprint.slice(13, 16)}-a${fingerprint.slice(17, 20)}-${fingerprint.slice(20, 32)}`;
       const { data, error } = await rpcClient.rpc("import_personal_patient_batch", {
         p_rows: rows,
         p_batch_id: batchId,
