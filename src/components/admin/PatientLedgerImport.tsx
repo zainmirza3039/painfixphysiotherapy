@@ -362,7 +362,9 @@ export function PatientLedgerImport({ clinicianId, patients, onImported }: Props
                           min="0"
                           value={row.sessionFee ?? ""}
                           onChange={(event) =>
-                            update({ sessionFee: event.target.value ? Number(event.target.value) : null })
+                            update({
+                              sessionFee: event.target.value ? Number(event.target.value) : null,
+                            })
                           }
                         />
                       </td>
