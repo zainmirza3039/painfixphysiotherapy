@@ -47,8 +47,8 @@ export function CityServices() {
               </span>
             </div>
             <p className="mt-3 flex-1 text-sm leading-6 text-muted-foreground">
-              Book an in-person physiotherapy assessment at PainFix in Shalimar Colony, or request
-              a home visit if you need care at your location in Multan.
+              Book an in-person physiotherapy assessment at PainFix in Shalimar Colony, or request a
+              home visit if you need care at your location in Multan.
             </p>
             <div className="mt-6 flex flex-col gap-3 min-[420px]:flex-row">
               <a
