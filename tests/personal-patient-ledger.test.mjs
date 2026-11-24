@@ -124,6 +124,12 @@ test("spreadsheet parser supports CSV and XLSX without an untracked dependency",
   assert.match(importUi, /accept="\.csv,\.xlsx/);
 });
 
+test("XLSX rows are separated with real newlines and slash dates use day/month/year", () => {
+  assert.match(importParser, /\.join\("\\n"\)/);
+  assert.match(importParser, /Slash-formatted dates use day\/month\/year/);
+  assert.match(importParser, /const match = value\.match\(\/\^\\\\d\{1,2\}\[\/-\]\\\\d\{1,2\}\[\/-\]\\\\d\{2,4\}\$\//);
+});
+
 test("import preview remains explicit before committing the batch", () => {
   assert.match(importUi, /No records are saved until you confirm/);
   assert.match(importUi, /Confirm and import/);
