@@ -327,6 +327,43 @@ function PersonalPatientDetailPage() {
     anchor.click();
     URL.revokeObjectURL(url);
   };
+  const printReceipt = (entry: Entry) => {
+    if (!data) return;
+    const escapeHtml = (value: string) =>
+      value.replace(/[&<>"']/g, (char) =>
+        ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[char] ?? char,
+      );
+    const receiptNumber = entry.reference || entry.id;
+    const receiptWindow = window.open("", "_blank", "width=760,height=720");
+    if (!receiptWindow) {
+      toast.error("Allow pop-ups to print the receipt.");
+      return;
+    }
+    receiptWindow.document.write(`<!doctype html>
+      <html><head><meta charset="utf-8"><title>PainFix payment receipt</title>
+      <style>
+        body{font-family:Arial,sans-serif;color:#172033;padding:36px;max-width:720px;margin:auto}
+        header{border-bottom:3px solid #032e61;padding-bottom:18px;margin-bottom:24px}
+        h1{color:#032e61;margin:0 0 6px;font-size:25px}
+        .muted{color:#64748b;font-size:13px}
+        .row{display:flex;justify-content:space-between;gap:24px;padding:12px 0;border-bottom:1px solid #e2e8f0}
+        .amount{font-size:28px;font-weight:700;color:#00854a;margin:24px 0}
+        footer{margin-top:36px;border-top:1px solid #e2e8f0;padding-top:14px}
+        @media print{body{padding:0}}
+      </style></head><body>
+      <header><h1>PainFix Physiotherapy Clinic</h1><div class="muted">Payment receipt · Multan</div></header>
+      <div class="row"><strong>Receipt no.</strong><span>${escapeHtml(receiptNumber.slice(0, 18))}</span></div>
+      <div class="row"><strong>Patient</strong><span>${escapeHtml(data.patient.full_name)}</span></div>
+      <div class="row"><strong>Date</strong><span>${escapeHtml(date(entry.occurred_at))}</span></div>
+      <div class="row"><strong>Description</strong><span>${escapeHtml(entry.description)}</span></div>
+      <div class="row"><strong>Payment method</strong><span>${escapeHtml((entry.payment_method || "Not specified").replaceAll("_", " "))}</span></div>
+      <div class="amount">Received: ${escapeHtml(money(Math.abs(Number(entry.amount))))}</div>
+      <footer class="muted">This receipt confirms payment received by PainFix. Keep it for your records.</footer>
+      <script>window.onload=()=>window.print();</script></body></html>`);
+    receiptWindow.document.close();
+    receiptWindow.focus();
+  };
+
   const sendWhatsAppReminder = () => {
     if (!data) return;
     const next = (data.sessions ?? [])
@@ -935,12 +972,20 @@ function PersonalPatientDetailPage() {
                     {e.reference ? ` · Ref ${e.reference.slice(0, 8)}` : ""}
                   </p>
                 </div>
-                <p
-                  className={`font-semibold tabular-nums ${e.amount < 0 ? "text-emerald-600" : "text-foreground"}`}
-                >
-                  {e.amount < 0 ? "− " : "+ "}
-                  {money(Math.abs(Number(e.amount)))}
-                </p>
+                <div className="flex items-center gap-2">
+                  {e.entry_type === "payment" && (
+                    <Button size="sm" variant="ghost" onClick={() => printReceipt(e)}>
+                      <Printer className="mr-1 h-3.5 w-3.5" />
+                      Receipt
+                    </Button>
+                  )}
+                  <p
+                    className={`font-semibold tabular-nums ${e.amount < 0 ? "text-emerald-600" : "text-foreground"}`}
+                  >
+                    {e.amount < 0 ? "− " : "+ "}
+                    {money(Math.abs(Number(e.amount)))}
+                  </p>
+                </div>
               </div>
             ))}
           </div>
