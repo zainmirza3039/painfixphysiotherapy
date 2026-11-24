@@ -9,7 +9,7 @@ test("homepage keeps the primary Multan physiotherapist keyword and canonical UR
   const home = source("routes/index.tsx");
   const hero = source("components/site/Hero.tsx");
   assert.ok(
-    home.includes('const TITLE = "Physiotherapist in Multan | PainFix Physiotherapy Clinic"'),
+    home.includes('const TITLE = "Best Physiotherapist in Multan | PainFix Physiotherapy Clinic"'),
   );
   assert.ok(home.includes('rel: "canonical", href:') && home.includes("SITE_URL"));
   assert.ok(hero.includes("Physiotherapist"));
