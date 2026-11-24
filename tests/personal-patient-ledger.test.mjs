@@ -129,3 +129,15 @@ test("import preview supports editing before confirmation and public Sheets link
   assert.match(importUi, /Google Sheets link/);
   assert.match(importUi, /docs\.google\.com/);
 });
+
+test("patient payments can produce printable receipts", () => {
+  assert.match(detail, /const printReceipt = \(entry: Entry\)/);
+  assert.match(detail, /e\.entry_type === "payment"/);
+  assert.match(detail, /Payment receipt/);
+});
+
+test("attendance certificates only report completed-session attendance", () => {
+  assert.match(detail, /const printAttendanceCertificate = \(\)/);
+  assert.match(detail, /session\.status === "completed"/);
+  assert.match(detail, /not a medical fitness certificate/);
+});
