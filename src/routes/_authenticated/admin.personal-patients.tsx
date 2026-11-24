@@ -5,6 +5,7 @@ import { toast } from "sonner";
 import { Archive, CalendarCheck2, CircleDollarSign, Plus, Search, Users } from "lucide-react";
 import { personalPatientDb } from "@/admin/personal-patients.db";
 import { PatientLedgerImport } from "@/components/admin/PatientLedgerImport";
+import { DailyAttendanceLedger } from "@/components/admin/DailyAttendanceLedger";
 import { useAdminAuth } from "@/admin/AdminAuthProvider";
 import { AdminPageHeader } from "@/components/admin/AdminPageHeader";
 import { AdminQueryError } from "@/components/admin/AdminQueryError";
@@ -273,6 +274,12 @@ function PersonalPatientsPage() {
           </div>
         }
       />
+      {user?.id && (
+        <DailyAttendanceLedger
+          clinicianId={user.id}
+          patients={query.data?.patients ?? []}
+        />
+      )}
       <section className="mb-6 grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
         {[
           {
