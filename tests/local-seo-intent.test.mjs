@@ -152,28 +152,18 @@ test("slipped-disc search intent maps to the existing slipped-disc condition rou
   assert.doesNotMatch(ownershipPlan, /do not create a separate slipped-disc URL/i);
 });
 
-test("clinic-location page avoids unsupported facility claims and stays distinct from service information", async () => {
-  const localPages = await read("src/data/localPages.ts");
-  const clinicStart = localPages.indexOf('slug: "physiotherapy-clinic-in-multan"');
-  assert.notEqual(clinicStart, -1);
-  const clinicEnd = localPages.indexOf("\n  },", clinicStart);
-  const clinicPage = localPages.slice(clinicStart, clinicEnd);
-
-  assert.ok(clinicPage.includes('title: "Physiotherapy Clinic in Multan"'));
-  assert.ok(clinicPage.includes("Usman Raja Market"));
-  assert.ok(clinicPage.includes("Sunday by appointment"));
-  assert.doesNotMatch(
-    clinicPage,
-    /modern, fully equipped|everything your recovery needs|modern equipment/i,
-  );
+test("clinic-location city URL redirects to the canonical homepage", async () => {
+  const route = await read("src/routes/physiotherapy-clinic-in-multan.tsx");
+  const homepage = await read("src/routes/index.tsx");
+  assert.match(route, /redirect\\(\\{ to: "\\/" \\}\\)/);
+  assert.match(homepage, /Best Physiotherapist in Multan/);
 });
 
 test("local Multan landing pages describe home visits as available citywide", async () => {
   const localPages = await read("src/data/localPages.ts");
   const homeVisit = await read("src/routes/home-visit.tsx");
 
-  assert.match(localPages, /Home physiotherapy visits available across Multan/);
-  assert.match(localPages, /requested from any area of Multan/);
+  assert.match(localPages, /export const localPages: LocalPage\\[\\] = \\[\\]/);
   assert.doesNotMatch(
     localPages,
     /Selected home visits|Selected home physiotherapy visits|selected home visits/i,
