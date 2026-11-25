@@ -33,6 +33,6 @@ test("the former RYK clinician profile is hidden without deleting its record", a
   const migration = await read("supabase/migrations/20261125170000_hide_ryk_clinician_profile.sql");
   assert.match(migration, /UPDATE public\.clinician_profiles/);
   assert.match(migration, /SET is_published = false/);
-  assert.match(migration, /WHERE slug = 'ariba-babar'/);
+  assert.match(migration, /WHERE slug = 'dr-areeba-babar-pt'/);
   assert.doesNotMatch(migration, /DELETE|DROP TABLE|TRUNCATE/i);
 });
