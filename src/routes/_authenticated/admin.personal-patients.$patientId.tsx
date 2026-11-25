@@ -498,7 +498,9 @@ function PersonalPatientDetailPage() {
       setSessionOpen(false);
       setSessionDate("");
       setSessionLabel("");
-      setSessionCharge(activePlan?.plan_type === "package" ? "0" : String(activePlan?.per_session_fee ?? ""));
+      setSessionCharge(
+                  activePlan?.plan_type === "package" ? "0" : String(activePlan?.per_session_fee ?? ""),
+                );
       setSessionNote("");
       toast.success("Session scheduled. It is not counted as completed yet.");
     },
@@ -716,7 +718,9 @@ function PersonalPatientDetailPage() {
             <Button
               variant="outline"
               onClick={() => {
-                setSessionCharge(activePlan?.plan_type === "package" ? "0" : String(activePlan?.per_session_fee ?? ""));
+                setSessionCharge(
+        activePlan?.plan_type === "package" ? "0" : String(activePlan?.per_session_fee ?? ""),
+      );
                 setSessionOpen(true);
               }}
             >
@@ -1470,7 +1474,7 @@ function PersonalPatientDetailPage() {
                 placeholder="e.g. Follow-up session"
               />
             </div>
-{activePlan?.plan_type === "package" ? (
+            {activePlan?.plan_type === "package" ? (
               <div className="rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-sm text-emerald-900 dark:border-emerald-900 dark:bg-emerald-950/30 dark:text-emerald-200">
                 <p className="font-medium">Included in prepaid package</p>
                 <p className="mt-1 text-xs">No extra fee is needed. This visit will not add another charge.</p>
