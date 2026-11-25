@@ -1531,8 +1531,8 @@ function PersonalPatientDetailPage() {
             <DialogTitle>{t.recordPayment}</DialogTitle>
             <DialogDescription>
               Enter the amount you actually received as a normal positive number. The system updates
-              the balance automatically. Extra payment stays as credit. Do not enter 0 or a minus sign
-              to clear the balance.
+              the balance automatically. Extra payment stays as credit. Do not enter 0 or a minus
+              sign to clear the balance.
             </DialogDescription>
           </DialogHeader>
           <form
