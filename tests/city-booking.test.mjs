@@ -56,7 +56,7 @@ test("enquiry validation requires details but no address, rejects bad phone/date
 });
 test("retired city values cannot route enquiries to a former clinician", () => {
   assert.deepEqual(parseBookingSearch({ city: "rahim-yar-khan", service: "online" }), {});
-  assert.equal(bookingServices("rahim-yar-khan"), []);
+  assert.deepEqual(bookingServices("rahim-yar-khan"), []);
 });
 test("Multan and Other city online enquiries route to existing PainFix contact", () => {
   for (const city of ["multan", "other"])
