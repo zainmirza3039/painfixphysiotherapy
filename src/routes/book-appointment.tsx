@@ -33,7 +33,7 @@ function BookAppointmentPage() {
         title="Your city. Your way to better movement."
         image={serviceImages["home-physiotherapy"]}
         imageAlt="Physiotherapist delivering an individualised physiotherapy session"
-        subtitle="Book a Multan clinic appointment or home visit, or enquire about online consultation availability. Start by choosing your city."
+        subtitle="Book a Multan clinic appointment or home visit, or enquire about online physiotherapy consultation availability. Start by choosing your city."
         icon={<CalendarCheck className="h-7 w-7" aria-hidden="true" />}
         crumbs={[
           { label: "Home", path: "/" },
