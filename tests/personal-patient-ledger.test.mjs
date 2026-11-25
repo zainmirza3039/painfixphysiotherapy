@@ -81,7 +81,9 @@ test("prepaid package visits do not ask the clinician to enter zero manually", (
 
 test("payment instructions explain that balances update automatically", () => {
   assert.ok(detail.includes("Do not enter 0 or a minus sign to clear the balance"));
-  assert.ok(detail.includes("You never need to type a minus sign or manually set the balance to zero"));
+  assert.ok(
+    detail.includes("You never need to type a minus sign or manually set the balance to zero"),
+  );
 });
 
 test("patient lifecycle supports active, on-hold, discharged and archived", () => {
