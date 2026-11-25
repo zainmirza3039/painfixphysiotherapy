@@ -28,7 +28,7 @@ test("broad physiotherapist landing URL redirects home while booking stays on it
       (redirect) =>
         redirect.source === "/physiotherapist-in-multan" &&
         redirect.destination === "/" &&
-        redirect.permanent,
+        (redirect.permanent === true || redirect.statusCode === 301),
     ),
   );
   const bookingRoute = await read("src/routes/book-appointment.tsx");

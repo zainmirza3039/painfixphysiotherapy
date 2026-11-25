@@ -81,7 +81,10 @@ test("broad Multan landing URLs consolidate to homepage and home-visit", async (
   ]) {
     assert.ok(
       config.redirects.some(
-        (rule) => rule.source === source && rule.destination === "/" && rule.permanent === true,
+        (rule) =>
+          rule.source === source &&
+          rule.destination === "/" &&
+          (rule.permanent === true || rule.statusCode === 301),
       ),
     );
   }
@@ -90,7 +93,7 @@ test("broad Multan landing URLs consolidate to homepage and home-visit", async (
       (rule) =>
         rule.source === "/services/home-physiotherapy" &&
         rule.destination === "/home-visit" &&
-        rule.permanent === true,
+        (rule.permanent === true || rule.statusCode === 301),
     ),
   );
   const sitemap = await read("src/routes/sitemap[.]xml.ts");
@@ -242,7 +245,10 @@ test("homepage local-commercial metadata is clear while existing ownership and c
   ]) {
     assert.ok(
       config.redirects.some(
-        (rule) => rule.source === source && rule.destination === "/" && rule.permanent === true,
+        (rule) =>
+          rule.source === source &&
+          rule.destination === "/" &&
+          (rule.permanent === true || rule.statusCode === 301),
       ),
     );
   }

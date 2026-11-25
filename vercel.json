@@ -5,22 +5,22 @@
     {
       "source": "/best-physiotherapist-in-multan",
       "destination": "/",
-      "permanent": true
+      "statusCode": 301
     },
     {
       "source": "/physiotherapist-in-multan",
       "destination": "/",
-      "permanent": true
+      "statusCode": 301
     },
     {
       "source": "/physiotherapy-in-multan",
       "destination": "/",
-      "permanent": true
+      "statusCode": 301
     },
     {
       "source": "/physiotherapy-clinic-in-multan",
       "destination": "/",
-      "permanent": true
+      "statusCode": 301
     },
     {
       "source": "/services/home-physiotherapy",
