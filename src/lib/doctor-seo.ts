@@ -16,20 +16,14 @@ export function doctorProfileHead(doc: TeamMember) {
   const isZainProfile = doc.slug === "dr-zain-ul-abideen-pt-multan";
   const isJalalProfile = doc.slug === "dr-jalal-ud-din-pt-multan";
   const metaTitle = onlineOnly
-    ? doc.slug === "dr-ariba-babar-pt"
-      ? "Ariba Babar DPT | Online Physiotherapist in Rahim Yar Khan"
-      : `${doc.fullName} — Online Physiotherapy in ${city} | PainFix`
+    ? `${doc.fullName} — Online Physiotherapy | PainFix`
     : isZainProfile
       ? "Dr. Zain Ul Abideen, DPT | Physiotherapist in Multan | PainFix"
       : isJalalProfile
         ? "Dr. Jalal Ud Din, DPT | Physiotherapist in Multan | PainFix"
         : doc.profile.metaTitle;
   const metaDescription = onlineOnly
-    ? doc.slug === "dr-ariba-babar-pt"
-      ? "Book an online video consultation with Ariba Babar, DPT, an online physiotherapist serving Rahim Yar Khan. Ask about availability and suitability via WhatsApp."
-      : doc.profile.metaDescription.includes(city)
-        ? doc.profile.metaDescription
-        : `Online physiotherapy consultation enquiries with ${doc.fullName}, based in ${city}.`
+    ? `Online physiotherapy consultation enquiries with ${doc.fullName}. Ask about availability and suitability.`
     : isZainProfile
       ? "Meet Dr. Zain Ul Abideen, DPT, Founder & Head Physiotherapist at PainFix in Multan. Explore his clinical focus, treatment approach and appointment details."
       : isJalalProfile
