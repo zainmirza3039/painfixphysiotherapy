@@ -68,13 +68,14 @@ test("admin shell polls unread enquiries and exposes notification indicators", (
   assert.ok(shell.includes('.from("contact_submissions")'));
   assert.ok(shell.includes('.from("home_visit_requests")'));
   assert.ok(shell.includes("aria-label={"));
-  assert.ok(shell.includes("bg-rose-500"));
+  assert.ok(shell.includes("admin-nav-link__count"));
+  assert.ok(shell.includes("admin-notification-dot"));
 });
 
 test("admin dashboard metrics use compact data-led cards", () => {
   const card = source("components/admin/StatCard.tsx");
-  assert.ok(card.includes("flex min-h-[112px]"));
-  assert.ok(card.includes("items-start gap-3"));
-  assert.ok(card.includes("uppercase tracking-[0.09em]"));
+  assert.ok(card.includes("admin-stat-card"));
+  assert.ok(card.includes("admin-stat-card__top"));
+  assert.ok(card.includes("admin-stat-card__label"));
   assert.ok(card.includes("tabular-nums"));
 });
