@@ -107,9 +107,8 @@ function PersonalPatientDetailPage() {
   const [portalOpen, setPortalOpen] = useState(false);
   const [editOpen, setEditOpen] = useState(false);
   const [correctionOpen, setCorrectionOpen] = useState(false);
-  const [correctionType, setCorrectionType] = useState<"refund" | "adjustment">("refund");
-  const [correctionDirection, setCorrectionDirection] = useState<"increase_due" | "reduce_due">(
-    "increase_due",
+  const [correctionType, setCorrectionType] = useState<"refund" | "add_charge" | "reduce_balance">(
+    "refund",
   );
   const [correctionAmount, setCorrectionAmount] = useState("");
   const [correctionDescription, setCorrectionDescription] = useState("");
@@ -129,7 +128,7 @@ function PersonalPatientDetailPage() {
   const [perSessionFee, setPerSessionFee] = useState("");
   const [sessionDate, setSessionDate] = useState("");
   const [sessionLabel, setSessionLabel] = useState("");
-  const [sessionCharge, setSessionCharge] = useState("0");
+  const [sessionCharge, setSessionCharge] = useState("");
   const [sessionNote, setSessionNote] = useState("");
   const [paymentAmount, setPaymentAmount] = useState("");
   const [paymentMethod, setPaymentMethod] = useState("cash");
@@ -482,7 +481,7 @@ function PersonalPatientDetailPage() {
     mutationFn: async () => {
       if (!user?.id) throw new Error("Please sign in again.");
       if (!sessionDate) throw new Error("Select a session date and time.");
-      const charge = Number(sessionCharge);
+      const charge = activePlan?.plan_type === "package" ? 0 : Number(sessionCharge);
       if (!Number.isFinite(charge) || charge < 0) throw new Error("Enter a valid session fee.");
       const { error } = await personalPatientDb.from("personal_patient_sessions").insert({
         clinician_id: user.id,
@@ -501,7 +500,9 @@ function PersonalPatientDetailPage() {
       setSessionOpen(false);
       setSessionDate("");
       setSessionLabel("");
-      setSessionCharge(String(activePlan?.per_session_fee ?? 0));
+      setSessionCharge(
+        activePlan?.plan_type === "package" ? "0" : String(activePlan?.per_session_fee ?? ""),
+      );
       setSessionNote("");
       toast.success("Session scheduled. It is not counted as completed yet.");
     },
@@ -568,16 +569,15 @@ function PersonalPatientDetailPage() {
       const { error } = await personalPatientDb.from("personal_patient_ledger").insert({
         clinician_id: user.id,
         patient_id: patientId,
-        entry_type: correctionType,
-        amount:
-          correctionType === "refund"
-            ? amount
-            : correctionDirection === "reduce_due"
-              ? -amount
-              : amount,
+        entry_type: correctionType === "refund" ? "refund" : "adjustment",
+        amount: correctionType === "reduce_balance" ? -amount : amount,
         description:
           correctionDescription.trim() ||
-          (correctionType === "refund" ? "Patient refund" : "Account adjustment"),
+          (correctionType === "refund"
+            ? "Patient refund"
+            : correctionType === "add_charge"
+              ? "Missed charge added"
+              : "Balance reduced"),
         reference: crypto.randomUUID(),
       });
       if (error) throw error;
@@ -587,8 +587,8 @@ function PersonalPatientDetailPage() {
       setCorrectionOpen(false);
       setCorrectionAmount("");
       setCorrectionDescription("");
-      setCorrectionDirection("increase_due");
-      toast.success("Ledger correction recorded as an immutable entry.");
+      setCorrectionType("refund");
+      toast.success("Correction saved. Previous records were preserved.");
     },
     onError: (e) => toast.error(e instanceof Error ? e.message : "Could not record correction."),
   });
@@ -720,7 +720,11 @@ function PersonalPatientDetailPage() {
             <Button
               variant="outline"
               onClick={() => {
-                setSessionCharge(String(activePlan?.per_session_fee ?? 0));
+                setSessionCharge(
+                  activePlan?.plan_type === "package"
+                    ? "0"
+                    : String(activePlan?.per_session_fee ?? ""),
+                );
                 setSessionOpen(true);
               }}
             >
@@ -1054,7 +1058,7 @@ function PersonalPatientDetailPage() {
           <div className="flex gap-2">
             <Button size="sm" variant="outline" onClick={() => setCorrectionOpen(true)}>
               <SlidersHorizontal className="mr-1 h-4 w-4" />
-              {language === "ur" ? "تصحیح" : "Refund / adjustment"}
+              {language === "ur" ? "غلطی درست کریں" : "Fix a mistake"}
             </Button>
             <Button size="sm" variant="outline" onClick={exportCsv}>
               <Download className="mr-1 h-4 w-4" />
@@ -1067,7 +1071,8 @@ function PersonalPatientDetailPage() {
           </div>
         </div>
         <p className="mt-1 text-xs text-muted-foreground">
-          Charges, payments, refunds and credits are recorded as separate ledger entries.
+          You never need to type a minus sign or manually set the balance to zero. Record real
+          payments here; use “Fix a mistake” only for corrections.
         </p>
         {data.ledger.length ? (
           <div className="mt-3 divide-y divide-border">
@@ -1188,10 +1193,11 @@ function PersonalPatientDetailPage() {
         <DialogContent>
           <DialogHeader>
             <DialogTitle>
-              {language === "ur" ? "مالی تصحیح" : "Refund or account adjustment"}
+              {language === "ur" ? "غلطی درست کریں" : "Fix a ledger mistake"}
             </DialogTitle>
             <DialogDescription>
-              Ledger rows are immutable. This creates a new compensating entry.
+              Use this only to correct a genuine mistake. Previous records stay unchanged; a new
+              correction is added.
             </DialogDescription>
           </DialogHeader>
           <form
@@ -1202,31 +1208,24 @@ function PersonalPatientDetailPage() {
             }}
           >
             <div className="space-y-1">
-              <Label>Correction type</Label>
+              <Label>What do you need to correct?</Label>
               <select
                 className="h-10 w-full rounded-md border border-input bg-background px-3 text-sm"
                 value={correctionType}
                 onChange={(event) => setCorrectionType(event.target.value as typeof correctionType)}
               >
-                <option value="refund">Refund</option>
-                <option value="adjustment">Adjustment</option>
+                <option value="refund">I returned money to the patient</option>
+                <option value="add_charge">I forgot to add a charge</option>
+                <option value="reduce_balance">Waive or reduce an amount owed</option>
               </select>
+              <p className="text-xs text-muted-foreground">
+                {correctionType === "refund"
+                  ? "Choose this only when you actually gave money back."
+                  : correctionType === "add_charge"
+                    ? "Adds the missed amount to what the patient owes."
+                    : "Reduces what the patient owes. It does not record a payment."}
+              </p>
             </div>
-            {correctionType === "adjustment" && (
-              <div className="space-y-1">
-                <Label>Adjustment effect</Label>
-                <select
-                  className="h-10 w-full rounded-md border border-input bg-background px-3 text-sm"
-                  value={correctionDirection}
-                  onChange={(event) =>
-                    setCorrectionDirection(event.target.value as typeof correctionDirection)
-                  }
-                >
-                  <option value="increase_due">Increase outstanding balance</option>
-                  <option value="reduce_due">Reduce outstanding balance / add credit</option>
-                </select>
-              </div>
-            )}
             <div className="space-y-1">
               <Label>Amount (PKR)</Label>
               <Input
@@ -1239,11 +1238,12 @@ function PersonalPatientDetailPage() {
               />
             </div>
             <div className="space-y-1">
-              <Label>Description</Label>
+              <Label>Reason (required)</Label>
               <Input
                 value={correctionDescription}
                 onChange={(event) => setCorrectionDescription(event.target.value)}
-                placeholder="Reason for correction"
+                placeholder="e.g. Fee entered incorrectly"
+                required
               />
             </div>
             <DialogFooter>
@@ -1451,7 +1451,8 @@ function PersonalPatientDetailPage() {
           <DialogHeader>
             <DialogTitle>{t.schedule}</DialogTitle>
             <DialogDescription>
-              A scheduled session is not counted as completed until you mark it complete.
+              Add the visit here, then mark it complete after the patient attends. The balance
+              updates automatically.
             </DialogDescription>
           </DialogHeader>
           <form
@@ -1480,23 +1481,31 @@ function PersonalPatientDetailPage() {
                 placeholder="e.g. Follow-up session"
               />
             </div>
-            <div className="space-y-1">
-              <Label>
-                {language === "ur" ? "اضافی / سیشن فیس (روپے)" : "Extra / session fee (PKR)"}
-              </Label>
-              <Input
-                type="number"
-                min="0"
-                step="1"
-                value={sessionCharge}
-                onChange={(e) => setSessionCharge(e.target.value)}
-                required
-              />
-              <p className="text-xs text-muted-foreground">
-                Set 0 for a session included in a prepaid package. This fee is charged only when
-                marked completed.
-              </p>
-            </div>
+            {activePlan?.plan_type === "package" ? (
+              <div className="rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-sm text-emerald-900 dark:border-emerald-900 dark:bg-emerald-950/30 dark:text-emerald-200">
+                <p className="font-medium">Included in prepaid package</p>
+                <p className="mt-1 text-xs">
+                  No extra fee is needed. This visit will not add another charge.
+                </p>
+              </div>
+            ) : (
+              <div className="space-y-1">
+                <Label>{activePlan ? "Session fee (PKR)" : "Visit fee (PKR)"}</Label>
+                <Input
+                  type="number"
+                  min="0"
+                  step="1"
+                  value={sessionCharge}
+                  onChange={(e) => setSessionCharge(e.target.value)}
+                  required
+                />
+                <p className="text-xs text-muted-foreground">
+                  {activePlan
+                    ? "Your saved session fee is filled in. It is charged only after you mark the visit complete."
+                    : "Enter the fee for this visit. Enter 0 only if the visit is free."}
+                </p>
+              </div>
+            )}
             <div className="space-y-1">
               <Label>{language === "ur" ? "معالج کا نجی نوٹ" : "Private clinician note"}</Label>
               <Textarea
@@ -1521,8 +1530,9 @@ function PersonalPatientDetailPage() {
           <DialogHeader>
             <DialogTitle>{t.recordPayment}</DialogTitle>
             <DialogDescription>
-              Payments reduce the due balance. Any excess remains as advance credit for future
-              charges.
+              Enter the amount you actually received as a normal positive number. The system updates
+              the balance automatically. Extra payment stays as credit. Do not enter 0 or a minus
+              sign to clear the balance.
             </DialogDescription>
           </DialogHeader>
           <form
