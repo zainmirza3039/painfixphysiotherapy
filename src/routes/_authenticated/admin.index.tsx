@@ -1,15 +1,15 @@
 import { createFileRoute, Link, Navigate } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import {
-  Users,
+  Activity,
+  ArrowRight,
   CalendarClock,
+  CheckCircle2,
+  Clock3,
   Home,
   MessageSquare,
-  ArrowUpRight,
-  Activity,
-  Plus,
-  ClipboardList,
-  CalendarPlus,
+  UserRound,
+  Users,
   UserRoundPlus,
 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
@@ -18,21 +18,22 @@ import { StatCard } from "@/components/admin/StatCard";
 import { AdminPageHeader } from "@/components/admin/AdminPageHeader";
 import { fmtDateTime, isToday } from "@/admin/utils";
 import { Skeleton } from "@/components/ui/skeleton";
+import { Button } from "@/components/ui/button";
 
-export const Route = createFileRoute("/_authenticated/admin/")({
-  component: DashboardPage,
-});
+export const Route = createFileRoute("/_authenticated/admin/")({ component: DashboardPage });
 
 function DashboardPage() {
   const { isStaff, isProfessional, canEditContent, loading } = useAdminAuth();
-
-  const { data, isLoading } = useQuery({
+  const { data, isLoading, isError, refetch } = useQuery({
     enabled: isStaff,
     queryKey: ["admin", "dashboard"],
     queryFn: async () => {
       const [patients, appts, visits, messages] = await Promise.all([
         supabase.from("patients").select("id", { count: "exact", head: true }),
-        supabase.from("appointments").select("id, patient_name, appointment_at, status, service"),
+        supabase
+          .from("appointments")
+          .select("id, patient_name, appointment_at, status, service, assigned_therapist")
+          .order("appointment_at", { ascending: true, nullsFirst: false }),
         supabase
           .from("home_visit_requests")
           .select("id, full_name, preferred_date, status, created_at")
@@ -42,6 +43,8 @@ function DashboardPage() {
           .select("id, name, message, status, created_at")
           .order("created_at", { ascending: false }),
       ]);
+      for (const result of [patients, appts, visits, messages])
+        if (result.error) throw result.error;
       return {
         patientCount: patients.count ?? 0,
         appointments: appts.data ?? [],
@@ -49,195 +52,275 @@ function DashboardPage() {
         messages: messages.data ?? [],
       };
     },
+    refetchOnWindowFocus: true,
   });
-
-  const todayAppts = (data?.appointments ?? []).filter((a) => isToday(a.appointment_at));
-  const newVisits = (data?.visits ?? []).filter((v) => (v.status ?? "new") === "new");
-  const unreadMessages = (data?.messages ?? []).filter((m) => (m.status ?? "new") === "new");
 
   if (!loading && !isStaff) {
     if (isProfessional) return <Navigate to="/admin/profile" replace />;
     if (canEditContent) return <Navigate to="/admin/blog" replace />;
   }
 
-  const todayLabel = new Intl.DateTimeFormat("en-PK", {
+  const todayAppointments = (data?.appointments ?? []).filter((item) =>
+    isToday(item.appointment_at),
+  );
+  const upcomingAppointments = todayAppointments.slice(0, 7);
+  const newVisits = (data?.visits ?? []).filter((item) => (item.status ?? "new") === "new");
+  const newMessages = (data?.messages ?? []).filter((item) => (item.status ?? "new") === "new");
+  const dateLabel = new Intl.DateTimeFormat("en-PK", {
     weekday: "long",
     day: "numeric",
     month: "long",
     year: "numeric",
   }).format(new Date());
+  const timeLabel = (value: string | null) =>
+    value
+      ? new Intl.DateTimeFormat("en-PK", { hour: "numeric", minute: "2-digit" }).format(
+          new Date(value),
+        )
+      : "Time not set";
 
   return (
-    <div className="space-y-6">
+    <div className="admin-dashboard">
       <AdminPageHeader
-        title="Clinic overview"
-        description="Operational snapshot of patients, appointments and incoming requests."
+        title="Good day. Here is your clinic."
+        description="A clear view of today's workload and the items that need your attention."
         actions={
-          <span className="inline-flex items-center gap-2 border border-border bg-card px-3 py-2 text-[11px] font-medium text-muted-foreground">
-            <span className="h-2 w-2 rounded-full bg-secondary" />
-            {todayLabel}
-          </span>
+          <div className="admin-date-chip">
+            <span className="admin-date-chip__dot" />
+            {dateLabel}
+          </div>
         }
       />
 
-      <section aria-label="Clinic performance indicators" className="space-y-3">
-        <div className="flex items-center justify-between gap-3">
-          <h2 className="text-[12px] font-semibold uppercase tracking-[0.12em] text-foreground">
-            At a glance
-          </h2>
-          <span className="text-[11px] text-muted-foreground">Live clinic records</span>
+      {isError && (
+        <div className="admin-error-banner" role="alert">
+          <span>Dashboard data could not be refreshed.</span>
+          <Button variant="outline" size="sm" onClick={() => void refetch()}>
+            Try again
+          </Button>
+        </div>
+      )}
+
+      <section className="admin-dashboard__metrics" aria-label="Clinic overview metrics">
+        <div className="admin-section-heading">
+          <div>
+            <p className="admin-section-heading__eyebrow">CLINIC SNAPSHOT</p>
+            <h2>Today at a glance</h2>
+          </div>
+          <span className="admin-live-label">
+            <span /> Live records
+          </span>
         </div>
         {isLoading ? (
           <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
             {Array.from({ length: 4 }).map((_, i) => (
-              <Skeleton key={i} className="h-[112px] rounded-md" />
+              <Skeleton key={i} className="h-32" />
             ))}
           </div>
         ) : (
           <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
             <StatCard
-              label="Registered patients"
+              label="Clinic patients"
               value={data?.patientCount ?? 0}
-              icon={<Users aria-hidden="true" className="h-[18px] w-[18px]" />}
+              icon={<Users className="h-[18px] w-[18px]" />}
+              hint="Registered clinic records"
               accent="primary"
             />
             <StatCard
               label="Appointments today"
-              value={todayAppts.length}
-              icon={<CalendarClock aria-hidden="true" className="h-[18px] w-[18px]" />}
+              value={todayAppointments.length}
+              icon={<CalendarClock className="h-[18px] w-[18px]" />}
+              hint="Scheduled for today"
               accent="secondary"
-              hint={`${data?.appointments.length ?? 0} total records`}
             />
             <StatCard
               label="New home visits"
               value={newVisits.length}
-              icon={<Home aria-hidden="true" className="h-[18px] w-[18px]" />}
+              icon={<Home className="h-[18px] w-[18px]" />}
+              hint="Requests awaiting review"
               accent="amber"
-              hint={`${data?.visits.length ?? 0} total requests`}
             />
             <StatCard
-              label="Unread enquiries"
-              value={unreadMessages.length}
-              icon={<MessageSquare aria-hidden="true" className="h-[18px] w-[18px]" />}
+              label="New enquiries"
+              value={newMessages.length}
+              icon={<MessageSquare className="h-[18px] w-[18px]" />}
+              hint="Messages awaiting review"
               accent="rose"
-              hint={`${data?.messages.length ?? 0} total messages`}
             />
           </div>
         )}
       </section>
 
-      <section aria-labelledby="quick-actions-heading" className="border border-border bg-card">
-        <div className="flex flex-wrap items-center justify-between gap-2 border-b border-border px-4 py-3">
-          <h2
-            id="quick-actions-heading"
-            className="text-[12px] font-semibold uppercase tracking-[0.12em] text-foreground"
-          >
-            Quick actions
-          </h2>
-          <span className="text-[11px] text-muted-foreground">Common clinic tasks</span>
-        </div>
-        <div className="grid divide-y divide-border sm:grid-cols-2 sm:divide-x sm:divide-y-0 xl:grid-cols-4">
-          <QuickAction
-            to="/admin/patients"
-            icon={<UserRoundPlus />}
-            label="Patient records"
-            detail="Find or add a patient"
-          />
-          <QuickAction
-            to="/admin/appointments"
-            icon={<CalendarPlus />}
-            label="Appointments"
-            detail="Review the schedule"
-          />
-          <QuickAction
-            to="/admin/home-visits"
-            icon={<Home />}
-            label="Home visits"
-            detail="Process visit requests"
-          />
-          <QuickAction
-            to="/admin/messages"
-            icon={<ClipboardList />}
-            label="Enquiries"
-            detail="Review incoming messages"
-          />
-        </div>
-      </section>
+      <section className="admin-dashboard__main-grid">
+        <div className="admin-dashboard__primary-column">
+          <section className="admin-panel admin-schedule">
+            <div className="admin-panel__header">
+              <div>
+                <p className="admin-panel__eyebrow">DAILY WORKFLOW</p>
+                <h2>Today's appointments</h2>
+                <p>Appointments recorded for {dateLabel}.</p>
+              </div>
+              <Link to="/admin/appointments" className="admin-text-link">
+                Full schedule <ArrowRight className="h-4 w-4" />
+              </Link>
+            </div>
+            {isLoading ? (
+              <div className="space-y-3 p-5">
+                {Array.from({ length: 4 }).map((_, i) => (
+                  <Skeleton key={i} className="h-14 w-full" />
+                ))}
+              </div>
+            ) : upcomingAppointments.length ? (
+              <div className="admin-appointment-list">
+                {upcomingAppointments.map((appointment) => (
+                  <div className="admin-appointment-row" key={appointment.id}>
+                    <div className="admin-appointment-row__time">
+                      <Clock3 className="h-3.5 w-3.5" />
+                      {timeLabel(appointment.appointment_at)}
+                    </div>
+                    <div className="admin-appointment-row__person">
+                      <span className="admin-appointment-row__avatar">
+                        <UserRound className="h-4 w-4" />
+                      </span>
+                      <span className="min-w-0">
+                        <strong>{appointment.patient_name || "Unnamed patient"}</strong>
+                        <small>{appointment.service || "Physiotherapy appointment"}</small>
+                      </span>
+                    </div>
+                    <span
+                      className={
+                        "admin-status-pill " +
+                        (appointment.status === "confirmed"
+                          ? "is-confirmed"
+                          : appointment.status === "completed"
+                            ? "is-completed"
+                            : appointment.status === "cancelled" || appointment.status === "no-show"
+                              ? "is-cancelled"
+                              : "is-pending")
+                      }
+                    >
+                      {appointment.status || "pending"}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div className="admin-empty-state">
+                <CalendarClock className="h-6 w-6" />
+                <strong>No appointments scheduled today</strong>
+                <span>New bookings will appear here when they are added.</span>
+                <Link to="/admin/appointments">
+                  Open appointments <ArrowRight className="h-3.5 w-3.5" />
+                </Link>
+              </div>
+            )}
+            <div className="admin-panel__footer">
+              <span>
+                <CheckCircle2 className="h-4 w-4" /> {todayAppointments.length} appointment
+                {todayAppointments.length === 1 ? "" : "s"} today
+              </span>
+              <Link to="/admin/appointments">Manage schedule</Link>
+            </div>
+          </section>
 
-      <section aria-labelledby="activity-heading" className="space-y-3">
-        <div className="flex flex-wrap items-end justify-between gap-2">
-          <div>
-            <h2
-              id="activity-heading"
-              className="text-[12px] font-semibold uppercase tracking-[0.12em] text-foreground"
-            >
-              Incoming activity
-            </h2>
-            <p className="mt-1 text-xs text-muted-foreground">Recent requests requiring review.</p>
-          </div>
-          <span className="inline-flex items-center gap-2 text-[11px] text-muted-foreground">
-            <Activity className="h-3.5 w-3.5 text-secondary" />
-            Clinic inbox
-          </span>
+          <section className="admin-panel admin-quick-actions">
+            <div className="admin-panel__header">
+              <div>
+                <p className="admin-panel__eyebrow">SHORTCUTS</p>
+                <h2>Common tasks</h2>
+              </div>
+            </div>
+            <div className="admin-action-grid">
+              <QuickAction
+                to="/admin/personal-patients"
+                icon={<UserRoundPlus />}
+                title="Personal patient ledger"
+                detail="Your private caseload"
+              />
+              <QuickAction
+                to="/admin/patients"
+                icon={<Users />}
+                title="Clinic patients"
+                detail="Clinic-wide records"
+              />
+              <QuickAction
+                to="/admin/appointments"
+                icon={<CalendarClock />}
+                title="Appointments"
+                detail="Manage the schedule"
+              />
+              <QuickAction
+                to="/admin/home-visits"
+                icon={<Home />}
+                title="Home visits"
+                detail="Review visit requests"
+              />
+              <QuickAction
+                to="/admin/messages"
+                icon={<MessageSquare />}
+                title="Enquiries"
+                detail="Review messages"
+              />
+            </div>
+          </section>
         </div>
 
-        <div className="grid gap-4 xl:grid-cols-2">
-          <ActivityPanel
-            title="Home visit requests"
-            to="/admin/home-visits"
-            count={newVisits.length}
-            empty="No home visit requests have been received."
-            isEmpty={(data?.visits.length ?? 0) === 0}
-          >
-            {(data?.visits ?? []).slice(0, 6).map((visit) => (
-              <li key={visit.id} className="flex min-w-0 items-center justify-between gap-3 py-3">
-                <div className="min-w-0">
-                  <p className="truncate text-[13px] font-medium text-foreground">
-                    {visit.full_name}
-                  </p>
-                  <p className="mt-0.5 text-[11px] text-muted-foreground">
-                    Preferred date: {visit.preferred_date || "Not specified"}
-                  </p>
-                </div>
-                <div className="shrink-0 text-right">
-                  <span className="inline-flex items-center border border-amber-300/70 bg-amber-50 px-2 py-0.5 text-[10px] font-semibold text-amber-800 dark:border-amber-800 dark:bg-amber-950/40 dark:text-amber-300">
-                    {(visit.status ?? "new") === "new" ? "New" : visit.status}
-                  </span>
-                  <p className="mt-1 text-[10px] text-muted-foreground">
-                    {fmtDateTime(visit.created_at)}
-                  </p>
-                </div>
-              </li>
-            ))}
-          </ActivityPanel>
+        <aside className="admin-dashboard__side-column">
+          <section className="admin-panel admin-inbox-panel">
+            <div className="admin-panel__header">
+              <div>
+                <p className="admin-panel__eyebrow">NEEDS ATTENTION</p>
+                <h2>Incoming requests</h2>
+              </div>
+              <span className="admin-inbox-total">{newVisits.length + newMessages.length}</span>
+            </div>
+            <div className="admin-inbox-group">
+              <Link to="/admin/home-visits" className="admin-inbox-link">
+                <span className="admin-inbox-link__icon is-home">
+                  <Home className="h-4 w-4" />
+                </span>
+                <span>
+                  <strong>Home visit requests</strong>
+                  <small>New patient visit enquiries</small>
+                </span>
+                <b>{newVisits.length}</b>
+                <ArrowRight className="h-4 w-4" />
+              </Link>
+              <Link to="/admin/messages" className="admin-inbox-link">
+                <span className="admin-inbox-link__icon is-message">
+                  <MessageSquare className="h-4 w-4" />
+                </span>
+                <span>
+                  <strong>Website enquiries</strong>
+                  <small>Contact form submissions</small>
+                </span>
+                <b>{newMessages.length}</b>
+                <ArrowRight className="h-4 w-4" />
+              </Link>
+            </div>
+            <div className="admin-panel__footer">
+              <span>
+                <Activity className="h-4 w-4" /> Inbox overview
+              </span>
+              <Link to="/admin/home-visits">Review requests</Link>
+            </div>
+          </section>
 
-          <ActivityPanel
-            title="Recent enquiries"
-            to="/admin/messages"
-            count={unreadMessages.length}
-            empty="No enquiries have been received."
-            isEmpty={(data?.messages.length ?? 0) === 0}
-          >
-            {(data?.messages ?? []).slice(0, 6).map((message) => (
-              <li key={message.id} className="flex min-w-0 items-center justify-between gap-3 py-3">
-                <div className="min-w-0">
-                  <p className="truncate text-[13px] font-medium text-foreground">{message.name}</p>
-                  <p className="mt-0.5 truncate text-[11px] text-muted-foreground">
-                    {message.message || "No message preview"}
-                  </p>
-                </div>
-                <div className="shrink-0 text-right">
-                  <span className="inline-flex items-center border border-rose-200 bg-rose-50 px-2 py-0.5 text-[10px] font-semibold text-rose-800 dark:border-rose-900 dark:bg-rose-950/40 dark:text-rose-300">
-                    {(message.status ?? "new") === "new" ? "New" : message.status}
-                  </span>
-                  <p className="mt-1 text-[10px] text-muted-foreground">
-                    {fmtDateTime(message.created_at)}
-                  </p>
-                </div>
-              </li>
-            ))}
-          </ActivityPanel>
-        </div>
+          <section className="admin-panel admin-workspace-note">
+            <div className="admin-workspace-note__mark">
+              <UserRound className="h-5 w-5" />
+            </div>
+            <p className="admin-panel__eyebrow">SEPARATE WORKSPACE</p>
+            <h2>Personal patient ledger</h2>
+            <p>
+              Your private patient accounts, treatment sessions and payment records remain separate
+              from clinic-wide patient records.
+            </p>
+            <Link to="/admin/personal-patients">
+              Open your ledger <ArrowRight className="h-4 w-4" />
+            </Link>
+          </section>
+        </aside>
       </section>
     </div>
   );
@@ -246,68 +329,27 @@ function DashboardPage() {
 function QuickAction({
   to,
   icon,
-  label,
+  title,
   detail,
 }: {
-  to: "/admin/patients" | "/admin/appointments" | "/admin/home-visits" | "/admin/messages";
+  to:
+    | "/admin/personal-patients"
+    | "/admin/patients"
+    | "/admin/appointments"
+    | "/admin/home-visits"
+    | "/admin/messages";
   icon: React.ReactNode;
-  label: string;
+  title: string;
   detail: string;
 }) {
   return (
-    <Link
-      to={to}
-      className="group flex min-w-0 items-center gap-3 px-4 py-3.5 transition-colors hover:bg-muted/70 focus-visible:bg-muted/70"
-    >
-      <span className="grid h-9 w-9 shrink-0 place-items-center border border-border bg-surface text-primary transition-colors group-hover:border-secondary/40 group-hover:text-secondary">
-        {icon}
+    <Link to={to} className="admin-action-link">
+      <span className="admin-action-link__icon">{icon}</span>
+      <span className="min-w-0">
+        <strong>{title}</strong>
+        <small>{detail}</small>
       </span>
-      <span className="min-w-0 flex-1">
-        <span className="block truncate text-[12px] font-semibold text-foreground">{label}</span>
-        <span className="mt-0.5 block truncate text-[10px] text-muted-foreground">{detail}</span>
-      </span>
-      <ArrowUpRight className="h-3.5 w-3.5 shrink-0 text-muted-foreground transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+      <ArrowRight className="admin-action-link__arrow h-4 w-4" />
     </Link>
-  );
-}
-
-function ActivityPanel({
-  title,
-  to,
-  count,
-  empty,
-  isEmpty,
-  children,
-}: {
-  title: string;
-  to: "/admin/home-visits" | "/admin/messages";
-  count: number;
-  empty: string;
-  isEmpty: boolean;
-  children: React.ReactNode;
-}) {
-  return (
-    <section className="min-w-0 border border-border bg-card">
-      <div className="flex items-center justify-between gap-3 border-b border-border px-4 py-3">
-        <div className="flex min-w-0 items-center gap-2">
-          <h3 className="truncate text-[13px] font-semibold text-foreground">{title}</h3>
-          {count > 0 && (
-            <span className="inline-flex h-5 min-w-5 items-center justify-center bg-rose-50 px-1.5 text-[10px] font-bold tabular-nums text-rose-700 dark:bg-rose-950/50 dark:text-rose-300">
-              {count}
-            </span>
-          )}
-        </div>
-        <Link
-          to={to}
-          className="inline-flex shrink-0 items-center gap-1 text-[11px] font-semibold text-primary hover:text-secondary"
-        >
-          Open inbox <ArrowUpRight className="h-3 w-3" />
-        </Link>
-      </div>
-      <ul className="divide-y divide-border px-4">
-        {children}
-        {isEmpty && <li className="py-8 text-center text-xs text-muted-foreground">{empty}</li>}
-      </ul>
-    </section>
   );
 }
