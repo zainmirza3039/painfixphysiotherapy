@@ -31,5 +31,5 @@ test("known legacy landing redirects are not emitted in the sitemap", () => {
     assert.ok(sitemap.includes(`"${path}"`), `Missing redirect exclusion: ${path}`);
   }
   assert.ok(sitemap.includes("redirectedLandingPaths.has(entry.path)"));
-  assert.ok(vercel.redirects.every((rule) => rule.permanent === true));
+  assert.ok(vercel.redirects.every((rule) => rule.permanent === true || rule.statusCode === 301));
 });
