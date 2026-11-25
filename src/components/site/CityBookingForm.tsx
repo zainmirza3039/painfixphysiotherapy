@@ -73,11 +73,9 @@ export function CityBookingForm({
             ))}
           </select>
           <p className="text-sm leading-6 text-muted-foreground">
-            {city === "other" ? (
-              "We can check online consultation availability for your city. Clinic appointments and home visits are offered in Multan only."
-            ) : (
-              "Visit the Multan clinic, request a home visit in Multan, or enquire about online availability."
-            )}
+            {city === "other"
+              ? "We can check online consultation availability for your city. Clinic appointments and home visits are offered in Multan only."
+              : "Visit the Multan clinic, request a home visit in Multan, or enquire about online availability."}
           </p>
         </fieldset>
       )}
@@ -275,9 +273,7 @@ function ConsultationDetailsForm({
             rel="noopener noreferrer"
             className={actionClass}
           >
-            {service === "clinic"
-              ? "Open clinic booking calendar"
-              : "Open WhatsApp with PainFix"}
+            {service === "clinic" ? "Open clinic booking calendar" : "Open WhatsApp with PainFix"}
           </a>
         </div>
       )}
