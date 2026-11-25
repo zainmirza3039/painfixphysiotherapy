@@ -171,7 +171,7 @@ const get = async (path) => {
   return { response, html: await response.text() };
 };
 const staticMembers = [
-  ["Dr. Zain Ul Abideen PT", "dr-zain-ul-abideen-pt-multan"],
+  ["Dr. Zain Ul Abideen, DPT", "dr-zain-ul-abideen-pt-multan"],
   ["Dr. Jalal Ud Din PT", "dr-jalal-ud-din-pt-multan"],
   ["Dr. Fatima Iqbal PT", "dr-fatima-iqbal-dpt-multan"],
 ];
