@@ -65,9 +65,23 @@ test("ledger query failures are not silently presented as zero balances", () => 
   assert.match(list, /Could not load patient financial records/);
 });
 
-test("adjustments can increase or reduce the patient balance", () => {
-  assert.match(detail, /correctionDirection === "reduce_due"\s*\?\s*-amount\s*:\s*amount/);
-  assert.match(detail, /value="reduce_due">Reduce outstanding balance/);
+test("ledger corrections use plain-language choices and map to signed immutable entries", () => {
+  assert.match(detail, /value="add_charge">I forgot to add a charge/);
+  assert.match(detail, /value="reduce_balance">Waive or reduce an amount owed/);
+  assert.match(detail, /entry_type: correctionType === "refund" \\? "refund" : "adjustment"/);
+  assert.match(detail, /amount: correctionType === "reduce_balance" \\? -amount : amount/);
+  assert.doesNotMatch(detail, /correctionDirection/);
+});
+
+test("prepaid package visits do not ask the clinician to enter zero manually", () => {
+  assert.match(detail, /activePlan\\?\\.plan_type === "package"/);
+  assert.match(detail, /Included in prepaid package/);
+  assert.match(detail, /No extra fee is needed/);
+});
+
+test("payment instructions explain that balances update automatically", () => {
+  assert.match(detail, /Do not enter 0 or a minus sign to clear the balance/);
+  assert.match(detail, /You never need to type a minus sign or manually set the balance to zero/);
 });
 
 test("patient lifecycle supports active, on-hold, discharged and archived", () => {
