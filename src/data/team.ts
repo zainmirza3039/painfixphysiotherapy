@@ -46,13 +46,13 @@ export interface TeamMember {
 export const team: TeamMember[] = [
   {
     name: "Dr. Zain Ul Abideen",
-    fullName: "Dr. Zain Ul Abideen PT",
+    fullName: "Dr. Zain Ul Abideen, DPT",
     role: "Founder & Head Physiotherapist",
     title: "Physiotherapist in Multan | DPT",
     credentials: "DPT (Doctor of Physical Therapy)",
     bio: "Dr. Zain Ul Abideen leads patient care at PainFix with a focus on evidence-based, personalized rehabilitation. He is dedicated to helping patients overcome pain, recover from injury and restore lasting movement.",
     seoBio:
-      "Dr. Zain Ul Abideen PT is a leading physiotherapist in Multan providing evidence-based physiotherapy and rehabilitation. He treats back pain, neck pain, sciatica, sports injuries and post-surgery recovery using manual therapy and modern rehabilitation.",
+      "Dr. Zain Ul Abideen, DPT is a physiotherapist in Multan providing evidence-based physiotherapy and rehabilitation. He treats back pain, neck pain, sciatica, sports injuries and post-surgery recovery using manual therapy and modern rehabilitation.",
     specialties: [
       "Evidence-Based Physiotherapy",
       "Manual Therapy",
@@ -74,11 +74,11 @@ export const team: TeamMember[] = [
     phoneDisplay: "0314-3039582",
     whatsapp: "923143039582",
     profile: {
-      metaTitle: "Dr. Zain Ul Abideen PT — Physiotherapist in Multan | DPT",
+      metaTitle: "Dr. Zain Ul Abideen, DPT | Physiotherapist in Multan | PainFix",
       metaDescription:
-        "Dr. Zain Ul Abideen PT is a physiotherapist in Multan with a DPT qualification at PainFix.",
+        "Dr. Zain Ul Abideen, DPT is a physiotherapist at PainFix Physiotherapy Clinic in Multan.",
       intro: [
-        "Dr. Zain Ul Abideen PT is a Doctor of Physical Therapy (DPT) and one of the leading physiotherapists in Multan. At PainFix Physiotherapy Clinic he leads patient care with a focus on evidence-based physiotherapy, personalized rehabilitation and long-term recovery.",
+        "Dr. Zain Ul Abideen, DPT is a Doctor of Physical Therapy (DPT) and a physiotherapist in Multan. At PainFix Physiotherapy Clinic he leads patient care with a focus on evidence-based physiotherapy, personalized rehabilitation and long-term recovery.",
         "Whether you are dealing with persistent back pain, a sports injury or recovering after surgery, Dr. Zain designs individualized treatment plans that target the root cause of your condition — helping you move better and live pain-free.",
       ],
       qualifications: [
