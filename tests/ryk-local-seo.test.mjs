@@ -5,37 +5,34 @@ import test from "node:test";
 const repo = new URL("../", import.meta.url);
 const read = (path) => readFile(new URL(path, repo), "utf8");
 
-test("RYK landing route uses the online-only SEO page and avoids clinic schema", async () => {
-  const [route, page] = await Promise.all([
-    read("src/routes/physiotherapy-in-rahim-yar-khan.tsx"),
-    read("src/components/site/RykOnlineLandingPage.tsx"),
-  ]);
-  assert.match(route, /createFileRoute\("\/physiotherapy-in-rahim-yar-khan"\)/);
-  assert.match(route, /Online Video Physiotherapy in Rahim Yar Khan/);
-  assert.match(route, /MedicalTherapy/);
-  assert.match(route, /Rahim Yar Khan/);
-  assert.doesNotMatch(route, /MedicalClinic/);
-  assert.match(page, /Online only in RYK/);
-  assert.match(page, /no physical PainFix (clinic|branch)/i);
-  assert.match(page, /Ariba Babar/);
-  assert.match(page, /book-appointment\?city=rahim-yar-khan&service=online/);
+test("retired RYK landing URL redirects to the PainFix homepage", async () => {
+  const route = await read("src/routes/physiotherapy-in-rahim-yar-khan.tsx");
+  assert.match(route, /redirect\(\{ to: "\/" \}\)/);
+  assert.doesNotMatch(route, /MedicalTherapy|MedicalClinic|Ariba Babar/);
 });
 
-test("RYK homepage card links to the dedicated online-only landing page", async () => {
-  const source = await read("src/components/site/CityServices.tsx");
-  assert.match(source, /physiotherapy-in-rahim-yar-khan/);
-  assert.match(source, /online appointment/i);
-  assert.match(source, /No clinic visit or local home visit is offered/i);
-  assert.doesNotMatch(source, /Rahim Yar Khan (clinic|branch)/i);
-});
-
-test("RYK landing page is discoverable in sitemap, route manifest, and site search", async () => {
-  const [sitemap, manifest, search] = await Promise.all([
+test("RYK is absent from public navigation, sitemap, and site search", async () => {
+  const [homepage, hero, booking, sitemap, manifest, search, llms] = await Promise.all([
+    read("src/components/site/CityServices.tsx"),
+    read("src/components/site/Hero.tsx"),
+    read("src/routes/book-appointment.tsx"),
     read("src/routes/sitemap[.]xml.ts"),
     read("public/manus-routes.json"),
     read("src/lib/searchIndex.ts"),
+    read("public/llms.txt"),
   ]);
-  assert.match(sitemap, /physiotherapy-in-rahim-yar-khan/);
-  assert.match(manifest, /\/physiotherapy-in-rahim-yar-khan/);
-  assert.match(search, /resource-ryk-online-physiotherapy/);
+  for (const source of [homepage, hero, booking, sitemap, manifest, search, llms]) {
+    assert.doesNotMatch(
+      source,
+      /Rahim Yar Khan|rahim-yar-khan|resource-ryk-online-physiotherapy|Ariba Babar/,
+    );
+  }
+});
+
+test("the former RYK clinician profile is hidden without deleting its record", async () => {
+  const migration = await read("supabase/migrations/20261125170000_hide_ryk_clinician_profile.sql");
+  assert.match(migration, /UPDATE public\.clinician_profiles/);
+  assert.match(migration, /SET is_published = false/);
+  assert.match(migration, /WHERE slug = 'dr-areeba-babar-pt'/);
+  assert.doesNotMatch(migration, /DELETE|DROP TABLE|TRUNCATE/i);
 });

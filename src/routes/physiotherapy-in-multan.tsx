@@ -1,18 +1,9 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { getLocalPage } from "@/data/localPages";
-import { LocalLandingPage } from "@/components/site/LocalLandingPage";
-import { localPageHead } from "@/lib/local-seo";
-import { listPublicClinicians } from "@/lib/public-clinicians";
+import { createFileRoute, redirect } from "@tanstack/react-router";
 
-const page = getLocalPage("physiotherapy-in-multan")!;
-
+// Consolidate overlapping Multan city-intent URLs on the primary homepage.
 export const Route = createFileRoute("/physiotherapy-in-multan")({
-  loader: () => listPublicClinicians(),
-  head: () => localPageHead(page),
-  component: PhysiotherapyInMultanPage,
+  beforeLoad: () => {
+    throw redirect({ to: "/" });
+  },
+  component: () => null,
 });
-
-function PhysiotherapyInMultanPage() {
-  const profiles = Route.useLoaderData();
-  return <LocalLandingPage page={page} initialProfiles={profiles} />;
-}

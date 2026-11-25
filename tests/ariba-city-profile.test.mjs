@@ -30,8 +30,8 @@ test("online SEO keeps the root slug canonical and derives city metadata when ne
   const seo = await source("src/lib/doctor-seo.ts");
   assert.match(seo, /const path = `\/\$\{doc\.slug\}`/);
   assert.match(seo, /canonical\(path\)/);
-  assert.match(seo, /Online Physiotherapy in \$\{city\}/);
-  assert.match(seo, /based in \$\{city\}/);
+  assert.match(seo, /Online physiotherapy consultation enquiries with \$\{doc\.fullName\}/);
+  assert.doesNotMatch(seo, /Online Physiotherapy in \$\{city\}/);
   assert.match(
     seo,
     /Online Video Physiotherapy Consultation|online video physiotherapy consultation/i,

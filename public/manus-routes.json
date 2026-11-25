@@ -7,7 +7,6 @@
     { "path": "/conditions", "title": "Physiotherapy Conditions" },
     { "path": "/conditions/:slug", "title": "Condition" },
     { "path": "/contact", "title": "Contact PainFix" },
-    { "path": "/dr-ariba-babar-pt", "title": "Ariba Babar" },
     { "path": "/dr-fatima-iqbal-dpt-multan", "title": "Dr Fatima Iqbal" },
     { "path": "/dr-jalal-ud-din-pt-multan", "title": "Dr Jalal Ud Din" },
     { "path": "/dr-zain-ul-abideen-pt-multan", "title": "Dr Zain Ul Abideen" },
@@ -25,10 +24,6 @@
     { "path": "/our-team", "title": "Our Physiotherapy Team" },
     { "path": "/physiotherapist-in-multan", "title": "Physiotherapist in Multan" },
     { "path": "/physiotherapy-clinic-in-multan", "title": "Physiotherapy Clinic in Multan" },
-    {
-      "path": "/physiotherapy-in-rahim-yar-khan",
-      "title": "Online Physiotherapy in Rahim Yar Khan"
-    },
     { "path": "/privacy", "title": "Privacy Policy" },
     { "path": "/search", "title": "Search PainFix" },
     { "path": "/services", "title": "Physiotherapy Services" },

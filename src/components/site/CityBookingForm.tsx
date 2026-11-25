@@ -1,5 +1,4 @@
 import { useRef, useState, type FormEvent } from "react";
-import { Link } from "@tanstack/react-router";
 import { HomeVisitForm } from "./HomeVisitForm";
 import { CalendlyInline } from "./CalendlyInline";
 import { CALENDLY_URL, WHATSAPP_URL } from "./constants";
@@ -74,23 +73,9 @@ export function CityBookingForm({
             ))}
           </select>
           <p className="text-sm leading-6 text-muted-foreground">
-            {city === "rahim-yar-khan" ? (
-              <>
-                Online-only with{" "}
-                <Link
-                  to="/$slug"
-                  params={{ slug: "dr-ariba-babar-pt" }}
-                  className="font-semibold text-primary underline"
-                >
-                  Ariba Babar, DPT
-                </Link>
-                . PainFix does not have a physical branch in Rahim Yar Khan.
-              </>
-            ) : city === "other" ? (
-              "We can check online consultation availability for your city. Clinic appointments and home visits are offered in Multan only."
-            ) : (
-              "Visit the Multan clinic, request a home visit in Multan, or enquire about online availability."
-            )}
+            {city === "other"
+              ? "We can check online consultation availability for your city. Clinic appointments and home visits are offered in Multan only."
+              : "Visit the Multan clinic, request a home visit in Multan, or enquire about online availability."}
           </p>
         </fieldset>
       )}
@@ -288,11 +273,7 @@ function ConsultationDetailsForm({
             rel="noopener noreferrer"
             className={actionClass}
           >
-            {service === "clinic"
-              ? "Open clinic booking calendar"
-              : city === "rahim-yar-khan"
-                ? "Open WhatsApp with Ariba"
-                : "Open WhatsApp with PainFix"}
+            {service === "clinic" ? "Open clinic booking calendar" : "Open WhatsApp with PainFix"}
           </a>
         </div>
       )}

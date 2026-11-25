@@ -247,17 +247,13 @@ test("deactivation confirmation validates and preserves the edited profile befor
   assert.match(route, /submitForm\(event, true\)/);
 });
 
-test("Multan physiotherapy landing page loads published clinicians before server rendering", async () => {
-  const [route, page, query] = await Promise.all([
+test("homepage loads published clinicians while the retired Multan landing URL redirects", async () => {
+  const [route, homepage] = await Promise.all([
     readFile(new URL("../src/routes/physiotherapy-in-multan.tsx", import.meta.url), "utf8"),
-    readFile(new URL("../src/components/site/LocalLandingPage.tsx", import.meta.url), "utf8"),
-    readFile(new URL("../src/lib/usePublishedClinicians.ts", import.meta.url), "utf8"),
+    readFile(new URL("../src/routes/index.tsx", import.meta.url), "utf8"),
   ]);
-  assert.match(route, /loader: \(\) => listPublicClinicians\(\)/);
-  assert.match(route, /Route\.useLoaderData\(\)/);
-  assert.match(route, /initialProfiles=\{profiles\}/);
-  assert.match(page, /initialProfiles\?: PublicClinicianContent\[\]/);
-  assert.match(page, /usePublishedClinicians\(initialProfiles\)/);
-  assert.match(query, /initialData: initialProfiles/);
-  assert.match(query, /queryFn: \(\) => listPublicClinicians\(\)/);
+  assert.match(route, /redirect\(\{ to: "\/" \}\)/);
+  assert.match(homepage, /loader: \(\) => listPublicClinicians\(\)/);
+  assert.match(homepage, /Route\.useLoaderData\(\)/);
+  assert.match(homepage, /MeetDoctors initialProfiles=\{profiles\}/);
 });

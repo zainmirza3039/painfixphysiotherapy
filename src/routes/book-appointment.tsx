@@ -7,9 +7,9 @@ import { PHONE_DISPLAY, PHONE_TEL, WHATSAPP_CONSULT_URL } from "@/components/sit
 import { parseBookingSearch } from "@/lib/city-booking";
 import { breadcrumbLd, canonical, pageMeta } from "@/lib/seo";
 import { serviceImages } from "@/data/serviceImages";
-const TITLE = "Book Physiotherapy | Multan & Rahim Yar Khan Online | PainFix";
+const TITLE = "Book Physiotherapy in Multan | PainFix";
 const DESCRIPTION =
-  "Book a PainFix clinic appointment or Multan home visit, or enquire about online physiotherapy with Ariba Babar in Rahim Yar Khan.";
+  "Book a PainFix clinic appointment, request a home visit in Multan, or enquire about online consultation availability.";
 export const Route = createFileRoute("/book-appointment")({
   validateSearch: parseBookingSearch,
   head: () => ({
@@ -33,7 +33,7 @@ function BookAppointmentPage() {
         title="Your city. Your way to better movement."
         image={serviceImages["home-physiotherapy"]}
         imageAlt="Physiotherapist delivering an individualised physiotherapy session"
-        subtitle="Multan clinic appointments and home visits. Online physiotherapy with Ariba Babar, DPT, in Rahim Yar Khan. Start by choosing your city."
+        subtitle="Book a Multan clinic appointment or home visit, or enquire about online physiotherapy consultation availability. Start by choosing your city."
         icon={<CalendarCheck className="h-7 w-7" aria-hidden="true" />}
         crumbs={[
           { label: "Home", path: "/" },

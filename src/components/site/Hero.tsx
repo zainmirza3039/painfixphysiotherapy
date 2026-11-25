@@ -1,4 +1,4 @@
-import { CalendarDays, Clock3, MapPin, Video } from "lucide-react";
+import { CalendarDays, Clock3, MapPin } from "lucide-react";
 import painfixSign960 from "@/assets/painfix-sign-960.webp";
 import painfixSign1800 from "@/assets/painfix-sign-1800.webp";
 
@@ -31,12 +31,6 @@ export function Hero() {
               className="home-hero__appointment"
             >
               <CalendarDays className="h-4 w-4" aria-hidden="true" /> Multan clinic appointment
-            </a>
-            <a
-              href="/book-appointment?city=rahim-yar-khan&service=online"
-              className="home-hero__appointment home-hero__appointment--secondary"
-            >
-              <Video className="h-4 w-4 shrink-0" aria-hidden="true" /> Rahim Yar Khan · Online
             </a>
             <a
               href="/book-appointment?city=multan&service=home_visit"

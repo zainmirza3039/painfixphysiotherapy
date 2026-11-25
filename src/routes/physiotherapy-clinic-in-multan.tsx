@@ -1,11 +1,9 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { getLocalPage } from "@/data/localPages";
-import { LocalLandingPage } from "@/components/site/LocalLandingPage";
-import { localPageHead } from "@/lib/local-seo";
+import { createFileRoute, redirect } from "@tanstack/react-router";
 
-const page = getLocalPage("physiotherapy-clinic-in-multan")!;
-
+// Consolidate overlapping Multan city-intent URLs on the primary homepage.
 export const Route = createFileRoute("/physiotherapy-clinic-in-multan")({
-  head: () => localPageHead(page),
-  component: () => <LocalLandingPage page={page} />,
+  beforeLoad: () => {
+    throw redirect({ to: "/" });
+  },
+  component: () => null,
 });

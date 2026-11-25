@@ -198,8 +198,7 @@ test("local business SEO stay aligned with the verified business profile", async
     readFile(new URL("../public/llms.txt", import.meta.url), "utf8"),
   ]);
   assert.match(constants, /time: "11:00 AM – 4:00 PM"/);
-  assert.match(localPages, /11:00 AM to 4:00 PM/);
-  assert.match(localPages, /Sunday is available by appointment only/);
+  assert.ok(localPages.includes("export const localPages: LocalPage[] = [];"));
   assert.doesNotMatch(localPages, /11:00 AM.{0,20}9:00 PM/);
   assert.doesNotMatch(localPages, /31 reviews/);
   assert.doesNotMatch(root, /aggregateRating|reviewCount/);
