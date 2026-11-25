@@ -19,16 +19,11 @@ test("homepage displays the published clinician directory after city services", 
   assert.ok(cityServices >= 0 && teamSection > cityServices);
 });
 
-test("city section presents Multan clinic and home visits plus RYK online-only care", async () => {
+test("city section presents only Multan clinic and home visit services", async () => {
   const source = await read("src/components/site/CityServices.tsx");
   assert.match(source, /Multan/);
   assert.match(source, /Clinic and home physiotherapy/);
-  assert.match(source, /Rahim Yar Khan/);
-  assert.match(source, /Online physiotherapy/);
-  assert.match(source, /online appointment/i);
-  assert.match(source, /Meet the physiotherapist/);
-  assert.doesNotMatch(source, /Ariba Babar/);
-  assert.doesNotMatch(source, /Rahim Yar Khan (clinic|branch)/i);
+  assert.doesNotMatch(source, /Rahim Yar Khan|Ariba Babar|online physiotherapy/i);
 });
 
 test("homepage booking links use the city-aware appointment contract", async () => {
@@ -40,13 +35,11 @@ test("homepage booking links use the city-aware appointment contract", async () 
   for (const href of [
     "/book-appointment?city=multan&service=clinic",
     "/book-appointment?city=multan&service=home_visit",
-    "/book-appointment?city=rahim-yar-khan&service=online",
   ])
     assert.match(source, new RegExp(href.replace(/[?&=]/g, "\\$&")));
-  assert.match(cities, /href="\/dr-ariba-babar-pt"/);
 });
 
-test("homepage hero and metadata mention both cities", async () => {
+test("homepage hero and metadata focus on Multan", async () => {
   const [hero, route] = await Promise.all([
     read("src/components/site/Hero.tsx"),
     read("src/routes/index.tsx"),
@@ -56,7 +49,7 @@ test("homepage hero and metadata mention both cities", async () => {
     hero,
     /Physiotherapist[\s\S]*?in <span className="home-hero__accent">Multan\.<\/span>/,
   );
-  assert.match(hero, /Rahim Yar Khan · Online/);
+  assert.doesNotMatch(hero, /Rahim|Ariba/);
   assert.ok(route.includes("Physiotherapist in Multan | PainFix Physiotherapy Clinic"));
   assert.doesNotMatch(route, /Ariba Babar/);
 });
