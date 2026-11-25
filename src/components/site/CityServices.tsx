@@ -71,8 +71,6 @@ export function CityServices() {
               </a>
             </div>
           </article>
-
-
         </div>
       </div>
     </section>
