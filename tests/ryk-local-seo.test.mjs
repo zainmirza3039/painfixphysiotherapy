@@ -22,7 +22,10 @@ test("RYK is absent from public navigation, sitemap, and site search", async () 
     read("public/llms.txt"),
   ]);
   for (const source of [homepage, hero, booking, sitemap, manifest, search, llms]) {
-    assert.doesNotMatch(source, /Rahim Yar Khan|rahim-yar-khan|resource-ryk-online-physiotherapy|Ariba Babar/);
+    assert.doesNotMatch(
+      source,
+      /Rahim Yar Khan|rahim-yar-khan|resource-ryk-online-physiotherapy|Ariba Babar/,
+    );
   }
 });
 
