@@ -22,7 +22,7 @@ test("Multan supports clinic, home and online; other cities cannot offer physica
     bookingServices("multan").map((s) => s.value),
     ["clinic", "home_visit", "online"],
   );
-  for (const city of ["rahim-yar-khan", "other"])
+  for (const city of ["other"])
     assert.deepEqual(
       bookingServices(city).map((s) => s.value),
       ["online"],
@@ -30,9 +30,7 @@ test("Multan supports clinic, home and online; other cities cannot offer physica
   assert.deepEqual(bookingServices(""), []);
 });
 test("query prefills reject unknown cities and illegal city/service combinations", () => {
-  assert.deepEqual(parseBookingSearch({ city: "rahim-yar-khan", service: "home_visit" }), {
-    city: "rahim-yar-khan",
-  });
+  assert.deepEqual(parseBookingSearch({ city: "rahim-yar-khan", service: "online" }), {});
   assert.deepEqual(parseBookingSearch({ city: "other", service: "clinic" }), { city: "other" });
   assert.deepEqual(parseBookingSearch({ city: "invalid", service: "online" }), {});
   assert.deepEqual(parseBookingSearch({ city: "multan", service: "home_visit" }), {
@@ -56,23 +54,9 @@ test("enquiry validation requires details but no address, rejects bad phone/date
     assert.ok(validateBookingDetails({ ...values, preferred_date: date }, "2026-10-21"));
   assert.ok(validateBookingDetails({ ...values, preferred_time: "25:00" }, "2026-10-21"));
 });
-test("Rahim Yar Khan enquiry hands off complete details to Ariba only, without address or confirmation", () => {
-  const url = new URL(bookingWhatsAppUrl("rahim-yar-khan", values, "https://wa.me/923143039582"));
-  assert.equal(url.pathname, "/923120102560");
-  const message = url.searchParams.get("text");
-  for (const part of [
-    "Test Patient",
-    values.phone,
-    "Rahim Yar Khan",
-    "Online consultation enquiry",
-    values.medical_condition,
-    values.preferred_date,
-    values.preferred_time,
-    values.notes,
-    "not a confirmed appointment",
-  ])
-    assert.ok(message.includes(part), part);
-  assert.ok(!message.includes("Address:"));
+test("retired city values cannot route enquiries to a former clinician", () => {
+  assert.deepEqual(parseBookingSearch({ city: "rahim-yar-khan", service: "online" }), {});
+  assert.equal(bookingServices("rahim-yar-khan"), []);
 });
 test("Multan and Other city online enquiries route to existing PainFix contact", () => {
   for (const city of ["multan", "other"])
