@@ -1,9 +1,9 @@
-import { createFileRoute, redirect } from "@tanstack/react-router";
+import { createFileRoute, notFound } from "@tanstack/react-router";
 
-// Retain a redirect for the retired URL so old bookmarks and indexed links do not expose content.
+// The RYK landing page is retired and has no equivalent replacement.
 export const Route = createFileRoute("/physiotherapy-in-rahim-yar-khan")({
   beforeLoad: () => {
-    throw redirect({ to: "/" });
+    throw notFound();
   },
   component: () => null,
 });
