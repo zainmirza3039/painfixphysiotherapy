@@ -107,9 +107,9 @@ function PersonalPatientDetailPage() {
   const [portalOpen, setPortalOpen] = useState(false);
   const [editOpen, setEditOpen] = useState(false);
   const [correctionOpen, setCorrectionOpen] = useState(false);
-  const [correctionType, setCorrectionType] = useState<
-    "refund" | "add_charge" | "reduce_balance"
-  >("refund");
+  const [correctionType, setCorrectionType] = useState<"refund" | "add_charge" | "reduce_balance">(
+    "refund",
+  );
   const [correctionAmount, setCorrectionAmount] = useState("");
   const [correctionDescription, setCorrectionDescription] = useState("");
   const [editName, setEditName] = useState("");
@@ -501,9 +501,7 @@ function PersonalPatientDetailPage() {
       setSessionDate("");
       setSessionLabel("");
       setSessionCharge(
-        activePlan?.plan_type === "package"
-          ? "0"
-          : String(activePlan?.per_session_fee ?? ""),
+        activePlan?.plan_type === "package" ? "0" : String(activePlan?.per_session_fee ?? ""),
       );
       setSessionNote("");
       toast.success("Session scheduled. It is not counted as completed yet.");
@@ -1073,8 +1071,8 @@ function PersonalPatientDetailPage() {
           </div>
         </div>
         <p className="mt-1 text-xs text-muted-foreground">
-          You never need to type a minus sign or manually set the balance to zero. Record real payments
-          here; use “Fix a mistake” only for corrections.
+          You never need to type a minus sign or manually set the balance to zero. Record real
+          payments here; use “Fix a mistake” only for corrections.
         </p>
         {data.ledger.length ? (
           <div className="mt-3 divide-y divide-border">
@@ -1198,8 +1196,8 @@ function PersonalPatientDetailPage() {
               {language === "ur" ? "غلطی درست کریں" : "Fix a ledger mistake"}
             </DialogTitle>
             <DialogDescription>
-              Use this only to correct a genuine mistake. Previous records stay unchanged; a new correction
-              is added.
+              Use this only to correct a genuine mistake. Previous records stay unchanged; a new
+              correction is added.
             </DialogDescription>
           </DialogHeader>
           <form
@@ -1453,8 +1451,8 @@ function PersonalPatientDetailPage() {
           <DialogHeader>
             <DialogTitle>{t.schedule}</DialogTitle>
             <DialogDescription>
-              Add the visit here, then mark it complete after the patient attends. The balance updates
-              automatically.
+              Add the visit here, then mark it complete after the patient attends. The balance
+              updates automatically.
             </DialogDescription>
           </DialogHeader>
           <form
@@ -1532,9 +1530,9 @@ function PersonalPatientDetailPage() {
           <DialogHeader>
             <DialogTitle>{t.recordPayment}</DialogTitle>
             <DialogDescription>
-              Enter the amount you actually received as a normal positive number. The system updates the
-              balance automatically. Extra payment stays as credit. Do not enter 0 or a minus
-              sign to clear the balance.
+              Enter the amount you actually received as a normal positive number. The system updates
+              the balance automatically. Extra payment stays as credit. Do not enter 0 or a minus sign
+              to clear the balance.
             </DialogDescription>
           </DialogHeader>
           <form
