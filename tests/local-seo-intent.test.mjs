@@ -155,7 +155,7 @@ test("slipped-disc search intent maps to the existing slipped-disc condition rou
 test("clinic-location city URL redirects to the canonical homepage", async () => {
   const route = await read("src/routes/physiotherapy-clinic-in-multan.tsx");
   const homepage = await read("src/routes/index.tsx");
-  assert.match(route, /redirect\\(\\{ to: "\\/" \\}\\)/);
+  assert.ok(route.includes('throw redirect({ to: "/" });'));
   assert.match(homepage, /Best Physiotherapist in Multan/);
 });
 
@@ -163,7 +163,7 @@ test("local Multan landing pages describe home visits as available citywide", as
   const localPages = await read("src/data/localPages.ts");
   const homeVisit = await read("src/routes/home-visit.tsx");
 
-  assert.match(localPages, /export const localPages: LocalPage\\[\\] = \\[\\]/);
+  assert.ok(localPages.includes("export const localPages: LocalPage[] = [];"));
   assert.doesNotMatch(
     localPages,
     /Selected home visits|Selected home physiotherapy visits|selected home visits/i,
