@@ -332,23 +332,14 @@ export function DoctorProfile({ doc }: { doc: TeamMember }) {
                       </p>
                     )}
                   <ul className="mt-5 space-y-4">
-                    {items.map((item) => {
-                      const displayItem =
-                        doc.slug === "dr-zain-ul-abideen-pt-multan"
-                          ? item.replace(
-                              "Founder & Lead Physiotherapist",
-                              "Founder & Head Physiotherapist",
-                            )
-                          : item;
-                      return (
-                        <li
-                          key={item}
-                          className="rounded-lg border border-border bg-card p-4 text-sm leading-relaxed text-muted-foreground"
-                        >
-                          {displayItem}
-                        </li>
-                      );
-                    })}
+                    {items.map((item) => (
+                      <li
+                        key={item}
+                        className="rounded-lg border border-border bg-card p-4 text-sm leading-relaxed text-muted-foreground"
+                      >
+                        {item}
+                      </li>
+                    ))}
                   </ul>
                 </Reveal>
               </div>
