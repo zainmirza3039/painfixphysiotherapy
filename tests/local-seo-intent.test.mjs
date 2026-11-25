@@ -81,7 +81,10 @@ test("broad Multan landing URLs consolidate to homepage and home-visit", async (
   ]) {
     assert.ok(
       config.redirects.some(
-        (rule) => rule.source === source && rule.destination === "/" && (rule.permanent === true || rule.statusCode === 301),
+        (rule) =>
+          rule.source === source &&
+          rule.destination === "/" &&
+          (rule.permanent === true || rule.statusCode === 301),
       ),
     );
   }
@@ -242,7 +245,10 @@ test("homepage local-commercial metadata is clear while existing ownership and c
   ]) {
     assert.ok(
       config.redirects.some(
-        (rule) => rule.source === source && rule.destination === "/" && (rule.permanent === true || rule.statusCode === 301),
+        (rule) =>
+          rule.source === source &&
+          rule.destination === "/" &&
+          (rule.permanent === true || rule.statusCode === 301),
       ),
     );
   }
