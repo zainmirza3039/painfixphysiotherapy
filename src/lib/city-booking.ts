@@ -16,7 +16,6 @@ export function createSingleSubmissionGuard() {
 
 export const BOOKING_CITIES = [
   { value: "multan", label: "Multan" },
-  { value: "rahim-yar-khan", label: "Rahim Yar Khan" },
   { value: "other", label: "Other city" },
 ] as const;
 export type BookingCity = (typeof BOOKING_CITIES)[number]["value"];
@@ -28,8 +27,6 @@ export function bookingServices(city: BookingCity | "") {
       { value: "home_visit", label: "Home visit" },
       { value: "online", label: "Online consultation enquiry" },
     ] as const;
-  if (city === "rahim-yar-khan")
-    return [{ value: "online", label: "Online consultation with Ariba Babar, DPT" }] as const;
   if (city === "other")
     return [{ value: "online", label: "Online consultation availability enquiry" }] as const;
   return [];
@@ -89,11 +86,9 @@ export function bookingWhatsAppUrl(
   clinicWhatsAppUrl: string,
 ): string {
   const cityLabel = BOOKING_CITIES.find((entry) => entry.value === city)!.label;
-  const recipient = city === "rahim-yar-khan" ? "https://wa.me/923120102560" : clinicWhatsAppUrl;
+  const recipient = clinicWhatsAppUrl;
   const lines = [
-    city === "rahim-yar-khan"
-      ? "Hello Ariba Babar, I'd like to enquire about an online physiotherapy consultation through PainFix."
-      : "Hello PainFix, I'd like to enquire about online physiotherapy availability.",
+    "Hello PainFix, I would like to enquire about online physiotherapy availability.",
     `Name: ${values.full_name.trim()}`,
     `Phone/WhatsApp: ${values.phone.trim()}`,
     `City: ${cityLabel}`,
