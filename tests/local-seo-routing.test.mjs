@@ -12,7 +12,7 @@ test("broad physiotherapist landing URL permanently redirects to the homepage", 
   assert.ok(
     vercel.redirects.some(
       (rule) =>
-        rule.source === "/physiotherapist-in-multan" && rule.destination === "/" && rule.permanent,
+        rule.source === "/physiotherapist-in-multan" && rule.destination === "/" && (rule.permanent === true || rule.statusCode === 301),
     ),
   );
 });
