@@ -45,9 +45,9 @@ export const Route = createFileRoute("/verify-certificate")({
         };
       }
       try {
-        const { data, error } = await supabase.rpc(
-          "verify_personal_patient_treatment_document" as never,
-          { p_token: reference } as never,
+        const { data, error } = await supabase.functions.invoke(
+          "verify-treatment-document",
+          { body: { token: reference } },
         );
         return {
           reference,
