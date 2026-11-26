@@ -249,7 +249,9 @@ function PersonalPatientDetailPage() {
       const optional = await Promise.allSettled([
         db
           .from("personal_patient_plans")
-          .select("id,plan_type,title,package_sessions,package_fee,per_session_fee,starts_on,ends_on,is_active")
+          .select(
+            "id,plan_type,title,package_sessions,package_fee,per_session_fee,starts_on,ends_on,is_active",
+          )
           .eq("patient_id", patientId)
           .order("created_at", { ascending: false }),
         db
@@ -527,22 +529,34 @@ function PersonalPatientDetailPage() {
             : null;
       if (
         planType === "package" &&
-        (!Number.isInteger(sessions) || (sessions ?? 0) < 1 || (sessions ?? 0) > 1000 ||
-          fee == null || !Number.isFinite(fee) || fee < 0 || fee > 1_000_000_000 ||
+        (!Number.isInteger(sessions) ||
+          (sessions ?? 0) < 1 ||
+          (sessions ?? 0) > 1000 ||
+          fee == null ||
+          !Number.isFinite(fee) ||
+          fee < 0 ||
+          fee > 1_000_000_000 ||
           Math.round(fee * 100) !== fee * 100)
       ) {
-        throw new Error("Enter 1–1,000 sessions and a valid package fee (maximum two decimal places).");
+        throw new Error(
+          "Enter 1–1,000 sessions and a valid package fee (maximum two decimal places).",
+        );
       }
       if (
         planType === "per_session" &&
-        (perFee == null || !Number.isFinite(perFee) || perFee < 0 ||
-          perFee > 1_000_000_000 || Math.round(perFee * 100) !== perFee * 100)
+        (perFee == null ||
+          !Number.isFinite(perFee) ||
+          perFee < 0 ||
+          perFee > 1_000_000_000 ||
+          Math.round(perFee * 100) !== perFee * 100)
       ) {
         throw new Error("Enter a valid per-session fee (maximum two decimal places).");
       }
       if (
         planType === "custom" && perFee != null &&
-        (!Number.isFinite(perFee) || perFee < 0 || perFee > 1_000_000_000 ||
+        (!Number.isFinite(perFee) ||
+          perFee < 0 ||
+          perFee > 1_000_000_000 ||
           Math.round(perFee * 100) !== perFee * 100)
       ) {
         throw new Error("Enter a valid default session fee or leave it blank.");
@@ -1574,7 +1588,9 @@ function PersonalPatientDetailPage() {
         <DialogContent className="overflow-hidden p-0 sm:max-w-lg">
           <div className="h-1 bg-[#00A859]" />
           <DialogHeader className="px-6 pt-5">
-            <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[#00A859]">PainFix · Secure patient access</p>
+            <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[#00A859]">
+              PainFix · Secure patient access
+            </p>
             <DialogTitle>
               {language === "ur" ? "مریض کے پورٹل تک رسائی" : "Patient portal access"}
             </DialogTitle>
@@ -1712,7 +1728,9 @@ function PersonalPatientDetailPage() {
                 maxLength={100}
                 required
               />
-              <p className="text-xs text-muted-foreground">Use a clear name patients can recognise, e.g. 10-session rehabilitation package.</p>
+              <p className="text-xs text-muted-foreground">
+                Use a clear name patients can recognise, e.g. 10-session rehabilitation package.
+              </p>
             </div>
             {planType === "package" && (
               <>
@@ -1780,7 +1798,8 @@ function PersonalPatientDetailPage() {
               </div>
             </div>
             <p className="text-xs text-muted-foreground">
-              Dates describe the plan’s validity. They do not automatically cancel or delete scheduled sessions.
+              Dates describe the plan’s validity. They do not automatically cancel or delete scheduled
+              sessions.
             </p>
             <DialogFooter>
               <Button type="button" variant="outline" onClick={() => setPlanOpen(false)}>
