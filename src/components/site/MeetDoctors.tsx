@@ -1,4 +1,5 @@
 import { ArrowUpRight, BadgeCheck, MessageCircle } from "lucide-react";
+import { Link, useRouterState } from "@tanstack/react-router";
 import { usePublishedClinicians } from "@/lib/usePublishedClinicians";
 import { toClinicianView } from "@/lib/clinician-view";
 import { Reveal } from "./Reveal";
@@ -7,6 +8,7 @@ import type { PublicClinicianContent } from "@/lib/clinician-view";
 import { clinicianServiceLabel, clinicianWhatsAppUrl } from "@/lib/clinician-service";
 
 export function MeetDoctors({ initialProfiles }: { initialProfiles?: PublicClinicianContent[] }) {
+  const pathname = useRouterState({ select: (state) => state.location.pathname });
   const { data: profiles, isLoading, isError, refetch } = usePublishedClinicians(initialProfiles);
   const clinicians = (profiles ?? []).map(toClinicianView);
 
@@ -133,6 +135,16 @@ export function MeetDoctors({ initialProfiles }: { initialProfiles?: PublicClini
               );
             })}
         </div>
+        {pathname !== "/our-team" && (
+          <div className="mt-8 flex justify-center">
+            <Link
+              to="/our-team"
+              className="inline-flex min-h-11 items-center gap-2 border-b-2 border-secondary px-1 py-2 text-sm font-semibold text-primary hover:text-secondary"
+            >
+              View the full PainFix clinical team <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
+            </Link>
+          </div>
+        )}
       </div>
     </section>
   );
