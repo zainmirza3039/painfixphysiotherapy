@@ -729,6 +729,14 @@ type DatabaseWithoutInternals = Omit<Database, "__InternalSupabase">;
 
 type DefaultSchema = DatabaseWithoutInternals[Extract<keyof Database, "public">];
 
+type EnumNameFor<Schema> = Schema extends { schema: keyof DatabaseWithoutInternals }
+  ? keyof DatabaseWithoutInternals[Schema["schema"]]["Enums"]
+  : never;
+
+type CompositeTypeNameFor<Schema> = Schema extends { schema: keyof DatabaseWithoutInternals }
+  ? keyof DatabaseWithoutInternals[Schema["schema"]]["CompositeTypes"]
+  : never;
+
 export type Tables<
   DefaultSchemaTableNameOrOptions extends
     | keyof (DefaultSchema["Tables"] & DefaultSchema["Views"])
@@ -810,11 +818,7 @@ export type Enums<
   DefaultSchemaEnumNameOrOptions extends
     | keyof DefaultSchema["Enums"]
     | { schema: keyof DatabaseWithoutInternals },
-  EnumName extends (DefaultSchemaEnumNameOrOptions extends {
-    schema: keyof DatabaseWithoutInternals;
-  }
-    ? keyof DatabaseWithoutInternals[DefaultSchemaEnumNameOrOptions["schema"]]["Enums"]
-    : never) = never,
+  EnumName extends EnumNameFor<DefaultSchemaEnumNameOrOptions> = never,
 > = DefaultSchemaEnumNameOrOptions extends {
   schema: keyof DatabaseWithoutInternals;
 }
@@ -827,11 +831,7 @@ export type CompositeTypes<
   PublicCompositeTypeNameOrOptions extends
     | keyof DefaultSchema["CompositeTypes"]
     | { schema: keyof DatabaseWithoutInternals },
-  CompositeTypeName extends (PublicCompositeTypeNameOrOptions extends {
-    schema: keyof DatabaseWithoutInternals;
-  }
-    ? keyof DatabaseWithoutInternals[PublicCompositeTypeNameOrOptions["schema"]]["CompositeTypes"]
-    : never) = never,
+  CompositeTypeName extends CompositeTypeNameFor<PublicCompositeTypeNameOrOptions> = never,
 > = PublicCompositeTypeNameOrOptions extends {
   schema: keyof DatabaseWithoutInternals;
 }
