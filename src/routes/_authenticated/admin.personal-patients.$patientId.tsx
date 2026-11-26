@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, Navigate } from "@tanstack/react-router";
 import { useEffect, useMemo, useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
@@ -107,8 +107,9 @@ const date = (v: string) =>
 
 function PersonalPatientDetailPage() {
   const { patientId } = Route.useParams();
-  const { user } = useAdminAuth();
+  const { user, hasRole } = useAdminAuth();
   const qc = useQueryClient();
+  const isClinicalPhysiotherapist = hasRole("clinical_physiotherapist");
   const [language, setLanguage] = useState<"en" | "ur">("en");
   const [planOpen, setPlanOpen] = useState(false);
   const [sessionOpen, setSessionOpen] = useState(false);
@@ -320,7 +321,9 @@ function PersonalPatientDetailPage() {
   }, [calendarMonth]);
   const monthSessions = visibleSessions.filter((s) => {
     const d = new Date(s.session_date);
-    return (
+    if (!isClinicalPhysiotherapist) return <Navigate to="/admin" replace />;
+
+  return (
       d.getFullYear() === calendarMonth.getFullYear() && d.getMonth() === calendarMonth.getMonth()
     );
   });
