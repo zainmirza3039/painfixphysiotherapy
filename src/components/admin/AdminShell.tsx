@@ -44,7 +44,7 @@ import {
   CommandList,
 } from "@/components/ui/command";
 
-type Gate = "staff" | "admin" | "content" | "professional";
+type Gate = "staff" | "admin" | "content" | "professional" | "clinical" | "superadmin";
 interface NavItem {
   to: string;
   label: string;
@@ -57,8 +57,9 @@ const NAV: NavItem[] = [
     to: "/admin/personal-patients",
     label: "Personal patient ledger",
     icon: UserCircle,
-    gate: "staff",
+    gate: "clinical",
   },
+  { to: "/admin/clinician-ledgers", label: "Clinician ledgers (read-only)", icon: ShieldCheck, gate: "superadmin" },
   { to: "/admin/patients", label: "Clinic patients", icon: Users, gate: "staff" },
   { to: "/admin/appointments", label: "Appointments", icon: CalendarClock, gate: "staff" },
   { to: "/admin/home-visits", label: "Home visits", icon: Home, gate: "staff" },
@@ -90,6 +91,7 @@ const SECTIONS = [
     label: "Patient care",
     routes: [
       "/admin/personal-patients",
+      "/admin/clinician-ledgers",
       "/admin/patients",
       "/admin/appointments",
       "/admin/home-visits",
