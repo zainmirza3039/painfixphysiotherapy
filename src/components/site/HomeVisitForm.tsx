@@ -79,6 +79,15 @@ export function HomeVisitForm() {
       }
 
       toast.success(f.success);
+      const analyticsWindow = window as Window & {
+        gtag?: (command: string, eventName: string, params: Record<string, string>) => void;
+      };
+      analyticsWindow.gtag?.("event", "generate_lead", {
+        lead_method: "home_visit_form",
+        lead_type: "home_visit",
+        page_path: window.location.pathname,
+        transport_type: "beacon",
+      });
       setValues(createInitialValues());
       setSubmitted(true);
     } catch (error) {

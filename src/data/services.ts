@@ -120,8 +120,19 @@ export const services: Service[] = [
     metaDescription:
       "Personalized exercise therapy in Multan to rebuild strength, mobility and endurance. Evidence-based rehabilitation programmes at PainFix Physiotherapy Clinic.",
     overview: [
-      "Exercise therapy uses carefully prescribed movements to restore strength, flexibility, balance and endurance. It is one of the most effective, evidence-based ways to recover from injury and prevent recurrence.",
-      "Your programme is tailored to your body, your goals and your daily life — progressed safely as you improve so you build lasting resilience, not just short-term relief.",
+      "Exercise therapy uses planned and progressively adjusted activity to improve strength, mobility, balance, endurance and task performance. It is a core component of rehabilitation for many musculoskeletal and neurological conditions.",
+      "The programme is based on an assessment of your current capacity, symptoms, health status and functional goals. Exercise selection and loading are reviewed as you adapt, rather than relying on the same routine for every patient.",
+    ],
+    evidence: [
+      "Exercise selection follows an assessment of symptoms, range of motion, strength, balance, endurance and the activities that matter to the patient.",
+      "Programs may combine progressive resistance exercise, aerobic conditioning, balance work and task-specific practice. The mix and starting load depend on the person's presentation and goals.",
+      "Progress is reviewed using functional measures and the patient's response during and after activity. Load, range, volume or task complexity is adjusted rather than following a fixed routine for everyone.",
+      "Exercise is a core part of rehabilitation for many musculoskeletal and neurological conditions, but the appropriate dose and exercise choice vary by diagnosis, irritability, healing stage and comorbidities.",
+    ],
+    contraindications: [
+      "Pause exercise and arrange medical assessment for new chest pain, fainting, unexplained severe breathlessness, fever with systemic illness or suspected acute fracture.",
+      "New or rapidly worsening limb weakness, saddle sensory loss, or new bladder or bowel dysfunction requires urgent medical assessment rather than routine exercise progression.",
+      "After surgery or fracture, follow the treating surgeon's or medical team's loading and movement precautions.",
     ],
     conditionsTreated: [
       "Post-injury weakness",
@@ -188,8 +199,19 @@ export const services: Service[] = [
     metaDescription:
       "Electrotherapy in Multan, including TENS and ultrasound, may support pain management within an individual physiotherapy plan at PainFix.",
     overview: [
-      "Electrotherapy uses controlled electrical energy and ultrasound to relieve pain, reduce inflammation and stimulate the body's natural healing. It is a valuable addition to hands-on therapy and exercise.",
-      "Our clinicians select the right modality and dosage for your condition, ensuring safe, comfortable and effective treatment as part of your overall recovery plan.",
+      "Electrotherapy includes different modalities, such as TENS, therapeutic ultrasound and electrical muscle stimulation. Depending on the modality and clinical presentation, it may be used to modulate pain or assist muscle activation.",
+      "It is an adjunct to assessment-led rehabilitation, not a replacement for exercise, education or appropriate medical care. Our clinicians screen for precautions, select a modality only when indicated and review the patient's response.",
+    ],
+    evidence: [
+      "Electrotherapy is an adjunct, not a stand-alone cure. TENS may provide short-term pain modulation for some people; response is individual and should be reviewed against meaningful functional goals.",
+      "Therapeutic ultrasound and electrical muscle stimulation have different indications and evidence bases. They should not be presented as interchangeable treatments or assumed to accelerate tissue healing in every condition.",
+      "The clinician selects a modality only when it fits the assessment, explains the expected benefit and limitations, and combines it with active rehabilitation when appropriate.",
+      "Treatment response is reassessed. If a modality does not improve comfort, movement or participation, the plan should be changed rather than continued automatically.",
+    ],
+    contraindications: [
+      "Screen for implanted electronic devices, pregnancy where treatment would involve the abdomen or pelvis, suspected or confirmed thrombosis, active bleeding, impaired sensation and compromised skin before selecting a modality.",
+      "Precautions are modality- and body-region-specific. Avoid placing electrodes over the anterior neck or across the chest, and follow device-specific guidance for pacemakers and other implanted devices.",
+      "Do not use electrotherapy to delay assessment of unexplained pain, progressive neurological symptoms, suspected infection or other red flags.",
     ],
     conditionsTreated: [
       "Acute and chronic pain",

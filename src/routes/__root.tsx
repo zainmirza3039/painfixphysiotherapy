@@ -75,6 +75,48 @@ const GA4_SCRIPT = `(function () {
   script.dataset.ga4Measurement = "${GA4_MEASUREMENT_ID}";
   script.src = "https://www.googletagmanager.com/gtag/js?id=${GA4_MEASUREMENT_ID}";
   document.head.appendChild(script);
+
+  // Track contact and appointment intent without collecting form values or other
+  // patient-identifying information. Events use GA4's recommended generate_lead.
+  document.addEventListener("click", function (event) {
+    var target = event.target;
+    if (!(target instanceof Element)) return;
+    var link = target.closest("a[href]");
+    if (!link) return;
+    var href = link.getAttribute("href") || "";
+    var leadMethod = "";
+    if (/^tel:/i.test(href)) leadMethod = "phone";
+    else if (href.includes("wa.me") || href.includes("api.whatsapp.com")) leadMethod = "whatsapp";
+
+    if (leadMethod) {
+      window.gtag("event", "generate_lead", {
+        lead_method: leadMethod,
+        page_path: window.location.pathname,
+        transport_type: "beacon"
+      });
+      return;
+    }
+
+    if (href.includes("calendly.com") || href.includes("/book-appointment")) {
+      window.gtag("event", "appointment_cta_click", {
+        booking_destination: href.includes("calendly.com") ? "calendly" : "website_form",
+        page_path: window.location.pathname,
+        transport_type: "beacon"
+      });
+    }
+  }, true);
+
+  document.addEventListener("submit", function (event) {
+    var form = event.target;
+    if (!(form instanceof HTMLFormElement)) return;
+    var path = window.location.pathname;
+    // This form only validates and prepares details; it does not submit a booking.
+    if (path !== "/book-appointment") return;
+    window.gtag("event", "appointment_details_ready", {
+      page_path: path,
+      transport_type: "beacon"
+    });
+  }, true);
 })();`;
 
 function NotFoundComponent() {
