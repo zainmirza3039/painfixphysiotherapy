@@ -77,7 +77,7 @@ export function DoctorProfile({ doc }: { doc: TeamMember }) {
               </p>
               <div className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-primary-foreground/80">
                 <span>{doc.credentials}</span>
-                <span aria-hidden="true" className="text-brand-green">•</span>
+                <span aria-hidden="true" className="text-[#70DDAA]">•</span>
                 <span>{clinicianServiceLabel(doc)}</span>
               </div>
               <div className="mt-6 space-y-3">
