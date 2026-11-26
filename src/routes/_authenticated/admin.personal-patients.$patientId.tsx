@@ -110,6 +110,9 @@ function PersonalPatientDetailPage() {
   const { user, hasRole } = useAdminAuth();
   const qc = useQueryClient();
   const isClinicalPhysiotherapist = hasRole("clinical_physiotherapist");
+  // RLS still limits direct table access to clinician_id = auth.uid(), so this
+  // grants Super Admin access to their own records only, never another clinician’s.
+  const canManageOwnLedger = isClinicalPhysiotherapist || (hasRole("super_admin") && Boolean(user?.id));
   const [language, setLanguage] = useState<"en" | "ur">("en");
   const [planOpen, setPlanOpen] = useState(false);
   const [sessionOpen, setSessionOpen] = useState(false);
@@ -780,7 +783,7 @@ function PersonalPatientDetailPage() {
       ? Math.max(0, activePlan.package_sessions - activePlanCompleted)
       : null;
 
-  if (!isClinicalPhysiotherapist) return <Navigate to="/admin" replace />;
+  if (!canManageOwnLedger) return <Navigate to="/admin" replace />;
 
   if (query.isLoading)
     return (
