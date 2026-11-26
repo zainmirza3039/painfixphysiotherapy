@@ -16,7 +16,7 @@ const personal = read("src/routes/_authenticated/admin.personal-patients.tsx");
 test("Clinical Physiotherapist navigation is private to that exact role", () => {
   assert.match(shell, /clinical: hasRole\("clinical_physiotherapist"\)/);
   assert.match(shell, /superadmin: isSuperAdmin/);
-  assert.match(shell, /gate: "clinical"/);
+  assert.match(shell, /ownledger: hasRole\("clinical_physiotherapist"\) \|\| isSuperAdmin/);
   assert.match(shell, /gate: "superadmin"/);
   assert.match(dashboard, /Navigate to="\/admin\/personal-patients"/);
   assert.match(auth, /isSuperAdmin = hasRole\("super_admin"\)/);
