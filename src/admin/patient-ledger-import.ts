@@ -144,11 +144,26 @@ export function parsePatientCsv(text: string): ImportedPatientRow[] {
         if (!raw) return null;
 
         const parsed = Number(raw);
-        return Number.isFinite(parsed) && parsed >= 0 ? parsed : null;
+        if (!Number.isFinite(parsed) || parsed < 0 || parsed > 1_000_000_000) {
+          warnings.push(`Invalid or out-of-range value in ${key}`);
+          return null;
+        }
+        if (Math.round(parsed * 100) !== parsed * 100) {
+          warnings.push(`More than two decimal places in ${key}`);
+          return null;
+        }
+        return parsed;
       };
 
       if (!name.trim()) {
         warnings.push("Missing patient name");
+      }
+      const packageFields = [get(cells, "packageTitle"), get(cells, "packageSessions"), get(cells, "packageFee")];
+      if (packageFields.some(Boolean) && !packageFields.every(Boolean)) {
+        warnings.push("Package title, session count and fee must all be supplied together");
+      }
+      if (get(cells, "packageFee") && get(cells, "sessionFee")) {
+        warnings.push("Do not combine a package fee and a per-session fee in the same row");
       }
 
       return {
@@ -299,6 +314,9 @@ async function parseXlsx(file: File): Promise<ImportedPatientRow[]> {
 }
 
 export async function parsePatientFile(file: File): Promise<ImportedPatientRow[]> {
+  if (file.size > 10 * 1024 * 1024) {
+    throw new Error("File is larger than 10 MB. Split it into smaller files before importing.");
+  }
   const name = file.name.toLowerCase();
   if (name.endsWith(".csv") || file.type === "text/csv") {
     return parsePatientCsv(await file.text());
