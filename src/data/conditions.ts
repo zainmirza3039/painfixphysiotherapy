@@ -332,7 +332,7 @@ export const conditions: Condition[] = [
     icon: "🦴",
     metaTitle: "Osteoarthritis Treatment in Multan | Physiotherapy — PainFix",
     metaDescription:
-      "Osteoarthritis and arthritis physiotherapy in Multan. Manage joint pain and stiffness, improve mobility and support daily function with evidence-based care at PainFix.",
+      "Arthritis physiotherapy in Multan for joint pain, stiffness and reduced mobility. Improve movement and daily function with evidence-based care at PainFix.",
     intro: [
       "Osteoarthritis is a common condition where joint cartilage wears down, causing pain, stiffness and reduced movement — most often in the knees, hips and hands.",
       "Physiotherapy is a proven, first-line treatment that reduces pain and keeps you active and independent.",
@@ -454,7 +454,7 @@ export const conditions: Condition[] = [
     icon: "🏅",
     metaTitle: "Sports Injury Treatment in Multan | Physiotherapy — PainFix",
     metaDescription:
-      "Sports injury physiotherapy in Multan for sprains, muscle strains and joint injuries. Rebuild strength and function with graded rehabilitation and return-to-sport planning at PainFix.",
+      "Sports injury physiotherapy in Multan for sprains and muscle strains. Rebuild strength and function with graded rehabilitation at PainFix.",
     intro: [
       "Sports injuries range from sprains and strains to ligament and muscle tears. Prompt, structured rehabilitation is key to a safe and complete return to activity.",
       "We combine hands-on treatment with progressive, sport-specific rehabilitation to get you back to peak performance.",
