@@ -147,8 +147,7 @@ function useDarkMode() {
 }
 
 export function AdminShell({ children }: { children: ReactNode }) {
-  const { user, isAdmin, isStaff, isProfessional, canEditContent, canAccessPanel, loading } =
-    useAdminAuth();
+  const { user, isAdmin, isSuperAdmin, isStaff, isProfessional, canEditContent, canAccessPanel, hasRole, loading } =\n    useAdminAuth();
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   const { dark, toggle } = useDarkMode();
@@ -237,8 +236,7 @@ export function AdminShell({ children }: { children: ReactNode }) {
     staff: isStaff,
     admin: isAdmin,
     content: canEditContent,
-    professional: isProfessional,
-  };
+    professional: isProfessional,\n    clinical: hasRole("clinical_physiotherapist"),\n    superadmin: isSuperAdmin,\n  };
   const items = NAV.filter((item) => gatePass[item.gate]);
   const sections = SECTIONS.map((section) => ({
     ...section,
