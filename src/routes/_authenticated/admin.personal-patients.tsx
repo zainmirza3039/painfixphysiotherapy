@@ -125,7 +125,8 @@ function PersonalPatientsPage() {
   const isClinicalPhysiotherapist = hasRole("clinical_physiotherapist");
   // Super Admin may fully manage only the ledger owned by their own auth user ID.
   // Cross-clinician review remains on the separate read-only clinician-ledgers route.
-  const canManageOwnLedger = isClinicalPhysiotherapist || (hasRole("super_admin") && Boolean(user?.id));
+  const canManageOwnLedger =
+    isClinicalPhysiotherapist || (hasRole("super_admin") && Boolean(user?.id));
 
   useEffect(() => {
     const id = "painfix-nastaliq-font";
