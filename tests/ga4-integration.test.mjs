@@ -23,3 +23,14 @@ test("GA4 excludes private routes and sends query-free SPA page views", async ()
   assert.match(source, /page_location: window\.location\.origin \+ pathname/);
   assert.doesNotMatch(source, /page_location: window\.location\.href/);
 });
+
+test("GA4 records phone, WhatsApp, appointment CTA and lead-form events without form values", async () => {
+  const source = await readFile(new URL("src/routes/__root.tsx", repo), "utf8");
+  assert.match(source, /window\.gtag\("event", "generate_lead"/);
+  assert.match(source, /lead_method: leadMethod/);
+  assert.match(source, /lead_method: leadType \+ "_form"/);
+  assert.match(source, /appointment_cta_click/);
+  assert.match(source, /wa\\.me\|api\\.whatsapp\\.com/);
+  assert.match(source, /transport_type: "beacon"/);
+  assert.doesNotMatch(source, /form\.elements|FormData\(form\)|event\.target\.value/);
+});
