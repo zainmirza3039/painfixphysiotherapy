@@ -12,6 +12,6 @@ test("homepage team section links directly to Dr Zain's named clinician profile"
   assert.match(source, /FOUNDER_PROFILE_SLUG/);
   assert.match(
     source,
-    /sort\(\(a, b\) => Number\(b\.slug === FOUNDER_PROFILE_SLUG\) - Number\(a\.slug === FOUNDER_PROFILE_SLUG\)\)/,
+    /\.sort\(\s*\(a, b\) =>\s*Number\(b\.slug === FOUNDER_PROFILE_SLUG\)\s*-\s*Number\(a\.slug === FOUNDER_PROFILE_SLUG\),?\s*\)/s,
   );
 });
