@@ -318,7 +318,10 @@ test("sessions cannot be scheduled outside billing plan validity dates in the UI
   );
   assert.match(dateGuard, /security invoker/);
   assert.match(dateGuard, /Asia\/Karachi/);
-  assert.match(dateGuard, /before insert or update of plan_id, patient_id, clinician_id, session_date/);
+  assert.match(
+    dateGuard,
+    /before insert or update of plan_id, patient_id, clinician_id, session_date/,
+  );
   assert.match(dateGuard, /Session date is before the billing plan start date/);
   assert.match(dateGuard, /Session date is after the billing plan end date/);
 });
