@@ -81,6 +81,8 @@ export async function createTreatmentCertificatePdf(
   }
   page.drawText("PAINFIX", { x: 124, y: 789, size: 22, font, color: WHITE });
   page.drawText("PHYSIOTHERAPY CLINIC · MULTAN", { x: 124, y: 770, size: 8, font, color: rgb(0.84, 0.9, 0.96) });
+  page.drawRectangle({ x: 445, y: 793, width: 108, height: 22, borderColor: rgb(0.84, 0.9, 0.96), borderWidth: 0.7 });
+  page.drawText("OFFICIAL RECORD", { x: 454, y: 800, size: 7, font, color: WHITE });
   page.drawText("Move Better. Recover Faster. Live Pain-Free.", { x: 124, y: 752, size: 8, font, color: rgb(0.84, 0.9, 0.96) });
   page.drawText("PHYSIOTHERAPY TREATMENT & PAYMENT CERTIFICATE", {
     x: LEFT, y: 716, size: 14, font, color: WHITE,
@@ -132,8 +134,15 @@ export async function createTreatmentCertificatePdf(
   field("Clinical advice / home programme", snapshot.treatmentAdvice);
 
   section("03 · Financial Statement");
+  page.drawRectangle({ x: LEFT, y: y - 43, width: CONTENT_WIDTH, height: 48, color: LIGHT });
+  draw("TOTAL TREATMENT CHARGES", LEFT + 10, y - 13, 7, MUTED);
+  draw(money(snapshot.totalCharges), LEFT + 10, y - 34, 16, NAVY);
+  const paymentStatus = snapshot.balance <= 0 ? "PAID" : snapshot.amountPaid > 0 ? "PARTIALLY PAID" : "OUTSTANDING";
+  page.drawRectangle({ x: RIGHT - 105, y: y - 28, width: 95, height: 18, color: GREEN });
+  const statusWidth = font.widthOfTextAtSize(paymentStatus, 7);
+  draw(paymentStatus, RIGHT - 105 + (95 - statusWidth) / 2, y - 22, 7, WHITE);
+  y -= 56;
   const rows: Array<[string, number]> = [
-    ["Total treatment charges", snapshot.totalCharges],
     ["Amount paid", snapshot.amountPaid],
     ["Outstanding balance / (credit)", snapshot.balance],
   ];
