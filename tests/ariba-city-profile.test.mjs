@@ -51,5 +51,5 @@ test("online profile source does not add email or clinic address fields", async 
 test("profile intro constrains its mobile grid and wraps long managed biography words", async () => {
   const profile = await source("src/components/site/DoctorProfile.tsx");
   assert.match(profile, /grid-cols-1 gap-10/);
-  assert.match(profile, /className="break-words text-base leading-relaxed text-muted-foreground"/);
+  assert.match(profile, /className="break-words max-w-3xl text-sm leading-7 text-primary-foreground\/85 sm:text-base"/);
 });
