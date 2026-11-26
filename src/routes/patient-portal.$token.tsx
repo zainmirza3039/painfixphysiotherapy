@@ -225,7 +225,9 @@ function PatientPortalPage() {
               <span className="mx-auto grid h-12 w-12 place-items-center rounded-lg bg-[#EAF1F8] text-[#032E61]">
                 <LockKeyhole className="h-6 w-6" />
               </span>
-              <h1 className="mt-4 text-center text-2xl font-semibold tracking-tight text-[#032E61]">{t.title}</h1>
+              <h1 className="mt-4 text-center text-2xl font-semibold tracking-tight text-[#032E61]">
+                {t.title}
+              </h1>
               <p className="mt-2 text-center text-sm leading-6 text-slate-600">{t.subtitle}</p>
               <form
                 className="mt-6 space-y-3"
@@ -299,7 +301,9 @@ function PatientPortalPage() {
                 ].map((item) => (
                   <div key={item.label} className="rounded-lg border border-slate-200 bg-white p-4">
                     <p className="text-xs text-slate-500">{item.label}</p>
-                    <p className="mt-2 text-xl font-semibold tabular-nums text-[#032E61]">{item.value}</p>
+                    <p className="mt-2 text-xl font-semibold tabular-nums text-[#032E61]">
+                      {item.value}
+                    </p>
                   </div>
                 ))}
               </div>
