@@ -24,19 +24,6 @@ create policy "Clinicians read their own treatment documents"
 on public.personal_patient_treatment_documents for select to authenticated
 using ((select auth.uid()) = clinician_id);
 
-create policy "Clinicians issue documents for their own patients"
-on public.personal_patient_treatment_documents for insert to authenticated
-with check (
-  (select auth.uid()) = clinician_id
-  and status = 'valid'
-  and revoked_at is null
-  and revoked_reason is null
-  and exists (
-    select 1 from public.personal_patients p
-    where p.id = patient_id and p.clinician_id = (select auth.uid())
-  )
-);
-
 create policy "Clinicians revoke their own treatment documents"
 on public.personal_patient_treatment_documents for update to authenticated
 using ((select auth.uid()) = clinician_id and status = 'valid')
