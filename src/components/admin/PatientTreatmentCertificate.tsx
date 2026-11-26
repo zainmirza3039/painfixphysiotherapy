@@ -3,6 +3,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { Ban, Download, FileCheck2 } from "lucide-react";
 import { personalPatientDb } from "@/admin/personal-patients.db";
+import { supabase } from "@/integrations/supabase/client";
 import {
   downloadTreatmentCertificatePdf,
   type TreatmentCertificateSnapshot,
@@ -44,11 +45,6 @@ const money = (amount: number) =>
     maximumFractionDigits: 0,
   }).format(amount);
 
-const createVerificationToken = () =>
-  Array.from(crypto.getRandomValues(new Uint8Array(32)), (byte) =>
-    byte.toString(16).padStart(2, "0"),
-  ).join("");
-
 const localDay = (value: string) => {
   const date = new Date(value);
   return [
@@ -57,11 +53,6 @@ const localDay = (value: string) => {
     String(date.getDate()).padStart(2, "0"),
   ].join("-");
 };
-
-async function sha256(value: string) {
-  const digest = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(value));
-  return Array.from(new Uint8Array(digest), (byte) => byte.toString(16).padStart(2, "0")).join("");
-}
 
 export function PatientTreatmentCertificate({
   clinicianId,
@@ -144,61 +135,24 @@ export function PatientTreatmentCertificate({
         throw new Error("No completed sessions fall within this treatment period.");
       }
 
-      const verificationToken = createVerificationToken();
-      const issuedAt = new Date().toISOString();
-      const documentNumber =
-        "PFX-PT-" + new Date().getFullYear() + "-" + crypto.randomUUID().slice(0, 8).toUpperCase();
-      const treatmentSummary =
-        summary.trim() ||
-        Array.from(
-          new Set(selected.map((session) => session.session_label?.trim()).filter(Boolean)),
-        ).join("; ") ||
-        "Physiotherapy sessions as recorded in the clinic ledger.";
-
-      const snapshot: TreatmentCertificateSnapshot = {
-        patientName: patient.full_name,
-        diagnosis: diagnosis.trim(),
-        clinicalFindings: findings.trim(),
-        treatmentAdvice: advice.trim(),
-        paymentMethod: latestPayment?.payment_method?.replaceAll("_", " ") || "Not specified",
-        transactionReference: latestPayment?.reference || "Not recorded",
-        treatmentStart: start,
-        treatmentEnd: end,
-        completedSessions: selected.length,
-        treatmentSummary,
-        totalCharges: charges,
-        amountPaid: paid,
-        balance,
-        issuedAt,
-        documentNumber,
-        verificationToken,
-        patientConsentConfirmedAt: issuedAt,
-        patientConsentStatement:
-          "Patient consent confirmed for sharing this treatment and payment certificate with the receiving organization.",
-      };
-
-      const publicSnapshot = {
-        patient: patient.full_name.trim().slice(0, 1) + "••••",
-        treatment_start: start,
-        treatment_end: end,
-        completed_sessions: selected.length,
-        amount_paid: paid,
-      };
-
-      const { error } = await personalPatientDb
-        .from("personal_patient_treatment_documents")
-        .insert({
-          clinician_id: clinicianId,
-          patient_id: patient.id,
-          document_number: documentNumber,
-          verification_token_hash: await sha256(verificationToken),
-          snapshot,
-          public_snapshot: publicSnapshot,
-        });
-
+      const { data: issued, error } = await supabase.functions.invoke("issue-treatment-document", {
+        body: {
+          patientId: patient.id,
+          diagnosis: diagnosis.trim(),
+          clinicalFindings: findings.trim(),
+          treatmentSummary: summary.trim(),
+          treatmentAdvice: advice.trim(),
+          treatmentStart: start,
+          treatmentEnd: end,
+          consentConfirmed: consent,
+        },
+      });
       if (error) throw error;
-      await downloadTreatmentCertificatePdf(snapshot);
-      return documentNumber;
+      if (!issued?.snapshot || !issued?.documentNumber) {
+        throw new Error(issued?.error || "The certificate could not be issued.");
+      }
+      await downloadTreatmentCertificatePdf(issued.snapshot as TreatmentCertificateSnapshot);
+      return String(issued.documentNumber);
     },
     onSuccess: async (documentNumber) => {
       await queryClient.invalidateQueries({
