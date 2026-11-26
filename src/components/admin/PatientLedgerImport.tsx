@@ -40,24 +40,30 @@ export function PatientLedgerImport({ clinicianId, patients, onImported }: Props
 
   const summary = useMemo(() => {
     const unique = new Map<string, ImportedPatientRow>();
-
     rows.forEach((row) => {
-      unique.set((row.phone || row.name).toLowerCase().replace(/\s/g, ""), row);
+      const key = row.phone.replace(/\D/g, "") || row.name.trim().toLowerCase().replace(/\s+/g, "");
+      unique.set(key, row);
     });
 
-    const matches = rows.filter((row) =>
-      patients.some(
-        (patient) =>
-          (row.phone &&
-            patient.phone &&
-            row.phone.replace(/\D/g, "") === patient.phone.replace(/\D/g, "")) ||
-          patient.full_name.trim().toLowerCase() === row.name.trim().toLowerCase(),
-      ),
-    ).length;
+    const matchedKeys = new Set<string>();
+    for (const row of unique.values()) {
+      const phone = row.phone.replace(/\D/g, "");
+      const name = row.name.trim().toLowerCase();
+      if (
+        patients.some(
+          (patient) =>
+            (phone && patient.phone && phone === patient.phone.replace(/\D/g, "")) ||
+            patient.full_name.trim().toLowerCase() === name,
+        )
+      ) {
+        matchedKeys.add(phone || name.replace(/\s+/g, ""));
+      }
+    }
 
     return {
       patients: unique.size,
-      matches,
+      matches: matchedKeys.size,
+      duplicateRows: Math.max(0, rows.length - unique.size),
       sessions: rows.filter((row) => row.sessionDate).length,
       warnings: rows.reduce((count, row) => count + row.warnings.length, 0),
     };
@@ -120,6 +126,12 @@ export function PatientLedgerImport({ clinicianId, patients, onImported }: Props
 
     try {
       const parsed = await parsePatientFile(file);
+      if (!parsed.length) {
+        throw new Error("No rows with a patient name were found. Check the file headers and patient-name column.");
+      }
+      if (parsed.length > 1000) {
+        throw new Error("This file contains more than 1,000 usable rows. Split it into smaller batches.");
+      }
       setRows(parsed);
       setFileName(file.name);
       setOpen(true);
@@ -229,7 +241,7 @@ export function PatientLedgerImport({ clinicianId, patients, onImported }: Props
             </DialogDescription>
           </DialogHeader>
 
-          <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
+          <div className="grid grid-cols-2 gap-3 sm:grid-cols-5">
             <div className="rounded-lg border p-3">
               <p className="text-xs text-muted-foreground">Patients</p>
               <p className="text-xl font-semibold">{summary.patients}</p>
@@ -241,6 +253,10 @@ export function PatientLedgerImport({ clinicianId, patients, onImported }: Props
             <div className="rounded-lg border p-3">
               <p className="text-xs text-muted-foreground">Session dates</p>
               <p className="text-xl font-semibold">{summary.sessions}</p>
+            </div>
+            <div className="rounded-lg border p-3">
+              <p className="text-xs text-muted-foreground">Repeated rows</p>
+              <p className="text-xl font-semibold">{summary.duplicateRows}</p>
             </div>
             <div className="rounded-lg border p-3">
               <p className="text-xs text-muted-foreground">Warnings</p>
