@@ -187,6 +187,7 @@ test("lower-back exercise article provides a scannable, non-prescriptive dosage 
   }
   assert.match(route, /Movement focus/);
   assert.match(route, /Stop and seek clinical/);
+  assert.match(route, /usual level within 24 hours/);
 });
 
 test("lower-back exercise article includes accessible, attributed exercise images", async () => {
