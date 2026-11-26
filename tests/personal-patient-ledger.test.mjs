@@ -282,6 +282,14 @@ test("import preview deduplicates by phone or name and counts distinct existing 
   assert.match(importComponent, /more than 1,000 usable rows/);
 });
 
+test("patient import preview blocks invalid rows and validates edited values before submission", () => {
+  assert.match(importParser, /export function getPatientImportRowErrors/);
+  assert.match(importParser, /Package sessions must be a whole number from 1 to 1,000/);
+  assert.match(importComponent, /Correct validation errors in/);
+  assert.match(importComponent, /summary\.invalidRows > 0/);
+  assert.match(importComponent, /Rows needing correction/);
+});
+
 test("spreadsheet import rejects oversized files and warns about malformed financial values", () => {
   assert.match(importParser, /file\.size > 10 \* 1024 \* 1024/);
   assert.match(importParser, /Invalid or out-of-range value in/);
