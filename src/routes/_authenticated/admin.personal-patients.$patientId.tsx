@@ -588,6 +588,13 @@ function PersonalPatientDetailPage() {
     mutationFn: async () => {
       if (!user?.id) throw new Error("Please sign in again.");
       if (!sessionDate) throw new Error("Select a session date and time.");
+      const selectedDate = sessionDate.slice(0, 10);
+      if (activePlan?.starts_on && selectedDate < activePlan.starts_on) {
+        throw new Error("This session is before the billing plan start date.");
+      }
+      if (activePlan?.ends_on && selectedDate > activePlan.ends_on) {
+        throw new Error("This session is after the billing plan end date.");
+      }
       const charge = activePlan?.plan_type === "package" ? 0 : Number(sessionCharge);
       if (!Number.isFinite(charge) || charge < 0) throw new Error("Enter a valid session fee.");
       const { error } = await personalPatientDb.from("personal_patient_sessions").insert({
