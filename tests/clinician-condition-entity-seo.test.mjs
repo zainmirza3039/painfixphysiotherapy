@@ -25,7 +25,7 @@ test("Dr Zain profile retains its Person, credential and clinic relationships", 
   assert.ok(seo.includes('"@type": "MedicalClinic"'));
   assert.match(
     seo,
-    /jobTitle: isZainProfile\\s*\\?\\s*"Founder & Head Physiotherapist"\\s*:\\s*isJalalProfile\\s*\\?\\s*"Co-Founder"\\s*:\\s*doc\\.role/s,
+    /jobTitle: isZainProfile\s*\?\s*"Founder & Head Physiotherapist"\s*:\s*isJalalProfile\s*\?\s*"Co-Founder"\s*:\s*doc\.role/s,
   );
 });
 
