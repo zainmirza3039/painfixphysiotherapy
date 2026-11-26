@@ -35,7 +35,7 @@ test("Dr Zain's public identity separates leadership, clinical occupation, and d
 
   assert.match(
     schema,
-    /jobTitle: isZainProfile \? "Founder & Head Physiotherapist" : isJalalProfile \? "Co-Founder" : doc\.role/,
+    /jobTitle: isZainProfile\s*\?\s*"Founder & Head Physiotherapist"\s*:\s*isJalalProfile\s*\?\s*"Co-Founder"\s*:\s*doc\.role/s,
   );
   assert.match(schema, /"@type": "EducationalOccupationalCredential"/);
   assert.match(schema, /credentialCategory: "Doctor of Physical Therapy \(DPT\)"/);
