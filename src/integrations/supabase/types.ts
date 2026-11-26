@@ -689,6 +689,8 @@ export type Database = {
     Functions: {
       bootstrap_admin: { Args: never; Returns: undefined };
       can_edit_content: { Args: { _user_id: string }; Returns: boolean };
+      super_admin_personal_ledger_clinicians: { Args: Record<PropertyKey, never>; Returns: { clinician_id: string; full_name: string; professional_title: string | null; patient_count: number }[] };
+      super_admin_personal_ledger_snapshot: { Args: { _clinician_id: string }; Returns: Json };
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"];
