@@ -4,6 +4,7 @@ const baseHeaders = {
   "Access-Control-Allow-Headers": "authorization, apikey, content-type, x-client-info",
   "Access-Control-Allow-Methods": "POST, OPTIONS",
   "Content-Type": "application/json",
+  "Cache-Control": "no-store, max-age=0",
 };
 function headers(req: Request) {
   const origin = req.headers.get("origin");
