@@ -247,7 +247,6 @@ test("Patient Ledger is included in a visible admin navigation section", () => {
   );
 });
 
-
 const patientDetailSource = fs.readFileSync(
   path.join(root, "src/routes/_authenticated/admin.personal-patients.$patientId.tsx"),
   "utf8",
