@@ -251,6 +251,8 @@ function PersonalPatientsPage() {
       toast.error(e instanceof Error ? e.message : "Could not update patient status."),
   });
 
+  if (!isClinicalPhysiotherapist) return <Navigate to="/admin" replace />;
+
   if (pathname.startsWith("/admin/personal-patients/")) {
     return <Outlet />;
   }
