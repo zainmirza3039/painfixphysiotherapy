@@ -52,7 +52,7 @@ export function DoctorProfile({ doc }: { doc: TeamMember }) {
       </section>
 
       <section className="overflow-hidden border-b border-primary/20 bg-primary py-10 text-primary-foreground sm:py-14 lg:py-16">
-        <div className="mx-auto grid max-w-6xl items-center gap-8 px-4 sm:px-6 lg:grid-cols-[minmax(250px,320px)_1fr] lg:gap-12 lg:px-8">
+        <div className="mx-auto grid grid-cols-1 max-w-6xl items-center gap-10 px-4 sm:px-6 lg:grid-cols-[minmax(250px,320px)_1fr] lg:gap-12 lg:px-8">
           <Reveal anim="left">
             <div className="mx-auto aspect-[4/5] w-full max-w-[280px] overflow-hidden border border-white/20 border-l-[5px] border-l-brand-green bg-card sm:max-w-[320px]">
               <ClinicianPortrait
@@ -84,7 +84,7 @@ export function DoctorProfile({ doc }: { doc: TeamMember }) {
                 {doc.profile.intro.map((p) => (
                   <p
                     key={p}
-                    className="max-w-3xl text-sm leading-7 text-primary-foreground/85 sm:text-base"
+                    className="break-words max-w-3xl text-sm leading-7 text-primary-foreground/85 sm:text-base"
                   >
                     {p}
                   </p>
