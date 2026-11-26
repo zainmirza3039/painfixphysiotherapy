@@ -98,6 +98,19 @@ export const Route = createFileRoute("/sitemap.xml")({
           { path: "/internships", changefreq: "weekly", priority: "0.7" },
           { path: "/certificates", changefreq: "monthly", priority: "0.6" },
           ...internshipEntries,
+          // Keep the currently published clinical internship discoverable even if the
+          // optional CMS listing query is temporarily unavailable.
+          ...(!internshipEntries.some(
+            (entry) => entry.path === "/internships/clinical-physiotherapy-internship",
+          )
+            ? [
+                {
+                  path: "/internships/clinical-physiotherapy-internship",
+                  changefreq: "weekly" as const,
+                  priority: "0.7",
+                },
+              ]
+            : []),
           // Diet & Nutrition is only listed once a qualified dietitian officially joins.
           ...(DIET_NUTRITION_ENABLED
             ? [
