@@ -41,6 +41,43 @@ function parseCsvLine(line: string, delimiter: string): string[] {
   return values;
 }
 
+function parseCsvRecords(source: string, delimiter: string): string[][] {
+  const records: string[][] = [];
+  let record: string[] = [];
+  let value = "";
+  let quoted = false;
+
+  for (let i = 0; i < source.length; i += 1) {
+    const char = source[i];
+    if (char === '"') {
+      if (quoted && source[i + 1] === '"') {
+        value += '"';
+        i += 1;
+      } else {
+        quoted = !quoted;
+      }
+    } else if (char === delimiter && !quoted) {
+      record.push(value.trim());
+      value = "";
+    } else if ((char === "\n" || char === "\r") && !quoted) {
+      record.push(value.trim());
+      if (record.some((cell) => cell.length > 0)) records.push(record);
+      record = [];
+      value = "";
+      if (char === "\r" && source[i + 1] === "\n") i += 1;
+    } else {
+      value += char;
+    }
+  }
+
+  if (quoted) throw new Error("CSV contains an unclosed quoted field.");
+  if (value.length || record.length) {
+    record.push(value.trim());
+    if (record.some((cell) => cell.length > 0)) records.push(record);
+  }
+  return records;
+}
+
 const normalise = (value: string) => value.toLowerCase().replace(/[^a-z0-9]/g, "");
 
 const aliases: Record<string, string[]> = {
@@ -80,20 +117,18 @@ function parseDate(value: string): string | null {
 }
 
 export function parsePatientCsv(text: string): ImportedPatientRow[] {
-  const lines = text
-    .replace(/^\uFEFF/, "")
-    .split(/\r?\n/)
-    .filter((line) => line.trim());
+  const source = text.replace(/^\uFEFF/, "");
+  const firstLine = source.split(/\r?\n/, 1)[0] ?? "";
+  const delimiter = [",", ";", "\t"].sort(
+    (a, b) => parseCsvLine(firstLine, b).length - parseCsvLine(firstLine, a).length,
+  )[0];
+  const records = parseCsvRecords(source, delimiter);
 
-  if (lines.length < 2) {
+  if (records.length < 2) {
     throw new Error("CSV must contain a header row and at least one data row.");
   }
 
-  const first = lines[0];
-  const delimiter = [",", ";", "\t"].sort(
-    (a, b) => parseCsvLine(first, b).length - parseCsvLine(first, a).length,
-  )[0];
-  const headers = parseCsvLine(first, delimiter).map(normalise);
+  const headers = records[0].map(normalise);
 
   const indexes = Object.fromEntries(
     Object.entries(aliases).map(([key, names]) => [
@@ -109,10 +144,9 @@ export function parsePatientCsv(text: string): ImportedPatientRow[] {
   const get = (cells: string[], key: keyof typeof aliases) =>
     indexes[key] < 0 ? "" : (cells[indexes[key]] ?? "");
 
-  return lines
+  return records
     .slice(1)
-    .map((line, index) => {
-      const cells = parseCsvLine(line, delimiter);
+    .map((cells, index) => {
       const name = get(cells, "name");
       const warnings: string[] = [];
       const dateRaw = get(cells, "sessionDate");
