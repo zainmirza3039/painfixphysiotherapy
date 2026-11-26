@@ -10,6 +10,7 @@ const component = readFileSync("src/components/admin/PatientTreatmentCertificate
 const pdf = readFileSync("src/lib/treatment-certificate-pdf.ts", "utf8");
 const route = readFileSync("src/routes/verify-certificate.tsx", "utf8");
 const detail = readFileSync("src/routes/_authenticated/admin.personal-patients.$patientId.tsx", "utf8");
+const verifyFunction = readFileSync("supabase/functions/verify-treatment-document/index.ts", "utf8");
 
 test("certificate snapshots are owner-scoped, immutable and revocable", () => {
   assert.match(migration, /verification_token_hash text not null unique/);
@@ -20,12 +21,12 @@ test("certificate snapshots are owner-scoped, immutable and revocable", () => {
 });
 
 test("public QR verification exposes only masked allow-listed fields", () => {
-  assert.match(migration, /'completed_sessions'/);
-  assert.doesNotMatch(migration, /'diagnosis'/);
-  assert.doesNotMatch(migration, /'clinicalFindings'/);
+  assert.match(verifyFunction, /completed_sessions/);
+  assert.doesNotMatch(verifyFunction, /diagnosis/);
+  assert.doesNotMatch(verifyFunction, /clinicalFindings/);
   assert.match(route, /no-store/);
   assert.match(route, /noindex, nofollow, noarchive/);
-  assert.match(route, /type: z\.enum\(\["certificate", "treatment"\]\)/);
+  assert.match(route, /verify-treatment-document/);
 });
 
 test("certificate requires documented clinical details and completed sessions", () => {
