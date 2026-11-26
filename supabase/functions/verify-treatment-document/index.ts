@@ -9,10 +9,14 @@ const baseHeaders = {
 function headers(req: Request) {
   const origin = req.headers.get("origin");
   const allowed = new Set(
-    ["https://painfixphysiotherapy.com", Deno.env.get("APP_ORIGIN"), Deno.env.get("PREVIEW_ORIGIN")]
-      .filter((value): value is string => Boolean(value)),
+    [
+      "https://painfixphysiotherapy.com",
+      Deno.env.get("APP_ORIGIN"),
+      Deno.env.get("PREVIEW_ORIGIN"),
+    ].filter((value): value is string => Boolean(value)),
   );
-  const preview = origin != null &&
+  const preview =
+    origin != null &&
     /^https:\/\/painfixphysiotherapy-[a-z0-9-]+-zainmirza3039s-projects\.vercel\.app$/.test(origin);
   return {
     ...baseHeaders,
@@ -70,9 +74,11 @@ Deno.serve(async (req) => {
       issued_at: data.issued_at,
       clinic: "PainFix Physiotherapy Clinic",
       patient: typeof snapshot.patient === "string" ? snapshot.patient : null,
-      treatment_start: typeof snapshot.treatment_start === "string" ? snapshot.treatment_start : null,
+      treatment_start:
+        typeof snapshot.treatment_start === "string" ? snapshot.treatment_start : null,
       treatment_end: typeof snapshot.treatment_end === "string" ? snapshot.treatment_end : null,
-      completed_sessions: typeof snapshot.completed_sessions === "number" ? snapshot.completed_sessions : null,
+      completed_sessions:
+        typeof snapshot.completed_sessions === "number" ? snapshot.completed_sessions : null,
       amount_paid: typeof snapshot.amount_paid === "number" ? snapshot.amount_paid : null,
       currency: "PKR",
       message,
