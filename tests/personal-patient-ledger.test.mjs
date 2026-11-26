@@ -238,7 +238,7 @@ const adminShell = fs.readFileSync(path.join(root, "src/components/admin/AdminSh
 test("Patient Ledger is included in a visible admin navigation section", () => {
   assert.match(
     adminShell,
-    /to: "\/admin\/personal-patients",\s*label: "Personal patient ledger",\s*icon: UserCircle,\s*gate: "staff"/,
+    /to: "\/admin\/personal-patients",\s*label: "Personal patient ledger",\s*icon: UserCircle,\s*gate: "clinical"/,
   );
   assert.match(
     adminShell,
