@@ -228,7 +228,7 @@ function PersonalPatientDetailPage() {
 
   const query = useQuery({
     queryKey: ["admin", "personal-patient-detail", user?.id, patientId],
-    enabled: Boolean(user?.id && patientId),
+    enabled: Boolean(user?.id && patientId) && isClinicalPhysiotherapist,
     queryFn: async () => {
       const db = personalPatientDb;
       const p = await db
