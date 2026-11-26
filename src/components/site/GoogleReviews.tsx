@@ -1,9 +1,44 @@
+import { useEffect, useRef } from "react";
 import { ExternalLink } from "lucide-react";
 import { Reveal } from "./Reveal";
 import { GoogleReviewButton, GoogleG } from "./GoogleReviewButton";
 import { GOOGLE_BUSINESS_PROFILE_URL } from "./constants";
 
 export function GoogleReviews() {
+  const embedRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const embed = embedRef.current;
+    if (!embed) return;
+
+    const loadWidget = () => {
+      if (document.querySelector('script[data-painfix-grwidget="true"]')) return;
+      const script = document.createElement("script");
+      script.src = "https://grwidget.com/v1/grwidget.js";
+      script.async = true;
+      script.dataset.painfixGrwidget = "true";
+      document.body.appendChild(script);
+    };
+
+    if (!("IntersectionObserver" in window)) {
+      loadWidget();
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((entry) => entry.isIntersecting)) {
+          loadWidget();
+          observer.disconnect();
+        }
+      },
+      { rootMargin: "400px 0px" },
+    );
+
+    observer.observe(embed);
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <section id="testimonials" className="home-section scroll-mt-24">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -32,13 +67,8 @@ export function GoogleReviews() {
               </div>
             </div>
 
-            <script
-              src="https://grwidget.com/v1/grwidget.js"
-              async
-              defer
-              data-wpmeteor-nooptimize="true"
-            />
             <div
+              ref={embedRef}
               className="grwidget-embed mt-6 w-full"
               data-grwidget-key="swUmP1Xp4nnfkHNj3Ie8f2GW"
             />
