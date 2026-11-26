@@ -244,7 +244,9 @@ function PersonalPatientDetailPage() {
           .order("created_at", { ascending: false }),
         db
           .from("personal_patient_sessions")
-          .select("id,plan_id,session_date,status,session_label,charge_amount,private_note,deleted_at")
+          .select(
+            "id,plan_id,session_date,status,session_label,charge_amount,private_note,deleted_at",
+          )
           .eq("patient_id", patientId)
           .order("session_date", { ascending: false }),
         db
@@ -264,8 +266,9 @@ function PersonalPatientDetailPage() {
           .order("created_at", { ascending: false })
           .limit(50),
       ]);
-      const [plansResult, sessionsResult, ledgerResult, blocksResult, auditResult] = optional.map((result) =>
-        result.status === "fulfilled" ? result.value : { data: [], error: result.reason },
+      const [plansResult, sessionsResult, ledgerResult, blocksResult, auditResult] = optional.map(
+        (result) =>
+          result.status === "fulfilled" ? result.value : { data: [], error: result.reason },
       );
       for (const [label, result] of [
         ["billing plans", plansResult],
@@ -326,11 +329,15 @@ function PersonalPatientDetailPage() {
     const key = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
     return key === selectedCalendarDate;
   });
-  const selectedDayBlock = data?.calendarBlocks.find((block) => block.block_date === selectedCalendarDate);
+  const selectedDayBlock = data?.calendarBlocks.find(
+    (block) => block.block_date === selectedCalendarDate,
+  );
   const navigateCalendarMonth = (offset: number) => {
     const next = new Date(calendarMonth.getFullYear(), calendarMonth.getMonth() + offset, 1);
     setCalendarMonth(next);
-    setSelectedCalendarDate(`${next.getFullYear()}-${String(next.getMonth() + 1).padStart(2, "0")}-01`);
+    setSelectedCalendarDate(
+      `${next.getFullYear()}-${String(next.getMonth() + 1).padStart(2, "0")}-01`,
+    );
   };
   const openSessionForDate = () => {
     if (selectedDayBlock) {
@@ -338,7 +345,9 @@ function PersonalPatientDetailPage() {
       return;
     }
     setSessionDate(`${selectedCalendarDate}T11:00`);
-    setSessionCharge(activePlan?.plan_type === "package" ? "0" : String(activePlan?.per_session_fee ?? ""));
+    setSessionCharge(
+      activePlan?.plan_type === "package" ? "0" : String(activePlan?.per_session_fee ?? ""),
+    );
     setSessionOpen(true);
   };
   const exportCsv = () => {
@@ -352,13 +361,15 @@ function PersonalPatientDetailPage() {
         e.payment_method ?? e.entry_type,
         e.amount,
       ]),
-      ...data.sessions.filter((s) => !s.deleted_at).map((s) => [
-        "Session",
-        s.session_date,
-        s.session_label ?? "Physiotherapy session",
-        s.status,
-        s.charge_amount,
-      ]),
+      ...data.sessions
+        .filter((s) => !s.deleted_at)
+        .map((s) => [
+          "Session",
+          s.session_date,
+          s.session_label ?? "Physiotherapy session",
+          s.status,
+          s.charge_amount,
+        ]),
     ];
     const csv = rows
       .map((row) => row.map((value) => `"${String(value ?? "").replaceAll('"', '""')}"`).join(","))
@@ -459,7 +470,12 @@ function PersonalPatientDetailPage() {
   const sendWhatsAppReminder = () => {
     if (!data) return;
     const next = (data.sessions ?? [])
-      .filter((s) => !s.deleted_at && s.status === "scheduled" && new Date(s.session_date).getTime() >= Date.now())
+      .filter(
+        (s) =>
+          !s.deleted_at &&
+          s.status === "scheduled" &&
+          new Date(s.session_date).getTime() >= Date.now(),
+      )
       .sort((a, b) => a.session_date.localeCompare(b.session_date))[0];
     const message = [
       `Assalam-o-Alaikum ${data.patient.full_name},`,
@@ -994,9 +1010,7 @@ function PersonalPatientDetailPage() {
               variant="outline"
               size="icon"
               className="h-8 w-8"
-              onClick={() =>
-                navigateCalendarMonth(-1)
-              }
+              onClick={() => navigateCalendarMonth(-1)}
             >
               <ChevronLeft className="h-4 w-4" />
             </Button>
@@ -1010,9 +1024,7 @@ function PersonalPatientDetailPage() {
               variant="outline"
               size="icon"
               className="h-8 w-8"
-              onClick={() =>
-                navigateCalendarMonth(1)
-              }
+              onClick={() => navigateCalendarMonth(1)}
             >
               <ChevronRight className="h-4 w-4" />
             </Button>
@@ -1031,27 +1043,73 @@ function PersonalPatientDetailPage() {
             </div>
           ))}
           {calendarDays.map((day, index) => {
-            const daySessions = day == null ? [] : monthSessions.filter((s) => new Date(s.session_date).getDate() === day);
-            const dateKey = day == null ? "" : `${calendarMonth.getFullYear()}-${String(calendarMonth.getMonth() + 1).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
-            const dayBlock = day == null ? undefined : data.calendarBlocks.find((block) => block.block_date === dateKey);
+            const daySessions =
+              day == null
+                ? []
+                : monthSessions.filter((session) => new Date(session.session_date).getDate() === day);
+            const dateKey =
+              day == null
+                ? ""
+                : String(calendarMonth.getFullYear()) +
+                  "-" +
+                  String(calendarMonth.getMonth() + 1).padStart(2, "0") +
+                  "-" +
+                  String(day).padStart(2, "0");
+            const dayBlock =
+              day == null
+                ? undefined
+                : data.calendarBlocks.find((calendarBlock) => calendarBlock.block_date === dateKey);
             const selected = dateKey === selectedCalendarDate;
+
             return (
-              <div key={day == null ? `blank-${index}` : day} className={day == null ? "min-h-16" : "min-h-16"}>
+              <div key={day == null ? "blank-" + index : day} className="min-h-16">
                 {day != null && (
                   <button
                     type="button"
                     onClick={() => setSelectedCalendarDate(dateKey)}
                     aria-pressed={selected}
-                    className={`flex h-full min-h-16 w-full flex-col items-start rounded-md border p-1.5 text-left transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary ${selected ? "border-primary bg-primary/10 ring-1 ring-primary" : "border-border bg-background hover:border-primary/60 hover:bg-muted/50"}`}
+                    className={
+                      selected
+                        ? "flex h-full min-h-16 w-full flex-col items-start rounded-md border border-primary bg-primary/10 p-1.5 text-left ring-1 ring-primary transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+                        : "flex h-full min-h-16 w-full flex-col items-start rounded-md border border-border bg-background p-1.5 text-left transition-colors hover:border-primary/60 hover:bg-muted/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+                    }
                   >
                     <span className="text-xs font-semibold">{day}</span>
-                    {dayBlock && <span className={`mt-1 rounded px-1 py-0.5 text-[9px] font-semibold ${dayBlock.block_type === "leave" ? "bg-amber-100 text-amber-900" : "bg-slate-200 text-slate-800"}`}>{dayBlock.block_type === "leave" ? "Leave" : "Off"}</span>}
+                    {dayBlock && (
+                      <span
+                        className={
+                          dayBlock.block_type === "leave"
+                            ? "mt-1 rounded bg-amber-100 px-1 py-0.5 text-[9px] font-semibold text-amber-900"
+                            : "mt-1 rounded bg-slate-200 px-1 py-0.5 text-[9px] font-semibold text-slate-800"
+                        }
+                      >
+                        {dayBlock.block_type === "leave" ? "Leave" : "Off"}
+                      </span>
+                    )}
                     {daySessions.length > 0 && (
                       <div className="mt-1 flex flex-wrap gap-1">
-                        {daySessions.map((session) => <span key={session.id} title={session.status} className={`h-2 w-2 rounded-full ${session.status === "completed" ? "bg-emerald-500" : session.status === "cancelled" ? "bg-rose-500" : session.status === "rescheduled" ? "bg-amber-500" : "bg-blue-500"}`} />)}
+                        {daySessions.map((session) => (
+                          <span
+                            key={session.id}
+                            title={session.status}
+                            className={
+                              session.status === "completed"
+                                ? "h-2 w-2 rounded-full bg-emerald-500"
+                                : session.status === "cancelled"
+                                  ? "h-2 w-2 rounded-full bg-rose-500"
+                                  : session.status === "rescheduled"
+                                    ? "h-2 w-2 rounded-full bg-amber-500"
+                                    : "h-2 w-2 rounded-full bg-blue-500"
+                            }
+                          />
+                        ))}
                       </div>
                     )}
-                    {daySessions.length > 0 && <span className="mt-1 text-[10px] text-muted-foreground">{daySessions.length} {daySessions.length === 1 ? "session" : "sessions"}</span>}
+                    {daySessions.length > 0 && (
+                      <span className="mt-1 text-[10px] text-muted-foreground">
+                        {daySessions.length} {daySessions.length === 1 ? "session" : "sessions"}
+                      </span>
+                    )}
                   </button>
                 )}
               </div>
@@ -1061,33 +1119,110 @@ function PersonalPatientDetailPage() {
         <div className="mt-4 rounded-lg border border-border bg-muted/20 p-3">
           <div className="flex flex-wrap items-center justify-between gap-2">
             <div>
-              <p className="text-sm font-semibold">{new Date(`${selectedCalendarDate}T00:00:00`).toLocaleDateString(language === "ur" ? "ur-PK" : "en-PK", { weekday: "long", day: "numeric", month: "long", year: "numeric" })}</p>
-              <p className="text-xs text-muted-foreground">{selectedDaySessions.length} {selectedDaySessions.length === 1 ? "session" : "sessions"}{selectedDayBlock ? ` · ${selectedDayBlock.block_type === "leave" ? "Leave" : "Off day"}` : ""}</p>
+              <p className="text-sm font-semibold">
+                {new Date(selectedCalendarDate + "T00:00:00").toLocaleDateString(
+                  language === "ur" ? "ur-PK" : "en-PK",
+                  { weekday: "long", day: "numeric", month: "long", year: "numeric" },
+                )}
+              </p>
+              <p className="text-xs text-muted-foreground">
+                {selectedDaySessions.length} {selectedDaySessions.length === 1 ? "session" : "sessions"}
+                {selectedDayBlock
+                  ? " · " + (selectedDayBlock.block_type === "leave" ? "Leave" : "Off day")
+                  : ""}
+              </p>
             </div>
             <div className="flex flex-wrap gap-2">
-              <Button size="sm" onClick={openSessionForDate} disabled={Boolean(selectedDayBlock)}><CalendarPlus className="mr-1 h-4 w-4" />Add session</Button>
+              <Button
+                size="sm"
+                onClick={openSessionForDate}
+                disabled={Boolean(selectedDayBlock)}
+              >
+                <CalendarPlus className="mr-1 h-4 w-4" />
+                Add session
+              </Button>
               {selectedDayBlock ? (
-                <Button size="sm" variant="outline" disabled={removeCalendarBlock.isPending} onClick={() => removeCalendarBlock.mutate(selectedDayBlock.id)}>Remove off / leave</Button>
+                <Button
+                  size="sm"
+                  variant="outline"
+                  disabled={removeCalendarBlock.isPending}
+                  onClick={() => removeCalendarBlock.mutate(selectedDayBlock.id)}
+                >
+                  Remove off / leave
+                </Button>
               ) : (
-                <Button size="sm" variant="outline" onClick={() => { setLeaveType("off"); setLeaveNote(""); setLeaveOpen(true); }}><CalendarOff className="mr-1 h-4 w-4" />Add off / leave</Button>
+                <Button
+                  size="sm"
+                  variant="outline"
+                  onClick={() => {
+                    setLeaveType("off");
+                    setLeaveNote("");
+                    setLeaveOpen(true);
+                  }}
+                >
+                  <CalendarOff className="mr-1 h-4 w-4" />
+                  Add off / leave
+                </Button>
               )}
             </div>
           </div>
           {selectedDaySessions.length > 0 ? (
             <div className="mt-3 divide-y divide-border">
               {selectedDaySessions.map((session) => (
-                <div key={session.id} className="flex flex-wrap items-center justify-between gap-2 py-2">
+                <div
+                  key={session.id}
+                  className="flex flex-wrap items-center justify-between gap-2 py-2"
+                >
                   <div className="min-w-0">
-                    <p className="text-sm font-medium">{session.session_label || "Physiotherapy session"}</p>
-                    <p className="text-xs text-muted-foreground">{new Date(session.session_date).toLocaleTimeString(language === "ur" ? "ur-PK" : "en-PK", { hour: "numeric", minute: "2-digit" })} · {session.status}</p>
+                    <p className="text-sm font-medium">
+                      {session.session_label || "Physiotherapy session"}
+                    </p>
+                    <p className="text-xs text-muted-foreground">
+                      {new Date(session.session_date).toLocaleTimeString(
+                        language === "ur" ? "ur-PK" : "en-PK",
+                        { hour: "numeric", minute: "2-digit" },
+                      )}{" "}
+                      {session.status}
+                    </p>
                   </div>
-                  {session.status === "scheduled" && <Button size="sm" variant="ghost" className="text-destructive hover:text-destructive" disabled={deleteSession.isPending} onClick={() => { if (window.confirm("Remove this scheduled session from the calendar? Its audit history will be retained.")) deleteSession.mutate(session.id); }}><Trash2 className="mr-1 h-4 w-4" />Delete</Button>}
+                  {session.status === "scheduled" && (
+                    <Button
+                      size="sm"
+                      variant="ghost"
+                      className="text-destructive hover:text-destructive"
+                      disabled={deleteSession.isPending}
+                      onClick={() => {
+                        if (
+                          window.confirm(
+                            "Remove this scheduled session from the calendar? Its audit history will be retained.",
+                          )
+                        ) {
+                          deleteSession.mutate(session.id);
+                        }
+                      }}
+                    >
+                      <Trash2 className="mr-1 h-4 w-4" />
+                      Delete
+                    </Button>
+                  )}
                 </div>
               ))}
             </div>
-          ) : <p className="mt-3 text-xs text-muted-foreground">No sessions on this date. Select Add session to schedule one.</p>}
-          {selectedDayBlock?.note && <p className="mt-2 text-xs text-muted-foreground">Note: {selectedDayBlock.note}</p>}
-          {selectedDayBlock && <p className="mt-2 text-xs text-amber-700 dark:text-amber-300">This date is marked off / leave. Remove the mark before adding a session.</p>}
+          ) : (
+            <p className="mt-3 text-xs text-muted-foreground">
+              No sessions on this date. Select Add session to schedule one.
+            </p>
+          )}
+          {selectedDayBlock?.note && (
+            <p className="mt-2 text-xs text-muted-foreground">
+              Note: {selectedDayBlock.note}
+            </p>
+          )}
+          {selectedDayBlock && (
+            <p className="mt-2 text-xs text-amber-700 dark:text-amber-300">
+              This date is marked off / leave. Remove the mark before adding a session.
+            </p>
+          )}
         </div>
         <div className="mt-3 flex flex-wrap gap-3 text-xs text-muted-foreground">
           <span className="flex items-center gap-1">
@@ -1573,20 +1708,45 @@ function PersonalPatientDetailPage() {
         <DialogContent>
           <DialogHeader>
             <DialogTitle>Mark {selectedCalendarDate} as off / leave</DialogTitle>
-            <DialogDescription>This marks the selected date in this patient’s calendar. It does not alter existing sessions or billing records.</DialogDescription>
+            <DialogDescription>
+              This marks the selected date in this patient’s calendar. It does not alter existing
+              sessions or billing records.
+            </DialogDescription>
           </DialogHeader>
-          <form className="space-y-3" onSubmit={(event) => { event.preventDefault(); saveCalendarBlock.mutate(); }}>
+          <form
+            className="space-y-3"
+            onSubmit={(event) => {
+              event.preventDefault();
+              saveCalendarBlock.mutate();
+            }}
+          >
             <div className="space-y-1">
               <Label>Type</Label>
-              <select className="h-10 w-full rounded-md border border-input bg-background px-3 text-sm" value={leaveType} onChange={(event) => setLeaveType(event.target.value as "off" | "leave")}>
+              <select
+                className="h-10 w-full rounded-md border border-input bg-background px-3 text-sm"
+                value={leaveType}
+                onChange={(event) => setLeaveType(event.target.value as "off" | "leave")}
+              >
                 <option value="off">Off day</option>
                 <option value="leave">Leave</option>
               </select>
             </div>
-            <div className="space-y-1"><Label>Note (optional)</Label><Input value={leaveNote} onChange={(event) => setLeaveNote(event.target.value)} placeholder="e.g. Clinic closed" maxLength={240} /></div>
+            <div className="space-y-1">
+              <Label>Note (optional)</Label>
+              <Input
+                value={leaveNote}
+                onChange={(event) => setLeaveNote(event.target.value)}
+                placeholder="e.g. Clinic closed"
+                maxLength={240}
+              />
+            </div>
             <DialogFooter>
-              <Button type="button" variant="outline" onClick={() => setLeaveOpen(false)}>Cancel</Button>
-              <Button type="submit" disabled={saveCalendarBlock.isPending}>{saveCalendarBlock.isPending ? "Saving…" : "Save date"}</Button>
+              <Button type="button" variant="outline" onClick={() => setLeaveOpen(false)}>
+                Cancel
+              </Button>
+              <Button type="submit" disabled={saveCalendarBlock.isPending}>
+                {saveCalendarBlock.isPending ? "Saving…" : "Save date"}
+              </Button>
             </DialogFooter>
           </form>
         </DialogContent>
