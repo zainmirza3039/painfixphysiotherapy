@@ -364,13 +364,13 @@ export function PatientTreatmentCertificate({
               <Input
                 value={diagnosis}
                 onChange={(event) => setDiagnosis(event.target.value)}
-                maxLength={240}
+                maxLength={160}
                 placeholder="Enter the diagnosis recorded in the clinical notes"
               />
             </div>
             <div className="space-y-1">
               <Label>Clinical findings</Label>
-              <Textarea rows={2} value={findings} onChange={(event) => setFindings(event.target.value)} maxLength={360} placeholder="Enter documented assessment findings" />
+              <Textarea rows={2} value={findings} onChange={(event) => setFindings(event.target.value)} maxLength={240} placeholder="Enter documented assessment findings" />
             </div>
             <div className="grid grid-cols-2 gap-3">
               <div className="space-y-1">
@@ -392,7 +392,7 @@ export function PatientTreatmentCertificate({
                 rows={3}
                 value={summary}
                 onChange={(event) => setSummary(event.target.value)}
-                maxLength={500}
+                maxLength={360}
                 placeholder="Enter the interventions actually delivered during attended sessions."
               />
             </div>
