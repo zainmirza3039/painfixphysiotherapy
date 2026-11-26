@@ -1,0 +1,51 @@
+import test from "node:test";
+import assert from "node:assert/strict";
+import { readFileSync } from "node:fs";
+
+const migration = readFileSync(
+  "supabase/migrations/20261127010000_personal_patient_treatment_documents.sql",
+  "utf8",
+);
+const component = readFileSync("src/components/admin/PatientTreatmentCertificate.tsx", "utf8");
+const pdf = readFileSync("src/lib/treatment-certificate-pdf.ts", "utf8");
+const route = readFileSync("src/routes/verify-certificate.tsx", "utf8");
+const detail = readFileSync("src/routes/_authenticated/admin.personal-patients.$patientId.tsx", "utf8");
+
+test("certificate snapshots are owner-scoped, immutable and revocable", () => {
+  assert.match(migration, /verification_token_hash text not null unique/);
+  assert.match(migration, /snapshot jsonb not null/);
+  assert.match(migration, /Clinicians read their own treatment documents/);
+  assert.match(migration, /Clinicians revoke their own treatment documents/);
+  assert.match(migration, /Issued treatment document snapshots are immutable/);
+});
+
+test("public QR verification exposes only masked allow-listed fields", () => {
+  assert.match(migration, /'completed_sessions'/);
+  assert.doesNotMatch(migration, /'diagnosis'/);
+  assert.doesNotMatch(migration, /'clinicalFindings'/);
+  assert.match(route, /no-store/);
+  assert.match(route, /noindex, nofollow, noarchive/);
+  assert.match(route, /type: z\.enum\(\["certificate", "treatment"\]\)/);
+});
+
+test("certificate requires documented clinical details and completed sessions", () => {
+  assert.match(component, /session\.status\s*===\s*"completed"/);
+  assert.match(component, /clinicalFindings: findings\.trim\(\)/);
+  assert.match(component, /treatmentAdvice: advice\.trim\(\)/);
+  assert.match(component, /verification_token_hash/);
+  assert.doesNotMatch(component, /private_note/);
+  assert.match(detail, /<PatientTreatmentCertificate/);
+});
+
+test("A4 PDF contains the agreed clinical, financial, payment and verification sections", () => {
+  for (const label of [
+    "Patient Information",
+    "Clinical Information",
+    "Financial Statement",
+    "Payment Details",
+    "Clinical advice",
+    "Scan to verify",
+    "Outstanding balance",
+  ]) assert.ok(pdf.includes(label), "Missing PDF field: " + label);
+  assert.match(pdf, /insurance/);
+});
