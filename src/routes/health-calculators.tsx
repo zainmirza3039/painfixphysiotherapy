@@ -77,6 +77,7 @@ function HealthCalculatorsPage() {
 
       <section className="py-14 sm:py-20">
         <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+          <h2 className="sr-only">BMI calculator</h2>
           <Reveal anim="up">
             <BmiCalculator />
           </Reveal>
