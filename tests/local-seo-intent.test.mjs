@@ -264,7 +264,6 @@ test("kamar dard symptoms article aligns its search snippet with the existing sy
   assert.match(article, /medicalReviewerKey: "JD"/);
 });
 
-
 test("clinical internship metadata uses a concise, accurate search snippet", async () => {
   const route = await read("src/routes/internships.$slug.tsx");
   assert.match(route, /program\?\.slug === "clinical-physiotherapy-internship"/);

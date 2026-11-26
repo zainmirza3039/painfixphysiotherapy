@@ -25,15 +25,14 @@ export const Route = createFileRoute("/internships/$slug")({
   },
   head: ({ params, loaderData }) => {
     const program = loaderData?.program;
-    const isClinicalPhysiotherapyInternship =
-      program?.slug === "clinical-physiotherapy-internship";
+    const isClinicalPhysiotherapyInternship = program?.slug === "clinical-physiotherapy-internship";
     const title = isClinicalPhysiotherapyInternship
       ? "Clinical Physiotherapy Internship | PainFix"
       : `${program?.title ?? "Internship program"} | PainFix Physiotherapy Clinic`;
     const description = isClinicalPhysiotherapyInternship
       ? "Supervised 40-working-day clinical physiotherapy internship in Multan for final-year DPT students and graduates."
-      : program?.description ??
-        "Review a PainFix internship program and its application information.";
+      : (program?.description ??
+        "Review a PainFix internship program and its application information.");
     return {
       meta: pageMeta({
         title,
