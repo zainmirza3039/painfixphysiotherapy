@@ -11,7 +11,12 @@ export function toClinicianView(
 ): TeamMember {
   if ("fullName" in profile) return profile;
   const photo = "resolved_photo_url" in profile ? profile.resolved_photo_url : profile.photo_url;
-  const fullName = profile.full_name;
+  const isZainProfile = profile.slug === "dr-zain-ul-abideen-pt-multan";
+  const normalizeZainName = (value: string | null | undefined) =>
+    isZainProfile && value
+      ? value.replace(/Dr\\. Zain Ul Abideen,\\s*DPT/g, "Dr. Zain Ul Abideen PT")
+      : value;
+  const fullName = isZainProfile ? "Dr. Zain Ul Abideen PT" : profile.full_name;
   const onlineOnly = profile.service_mode === "online_only";
 
   return {
@@ -20,8 +25,8 @@ export function toClinicianView(
     role: profile.designation,
     title: profile.professional_title,
     credentials: profile.credentials,
-    bio: profile.bio ?? "",
-    seoBio: profile.seo_bio ?? profile.bio ?? "",
+    bio: normalizeZainName(profile.bio) ?? "",
+    seoBio: normalizeZainName(profile.seo_bio ?? profile.bio) ?? "",
     specialties: profile.specialties ?? [],
     tags: profile.tags ?? [],
     initials: fullName
@@ -39,16 +44,20 @@ export function toClinicianView(
     yearsExperience: profile.years_experience,
     profile: {
       metaTitle:
-        profile.meta_title ??
+        (isZainProfile ? "Dr. Zain Ul Abideen PT | PainFix Multan" : profile.meta_title) ??
         (onlineOnly
           ? `${fullName} — Online Physiotherapy${profile.city ? ` in ${profile.city}` : ""} | PainFix`
           : `${fullName} | PainFix Physiotherapy Clinic`),
       metaDescription:
-        profile.meta_description ??
-        profile.seo_bio ??
-        profile.bio ??
+        (isZainProfile
+          ? "Meet Dr. Zain Ul Abideen PT, Founder & Head Physiotherapist at PainFix in Multan. Explore his clinical focus, treatment approach and appointment details."
+          : normalizeZainName(profile.meta_description ?? profile.seo_bio ?? profile.bio)) ??
         "Meet the PainFix clinical team.",
-      intro: profile.intro?.length ? profile.intro : profile.bio ? [profile.bio] : [],
+      intro: profile.intro?.length
+        ? profile.intro.map((paragraph) => normalizeZainName(paragraph) ?? paragraph)
+        : profile.bio
+          ? [normalizeZainName(profile.bio) ?? profile.bio]
+          : [],
       qualifications: profile.qualifications ?? [],
       expertise: profile.expertise ?? [],
       conditionsTreated: profile.conditions_treated ?? [],
