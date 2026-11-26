@@ -27,7 +27,7 @@ export function doctorProfileHead(doc: TeamMember) {
     : isZainProfile
       ? "Meet Dr. Zain Ul Abideen, DPT, Founder & Head Physiotherapist at PainFix in Multan. Explore his clinical focus, treatment approach and appointment details."
       : isJalalProfile
-        ? "Dr. Jalal Ud Din, DPT, is a clinical physiotherapist at PainFix in Multan, focusing on neurological and orthopaedic rehabilitation."
+        ? "Meet Dr. Jalal Ud Din, DPT, Co-Founder of PainFix in Multan. He practises as a clinical physiotherapist, focusing on neurological and orthopaedic rehabilitation."
         : doc.profile.metaDescription;
   // Static imports are root-relative paths; admin-uploaded photos may be absolute URLs.
   const image = doc.photo
@@ -64,8 +64,8 @@ export function doctorProfileHead(doc: TeamMember) {
           alternateName: doc.name,
           url,
           ...(image ? { image } : {}),
-          jobTitle: isZainProfile ? "Founder & Head Physiotherapist" : doc.role,
-          ...(isZainProfile
+          jobTitle: isZainProfile ? "Founder & Head Physiotherapist" : isJalalProfile ? "Co-Founder" : doc.role,
+          ...(isZainProfile || isJalalProfile
             ? {
                 hasCredential: {
                   "@type": "EducationalOccupationalCredential",
