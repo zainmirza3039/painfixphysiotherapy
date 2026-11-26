@@ -127,10 +127,14 @@ export function PatientLedgerImport({ clinicianId, patients, onImported }: Props
     try {
       const parsed = await parsePatientFile(file);
       if (!parsed.length) {
-        throw new Error("No rows with a patient name were found. Check the file headers and patient-name column.");
+        throw new Error(
+          "No rows with a patient name were found. Check the file headers and patient-name column.",
+        );
       }
       if (parsed.length > 1000) {
-        throw new Error("This file contains more than 1,000 usable rows. Split it into smaller batches.");
+        throw new Error(
+          "This file contains more than 1,000 usable rows. Split it into smaller batches.",
+        );
       }
       setRows(parsed);
       setFileName(file.name);
