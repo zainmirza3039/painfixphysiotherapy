@@ -7,7 +7,7 @@ const shell = fs.readFileSync("src/components/admin/AdminShell.tsx", "utf8");
 const page = fs.readFileSync("src/routes/_authenticated/admin.clinician-ledgers.tsx", "utf8");
 
 test("Super Admin cross-clinician data access is exposed only by guarded read RPCs", () => {
-  assert.equal((sql.match(/security definer/gi) ?? []).length >= 2);
+  assert.ok((sql.match(/security definer/gi) ?? []).length >= 2);
   assert.equal((sql.match(/ur.role::text = 'super_admin'/g) ?? []).length, 2);
   assert.match(sql, /revoke all on function public\.super_admin_personal_ledger_clinicians\(\) from public, anon/);
   assert.match(sql, /revoke all on function public\.super_admin_personal_ledger_snapshot\(uuid\) from public, anon/);
