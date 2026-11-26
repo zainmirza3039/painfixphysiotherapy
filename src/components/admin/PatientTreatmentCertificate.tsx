@@ -29,7 +29,13 @@ type Session = {
   status: string;
   session_label: string | null;
 };
-type Entry = { entry_type: string; amount: number; payment_method: string | null; reference: string | null; occurred_at: string };
+type Entry = {
+  entry_type: string;
+  amount: number;
+  payment_method: string | null;
+  reference: string | null;
+  occurred_at: string;
+};
 type DocumentRecord = {
   id: string;
   document_number: string;
@@ -154,7 +160,9 @@ export function PatientTreatmentCertificate({
       try {
         await downloadTreatmentCertificatePdf(issued.snapshot as TreatmentCertificateSnapshot);
       } catch {
-        toast.error("Certificate issued, but the PDF could not be downloaded. Use Download PDF in the issued documents list.");
+        toast.error(
+          "Certificate issued, but the PDF could not be downloaded. Use Download PDF in the issued documents list.",
+        );
       }
       return String(issued.documentNumber);
     },
@@ -328,7 +336,13 @@ export function PatientTreatmentCertificate({
             </div>
             <div className="space-y-1">
               <Label>Clinical findings</Label>
-              <Textarea rows={2} value={findings} onChange={(event) => setFindings(event.target.value)} maxLength={240} placeholder="Enter documented assessment findings" />
+              <Textarea
+                rows={2}
+                value={findings}
+                onChange={(event) => setFindings(event.target.value)}
+                maxLength={240}
+                placeholder="Enter documented assessment findings"
+              />
             </div>
             <div className="grid grid-cols-2 gap-3">
               <div className="space-y-1">
@@ -357,7 +371,13 @@ export function PatientTreatmentCertificate({
 
             <div className="space-y-1">
               <Label>Clinical advice / home programme</Label>
-              <Textarea rows={2} value={advice} onChange={(event) => setAdvice(event.target.value)} maxLength={360} placeholder="Enter advice actually provided to the patient" />
+              <Textarea
+                rows={2}
+                value={advice}
+                onChange={(event) => setAdvice(event.target.value)}
+                maxLength={240}
+                placeholder="Enter advice actually provided to the patient"
+              />
             </div>
             <div className="rounded-lg border p-3 text-sm">
               <p className="mb-2 text-xs text-muted-foreground">
@@ -379,8 +399,18 @@ export function PatientTreatmentCertificate({
                 <span>Outstanding balance / (credit)</span>
                 <strong>{money(balance)}</strong>
               </div>
-              <div className="mt-2 flex justify-between"><span>Payment method</span><strong className="capitalize">{latestPayment?.payment_method?.replaceAll("_", " ") || "Not specified"}</strong></div>
-              <div className="mt-2 flex justify-between gap-3"><span>Transaction reference</span><strong className="break-all text-right">{latestPayment?.reference || "Not recorded"}</strong></div>
+              <div className="mt-2 flex justify-between">
+                <span>Payment method</span>
+                <strong className="capitalize">
+                  {latestPayment?.payment_method?.replaceAll("_", " ") || "Not specified"}
+                </strong>
+              </div>
+              <div className="mt-2 flex justify-between gap-3">
+                <span>Transaction reference</span>
+                <strong className="break-all text-right">
+                  {latestPayment?.reference || "Not recorded"}
+                </strong>
+              </div>
             </div>
 
             <label className="flex items-start gap-2 text-sm">
@@ -409,7 +439,16 @@ export function PatientTreatmentCertificate({
             </Button>
             <Button
               onClick={() => issue.mutate()}
-              disabled={issue.isPending || !diagnosis.trim() || !findings.trim() || !summary.trim() || !advice.trim() || !start || !end || !consent}
+              disabled={
+                issue.isPending ||
+                !diagnosis.trim() ||
+                !findings.trim() ||
+                !summary.trim() ||
+                !advice.trim() ||
+                !start ||
+                !end ||
+                !consent
+              }
             >
               {issue.isPending ? "Issuing…" : "Issue & download PDF"}
             </Button>
