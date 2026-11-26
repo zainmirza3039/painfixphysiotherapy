@@ -38,7 +38,7 @@ test("retired city landing pages are absent from sitemap and site search data", 
 
 test("homepage remains the primary local-intent canonical page", async () => {
   const homepage = await read("src/routes/index.tsx");
-  assert.match(homepage, /Best Physiotherapist in Multan \| PainFix Physiotherapy Clinic/);
+  assert.match(homepage, /Best Physiotherapist in Multan \| PainFix Clinic/);
   assert.match(homepage, /rel: "canonical"/);
   assert.match(homepage, /href: `\$\{SITE_URL\}\/`/);
 });

@@ -8,9 +8,7 @@ const normalize = (value) => value.replace(/\s+/g, " ").trim();
 test("homepage keeps the primary Multan physiotherapist keyword and canonical URL", () => {
   const home = source("routes/index.tsx");
   const hero = source("components/site/Hero.tsx");
-  assert.ok(
-    home.includes('const TITLE = "Best Physiotherapist in Multan | PainFix Physiotherapy Clinic"'),
-  );
+  assert.ok(home.includes('const TITLE = "Best Physiotherapist in Multan | PainFix Clinic"'));
   assert.ok(home.includes('rel: "canonical", href:') && home.includes("SITE_URL"));
   assert.ok(hero.includes("Physiotherapist"));
   assert.ok(hero.includes('home-hero__accent">Multan.'));

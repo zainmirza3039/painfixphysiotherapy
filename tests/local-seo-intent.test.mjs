@@ -128,11 +128,7 @@ test("service and condition hubs route broad local discovery links to the homepa
 test("homepage owns broad local discovery while booking remains separate", async () => {
   const homepage = await read("src/routes/index.tsx");
   const config = JSON.parse(await read("vercel.json"));
-  assert.ok(
-    homepage.includes(
-      'const TITLE = "Best Physiotherapist in Multan | PainFix Physiotherapy Clinic"',
-    ),
-  );
+  assert.ok(homepage.includes('const TITLE = "Best Physiotherapist in Multan | PainFix Clinic"'));
   assert.ok(
     config.redirects.some(
       (rule) => rule.source === "/physiotherapist-in-multan" && rule.destination === "/",
@@ -221,11 +217,7 @@ test("homepage local-commercial metadata is clear while existing ownership and c
   const homepage = await read("src/routes/index.tsx");
   const hero = await read("src/components/site/Hero.tsx");
   const bookingForm = await read("src/components/site/CityBookingForm.tsx");
-  assert.ok(
-    homepage.includes(
-      'const TITLE = "Best Physiotherapist in Multan | PainFix Physiotherapy Clinic"',
-    ),
-  );
+  assert.ok(homepage.includes('const TITLE = "Best Physiotherapist in Multan | PainFix Clinic"'));
   assert.ok(
     homepage.includes(
       "PainFix Physiotherapy Clinic in Multan: Physiotherapy near you for back pain and rehab. DPT-led care in Shalimar Colony. Book a clinic or home visit.",
@@ -255,4 +247,27 @@ test("homepage local-commercial metadata is clear while existing ownership and c
   assert.match(bookingForm, /clinicCalendarUrl\(CALENDLY_URL, values\)/);
   assert.match(bookingForm, /bookingWhatsAppUrl\(city, values, WHATSAPP_URL\)/);
   assert.match(bookingForm, /No request is saved on this website/);
+});
+
+test("kamar dard symptoms article aligns its search snippet with the existing symptoms query", async () => {
+  const source = await read("src/data/blog.ts");
+  const start = source.indexOf('slug: "kamar-dard-kab-serious-hota-hai"');
+  assert.notEqual(start, -1);
+  const end = source.indexOf("\n  },", start);
+  const article = source.slice(start, end);
+  assert.match(article, /seoTitle: "Kamar Dard Symptoms, Wajahen & Red Flags \| PainFix"/);
+  assert.match(
+    article,
+    /metaDescription:[\s\S]*Kamar dard ke symptoms, common causes aur red flags/,
+  );
+  assert.match(article, /updated: "2026-11-26"/);
+  assert.match(article, /medicalReviewerKey: "JD"/);
+});
+
+test("clinical internship metadata uses a concise, accurate search snippet", async () => {
+  const route = await read("src/routes/internships.$slug.tsx");
+  assert.match(route, /program\?\.slug === "clinical-physiotherapy-internship"/);
+  assert.match(route, /Clinical Physiotherapy Internship \| PainFix/);
+  assert.match(route, /Supervised 40-working-day clinical physiotherapy internship in Multan/);
+  assert.match(route, /path: \`\/internships\/\${params.slug}\`/);
 });

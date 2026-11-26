@@ -50,7 +50,7 @@ test("homepage hero and metadata focus on Multan", async () => {
     /Physiotherapist[\s\S]*?in <span className="home-hero__accent">Multan\.<\/span>/,
   );
   assert.doesNotMatch(hero, /Rahim|Ariba/);
-  assert.ok(route.includes("Physiotherapist in Multan | PainFix Physiotherapy Clinic"));
+  assert.ok(route.includes("Physiotherapist in Multan | PainFix Clinic"));
   assert.doesNotMatch(route, /Ariba Babar/);
 });
 

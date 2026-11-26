@@ -11,6 +11,6 @@ test("retired physiotherapist local page redirects to the homepage that owns loc
   ]);
 
   assert.match(route, /redirect\(\{ to: "\/" \}\)/);
-  assert.match(homepage, /Best Physiotherapist in Multan \| PainFix Physiotherapy Clinic/);
+  assert.match(homepage, /Best Physiotherapist in Multan \| PainFix Clinic/);
   assert.match(homepage, /rel: "canonical"/);
 });

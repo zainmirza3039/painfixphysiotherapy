@@ -6,7 +6,7 @@ const source = (path) => readFileSync(new URL("../src/" + path, import.meta.url)
 
 test("Dr Zain profile metadata directly answers the clinician-name search intent", () => {
   const seo = source("lib/doctor-seo.ts");
-  assert.ok(seo.includes('"Dr. Zain Ul Abideen, DPT | Physiotherapist in Multan | PainFix"'));
+  assert.ok(seo.includes('"Dr. Zain Ul Abideen, DPT | PainFix Multan"'));
   assert.ok(
     seo.includes(
       '"Meet Dr. Zain Ul Abideen, DPT, Founder & Head Physiotherapist at PainFix in Multan. Explore his clinical focus, treatment approach and appointment details."',

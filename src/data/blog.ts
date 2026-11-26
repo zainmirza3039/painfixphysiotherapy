@@ -3090,9 +3090,9 @@ export const blogPosts: BlogPost[] = [
   {
     slug: "kamar-dard-kab-serious-hota-hai",
     title: "Kamar Dard Kab Serious Hota Hai? Causes, Red Flags and Next Steps",
-    seoTitle: "Kamar Dard Ki Wajahen & Red Flags | PainFix",
+    seoTitle: "Kamar Dard Symptoms, Wajahen & Red Flags | PainFix",
     metaDescription:
-      "Kamar dard ki wajahen samjhein, ghar par kya note karein, aur red flags jaaniye jo doctor ya urgent medical assessment mangte hain.",
+      "Kamar dard ke symptoms, common causes aur red flags samjhein. Learn when self-care is reasonable and when urgent medical assessment is needed.",
     category: "back-pain",
     tags: ["kamar dard", "red flags", "back pain causes", "self-triage", "Roman Urdu"],
     excerpt:
@@ -3100,7 +3100,7 @@ export const blogPosts: BlogPost[] = [
     quickAnswer:
       "Kamar dard muscle strain, joint irritation, nerve symptoms, work load, or another medical problem se related ho sakta hai. New bladder or bowel changes, saddle numbness, progressive leg weakness, major trauma, fever with severe pain, or unexplained weight loss need urgent medical assessment. Symptoms alone cannot confirm a diagnosis.",
     date: "2026-11-03",
-    updated: "2026-11-03",
+    updated: "2026-11-26",
     authorKey: "ZA",
     medicalReviewerKey: "JD",
     sections: [
