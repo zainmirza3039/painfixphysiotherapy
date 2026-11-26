@@ -7,7 +7,7 @@ const repo = new URL("../", import.meta.url);
 test("Dr Zain profile metadata identifies the clinician and Multan clinic without promotional claims", async () => {
   const source = await readFile(new URL("src/lib/doctor-seo.ts", repo), "utf8");
   assert.match(source, /isZainProfile = doc\.slug === "dr-zain-ul-abideen-pt-multan"/);
-  assert.match(source, /Dr\. Zain Ul Abideen, DPT \| PainFix Multan/);
+  assert.match(source, /Dr\. Zain Ul Abideen, DPT \|Dr\\. Zain Ul Abideen PT \\| PainFix Multan/);
   assert.match(
     source,
     /Meet Dr\. Zain Ul Abideen, DPT, Founder & Head Physiotherapist at PainFix in Multan/,
@@ -18,7 +18,7 @@ test("Dr Zain profile metadata identifies the clinician and Multan clinic withou
 test("Dr Jalal profile metadata targets the verified DPT in Multan search opportunity without promotional claims", async () => {
   const source = await readFile(new URL("src/lib/doctor-seo.ts", repo), "utf8");
   assert.match(source, /isJalalProfile = doc\.slug === "dr-jalal-ud-din-pt-multan"/);
-  assert.match(source, /Dr\. Jalal Ud Din, DPT \| PainFix Multan/);
+  assert.match(source, /Dr\. Jalal Ud Din, DPT \|Dr\\. Zain Ul Abideen PT \\| PainFix Multan/);
   assert.match(
     source,
     /Dr\. Jalal Ud Din, DPT, is a clinical physiotherapist at PainFix in Multan/,
