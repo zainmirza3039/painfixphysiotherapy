@@ -435,10 +435,14 @@ export function PatientLedgerImport({ clinicianId, patients, onImported }: Props
                       <td className="p-2">
                         <div className="space-y-1">
                           {rowErrors.map((error) => (
-                            <p key={error} className="text-red-700">{error}</p>
+                            <p key={error} className="text-red-700">
+                              {error}
+                            </p>
                           ))}
                           {row.warnings.map((warning) => (
-                            <p key={warning} className="text-amber-700">{warning}</p>
+                            <p key={warning} className="text-amber-700">
+                              {warning}
+                            </p>
                           ))}
                           {!rowErrors.length && !row.warnings.length ? "—" : null}
                         </div>
@@ -459,7 +463,8 @@ export function PatientLedgerImport({ clinicianId, patients, onImported }: Props
           {summary.warnings > 0 && (
             <p className="flex items-center gap-2 text-sm text-amber-700">
               <AlertTriangle className="h-4 w-4" />
-              Correct all red validation errors before import. Amber warnings need review; unknown session statuses remain unfinalised.
+              Correct all red validation errors before import. Amber warnings need review; unknown
+              session statuses remain unfinalised.
             </p>
           )}
 
