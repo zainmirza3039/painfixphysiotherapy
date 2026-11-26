@@ -46,10 +46,10 @@ export function DoctorProfile({ doc }: { doc: TeamMember }) {
         </div>
       </section>
 
-      <section className="overflow-hidden border-b border-primary/20 bg-primary py-10 text-primary-foreground sm:py-14 lg:py-16">
+      <section className="overflow-hidden border-b border-slate-200 bg-[#EAF2FA] py-10 text-slate-900 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100 sm:py-14 lg:py-16">
         <div className="mx-auto grid grid-cols-1 max-w-6xl items-center gap-10 px-4 sm:px-6 lg:grid-cols-[minmax(250px,320px)_1fr] lg:gap-12 lg:px-8">
           <Reveal anim="left">
-            <div className="mx-auto aspect-[4/5] w-full max-w-[280px] overflow-hidden border border-white/20 border-l-[5px] border-l-brand-green bg-card sm:max-w-[320px]">
+            <div className="mx-auto aspect-[4/5] w-full max-w-[280px] overflow-hidden border border-slate-300 border-l-[5px] border-l-brand-green bg-white dark:border-slate-600 dark:bg-slate-800 sm:max-w-[320px]">
               <ClinicianPortrait
                 photo={doc.photo}
                 name={doc.fullName}
@@ -61,18 +61,18 @@ export function DoctorProfile({ doc }: { doc: TeamMember }) {
           </Reveal>
           <Reveal anim="right">
             <div className="max-w-3xl">
-              <p className="text-xs font-bold uppercase tracking-[0.18em] text-brand-green">
+              <p className="text-xs font-bold uppercase tracking-[0.18em] text-[#008B50] dark:text-[#55D69A]">
                 PainFix Clinical Team
               </p>
-              <h1 className="mt-3 font-heading text-3xl font-semibold leading-tight tracking-tight text-primary-foreground sm:text-4xl lg:text-5xl">
+              <h1 className="mt-3 font-heading text-3xl font-semibold leading-tight tracking-tight text-[#032E61] dark:text-white sm:text-4xl lg:text-5xl">
                 {doc.fullName}
               </h1>
-              <p className="mt-3 text-lg font-semibold text-primary-foreground sm:text-xl">
+              <p className="mt-3 text-lg font-semibold text-slate-800 dark:text-slate-200 sm:text-xl">
                 {doc.role}
               </p>
-              <div className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-primary-foreground/80">
+              <div className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-slate-600 dark:text-slate-300">
                 <span>{doc.credentials}</span>
-                <span aria-hidden="true" className="text-[#70DDAA]">
+                <span aria-hidden="true" className="text-[#008B50] dark:text-[#70DDAA]">
                   •
                 </span>
                 <span>{clinicianServiceLabel(doc)}</span>
@@ -81,14 +81,14 @@ export function DoctorProfile({ doc }: { doc: TeamMember }) {
                 {doc.profile.intro.map((p) => (
                   <p
                     key={p}
-                    className="break-words max-w-3xl text-sm leading-7 text-primary-foreground/85 sm:text-base"
+                    className="break-words max-w-3xl text-sm leading-7 text-slate-700 dark:text-slate-300 sm:text-base"
                   >
                     {p}
                   </p>
                 ))}
               </div>
               {doc.yearsExperience !== null && doc.yearsExperience !== undefined && (
-                <p className="mt-4 text-sm font-medium text-primary-foreground/80">
+                <p className="mt-4 text-sm font-medium text-slate-600 dark:text-slate-300">
                   {doc.yearsExperience} {doc.yearsExperience === 1 ? "year" : "years"} of experience
                 </p>
               )}
@@ -113,7 +113,7 @@ export function DoctorProfile({ doc }: { doc: TeamMember }) {
                   <a
                     href={phoneHref}
                     aria-label={`Call ${doc.name}${doc.phoneDisplay ? ` (${doc.phoneDisplay})` : ""}`}
-                    className="inline-flex min-h-12 items-center gap-2 border border-white/50 px-5 py-3 text-sm font-semibold text-primary-foreground transition-colors hover:border-white hover:bg-white hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-primary"
+                    className="inline-flex min-h-12 items-center gap-2 border border-[#032E61]/30 px-5 py-3 text-sm font-semibold text-[#032E61] transition-colors hover:border-[#032E61] hover:bg-[#032E61] hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#032E61] focus-visible:ring-offset-2 focus-visible:ring-offset-[#EAF2FA] dark:border-slate-500 dark:text-slate-100 dark:hover:bg-white dark:hover:text-slate-900"
                   >
                     <Phone className="h-4 w-4" /> Call Now
                   </a>
