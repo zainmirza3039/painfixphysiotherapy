@@ -56,7 +56,10 @@ test("direct ledger access allows Clinical Physiotherapist or Super Admin only f
       table + " must have role-scoped policies",
     );
   }
-  assert.match(migration, /auth\.uid\(\)\) = clinician_id and \(public\.has_role\([\s\S]*?clinical_physiotherapist[\s\S]*?or public\.has_role\([\s\S]*?super_admin/);
+  assert.match(
+    migration,
+    /auth\.uid\(\)\) = clinician_id and \(public\.has_role\([\s\S]*?clinical_physiotherapist[\s\S]*?or public\.has_role\([\s\S]*?super_admin/,
+  );
 });
 
 test("existing personal patient list remains owner-scoped and editable only for clinicians", () => {
