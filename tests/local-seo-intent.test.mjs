@@ -263,3 +263,12 @@ test("kamar dard symptoms article aligns its search snippet with the existing sy
   assert.match(article, /updated: "2026-11-26"/);
   assert.match(article, /medicalReviewerKey: "JD"/);
 });
+
+
+test("clinical internship metadata uses a concise, accurate search snippet", async () => {
+  const route = await read("src/routes/internships.$slug.tsx");
+  assert.match(route, /program\?\.slug === "clinical-physiotherapy-internship"/);
+  assert.match(route, /Clinical Physiotherapy Internship \| PainFix/);
+  assert.match(route, /Supervised 40-working-day clinical physiotherapy internship in Multan/);
+  assert.match(route, /path: \`\/internships\/\${params.slug}\`/);
+});
