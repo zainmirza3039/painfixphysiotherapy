@@ -141,7 +141,8 @@ export function MeetDoctors({ initialProfiles }: { initialProfiles?: PublicClini
               to="/our-team"
               className="inline-flex min-h-11 items-center gap-2 border-b-2 border-secondary px-1 py-2 text-sm font-semibold text-primary hover:text-secondary"
             >
-              View the full PainFix clinical team <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
+              View the full PainFix clinical team{" "}
+              <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
             </Link>
           </div>
         )}
