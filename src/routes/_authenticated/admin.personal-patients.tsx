@@ -123,6 +123,9 @@ function PersonalPatientsPage() {
   const pathname = useRouterState({ select: (state) => state.location.pathname });
   const t = words[lang];
   const isClinicalPhysiotherapist = hasRole("clinical_physiotherapist");
+  // Super Admin may fully manage only the ledger owned by their own auth user ID.
+  // Cross-clinician review remains on the separate read-only clinician-ledgers route.
+  const canManageOwnLedger = isClinicalPhysiotherapist || (hasRole("super_admin") && Boolean(user?.id));
 
   useEffect(() => {
     const id = "painfix-nastaliq-font";
@@ -138,7 +141,7 @@ function PersonalPatientsPage() {
 
   const query = useQuery({
     queryKey: ["admin", "personal-patients", user?.id],
-    enabled: Boolean(user?.id) && hasRole("clinical_physiotherapist"),
+    enabled: Boolean(user?.id) && canManageOwnLedger,
     queryFn: async () => {
       const db = personalPatientDb;
       const p = await db
@@ -251,7 +254,7 @@ function PersonalPatientsPage() {
       toast.error(e instanceof Error ? e.message : "Could not update patient status."),
   });
 
-  if (!isClinicalPhysiotherapist) return <Navigate to="/admin" replace />;
+  if (!canManageOwnLedger) return <Navigate to="/admin" replace />;
 
   if (pathname.startsWith("/admin/personal-patients/")) {
     return <Outlet />;
