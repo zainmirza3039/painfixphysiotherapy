@@ -553,7 +553,8 @@ function PersonalPatientDetailPage() {
         throw new Error("Enter a valid per-session fee (maximum two decimal places).");
       }
       if (
-        planType === "custom" && perFee != null &&
+        planType === "custom" &&
+        perFee != null &&
         (!Number.isFinite(perFee) ||
           perFee < 0 ||
           perFee > 1_000_000_000 ||
@@ -1805,8 +1806,8 @@ function PersonalPatientDetailPage() {
               </div>
             </div>
             <p className="text-xs text-muted-foreground">
-              Dates describe the plan’s validity. They do not automatically cancel or delete scheduled
-              sessions.
+              Dates describe the plan’s validity. They do not automatically cancel or delete
+              scheduled sessions.
             </p>
             <DialogFooter>
               <Button type="button" variant="outline" onClick={() => setPlanOpen(false)}>
