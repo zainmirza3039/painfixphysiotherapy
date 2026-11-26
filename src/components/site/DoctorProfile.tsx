@@ -21,12 +21,7 @@ import {
   clinicianWhatsAppUrl,
   isOnlineClinician,
 } from "@/lib/clinician-service";
-import {
-  CLINIC_NAME,
-  CLINIC_ADDRESS,
-  MAP_DIRECTIONS_URL,
-  OPENING_HOURS,
-} from "./constants";
+import { CLINIC_NAME, CLINIC_ADDRESS, MAP_DIRECTIONS_URL, OPENING_HOURS } from "./constants";
 
 /** Dedicated, SEO-optimized profile page for a single physiotherapist. */
 export function DoctorProfile({ doc }: { doc: TeamMember }) {
@@ -77,7 +72,9 @@ export function DoctorProfile({ doc }: { doc: TeamMember }) {
               </p>
               <div className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-primary-foreground/80">
                 <span>{doc.credentials}</span>
-                <span aria-hidden="true" className="text-[#70DDAA]">•</span>
+                <span aria-hidden="true" className="text-[#70DDAA]">
+                  •
+                </span>
                 <span>{clinicianServiceLabel(doc)}</span>
               </div>
               <div className="mt-6 space-y-3">
