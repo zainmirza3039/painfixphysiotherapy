@@ -39,31 +39,51 @@ export function PatientLedgerImport({ clinicianId, patients, onImported }: Props
   const [sheetUrl, setSheetUrl] = useState("");
 
   const summary = useMemo(() => {
-    const unique = new Map<string, ImportedPatientRow>();
-    rows.forEach((row) => {
-      const key = row.phone.replace(/\D/g, "") || row.name.trim().toLowerCase().replace(/\s+/g, "");
-      unique.set(key, row);
+    const parent = rows.map((_, index) => index);
+    const find = (index: number): number => {
+      if (parent[index] !== index) parent[index] = find(parent[index]);
+      return parent[index];
+    };
+    const union = (left: number, right: number) => {
+      const a = find(left);
+      const b = find(right);
+      if (a !== b) parent[b] = a;
+    };
+    const firstByPhone = new Map<string, number>();
+    const firstByName = new Map<string, number>();
+
+    rows.forEach((row, index) => {
+      const phone = row.phone.replace(/\\D/g, "");
+      const name = row.name.trim().toLowerCase().replace(/\\s+/g, " ");
+      if (phone) {
+        const existing = firstByPhone.get(phone);
+        if (existing != null) union(index, existing);
+        else firstByPhone.set(phone, index);
+      }
+      if (name) {
+        const existing = firstByName.get(name);
+        if (existing != null) union(index, existing);
+        else firstByName.set(name, index);
+      }
     });
 
-    const matchedKeys = new Set<string>();
-    for (const row of unique.values()) {
-      const phone = row.phone.replace(/\D/g, "");
+    const uniqueRoots = new Set(rows.map((_, index) => find(index)));
+    const matchedPatientIds = new Set<string>();
+    for (const row of rows) {
+      const phone = row.phone.replace(/\\D/g, "");
       const name = row.name.trim().toLowerCase();
-      if (
-        patients.some(
-          (patient) =>
-            (phone && patient.phone && phone === patient.phone.replace(/\D/g, "")) ||
-            patient.full_name.trim().toLowerCase() === name,
-        )
-      ) {
-        matchedKeys.add(phone || name.replace(/\s+/g, ""));
-      }
+      const match = patients.find(
+        (patient) =>
+          (phone && patient.phone && phone === patient.phone.replace(/\\D/g, "")) ||
+          patient.full_name.trim().toLowerCase() === name,
+      );
+      if (match) matchedPatientIds.add(match.id);
     }
 
     return {
-      patients: unique.size,
-      matches: matchedKeys.size,
-      duplicateRows: Math.max(0, rows.length - unique.size),
+      patients: uniqueRoots.size,
+      matches: matchedPatientIds.size,
+      duplicateRows: Math.max(0, rows.length - uniqueRoots.size),
       sessions: rows.filter((row) => row.sessionDate).length,
       warnings: rows.reduce((count, row) => count + row.warnings.length, 0),
     };
