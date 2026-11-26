@@ -49,7 +49,7 @@ function money(value: number) {
   return "PKR " + Number(value).toLocaleString("en-PK", { maximumFractionDigits: 0 });
 }
 function wrapText(value: string, font: PDFFont, size: number, width: number) {
-  const words = value.replace(/[\\r\\n\\t]/g, " ").trim().split(/\\s+/).filter(Boolean);
+  const words = value.replace(/[\r\n\t]/g, " ").trim().split(/\s+/).filter(Boolean);
   const lines: string[] = [];
   let line = "";
   for (const word of words) {
