@@ -51,6 +51,12 @@ test("calendar marks prevent accidentally scheduling on a blocked date", () => {
 test("homepage hero booking actions have clear labels and accessible contrast", () => {
   assert.match(hero, /Book a clinic appointment/);
   assert.match(hero, /Book a home visit/);
-  assert.match(styles, /\.home-hero__appointment[\s\S]*?background: #007a43;[\s\S]*?color: #ffffff;/);
-  assert.match(styles, /\.home-hero__home-visit[\s\S]*?border: 1px solid rgb\(255 255 255 \/ 78%\)/);
+  assert.match(
+    styles,
+    /\.home-hero__appointment[\s\S]*?background: #007a43;[\s\S]*?color: #ffffff;/,
+  );
+  assert.match(
+    styles,
+    /\.home-hero__home-visit[\s\S]*?border: 1px solid rgb\(255 255 255 \/ 78%\)/,
+  );
 });
