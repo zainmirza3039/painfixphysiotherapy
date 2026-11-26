@@ -242,39 +242,57 @@ function BlogArticle() {
                     </caption>
                     <thead className="bg-muted/50 text-foreground">
                       <tr>
-                        <th scope="col" className="px-4 py-3 font-semibold">Exercise</th>
-                        <th scope="col" className="px-4 py-3 font-semibold">Starting dose</th>
-                        <th scope="col" className="px-4 py-3 font-semibold">Movement focus</th>
+                        <th scope="col" className="px-4 py-3 font-semibold">
+                          Exercise
+                        </th>
+                        <th scope="col" className="px-4 py-3 font-semibold">
+                          Starting dose
+                        </th>
+                        <th scope="col" className="px-4 py-3 font-semibold">
+                          Movement focus
+                        </th>
                       </tr>
                     </thead>
                     <tbody className="divide-y divide-border text-muted-foreground">
                       <tr>
-                        <th scope="row" className="px-4 py-3 font-medium text-foreground">Pelvic tilts</th>
+                        <th scope="row" className="px-4 py-3 font-medium text-foreground">
+                          Pelvic tilts
+                        </th>
                         <td className="px-4 py-3">8–12 repetitions</td>
                         <td className="px-4 py-3">Gentle lumbopelvic movement</td>
                       </tr>
                       <tr>
-                        <th scope="row" className="px-4 py-3 font-medium text-foreground">Cat–cow</th>
+                        <th scope="row" className="px-4 py-3 font-medium text-foreground">
+                          Cat–cow
+                        </th>
                         <td className="px-4 py-3">6–10 slow repetitions</td>
                         <td className="px-4 py-3">Comfortable spinal movement</td>
                       </tr>
                       <tr>
-                        <th scope="row" className="px-4 py-3 font-medium text-foreground">Single knee-to-chest</th>
+                        <th scope="row" className="px-4 py-3 font-medium text-foreground">
+                          Single knee-to-chest
+                        </th>
                         <td className="px-4 py-3">3–5 per side, 5–10-second hold</td>
                         <td className="px-4 py-3">Comfortable hip and lumbar flexion</td>
                       </tr>
                       <tr>
-                        <th scope="row" className="px-4 py-3 font-medium text-foreground">Glute bridge</th>
+                        <th scope="row" className="px-4 py-3 font-medium text-foreground">
+                          Glute bridge
+                        </th>
                         <td className="px-4 py-3">8–12 repetitions</td>
                         <td className="px-4 py-3">Hip extensor strengthening</td>
                       </tr>
                       <tr>
-                        <th scope="row" className="px-4 py-3 font-medium text-foreground">Bird-dog</th>
+                        <th scope="row" className="px-4 py-3 font-medium text-foreground">
+                          Bird-dog
+                        </th>
                         <td className="px-4 py-3">5–8 per side, 2–3-second hold</td>
                         <td className="px-4 py-3">Trunk and pelvic control</td>
                       </tr>
                       <tr>
-                        <th scope="row" className="px-4 py-3 font-medium text-foreground">Dead bug</th>
+                        <th scope="row" className="px-4 py-3 font-medium text-foreground">
+                          Dead bug
+                        </th>
                         <td className="px-4 py-3">5–8 per side</td>
                         <td className="px-4 py-3">Trunk control during limb movement</td>
                       </tr>
