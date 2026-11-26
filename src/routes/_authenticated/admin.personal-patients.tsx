@@ -1,4 +1,4 @@
-import { createFileRoute, Link, Outlet, useRouterState } from "@tanstack/react-router";
+import { createFileRoute, Link, Navigate, Outlet, useRouterState } from "@tanstack/react-router";
 import { useEffect, useMemo, useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
@@ -110,7 +110,7 @@ const money = (n: number) =>
   }).format(n);
 
 function PersonalPatientsPage() {
-  const { user } = useAdminAuth();
+  const { user, hasRole } = useAdminAuth();
   const qc = useQueryClient();
   const [lang, setLang] = useState<"en" | "ur">("en");
   const [search, setSearch] = useState("");
@@ -122,6 +122,7 @@ function PersonalPatientsPage() {
   const [showArchived, setShowArchived] = useState(false);
   const pathname = useRouterState({ select: (state) => state.location.pathname });
   const t = words[lang];
+  const isClinicalPhysiotherapist = hasRole("clinical_physiotherapist");
 
   useEffect(() => {
     const id = "painfix-nastaliq-font";
@@ -137,7 +138,7 @@ function PersonalPatientsPage() {
 
   const query = useQuery({
     queryKey: ["admin", "personal-patients", user?.id],
-    enabled: Boolean(user?.id),
+    enabled: Boolean(user?.id) && hasRole("clinical_physiotherapist"),
     queryFn: async () => {
       const db = personalPatientDb;
       const p = await db
