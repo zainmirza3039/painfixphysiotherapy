@@ -55,6 +55,10 @@ function DashboardPage() {
     refetchOnWindowFocus: true,
   });
 
+  if (!loading && hasRole("clinical_physiotherapist")) {
+    return <Navigate to="/admin/personal-patients" replace />;
+  }
+
   if (!loading && !isStaff) {
     if (isProfessional) return <Navigate to="/admin/profile" replace />;
     if (canEditContent) return <Navigate to="/admin/blog" replace />;
