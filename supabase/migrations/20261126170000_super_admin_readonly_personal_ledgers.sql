@@ -23,7 +23,7 @@ begin
 
   return query
   select
-    p.user_id,
+    ur.user_id,
     coalesce(nullif(p.full_name, ''), 'Clinical Physiotherapist'),
     p.professional_title,
     count(pp.id)::bigint
@@ -31,7 +31,7 @@ begin
   left join public.profiles p on p.user_id = ur.user_id
   left join public.personal_patients pp on pp.clinician_id = ur.user_id
   where ur.role::text = 'clinical_physiotherapist'
-  group by p.user_id, p.full_name, p.professional_title
+  group by ur.user_id, p.full_name, p.professional_title
   order by coalesce(nullif(p.full_name, ''), 'Clinical Physiotherapist');
 end;
 $$;
@@ -108,3 +108,95 @@ comment on function public.super_admin_personal_ledger_clinicians() is
   'Super Admin-only read-only list of Clinical Physiotherapist personal ledgers.';
 comment on function public.super_admin_personal_ledger_snapshot(uuid) is
   'Super Admin-only read-only snapshot of one Clinical Physiotherapist personal ledger.';
+
+-- Restrict direct client CRUD to authenticated Clinical Physiotherapist accounts
+-- in addition to clinician_id ownership. Super Admin access remains RPC-only/read-only.
+drop policy if exists "Clinicians read only their personal patients" on public.personal_patients;
+create policy "Clinical physiotherapists read only their personal patients"
+on public.personal_patients for select to authenticated
+using ((select auth.uid()) = clinician_id and public.has_role((select auth.uid()), 'clinical_physiotherapist'));
+
+drop policy if exists "Clinicians add their own personal patients" on public.personal_patients;
+create policy "Clinical physiotherapists add their own personal patients"
+on public.personal_patients for insert to authenticated
+with check ((select auth.uid()) = clinician_id and public.has_role((select auth.uid()), 'clinical_physiotherapist'));
+
+drop policy if exists "Clinicians update their own personal patients" on public.personal_patients;
+create policy "Clinical physiotherapists update their own personal patients"
+on public.personal_patients for update to authenticated
+using ((select auth.uid()) = clinician_id and public.has_role((select auth.uid()), 'clinical_physiotherapist'))
+with check ((select auth.uid()) = clinician_id and public.has_role((select auth.uid()), 'clinical_physiotherapist'));
+
+drop policy if exists "Clinicians read only their personal patient plans" on public.personal_patient_plans;
+create policy "Clinical physiotherapists read their personal patient plans"
+on public.personal_patient_plans for select to authenticated
+using ((select auth.uid()) = clinician_id and public.has_role((select auth.uid()), 'clinical_physiotherapist'));
+
+drop policy if exists "Clinicians add plans for their own patients" on public.personal_patient_plans;
+create policy "Clinical physiotherapists add plans for their own patients"
+on public.personal_patient_plans for insert to authenticated
+with check ((select auth.uid()) = clinician_id and public.has_role((select auth.uid()), 'clinical_physiotherapist')
+  and exists (select 1 from public.personal_patients p where p.id = patient_id and p.clinician_id = (select auth.uid())));
+
+drop policy if exists "Clinicians update plans for their own patients" on public.personal_patient_plans;
+create policy "Clinical physiotherapists update plans for their own patients"
+on public.personal_patient_plans for update to authenticated
+using ((select auth.uid()) = clinician_id and public.has_role((select auth.uid()), 'clinical_physiotherapist'))
+with check ((select auth.uid()) = clinician_id and public.has_role((select auth.uid()), 'clinical_physiotherapist')
+  and exists (select 1 from public.personal_patients p where p.id = patient_id and p.clinician_id = (select auth.uid())));
+
+drop policy if exists "Clinicians read only their personal patient sessions" on public.personal_patient_sessions;
+create policy "Clinical physiotherapists read their personal patient sessions"
+on public.personal_patient_sessions for select to authenticated
+using ((select auth.uid()) = clinician_id and public.has_role((select auth.uid()), 'clinical_physiotherapist'));
+
+drop policy if exists "Clinicians schedule sessions for their own patients" on public.personal_patient_sessions;
+create policy "Clinical physiotherapists schedule sessions for their own patients"
+on public.personal_patient_sessions for insert to authenticated
+with check ((select auth.uid()) = clinician_id and public.has_role((select auth.uid()), 'clinical_physiotherapist')
+  and exists (select 1 from public.personal_patients p where p.id = patient_id and p.clinician_id = (select auth.uid())));
+
+drop policy if exists "Clinicians update sessions for their own patients" on public.personal_patient_sessions;
+create policy "Clinical physiotherapists update sessions for their own patients"
+on public.personal_patient_sessions for update to authenticated
+using ((select auth.uid()) = clinician_id and public.has_role((select auth.uid()), 'clinical_physiotherapist'))
+with check ((select auth.uid()) = clinician_id and public.has_role((select auth.uid()), 'clinical_physiotherapist')
+  and exists (select 1 from public.personal_patients p where p.id = patient_id and p.clinician_id = (select auth.uid())));
+
+drop policy if exists "Clinicians manage only their personal patient ledger" on public.personal_patient_ledger;
+create policy "Clinical physiotherapists read their personal patient ledger"
+on public.personal_patient_ledger for select to authenticated
+using ((select auth.uid()) = clinician_id and public.has_role((select auth.uid()), 'clinical_physiotherapist'));
+
+drop policy if exists "Clinicians add ledger entries only for their patients" on public.personal_patient_ledger;
+create policy "Clinical physiotherapists add ledger entries for their patients"
+on public.personal_patient_ledger for insert to authenticated
+with check ((select auth.uid()) = clinician_id and public.has_role((select auth.uid()), 'clinical_physiotherapist')
+  and exists (select 1 from public.personal_patients p where p.id = patient_id and p.clinician_id = (select auth.uid())));
+
+drop policy if exists "Clinicians view only their personal patient audit history" on public.personal_patient_audit_events;
+create policy "Clinical physiotherapists view their personal patient audit history"
+on public.personal_patient_audit_events for select to authenticated
+using ((select auth.uid()) = clinician_id and public.has_role((select auth.uid()), 'clinical_physiotherapist'));
+
+drop policy if exists "Clinicians append audit events for their own patients" on public.personal_patient_audit_events;
+create policy "Clinical physiotherapists append audit events for their own patients"
+on public.personal_patient_audit_events for insert to authenticated
+with check ((select auth.uid()) = clinician_id and public.has_role((select auth.uid()), 'clinical_physiotherapist')
+  and exists (select 1 from public.personal_patients p where p.id = patient_id and p.clinician_id = (select auth.uid())));
+
+drop policy if exists "Clinicians read their personal patient calendar blocks" on public.personal_patient_calendar_blocks;
+create policy "Clinical physiotherapists read their calendar blocks"
+on public.personal_patient_calendar_blocks for select to authenticated
+using ((select auth.uid()) = clinician_id and public.has_role((select auth.uid()), 'clinical_physiotherapist'));
+
+drop policy if exists "Clinicians add their personal patient calendar blocks" on public.personal_patient_calendar_blocks;
+create policy "Clinical physiotherapists add their calendar blocks"
+on public.personal_patient_calendar_blocks for insert to authenticated
+with check ((select auth.uid()) = clinician_id and public.has_role((select auth.uid()), 'clinical_physiotherapist')
+  and exists (select 1 from public.personal_patients p where p.id = patient_id and p.clinician_id = (select auth.uid())));
+
+drop policy if exists "Clinicians remove their personal patient calendar blocks" on public.personal_patient_calendar_blocks;
+create policy "Clinical physiotherapists remove their calendar blocks"
+on public.personal_patient_calendar_blocks for delete to authenticated
+using ((select auth.uid()) = clinician_id and public.has_role((select auth.uid()), 'clinical_physiotherapist'));
