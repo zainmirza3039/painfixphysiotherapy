@@ -300,8 +300,9 @@ function BlogArticle() {
                   </table>
                 </div>
                 <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-                  Reduce the range or repetitions if symptoms increase. Stop and seek clinical
-                  assessment for new numbness, weakness or pain spreading further down the leg.
+                  Reduce the range or repetitions if symptoms increase, or if the flare does not
+                  settle back to your usual level within 24 hours. Stop and seek clinical assessment
+                  for new numbness, weakness or pain spreading further down the leg.
                 </p>
               </section>
             )}
