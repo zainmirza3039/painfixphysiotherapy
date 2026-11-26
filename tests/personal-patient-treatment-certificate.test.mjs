@@ -34,7 +34,7 @@ test("certificate requires documented clinical details and completed sessions", 
   assert.match(component, /session\.status\s*===\s*"completed"/);
   assert.match(component, /clinicalFindings: findings\.trim\(\)/);
   assert.match(component, /treatmentAdvice: advice\.trim\(\)/);
-  assert.match(component, /verification_token_hash/);
+  assert.match(issueFunction, /verification_token_hash/);
   assert.doesNotMatch(component, /private_note/);
   assert.match(detail, /<PatientTreatmentCertificate/);
 });
