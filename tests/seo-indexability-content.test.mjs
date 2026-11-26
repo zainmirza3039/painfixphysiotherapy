@@ -6,8 +6,14 @@ const repo = new URL("../", import.meta.url);
 
 test("exercise and electrotherapy service pages expose distinct clinical guidance", async () => {
   const source = await readFile(new URL("src/data/services.ts", repo), "utf8");
-  const exercise = source.slice(source.indexOf('slug: "exercise-therapy"'), source.indexOf('slug: "electrotherapy"'));
-  const electro = source.slice(source.indexOf('slug: "electrotherapy"'), source.indexOf('slug: "sports-rehabilitation"'));
+  const exercise = source.slice(
+    source.indexOf('slug: "exercise-therapy"'),
+    source.indexOf('slug: "electrotherapy"'),
+  );
+  const electro = source.slice(
+    source.indexOf('slug: "electrotherapy"'),
+    source.indexOf('slug: "sports-rehabilitation"'),
+  );
   assert.match(exercise, /progressive resistance exercise/);
   assert.match(exercise, /functional measures/);
   assert.match(exercise, /rapidly worsening limb weakness/);
