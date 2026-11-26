@@ -49,7 +49,7 @@ test("A4 PDF contains the agreed clinical, financial, payment and verification s
     "Scan to verify",
     "Outstanding balance",
   ]) assert.ok(pdf.includes(label), "Missing PDF field: " + label);
-  assert.match(pdf, /insurance/);
+  assert.match(pdf, /reimbursement is subject/);
 });
 
 test("issuance validates clinician ownership, consent, completed sessions and ledger server-side", () => {
