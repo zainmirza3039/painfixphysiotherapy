@@ -28,6 +28,7 @@ import { personalPatientDb } from "@/admin/personal-patients.db";
 import { useAdminAuth } from "@/admin/AdminAuthProvider";
 import { AdminPageHeader } from "@/components/admin/AdminPageHeader";
 import { AdminQueryError } from "@/components/admin/AdminQueryError";
+import { PatientTreatmentCertificate } from "@/components/admin/PatientTreatmentCertificate";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -951,6 +952,12 @@ function PersonalPatientDetailPage() {
           </div>
         ))}
       </section>
+      <PatientTreatmentCertificate
+        clinicianId={user?.id ?? ""}
+        patient={{ id: data.patient.id, full_name: data.patient.full_name }}
+        sessions={visibleSessions}
+        ledger={data.ledger}
+      />
       <div className="grid items-start gap-4 xl:grid-cols-2">
         <section className="rounded-xl border border-border bg-card p-5 shadow-sm">
           <div className="flex items-center justify-between gap-3">
