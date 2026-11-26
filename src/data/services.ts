@@ -54,7 +54,7 @@ export const services: Service[] = [
     tagline: "Hands-on techniques to restore movement and relieve pain",
     metaTitle: "Manual Therapy in Multan | Hands-On Physiotherapy — PainFix",
     metaDescription:
-      "Manual therapy in Multan, including joint mobilisation, soft-tissue techniques and clinically selected spinal mobilisation for pain and restricted movement. Book an assessment at PainFix.",
+      "Manual therapy in Multan for joint stiffness, restricted movement and pain. Care may include joint mobilisation and soft-tissue techniques at PainFix.",
     overview: [
       "Manual therapy is a specialised, hands-on approach to assessing and treating pain and stiffness in the muscles, joints and soft tissues. Our physiotherapists use skilled techniques to reduce pain, improve range of motion and restore natural movement.",
       "Every session begins with a detailed assessment so treatment is precisely targeted to the source of your problem — not just the symptoms. Manual therapy is often combined with exercise and education for lasting results.",
@@ -276,7 +276,7 @@ export const services: Service[] = [
     tagline: "Return to sport stronger, safer and more confident",
     metaTitle: "Sports Rehabilitation in Multan | Injury Recovery — PainFix",
     metaDescription:
-      "Sports injury rehabilitation in Multan for muscle strains, sprains and joint injuries. Rebuild strength, restore performance and plan a graded return to sport at PainFix.",
+      "Sports injury rehabilitation in Multan for sprains and muscle strains. Restore strength and plan a graded return to sport with PainFix.",
     overview: [
       "Sports rehabilitation helps athletes and active individuals recover from injury, regain performance and reduce the risk of future problems. We combine hands-on treatment, progressive strengthening and sport-specific training.",
       "Whether you are a weekend runner or a competitive athlete, we build a return-to-sport plan around your sport, position and goals.",
@@ -406,7 +406,7 @@ export const services: Service[] = [
     tagline: "Guided recovery to help you heal fully after surgery",
     metaTitle: "Post Surgical Rehabilitation in Multan | Post-Op Physio — PainFix",
     metaDescription:
-      "Post-surgical rehabilitation in Multan after orthopaedic and joint surgery. Restore strength, mobility and daily function through assessment-led physiotherapy at PainFix.",
+      "Post-surgical rehabilitation in Multan after orthopaedic surgery. Restore strength, mobility and daily function with physiotherapy at PainFix.",
     overview: [
       "Post-surgical rehabilitation is essential to regain strength, movement and function after an operation. A structured programme helps you heal safely, avoid complications and return to your normal life sooner.",
       "We work in stages — protecting the healing tissue, restoring range of motion, and progressively rebuilding strength — always guided by your surgeon's protocol and your progress.",
