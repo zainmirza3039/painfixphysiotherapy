@@ -1,0 +1,25 @@
+name: Format generated Supabase types
+on:
+  push:
+    branches:
+      - feat/personal-ledger-calendar-hero-cta
+permissions:
+  contents: write
+jobs:
+  format:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: feat/personal-ledger-calendar-hero-cta
+      - uses: oven-sh/setup-bun@v2
+      - name: Format generated Supabase types
+        run: bunx prettier --write --no-ignore src/integrations/supabase/types.ts
+      - name: Commit formatting changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add src/integrations/supabase/types.ts
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "style: format Supabase database types"
+          git push origin HEAD:feat/personal-ledger-calendar-hero-cta
