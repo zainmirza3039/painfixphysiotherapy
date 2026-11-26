@@ -31,9 +31,9 @@ export function MeetDoctors({ initialProfiles }: { initialProfiles?: PublicClini
           <div className="max-w-2xl space-y-2">
             <p className="text-base leading-7 text-muted-foreground">
               PainFix Physiotherapy Clinic is led by Dr. Zain Ul Abideen, DPT, Founder & Head
-              Physiotherapist. Our Multan team provides assessment-led physiotherapy and
-              rehabilitation; individual profiles explain each clinician’s qualifications, areas of
-              practice and available service modes.
+              Physiotherapist, with Dr. Jalal Ud Din, DPT, as Co-Founder. Our Multan team provides
+              assessment-led physiotherapy and rehabilitation; individual profiles explain each
+              clinician’s qualifications, areas of practice and available service modes.
             </p>
             <p className="text-sm leading-6 text-muted-foreground">
               <Link

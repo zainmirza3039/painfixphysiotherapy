@@ -112,12 +112,12 @@ export const team: TeamMember[] = [
   {
     name: "Dr. Jalal Ud Din",
     fullName: "Dr. Jalal Ud Din PT",
-    role: "Clinical Physiotherapist",
+    role: "Co-Founder",
     title: "Physiotherapist in Multan | DPT",
     credentials: "DPT (Doctor of Physical Therapy)",
     bio: "Dr. Jalal Ud Din specialises in rehabilitation and recovery, designing individualized treatment plans that target the root cause of each patient's condition for long-term results.",
     seoBio:
-      "Dr. Jalal Ud Din PT is a clinical physiotherapist in Multan offering evidence-based physiotherapy and rehabilitation. He treats back pain, neck pain, sciatica, neurological and orthopaedic conditions with individualized, patient-focused care.",
+      "Dr. Jalal Ud Din, DPT, is Co-Founder of PainFix Physiotherapy Clinic and a clinical physiotherapist in Multan. He provides evidence-based rehabilitation for back pain, neck pain, sciatica, and neurological and orthopaedic conditions.",
     specialties: [
       "Exercise Therapy",
       "Neurological Rehabilitation",
@@ -142,7 +142,7 @@ export const team: TeamMember[] = [
       metaDescription:
         "Dr. Jalal Ud Din, DPT, provides physiotherapy in Multan for back and neck pain, sciatica, and neurological and orthopaedic rehabilitation at PainFix.",
       intro: [
-        "Dr. Jalal Ud Din PT is a clinical physiotherapist in Multan and a Doctor of Physical Therapy (DPT). At PainFix Physiotherapy Clinic he specialises in rehabilitation and recovery, designing individualized treatment plans that address the root cause of each patient's condition.",
+        "Dr. Jalal Ud Din, DPT, is the Co-Founder of PainFix Physiotherapy Clinic and practises as a clinical physiotherapist in Multan. He specialises in rehabilitation and recovery, designing individualized treatment plans that address the root cause of each patient's condition.",
         "From neurological rehabilitation to orthopaedic recovery and pain management, Dr. Jalal is committed to evidence-based physiotherapy that delivers real, long-term results for patients across Multan.",
       ],
       qualifications: [

@@ -26,9 +26,17 @@ test("Dr Zain's public identity separates leadership, clinical occupation, and d
   assert.doesNotMatch(team, /Dr\. Zain Ul Abideen PT/);
 
   assert.match(team, /role: "Founder & Head Physiotherapist"/);
+  assert.match(team, /role: "Co-Founder"/);
+  assert.match(
+    llms,
+    /Co-Founder of PainFix Physiotherapy Clinic, Multan, and a clinical physiotherapist/,
+  );
   assert.match(team, /credentials: "DPT \(Doctor of Physical Therapy\)"/);
 
-  assert.match(schema, /jobTitle: isZainProfile \? "Founder & Head Physiotherapist" : doc\.role/);
+  assert.match(
+    schema,
+    /jobTitle: isZainProfile\s*\?\s*"Founder & Head Physiotherapist"\s*:\s*isJalalProfile\s*\?\s*"Co-Founder"\s*:\s*doc\.role/s,
+  );
   assert.match(schema, /"@type": "EducationalOccupationalCredential"/);
   assert.match(schema, /credentialCategory: "Doctor of Physical Therapy \(DPT\)"/);
   assert.match(schema, /name: "Clinical Physiotherapist"/);

@@ -21,8 +21,10 @@ test("Dr Jalal profile metadata targets the verified DPT in Multan search opport
   assert.match(source, /Dr\. Jalal Ud Din, DPT \| PainFix Multan/);
   assert.match(
     source,
-    /Dr\. Jalal Ud Din, DPT, is a clinical physiotherapist at PainFix in Multan/,
+    /Meet Dr\. Jalal Ud Din, DPT, Co-Founder of PainFix in Multan/,
   );
+  assert.match(source, /jobTitle: isZainProfile\s*\?\s*"Founder & Head Physiotherapist"\s*:\s*isJalalProfile\s*\?\s*"Co-Founder"\s*:\s*doc\.role/s);
+  assert.match(source, /isZainProfile \|\| isJalalProfile/);
   assert.doesNotMatch(source, /trusted physiotherapist|leading physiotherapist/);
 });
 
