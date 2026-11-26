@@ -5,8 +5,8 @@ import { isOnlineClinician } from "@/lib/clinician-service";
 
 /**
  * Builds the full head() payload (meta, canonical, breadcrumb + Person JSON-LD)
- * for a dedicated doctor profile page — optimized for doctor entity recognition
- * and local search ("Dr … PT Multan", "Physiotherapist in Multan").
+ * for a dedicated doctor profile page. Individual profile titles prioritize
+ * the clinician entity; the homepage owns broad Multan physiotherapy intent.
  */
 export function doctorProfileHead(doc: TeamMember) {
   const path = `/${doc.slug}`;
@@ -18,9 +18,9 @@ export function doctorProfileHead(doc: TeamMember) {
   const metaTitle = onlineOnly
     ? `${doc.fullName} — Online Physiotherapy | PainFix`
     : isZainProfile
-      ? "Dr. Zain Ul Abideen, DPT | Physiotherapist in Multan | PainFix"
+      ? "Dr. Zain Ul Abideen, DPT | PainFix Multan"
       : isJalalProfile
-        ? "Dr. Jalal Ud Din, DPT | Physiotherapist in Multan | PainFix"
+        ? "Dr. Jalal Ud Din, DPT | PainFix Multan"
         : doc.profile.metaTitle;
   const metaDescription = onlineOnly
     ? `Online physiotherapy consultation enquiries with ${doc.fullName}. Ask about availability and suitability.`
