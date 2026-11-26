@@ -12,7 +12,7 @@ export const Route = createFileRoute("/terms")({
     const path = "/terms";
     return {
       meta: pageMeta({
-        title: "Terms of Service & Medical Disclaimer — PainFix Physiotherapy",
+        title: "Terms of Service & Medical Disclaimer | PainFix",
         description:
           "The terms governing your use of the PainFix Physiotherapy Clinic website, including our medical disclaimer and limitations of liability.",
         path,
