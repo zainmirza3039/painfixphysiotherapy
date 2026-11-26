@@ -110,15 +110,9 @@ const GA4_SCRIPT = `(function () {
     var form = event.target;
     if (!(form instanceof HTMLFormElement)) return;
     var path = window.location.pathname;
-    var leadType = path === "/book-appointment"
-      ? "appointment"
-      : path === "/home-visit"
-        ? "home_visit"
-        : "";
-    if (!leadType) return;
-    window.gtag("event", "generate_lead", {
-      lead_method: leadType + "_form",
-      lead_type: leadType,
+    // This form only validates and prepares details; it does not submit a booking.
+    if (path !== "/book-appointment") return;
+    window.gtag("event", "appointment_details_ready", {
       page_path: path,
       transport_type: "beacon"
     });
