@@ -14,10 +14,7 @@ export function MeetDoctors({ initialProfiles }: { initialProfiles?: PublicClini
   const { data: profiles, isLoading, isError, refetch } = usePublishedClinicians(initialProfiles);
   const clinicians = (profiles ?? [])
     .map(toClinicianView)
-    .sort(
-      (a, b) =>
-        Number(b.slug === FOUNDER_PROFILE_SLUG) - Number(a.slug === FOUNDER_PROFILE_SLUG),
-    );
+    .sort((a, b) => Number(b.slug === FOUNDER_PROFILE_SLUG) - Number(a.slug === FOUNDER_PROFILE_SLUG));
 
   return (
     <section id="doctors" className="home-section home-section--tint scroll-mt-24">
