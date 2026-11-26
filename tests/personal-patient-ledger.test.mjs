@@ -290,14 +290,14 @@ test("spreadsheet import rejects oversized files and warns about malformed finan
 
 test("patient portal uses the PainFix navy and restrained green clinical layout", () => {
   assert.match(portalSource, /bg-\[#F4F7FA\]/);
-  assert.match(portalSource, /h-1 bg-\[#00A859\]/);
+  assert.match(portalSource, /border-t-\[#00A859\]/);
   assert.match(portalSource, /Physiotherapy Clinic · Multan/);
 });
 
 test("CSV parser preserves quoted multiline fields and rejects unclosed quotes", () => {
   assert.match(importParser, /function parseCsvRecords\(source: string, delimiter: string\)/);
   assert.match(importParser, /CSV contains an unclosed quoted field/);
-  assert.match(importParser, /records\.slice\(1\)/);
+  assert.match(importParser, /records\s*\.slice\(1\)/);
 });
 
 test("sessions cannot be scheduled outside the selected billing plan validity dates", () => {
