@@ -309,7 +309,16 @@ test("CSV parser preserves quoted multiline fields and rejects unclosed quotes",
   assert.match(importParser, /records\s*\.slice\(1\)/);
 });
 
-test("sessions cannot be scheduled outside the selected billing plan validity dates", () => {
+test("sessions cannot be scheduled outside billing plan validity dates in the UI or database", () => {
   assert.match(patientDetailSource, /This session is before the billing plan start date/);
   assert.match(patientDetailSource, /This session is after the billing plan end date/);
+  const dateGuard = fs.readFileSync(
+    path.join(root, "supabase/migrations/20261127020000_personal_patient_plan_date_guard.sql"),
+    "utf8",
+  );
+  assert.match(dateGuard, /security invoker/);
+  assert.match(dateGuard, /Asia\/Karachi/);
+  assert.match(dateGuard, /before insert or update of plan_id, patient_id, clinician_id, session_date/);
+  assert.match(dateGuard, /Session date is before the billing plan start date/);
+  assert.match(dateGuard, /Session date is after the billing plan end date/);
 });
