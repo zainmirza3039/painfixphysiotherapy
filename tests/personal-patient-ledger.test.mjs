@@ -290,3 +290,9 @@ test("patient portal uses the PainFix navy and restrained green clinical layout"
   assert.match(portalSource, /h-1 bg-\[#00A859\]/);
   assert.match(portalSource, /Physiotherapy Clinic · Multan/);
 });
+
+test("CSV parser preserves quoted multiline fields and rejects unclosed quotes", () => {
+  assert.match(importParser, /function parseCsvRecords\(source: string, delimiter: string\)/);
+  assert.match(importParser, /CSV contains an unclosed quoted field/);
+  assert.match(importParser, /records\.slice\(1\)/);
+});
