@@ -42,7 +42,7 @@ test("database RPCs explicitly reject non-Super Admin callers", () => {
   );
 });
 
-test("direct ledger access requires exact Clinical Physiotherapist role and owner ID", () => {
+test("direct ledger access allows Clinical Physiotherapist or Super Admin only for their own rows", () => {
   for (const table of [
     "personal_patients",
     "personal_patient_plans",
@@ -56,7 +56,7 @@ test("direct ledger access requires exact Clinical Physiotherapist role and owne
       table + " must have role-scoped policies",
     );
   }
-  assert.match(migration, /auth\.uid\(\)\) = clinician_id and public\.has_role/);
+  assert.match(migration, /auth\.uid\(\)\) = clinician_id and \(public\.has_role\([\s\S]*?clinical_physiotherapist[\s\S]*?or public\.has_role\([\s\S]*?super_admin/);
 });
 
 test("existing personal patient list remains owner-scoped and editable only for clinicians", () => {
