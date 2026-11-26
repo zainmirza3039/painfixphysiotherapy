@@ -28,7 +28,8 @@ export const ROLE_LABELS: Record<AppRole, string> = {
 export const ROLE_DESCRIPTIONS: Record<AppRole, string> = {
   super_admin: "Full control of the entire system, including team & roles.",
   admin: "Full access to patients, appointments, content and settings.",
-  clinical_physiotherapist: "Manages only their own private patient ledger, sessions and billing, plus their profile and clinical articles.",
+  clinical_physiotherapist:
+    "Manages only their own private patient ledger, sessions and billing, plus their profile and clinical articles.",
   dietitian: "Manages their own profile and nutrition articles.",
   fitness_professional: "Manages their own profile and fitness articles.",
   content_editor: "Creates and manages their own blog articles.",

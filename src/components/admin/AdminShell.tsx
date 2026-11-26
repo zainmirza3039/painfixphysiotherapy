@@ -59,7 +59,12 @@ const NAV: NavItem[] = [
     icon: UserCircle,
     gate: "clinical",
   },
-  { to: "/admin/clinician-ledgers", label: "Clinician ledgers (read-only)", icon: ShieldCheck, gate: "superadmin" },
+  {
+    to: "/admin/clinician-ledgers",
+    label: "Clinician ledgers (read-only)",
+    icon: ShieldCheck,
+    gate: "superadmin",
+  },
   { to: "/admin/patients", label: "Clinic patients", icon: Users, gate: "staff" },
   { to: "/admin/appointments", label: "Appointments", icon: CalendarClock, gate: "staff" },
   { to: "/admin/home-visits", label: "Home visits", icon: Home, gate: "staff" },
@@ -147,8 +152,17 @@ function useDarkMode() {
 }
 
 export function AdminShell({ children }: { children: ReactNode }) {
-  const { user, isAdmin, isSuperAdmin, isStaff, isProfessional, canEditContent, canAccessPanel, hasRole, loading } =
-    useAdminAuth();
+  const {
+    user,
+    isAdmin,
+    isSuperAdmin,
+    isStaff,
+    isProfessional,
+    canEditContent,
+    canAccessPanel,
+    hasRole,
+    loading,
+  } = useAdminAuth();
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   const { dark, toggle } = useDarkMode();
