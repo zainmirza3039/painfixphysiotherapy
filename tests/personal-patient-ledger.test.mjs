@@ -274,9 +274,11 @@ test("custom and per-session billing plans validate fee bounds and precision", (
   assert.match(patientDetailSource, /planType === "custom" && perFee != null/);
 });
 
-test("import preview reports repeated source rows and unique existing matches", () => {
-  assert.match(importComponent, /duplicateRows: Math\.max\(0, rows\.length - unique\.size\)/);
-  assert.match(importComponent, /matchedKeys\.size/);
+test("import preview deduplicates by phone or name and counts distinct existing patient matches", () => {
+  assert.match(importComponent, /const firstByPhone = new Map<string, number>\(\)/);
+  assert.match(importComponent, /const firstByName = new Map<string, number>\(\)/);
+  assert.match(importComponent, /duplicateRows: Math\.max\(0, rows\.length - uniqueRoots\.size\)/);
+  assert.match(importComponent, /matchedPatientIds\.size/);
   assert.match(importComponent, /more than 1,000 usable rows/);
 });
 
