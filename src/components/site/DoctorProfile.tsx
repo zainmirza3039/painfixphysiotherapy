@@ -26,7 +26,6 @@ import {
   CLINIC_ADDRESS,
   MAP_DIRECTIONS_URL,
   OPENING_HOURS,
-  PHONE_TEL,
 } from "./constants";
 
 /** Dedicated, SEO-optimized profile page for a single physiotherapist. */
