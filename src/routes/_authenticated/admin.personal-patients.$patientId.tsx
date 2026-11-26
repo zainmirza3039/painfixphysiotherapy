@@ -63,6 +63,8 @@ type Plan = {
   package_sessions: number | null;
   package_fee: number | null;
   per_session_fee: number | null;
+  starts_on: string | null;
+  ends_on: string | null;
   is_active: boolean;
 };
 type Session = {
@@ -148,6 +150,8 @@ function PersonalPatientDetailPage() {
   const [packageSessions, setPackageSessions] = useState("10");
   const [packageFee, setPackageFee] = useState("");
   const [perSessionFee, setPerSessionFee] = useState("");
+  const [planStartsOn, setPlanStartsOn] = useState("");
+  const [planEndsOn, setPlanEndsOn] = useState("");
   const [sessionDate, setSessionDate] = useState("");
   const [sessionLabel, setSessionLabel] = useState("");
   const [sessionCharge, setSessionCharge] = useState("");
@@ -245,7 +249,7 @@ function PersonalPatientDetailPage() {
       const optional = await Promise.allSettled([
         db
           .from("personal_patient_plans")
-          .select("id,plan_type,title,package_sessions,package_fee,per_session_fee,is_active")
+          .select("id,plan_type,title,package_sessions,package_fee,per_session_fee,starts_on,ends_on,is_active")
           .eq("patient_id", patientId)
           .order("created_at", { ascending: false }),
         db
@@ -508,7 +512,11 @@ function PersonalPatientDetailPage() {
   const createPlan = useMutation({
     mutationFn: async () => {
       if (!user?.id) throw new Error("Please sign in again.");
-      if (!planTitle.trim()) throw new Error("Plan title is required.");
+      const title = planTitle.trim();
+      if (!title || title.length > 100) throw new Error("Plan title must be 1–100 characters.");
+      if (planStartsOn && planEndsOn && planEndsOn < planStartsOn) {
+        throw new Error("Plan end date cannot be earlier than its start date.");
+      }
       const sessions = planType === "package" ? Number(packageSessions) : null;
       const fee = planType === "package" ? Number(packageFee) : null;
       const perFee =
@@ -519,25 +527,44 @@ function PersonalPatientDetailPage() {
             : null;
       if (
         planType === "package" &&
-        (!sessions || sessions < 1 || fee == null || !Number.isFinite(fee) || fee < 0)
-      )
-        throw new Error("Enter valid package sessions and fee.");
-      if (planType === "per_session" && (!Number.isFinite(perFee) || (perFee ?? 0) < 0))
-        throw new Error("Enter a valid per-session fee.");
+        (!Number.isInteger(sessions) || (sessions ?? 0) < 1 || (sessions ?? 0) > 1000 ||
+          fee == null || !Number.isFinite(fee) || fee < 0 || fee > 1_000_000_000 ||
+          Math.round(fee * 100) !== fee * 100)
+      ) {
+        throw new Error("Enter 1–1,000 sessions and a valid package fee (maximum two decimal places).");
+      }
+      if (
+        planType === "per_session" &&
+        (perFee == null || !Number.isFinite(perFee) || perFee < 0 ||
+          perFee > 1_000_000_000 || Math.round(perFee * 100) !== perFee * 100)
+      ) {
+        throw new Error("Enter a valid per-session fee (maximum two decimal places).");
+      }
+      if (
+        planType === "custom" && perFee != null &&
+        (!Number.isFinite(perFee) || perFee < 0 || perFee > 1_000_000_000 ||
+          Math.round(perFee * 100) !== perFee * 100)
+      ) {
+        throw new Error("Enter a valid default session fee or leave it blank.");
+      }
       const { error } = await personalPatientDb.from("personal_patient_plans").insert({
         clinician_id: user.id,
         patient_id: patientId,
         plan_type: planType,
-        title: planTitle.trim(),
+        title,
         package_sessions: sessions,
         package_fee: fee,
         per_session_fee: perFee,
+        starts_on: planStartsOn || null,
+        ends_on: planEndsOn || null,
       });
       if (error) throw error;
     },
     onSuccess: async () => {
       await refresh();
       setPlanOpen(false);
+      setPlanStartsOn("");
+      setPlanEndsOn("");
       toast.success("Billing plan saved.");
     },
     onError: (e) => toast.error(e instanceof Error ? e.message : "Could not save plan."),
@@ -990,15 +1017,32 @@ function PersonalPatientDetailPage() {
                   key={p.id}
                   className="flex items-start justify-between gap-3 border-t border-border pt-3 first:border-0 first:pt-0"
                 >
-                  <div>
+                  <div className="min-w-0">
                     <p className="font-medium">{p.title}</p>
                     <p className="text-sm text-muted-foreground">
                       {p.plan_type === "package"
-                        ? `${p.package_sessions} sessions · ${money(Number(p.package_fee ?? 0))}`
+                        ? `${p.package_sessions} sessions · ${money(Number(p.package_fee ?? 0))} total`
                         : p.plan_type === "per_session"
                           ? `${money(Number(p.per_session_fee ?? 0))} per session`
-                          : "Custom billing"}
+                          : p.per_session_fee == null
+                            ? "Custom billing · fee set per session"
+                            : `${money(Number(p.per_session_fee))} default session fee`}
                     </p>
+                    {p.plan_type === "package" && (
+                      <p className="mt-1 text-xs text-muted-foreground">
+                        {(() => {
+                          const used = visibleSessions.filter(
+                            (session) => session.plan_id === p.id && session.status === "completed",
+                          ).length;
+                          return `${used} completed · ${Math.max(0, Number(p.package_sessions ?? 0) - used)} remaining`;
+                        })()}
+                      </p>
+                    )}
+                    {(p.starts_on || p.ends_on) && (
+                      <p className="mt-1 text-xs text-muted-foreground">
+                        Validity: {p.starts_on ?? "No start date"} – {p.ends_on ?? "No end date"}
+                      </p>
+                    )}
                   </div>
                   <Badge variant={p.is_active ? "default" : "secondary"}>
                     {p.is_active ? "Active" : "Inactive"}
@@ -1657,7 +1701,13 @@ function PersonalPatientDetailPage() {
             </div>
             <div className="space-y-1">
               <Label>{language === "ur" ? "پلان کا عنوان" : "Plan title"}</Label>
-              <Input value={planTitle} onChange={(e) => setPlanTitle(e.target.value)} required />
+              <Input
+                value={planTitle}
+                onChange={(e) => setPlanTitle(e.target.value)}
+                maxLength={100}
+                required
+              />
+              <p className="text-xs text-muted-foreground">Use a clear name patients can recognise, e.g. 10-session rehabilitation package.</p>
             </div>
             {planType === "package" && (
               <>
@@ -1697,13 +1747,36 @@ function PersonalPatientDetailPage() {
                 <Input
                   type="number"
                   min="0"
-                  step="1"
+                  max="1000000000"
+                  step="0.01"
                   value={perSessionFee}
                   onChange={(e) => setPerSessionFee(e.target.value)}
                   required={planType === "per_session"}
                 />
               </div>
             )}
+            <div className="grid gap-3 sm:grid-cols-2">
+              <div className="space-y-1">
+                <Label>Plan starts on (optional)</Label>
+                <Input
+                  type="date"
+                  value={planStartsOn}
+                  onChange={(e) => setPlanStartsOn(e.target.value)}
+                />
+              </div>
+              <div className="space-y-1">
+                <Label>Plan ends on (optional)</Label>
+                <Input
+                  type="date"
+                  min={planStartsOn || undefined}
+                  value={planEndsOn}
+                  onChange={(e) => setPlanEndsOn(e.target.value)}
+                />
+              </div>
+            </div>
+            <p className="text-xs text-muted-foreground">
+              Dates describe the plan’s validity. They do not automatically cancel or delete scheduled sessions.
+            </p>
             <DialogFooter>
               <Button type="button" variant="outline" onClick={() => setPlanOpen(false)}>
                 Cancel
