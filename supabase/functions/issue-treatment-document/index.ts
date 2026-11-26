@@ -9,10 +9,14 @@ const headers = {
 function response(req: Request, body: unknown, status = 200) {
   const origin = req.headers.get("origin");
   const allowed = new Set(
-    ["https://painfixphysiotherapy.com", Deno.env.get("APP_ORIGIN"), Deno.env.get("PREVIEW_ORIGIN")]
-      .filter((value): value is string => Boolean(value)),
+    [
+      "https://painfixphysiotherapy.com",
+      Deno.env.get("APP_ORIGIN"),
+      Deno.env.get("PREVIEW_ORIGIN"),
+    ].filter((value): value is string => Boolean(value)),
   );
-  const preview = origin != null &&
+  const preview =
+    origin != null &&
     /^https:\/\/painfixphysiotherapy-[a-z0-9-]+-zainmirza3039s-projects\.vercel\.app$/.test(origin);
   return new Response(JSON.stringify(body), {
     status,
@@ -56,7 +60,9 @@ Deno.serve(async (req) => {
 
   try {
     const authorization = req.headers.get("Authorization");
-    if (!authorization?.startsWith("Bearer ")) return response(req, { error: "Sign in required." }, 401);
+    if (!authorization?.startsWith("Bearer ")) {
+      return response(req, { error: "Sign in required." }, 401);
+    }
 
     const userClient = createClient(url, anonKey, {
       global: { headers: { Authorization: authorization } },
@@ -64,7 +70,9 @@ Deno.serve(async (req) => {
     });
     const { data: authData, error: authError } = await userClient.auth.getUser();
     const clinician = authData.user;
-    if (authError || !clinician) return response(req, { error: "Session expired. Sign in again." }, 401);
+    if (authError || !clinician) {
+      return response(req, { error: "Session expired. Sign in again." }, 401);
+    }
 
     const body = await req.json();
     const patientId = typeof body?.patientId === "string" ? body.patientId : "";
@@ -75,10 +83,22 @@ Deno.serve(async (req) => {
     const treatmentStart = body?.treatmentStart;
     const treatmentEnd = body?.treatmentEnd;
 
-    if (!/^[0-9a-f-]{36}$/i.test(patientId) || !diagnosis || !clinicalFindings ||
-        !treatmentSummary || !treatmentAdvice || body?.consentConfirmed !== true ||
-        !validDate(treatmentStart) || !validDate(treatmentEnd) || treatmentStart > treatmentEnd) {
-      return response(req, { error: "Complete all required clinical details, consent and treatment dates." }, 400);
+    if (
+      !/^[0-9a-f-]{36}$/i.test(patientId) ||
+      !diagnosis ||
+      !clinicalFindings ||
+      !treatmentSummary ||
+      !treatmentAdvice ||
+      body?.consentConfirmed !== true ||
+      !validDate(treatmentStart) ||
+      !validDate(treatmentEnd) ||
+      treatmentStart > treatmentEnd
+    ) {
+      return response(
+        req,
+        { error: "Complete all required clinical details, consent and treatment dates." },
+        400,
+      );
     }
 
     const { data: patient, error: patientError } = await admin
@@ -87,7 +107,9 @@ Deno.serve(async (req) => {
       .eq("id", patientId)
       .eq("clinician_id", clinician.id)
       .single();
-    if (patientError || !patient) return response(req, { error: "Patient record not found." }, 404);
+    if (patientError || !patient) {
+      return response(req, { error: "Patient record not found." }, 404);
+    }
 
     const { data: sessions, error: sessionsError } = await admin
       .from("personal_patient_sessions")
@@ -98,8 +120,16 @@ Deno.serve(async (req) => {
       .is("deleted_at", null)
       .gte("session_date", new Date(treatmentStart + "T00:00:00+05:00").toISOString())
       .lte("session_date", new Date(treatmentEnd + "T23:59:59.999+05:00").toISOString());
-    if (sessionsError) return response(req, { error: "Could not validate completed sessions." }, 500);
-    if (!sessions?.length) return response(req, { error: "No completed sessions exist in the selected treatment period." }, 400);
+    if (sessionsError) {
+      return response(req, { error: "Could not validate completed sessions." }, 500);
+    }
+    if (!sessions?.length) {
+      return response(
+        req,
+        { error: "No completed sessions exist in the selected treatment period." },
+        400,
+      );
+    }
 
     const { data: ledger, error: ledgerError } = await admin
       .from("personal_patient_ledger")
@@ -107,7 +137,9 @@ Deno.serve(async (req) => {
       .eq("patient_id", patientId)
       .eq("clinician_id", clinician.id)
       .order("occurred_at", { ascending: false });
-    if (ledgerError) return response(req, { error: "Could not validate the financial ledger." }, 500);
+    if (ledgerError) {
+      return response(req, { error: "Could not validate the financial ledger." }, 500);
+    }
 
     const entries = ledger ?? [];
     const totalCharges = entries
@@ -125,8 +157,8 @@ Deno.serve(async (req) => {
 
     const verificationToken = tokenHex();
     const issuedAt = new Date().toISOString();
-    const documentNumber = "PFX-PT-" + new Date().getFullYear() + "-" +
-      crypto.randomUUID().slice(0, 8).toUpperCase();
+    const documentNumber =
+      "PFX-PT-" + new Date().getFullYear() + "-" + crypto.randomUUID().slice(0, 8).toUpperCase();
     const snapshot = {
       patientName: patient.full_name,
       diagnosis,
@@ -145,7 +177,8 @@ Deno.serve(async (req) => {
       documentNumber,
       verificationToken,
       patientConsentConfirmedAt: issuedAt,
-      patientConsentStatement: "Clinician confirms that patient consent to sharing this certificate with the receiving organization has been obtained.",
+      patientConsentStatement:
+        "Clinician confirms that patient consent to sharing this certificate with the receiving organization has been obtained.",
     };
     const publicSnapshot = {
       patient: patient.full_name.trim().slice(0, 1) + "••••",
@@ -155,17 +188,17 @@ Deno.serve(async (req) => {
       amount_paid: amountPaid,
     };
 
-    const { error: insertError } = await admin
-      .from("personal_patient_treatment_documents")
-      .insert({
-        clinician_id: clinician.id,
-        patient_id: patientId,
-        document_number: documentNumber,
-        verification_token_hash: await sha256Hex(verificationToken),
-        snapshot,
-        public_snapshot: publicSnapshot,
-      });
-    if (insertError) return response(req, { error: "Could not issue the treatment certificate." }, 500);
+    const { error: insertError } = await admin.from("personal_patient_treatment_documents").insert({
+      clinician_id: clinician.id,
+      patient_id: patientId,
+      document_number: documentNumber,
+      verification_token_hash: await sha256Hex(verificationToken),
+      snapshot,
+      public_snapshot: publicSnapshot,
+    });
+    if (insertError) {
+      return response(req, { error: "Could not issue the treatment certificate." }, 500);
+    }
 
     return response(req, { documentNumber, snapshot });
   } catch {
