@@ -225,8 +225,8 @@ test("homepage local-commercial metadata is clear while existing ownership and c
   );
   assert.match(hero, /Physiotherapist in <span[^>]*>Multan\.<\/span>/);
   assert.match(hero, /Shalimar Colony, Multan/);
-  assert.match(hero, /Multan clinic appointment/);
-  assert.match(hero, /Need a home visit in Multan/);
+  assert.match(hero, /Book a clinic appointment/);
+  assert.match(hero, /Book a home visit/);
   assert.match(homepage, /rel: "canonical"/);
   const config = JSON.parse(await read("vercel.json"));
   for (const source of [
