@@ -151,7 +151,11 @@ export function PatientTreatmentCertificate({
       if (!issued?.snapshot || !issued?.documentNumber) {
         throw new Error(issued?.error || "The certificate could not be issued.");
       }
-      await downloadTreatmentCertificatePdf(issued.snapshot as TreatmentCertificateSnapshot);
+      try {
+        await downloadTreatmentCertificatePdf(issued.snapshot as TreatmentCertificateSnapshot);
+      } catch {
+        toast.error("Certificate issued, but the PDF could not be downloaded. Use Download PDF in the issued documents list.");
+      }
       return String(issued.documentNumber);
     },
     onSuccess: async (documentNumber) => {
