@@ -44,7 +44,14 @@ import {
   CommandList,
 } from "@/components/ui/command";
 
-type Gate = "staff" | "admin" | "content" | "professional" | "clinical" | "superadmin" | "ownledger";
+type Gate =
+  | "staff"
+  | "admin"
+  | "content"
+  | "professional"
+  | "clinical"
+  | "superadmin"
+  | "ownledger";
 interface NavItem {
   to: string;
   label: string;
