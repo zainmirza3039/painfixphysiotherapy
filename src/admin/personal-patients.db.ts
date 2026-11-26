@@ -14,6 +14,7 @@ export interface PersonalPatientQueryBuilder extends PromiseLike<
   ): PersonalPatientQueryBuilder;
   eq(column: string, value: string | number | boolean): PersonalPatientQueryBuilder;
   neq(column: string, value: string | number): PersonalPatientQueryBuilder;
+  is(column: string, value: null | boolean): PersonalPatientQueryBuilder;
   order(
     column: string,
     options?: { ascending?: boolean; nullsFirst?: boolean },
@@ -22,6 +23,7 @@ export interface PersonalPatientQueryBuilder extends PromiseLike<
   single(): Promise<PersonalPatientQueryResult<unknown>>;
   insert(values: Record<string, unknown> | Record<string, unknown>[]): PersonalPatientQueryBuilder;
   update(values: Record<string, unknown>): PersonalPatientQueryBuilder;
+  delete(): PersonalPatientQueryBuilder;
 }
 
 export interface PersonalPatientDatabaseClient {

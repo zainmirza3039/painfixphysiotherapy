@@ -30,13 +30,13 @@ export function Hero() {
               href="/book-appointment?city=multan&service=clinic"
               className="home-hero__appointment"
             >
-              <CalendarDays className="h-4 w-4" aria-hidden="true" /> Multan clinic appointment
+              <CalendarDays className="h-4 w-4" aria-hidden="true" /> Book a clinic appointment
             </a>
             <a
               href="/book-appointment?city=multan&service=home_visit"
               className="home-hero__home-visit"
             >
-              <MapPin className="h-4 w-4" aria-hidden="true" /> Need a home visit in Multan?
+              <MapPin className="h-4 w-4" aria-hidden="true" /> Book a home visit
             </a>
           </div>
 

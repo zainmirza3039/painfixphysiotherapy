@@ -27,8 +27,8 @@ test("homepage hero keeps the primary local heading, booking actions and clinic 
   const hero = normalize(source("components/site/Hero.tsx"));
   assert.ok(hero.includes('className="home-hero__heading home-hero__heading--top"'));
   assert.ok(hero.includes('Physiotherapist in <span className="home-hero__accent">Multan.'));
-  assert.ok(hero.includes("Multan clinic appointment"));
-  assert.ok(hero.includes("Need a home visit in Multan?"));
+  assert.ok(hero.includes("Book a clinic appointment"));
+  assert.ok(hero.includes("Book a home visit"));
   assert.ok(hero.includes("Shalimar Colony, Multan"));
   assert.ok(!hero.includes("home-hero__description"));
 });

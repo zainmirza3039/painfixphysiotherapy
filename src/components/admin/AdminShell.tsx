@@ -44,7 +44,14 @@ import {
   CommandList,
 } from "@/components/ui/command";
 
-type Gate = "staff" | "admin" | "content" | "professional";
+type Gate =
+  | "staff"
+  | "admin"
+  | "content"
+  | "professional"
+  | "clinical"
+  | "superadmin"
+  | "ownledger";
 interface NavItem {
   to: string;
   label: string;
@@ -57,7 +64,13 @@ const NAV: NavItem[] = [
     to: "/admin/personal-patients",
     label: "Personal patient ledger",
     icon: UserCircle,
-    gate: "staff",
+    gate: "ownledger",
+  },
+  {
+    to: "/admin/clinician-ledgers",
+    label: "Clinician ledgers (read-only)",
+    icon: ShieldCheck,
+    gate: "superadmin",
   },
   { to: "/admin/patients", label: "Clinic patients", icon: Users, gate: "staff" },
   { to: "/admin/appointments", label: "Appointments", icon: CalendarClock, gate: "staff" },
@@ -90,6 +103,7 @@ const SECTIONS = [
     label: "Patient care",
     routes: [
       "/admin/personal-patients",
+      "/admin/clinician-ledgers",
       "/admin/patients",
       "/admin/appointments",
       "/admin/home-visits",
@@ -145,8 +159,17 @@ function useDarkMode() {
 }
 
 export function AdminShell({ children }: { children: ReactNode }) {
-  const { user, isAdmin, isStaff, isProfessional, canEditContent, canAccessPanel, loading } =
-    useAdminAuth();
+  const {
+    user,
+    isAdmin,
+    isSuperAdmin,
+    isStaff,
+    isProfessional,
+    canEditContent,
+    canAccessPanel,
+    hasRole,
+    loading,
+  } = useAdminAuth();
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   const { dark, toggle } = useDarkMode();
@@ -236,6 +259,9 @@ export function AdminShell({ children }: { children: ReactNode }) {
     admin: isAdmin,
     content: canEditContent,
     professional: isProfessional,
+    clinical: hasRole("clinical_physiotherapist"),
+    superadmin: isSuperAdmin,
+    ownledger: hasRole("clinical_physiotherapist") || isSuperAdmin,
   };
   const items = NAV.filter((item) => gatePass[item.gate]);
   const sections = SECTIONS.map((section) => ({

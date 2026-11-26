@@ -1,4 +1,4 @@
-import { createFileRoute, Link, Outlet, useRouterState } from "@tanstack/react-router";
+import { createFileRoute, Link, Navigate, Outlet, useRouterState } from "@tanstack/react-router";
 import { useEffect, useMemo, useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
@@ -110,7 +110,7 @@ const money = (n: number) =>
   }).format(n);
 
 function PersonalPatientsPage() {
-  const { user } = useAdminAuth();
+  const { user, hasRole } = useAdminAuth();
   const qc = useQueryClient();
   const [lang, setLang] = useState<"en" | "ur">("en");
   const [search, setSearch] = useState("");
@@ -122,6 +122,11 @@ function PersonalPatientsPage() {
   const [showArchived, setShowArchived] = useState(false);
   const pathname = useRouterState({ select: (state) => state.location.pathname });
   const t = words[lang];
+  const isClinicalPhysiotherapist = hasRole("clinical_physiotherapist");
+  // Super Admin may fully manage only the ledger owned by their own auth user ID.
+  // Cross-clinician review remains on the separate read-only clinician-ledgers route.
+  const canManageOwnLedger =
+    isClinicalPhysiotherapist || (hasRole("super_admin") && Boolean(user?.id));
 
   useEffect(() => {
     const id = "painfix-nastaliq-font";
@@ -137,7 +142,7 @@ function PersonalPatientsPage() {
 
   const query = useQuery({
     queryKey: ["admin", "personal-patients", user?.id],
-    enabled: Boolean(user?.id),
+    enabled: Boolean(user?.id) && canManageOwnLedger,
     queryFn: async () => {
       const db = personalPatientDb;
       const p = await db
@@ -249,6 +254,8 @@ function PersonalPatientsPage() {
     onError: (e) =>
       toast.error(e instanceof Error ? e.message : "Could not update patient status."),
   });
+
+  if (!canManageOwnLedger) return <Navigate to="/admin" replace />;
 
   if (pathname.startsWith("/admin/personal-patients/")) {
     return <Outlet />;

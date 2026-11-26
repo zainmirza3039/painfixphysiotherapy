@@ -689,6 +689,16 @@ export type Database = {
     Functions: {
       bootstrap_admin: { Args: never; Returns: undefined };
       can_edit_content: { Args: { _user_id: string }; Returns: boolean };
+      super_admin_personal_ledger_clinicians: {
+        Args: Record<PropertyKey, never>;
+        Returns: {
+          clinician_id: string;
+          full_name: string;
+          professional_title: string | null;
+          patient_count: number;
+        }[];
+      };
+      super_admin_personal_ledger_snapshot: { Args: { _clinician_id: string }; Returns: Json };
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"];
@@ -718,6 +728,14 @@ export type Database = {
 type DatabaseWithoutInternals = Omit<Database, "__InternalSupabase">;
 
 type DefaultSchema = DatabaseWithoutInternals[Extract<keyof Database, "public">];
+
+type EnumNameFor<Schema> = Schema extends { schema: keyof DatabaseWithoutInternals }
+  ? keyof DatabaseWithoutInternals[Schema["schema"]]["Enums"]
+  : never;
+
+type CompositeTypeNameFor<Schema> = Schema extends { schema: keyof DatabaseWithoutInternals }
+  ? keyof DatabaseWithoutInternals[Schema["schema"]]["CompositeTypes"]
+  : never;
 
 export type Tables<
   DefaultSchemaTableNameOrOptions extends
@@ -800,11 +818,7 @@ export type Enums<
   DefaultSchemaEnumNameOrOptions extends
     | keyof DefaultSchema["Enums"]
     | { schema: keyof DatabaseWithoutInternals },
-  EnumName extends DefaultSchemaEnumNameOrOptions extends {
-    schema: keyof DatabaseWithoutInternals;
-  }
-    ? keyof DatabaseWithoutInternals[DefaultSchemaEnumNameOrOptions["schema"]]["Enums"]
-    : never = never,
+  EnumName extends EnumNameFor<DefaultSchemaEnumNameOrOptions> = never,
 > = DefaultSchemaEnumNameOrOptions extends {
   schema: keyof DatabaseWithoutInternals;
 }
@@ -817,11 +831,7 @@ export type CompositeTypes<
   PublicCompositeTypeNameOrOptions extends
     | keyof DefaultSchema["CompositeTypes"]
     | { schema: keyof DatabaseWithoutInternals },
-  CompositeTypeName extends PublicCompositeTypeNameOrOptions extends {
-    schema: keyof DatabaseWithoutInternals;
-  }
-    ? keyof DatabaseWithoutInternals[PublicCompositeTypeNameOrOptions["schema"]]["CompositeTypes"]
-    : never = never,
+  CompositeTypeName extends CompositeTypeNameFor<PublicCompositeTypeNameOrOptions> = never,
 > = PublicCompositeTypeNameOrOptions extends {
   schema: keyof DatabaseWithoutInternals;
 }
