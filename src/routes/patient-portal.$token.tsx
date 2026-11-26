@@ -204,7 +204,12 @@ function PatientPortalPage() {
             <span className="grid h-10 w-10 place-items-center rounded-lg bg-[#032E61] text-white">
               <ShieldCheck className="h-5 w-5" />
             </span>
-            <span><span className="block font-semibold tracking-wide text-[#032E61]">PAINFIX</span><span className="block text-[11px] text-slate-500">Physiotherapy Clinic · Multan</span></span>
+            <span>
+              <span className="block font-semibold tracking-wide text-[#032E61]">PAINFIX</span>
+              <span className="block text-[11px] text-slate-500">
+                Physiotherapy Clinic · Multan
+              </span>
+            </span>
           </div>
           <Button
             variant="outline"
@@ -214,7 +219,7 @@ function PatientPortalPage() {
             {t.language}
           </Button>
         </div>
-        <section className="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm"><div className="h-1 bg-[#00A859]" /><div className="p-5 sm:p-8">
+        <section className="overflow-hidden rounded-xl border border-slate-200 border-t-4 border-t-[#00A859] bg-white p-5 shadow-sm sm:p-8">
           {!portal ? (
             <div className="mx-auto max-w-sm py-8">
               <span className="mx-auto grid h-12 w-12 place-items-center rounded-lg bg-[#EAF1F8] text-[#032E61]">
@@ -370,7 +375,7 @@ function PatientPortalPage() {
               )}
             </>
           ) : null}
-        </div></section>
+        </section>
         <p className="mt-5 text-center text-xs text-slate-400">
           PainFix Physiotherapy Clinic · Move Better. Recover Faster.
         </p>
