@@ -22,7 +22,7 @@ test("Dr Zain's public identity separates PT display suffix, clinical role, and 
 
   assert.match(profile, /PainFix Clinical Team/);
   assert.match(profile, /doc\.fullName/);
-  assert.match(profile, /Clinical Physiotherapist/);
+  assert.match(profile, /clinicianServiceLabel\\(doc\\)/);
   assert.doesNotMatch(profile, /Founder & Lead Physiotherapist/);
 
   assert.match(team, /fullName: "Dr\. Zain Ul Abideen PT"/);
