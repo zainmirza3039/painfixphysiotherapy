@@ -299,3 +299,8 @@ test("CSV parser preserves quoted multiline fields and rejects unclosed quotes",
   assert.match(importParser, /CSV contains an unclosed quoted field/);
   assert.match(importParser, /records\.slice\(1\)/);
 });
+
+test("sessions cannot be scheduled outside the selected billing plan validity dates", () => {
+  assert.match(patientDetailSource, /This session is before the billing plan start date/);
+  assert.match(patientDetailSource, /This session is after the billing plan end date/);
+});
