@@ -44,7 +44,9 @@ function BookAppointmentPage() {
       />
       <section id="booking-selector" className="scroll-mt-24 py-10 sm:py-14">
         <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
-          <h2 className="mb-4 font-heading text-xl font-semibold text-foreground">Choose your appointment</h2>
+          <h2 className="mb-4 font-heading text-xl font-semibold text-foreground">
+            Choose your appointment
+          </h2>
           <div className="rounded-xl border border-border bg-card p-4 shadow-soft sm:p-7">
             <CityBookingForm
               key={`${city ?? ""}-${service ?? ""}`}
