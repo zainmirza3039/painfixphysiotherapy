@@ -116,6 +116,51 @@ function parseDate(value: string): string | null {
   return Number.isNaN(date.getTime()) ? null : date.toISOString();
 }
 
+export function getPatientImportRowErrors(row: ImportedPatientRow): string[] {
+  const errors: string[] = [];
+  const validMoney = (value: number | null, label: string) => {
+    if (value == null) return;
+    if (!Number.isFinite(value) || value < 0 || value > 1_000_000_000) {
+      errors.push(`${label} must be between 0 and 1,000,000,000 PKR`);
+    } else if (Math.round(value * 100) !== value * 100) {
+      errors.push(`${label} can have at most two decimal places`);
+    }
+  };
+
+  if (!row.name.trim() || row.name.trim().length > 160) {
+    errors.push("Patient name is required and must be 160 characters or fewer");
+  }
+  if (row.phone.length > 40) errors.push("Phone number must be 40 characters or fewer");
+  if (row.email.length > 254) errors.push("Email must be 254 characters or fewer");
+  if (row.sessionLabel.length > 500) errors.push("Session description must be 500 characters or fewer");
+
+  const hasPackageField = Boolean(row.packageTitle.trim()) ||
+    row.packageSessions != null || row.packageFee != null;
+  if (hasPackageField) {
+    if (!row.packageTitle.trim() || row.packageSessions == null || row.packageFee == null) {
+      errors.push("Package title, session count and fee must all be supplied together");
+    }
+    if (
+      row.packageSessions != null &&
+      (!Number.isInteger(row.packageSessions) || row.packageSessions < 1 || row.packageSessions > 1000)
+    ) {
+      errors.push("Package sessions must be a whole number from 1 to 1,000");
+    }
+    if (row.packageTitle.trim().length > 100) errors.push("Package title must be 100 characters or fewer");
+  }
+
+  validMoney(row.packageFee, "Package fee");
+  validMoney(row.sessionFee, "Session fee");
+  validMoney(row.payment, "Payment");
+  if (row.packageFee != null && row.sessionFee != null && row.sessionFee > 0) {
+    errors.push("Choose either a package fee or a per-session fee, not both");
+  }
+  if (row.sessionDate && Number.isNaN(new Date(row.sessionDate).getTime())) {
+    errors.push("Session date is invalid");
+  }
+  return errors;
+}
+
 export function parsePatientCsv(text: string): ImportedPatientRow[] {
   const source = text.replace(/^\uFEFF/, "");
   const firstLine = source.split(/\r?\n/, 1)[0] ?? "";
