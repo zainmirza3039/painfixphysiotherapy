@@ -327,7 +327,16 @@ function PersonalPatientDetailPage() {
     return key === selectedCalendarDate;
   });
   const selectedDayBlock = data?.calendarBlocks.find((block) => block.block_date === selectedCalendarDate);
+  const navigateCalendarMonth = (offset: number) => {
+    const next = new Date(calendarMonth.getFullYear(), calendarMonth.getMonth() + offset, 1);
+    setCalendarMonth(next);
+    setSelectedCalendarDate(`${next.getFullYear()}-${String(next.getMonth() + 1).padStart(2, "0")}-01`);
+  };
   const openSessionForDate = () => {
+    if (selectedDayBlock) {
+      toast.error("Remove the off / leave mark before scheduling a session on this date.");
+      return;
+    }
     setSessionDate(`${selectedCalendarDate}T11:00`);
     setSessionCharge(activePlan?.plan_type === "package" ? "0" : String(activePlan?.per_session_fee ?? ""));
     setSessionOpen(true);
@@ -343,7 +352,7 @@ function PersonalPatientDetailPage() {
         e.payment_method ?? e.entry_type,
         e.amount,
       ]),
-      ...data.sessions.map((s) => [
+      ...data.sessions.filter((s) => !s.deleted_at).map((s) => [
         "Session",
         s.session_date,
         s.session_label ?? "Physiotherapy session",
@@ -450,7 +459,7 @@ function PersonalPatientDetailPage() {
   const sendWhatsAppReminder = () => {
     if (!data) return;
     const next = (data.sessions ?? [])
-      .filter((s) => s.status === "scheduled" && new Date(s.session_date).getTime() >= Date.now())
+      .filter((s) => !s.deleted_at && s.status === "scheduled" && new Date(s.session_date).getTime() >= Date.now())
       .sort((a, b) => a.session_date.localeCompare(b.session_date))[0];
     const message = [
       `Assalam-o-Alaikum ${data.patient.full_name},`,
@@ -986,9 +995,7 @@ function PersonalPatientDetailPage() {
               size="icon"
               className="h-8 w-8"
               onClick={() =>
-                setCalendarMonth(
-                  new Date(calendarMonth.getFullYear(), calendarMonth.getMonth() - 1, 1),
-                )
+                navigateCalendarMonth(-1)
               }
             >
               <ChevronLeft className="h-4 w-4" />
@@ -1004,9 +1011,7 @@ function PersonalPatientDetailPage() {
               size="icon"
               className="h-8 w-8"
               onClick={() =>
-                setCalendarMonth(
-                  new Date(calendarMonth.getFullYear(), calendarMonth.getMonth() + 1, 1),
-                )
+                navigateCalendarMonth(1)
               }
             >
               <ChevronRight className="h-4 w-4" />
@@ -1060,7 +1065,7 @@ function PersonalPatientDetailPage() {
               <p className="text-xs text-muted-foreground">{selectedDaySessions.length} {selectedDaySessions.length === 1 ? "session" : "sessions"}{selectedDayBlock ? ` · ${selectedDayBlock.block_type === "leave" ? "Leave" : "Off day"}` : ""}</p>
             </div>
             <div className="flex flex-wrap gap-2">
-              <Button size="sm" onClick={openSessionForDate}><CalendarPlus className="mr-1 h-4 w-4" />Add session</Button>
+              <Button size="sm" onClick={openSessionForDate} disabled={Boolean(selectedDayBlock)}><CalendarPlus className="mr-1 h-4 w-4" />Add session</Button>
               {selectedDayBlock ? (
                 <Button size="sm" variant="outline" disabled={removeCalendarBlock.isPending} onClick={() => removeCalendarBlock.mutate(selectedDayBlock.id)}>Remove off / leave</Button>
               ) : (
@@ -1082,6 +1087,7 @@ function PersonalPatientDetailPage() {
             </div>
           ) : <p className="mt-3 text-xs text-muted-foreground">No sessions on this date. Select Add session to schedule one.</p>}
           {selectedDayBlock?.note && <p className="mt-2 text-xs text-muted-foreground">Note: {selectedDayBlock.note}</p>}
+          {selectedDayBlock && <p className="mt-2 text-xs text-amber-700 dark:text-amber-300">This date is marked off / leave. Remove the mark before adding a session.</p>}
         </div>
         <div className="mt-3 flex flex-wrap gap-3 text-xs text-muted-foreground">
           <span className="flex items-center gap-1">
