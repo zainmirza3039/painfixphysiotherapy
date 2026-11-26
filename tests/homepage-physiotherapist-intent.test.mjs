@@ -11,7 +11,7 @@ test("homepage owns the primary physiotherapist in Multan search intent", async 
 
   assert.match(
     route,
-    /const TITLE = "Best Physiotherapist in Multan [|] PainFix Physiotherapy Clinic"/,
+    /const TITLE = "Best Physiotherapist in Multan [|] PainFix Clinic"/,
   );
   assert.ok(hero.includes("home-hero__heading home-hero__heading--top"));
   assert.ok(hero.includes('Physiotherapist in <span className="home-hero__accent">Multan.'));
