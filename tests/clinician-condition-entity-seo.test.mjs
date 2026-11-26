@@ -23,7 +23,10 @@ test("Dr Zain profile retains its Person, credential and clinic relationships", 
   assert.ok(seo.includes('"@type": "EducationalOccupationalCredential"'));
   assert.ok(seo.includes('"@type": "Occupation"'));
   assert.ok(seo.includes('"@type": "MedicalClinic"'));
-  assert.ok(seo.includes('jobTitle: isZainProfile ? "Founder & Head Physiotherapist"'));
+  assert.match(
+    seo,
+    /jobTitle: isZainProfile\\s*\\?\\s*"Founder & Head Physiotherapist"\\s*:\\s*isJalalProfile\\s*\\?\\s*"Co-Founder"\\s*:\\s*doc\\.role/s,
+  );
 });
 
 test("condition pages retain canonicals and FAQ data while declaring their medical subject", () => {
