@@ -271,7 +271,7 @@ test("billing plans persist and display their validity dates and package utilisa
 test("custom and per-session billing plans validate fee bounds and precision", () => {
   assert.match(patientDetailSource, /maximum two decimal places/);
   assert.match(patientDetailSource, /Plan title must be 1–100 characters/);
-  assert.match(patientDetailSource, /planType === "custom" &&\\s*perFee != null/);
+  assert.match(patientDetailSource, /planType === "custom" &&\s*perFee != null/);
 });
 
 test("import preview deduplicates by phone or name and counts distinct existing patient matches", () => {
