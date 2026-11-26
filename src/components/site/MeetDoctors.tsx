@@ -7,10 +7,16 @@ import { ClinicianPortrait } from "./ClinicianPortrait";
 import type { PublicClinicianContent } from "@/lib/clinician-view";
 import { clinicianServiceLabel, clinicianWhatsAppUrl } from "@/lib/clinician-service";
 
+const FOUNDER_PROFILE_SLUG = "dr-zain-ul-abideen-pt-multan";
+
 export function MeetDoctors({ initialProfiles }: { initialProfiles?: PublicClinicianContent[] }) {
   const pathname = useRouterState({ select: (state) => state.location.pathname });
   const { data: profiles, isLoading, isError, refetch } = usePublishedClinicians(initialProfiles);
-  const clinicians = (profiles ?? []).map(toClinicianView);
+  const clinicians = (profiles ?? [])
+    .map(toClinicianView)
+    .sort(
+      (a, b) => Number(b.slug === FOUNDER_PROFILE_SLUG) - Number(a.slug === FOUNDER_PROFILE_SLUG),
+    );
 
   return (
     <section id="doctors" className="home-section home-section--tint scroll-mt-24">
@@ -22,11 +28,22 @@ export function MeetDoctors({ initialProfiles }: { initialProfiles?: PublicClini
             </p>
             <h2 className="home-section-title mt-4">Meet the people behind your care.</h2>
           </div>
-          <p className="max-w-2xl text-base leading-7 text-muted-foreground">
-            Meet the Doctors of Physical Therapy at PainFix. Our Multan clinic team provides
-            clinic-based physiotherapy and rehabilitation, while individual profiles explain each
-            clinician’s qualifications, areas of practice and available service modes.
-          </p>
+          <div className="max-w-2xl space-y-2">
+            <p className="text-base leading-7 text-muted-foreground">
+              PainFix Physiotherapy Clinic is led by Dr. Zain Ul Abideen, DPT, Founder & Head
+              Physiotherapist. Our Multan team provides assessment-led physiotherapy and
+              rehabilitation; individual profiles explain each clinician’s qualifications, areas of
+              practice and available service modes.
+            </p>
+            <p className="text-sm leading-6 text-muted-foreground">
+              <Link
+                to="/dr-zain-ul-abideen-pt-multan"
+                className="font-semibold text-primary underline decoration-secondary underline-offset-4 hover:text-secondary"
+              >
+                Dr. Zain Ul Abideen, DPT — Founder & Head Physiotherapist
+              </Link>
+            </p>
+          </div>
         </div>
 
         <div className="home-team-list" aria-live="polite" aria-busy={isLoading}>
@@ -66,9 +83,7 @@ export function MeetDoctors({ initialProfiles }: { initialProfiles?: PublicClini
             !isError &&
             clinicians.map((doc, index) => {
               const displayRole =
-                doc.slug === "dr-zain-ul-abideen-pt-multan"
-                  ? "Founder & Head Physiotherapist"
-                  : doc.role;
+                doc.slug === FOUNDER_PROFILE_SLUG ? "Founder & Head Physiotherapist" : doc.role;
 
               return (
                 <Reveal key={doc.slug} anim="up" delay={index * 45}>
