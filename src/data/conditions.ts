@@ -271,7 +271,7 @@ export const conditions: Condition[] = [
     icon: "🦵",
     metaTitle: "Knee Pain Treatment in Multan | Physiotherapy — PainFix",
     metaDescription:
-      "Knee pain treatment in Multan. Relieve pain from injury, arthritis or overuse and restore strength and mobility with physiotherapy at PainFix.",
+      "Knee pain and knee arthritis treatment in Multan. Physiotherapy for osteoarthritis, stiffness and mobility limits, with an individual assessment at PainFix.",
     intro: [
       "Knee pain can result from injury, overuse, arthritis or muscle imbalance, and it can significantly affect walking, stairs and daily activities.",
       "Physiotherapy relieves knee pain and restores strength, stability and confident movement.",
@@ -332,7 +332,7 @@ export const conditions: Condition[] = [
     icon: "🦴",
     metaTitle: "Osteoarthritis Treatment in Multan | Physiotherapy — PainFix",
     metaDescription:
-      "Osteoarthritis physiotherapy in Multan. Reduce joint pain and stiffness and improve mobility and quality of life with evidence-based care at PainFix.",
+      "Arthritis physiotherapy in Multan for joint pain, stiffness and reduced mobility. Improve movement and daily function with evidence-based care at PainFix.",
     intro: [
       "Osteoarthritis is a common condition where joint cartilage wears down, causing pain, stiffness and reduced movement — most often in the knees, hips and hands.",
       "Physiotherapy is a proven, first-line treatment that reduces pain and keeps you active and independent.",
@@ -454,7 +454,7 @@ export const conditions: Condition[] = [
     icon: "🏅",
     metaTitle: "Sports Injury Treatment in Multan | Physiotherapy — PainFix",
     metaDescription:
-      "Sports injury treatment in Multan. Recover from sprains, strains and tears and return to sport safely with expert physiotherapy at PainFix.",
+      "Sports injury physiotherapy in Multan for sprains and muscle strains. Rebuild strength and function with graded rehabilitation at PainFix.",
     intro: [
       "Sports injuries range from sprains and strains to ligament and muscle tears. Prompt, structured rehabilitation is key to a safe and complete return to activity.",
       "We combine hands-on treatment with progressive, sport-specific rehabilitation to get you back to peak performance.",
@@ -757,7 +757,7 @@ export const conditions: Condition[] = [
     icon: "🦴",
     metaTitle: "Slipped Disc Treatment in Multan | Physiotherapy — PainFix",
     metaDescription:
-      "Physiotherapy for slipped disc and herniated disc symptoms in Multan. Assessment-led care for back pain, sciatica and movement limitations at PainFix.",
+      "Slipped disc, disc bulge and herniated disc physiotherapy in Multan. Assessment-led care for back pain, sciatica and movement limitations at PainFix.",
     intro: [
       "A slipped disc, more accurately called a herniated or prolapsed disc, occurs when disc material extends beyond its usual boundary. It may irritate a nearby nerve, but a scan finding does not automatically explain a person's pain or mean that surgery is needed.",
       "At PainFix in Shalimar Colony, Multan, assessment focuses on your symptoms, neurological function, movement tolerance and daily limitations. Treatment is selected according to the clinical findings rather than the scan label alone.",
