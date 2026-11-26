@@ -132,21 +132,27 @@ export function getPatientImportRowErrors(row: ImportedPatientRow): string[] {
   }
   if (row.phone.length > 40) errors.push("Phone number must be 40 characters or fewer");
   if (row.email.length > 254) errors.push("Email must be 254 characters or fewer");
-  if (row.sessionLabel.length > 500) errors.push("Session description must be 500 characters or fewer");
+  if (row.sessionLabel.length > 500) {
+    errors.push("Session description must be 500 characters or fewer");
+  }
 
-  const hasPackageField = Boolean(row.packageTitle.trim()) ||
-    row.packageSessions != null || row.packageFee != null;
+  const hasPackageField =
+    Boolean(row.packageTitle.trim()) || row.packageSessions != null || row.packageFee != null;
   if (hasPackageField) {
     if (!row.packageTitle.trim() || row.packageSessions == null || row.packageFee == null) {
       errors.push("Package title, session count and fee must all be supplied together");
     }
     if (
       row.packageSessions != null &&
-      (!Number.isInteger(row.packageSessions) || row.packageSessions < 1 || row.packageSessions > 1000)
+      (!Number.isInteger(row.packageSessions) ||
+        row.packageSessions < 1 ||
+        row.packageSessions > 1000)
     ) {
       errors.push("Package sessions must be a whole number from 1 to 1,000");
     }
-    if (row.packageTitle.trim().length > 100) errors.push("Package title must be 100 characters or fewer");
+    if (row.packageTitle.trim().length > 100) {
+      errors.push("Package title must be 100 characters or fewer");
+    }
   }
 
   validMoney(row.packageFee, "Package fee");
