@@ -7,3 +7,11 @@ verify_jwt = false
 [functions.manage-patient-portal]
 # Link rotation and revocation require a valid authenticated clinician JWT.
 verify_jwt = true
+
+[functions.verify-treatment-document]
+# Public QR verification uses a 256-bit opaque token and returns only masked, allow-listed fields.
+verify_jwt = false
+
+[functions.issue-treatment-document]
+# Authenticated issuance validates clinician ownership and ledger/session facts server-side.
+verify_jwt = true

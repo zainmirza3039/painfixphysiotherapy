@@ -195,16 +195,21 @@ function PatientPortalPage() {
 
   return (
     <main
-      className="personal-patients-portal min-h-screen bg-slate-50 px-4 py-8 text-slate-900"
+      className="personal-patients-portal min-h-screen bg-[#F4F7FA] px-4 py-6 text-slate-900 sm:py-10"
       dir={language === "ur" ? "rtl" : "ltr"}
     >
-      <div className="mx-auto max-w-3xl">
-        <div className="mb-6 flex items-center justify-between gap-3">
+      <div className="mx-auto max-w-4xl">
+        <div className="mb-5 flex items-center justify-between gap-3 border-b border-slate-200 pb-4">
           <div className="flex items-center gap-2">
-            <span className="grid h-10 w-10 place-items-center rounded-xl bg-[#032E61] text-white">
+            <span className="grid h-10 w-10 place-items-center rounded-lg bg-[#032E61] text-white">
               <ShieldCheck className="h-5 w-5" />
             </span>
-            <span className="font-semibold text-[#032E61]">PainFix</span>
+            <span>
+              <span className="block font-semibold tracking-wide text-[#032E61]">PAINFIX</span>
+              <span className="block text-[11px] text-slate-500">
+                Physiotherapy Clinic · Multan
+              </span>
+            </span>
           </div>
           <Button
             variant="outline"
@@ -214,14 +219,16 @@ function PatientPortalPage() {
             {t.language}
           </Button>
         </div>
-        <section className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm sm:p-7">
+        <section className="overflow-hidden rounded-xl border border-slate-200 border-t-4 border-t-[#00A859] bg-white p-5 shadow-sm sm:p-8">
           {!portal ? (
             <div className="mx-auto max-w-sm py-8">
-              <span className="mx-auto grid h-12 w-12 place-items-center rounded-full bg-slate-100 text-[#032E61]">
+              <span className="mx-auto grid h-12 w-12 place-items-center rounded-lg bg-[#EAF1F8] text-[#032E61]">
                 <LockKeyhole className="h-6 w-6" />
               </span>
-              <h1 className="mt-4 text-center text-2xl font-semibold">{t.title}</h1>
-              <p className="mt-2 text-center text-sm text-slate-600">{t.subtitle}</p>
+              <h1 className="mt-4 text-center text-2xl font-semibold tracking-tight text-[#032E61]">
+                {t.title}
+              </h1>
+              <p className="mt-2 text-center text-sm leading-6 text-slate-600">{t.subtitle}</p>
               <form
                 className="mt-6 space-y-3"
                 onSubmit={(e) => {
@@ -238,12 +245,12 @@ function PatientPortalPage() {
                   value={pin}
                   onChange={(e) => setPin(e.target.value.replace(/\D/g, "").slice(0, 6))}
                   placeholder="••••••"
-                  className="text-center text-xl tracking-[0.5em]"
+                  className="h-12 text-center text-xl font-semibold tracking-[0.5em]"
                   required
                 />
                 <Button
                   type="submit"
-                  className="w-full bg-[#032E61] hover:bg-[#032E61]/90"
+                  className="h-11 w-full bg-[#032E61] font-medium hover:bg-[#032E61]/90"
                   disabled={verify.isPending}
                 >
                   {verify.isPending ? "…" : t.open}
@@ -292,14 +299,16 @@ function PatientPortalPage() {
                   { label: t.due, value: money(summary.outstandingDues) },
                   { label: t.credit, value: money(summary.advanceCredit) },
                 ].map((item) => (
-                  <div key={item.label} className="rounded-xl border border-slate-200 p-4">
+                  <div key={item.label} className="rounded-lg border border-slate-200 bg-white p-4">
                     <p className="text-xs text-slate-500">{item.label}</p>
-                    <p className="mt-2 text-xl font-semibold text-[#032E61]">{item.value}</p>
+                    <p className="mt-2 text-xl font-semibold tabular-nums text-[#032E61]">
+                      {item.value}
+                    </p>
                   </div>
                 ))}
               </div>
               <div className="mt-5 grid gap-3 sm:grid-cols-2">
-                <div className="rounded-xl bg-slate-50 p-4">
+                <div className="rounded-lg border border-slate-200 bg-[#F8FAFC] p-4">
                   <p className="text-xs text-slate-500">{t.plan}</p>
                   <p className="mt-1 font-semibold">{portal.plan?.title ?? t.noPlan}</p>
                   <p className="mt-1 text-sm text-slate-600">

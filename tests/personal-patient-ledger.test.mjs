@@ -246,3 +246,82 @@ test("Patient Ledger is included in a visible admin navigation section", () => {
       adminShell.includes('"/admin/home-visits"'),
   );
 });
+
+const patientDetailSource = fs.readFileSync(
+  path.join(root, "src/routes/_authenticated/admin.personal-patients.$patientId.tsx"),
+  "utf8",
+);
+const portalSource = fs.readFileSync(
+  path.join(root, "src/routes/patient-portal.$token.tsx"),
+  "utf8",
+);
+const importComponent = fs.readFileSync(
+  path.join(root, "src/components/admin/PatientLedgerImport.tsx"),
+  "utf8",
+);
+
+test("billing plans persist and display their validity dates and package utilisation", () => {
+  assert.match(patientDetailSource, /starts_on: planStartsOn \|\| null/);
+  assert.match(patientDetailSource, /ends_on: planEndsOn \|\| null/);
+  assert.match(patientDetailSource, /Plan end date cannot be earlier than its start date/);
+  assert.match(patientDetailSource, /completed · .*remaining/);
+  assert.match(patientDetailSource, /starts_on,ends_on,is_active/);
+});
+
+test("custom and per-session billing plans validate fee bounds and precision", () => {
+  assert.match(patientDetailSource, /maximum two decimal places/);
+  assert.match(patientDetailSource, /Plan title must be 1–100 characters/);
+  assert.match(patientDetailSource, /planType === "custom" &&\s*perFee != null/);
+});
+
+test("import preview deduplicates by phone or name and counts distinct existing patient matches", () => {
+  assert.match(importComponent, /const firstByPhone = new Map<string, number>\(\)/);
+  assert.match(importComponent, /const firstByName = new Map<string, number>\(\)/);
+  assert.match(importComponent, /duplicateRows: Math\.max\(0, rows\.length - uniqueRoots\.size\)/);
+  assert.match(importComponent, /matchedPatientIds\.size/);
+  assert.match(importComponent, /more than 1,000 usable rows/);
+});
+
+test("patient import preview blocks invalid rows and validates edited values before submission", () => {
+  assert.match(importParser, /export function getPatientImportRowErrors/);
+  assert.match(importParser, /Package sessions must be a whole number from 1 to 1,000/);
+  assert.match(importComponent, /Correct validation errors in/);
+  assert.match(importComponent, /summary\.invalidRows > 0/);
+  assert.match(importComponent, /Rows needing correction/);
+});
+
+test("spreadsheet import rejects oversized files and warns about malformed financial values", () => {
+  assert.match(importParser, /file\.size > 10 \* 1024 \* 1024/);
+  assert.match(importParser, /Invalid or out-of-range value in/);
+  assert.match(importParser, /More than two decimal places in/);
+  assert.match(importParser, /Do not combine a package fee and a per-session fee/);
+});
+
+test("patient portal uses the PainFix navy and restrained green clinical layout", () => {
+  assert.match(portalSource, /bg-\[#F4F7FA\]/);
+  assert.match(portalSource, /border-t-\[#00A859\]/);
+  assert.match(portalSource, /Physiotherapy Clinic · Multan/);
+});
+
+test("CSV parser preserves quoted multiline fields and rejects unclosed quotes", () => {
+  assert.match(importParser, /function parseCsvRecords\(source: string, delimiter: string\)/);
+  assert.match(importParser, /CSV contains an unclosed quoted field/);
+  assert.match(importParser, /records\s*\.slice\(1\)/);
+});
+
+test("sessions cannot be scheduled outside billing plan validity dates in the UI or database", () => {
+  assert.match(patientDetailSource, /This session is before the billing plan start date/);
+  assert.match(patientDetailSource, /This session is after the billing plan end date/);
+  const dateGuard = fs.readFileSync(
+    path.join(root, "supabase/migrations/20261127020000_personal_patient_plan_date_guard.sql"),
+    "utf8",
+  );
+  assert.match(dateGuard, /security invoker/);
+  assert.match(dateGuard, /Asia\/Karachi/);
+  assert.match(
+    dateGuard,
+    /before insert or update of plan_id, patient_id, clinician_id, session_date/,
+  );
+  assert.match(dateGuard, /Session date is before the billing plan start date/);
+  assert.match(dateGuard, /Session date is after the billing plan end date/);
+});

@@ -41,6 +41,43 @@ function parseCsvLine(line: string, delimiter: string): string[] {
   return values;
 }
 
+function parseCsvRecords(source: string, delimiter: string): string[][] {
+  const records: string[][] = [];
+  let record: string[] = [];
+  let value = "";
+  let quoted = false;
+
+  for (let i = 0; i < source.length; i += 1) {
+    const char = source[i];
+    if (char === '"') {
+      if (quoted && source[i + 1] === '"') {
+        value += '"';
+        i += 1;
+      } else {
+        quoted = !quoted;
+      }
+    } else if (char === delimiter && !quoted) {
+      record.push(value.trim());
+      value = "";
+    } else if ((char === "\n" || char === "\r") && !quoted) {
+      record.push(value.trim());
+      if (record.some((cell) => cell.length > 0)) records.push(record);
+      record = [];
+      value = "";
+      if (char === "\r" && source[i + 1] === "\n") i += 1;
+    } else {
+      value += char;
+    }
+  }
+
+  if (quoted) throw new Error("CSV contains an unclosed quoted field.");
+  if (value.length || record.length) {
+    record.push(value.trim());
+    if (record.some((cell) => cell.length > 0)) records.push(record);
+  }
+  return records;
+}
+
 const normalise = (value: string) => value.toLowerCase().replace(/[^a-z0-9]/g, "");
 
 const aliases: Record<string, string[]> = {
@@ -79,21 +116,70 @@ function parseDate(value: string): string | null {
   return Number.isNaN(date.getTime()) ? null : date.toISOString();
 }
 
-export function parsePatientCsv(text: string): ImportedPatientRow[] {
-  const lines = text
-    .replace(/^\uFEFF/, "")
-    .split(/\r?\n/)
-    .filter((line) => line.trim());
+export function getPatientImportRowErrors(row: ImportedPatientRow): string[] {
+  const errors: string[] = [];
+  const validMoney = (value: number | null, label: string) => {
+    if (value == null) return;
+    if (!Number.isFinite(value) || value < 0 || value > 1_000_000_000) {
+      errors.push(`${label} must be between 0 and 1,000,000,000 PKR`);
+    } else if (Math.round(value * 100) !== value * 100) {
+      errors.push(`${label} can have at most two decimal places`);
+    }
+  };
 
-  if (lines.length < 2) {
+  if (!row.name.trim() || row.name.trim().length > 160) {
+    errors.push("Patient name is required and must be 160 characters or fewer");
+  }
+  if (row.phone.length > 40) errors.push("Phone number must be 40 characters or fewer");
+  if (row.email.length > 254) errors.push("Email must be 254 characters or fewer");
+  if (row.sessionLabel.length > 500) {
+    errors.push("Session description must be 500 characters or fewer");
+  }
+
+  const hasPackageField =
+    Boolean(row.packageTitle.trim()) || row.packageSessions != null || row.packageFee != null;
+  if (hasPackageField) {
+    if (!row.packageTitle.trim() || row.packageSessions == null || row.packageFee == null) {
+      errors.push("Package title, session count and fee must all be supplied together");
+    }
+    if (
+      row.packageSessions != null &&
+      (!Number.isInteger(row.packageSessions) ||
+        row.packageSessions < 1 ||
+        row.packageSessions > 1000)
+    ) {
+      errors.push("Package sessions must be a whole number from 1 to 1,000");
+    }
+    if (row.packageTitle.trim().length > 100) {
+      errors.push("Package title must be 100 characters or fewer");
+    }
+  }
+
+  validMoney(row.packageFee, "Package fee");
+  validMoney(row.sessionFee, "Session fee");
+  validMoney(row.payment, "Payment");
+  if (row.packageFee != null && row.sessionFee != null && row.sessionFee > 0) {
+    errors.push("Choose either a package fee or a per-session fee, not both");
+  }
+  if (row.sessionDate && Number.isNaN(new Date(row.sessionDate).getTime())) {
+    errors.push("Session date is invalid");
+  }
+  return errors;
+}
+
+export function parsePatientCsv(text: string): ImportedPatientRow[] {
+  const source = text.replace(/^\uFEFF/, "");
+  const firstLine = source.split(/\r?\n/, 1)[0] ?? "";
+  const delimiter = [",", ";", "\t"].sort(
+    (a, b) => parseCsvLine(firstLine, b).length - parseCsvLine(firstLine, a).length,
+  )[0];
+  const records = parseCsvRecords(source, delimiter);
+
+  if (records.length < 2) {
     throw new Error("CSV must contain a header row and at least one data row.");
   }
 
-  const first = lines[0];
-  const delimiter = [",", ";", "\t"].sort(
-    (a, b) => parseCsvLine(first, b).length - parseCsvLine(first, a).length,
-  )[0];
-  const headers = parseCsvLine(first, delimiter).map(normalise);
+  const headers = records[0].map(normalise);
 
   const indexes = Object.fromEntries(
     Object.entries(aliases).map(([key, names]) => [
@@ -109,10 +195,9 @@ export function parsePatientCsv(text: string): ImportedPatientRow[] {
   const get = (cells: string[], key: keyof typeof aliases) =>
     indexes[key] < 0 ? "" : (cells[indexes[key]] ?? "");
 
-  return lines
+  return records
     .slice(1)
-    .map((line, index) => {
-      const cells = parseCsvLine(line, delimiter);
+    .map((cells, index) => {
       const name = get(cells, "name");
       const warnings: string[] = [];
       const dateRaw = get(cells, "sessionDate");
@@ -144,11 +229,30 @@ export function parsePatientCsv(text: string): ImportedPatientRow[] {
         if (!raw) return null;
 
         const parsed = Number(raw);
-        return Number.isFinite(parsed) && parsed >= 0 ? parsed : null;
+        if (!Number.isFinite(parsed) || parsed < 0 || parsed > 1_000_000_000) {
+          warnings.push(`Invalid or out-of-range value in ${key}`);
+          return null;
+        }
+        if (Math.round(parsed * 100) !== parsed * 100) {
+          warnings.push(`More than two decimal places in ${key}`);
+          return null;
+        }
+        return parsed;
       };
 
       if (!name.trim()) {
         warnings.push("Missing patient name");
+      }
+      const packageFields = [
+        get(cells, "packageTitle"),
+        get(cells, "packageSessions"),
+        get(cells, "packageFee"),
+      ];
+      if (packageFields.some(Boolean) && !packageFields.every(Boolean)) {
+        warnings.push("Package title, session count and fee must all be supplied together");
+      }
+      if (get(cells, "packageFee") && get(cells, "sessionFee")) {
+        warnings.push("Do not combine a package fee and a per-session fee in the same row");
       }
 
       return {
@@ -299,6 +403,9 @@ async function parseXlsx(file: File): Promise<ImportedPatientRow[]> {
 }
 
 export async function parsePatientFile(file: File): Promise<ImportedPatientRow[]> {
+  if (file.size > 10 * 1024 * 1024) {
+    throw new Error("File is larger than 10 MB. Split it into smaller files before importing.");
+  }
   const name = file.name.toLowerCase();
   if (name.endsWith(".csv") || file.type === "text/csv") {
     return parsePatientCsv(await file.text());

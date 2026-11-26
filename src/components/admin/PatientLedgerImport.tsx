@@ -4,6 +4,7 @@ import { toast } from "sonner";
 import { AlertTriangle, FileUp } from "lucide-react";
 import { personalPatientDb } from "@/admin/personal-patients.db";
 import {
+  getPatientImportRowErrors,
   parsePatientCsv,
   parsePatientFile,
   type ImportedPatientRow,
@@ -39,33 +40,64 @@ export function PatientLedgerImport({ clinicianId, patients, onImported }: Props
   const [sheetUrl, setSheetUrl] = useState("");
 
   const summary = useMemo(() => {
-    const unique = new Map<string, ImportedPatientRow>();
+    const parent = rows.map((_, index) => index);
+    const find = (index: number): number => {
+      if (parent[index] !== index) parent[index] = find(parent[index]);
+      return parent[index];
+    };
+    const union = (left: number, right: number) => {
+      const a = find(left);
+      const b = find(right);
+      if (a !== b) parent[b] = a;
+    };
+    const firstByPhone = new Map<string, number>();
+    const firstByName = new Map<string, number>();
 
-    rows.forEach((row) => {
-      unique.set((row.phone || row.name).toLowerCase().replace(/\s/g, ""), row);
+    rows.forEach((row, index) => {
+      const phone = row.phone.replace(/\D/g, "");
+      const name = row.name.trim().toLowerCase().replace(/\s+/g, " ");
+      if (phone) {
+        const existing = firstByPhone.get(phone);
+        if (existing != null) union(index, existing);
+        else firstByPhone.set(phone, index);
+      }
+      if (name) {
+        const existing = firstByName.get(name);
+        if (existing != null) union(index, existing);
+        else firstByName.set(name, index);
+      }
     });
 
-    const matches = rows.filter((row) =>
-      patients.some(
+    const uniqueRoots = new Set(rows.map((_, index) => find(index)));
+    const matchedPatientIds = new Set<string>();
+    rows.forEach((row) => {
+      const phone = row.phone.replace(/\D/g, "");
+      const name = row.name.trim().toLowerCase();
+      const match = patients.find(
         (patient) =>
-          (row.phone &&
-            patient.phone &&
-            row.phone.replace(/\D/g, "") === patient.phone.replace(/\D/g, "")) ||
-          patient.full_name.trim().toLowerCase() === row.name.trim().toLowerCase(),
-      ),
-    ).length;
+          (phone && patient.phone && phone === patient.phone.replace(/\D/g, "")) ||
+          patient.full_name.trim().toLowerCase() === name,
+      );
+      if (match) matchedPatientIds.add(match.id);
+    });
 
     return {
-      patients: unique.size,
-      matches,
+      patients: uniqueRoots.size,
+      matches: matchedPatientIds.size,
+      duplicateRows: Math.max(0, rows.length - uniqueRoots.size),
       sessions: rows.filter((row) => row.sessionDate).length,
       warnings: rows.reduce((count, row) => count + row.warnings.length, 0),
+      invalidRows: rows.filter((row) => getPatientImportRowErrors(row).length > 0).length,
     };
   }, [rows, patients]);
 
   const importMutation = useMutation({
     mutationFn: async () => {
       if (!rows.length) throw new Error("There are no valid rows to import.");
+      const invalidCount = rows.filter((row) => getPatientImportRowErrors(row).length > 0).length;
+      if (invalidCount) {
+        throw new Error(`Correct validation errors in ${invalidCount} row(s) before importing.`);
+      }
       const rpcClient = personalPatientDb as unknown as {
         rpc: (
           fn: string,
@@ -120,6 +152,16 @@ export function PatientLedgerImport({ clinicianId, patients, onImported }: Props
 
     try {
       const parsed = await parsePatientFile(file);
+      if (!parsed.length) {
+        throw new Error(
+          "No rows with a patient name were found. Check the file headers and patient-name column.",
+        );
+      }
+      if (parsed.length > 1000) {
+        throw new Error(
+          "This file contains more than 1,000 usable rows. Split it into smaller batches.",
+        );
+      }
       setRows(parsed);
       setFileName(file.name);
       setOpen(true);
@@ -229,7 +271,7 @@ export function PatientLedgerImport({ clinicianId, patients, onImported }: Props
             </DialogDescription>
           </DialogHeader>
 
-          <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
+          <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
             <div className="rounded-lg border p-3">
               <p className="text-xs text-muted-foreground">Patients</p>
               <p className="text-xl font-semibold">{summary.patients}</p>
@@ -241,6 +283,14 @@ export function PatientLedgerImport({ clinicianId, patients, onImported }: Props
             <div className="rounded-lg border p-3">
               <p className="text-xs text-muted-foreground">Session dates</p>
               <p className="text-xl font-semibold">{summary.sessions}</p>
+            </div>
+            <div className="rounded-lg border p-3">
+              <p className="text-xs text-muted-foreground">Repeated rows</p>
+              <p className="text-xl font-semibold">{summary.duplicateRows}</p>
+            </div>
+            <div className="rounded-lg border border-red-200 bg-red-50/50 p-3">
+              <p className="text-xs text-red-700">Rows needing correction</p>
+              <p className="text-xl font-semibold text-red-800">{summary.invalidRows}</p>
             </div>
             <div className="rounded-lg border p-3">
               <p className="text-xs text-muted-foreground">Warnings</p>
@@ -266,6 +316,7 @@ export function PatientLedgerImport({ clinicianId, patients, onImported }: Props
               </thead>
               <tbody>
                 {rows.slice(0, 150).map((row) => {
+                  const rowErrors = getPatientImportRowErrors(row);
                   const update = (patch: Partial<ImportedPatientRow>) =>
                     setRows((current) =>
                       current.map((item) =>
@@ -382,11 +433,19 @@ export function PatientLedgerImport({ clinicianId, patients, onImported }: Props
                         />
                       </td>
                       <td className="p-2">
-                        {row.warnings.length ? (
-                          <span className="text-amber-600">{row.warnings.join(", ")}</span>
-                        ) : (
-                          "—"
-                        )}
+                        <div className="space-y-1">
+                          {rowErrors.map((error) => (
+                            <p key={error} className="text-red-700">
+                              {error}
+                            </p>
+                          ))}
+                          {row.warnings.map((warning) => (
+                            <p key={warning} className="text-amber-700">
+                              {warning}
+                            </p>
+                          ))}
+                          {!rowErrors.length && !row.warnings.length ? "—" : null}
+                        </div>
                       </td>
                     </tr>
                   );
@@ -404,7 +463,8 @@ export function PatientLedgerImport({ clinicianId, patients, onImported }: Props
           {summary.warnings > 0 && (
             <p className="flex items-center gap-2 text-sm text-amber-700">
               <AlertTriangle className="h-4 w-4" />
-              Review warnings. Unknown session statuses remain unfinalised.
+              Correct all red validation errors before import. Amber warnings need review; unknown
+              session statuses remain unfinalised.
             </p>
           )}
 
@@ -418,7 +478,7 @@ export function PatientLedgerImport({ clinicianId, patients, onImported }: Props
             </Button>
             <Button
               onClick={() => importMutation.mutate()}
-              disabled={importMutation.isPending || !rows.length}
+              disabled={importMutation.isPending || !rows.length || summary.invalidRows > 0}
             >
               {importMutation.isPending ? "Importing…" : "Confirm and import"}
             </Button>
