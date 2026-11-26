@@ -36,7 +36,8 @@ const CONTENT_WIDTH = RIGHT - LEFT;
 
 export function treatmentVerificationUrl(token: string) {
   if (!/^[a-f0-9]{64}$/.test(token)) throw new Error("Invalid verification token.");
-  return "https://painfixphysiotherapy.com/verify-certificate?type=treatment&reference=" + encodeURIComponent(token);
+  const origin = typeof window !== "undefined" ? window.location.origin : "https://painfixphysiotherapy.com";
+  return origin + "/verify-certificate?type=treatment&reference=" + encodeURIComponent(token);
 }
 
 function dateLabel(value: string) {
