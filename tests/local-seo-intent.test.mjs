@@ -171,6 +171,24 @@ test("local Multan landing pages describe home visits as available citywide", as
   assert.match(homeVisit, /تمام علاقوں میں گھر پر فزیوتھراپی وزٹس/);
 });
 
+test("lower-back exercise article provides a scannable, non-prescriptive dosage reference", async () => {
+  const route = await read("src/routes/blog.$slug.tsx");
+  assert.match(route, /Quick reference: repetitions and starting dose/);
+  assert.match(route, /one set of one or two comfortable exercises/);
+  for (const exercise of [
+    "Pelvic tilts",
+    "Cat–cow",
+    "Single knee-to-chest",
+    "Glute bridge",
+    "Bird-dog",
+    "Dead bug",
+  ]) {
+    assert.ok(route.includes(exercise), `missing dosage reference for ${exercise}`);
+  }
+  assert.match(route, /Movement focus/);
+  assert.match(route, /Stop and seek clinical/);
+});
+
 test("lower-back exercise article includes accessible, attributed exercise images", async () => {
   const gallery = await read("src/components/site/LowerBackExerciseGallery.tsx");
   const articleRoute = await read("src/routes/blog.$slug.tsx");
