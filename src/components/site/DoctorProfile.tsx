@@ -83,7 +83,10 @@ export function DoctorProfile({ doc }: { doc: TeamMember }) {
               </div>
               <div className="mt-6 space-y-3">
                 {doc.profile.intro.map((p) => (
-                  <p key={p} className="max-w-3xl text-sm leading-7 text-primary-foreground/85 sm:text-base">
+                  <p
+                    key={p}
+                    className="max-w-3xl text-sm leading-7 text-primary-foreground/85 sm:text-base"
+                  >
                     {p}
                   </p>
                 ))}
