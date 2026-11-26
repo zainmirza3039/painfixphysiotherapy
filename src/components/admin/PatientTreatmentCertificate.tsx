@@ -248,11 +248,7 @@ export function PatientTreatmentCertificate({
     const dates = completed.map((session) => localDay(session.session_date)).sort();
     setStart(dates[0] ?? "");
     setEnd(dates.at(-1) ?? "");
-    setSummary(
-      Array.from(
-        new Set(completed.map((session) => session.session_label?.trim()).filter(Boolean)),
-      ).join("; "),
-    );
+    setSummary("");
     setDiagnosis("");
     setFindings("");
     setAdvice("");
@@ -369,7 +365,7 @@ export function PatientTreatmentCertificate({
                 value={diagnosis}
                 onChange={(event) => setDiagnosis(event.target.value)}
                 maxLength={240}
-                placeholder="Enter documented diagnosis"
+                placeholder="Enter the diagnosis recorded in the clinical notes"
               />
             </div>
             <div className="space-y-1">
@@ -396,8 +392,8 @@ export function PatientTreatmentCertificate({
                 rows={3}
                 value={summary}
                 onChange={(event) => setSummary(event.target.value)}
-                maxLength={1200}
-                placeholder="Documented treatment details only; do not include private notes."
+                maxLength={500}
+                placeholder="Enter the interventions actually delivered during attended sessions."
               />
             </div>
 
