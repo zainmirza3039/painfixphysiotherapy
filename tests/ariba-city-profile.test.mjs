@@ -54,6 +54,6 @@ test("profile intro constrains its mobile grid and wraps long managed biography 
   assert.match(profile, /gap-10/);
   assert.match(
     profile,
-    /className="break-words max-w-3xl text-sm leading-7 text-primary-foreground\/85 sm:text-base"/,
+    /className="break-words max-w-3xl text-sm leading-7 text-slate-700 dark:text-slate-300 sm:text-base"/,
   );
 });
