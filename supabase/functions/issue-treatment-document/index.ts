@@ -96,8 +96,8 @@ Deno.serve(async (req) => {
       .eq("clinician_id", clinician.id)
       .eq("status", "completed")
       .is("deleted_at", null)
-      .gte("session_date", treatmentStart + "T00:00:00.000Z")
-      .lte("session_date", treatmentEnd + "T23:59:59.999Z");
+      .gte("session_date", new Date(treatmentStart + "T00:00:00+05:00").toISOString())
+      .lte("session_date", new Date(treatmentEnd + "T23:59:59.999+05:00").toISOString());
     if (sessionsError) return response(req, { error: "Could not validate completed sessions." }, 500);
     if (!sessions?.length) return response(req, { error: "No completed sessions exist in the selected treatment period." }, 400);
 
