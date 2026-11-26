@@ -252,7 +252,10 @@ const patientDetailSource = fs.readFileSync(
   path.join(root, "src/routes/_authenticated/admin.personal-patients.$patientId.tsx"),
   "utf8",
 );
-const portalSource = fs.readFileSync(path.join(root, "src/routes/patient-portal.$token.tsx"), "utf8");
+const portalSource = fs.readFileSync(
+  path.join(root, "src/routes/patient-portal.$token.tsx"),
+  "utf8",
+);
 const importComponent = fs.readFileSync(
   path.join(root, "src/components/admin/PatientLedgerImport.tsx"),
   "utf8",
