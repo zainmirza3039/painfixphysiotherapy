@@ -70,11 +70,28 @@ const GA4_SCRIPT = `(function () {
   window.gtag("js", new Date());
   window.gtag("config", "${GA4_MEASUREMENT_ID}", { send_page_view: false });
 
-  var script = document.createElement("script");
-  script.async = true;
-  script.dataset.ga4Measurement = "${GA4_MEASUREMENT_ID}";
-  script.src = "https://www.googletagmanager.com/gtag/js?id=${GA4_MEASUREMENT_ID}";
-  document.head.appendChild(script);
+  function loadGA4() {
+    if (document.querySelector('script[data-ga4-measurement="${GA4_MEASUREMENT_ID}"]')) return;
+    var script = document.createElement("script");
+    script.async = true;
+    script.dataset.ga4Measurement = "${GA4_MEASUREMENT_ID}";
+    script.src = "https://www.googletagmanager.com/gtag/js?id=${GA4_MEASUREMENT_ID}";
+    document.head.appendChild(script);
+  }
+
+  function scheduleGA4() {
+    if ("requestIdleCallback" in window) {
+      window.requestIdleCallback(loadGA4, { timeout: 5000 });
+    } else {
+      window.setTimeout(loadGA4, 2000);
+    }
+  }
+
+  if (document.readyState === "complete") {
+    scheduleGA4();
+  } else {
+    window.addEventListener("load", scheduleGA4, { once: true });
+  }
 
   // Track contact and appointment intent without collecting form values or other
   // patient-identifying information. Events use GA4's recommended generate_lead.
