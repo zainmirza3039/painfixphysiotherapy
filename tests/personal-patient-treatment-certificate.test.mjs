@@ -11,6 +11,7 @@ const pdf = readFileSync("src/lib/treatment-certificate-pdf.ts", "utf8");
 const route = readFileSync("src/routes/verify-certificate.tsx", "utf8");
 const detail = readFileSync("src/routes/_authenticated/admin.personal-patients.$patientId.tsx", "utf8");
 const verifyFunction = readFileSync("supabase/functions/verify-treatment-document/index.ts", "utf8");
+const issueFunction = readFileSync("supabase/functions/issue-treatment-document/index.ts", "utf8");
 
 test("certificate snapshots are owner-scoped, immutable and revocable", () => {
   assert.match(migration, /verification_token_hash text not null unique/);
@@ -49,4 +50,13 @@ test("A4 PDF contains the agreed clinical, financial, payment and verification s
     "Outstanding balance",
   ]) assert.ok(pdf.includes(label), "Missing PDF field: " + label);
   assert.match(pdf, /insurance/);
+});
+
+test("issuance validates clinician ownership, consent, completed sessions and ledger server-side", () => {
+  assert.match(issueFunction, /auth\.getUser\(\)/);
+  assert.match(issueFunction, /eq\("clinician_id", clinician\.id\)/);
+  assert.match(issueFunction, /eq\("status", "completed"\)/);
+  assert.match(issueFunction, /consentConfirmed !== true/);
+  assert.match(issueFunction, /personal_patient_ledger/);
+  assert.doesNotMatch(component, /\.insert\(\{/);
 });
