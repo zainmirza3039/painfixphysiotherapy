@@ -62,6 +62,7 @@ import { Route as AuthenticatedAdminBlogEditorRouteImport } from './routes/_auth
 import { Route as AuthenticatedAdminCalculatorsRouteImport } from './routes/_authenticated/admin.calculators'
 import { Route as AuthenticatedAdminCertificatesRouteImport } from './routes/_authenticated/admin.certificates'
 import { Route as AuthenticatedAdminCliniciansRouteImport } from './routes/_authenticated/admin.clinicians'
+import { Route as AuthenticatedAdminClinicianLedgersRouteImport } from './routes/_authenticated/admin.clinician-ledgers'
 import { Route as AuthenticatedAdminExperienceRecordsRouteImport } from './routes/_authenticated/admin.experience-records'
 import { Route as AuthenticatedAdminFitnessContentRouteImport } from './routes/_authenticated/admin.fitness-content'
 import { Route as AuthenticatedAdminGalleryRouteImport } from './routes/_authenticated/admin.gallery'
@@ -417,6 +418,11 @@ const AuthenticatedAdminPersonalPatientsRoute =
     path: '/personal-patients',
     getParentRoute: () => AuthenticatedAdminRoute,
   } as any)
+const AuthenticatedAdminClinicianLedgersRoute = AuthenticatedAdminClinicianLedgersRouteImport.update({
+  id: '/clinician-ledgers',
+  path: '/clinician-ledgers',
+  getParentRoute: () => AuthenticatedAdminRoute,
+} as any)
 const AuthenticatedAdminProfileRoute =
   AuthenticatedAdminProfileRouteImport.update({
     id: '/profile',
@@ -515,6 +521,8 @@ export interface FileRoutesByFullPath {
   '/admin/messages': typeof AuthenticatedAdminMessagesRoute
   '/admin/patients': typeof AuthenticatedAdminPatientsRoute
   '/admin/personal-patients': typeof AuthenticatedAdminPersonalPatientsRouteWithChildren
+  '/admin/clinician-ledgers': typeof AuthenticatedAdminClinicianLedgersRoute
+  '/admin/clinician-ledgers': typeof AuthenticatedAdminClinicianLedgersRoute
   '/admin/profile': typeof AuthenticatedAdminProfileRoute
   '/admin/reports': typeof AuthenticatedAdminReportsRoute
   '/admin/settings': typeof AuthenticatedAdminSettingsRoute
@@ -658,6 +666,7 @@ export interface FileRoutesById {
   '/_authenticated/admin/messages': typeof AuthenticatedAdminMessagesRoute
   '/_authenticated/admin/patients': typeof AuthenticatedAdminPatientsRoute
   '/_authenticated/admin/personal-patients': typeof AuthenticatedAdminPersonalPatientsRouteWithChildren
+  '/_authenticated/admin/clinician-ledgers': typeof AuthenticatedAdminClinicianLedgersRoute
   '/_authenticated/admin/profile': typeof AuthenticatedAdminProfileRoute
   '/_authenticated/admin/reports': typeof AuthenticatedAdminReportsRoute
   '/_authenticated/admin/settings': typeof AuthenticatedAdminSettingsRoute
@@ -731,6 +740,7 @@ export interface FileRouteTypes {
     | '/admin/messages'
     | '/admin/patients'
     | '/admin/personal-patients'
+    | '/admin/clinician-ledgers'
     | '/admin/profile'
     | '/admin/reports'
     | '/admin/settings'
@@ -873,6 +883,7 @@ export interface FileRouteTypes {
     | '/_authenticated/admin/messages'
     | '/_authenticated/admin/patients'
     | '/_authenticated/admin/personal-patients'
+    | '/_authenticated/admin/clinician-ledgers'
     | '/_authenticated/admin/profile'
     | '/_authenticated/admin/reports'
     | '/_authenticated/admin/settings'
@@ -1374,6 +1385,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminPatientsRouteImport
       parentRoute: typeof AuthenticatedAdminRoute
     }
+    '/_authenticated/admin/clinician-ledgers': {
+      id: '/_authenticated/admin/clinician-ledgers'
+      path: '/clinician-ledgers'
+      fullPath: '/admin/clinician-ledgers'
+      preLoaderRoute: typeof AuthenticatedAdminClinicianLedgersRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
     '/_authenticated/admin/personal-patients': {
       id: '/_authenticated/admin/personal-patients'
       path: '/personal-patients'
@@ -1448,6 +1466,7 @@ interface AuthenticatedAdminRouteChildren {
   AuthenticatedAdminCalculatorsRoute: typeof AuthenticatedAdminCalculatorsRoute
   AuthenticatedAdminCertificatesRoute: typeof AuthenticatedAdminCertificatesRoute
   AuthenticatedAdminCliniciansRoute: typeof AuthenticatedAdminCliniciansRoute
+  AuthenticatedAdminClinicianLedgersRoute: typeof AuthenticatedAdminClinicianLedgersRoute
   AuthenticatedAdminExperienceRecordsRoute: typeof AuthenticatedAdminExperienceRecordsRoute
   AuthenticatedAdminFitnessContentRoute: typeof AuthenticatedAdminFitnessContentRoute
   AuthenticatedAdminGalleryRoute: typeof AuthenticatedAdminGalleryRoute
@@ -1473,6 +1492,7 @@ const AuthenticatedAdminRouteChildren: AuthenticatedAdminRouteChildren = {
   AuthenticatedAdminCalculatorsRoute: AuthenticatedAdminCalculatorsRoute,
   AuthenticatedAdminCertificatesRoute: AuthenticatedAdminCertificatesRoute,
   AuthenticatedAdminCliniciansRoute: AuthenticatedAdminCliniciansRoute,
+  AuthenticatedAdminClinicianLedgersRoute: AuthenticatedAdminClinicianLedgersRoute,
   AuthenticatedAdminExperienceRecordsRoute:
     AuthenticatedAdminExperienceRecordsRoute,
   AuthenticatedAdminFitnessContentRoute: AuthenticatedAdminFitnessContentRoute,
