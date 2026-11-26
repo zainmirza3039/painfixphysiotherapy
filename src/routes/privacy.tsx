@@ -18,7 +18,7 @@ export const Route = createFileRoute("/privacy")({
     const path = "/privacy";
     return {
       meta: pageMeta({
-        title: "Privacy & Cookie Policy — PainFix Physiotherapy Clinic, Multan",
+        title: "Privacy & Cookie Policy | PainFix Multan",
         description:
           "How PainFix Physiotherapy Clinic collects, uses, stores and protects your personal and health information, including cookies and your data rights.",
         path,

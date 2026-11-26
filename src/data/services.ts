@@ -116,7 +116,7 @@ export const services: Service[] = [
     shortTitle: "Exercise Therapy",
     icon: Dumbbell,
     tagline: "Personalized exercise programmes that rebuild strength and function",
-    metaTitle: "Exercise Therapy in Multan | Rehabilitation Programmes — PainFix",
+    metaTitle: "Exercise Therapy in Multan | PainFix",
     metaDescription:
       "Personalized exercise therapy in Multan to rebuild strength, mobility and endurance. Evidence-based rehabilitation programmes at PainFix Physiotherapy Clinic.",
     overview: [

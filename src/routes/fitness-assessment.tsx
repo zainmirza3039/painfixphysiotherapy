@@ -12,7 +12,7 @@ import { pageMeta, canonical, breadcrumbLd, faqLd } from "@/lib/seo";
 import { SITE_URL } from "@/components/site/constants";
 
 const PATH = "/fitness-assessment";
-const TITLE = "Free Fitness Assessment in Multan | BMI, Body Fat & Goals | PainFix";
+const TITLE = "Free Fitness Assessment in Multan | PainFix";
 const DESCRIPTION =
   "Free online fitness assessment at PainFix Multan — check your BMI, estimate body fat, screen your posture and set fitness goals with physiotherapist guidance.";
 

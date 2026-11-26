@@ -11,7 +11,7 @@ import { SITE_URL } from "@/components/site/constants";
 import { pageMeta, canonical, breadcrumbLd, faqLd } from "@/lib/seo";
 
 const PATH = "/health-calculators";
-const TITLE = "Free Health Calculators | BMI, Calorie, Protein & Water — PainFix";
+const TITLE = "Free Health Calculators | PainFix Multan";
 const DESCRIPTION =
   "Free health calculators from PainFix Multan for BMI, calories, ideal weight, protein and water intake. Estimates are educational, not diagnoses.";
 
