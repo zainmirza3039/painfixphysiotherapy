@@ -1046,7 +1046,9 @@ function PersonalPatientDetailPage() {
             const daySessions =
               day == null
                 ? []
-                : monthSessions.filter((session) => new Date(session.session_date).getDate() === day);
+                : monthSessions.filter(
+                    (session) => new Date(session.session_date).getDate() === day,
+                  );
             const dateKey =
               day == null
                 ? ""
@@ -1126,18 +1128,15 @@ function PersonalPatientDetailPage() {
                 )}
               </p>
               <p className="text-xs text-muted-foreground">
-                {selectedDaySessions.length} {selectedDaySessions.length === 1 ? "session" : "sessions"}
+                {selectedDaySessions.length}{" "}
+                {selectedDaySessions.length === 1 ? "session" : "sessions"}
                 {selectedDayBlock
                   ? " · " + (selectedDayBlock.block_type === "leave" ? "Leave" : "Off day")
                   : ""}
               </p>
             </div>
             <div className="flex flex-wrap gap-2">
-              <Button
-                size="sm"
-                onClick={openSessionForDate}
-                disabled={Boolean(selectedDayBlock)}
-              >
+              <Button size="sm" onClick={openSessionForDate} disabled={Boolean(selectedDayBlock)}>
                 <CalendarPlus className="mr-1 h-4 w-4" />
                 Add session
               </Button>
@@ -1214,9 +1213,7 @@ function PersonalPatientDetailPage() {
             </p>
           )}
           {selectedDayBlock?.note && (
-            <p className="mt-2 text-xs text-muted-foreground">
-              Note: {selectedDayBlock.note}
-            </p>
+            <p className="mt-2 text-xs text-muted-foreground">Note: {selectedDayBlock.note}</p>
           )}
           {selectedDayBlock && (
             <p className="mt-2 text-xs text-amber-700 dark:text-amber-300">
