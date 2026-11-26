@@ -30,7 +30,8 @@ test("GA4 records phone, WhatsApp, appointment CTA and lead-form events without 
   assert.match(source, /lead_method: leadMethod/);
   assert.match(source, /lead_method: leadType \+ "_form"/);
   assert.match(source, /appointment_cta_click/);
-  assert.match(source, /wa\\.me\|api\\.whatsapp\\.com/);
+  assert.match(source, /href\.includes\("wa\.me"\)/);
+  assert.match(source, /href\.includes\("api\.whatsapp\.com"\)/);
   assert.match(source, /transport_type: "beacon"/);
   assert.doesNotMatch(source, /form\.elements|FormData\(form\)|event\.target\.value/);
 });
