@@ -15,12 +15,12 @@ test("Dr Zain's public identity separates leadership, clinical occupation, and d
     read("supabase/migrations/20261126120000_normalize_zain_profile_copy.sql"),
   ]);
 
-  assert.match(llms, /Founder & Head Physiotherapist at PainFix Physiotherapy Clinic/);
+  assert.match(llms, /Founder & Head Physiotherapist at PainFix Physiotherapy Clinic/);\n  assert.match(llms, /### Dr\\. Zain Ul Abideen PT/);
   assert.match(llms, /Doctor of Physical Therapy \(DPT\)/);
   assert.match(llms, /practises as a Clinical Physiotherapist/);
 
   assert.match(profile, /Founder & Head Physiotherapist/);
-  assert.match(profile, /Clinical Physiotherapist · Clinic-based physiotherapy · Multan/);
+  assert.match(profile, /PainFix Clinical Team/);\n  assert.match(profile, /Clinical Physiotherapist/);
   assert.doesNotMatch(profile, /Founder & Lead Physiotherapist/);
   assert.match(team, /fullName: "Dr. Zain Ul Abideen, DPT"/);
   assert.doesNotMatch(team, /Dr\. Zain Ul Abideen PT/);
