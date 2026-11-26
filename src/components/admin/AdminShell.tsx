@@ -44,7 +44,7 @@ import {
   CommandList,
 } from "@/components/ui/command";
 
-type Gate = "staff" | "admin" | "content" | "professional" | "clinical" | "superadmin";
+type Gate = "staff" | "admin" | "content" | "professional" | "clinical" | "superadmin" | "ownledger";
 interface NavItem {
   to: string;
   label: string;
@@ -57,7 +57,7 @@ const NAV: NavItem[] = [
     to: "/admin/personal-patients",
     label: "Personal patient ledger",
     icon: UserCircle,
-    gate: "clinical",
+    gate: "ownledger",
   },
   {
     to: "/admin/clinician-ledgers",
@@ -254,6 +254,7 @@ export function AdminShell({ children }: { children: ReactNode }) {
     professional: isProfessional,
     clinical: hasRole("clinical_physiotherapist"),
     superadmin: isSuperAdmin,
+    ownledger: hasRole("clinical_physiotherapist") || isSuperAdmin,
   };
   const items = NAV.filter((item) => gatePass[item.gate]);
   const sections = SECTIONS.map((section) => ({
