@@ -20,6 +20,8 @@ import {
   SlidersHorizontal,
   CalendarDays,
   MessageCircle,
+  Trash2,
+  CalendarOff,
 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { personalPatientDb } from "@/admin/personal-patients.db";
@@ -70,6 +72,13 @@ type Session = {
   session_label: string | null;
   charge_amount: number;
   private_note: string | null;
+  deleted_at: string | null;
+};
+type CalendarBlock = {
+  id: string;
+  block_date: string;
+  block_type: "off" | "leave";
+  note: string | null;
 };
 type Entry = {
   id: string;
@@ -121,6 +130,13 @@ function PersonalPatientDetailPage() {
   const [calendarMonth, setCalendarMonth] = useState(
     () => new Date(new Date().getFullYear(), new Date().getMonth(), 1),
   );
+  const [selectedCalendarDate, setSelectedCalendarDate] = useState(() => {
+    const now = new Date();
+    return `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}-${String(now.getDate()).padStart(2, "0")}`;
+  });
+  const [leaveOpen, setLeaveOpen] = useState(false);
+  const [leaveType, setLeaveType] = useState<"off" | "leave">("off");
+  const [leaveNote, setLeaveNote] = useState("");
   const [planType, setPlanType] = useState<"package" | "per_session" | "custom">("package");
   const [planTitle, setPlanTitle] = useState("Physiotherapy package");
   const [packageSessions, setPackageSessions] = useState("10");
@@ -228,7 +244,7 @@ function PersonalPatientDetailPage() {
           .order("created_at", { ascending: false }),
         db
           .from("personal_patient_sessions")
-          .select("id,plan_id,session_date,status,session_label,charge_amount,private_note")
+          .select("id,plan_id,session_date,status,session_label,charge_amount,private_note,deleted_at")
           .eq("patient_id", patientId)
           .order("session_date", { ascending: false }),
         db
@@ -237,19 +253,25 @@ function PersonalPatientDetailPage() {
           .eq("patient_id", patientId)
           .order("occurred_at", { ascending: false }),
         db
+          .from("personal_patient_calendar_blocks")
+          .select("id,block_date,block_type,note")
+          .eq("patient_id", patientId)
+          .order("block_date", { ascending: true }),
+        db
           .from("personal_patient_audit_events")
           .select("id,entity_type,action,details,created_at")
           .eq("patient_id", patientId)
           .order("created_at", { ascending: false })
           .limit(50),
       ]);
-      const [plansResult, sessionsResult, ledgerResult, auditResult] = optional.map((result) =>
+      const [plansResult, sessionsResult, ledgerResult, blocksResult, auditResult] = optional.map((result) =>
         result.status === "fulfilled" ? result.value : { data: [], error: result.reason },
       );
       for (const [label, result] of [
         ["billing plans", plansResult],
         ["sessions", sessionsResult],
         ["ledger", ledgerResult],
+        ["calendar blocks", blocksResult],
         ["audit history", auditResult],
       ] as const) {
         if (result.error) {
@@ -260,6 +282,7 @@ function PersonalPatientDetailPage() {
         patient: p.data as Patient,
         plans: (plansResult.data ?? []) as Plan[],
         sessions: (sessionsResult.data ?? []) as Session[],
+        calendarBlocks: (blocksResult.data ?? []) as CalendarBlock[],
         ledger: (ledgerResult.data ?? []) as Entry[],
         audit: (auditResult.data ?? []) as AuditEvent[],
       };
@@ -268,8 +291,9 @@ function PersonalPatientDetailPage() {
 
   const data = query.data;
   const activePlan = data?.plans.find((p) => p.is_active);
-  const completed = data?.sessions.filter((s) => s.status === "completed").length ?? 0;
-  const scheduled = data?.sessions.filter((s) => s.status === "scheduled").length ?? 0;
+  const visibleSessions = (data?.sessions ?? []).filter((s) => !s.deleted_at);
+  const completed = visibleSessions.filter((s) => s.status === "completed").length;
+  const scheduled = visibleSessions.filter((s) => s.status === "scheduled").length;
   const totalCharges =
     data?.ledger
       .filter((e) => e.entry_type === "charge")
@@ -291,12 +315,23 @@ function PersonalPatientDetailPage() {
       ...Array.from({ length: daysInMonth }, (_, i) => i + 1),
     ];
   }, [calendarMonth]);
-  const monthSessions = (data?.sessions ?? []).filter((s) => {
+  const monthSessions = visibleSessions.filter((s) => {
     const d = new Date(s.session_date);
     return (
       d.getFullYear() === calendarMonth.getFullYear() && d.getMonth() === calendarMonth.getMonth()
     );
   });
+  const selectedDaySessions = visibleSessions.filter((s) => {
+    const d = new Date(s.session_date);
+    const key = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+    return key === selectedCalendarDate;
+  });
+  const selectedDayBlock = data?.calendarBlocks.find((block) => block.block_date === selectedCalendarDate);
+  const openSessionForDate = () => {
+    setSessionDate(`${selectedCalendarDate}T11:00`);
+    setSessionCharge(activePlan?.plan_type === "package" ? "0" : String(activePlan?.per_session_fee ?? ""));
+    setSessionOpen(true);
+  };
   const exportCsv = () => {
     if (!data) return;
     const rows = [
@@ -617,6 +652,70 @@ function PersonalPatientDetailPage() {
       toast.error(error instanceof Error ? error.message : "Portal access could not be updated."),
   });
 
+  const deleteSession = useMutation({
+    mutationFn: async (id: string) => {
+      if (!user?.id) throw new Error("Your admin session has expired. Sign in again.");
+      const session = visibleSessions.find((item) => item.id === id);
+      if (!session || session.status !== "scheduled") {
+        throw new Error("Only scheduled sessions can be removed. Completed history is protected.");
+      }
+      const { error } = await personalPatientDb
+        .from("personal_patient_sessions")
+        .update({ deleted_at: new Date().toISOString() })
+        .eq("id", id)
+        .eq("patient_id", patientId)
+        .eq("clinician_id", user.id)
+        .is("deleted_at", null)
+        .select("id")
+        .single();
+      if (error) throw error;
+    },
+    onSuccess: async () => {
+      await refresh();
+      toast.success("Session removed from the calendar. Its audit history is preserved.");
+    },
+    onError: (e) => toast.error(e instanceof Error ? e.message : "Could not remove session."),
+  });
+
+  const saveCalendarBlock = useMutation({
+    mutationFn: async () => {
+      if (!user?.id) throw new Error("Your admin session has expired. Sign in again.");
+      const { error } = await personalPatientDb.from("personal_patient_calendar_blocks").insert({
+        clinician_id: user.id,
+        patient_id: patientId,
+        block_date: selectedCalendarDate,
+        block_type: leaveType,
+        note: leaveNote.trim() || null,
+      });
+      if (error) throw error;
+    },
+    onSuccess: async () => {
+      await refresh();
+      setLeaveOpen(false);
+      setLeaveNote("");
+      toast.success(leaveType === "leave" ? "Leave added to this date." : "Day marked off.");
+    },
+    onError: (e) => toast.error(e instanceof Error ? e.message : "Could not mark this date."),
+  });
+
+  const removeCalendarBlock = useMutation({
+    mutationFn: async (id: string) => {
+      if (!user?.id) throw new Error("Your admin session has expired. Sign in again.");
+      const { error } = await personalPatientDb
+        .from("personal_patient_calendar_blocks")
+        .delete()
+        .eq("id", id)
+        .eq("patient_id", patientId)
+        .eq("clinician_id", user.id);
+      if (error) throw error;
+    },
+    onSuccess: async () => {
+      await refresh();
+      toast.success("Calendar mark removed.");
+    },
+    onError: (e) => toast.error(e instanceof Error ? e.message : "Could not remove calendar mark."),
+  });
+
   const updateSession = useMutation({
     mutationFn: async ({
       id,
@@ -927,44 +1026,62 @@ function PersonalPatientDetailPage() {
             </div>
           ))}
           {calendarDays.map((day, index) => {
-            const daySessions =
-              day == null
-                ? []
-                : monthSessions.filter((s) => new Date(s.session_date).getDate() === day);
+            const daySessions = day == null ? [] : monthSessions.filter((s) => new Date(s.session_date).getDate() === day);
+            const dateKey = day == null ? "" : `${calendarMonth.getFullYear()}-${String(calendarMonth.getMonth() + 1).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
+            const dayBlock = day == null ? undefined : data.calendarBlocks.find((block) => block.block_date === dateKey);
+            const selected = dateKey === selectedCalendarDate;
             return (
-              <div
-                key={day == null ? `blank-${index}` : day}
-                className={`min-h-16 rounded-md border p-1.5 ${day == null ? "border-transparent" : "border-border bg-background"}`}
-              >
+              <div key={day == null ? `blank-${index}` : day} className={day == null ? "min-h-16" : "min-h-16"}>
                 {day != null && (
-                  <>
-                    <span className="text-xs font-medium">{day}</span>
+                  <button
+                    type="button"
+                    onClick={() => setSelectedCalendarDate(dateKey)}
+                    aria-pressed={selected}
+                    className={`flex h-full min-h-16 w-full flex-col items-start rounded-md border p-1.5 text-left transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary ${selected ? "border-primary bg-primary/10 ring-1 ring-primary" : "border-border bg-background hover:border-primary/60 hover:bg-muted/50"}`}
+                  >
+                    <span className="text-xs font-semibold">{day}</span>
+                    {dayBlock && <span className={`mt-1 rounded px-1 py-0.5 text-[9px] font-semibold ${dayBlock.block_type === "leave" ? "bg-amber-100 text-amber-900" : "bg-slate-200 text-slate-800"}`}>{dayBlock.block_type === "leave" ? "Leave" : "Off"}</span>}
                     {daySessions.length > 0 && (
                       <div className="mt-1 flex flex-wrap gap-1">
-                        {daySessions.map((s) => (
-                          <span
-                            key={s.id}
-                            title={s.status}
-                            className={`h-2 w-2 rounded-full ${s.status === "completed" ? "bg-emerald-500" : s.status === "cancelled" ? "bg-rose-500" : s.status === "rescheduled" ? "bg-amber-500" : "bg-blue-500"}`}
-                          />
-                        ))}
+                        {daySessions.map((session) => <span key={session.id} title={session.status} className={`h-2 w-2 rounded-full ${session.status === "completed" ? "bg-emerald-500" : session.status === "cancelled" ? "bg-rose-500" : session.status === "rescheduled" ? "bg-amber-500" : "bg-blue-500"}`} />)}
                       </div>
                     )}
-                    {daySessions.length > 0 && (
-                      <p className="mt-1 text-[10px] text-muted-foreground">
-                        {daySessions.length}{" "}
-                        {language === "ur"
-                          ? "سیشن"
-                          : daySessions.length === 1
-                            ? "session"
-                            : "sessions"}
-                      </p>
-                    )}
-                  </>
+                    {daySessions.length > 0 && <span className="mt-1 text-[10px] text-muted-foreground">{daySessions.length} {daySessions.length === 1 ? "session" : "sessions"}</span>}
+                  </button>
                 )}
               </div>
             );
           })}
+        </div>
+        <div className="mt-4 rounded-lg border border-border bg-muted/20 p-3">
+          <div className="flex flex-wrap items-center justify-between gap-2">
+            <div>
+              <p className="text-sm font-semibold">{new Date(`${selectedCalendarDate}T00:00:00`).toLocaleDateString(language === "ur" ? "ur-PK" : "en-PK", { weekday: "long", day: "numeric", month: "long", year: "numeric" })}</p>
+              <p className="text-xs text-muted-foreground">{selectedDaySessions.length} {selectedDaySessions.length === 1 ? "session" : "sessions"}{selectedDayBlock ? ` · ${selectedDayBlock.block_type === "leave" ? "Leave" : "Off day"}` : ""}</p>
+            </div>
+            <div className="flex flex-wrap gap-2">
+              <Button size="sm" onClick={openSessionForDate}><CalendarPlus className="mr-1 h-4 w-4" />Add session</Button>
+              {selectedDayBlock ? (
+                <Button size="sm" variant="outline" disabled={removeCalendarBlock.isPending} onClick={() => removeCalendarBlock.mutate(selectedDayBlock.id)}>Remove off / leave</Button>
+              ) : (
+                <Button size="sm" variant="outline" onClick={() => { setLeaveType("off"); setLeaveNote(""); setLeaveOpen(true); }}><CalendarOff className="mr-1 h-4 w-4" />Add off / leave</Button>
+              )}
+            </div>
+          </div>
+          {selectedDaySessions.length > 0 ? (
+            <div className="mt-3 divide-y divide-border">
+              {selectedDaySessions.map((session) => (
+                <div key={session.id} className="flex flex-wrap items-center justify-between gap-2 py-2">
+                  <div className="min-w-0">
+                    <p className="text-sm font-medium">{session.session_label || "Physiotherapy session"}</p>
+                    <p className="text-xs text-muted-foreground">{new Date(session.session_date).toLocaleTimeString(language === "ur" ? "ur-PK" : "en-PK", { hour: "numeric", minute: "2-digit" })} · {session.status}</p>
+                  </div>
+                  {session.status === "scheduled" && <Button size="sm" variant="ghost" className="text-destructive hover:text-destructive" disabled={deleteSession.isPending} onClick={() => { if (window.confirm("Remove this scheduled session from the calendar? Its audit history will be retained.")) deleteSession.mutate(session.id); }}><Trash2 className="mr-1 h-4 w-4" />Delete</Button>}
+                </div>
+              ))}
+            </div>
+          ) : <p className="mt-3 text-xs text-muted-foreground">No sessions on this date. Select Add session to schedule one.</p>}
+          {selectedDayBlock?.note && <p className="mt-2 text-xs text-muted-foreground">Note: {selectedDayBlock.note}</p>}
         </div>
         <div className="mt-3 flex flex-wrap gap-3 text-xs text-muted-foreground">
           <span className="flex items-center gap-1">
@@ -988,11 +1105,11 @@ function PersonalPatientDetailPage() {
       <section className="rounded-xl border border-border bg-card p-4">
         <div className="flex items-center justify-between">
           <h2 className="font-semibold">{t.sessions}</h2>
-          <Badge variant="secondary">{data.sessions.length} total</Badge>
+          <Badge variant="secondary">{visibleSessions.length} total</Badge>
         </div>
-        {data.sessions.length ? (
+        {visibleSessions.length ? (
           <div className="mt-3 divide-y divide-border">
-            {data.sessions.map((s) => (
+            {visibleSessions.map((s) => (
               <div key={s.id} className="flex flex-wrap items-center justify-between gap-3 py-3">
                 <div className="min-w-0">
                   <p className="font-medium">{s.session_label || "Physiotherapy session"}</p>
@@ -1442,6 +1559,28 @@ function PersonalPatientDetailPage() {
               <Button type="submit" disabled={createPlan.isPending}>
                 {createPlan.isPending ? "Saving…" : "Save plan"}
               </Button>
+            </DialogFooter>
+          </form>
+        </DialogContent>
+      </Dialog>
+      <Dialog open={leaveOpen} onOpenChange={setLeaveOpen}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Mark {selectedCalendarDate} as off / leave</DialogTitle>
+            <DialogDescription>This marks the selected date in this patient’s calendar. It does not alter existing sessions or billing records.</DialogDescription>
+          </DialogHeader>
+          <form className="space-y-3" onSubmit={(event) => { event.preventDefault(); saveCalendarBlock.mutate(); }}>
+            <div className="space-y-1">
+              <Label>Type</Label>
+              <select className="h-10 w-full rounded-md border border-input bg-background px-3 text-sm" value={leaveType} onChange={(event) => setLeaveType(event.target.value as "off" | "leave")}>
+                <option value="off">Off day</option>
+                <option value="leave">Leave</option>
+              </select>
+            </div>
+            <div className="space-y-1"><Label>Note (optional)</Label><Input value={leaveNote} onChange={(event) => setLeaveNote(event.target.value)} placeholder="e.g. Clinic closed" maxLength={240} /></div>
+            <DialogFooter>
+              <Button type="button" variant="outline" onClick={() => setLeaveOpen(false)}>Cancel</Button>
+              <Button type="submit" disabled={saveCalendarBlock.isPending}>{saveCalendarBlock.isPending ? "Saving…" : "Save date"}</Button>
             </DialogFooter>
           </form>
         </DialogContent>
