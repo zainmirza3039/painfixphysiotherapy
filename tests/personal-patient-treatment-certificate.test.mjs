@@ -9,8 +9,14 @@ const migration = readFileSync(
 const component = readFileSync("src/components/admin/PatientTreatmentCertificate.tsx", "utf8");
 const pdf = readFileSync("src/lib/treatment-certificate-pdf.ts", "utf8");
 const route = readFileSync("src/routes/verify-certificate.tsx", "utf8");
-const detail = readFileSync("src/routes/_authenticated/admin.personal-patients.$patientId.tsx", "utf8");
-const verifyFunction = readFileSync("supabase/functions/verify-treatment-document/index.ts", "utf8");
+const detail = readFileSync(
+  "src/routes/_authenticated/admin.personal-patients.$patientId.tsx",
+  "utf8",
+);
+const verifyFunction = readFileSync(
+  "supabase/functions/verify-treatment-document/index.ts",
+  "utf8",
+);
 const issueFunction = readFileSync("supabase/functions/issue-treatment-document/index.ts", "utf8");
 
 test("certificate snapshots are owner-scoped, immutable and revocable", () => {
@@ -48,7 +54,9 @@ test("A4 PDF contains the agreed clinical, financial, payment and verification s
     "Clinical advice",
     "Scan to verify",
     "Outstanding balance",
-  ]) assert.ok(pdf.includes(label), "Missing PDF field: " + label);
+  ]) {
+    assert.ok(pdf.includes(label), "Missing PDF field: " + label);
+  }
   assert.match(pdf, /reimbursement is subject/);
 });
 
