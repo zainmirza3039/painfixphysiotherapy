@@ -99,7 +99,11 @@ export function DoctorProfile({ doc }: { doc: TeamMember }) {
                     href={whatsappUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    aria-label={onlineOnly ? `Enquire about online physiotherapy with ${doc.name}` : `Contact ${doc.name} on WhatsApp`}
+                    aria-label={
+                      onlineOnly
+                        ? `Enquire about online physiotherapy with ${doc.name}`
+                        : `Contact ${doc.name} on WhatsApp`
+                    }
                     className="inline-flex min-h-12 items-center gap-2 bg-secondary px-5 py-3 text-sm font-semibold text-secondary-foreground transition-colors hover:bg-secondary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-primary"
                   >
                     <MessageCircle className="h-4 w-4" />
