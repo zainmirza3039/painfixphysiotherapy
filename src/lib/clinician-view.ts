@@ -14,7 +14,7 @@ export function toClinicianView(
   const isZainProfile = profile.slug === "dr-zain-ul-abideen-pt-multan";
   const normalizeZainName = (value: string | null | undefined) =>
     isZainProfile && value
-      ? value.replace(/Dr\\. Zain Ul Abideen,\\s*DPT/g, "Dr. Zain Ul Abideen PT")
+      ? value.replace(/Dr\. Zain Ul Abideen,\s*DPT/g, "Dr. Zain Ul Abideen PT")
       : value;
   const fullName = isZainProfile ? "Dr. Zain Ul Abideen PT" : profile.full_name;
   const onlineOnly = profile.service_mode === "online_only";
