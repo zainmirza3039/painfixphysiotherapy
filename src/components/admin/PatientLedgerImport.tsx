@@ -70,7 +70,7 @@ export function PatientLedgerImport({ clinicianId, patients, onImported }: Props
 
     const uniqueRoots = new Set(rows.map((_, index) => find(index)));
     const matchedPatientIds = new Set<string>();
-    for (const row of rows) {
+    rows.forEach((row) => {
       const phone = row.phone.replace(/\D/g, "");
       const name = row.name.trim().toLowerCase();
       const match = patients.find(
@@ -79,7 +79,7 @@ export function PatientLedgerImport({ clinicianId, patients, onImported }: Props
           patient.full_name.trim().toLowerCase() === name,
       );
       if (match) matchedPatientIds.add(match.id);
-    }
+    });
 
     return {
       patients: uniqueRoots.size,
