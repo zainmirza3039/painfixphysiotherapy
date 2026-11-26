@@ -61,7 +61,7 @@ export const Route = createFileRoute("/services/$slug")({
             name: service.title,
             description: service.metaDescription,
             url: `${SITE_URL}${path}`,
-            provider: { "@type": "MedicalClinic", name: "PainFix Physiotherapy Clinic" },
+            provider: { "@id": `${SITE_URL}/#clinic` },
           }),
         },
       ],
