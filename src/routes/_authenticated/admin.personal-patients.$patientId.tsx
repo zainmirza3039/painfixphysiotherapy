@@ -321,9 +321,7 @@ function PersonalPatientDetailPage() {
   }, [calendarMonth]);
   const monthSessions = visibleSessions.filter((s) => {
     const d = new Date(s.session_date);
-    if (!isClinicalPhysiotherapist) return <Navigate to="/admin" replace />;
-
-  return (
+    return (
       d.getFullYear() === calendarMonth.getFullYear() && d.getMonth() === calendarMonth.getMonth()
     );
   });
@@ -781,6 +779,8 @@ function PersonalPatientDetailPage() {
     activePlan?.plan_type === "package" && activePlan.package_sessions != null
       ? Math.max(0, activePlan.package_sessions - activePlanCompleted)
       : null;
+
+  if (!isClinicalPhysiotherapist) return <Navigate to="/admin" replace />;
 
   if (query.isLoading)
     return (
