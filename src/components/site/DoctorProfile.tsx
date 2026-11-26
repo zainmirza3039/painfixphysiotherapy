@@ -12,10 +12,10 @@ import {
 } from "lucide-react";
 import type { TeamMember } from "@/data/team";
 import { PageLayout } from "./PageLayout";
-import { PageHero } from "./PageHero";
 import { PageCTA } from "./PageCTA";
 import { Reveal } from "./Reveal";
 import { ClinicianPortrait } from "./ClinicianPortrait";
+import { Breadcrumbs } from "./Breadcrumbs";
 import {
   clinicianServiceLabel,
   clinicianWhatsAppUrl,
@@ -41,18 +41,85 @@ export function DoctorProfile({ doc }: { doc: TeamMember }) {
 
   return (
     <PageLayout onlineClinician={onlineOnly ? doc : undefined}>
-      <PageHero
-        eyebrow="Meet Our Doctors"
-        title={doc.fullName}
-        subtitle={
-          doc.slug === "dr-zain-ul-abideen-pt-multan" ? "Founder & Head Physiotherapist" : doc.title
-        }
-        crumbs={[
-          { label: "Home", path: "/" },
-          { label: doc.fullName, path: `/${doc.slug}` },
-        ]}
-        showActions={false}
-      />
+      <section className="border-b border-border bg-background pt-28 pb-4 sm:pt-32">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+          <Breadcrumbs
+            items={[
+              { label: "Home", path: "/" },
+              { label: doc.fullName, path: `/${doc.slug}` },
+            ]}
+          />
+        </div>
+      </section>
+
+      <section className="overflow-hidden border-b border-primary/20 bg-primary py-10 text-primary-foreground sm:py-14 lg:py-16">
+        <div className="mx-auto grid max-w-6xl items-center gap-8 px-4 sm:px-6 lg:grid-cols-[minmax(250px,320px)_1fr] lg:gap-12 lg:px-8">
+          <Reveal anim="left">
+            <div className="mx-auto aspect-[4/5] w-full max-w-[280px] overflow-hidden border border-white/20 border-l-[5px] border-l-brand-green bg-card sm:max-w-[320px]">
+              <ClinicianPortrait
+                photo={doc.photo}
+                name={doc.fullName}
+                role={doc.role}
+                className="h-full w-full"
+                loading="eager"
+              />
+            </div>
+          </Reveal>
+          <Reveal anim="right">
+            <div className="max-w-3xl">
+              <p className="text-xs font-bold uppercase tracking-[0.18em] text-brand-green">
+                PainFix Clinical Team
+              </p>
+              <h1 className="mt-3 font-heading text-3xl font-semibold leading-tight tracking-tight text-primary-foreground sm:text-4xl lg:text-5xl">
+                {doc.fullName}
+              </h1>
+              <p className="mt-3 text-lg font-semibold text-primary-foreground sm:text-xl">
+                {doc.role}
+              </p>
+              <div className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-primary-foreground/80">
+                <span>{doc.credentials}</span>
+                <span aria-hidden="true" className="text-brand-green">•</span>
+                <span>{clinicianServiceLabel(doc)}</span>
+              </div>
+              <div className="mt-6 space-y-3">
+                {doc.profile.intro.map((p) => (
+                  <p key={p} className="max-w-3xl text-sm leading-7 text-primary-foreground/85 sm:text-base">
+                    {p}
+                  </p>
+                ))}
+              </div>
+              {doc.yearsExperience !== null && doc.yearsExperience !== undefined && (
+                <p className="mt-4 text-sm font-medium text-primary-foreground/80">
+                  {doc.yearsExperience} {doc.yearsExperience === 1 ? "year" : "years"} of experience
+                </p>
+              )}
+              <div className="mt-7 flex flex-wrap gap-3">
+                {whatsappUrl && (
+                  <a
+                    href={whatsappUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={onlineOnly ? `Enquire about online physiotherapy with ${doc.name}` : `Contact ${doc.name} on WhatsApp`}
+                    className="inline-flex min-h-12 items-center gap-2 bg-secondary px-5 py-3 text-sm font-semibold text-secondary-foreground transition-colors hover:bg-secondary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-primary"
+                  >
+                    <MessageCircle className="h-4 w-4" />
+                    {onlineOnly ? "Enquire on WhatsApp" : "WhatsApp Consultation"}
+                  </a>
+                )}
+                {phoneHref && (
+                  <a
+                    href={phoneHref}
+                    aria-label={`Call ${doc.name}${doc.phoneDisplay ? ` (${doc.phoneDisplay})` : ""}`}
+                    className="inline-flex min-h-12 items-center gap-2 border border-white/50 px-5 py-3 text-sm font-semibold text-primary-foreground transition-colors hover:border-white hover:bg-white hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-primary"
+                  >
+                    <Phone className="h-4 w-4" /> Call Now
+                  </a>
+                )}
+              </div>
+            </div>
+          </Reveal>
+        </div>
+      </section>
 
       {onlineOnly && (
         <section className="border-b border-border bg-surface py-8 sm:py-10">
@@ -85,70 +152,6 @@ export function DoctorProfile({ doc }: { doc: TeamMember }) {
           </div>
         </section>
       )}
-
-      {/* Intro + portrait */}
-      <section className="py-14 sm:py-20">
-        <div className="mx-auto grid max-w-6xl grid-cols-1 gap-10 px-4 sm:px-6 lg:grid-cols-[minmax(0,340px)_1fr] lg:px-8">
-          <Reveal anim="left">
-            <div className="aspect-square overflow-hidden rounded-lg border border-border border-l-[5px] border-l-brand-green bg-card">
-              <ClinicianPortrait
-                photo={doc.photo}
-                name={doc.fullName}
-                role={doc.title}
-                className="h-full w-full"
-                loading="eager"
-              />
-            </div>
-          </Reveal>
-          <Reveal anim="right">
-            <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-secondary">
-              <Stethoscope className="h-4 w-4" /> {doc.credentials}
-            </div>
-            <h2 className="mt-3 font-heading text-2xl font-extrabold text-foreground sm:text-3xl">
-              About {doc.fullName}
-            </h2>
-            <p className="mt-3 text-sm font-semibold text-primary">
-              {doc.slug === "dr-zain-ul-abideen-pt-multan"
-                ? "Clinical Physiotherapist · Clinic-based physiotherapy · Multan"
-                : clinicianServiceLabel(doc)}
-            </p>
-            <div className="mt-5 space-y-4">
-              {doc.profile.intro.map((p) => (
-                <p key={p} className="break-words text-base leading-relaxed text-muted-foreground">
-                  {p}
-                </p>
-              ))}
-            </div>
-            {doc.yearsExperience !== null && doc.yearsExperience !== undefined && (
-              <p className="mt-4 text-sm font-medium text-muted-foreground">
-                {doc.yearsExperience} {doc.yearsExperience === 1 ? "year" : "years"} of experience
-              </p>
-            )}
-            <div className="mt-6 flex flex-wrap gap-3">
-              {whatsappUrl && (
-                <a
-                  href={whatsappUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={`Chat with ${doc.name} on WhatsApp`}
-                  className="ripple inline-flex items-center gap-2 rounded-2xl bg-secondary px-6 py-3.5 text-sm font-semibold text-secondary-foreground shadow-card transition-transform hover:scale-[1.03]"
-                >
-                  <MessageCircle className="h-4 w-4" /> WhatsApp Consultation
-                </a>
-              )}
-              {phoneHref && (
-                <a
-                  href={phoneHref}
-                  aria-label={`Call ${doc.name}${doc.phoneDisplay ? ` (${doc.phoneDisplay})` : ""}`}
-                  className="inline-flex items-center gap-2 rounded-2xl border border-primary px-6 py-3.5 text-sm font-semibold text-primary transition-colors hover:bg-primary hover:text-primary-foreground"
-                >
-                  <Phone className="h-4 w-4" /> Call Now
-                </a>
-              )}
-            </div>
-          </Reveal>
-        </div>
-      </section>
 
       {/* Qualifications + optional expertise */}
       <section className="bg-surface py-14 sm:py-20">
