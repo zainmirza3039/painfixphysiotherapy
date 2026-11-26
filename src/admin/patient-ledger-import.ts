@@ -192,7 +192,11 @@ export function parsePatientCsv(text: string): ImportedPatientRow[] {
       if (!name.trim()) {
         warnings.push("Missing patient name");
       }
-      const packageFields = [get(cells, "packageTitle"), get(cells, "packageSessions"), get(cells, "packageFee")];
+      const packageFields = [
+        get(cells, "packageTitle"),
+        get(cells, "packageSessions"),
+        get(cells, "packageFee"),
+      ];
       if (packageFields.some(Boolean) && !packageFields.every(Boolean)) {
         warnings.push("Package title, session count and fee must all be supplied together");
       }
