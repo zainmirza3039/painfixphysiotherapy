@@ -51,7 +51,7 @@ const admin = createClient(url, serviceKey, {
 });
 
 Deno.serve(async (req) => {
-  if (req.method === "OPTIONS") return new Response("ok", { headers });
+  if (req.method === "OPTIONS") return response(req, {});
   if (req.method !== "POST") return response(req, { error: "Method not allowed." }, 405);
 
   try {
