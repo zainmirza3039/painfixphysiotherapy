@@ -86,7 +86,7 @@ const GA4_SCRIPT = `(function () {
     var href = link.getAttribute("href") || "";
     var leadMethod = "";
     if (/^tel:/i.test(href)) leadMethod = "phone";
-    else if (/wa\.me|api\.whatsapp\.com/i.test(href)) leadMethod = "whatsapp";
+    else if (href.includes("wa.me") || href.includes("api.whatsapp.com")) leadMethod = "whatsapp";
 
     if (leadMethod) {
       window.gtag("event", "generate_lead", {
@@ -97,9 +97,9 @@ const GA4_SCRIPT = `(function () {
       return;
     }
 
-    if (/calendly\.com/i.test(href) || /book-appointment/.test(href)) {
+    if (href.includes("calendly.com") || href.includes("/book-appointment")) {
       window.gtag("event", "appointment_cta_click", {
-        booking_destination: /calendly\.com/i.test(href) ? "calendly" : "website_form",
+        booking_destination: href.includes("calendly.com") ? "calendly" : "website_form",
         page_path: window.location.pathname,
         transport_type: "beacon"
       });
