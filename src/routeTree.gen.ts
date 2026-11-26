@@ -811,6 +811,7 @@ export interface FileRouteTypes {
     | '/admin/messages'
     | '/admin/patients'
     | '/admin/personal-patients'
+    | '/admin/clinician-ledgers'
     | '/admin/profile'
     | '/admin/reports'
     | '/admin/settings'
