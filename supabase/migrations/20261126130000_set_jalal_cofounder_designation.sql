@@ -5,6 +5,6 @@ BEGIN;
 UPDATE public.clinician_profiles
 SET designation = 'Co-Founder'
 WHERE slug = 'dr-jalal-ud-din-pt-multan'
-  AND designation IS DISTINCT FROM 'Co-Founder';
+  AND designation = 'Clinical Physiotherapist';
 
 COMMIT;
