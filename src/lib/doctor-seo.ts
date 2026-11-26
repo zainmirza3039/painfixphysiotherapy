@@ -64,7 +64,11 @@ export function doctorProfileHead(doc: TeamMember) {
           alternateName: doc.name,
           url,
           ...(image ? { image } : {}),
-          jobTitle: isZainProfile ? "Founder & Head Physiotherapist" : isJalalProfile ? "Co-Founder" : doc.role,
+          jobTitle: isZainProfile
+            ? "Founder & Head Physiotherapist"
+            : isJalalProfile
+              ? "Co-Founder"
+              : doc.role,
           ...(isZainProfile || isJalalProfile
             ? {
                 hasCredential: {
