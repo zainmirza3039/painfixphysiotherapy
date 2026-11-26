@@ -23,7 +23,7 @@ import { Button } from "@/components/ui/button";
 export const Route = createFileRoute("/_authenticated/admin/")({ component: DashboardPage });
 
 function DashboardPage() {
-  const { isStaff, isProfessional, canEditContent, loading } = useAdminAuth();
+  const { isStaff, isProfessional, hasRole, canEditContent, loading } = useAdminAuth();
   const { data, isLoading, isError, refetch } = useQuery({
     enabled: isStaff,
     queryKey: ["admin", "dashboard"],
