@@ -1571,8 +1571,10 @@ function PersonalPatientDetailPage() {
         </DialogContent>
       </Dialog>
       <Dialog open={portalOpen} onOpenChange={setPortalOpen}>
-        <DialogContent className="sm:max-w-lg">
-          <DialogHeader>
+        <DialogContent className="overflow-hidden p-0 sm:max-w-lg">
+          <div className="h-1 bg-[#00A859]" />
+          <DialogHeader className="px-6 pt-5">
+            <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[#00A859]">PainFix · Secure patient access</p>
             <DialogTitle>
               {language === "ur" ? "مریض کے پورٹل تک رسائی" : "Patient portal access"}
             </DialogTitle>
@@ -1582,19 +1584,22 @@ function PersonalPatientDetailPage() {
                 : "Create a permanent link and share the six-digit PIN with the patient separately."}
             </DialogDescription>
           </DialogHeader>
-          <div className="space-y-3">
-            <div className="space-y-1">
-              <Label>{language === "ur" ? "چھ ہندسوں کا پن" : "Six-digit PIN"}</Label>
+          <div className="space-y-4 px-6 pb-2">
+            <div className="space-y-2 rounded-lg border border-slate-200 bg-[#F8FAFC] p-4">
+              <Label>{language === "ur" ? "چھ ہندسوں کا پن" : "Set a six-digit patient PIN"}</Label>
               <Input
+                type="password"
                 inputMode="numeric"
+                autoComplete="new-password"
                 maxLength={6}
                 value={portalPin}
                 onChange={(e) => setPortalPin(e.target.value.replace(/\D/g, "").slice(0, 6))}
                 placeholder="••••••"
+                className="h-12 bg-white text-center text-xl font-semibold tracking-[0.5em]"
               />
             </div>
             <Button
-              className="w-full"
+              className="h-11 w-full bg-[#032E61] hover:bg-[#032E61]/90"
               disabled={managePortal.isPending || portalPin.length !== 6}
               onClick={() => managePortal.mutate("create_or_rotate")}
             >
@@ -1605,7 +1610,7 @@ function PersonalPatientDetailPage() {
                   : "Create link / rotate PIN"}
             </Button>
             {portalUrl && (
-              <div className="space-y-2 rounded-lg border border-border p-3">
+              <div className="space-y-3 rounded-lg border border-slate-200 bg-white p-4">
                 <Label>{language === "ur" ? "مریض کا لنک" : "Patient link"}</Label>
                 <Input readOnly value={portalUrl} />
                 <div className="grid grid-cols-2 gap-2">
@@ -1664,7 +1669,7 @@ function PersonalPatientDetailPage() {
               {language === "ur" ? "پورٹل رسائی بند کریں" : "Disable patient portal access"}
             </Button>
           </div>
-          <DialogFooter>
+          <DialogFooter className="border-t border-slate-200 px-6 py-4">
             <Button variant="outline" onClick={() => setPortalOpen(false)}>
               {t.cancel}
             </Button>
