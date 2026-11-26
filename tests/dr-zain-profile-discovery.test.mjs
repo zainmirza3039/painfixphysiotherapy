@@ -5,10 +5,7 @@ import test from "node:test";
 const repo = new URL("../", import.meta.url);
 
 test("homepage team section links directly to Dr Zain's named clinician profile", async () => {
-  const source = await readFile(
-    new URL("src/components/site/MeetDoctors.tsx", repo),
-    "utf8",
-  );
+  const source = await readFile(new URL("src/components/site/MeetDoctors.tsx", repo), "utf8");
 
   assert.match(source, /to="\/dr-zain-ul-abideen-pt-multan"/);
   assert.match(source, /Dr\. Zain Ul Abideen, DPT — Founder & Head Physiotherapist/);
