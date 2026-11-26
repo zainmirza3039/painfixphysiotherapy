@@ -246,3 +246,47 @@ test("Patient Ledger is included in a visible admin navigation section", () => {
       adminShell.includes('"/admin/home-visits"'),
   );
 });
+
+
+const patientDetailSource = fs.readFileSync(
+  path.join(root, "src/routes/_authenticated/admin.personal-patients.$patientId.tsx"),
+  "utf8",
+);
+const portalSource = fs.readFileSync(path.join(root, "src/routes/patient-portal.$token.tsx"), "utf8");
+const importComponent = fs.readFileSync(
+  path.join(root, "src/components/admin/PatientLedgerImport.tsx"),
+  "utf8",
+);
+
+test("billing plans persist and display their validity dates and package utilisation", () => {
+  assert.match(patientDetailSource, /starts_on: planStartsOn \|\| null/);
+  assert.match(patientDetailSource, /ends_on: planEndsOn \|\| null/);
+  assert.match(patientDetailSource, /Plan end date cannot be earlier than its start date/);
+  assert.match(patientDetailSource, /completed · .*remaining/);
+  assert.match(patientDetailSource, /starts_on,ends_on,is_active/);
+});
+
+test("custom and per-session billing plans validate fee bounds and precision", () => {
+  assert.match(patientDetailSource, /maximum two decimal places/);
+  assert.match(patientDetailSource, /Plan title must be 1–100 characters/);
+  assert.match(patientDetailSource, /planType === "custom" && perFee != null/);
+});
+
+test("import preview reports repeated source rows and unique existing matches", () => {
+  assert.match(importComponent, /duplicateRows: Math\.max\(0, rows\.length - unique\.size\)/);
+  assert.match(importComponent, /matchedKeys\.size/);
+  assert.match(importComponent, /more than 1,000 usable rows/);
+});
+
+test("spreadsheet import rejects oversized files and warns about malformed financial values", () => {
+  assert.match(importParser, /file\.size > 10 \* 1024 \* 1024/);
+  assert.match(importParser, /Invalid or out-of-range value in/);
+  assert.match(importParser, /More than two decimal places in/);
+  assert.match(importParser, /Do not combine a package fee and a per-session fee/);
+});
+
+test("patient portal uses the PainFix navy and restrained green clinical layout", () => {
+  assert.match(portalSource, /bg-\[#F4F7FA\]/);
+  assert.match(portalSource, /h-1 bg-\[#00A859\]/);
+  assert.match(portalSource, /Physiotherapy Clinic · Multan/);
+});
