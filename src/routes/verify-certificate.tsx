@@ -45,10 +45,9 @@ export const Route = createFileRoute("/verify-certificate")({
         };
       }
       try {
-        const { data, error } = await supabase.functions.invoke(
-          "verify-treatment-document",
-          { body: { token: reference } },
-        );
+        const { data, error } = await supabase.functions.invoke("verify-treatment-document", {
+          body: { token: reference },
+        });
         return {
           reference,
           kind: "treatment" as const,
