@@ -18,14 +18,14 @@ export function doctorProfileHead(doc: TeamMember) {
   const metaTitle = onlineOnly
     ? `${doc.fullName} — Online Physiotherapy | PainFix`
     : isZainProfile
-      ? "Dr. Zain Ul Abideen, DPT | PainFix Multan"
+      ? "Dr. Zain Ul Abideen PT | PainFix Multan"
       : isJalalProfile
         ? "Dr. Jalal Ud Din, DPT | PainFix Multan"
         : doc.profile.metaTitle;
   const metaDescription = onlineOnly
     ? `Online physiotherapy consultation enquiries with ${doc.fullName}. Ask about availability and suitability.`
     : isZainProfile
-      ? "Meet Dr. Zain Ul Abideen, DPT, Founder & Head Physiotherapist at PainFix in Multan. Explore his clinical focus, treatment approach and appointment details."
+      ? "Meet Dr. Zain Ul Abideen PT, Founder & Head Physiotherapist at PainFix in Multan. Explore his clinical focus, treatment approach and appointment details."
       : isJalalProfile
         ? "Dr. Jalal Ud Din, DPT, is a clinical physiotherapist at PainFix in Multan, focusing on neurological and orthopaedic rehabilitation."
         : doc.profile.metaDescription;
