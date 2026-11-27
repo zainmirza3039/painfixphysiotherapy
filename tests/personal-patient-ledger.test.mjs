@@ -325,3 +325,30 @@ test("sessions cannot be scheduled outside billing plan validity dates in the UI
   assert.match(dateGuard, /Session date is before the billing plan start date/);
   assert.match(dateGuard, /Session date is after the billing plan end date/);
 });
+
+
+test("incorrect patient payments can be excluded without mutating the original ledger entry", () => {
+  assert.match(detail, /const reversePayment = useMutation/);
+  assert.match(detail, /entry_type: "adjustment"/);
+  assert.match(detail, /Payment reversal:/);
+  assert.match(detail, /Exclude from totals/);
+  assert.match(detail, /already been reversed/);
+  assert.match(detail, /grossReceived[\s\S]*paymentReversals/);
+  assert.match(list, /grossReceived[\s\S]*reversedPayments/);
+  assert.match(portalFunction, /grossReceived[\s\S]*reversedPayments/);
+});
+
+test("patient portal exposes a working verification action, language switch and theme switch", () => {
+  assert.match(portal, /open: "Verify \/ OK"/);
+  assert.match(portal, /verify\.mutate\(\)/);
+  assert.match(portal, /setLanguage\(language === "en" \? "ur" : "en"\)/);
+  assert.match(portal, /setTheme\(theme === "light" \? "dark" : "light"\)/);
+  assert.match(portal, /document\.documentElement\.classList\.toggle\("dark"/);
+  assert.match(portal, /Noto\+Nastaliq\+Urdu/);
+});
+
+test("personal patient list uses a mobile card layout and desktop table layout", () => {
+  assert.match(list, /space-y-3 p-3 sm:hidden/);
+  assert.match(list, /hidden overflow-x-auto sm:block/);
+  assert.match(detail, /min-w-0 w-full space-y-6 overflow-x-hidden/);
+});
