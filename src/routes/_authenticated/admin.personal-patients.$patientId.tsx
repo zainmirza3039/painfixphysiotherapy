@@ -313,12 +313,16 @@ function PersonalPatientDetailPage() {
     data?.ledger
       .filter((e) => e.entry_type === "charge")
       .reduce((n, e) => n + Number(e.amount), 0) ?? 0;
-  const paymentReversals = data?.ledger
-    .filter((e) => e.entry_type === "adjustment" && e.description.startsWith("Payment reversal:"))
-    .reduce((n, e) => n + Number(e.amount), 0) ?? 0;
-  const received = Math.max(0, (data?.ledger
-    .filter((e) => e.entry_type === "payment")
-    .reduce((n, e) => n + Math.abs(Number(e.amount)), 0) ?? 0) - paymentReversals);
+  const paymentReversals =
+    data?.ledger
+      .filter((e) => e.entry_type === "adjustment" && e.description.startsWith("Payment reversal:"))
+      .reduce((n, e) => n + Number(e.amount), 0) ?? 0;
+  const received = Math.max(
+    0,
+    (data?.ledger
+      .filter((e) => e.entry_type === "payment")
+      .reduce((n, e) => n + Math.abs(Number(e.amount)), 0) ?? 0) - paymentReversals,
+  );
   const balance = data?.ledger.reduce((n, e) => n + Number(e.amount), 0) ?? 0;
   const refresh = () =>
     qc.invalidateQueries({ queryKey: ["admin", "personal-patient-detail", user?.id, patientId] });
@@ -674,7 +678,8 @@ function PersonalPatientDetailPage() {
       await refresh();
       toast.success("Payment excluded from totals. The original entry remains in the history.");
     },
-    onError: (error) => toast.error(error instanceof Error ? error.message : "Could not reverse payment."),
+    onError: (error) =>
+      toast.error(error instanceof Error ? error.message : "Could not reverse payment."),
   });
 
   const updatePatient = useMutation({
@@ -874,7 +879,10 @@ function PersonalPatientDetailPage() {
   if (query.isError || !data) return <AdminQueryError onRetry={() => void query.refetch()} />;
 
   return (
-    <div className="personal-patients-portal min-w-0 w-full space-y-6 overflow-x-hidden" dir={language === "ur" ? "rtl" : "ltr"}>
+    <div
+      className="personal-patients-portal min-w-0 w-full space-y-6 overflow-x-hidden"
+      dir={language === "ur" ? "rtl" : "ltr"}
+    >
       <div className="flex flex-wrap justify-end gap-2">
         <Button
           variant="outline"
@@ -1418,7 +1426,12 @@ function PersonalPatientDetailPage() {
         <div className="flex flex-wrap items-center justify-between gap-2">
           <h2 className="font-semibold">{t.statement}</h2>
           <div className="grid w-full grid-cols-1 gap-2 sm:flex sm:w-auto sm:flex-wrap">
-            <Button className="w-full sm:w-auto" size="sm" variant="outline" onClick={() => setCorrectionOpen(true)}>
+            <Button
+              className="w-full sm:w-auto"
+              size="sm"
+              variant="outline"
+              onClick={() => setCorrectionOpen(true)}
+            >
               <SlidersHorizontal className="mr-1 h-4 w-4" />
               {language === "ur" ? "غلطی درست کریں" : "Fix a mistake"}
             </Button>
@@ -1426,7 +1439,12 @@ function PersonalPatientDetailPage() {
               <Download className="mr-1 h-4 w-4" />
               {language === "ur" ? "CSV ایکسپورٹ" : "Export CSV"}
             </Button>
-            <Button className="w-full sm:w-auto" size="sm" variant="outline" onClick={() => window.print()}>
+            <Button
+              className="w-full sm:w-auto"
+              size="sm"
+              variant="outline"
+              onClick={() => window.print()}
+            >
               <Printer className="mr-1 h-4 w-4" />
               {language === "ur" ? "PDF / پرنٹ" : "Print / PDF"}
             </Button>
@@ -1440,7 +1458,10 @@ function PersonalPatientDetailPage() {
         {data.ledger.length ? (
           <div className="mt-3 divide-y divide-border">
             {data.ledger.map((e) => (
-              <div key={e.id} className="flex min-w-0 flex-col gap-2 py-3 sm:flex-row sm:items-center sm:justify-between">
+              <div
+                key={e.id}
+                className="flex min-w-0 flex-col gap-2 py-3 sm:flex-row sm:items-center sm:justify-between"
+              >
                 <div className="min-w-0">
                   <p className="break-words font-medium">{e.description}</p>
                   <p className="break-words text-xs text-muted-foreground">
@@ -1452,7 +1473,12 @@ function PersonalPatientDetailPage() {
                 <div className="flex w-full min-w-0 flex-col gap-2 sm:w-auto sm:flex-row sm:flex-wrap sm:items-center sm:justify-end">
                   {e.entry_type === "payment" && (
                     <>
-                      <Button className="w-full sm:w-auto" size="sm" variant="ghost" onClick={() => printReceipt(e)}>
+                      <Button
+                        className="w-full sm:w-auto"
+                        size="sm"
+                        variant="ghost"
+                        onClick={() => printReceipt(e)}
+                      >
                         <Printer className="mr-1 h-3.5 w-3.5" />
                         Receipt
                       </Button>
@@ -1460,9 +1486,18 @@ function PersonalPatientDetailPage() {
                         className="w-full sm:w-auto"
                         size="sm"
                         variant="outline"
-                        disabled={reversePayment.isPending || data.ledger.some((entry) => entry.reference === `payment-reversal:${e.id}`)}
+                        disabled={
+                          reversePayment.isPending ||
+                          data.ledger.some(
+                            (entry) => entry.reference === `payment-reversal:${e.id}`,
+                          )
+                        }
                         onClick={() => {
-                          if (window.confirm("Exclude this payment from totals? The original entry will remain in the audit history.")) {
+                          if (
+                            window.confirm(
+                              "Exclude this payment from totals? The original entry will remain in the audit history.",
+                            )
+                          ) {
                             reversePayment.mutate(e);
                           }
                         }}
@@ -1471,7 +1506,9 @@ function PersonalPatientDetailPage() {
                       </Button>
                     </>
                   )}
-                  <p className={`self-start font-semibold tabular-nums sm:self-auto ${e.amount < 0 ? "text-emerald-600" : "text-foreground"}`}>
+                  <p
+                    className={`self-start font-semibold tabular-nums sm:self-auto ${e.amount < 0 ? "text-emerald-600" : "text-foreground"}`}
+                  >
                     {e.amount < 0 ? "− " : "+ "}
                     {money(Math.abs(Number(e.amount)))}
                   </p>
@@ -1495,7 +1532,10 @@ function PersonalPatientDetailPage() {
         {data.audit.length ? (
           <div className="mt-3 divide-y divide-border">
             {data.audit.map((event) => (
-              <div key={event.id} className="flex min-w-0 flex-col gap-2 py-2 sm:flex-row sm:items-start sm:justify-between">
+              <div
+                key={event.id}
+                className="flex min-w-0 flex-col gap-2 py-2 sm:flex-row sm:items-start sm:justify-between"
+              >
                 <div>
                   <p className="text-sm font-medium">{event.action.replaceAll("_", " ")}</p>
                   <p className="text-xs text-muted-foreground">{event.entity_type}</p>

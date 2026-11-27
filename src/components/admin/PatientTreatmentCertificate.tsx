@@ -123,8 +123,7 @@ export function PatientTreatmentCertificate({
     ledger
       .filter(
         (entry) =>
-          entry.entry_type === "adjustment" &&
-          entry.reference?.startsWith("payment-reversal:"),
+          entry.entry_type === "adjustment" && entry.reference?.startsWith("payment-reversal:"),
       )
       .map((entry) => entry.reference!.slice("payment-reversal:".length)),
   );
@@ -276,12 +275,21 @@ export function PatientTreatmentCertificate({
       ) : documents.isError ? (
         <div className="mt-4 flex flex-col gap-3 rounded-lg border border-destructive/30 bg-destructive/5 p-3 sm:flex-row sm:items-center sm:justify-between">
           <div className="min-w-0">
-            <p className="text-sm font-medium text-destructive">Could not load issued certificates.</p>
+            <p className="text-sm font-medium text-destructive">
+              Could not load issued certificates.
+            </p>
             <p className="mt-1 break-words text-xs text-muted-foreground">
-              {documents.error instanceof Error ? documents.error.message : "Check your access and connection, then retry."}
+              {documents.error instanceof Error
+                ? documents.error.message
+                : "Check your access and connection, then retry."}
             </p>
           </div>
-          <Button size="sm" variant="outline" onClick={() => void documents.refetch()} disabled={documents.isFetching}>
+          <Button
+            size="sm"
+            variant="outline"
+            onClick={() => void documents.refetch()}
+            disabled={documents.isFetching}
+          >
             {documents.isFetching ? "Retrying…" : "Retry"}
           </Button>
         </div>

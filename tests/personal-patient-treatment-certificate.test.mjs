@@ -73,10 +73,15 @@ test("issuance validates clinician ownership, consent, completed sessions and le
   assert.doesNotMatch(component, /\.insert\(\{/);
 });
 
-
 test("certificate list and revocation have explicit authenticated table privileges", () => {
-  assert.match(permissionsMigration, /revoke all on public\.personal_patient_treatment_documents from anon/);
-  assert.match(permissionsMigration, /grant select, update on public\.personal_patient_treatment_documents to authenticated/);
+  assert.match(
+    permissionsMigration,
+    /revoke all on public\.personal_patient_treatment_documents from anon/,
+  );
+  assert.match(
+    permissionsMigration,
+    /grant select, update on public\.personal_patient_treatment_documents to authenticated/,
+  );
   assert.match(component, /\.eq\("clinician_id", clinicianId\)/);
   assert.match(component, /documents\.error instanceof Error/);
   assert.match(component, /documents\.refetch\(\)/);
@@ -85,7 +90,10 @@ test("certificate list and revocation have explicit authenticated table privileg
 test("certificate payment totals exclude immutable payment reversal adjustments", () => {
   assert.match(component, /Payment reversal:/);
   assert.match(component, /payments - refunds - paymentReversals/);
-  assert.match(issueFunction, /select\("id,entry_type,amount,description,payment_method,reference,occurred_at"\)/);
+  assert.match(
+    issueFunction,
+    /select\("id,entry_type,amount,description,payment_method,reference,occurred_at"\)/,
+  );
   assert.match(issueFunction, /totalPayments - refunds - paymentReversals/);
   assert.match(issueFunction, /reversedPaymentIds\.has\(entry\.id\)/);
 });

@@ -154,16 +154,14 @@ Deno.serve(async (req) => {
     const paymentReversals = entries
       .filter(
         (entry) =>
-          entry.entry_type === "adjustment" &&
-          entry.description.startsWith("Payment reversal:"),
+          entry.entry_type === "adjustment" && entry.description.startsWith("Payment reversal:"),
       )
       .reduce((sum, entry) => sum + Math.max(0, Number(entry.amount)), 0);
     const reversedPaymentIds = new Set(
       entries
         .filter(
           (entry) =>
-            entry.entry_type === "adjustment" &&
-            entry.reference?.startsWith("payment-reversal:"),
+            entry.entry_type === "adjustment" && entry.reference?.startsWith("payment-reversal:"),
         )
         .map((entry) => entry.reference!.slice("payment-reversal:".length)),
     );

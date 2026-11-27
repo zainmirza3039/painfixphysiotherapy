@@ -154,7 +154,8 @@ function PatientPortalPage() {
           next: "Next session",
           history: "Session history",
           statement: "Payment statement",
-          security: "This is your private, read-only record. Clinical notes are not displayed here.",
+          security:
+            "This is your private, read-only record. Clinical notes are not displayed here.",
           language: "اردو",
           enterPin: "Enter your PIN",
           noPlan: "No active plan",
@@ -177,11 +178,13 @@ function PatientPortalPage() {
         };
 
   const isUrdu = language === "ur";
-  const page = theme === "dark" ? "dark bg-slate-950 text-slate-100" : "bg-[#F2F5F9] text-slate-900";
+  const page =
+    theme === "dark" ? "dark bg-slate-950 text-slate-100" : "bg-[#F2F5F9] text-slate-900";
   const surface = theme === "dark" ? "border-slate-800 bg-slate-900" : "border-slate-200 bg-white";
   const muted = theme === "dark" ? "text-slate-400" : "text-slate-500";
   const heading = theme === "dark" ? "text-white" : "text-[#032E61]";
-  const divider = theme === "dark" ? "divide-slate-800 border-slate-800" : "divide-slate-100 border-slate-200";
+  const divider =
+    theme === "dark" ? "divide-slate-800 border-slate-800" : "divide-slate-100 border-slate-200";
 
   useEffect(() => {
     if (!isUrdu || document.getElementById("painfix-nastaliq-font")) return;
@@ -201,9 +204,7 @@ function PatientPortalPage() {
   const verify = useMutation({
     mutationFn: async () => {
       if (!/^\d{6}$/.test(pin)) {
-        throw new Error(
-          isUrdu ? "چھ ہندسوں کا درست پن درج کریں۔" : "Enter a valid six-digit PIN.",
-        );
+        throw new Error(isUrdu ? "چھ ہندسوں کا درست پن درج کریں۔" : "Enter a valid six-digit PIN.");
       }
       const { data, error } = await supabase.functions.invoke("patient-portal", {
         body: { action: "verify", token, pin },
@@ -251,12 +252,20 @@ function PatientPortalPage() {
 
   const statusTone = (status: string) =>
     status === "completed"
-      ? theme === "dark" ? "bg-emerald-950 text-emerald-300" : "bg-emerald-50 text-emerald-800"
+      ? theme === "dark"
+        ? "bg-emerald-950 text-emerald-300"
+        : "bg-emerald-50 text-emerald-800"
       : status === "cancelled"
-        ? theme === "dark" ? "bg-rose-950 text-rose-300" : "bg-rose-50 text-rose-700"
+        ? theme === "dark"
+          ? "bg-rose-950 text-rose-300"
+          : "bg-rose-50 text-rose-700"
         : status === "rescheduled"
-          ? theme === "dark" ? "bg-amber-950 text-amber-300" : "bg-amber-50 text-amber-800"
-          : theme === "dark" ? "bg-blue-950 text-blue-300" : "bg-blue-50 text-blue-800";
+          ? theme === "dark"
+            ? "bg-amber-950 text-amber-300"
+            : "bg-amber-50 text-amber-800"
+          : theme === "dark"
+            ? "bg-blue-950 text-blue-300"
+            : "bg-blue-50 text-blue-800";
 
   const lockPortal = () => {
     sessionStorage.removeItem(`painfix-portal-${token}`);
@@ -273,7 +282,9 @@ function PatientPortalPage() {
       style={isUrdu ? { fontFamily: '"Noto Nastaliq Urdu", serif' } : undefined}
     >
       <div className="mx-auto w-full max-w-5xl">
-        <header className={`mb-5 flex flex-wrap items-center justify-between gap-4 border-b pb-4 ${divider}`}>
+        <header
+          className={`mb-5 flex flex-wrap items-center justify-between gap-4 border-b pb-4 ${divider}`}
+        >
           <div className="flex min-w-0 items-center gap-3">
             <span className="grid h-11 w-11 shrink-0 place-items-center rounded-lg bg-[#032E61] text-white">
               <Activity className="h-5 w-5" />
@@ -288,7 +299,11 @@ function PatientPortalPage() {
               type="button"
               size="sm"
               variant="outline"
-              className={theme === "dark" ? "border-slate-700 bg-slate-900 text-slate-100 hover:bg-slate-800" : ""}
+              className={
+                theme === "dark"
+                  ? "border-slate-700 bg-slate-900 text-slate-100 hover:bg-slate-800"
+                  : ""
+              }
               onClick={() => setTheme(theme === "light" ? "dark" : "light")}
             >
               {theme === "light" ? <Moon className="h-4 w-4" /> : <Sun className="h-4 w-4" />}
@@ -298,7 +313,11 @@ function PatientPortalPage() {
               type="button"
               size="sm"
               variant="outline"
-              className={theme === "dark" ? "border-slate-700 bg-slate-900 text-slate-100 hover:bg-slate-800" : ""}
+              className={
+                theme === "dark"
+                  ? "border-slate-700 bg-slate-900 text-slate-100 hover:bg-slate-800"
+                  : ""
+              }
               onClick={() => setLanguage(isUrdu ? "en" : "ur")}
             >
               {t.language}
@@ -308,7 +327,11 @@ function PatientPortalPage() {
                 type="button"
                 size="sm"
                 variant="outline"
-                className={theme === "dark" ? "border-slate-700 bg-slate-900 text-slate-100 hover:bg-slate-800" : ""}
+                className={
+                  theme === "dark"
+                    ? "border-slate-700 bg-slate-900 text-slate-100 hover:bg-slate-800"
+                    : ""
+                }
                 onClick={lockPortal}
               >
                 <LogOut className="h-4 w-4" />
@@ -339,7 +362,9 @@ function PatientPortalPage() {
               </div>
               <div className="flex items-center p-6 sm:p-9">
                 <div className="mx-auto w-full max-w-sm">
-                  <div className={`mb-5 flex h-12 w-12 items-center justify-center rounded-xl ${theme === "dark" ? "bg-slate-800 text-emerald-300" : "bg-emerald-50 text-[#00854A]"}`}>
+                  <div
+                    className={`mb-5 flex h-12 w-12 items-center justify-center rounded-xl ${theme === "dark" ? "bg-slate-800 text-emerald-300" : "bg-emerald-50 text-[#00854A]"}`}
+                  >
                     <LockKeyhole className="h-6 w-6" />
                   </div>
                   <h2 className={`text-xl font-semibold ${heading}`}>{t.enterPin}</h2>
@@ -359,7 +384,9 @@ function PatientPortalPage() {
                         autoComplete="one-time-code"
                         maxLength={6}
                         value={pin}
-                        onChange={(event) => setPin(event.target.value.replace(/\D/g, "").slice(0, 6))}
+                        onChange={(event) =>
+                          setPin(event.target.value.replace(/\D/g, "").slice(0, 6))
+                        }
                         placeholder="••••••"
                         className="h-14 text-center text-2xl font-semibold tracking-[0.55em]"
                         required
@@ -430,12 +457,42 @@ function PatientPortalPage() {
 
             <section className="grid grid-cols-2 gap-3 md:grid-cols-3">
               {[
-                { label: t.completedSessions, value: summary.completedSessions, icon: CheckCircle2, tone: "green" },
-                { label: t.upcomingSessions, value: summary.upcomingSessions, icon: CalendarDays, tone: "blue" },
-                { label: t.totalCharges, value: money(summary.totalCharges, language), icon: CircleDollarSign, tone: "slate" },
-                { label: t.received, value: money(summary.totalReceived, language), icon: ArrowDownLeft, tone: "green" },
-                { label: t.dues, value: money(summary.outstandingDues, language), icon: Wallet, tone: "amber" },
-                { label: t.credit, value: money(summary.advanceCredit, language), icon: ArrowUpRight, tone: "blue" },
+                {
+                  label: t.completedSessions,
+                  value: summary.completedSessions,
+                  icon: CheckCircle2,
+                  tone: "green",
+                },
+                {
+                  label: t.upcomingSessions,
+                  value: summary.upcomingSessions,
+                  icon: CalendarDays,
+                  tone: "blue",
+                },
+                {
+                  label: t.totalCharges,
+                  value: money(summary.totalCharges, language),
+                  icon: CircleDollarSign,
+                  tone: "slate",
+                },
+                {
+                  label: t.received,
+                  value: money(summary.totalReceived, language),
+                  icon: ArrowDownLeft,
+                  tone: "green",
+                },
+                {
+                  label: t.dues,
+                  value: money(summary.outstandingDues, language),
+                  icon: Wallet,
+                  tone: "amber",
+                },
+                {
+                  label: t.credit,
+                  value: money(summary.advanceCredit, language),
+                  icon: ArrowUpRight,
+                  tone: "blue",
+                },
               ].map((item) => {
                 const Icon = item.icon;
                 const iconTone =
@@ -447,14 +504,22 @@ function PatientPortalPage() {
                         ? "bg-blue-50 text-blue-700"
                         : "bg-slate-100 text-slate-700";
                 return (
-                  <article key={item.label} className={`min-w-0 rounded-xl border p-4 shadow-sm sm:p-5 ${surface}`}>
+                  <article
+                    key={item.label}
+                    className={`min-w-0 rounded-xl border p-4 shadow-sm sm:p-5 ${surface}`}
+                  >
                     <div className="flex items-start justify-between gap-2">
                       <p className={`text-xs leading-5 sm:text-sm ${muted}`}>{item.label}</p>
-                      <span className={`grid h-8 w-8 shrink-0 place-items-center rounded-lg ${iconTone}`}>
+                      <span
+                        className={`grid h-8 w-8 shrink-0 place-items-center rounded-lg ${iconTone}`}
+                      >
                         <Icon className="h-4 w-4" />
                       </span>
                     </div>
-                    <p className={`mt-3 break-words text-lg font-semibold tabular-nums sm:text-xl ${heading}`} dir="ltr">
+                    <p
+                      className={`mt-3 break-words text-lg font-semibold tabular-nums sm:text-xl ${heading}`}
+                      dir="ltr"
+                    >
                       {item.value}
                     </p>
                   </article>
@@ -468,10 +533,13 @@ function PatientPortalPage() {
                   <Activity className="h-5 w-5 text-[#00A859]" />
                   <h2 className={`font-semibold ${heading}`}>{t.plan}</h2>
                 </div>
-                <p className={`mt-4 text-lg font-semibold ${heading}`}>{portal.plan?.title ?? t.noPlan}</p>
+                <p className={`mt-4 text-lg font-semibold ${heading}`}>
+                  {portal.plan?.title ?? t.noPlan}
+                </p>
                 {summary.packageSessionsRemaining != null && (
                   <p className={`mt-2 text-sm ${muted}`}>
-                    {t.remaining}: <strong className={heading}>{summary.packageSessionsRemaining}</strong>
+                    {t.remaining}:{" "}
+                    <strong className={heading}>{summary.packageSessionsRemaining}</strong>
                   </p>
                 )}
               </article>
@@ -503,14 +571,21 @@ function PatientPortalPage() {
               {portal.sessions.length ? (
                 <div className={`divide-y ${divider}`}>
                   {portal.sessions.map((item, index) => (
-                    <div key={index} className="flex flex-col gap-2 px-5 py-4 sm:flex-row sm:items-center sm:justify-between">
+                    <div
+                      key={index}
+                      className="flex flex-col gap-2 px-5 py-4 sm:flex-row sm:items-center sm:justify-between"
+                    >
                       <div className="min-w-0">
                         <p className={`break-words text-sm font-medium ${heading}`}>
                           {item.session_label || t.sessionDefault}
                         </p>
-                        <p className={`mt-1 text-xs ${muted}`}>{date(item.session_date, language)}</p>
+                        <p className={`mt-1 text-xs ${muted}`}>
+                          {date(item.session_date, language)}
+                        </p>
                       </div>
-                      <span className={`inline-flex w-fit rounded-full px-3 py-1 text-xs font-medium ${statusTone(item.status)}`}>
+                      <span
+                        className={`inline-flex w-fit rounded-full px-3 py-1 text-xs font-medium ${statusTone(item.status)}`}
+                      >
                         {formatStatus(item.status)}
                       </span>
                     </div>
@@ -529,10 +604,17 @@ function PatientPortalPage() {
               {portal.ledger.length ? (
                 <div className={`divide-y ${divider}`}>
                   {portal.ledger.map((entry, index) => (
-                    <div key={index} className="flex flex-col gap-2 px-5 py-4 sm:flex-row sm:items-center sm:justify-between">
+                    <div
+                      key={index}
+                      className="flex flex-col gap-2 px-5 py-4 sm:flex-row sm:items-center sm:justify-between"
+                    >
                       <div className="min-w-0">
-                        <p className={`break-words text-sm font-medium ${heading}`}>{entry.description}</p>
-                        <p className={`mt-1 text-xs ${muted}`}>{date(entry.occurred_at, language)}</p>
+                        <p className={`break-words text-sm font-medium ${heading}`}>
+                          {entry.description}
+                        </p>
+                        <p className={`mt-1 text-xs ${muted}`}>
+                          {date(entry.occurred_at, language)}
+                        </p>
                       </div>
                       <p
                         className={`text-sm font-semibold tabular-nums ${entry.amount < 0 ? "text-emerald-600" : heading}`}
@@ -557,7 +639,9 @@ function PatientPortalPage() {
           </div>
         ) : null}
 
-        <footer className={`mt-6 flex flex-wrap items-center justify-between gap-2 border-t pt-4 text-xs ${divider} ${muted}`}>
+        <footer
+          className={`mt-6 flex flex-wrap items-center justify-between gap-2 border-t pt-4 text-xs ${divider} ${muted}`}
+        >
           <span>PAINFIX · Physiotherapy Clinic · Multan</span>
           <span>{t.footer}</span>
         </footer>
