@@ -340,7 +340,7 @@ test("incorrect patient payments can be excluded without mutating the original l
     detail,
     /const paymentReversals\s*=\s*data\?\.ledger[\s\S]*startsWith\("Payment reversal:"\)/,
   );
-  assert.match(detail, /Math.max\(0,[\s\S]*paymentReversals/);
+  assert.match(detail, /Math.max\([\s\S]*-\s*paymentReversals/);
   assert.match(list, /grossReceived[\s\S]*reversedPayments/);
   assert.match(portalFunction, /grossReceived[\s\S]*reversedPayments/);
 });
