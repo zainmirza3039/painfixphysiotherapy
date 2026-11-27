@@ -313,10 +313,12 @@ function PersonalPatientDetailPage() {
     data?.ledger
       .filter((e) => e.entry_type === "charge")
       .reduce((n, e) => n + Number(e.amount), 0) ?? 0;
-  const received =
-    data?.ledger
-      .filter((e) => e.entry_type === "payment")
-      .reduce((n, e) => n + Math.abs(Number(e.amount)), 0) ?? 0;
+  const received = Math.max(0, (data?.ledger
+    .filter((e) => e.entry_type === "payment")
+    .reduce((n, e) => n + Math.abs(Number(e.amount)), 0) ?? 0) - paymentReversals);
+  const paymentReversals = data?.ledger
+    .filter((e) => e.entry_type === "adjustment" && e.description.startsWith("Payment reversal:"))
+    .reduce((n, e) => n + Number(e.amount), 0) ?? 0;
   const balance = data?.ledger.reduce((n, e) => n + Number(e.amount), 0) ?? 0;
   const refresh = () =>
     qc.invalidateQueries({ queryKey: ["admin", "personal-patient-detail", user?.id, patientId] });
@@ -648,6 +650,31 @@ function PersonalPatientDetailPage() {
       toast.success("Payment recorded.");
     },
     onError: (e) => toast.error(e instanceof Error ? e.message : "Could not record payment."),
+  });
+
+  const reversePayment = useMutation({
+    mutationFn: async (payment: Entry) => {
+      if (!user?.id) throw new Error("Please sign in again.");
+      if (payment.entry_type !== "payment" || Number(payment.amount) >= 0)
+        throw new Error("Only a recorded payment can be excluded from totals.");
+      const reference = `payment-reversal:${payment.id}`;
+      if (data?.ledger.some((entry) => entry.reference === reference))
+        throw new Error("This payment has already been reversed.");
+      const { error } = await personalPatientDb.from("personal_patient_ledger").insert({
+        clinician_id: user.id,
+        patient_id: patientId,
+        entry_type: "adjustment",
+        amount: Math.abs(Number(payment.amount)),
+        description: `Payment reversal: ${payment.description}`,
+        reference,
+      });
+      if (error) throw error;
+    },
+    onSuccess: async () => {
+      await refresh();
+      toast.success("Payment excluded from totals. The original entry remains in the history.");
+    },
+    onError: (error) => toast.error(error instanceof Error ? error.message : "Could not reverse payment."),
   });
 
   const updatePatient = useMutation({
@@ -1412,25 +1439,37 @@ function PersonalPatientDetailPage() {
         {data.ledger.length ? (
           <div className="mt-3 divide-y divide-border">
             {data.ledger.map((e) => (
-              <div key={e.id} className="flex items-center justify-between gap-3 py-3">
-                <div>
-                  <p className="font-medium">{e.description}</p>
-                  <p className="text-xs text-muted-foreground">
+              <div key={e.id} className="flex min-w-0 flex-col gap-2 py-3 sm:flex-row sm:items-center sm:justify-between">
+                <div className="min-w-0">
+                  <p className="break-words font-medium">{e.description}</p>
+                  <p className="break-words text-xs text-muted-foreground">
                     {date(e.occurred_at)}
                     {e.payment_method ? ` · ${e.payment_method.replace("_", " ")}` : ""}
                     {e.reference ? ` · Ref ${e.reference.slice(0, 8)}` : ""}
                   </p>
                 </div>
-                <div className="flex items-center gap-2">
+                <div className="flex flex-wrap items-center gap-2 sm:justify-end">
                   {e.entry_type === "payment" && (
-                    <Button size="sm" variant="ghost" onClick={() => printReceipt(e)}>
-                      <Printer className="mr-1 h-3.5 w-3.5" />
-                      Receipt
-                    </Button>
+                    <>
+                      <Button size="sm" variant="ghost" onClick={() => printReceipt(e)}>
+                        <Printer className="mr-1 h-3.5 w-3.5" />
+                        Receipt
+                      </Button>
+                      <Button
+                        size="sm"
+                        variant="outline"
+                        disabled={reversePayment.isPending || data.ledger.some((entry) => entry.reference === `payment-reversal:${e.id}`)}
+                        onClick={() => {
+                          if (window.confirm("Exclude this payment from totals? The original entry will remain in the audit history.")) {
+                            reversePayment.mutate(e);
+                          }
+                        }}
+                      >
+                        Exclude from totals
+                      </Button>
+                    </>
                   )}
-                  <p
-                    className={`font-semibold tabular-nums ${e.amount < 0 ? "text-emerald-600" : "text-foreground"}`}
-                  >
+                  <p className={`font-semibold tabular-nums ${e.amount < 0 ? "text-emerald-600" : "text-foreground"}`}>
                     {e.amount < 0 ? "− " : "+ "}
                     {money(Math.abs(Number(e.amount)))}
                   </p>
