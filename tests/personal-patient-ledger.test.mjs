@@ -347,7 +347,7 @@ test("patient portal exposes a working verification action, language switch and 
   assert.match(portal, /verify\.mutate\(\)/);
   assert.match(portal, /setLanguage\(language === "en" \? "ur" : "en"\)/);
   assert.match(portal, /setTheme\(theme === "light" \? "dark" : "light"\)/);
-  assert.match(portal, /document\.documentElement\.classList\.toggle\("dark"/);
+  assert.match(portal, /dark bg-slate-950 text-slate-100/);
   assert.match(portal, /Noto\+Nastaliq\+Urdu/);
 });
 
