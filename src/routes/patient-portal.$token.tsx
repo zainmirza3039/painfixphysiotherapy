@@ -123,10 +123,8 @@ function PatientPortalPage() {
           cancelled: "منسوخ",
           rescheduled: "دوبارہ طے شدہ",
           welcome: "خوش آمدید",
+          patientAccess: "مریضوں کی محفوظ رسائی",
           overview: "آپ کے علاج کا خلاصہ",
-          session: "سیشن",
-          date: "تاریخ",
-          amount: "رقم",
           noSessions: "ابھی کوئی سیشن درج نہیں۔",
           noEntries: "ابھی کوئی مالی اندراج موجود نہیں۔",
           sessionDefault: "فزیوتھراپی سیشن",
@@ -165,10 +163,8 @@ function PatientPortalPage() {
           cancelled: "Cancelled",
           rescheduled: "Rescheduled",
           welcome: "Welcome back",
+          patientAccess: "SECURE PATIENT ACCESS",
           overview: "Your treatment overview",
-          session: "Session",
-          date: "Date",
-          amount: "Amount",
           noSessions: "No sessions have been recorded yet.",
           noEntries: "No financial entries are available yet.",
           sessionDefault: "Physiotherapy session",
@@ -183,7 +179,6 @@ function PatientPortalPage() {
   const isUrdu = language === "ur";
   const page = theme === "dark" ? "dark bg-slate-950 text-slate-100" : "bg-[#F2F5F9] text-slate-900";
   const surface = theme === "dark" ? "border-slate-800 bg-slate-900" : "border-slate-200 bg-white";
-  const softSurface = theme === "dark" ? "border-slate-800 bg-slate-900/70" : "border-slate-200 bg-[#F8FAFC]";
   const muted = theme === "dark" ? "text-slate-400" : "text-slate-500";
   const heading = theme === "dark" ? "text-white" : "text-[#032E61]";
   const divider = theme === "dark" ? "divide-slate-800 border-slate-800" : "divide-slate-100 border-slate-200";
@@ -254,6 +249,15 @@ function PatientPortalPage() {
           ? t.rescheduled
           : t.scheduled;
 
+  const statusTone = (status: string) =>
+    status === "completed"
+      ? theme === "dark" ? "bg-emerald-950 text-emerald-300" : "bg-emerald-50 text-emerald-800"
+      : status === "cancelled"
+        ? theme === "dark" ? "bg-rose-950 text-rose-300" : "bg-rose-50 text-rose-700"
+        : status === "rescheduled"
+          ? theme === "dark" ? "bg-amber-950 text-amber-300" : "bg-amber-50 text-amber-800"
+          : theme === "dark" ? "bg-blue-950 text-blue-300" : "bg-blue-50 text-blue-800";
+
   const lockPortal = () => {
     sessionStorage.removeItem(`painfix-portal-${token}`);
     setSessionToken(null);
@@ -323,7 +327,7 @@ function PatientPortalPage() {
                     <ShieldCheck className="h-6 w-6" />
                   </span>
                   <p className="mt-7 text-xs font-semibold uppercase tracking-[0.18em] text-emerald-300">
-                    PAINFIX · PATIENT ACCESS
+                    PAINFIX · {t.patientAccess}
                   </p>
                   <h1 className="mt-3 text-3xl font-semibold leading-tight">{t.title}</h1>
                   <p className="mt-3 max-w-md text-sm leading-7 text-blue-100">{t.subtitle}</p>
@@ -506,7 +510,7 @@ function PatientPortalPage() {
                         </p>
                         <p className={`mt-1 text-xs ${muted}`}>{date(item.session_date, language)}</p>
                       </div>
-                      <span className="inline-flex w-fit rounded-full bg-emerald-50 px-3 py-1 text-xs font-medium text-emerald-800">
+                      <span className={`inline-flex w-fit rounded-full px-3 py-1 text-xs font-medium ${statusTone(item.status)}`}>
                         {formatStatus(item.status)}
                       </span>
                     </div>
