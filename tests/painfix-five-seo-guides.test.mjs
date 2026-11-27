@@ -46,12 +46,15 @@ test("new PainFix articles use only valid service and condition references", asy
 
 test("clinical copy avoids unsupported structural-reset and guaranteed-surgery claims", () => {
   const posts = blogPosts.filter((item) => newSlugs.includes(item.slug));
-  const text = posts.flatMap((post) => [
-    post.quickAnswer,
-    post.excerpt,
-    ...post.sections.flatMap((section) => [section.heading ?? "", ...section.paragraphs]),
-    ...post.faqs.flatMap((faq) => [faq.q, faq.a]),
-  ]).join(" ").toLowerCase();
+  const text = posts
+    .flatMap((post) => [
+      post.quickAnswer,
+      post.excerpt,
+      ...post.sections.flatMap((section) => [section.heading ?? "", ...section.paragraphs]),
+      ...post.faqs.flatMap((faq) => [faq.q, faq.a]),
+    ])
+    .join(" ")
+    .toLowerCase();
   assert.doesNotMatch(text, /hyderabad/);
   assert.match(text, /does not mean|does not claim|not a permanent|not be described|not intended/);
   assert.match(text, /surgery/);
