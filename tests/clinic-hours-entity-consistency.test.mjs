@@ -12,11 +12,8 @@ test("root clinic entity and local SEO clinic entity publish the same Multan hou
     ["root", root],
     ["local SEO", local],
   ]) {
-    assert.match(
-      source,
-      /dayOfWeek:\s*\[[\s\S]*?"Monday"[\s\S]*?"Saturday"[\s\S]*?\]/,
-      name,
-    );
+    const weekdays = /dayOfWeek:\s*\[[\s\S]*?"Monday"[\s\S]*?"Saturday"[\s\S]*?\]/;
+    assert.match(source, weekdays, name);
     assert.match(source, /opens: "11:00"/, name);
     assert.match(source, /closes: "16:00"/, name);
     assert.match(source, /MedicalClinic/, name);
