@@ -1064,7 +1064,7 @@ function PersonalPatientDetailPage() {
               {data.plans.map((p) => (
                 <div
                   key={p.id}
-                  className="flex items-start justify-between gap-3 border-t border-border pt-3 first:border-0 first:pt-0"
+                  className="flex min-w-0 flex-col gap-3 border-t border-border pt-3 first:border-0 first:pt-0 sm:flex-row sm:items-start sm:justify-between"
                 >
                   <div className="min-w-0">
                     <p className="font-medium">{p.title}</p>
@@ -1106,7 +1106,7 @@ function PersonalPatientDetailPage() {
       </div>
       <section className="rounded-xl border border-border bg-card p-4">
         <div className="flex flex-wrap items-center justify-between gap-3">
-          <div className="flex items-center gap-2">
+          <div className="flex w-full flex-wrap items-center gap-2 sm:w-auto">
             <CalendarDays className="h-5 w-5 text-muted-foreground" />
             <h2 className="font-semibold">
               {language === "ur" ? "سیشن کیلنڈر" : "Session calendar"}
@@ -1348,7 +1348,7 @@ function PersonalPatientDetailPage() {
         </div>
       </section>
       <section className="rounded-xl border border-border bg-card p-4">
-        <div className="flex items-center justify-between">
+        <div className="flex flex-wrap items-center justify-between gap-2">
           <h2 className="font-semibold">{t.sessions}</h2>
           <Badge variant="secondary">{visibleSessions.length} total</Badge>
         </div>
@@ -1495,7 +1495,7 @@ function PersonalPatientDetailPage() {
         {data.audit.length ? (
           <div className="mt-3 divide-y divide-border">
             {data.audit.map((event) => (
-              <div key={event.id} className="flex items-start justify-between gap-3 py-2">
+              <div key={event.id} className="flex min-w-0 flex-col gap-2 py-2 sm:flex-row sm:items-start sm:justify-between">
                 <div>
                   <p className="text-sm font-medium">{event.action.replaceAll("_", " ")}</p>
                   <p className="text-xs text-muted-foreground">{event.entity_type}</p>
@@ -1678,7 +1678,7 @@ function PersonalPatientDetailPage() {
               <div className="space-y-3 rounded-lg border border-slate-200 bg-white p-4">
                 <Label>{language === "ur" ? "مریض کا لنک" : "Patient link"}</Label>
                 <Input readOnly value={portalUrl} />
-                <div className="grid grid-cols-2 gap-2">
+                <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
                   <Button
                     variant="outline"
                     size="sm"
