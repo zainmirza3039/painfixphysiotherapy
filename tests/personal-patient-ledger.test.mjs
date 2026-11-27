@@ -17,6 +17,10 @@ const migration = fs.readFileSync(
   path.join(root, "supabase/migrations/20261109120000_add_personal_patient_ledger.sql"),
   "utf8",
 );
+const reversalMigration = fs.readFileSync(
+  path.join(root, "supabase/migrations/20261127140000_personal_patient_payment_reversal_guard.sql"),
+  "utf8",
+);
 const portal = fs.readFileSync(path.join(root, "src/routes/patient-portal.$token.tsx"), "utf8");
 const portalFunction = fs.readFileSync(
   path.join(root, "supabase/functions/patient-portal/index.ts"),
@@ -351,4 +355,9 @@ test("personal patient list uses a mobile card layout and desktop table layout",
   assert.match(list, /space-y-3 p-3 sm:hidden/);
   assert.match(list, /hidden overflow-x-auto sm:block/);
   assert.match(detail, /min-w-0 w-full space-y-6 overflow-x-hidden/);
+});
+
+test("payment reversal references are unique per clinician at the database level", () => {
+  assert.match(reversalMigration, /create unique index if not exists personal_patient_payment_reversal_reference_uidx/);
+  assert.match(reversalMigration, /where reference like 'payment-reversal:%'/);
 });
