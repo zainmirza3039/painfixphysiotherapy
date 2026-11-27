@@ -6,7 +6,7 @@ import { Navbar } from "@/components/site/Navbar";
 import { Hero } from "@/components/site/Hero";
 import { CityServices } from "@/components/site/CityServices";
 import { MeetDoctors } from "@/components/site/MeetDoctors";
-import { TrustSignals } from "@/components/site/TrustSignals";
+import { TopArticles } from "@/components/site/TopArticles";
 import { Services } from "@/components/site/Services";
 import { Conditions } from "@/components/site/Conditions";
 import { WhyChooseUs } from "@/components/site/WhyChooseUs";
@@ -74,7 +74,7 @@ function Index() {
         <HomePhysio />
         <WhyChooseUs />
         <GoogleReviews />
-        <TrustSignals />
+        <TopArticles />
         <PhysioFitness />
         <HomeBmi />
         <ConsultationFees />

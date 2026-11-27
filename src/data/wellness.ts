@@ -54,7 +54,7 @@ export interface WellnessPage {
 }
 
 /** Resolve related articles for a wellness page by explicit slug or category. */
-export function relatedArticlesForWellness(page: WellnessPage, limit = 3): BlogPost[] {
+export function relatedArticlesForWellness(page: WellnessPage, limit = 4): BlogPost[] {
   const out: BlogPost[] = [];
   const seen = new Set<string>();
 
@@ -197,13 +197,13 @@ export const fitnessPage: WellnessPage = {
     "posture-ergonomic-assessment",
     "pain-management",
   ],
-  relatedArticleCategories: [
-    "exercise-therapy",
-    "sports-performance",
-    "sports-injuries",
-    "posture",
-    "recovery-tips",
+  relatedArticleSlugs: [
+    "acl-rehabilitation",
+    "sports-injury-recovery",
+    "gym-injuries-physiotherapy",
+    "ligament-injury-rehabilitation",
   ],
+  relatedArticleCategories: ["sports-injuries", "sports-performance"],
 };
 
 /* -------------------------------------------------------------------------- */
