@@ -133,7 +133,7 @@ Deno.serve(async (req) => {
 
     const { data: ledger, error: ledgerError } = await admin
       .from("personal_patient_ledger")
-      .select("entry_type,amount,payment_method,reference,occurred_at")
+      .select("id,entry_type,amount,description,payment_method,reference,occurred_at")
       .eq("patient_id", patientId)
       .eq("clinician_id", clinician.id)
       .order("occurred_at", { ascending: false });
@@ -151,9 +151,27 @@ Deno.serve(async (req) => {
     const refunds = entries
       .filter((entry) => entry.entry_type === "refund")
       .reduce((sum, entry) => sum + Math.max(0, Number(entry.amount)), 0);
-    const amountPaid = Math.max(0, totalPayments - refunds);
+    const paymentReversals = entries
+      .filter(
+        (entry) =>
+          entry.entry_type === "adjustment" &&
+          entry.description.startsWith("Payment reversal:"),
+      )
+      .reduce((sum, entry) => sum + Math.max(0, Number(entry.amount)), 0);
+    const reversedPaymentIds = new Set(
+      entries
+        .filter(
+          (entry) =>
+            entry.entry_type === "adjustment" &&
+            entry.reference?.startsWith("payment-reversal:"),
+        )
+        .map((entry) => entry.reference.slice("payment-reversal:".length)),
+    );
+    const amountPaid = Math.max(0, totalPayments - refunds - paymentReversals);
     const balance = entries.reduce((sum, entry) => sum + Number(entry.amount), 0);
-    const latestPayment = entries.find((entry) => entry.entry_type === "payment");
+    const latestPayment = entries.find(
+      (entry) => entry.entry_type === "payment" && !reversedPaymentIds.has(entry.id),
+    );
 
     const verificationToken = tokenHex();
     const issuedAt = new Date().toISOString();
