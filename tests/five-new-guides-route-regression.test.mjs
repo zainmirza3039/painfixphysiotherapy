@@ -13,14 +13,18 @@ const slugs = [
 
 test("all five new SEO guides exist in static blog data", async () => {
   const blog = await read("src/data/blog.ts");
-  for (const slug of slugs) assert.ok(blog.includes('slug: "' + slug + '"'), "missing " + slug);
+  for (const slug of slugs) {
+    assert.ok(blog.includes('slug: "' + slug + '"'), "missing " + slug);
+  }
 });
 
 test("the dynamic article route resolves slugs and sitemap maps every static blog post", async () => {
   const route = await read("src/routes/blog.$slug.tsx");
   const sitemap = await read("src/routes/sitemap[.]xml.ts");
+
   assert.match(route, /getPost\(params\.slug\)/);
   assert.match(sitemap, /blogPosts\.map\(\(p\) => \(\{/);
   assert.match(sitemap, /path: `\/blog\/\$\{p\.slug\}`/);
-  for (const slug of slugs) assert.ok((await read("src/data/blog.ts")).includes(slug));
+  const blog = await read("src/data/blog.ts");
+  for (const slug of slugs) assert.ok(blog.includes(slug));
 });
