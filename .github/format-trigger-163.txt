@@ -1,0 +1,1 @@
+Temporary trigger for the automated formatter. The workflow removes this file before committing.
