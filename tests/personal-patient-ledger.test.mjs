@@ -337,7 +337,7 @@ test("incorrect patient payments can be excluded without mutating the original l
   assert.match(detail, /Payment reversal:/);
   assert.match(detail, /Exclude from totals/);
   assert.match(detail, /already been reversed/);
-  assert.match(detail, /grossReceived[\s\S]*paymentReversals/);
+  assert.match(detail, /const paymentReversals = data\?\.ledger[\s\S]*startsWith\("Payment reversal:"\)/);\n  assert.match(detail, /Math\.max\(0,[\s\S]*\) - paymentReversals\)/);
   assert.match(list, /grossReceived[\s\S]*reversedPayments/);
   assert.match(portalFunction, /grossReceived[\s\S]*reversedPayments/);
 });
@@ -345,7 +345,7 @@ test("incorrect patient payments can be excluded without mutating the original l
 test("patient portal exposes a working verification action, language switch and theme switch", () => {
   assert.match(portal, /open: "Verify \/ OK"/);
   assert.match(portal, /verify\.mutate\(\)/);
-  assert.match(portal, /setLanguage\(language === "en" \? "ur" : "en"\)/);
+  assert.match(portal, /onClick=\{\(\) => setLanguage\(isUrdu \? "en" : "ur"\)\}/);
   assert.match(portal, /setTheme\(theme === "light" \? "dark" : "light"\)/);
   assert.match(portal, /bg-slate-950 text-slate-100/);
   assert.match(portal, /Noto\+Nastaliq\+Urdu/);
