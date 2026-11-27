@@ -181,7 +181,7 @@ function PatientPortalPage() {
         };
 
   const isUrdu = language === "ur";
-  const page = theme === "dark" ? "bg-slate-950 text-slate-100" : "bg-[#F2F5F9] text-slate-900";
+  const page = theme === "dark" ? "dark bg-slate-950 text-slate-100" : "bg-[#F2F5F9] text-slate-900";
   const surface = theme === "dark" ? "border-slate-800 bg-slate-900" : "border-slate-200 bg-white";
   const softSurface = theme === "dark" ? "border-slate-800 bg-slate-900/70" : "border-slate-200 bg-[#F8FAFC]";
   const muted = theme === "dark" ? "text-slate-400" : "text-slate-500";
