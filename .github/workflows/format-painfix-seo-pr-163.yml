@@ -1,31 +1,33 @@
 name: Format and verify PainFix SEO PR #163
 
 on:
-  push:
-    branches:
-      - content/painfix-five-multan-guides-20261128
+  pull_request_target:
+    types: [opened, synchronize, reopened]
     paths:
-      - ".github/format-trigger-163.txt"
       - "src/data/blog.ts"
       - "tests/painfix-five-seo-guides.test.mjs"
+      - ".github/format-trigger-163.txt"
 
 permissions:
-  contents: write
+  contents: read
 
 concurrency:
   group: painfix-seo-pr-163-format
   cancel-in-progress: false
 
 jobs:
-  format-and-verify:
-    if: github.repository == 'zainmirza3039/painfixphysiotherapy'
+  format:
+    if: github.event.pull_request.number == 163 && github.event.pull_request.head.repo.full_name == github.repository
     runs-on: ubuntu-latest
-    timeout-minutes: 25
+    timeout-minutes: 10
+    permissions:
+      contents: write
     steps:
-      - name: Check out PR branch
+      - name: Check out the PR branch
         uses: actions/checkout@v4
         with:
-          ref: ${{ github.ref }}
+          repository: ${{ github.event.pull_request.head.repo.full_name }}
+          ref: ${{ github.event.pull_request.head.ref }}
           fetch-depth: 0
 
       - name: Set up Node.js
@@ -33,10 +35,12 @@ jobs:
         with:
           node-version: 22
 
-      - name: Format the two PR files
+      - name: Format only the two requested files
         run: npx --yes prettier@3.7.3 --write src/data/blog.ts tests/painfix-five-seo-guides.test.mjs
 
-      - name: Remove one-time trigger and commit formatting
+      - name: Remove trigger marker and push formatting commit
+        env:
+          BRANCH_NAME: ${{ github.event.pull_request.head.ref }}
         run: |
           rm -f .github/format-trigger-163.txt
           git config user.name "github-actions[bot]"
@@ -44,8 +48,28 @@ jobs:
           git add src/data/blog.ts tests/painfix-five-seo-guides.test.mjs .github/format-trigger-163.txt
           if ! git diff --cached --quiet; then
             git commit -m "style: format SEO guides [skip ci]"
-            git push origin "HEAD:${GITHUB_REF_NAME}"
+            git push origin "HEAD:${BRANCH_NAME}"
           fi
+
+  verify:
+    needs: format
+    if: github.event.pull_request.number == 163 && github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    permissions:
+      contents: read
+    steps:
+      - name: Check out updated PR branch
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ github.event.pull_request.head.repo.full_name }}
+          ref: ${{ github.event.pull_request.head.ref }}
+          persist-credentials: false
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
 
       - name: Set up Bun
         uses: oven-sh/setup-bun@v2
