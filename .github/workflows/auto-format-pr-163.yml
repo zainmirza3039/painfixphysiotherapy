@@ -1,0 +1,77 @@
+name: Auto-format PR 163
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: read
+
+concurrency:
+  group: auto-format-pr-163
+  cancel-in-progress: false
+
+jobs:
+  format-and-verify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Validate target pull request
+        id: target
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPOSITORY: ${{ github.repository }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          pr="$(gh api "repos/$REPOSITORY/pulls/163")"
+          state="$(jq -r '.state' <<< "$pr")"
+          head_repo="$(jq -r '.head.repo.full_name // empty' <<< "$pr")"
+          branch="$(jq -r '.head.ref' <<< "$pr")"
+          base="$(jq -r '.base.ref' <<< "$pr")"
+          if [[ "$state" != "open" || "$head_repo" != "$REPOSITORY" || "$base" != "main" ]]; then
+            echo "PR 163 must be open, target main, and originate from this repository." >&2
+            exit 1
+          fi
+          echo "branch=$branch" >> "$GITHUB_OUTPUT"
+
+      - name: Check out PR 163 branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ steps.target.outputs.branch }}
+          persist-credentials: true
+
+      - name: Set up Bun
+        uses: oven-sh/setup-bun@v2
+
+      - name: Install locked dependencies
+        run: bun install --frozen-lockfile
+
+      - name: Format only the two files that failed Prettier
+        run: bunx prettier --write src/data/blog.ts tests/painfix-five-seo-guides.test.mjs
+
+      - name: Commit formatting changes
+        env:
+          BRANCH: ${{ steps.target.outputs.branch }}
+        run: |
+          set -euo pipefail
+          if git diff --quiet -- src/data/blog.ts tests/painfix-five-seo-guides.test.mjs; then
+            echo "No formatting changes were necessary."
+          else
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add src/data/blog.ts tests/painfix-five-seo-guides.test.mjs
+            git commit -m "style: format SEO guide content and tests"
+            git push origin "HEAD:$BRANCH"
+          fi
+
+      - name: Run tests
+        run: bun run test
+
+      - name: TypeScript typecheck
+        run: bun run typecheck
+
+      - name: Run lint
+        run: bun run lint
+
+      - name: Build production bundle
+        run: bun run build
