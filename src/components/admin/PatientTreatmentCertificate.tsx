@@ -30,6 +30,8 @@ type Session = {
   session_label: string | null;
 };
 type Entry = {
+  id: string;
+  description: string;
   entry_type: string;
   amount: number;
   payment_method: string | null;
@@ -93,6 +95,7 @@ export function PatientTreatmentCertificate({
       const { data, error } = await personalPatientDb
         .from("personal_patient_treatment_documents")
         .select("id,document_number,status,issued_at,snapshot")
+        .eq("clinician_id", clinicianId)
         .eq("patient_id", patient.id)
         .order("issued_at", { ascending: false });
 
@@ -110,8 +113,25 @@ export function PatientTreatmentCertificate({
   const refunds = ledger
     .filter((entry) => entry.entry_type === "refund")
     .reduce((total, entry) => total + Math.max(0, Number(entry.amount)), 0);
-  const paid = Math.max(0, payments - refunds);
-  const latestPayment = ledger.find((entry) => entry.entry_type === "payment");
+  const paymentReversals = ledger
+    .filter(
+      (entry) =>
+        entry.entry_type === "adjustment" && entry.description.startsWith("Payment reversal:"),
+    )
+    .reduce((total, entry) => total + Math.max(0, Number(entry.amount)), 0);
+  const reversedPaymentIds = new Set(
+    ledger
+      .filter(
+        (entry) =>
+          entry.entry_type === "adjustment" &&
+          entry.reference?.startsWith("payment-reversal:"),
+      )
+      .map((entry) => entry.reference!.slice("payment-reversal:".length)),
+  );
+  const paid = Math.max(0, payments - refunds - paymentReversals);
+  const latestPayment = ledger.find(
+    (entry) => entry.entry_type === "payment" && !reversedPaymentIds.has(entry.id),
+  );
   const balance = ledger.reduce((total, entry) => total + Number(entry.amount), 0);
 
   const issue = useMutation({
@@ -254,7 +274,17 @@ export function PatientTreatmentCertificate({
       {documents.isLoading ? (
         <p className="mt-4 text-sm text-muted-foreground">Loading issued documents…</p>
       ) : documents.isError ? (
-        <p className="mt-4 text-sm text-destructive">Could not load issued certificates.</p>
+        <div className="mt-4 flex flex-col gap-3 rounded-lg border border-destructive/30 bg-destructive/5 p-3 sm:flex-row sm:items-center sm:justify-between">
+          <div className="min-w-0">
+            <p className="text-sm font-medium text-destructive">Could not load issued certificates.</p>
+            <p className="mt-1 break-words text-xs text-muted-foreground">
+              {documents.error instanceof Error ? documents.error.message : "Check your access and connection, then retry."}
+            </p>
+          </div>
+          <Button size="sm" variant="outline" onClick={() => void documents.refetch()} disabled={documents.isFetching}>
+            {documents.isFetching ? "Retrying…" : "Retry"}
+          </Button>
+        </div>
       ) : documents.data?.length ? (
         <div className="mt-4 divide-y divide-border">
           {documents.data.map((document) => (
@@ -262,13 +292,13 @@ export function PatientTreatmentCertificate({
               key={document.id}
               className="flex flex-wrap items-center justify-between gap-3 py-3"
             >
-              <div>
-                <p className="font-medium">{document.document_number}</p>
+              <div className="min-w-0">
+                <p className="break-words font-medium">{document.document_number}</p>
                 <p className="text-xs text-muted-foreground">
                   Issued {new Date(document.issued_at).toLocaleDateString("en-PK")}
                 </p>
               </div>
-              <div className="flex items-center gap-2">
+              <div className="flex w-full flex-wrap items-center gap-2 sm:w-auto">
                 <Badge variant={document.status === "valid" ? "default" : "destructive"}>
                   {document.status}
                 </Badge>
