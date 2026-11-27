@@ -37,7 +37,13 @@ type Patient = {
   created_at: string;
 };
 type Session = { patient_id: string; status: string };
-type Entry = { patient_id: string; entry_type: string; amount: number };
+type Entry = {
+  patient_id: string;
+  entry_type: string;
+  amount: number;
+  description: string;
+  reference: string | null;
+};
 const words = {
   en: {
     title: "Personal Patients",
@@ -152,7 +158,9 @@ function PersonalPatientsPage() {
       if (p.error) throw p.error;
       const [sessionsResult, ledgerResult] = await Promise.allSettled([
         db.from("personal_patient_sessions").select("patient_id,status"),
-        db.from("personal_patient_ledger").select("patient_id,entry_type,amount"),
+        db
+          .from("personal_patient_ledger")
+          .select("patient_id,entry_type,amount,description,reference"),
       ]);
       if (sessionsResult.status === "rejected") throw sessionsResult.reason;
       if (ledgerResult.status === "rejected") throw ledgerResult.reason;
@@ -183,9 +191,17 @@ function PersonalPatientsPage() {
     return {
       active: (query.data?.patients ?? []).filter((p) => p.status === "active").length,
       completed: sessions.filter((s) => s.status === "completed").length,
-      received: ledger
-        .filter((e) => e.entry_type === "payment")
-        .reduce((n, e) => n + Math.abs(Number(e.amount)), 0),
+      received: Math.max(
+        0,
+        ledger
+          .filter((e) => e.entry_type === "payment")
+          .reduce((n, e) => n + Math.abs(Number(e.amount)), 0) -
+          ledger
+            .filter(
+              (e) => e.entry_type === "adjustment" && e.description.startsWith("Payment reversal:"),
+            )
+            .reduce((n, e) => n + Number(e.amount), 0),
+      ),
       charges: ledger
         .filter((e) => e.entry_type === "charge")
         .reduce((n, e) => n + Number(e.amount), 0),
@@ -408,7 +424,75 @@ function PersonalPatientsPage() {
               {new Intl.DateTimeFormat("en-PK", { dateStyle: "full" }).format(new Date())}
             </span>
           </div>
-          <div className="overflow-x-auto">
+          <div className="space-y-3 p-3 sm:hidden">
+            {filtered.map((p) => {
+              const patientSessions = (query.data?.sessions ?? []).filter(
+                (session) => session.patient_id === p.id,
+              );
+              const completedCount = patientSessions.filter(
+                (session) => session.status === "completed",
+              ).length;
+              const entries = (query.data?.ledger ?? []).filter(
+                (entry) => entry.patient_id === p.id,
+              );
+              const grossReceived = entries
+                .filter((entry) => entry.entry_type === "payment")
+                .reduce((total, entry) => total + Math.abs(Number(entry.amount)), 0);
+              const reversedPayments = entries
+                .filter(
+                  (entry) =>
+                    entry.entry_type === "adjustment" &&
+                    entry.description.startsWith("Payment reversal:"),
+                )
+                .reduce((total, entry) => total + Number(entry.amount), 0);
+              const received = Math.max(0, grossReceived - reversedPayments);
+              const balance = entries.reduce((total, entry) => total + Number(entry.amount), 0);
+              return (
+                <article key={p.id} className="rounded-lg border border-border bg-background p-3">
+                  <div className="flex items-start justify-between gap-2">
+                    <div className="min-w-0">
+                      <p className="break-words font-semibold text-foreground">{p.full_name}</p>
+                      <p className="mt-1 break-words text-xs text-muted-foreground">
+                        {p.phone || p.email || "No contact details"}
+                      </p>
+                      <p className="mt-1 font-mono text-[11px] text-muted-foreground">
+                        {p.id.slice(0, 8).toUpperCase()}
+                      </p>
+                    </div>
+                    <Badge variant="secondary">{p.status.replaceAll("_", " ")}</Badge>
+                  </div>
+                  <div className="mt-3 grid grid-cols-2 gap-3 border-t border-border pt-3 text-sm">
+                    <div>
+                      <p className="text-xs text-muted-foreground">Completed sessions</p>
+                      <p className="mt-1 font-semibold tabular-nums">{completedCount}</p>
+                    </div>
+                    <div>
+                      <p className="text-xs text-muted-foreground">Payments received</p>
+                      <p className="mt-1 font-semibold tabular-nums">{money(received)}</p>
+                    </div>
+                    <div className="col-span-2">
+                      <p className="text-xs text-muted-foreground">Balance</p>
+                      <p className="mt-1 font-semibold tabular-nums">
+                        {balance > 0
+                          ? money(balance)
+                          : balance < 0
+                            ? `+${money(-balance)} credit`
+                            : money(0)}
+                      </p>
+                    </div>
+                  </div>
+                  <Link
+                    to="/admin/personal-patients/$patientId"
+                    params={{ patientId: p.id }}
+                    className="mt-3 inline-flex min-h-10 w-full items-center justify-center rounded-md bg-primary px-3 text-sm font-medium text-primary-foreground"
+                  >
+                    Open patient account
+                  </Link>
+                </article>
+              );
+            })}
+          </div>
+          <div className="hidden overflow-x-auto sm:block">
             <table className="w-full min-w-[760px] border-collapse text-left text-sm">
               <thead className="bg-muted/50 text-xs font-medium uppercase tracking-wide text-muted-foreground">
                 <tr>
@@ -431,9 +515,17 @@ function PersonalPatientsPage() {
                   const entries = (query.data?.ledger ?? []).filter(
                     (entry) => entry.patient_id === p.id,
                   );
-                  const received = entries
+                  const grossReceived = entries
                     .filter((entry) => entry.entry_type === "payment")
                     .reduce((total, entry) => total + Math.abs(Number(entry.amount)), 0);
+                  const reversedPayments = entries
+                    .filter(
+                      (entry) =>
+                        entry.entry_type === "adjustment" &&
+                        entry.description.startsWith("Payment reversal:"),
+                    )
+                    .reduce((total, entry) => total + Number(entry.amount), 0);
+                  const received = Math.max(0, grossReceived - reversedPayments);
                   const balance = entries.reduce((total, entry) => total + Number(entry.amount), 0);
                   return (
                     <tr key={p.id} className="transition-colors hover:bg-muted/30">

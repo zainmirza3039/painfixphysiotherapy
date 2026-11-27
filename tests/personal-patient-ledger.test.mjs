@@ -17,6 +17,10 @@ const migration = fs.readFileSync(
   path.join(root, "supabase/migrations/20261109120000_add_personal_patient_ledger.sql"),
   "utf8",
 );
+const reversalMigration = fs.readFileSync(
+  path.join(root, "supabase/migrations/20261127140000_personal_patient_payment_reversal_guard.sql"),
+  "utf8",
+);
 const portal = fs.readFileSync(path.join(root, "src/routes/patient-portal.$token.tsx"), "utf8");
 const portalFunction = fs.readFileSync(
   path.join(root, "supabase/functions/patient-portal/index.ts"),
@@ -298,8 +302,8 @@ test("spreadsheet import rejects oversized files and warns about malformed finan
 });
 
 test("patient portal uses the PainFix navy and restrained green clinical layout", () => {
-  assert.match(portalSource, /bg-\[#F4F7FA\]/);
-  assert.match(portalSource, /border-t-\[#00A859\]/);
+  assert.match(portalSource, /bg-\[#F2F5F9\]/);
+  assert.match(portalSource, /text-\[#00A859\]/);
   assert.match(portalSource, /Physiotherapy Clinic · Multan/);
 });
 
@@ -324,4 +328,42 @@ test("sessions cannot be scheduled outside billing plan validity dates in the UI
   );
   assert.match(dateGuard, /Session date is before the billing plan start date/);
   assert.match(dateGuard, /Session date is after the billing plan end date/);
+});
+
+test("incorrect patient payments can be excluded without mutating the original ledger entry", () => {
+  assert.match(detail, /const reversePayment = useMutation/);
+  assert.match(detail, /entry_type: "adjustment"/);
+  assert.match(detail, /Payment reversal:/);
+  assert.match(detail, /Exclude from totals/);
+  assert.match(detail, /already been reversed/);
+  assert.match(
+    detail,
+    /const paymentReversals\s*=\s*data\?\.ledger[\s\S]*startsWith\("Payment reversal:"\)/,
+  );
+  assert.match(detail, /Math.max\([\s\S]*-\s*paymentReversals/);
+  assert.match(list, /grossReceived[\s\S]*reversedPayments/);
+  assert.match(portalFunction, /grossReceived[\s\S]*reversedPayments/);
+});
+
+test("patient portal exposes a working verification action, language switch and theme switch", () => {
+  assert.match(portal, /open: "Verify \/ OK"/);
+  assert.match(portal, /verify\.mutate\(\)/);
+  assert.match(portal, /onClick=\{\(\) => setLanguage\(isUrdu \? "en" : "ur"\)\}/);
+  assert.match(portal, /setTheme\(theme === "light" \? "dark" : "light"\)/);
+  assert.match(portal, /bg-slate-950 text-slate-100/);
+  assert.match(portal, /Noto\+Nastaliq\+Urdu/);
+});
+
+test("personal patient list uses a mobile card layout and desktop table layout", () => {
+  assert.match(list, /space-y-3 p-3 sm:hidden/);
+  assert.match(list, /hidden overflow-x-auto sm:block/);
+  assert.match(detail, /min-w-0 w-full space-y-6 overflow-x-hidden/);
+});
+
+test("payment reversal references are unique per clinician at the database level", () => {
+  assert.match(
+    reversalMigration,
+    /create unique index if not exists personal_patient_payment_reversal_reference_uidx/,
+  );
+  assert.match(reversalMigration, /where reference like 'payment-reversal:%'/);
 });

@@ -313,10 +313,16 @@ function PersonalPatientDetailPage() {
     data?.ledger
       .filter((e) => e.entry_type === "charge")
       .reduce((n, e) => n + Number(e.amount), 0) ?? 0;
-  const received =
+  const paymentReversals =
     data?.ledger
+      .filter((e) => e.entry_type === "adjustment" && e.description.startsWith("Payment reversal:"))
+      .reduce((n, e) => n + Number(e.amount), 0) ?? 0;
+  const received = Math.max(
+    0,
+    (data?.ledger
       .filter((e) => e.entry_type === "payment")
-      .reduce((n, e) => n + Math.abs(Number(e.amount)), 0) ?? 0;
+      .reduce((n, e) => n + Math.abs(Number(e.amount)), 0) ?? 0) - paymentReversals,
+  );
   const balance = data?.ledger.reduce((n, e) => n + Number(e.amount), 0) ?? 0;
   const refresh = () =>
     qc.invalidateQueries({ queryKey: ["admin", "personal-patient-detail", user?.id, patientId] });
@@ -650,6 +656,32 @@ function PersonalPatientDetailPage() {
     onError: (e) => toast.error(e instanceof Error ? e.message : "Could not record payment."),
   });
 
+  const reversePayment = useMutation({
+    mutationFn: async (payment: Entry) => {
+      if (!user?.id) throw new Error("Please sign in again.");
+      if (payment.entry_type !== "payment" || Number(payment.amount) >= 0)
+        throw new Error("Only a recorded payment can be excluded from totals.");
+      const reference = `payment-reversal:${payment.id}`;
+      if (data?.ledger.some((entry) => entry.reference === reference))
+        throw new Error("This payment has already been reversed.");
+      const { error } = await personalPatientDb.from("personal_patient_ledger").insert({
+        clinician_id: user.id,
+        patient_id: patientId,
+        entry_type: "adjustment",
+        amount: Math.abs(Number(payment.amount)),
+        description: `Payment reversal: ${payment.description}`,
+        reference,
+      });
+      if (error) throw error;
+    },
+    onSuccess: async () => {
+      await refresh();
+      toast.success("Payment excluded from totals. The original entry remains in the history.");
+    },
+    onError: (error) =>
+      toast.error(error instanceof Error ? error.message : "Could not reverse payment."),
+  });
+
   const updatePatient = useMutation({
     mutationFn: async () => {
       if (!user?.id || !editName.trim()) throw new Error("Patient name is required.");
@@ -847,8 +879,11 @@ function PersonalPatientDetailPage() {
   if (query.isError || !data) return <AdminQueryError onRetry={() => void query.refetch()} />;
 
   return (
-    <div className="personal-patients-portal space-y-6" dir={language === "ur" ? "rtl" : "ltr"}>
-      <div className="flex justify-end">
+    <div
+      className="personal-patients-portal min-w-0 w-full space-y-6 overflow-x-hidden"
+      dir={language === "ur" ? "rtl" : "ltr"}
+    >
+      <div className="flex flex-wrap justify-end gap-2">
         <Button
           variant="outline"
           size="sm"
@@ -1009,7 +1044,7 @@ function PersonalPatientDetailPage() {
       />
       <div className="grid items-start gap-4 xl:grid-cols-2">
         <section className="rounded-xl border border-border bg-card p-5 shadow-sm">
-          <div className="flex items-center justify-between gap-3">
+          <div className="flex flex-wrap items-center justify-between gap-3">
             <h2 className="font-semibold">{t.billing}</h2>
             <Badge variant={balance > 0 ? "destructive" : "secondary"}>
               {balance > 0 ? t.due : balance < 0 ? t.credit : t.settled}
@@ -1019,7 +1054,7 @@ function PersonalPatientDetailPage() {
           <p className="text-xs text-muted-foreground">
             {balance > 0 ? t.due : balance < 0 ? t.credit : t.settled}
           </p>
-          <div className="mt-4 grid grid-cols-2 gap-3 border-t border-border pt-3 text-sm">
+          <div className="mt-4 grid grid-cols-1 gap-3 border-t border-border pt-3 text-sm sm:grid-cols-2">
             <div>
               <p className="text-muted-foreground">{t.plan}</p>
               <p className="mt-1 font-medium">{activePlan?.title ?? t.noPlan}</p>
@@ -1037,7 +1072,7 @@ function PersonalPatientDetailPage() {
               {data.plans.map((p) => (
                 <div
                   key={p.id}
-                  className="flex items-start justify-between gap-3 border-t border-border pt-3 first:border-0 first:pt-0"
+                  className="flex min-w-0 flex-col gap-3 border-t border-border pt-3 first:border-0 first:pt-0 sm:flex-row sm:items-start sm:justify-between"
                 >
                   <div className="min-w-0">
                     <p className="font-medium">{p.title}</p>
@@ -1079,7 +1114,7 @@ function PersonalPatientDetailPage() {
       </div>
       <section className="rounded-xl border border-border bg-card p-4">
         <div className="flex flex-wrap items-center justify-between gap-3">
-          <div className="flex items-center gap-2">
+          <div className="flex w-full flex-wrap items-center gap-2 sm:w-auto">
             <CalendarDays className="h-5 w-5 text-muted-foreground" />
             <h2 className="font-semibold">
               {language === "ur" ? "سیشن کیلنڈر" : "Session calendar"}
@@ -1321,7 +1356,7 @@ function PersonalPatientDetailPage() {
         </div>
       </section>
       <section className="rounded-xl border border-border bg-card p-4">
-        <div className="flex items-center justify-between">
+        <div className="flex flex-wrap items-center justify-between gap-2">
           <h2 className="font-semibold">{t.sessions}</h2>
           <Badge variant="secondary">{visibleSessions.length} total</Badge>
         </div>
@@ -1390,46 +1425,89 @@ function PersonalPatientDetailPage() {
       <section className="rounded-xl border border-border bg-card p-4">
         <div className="flex flex-wrap items-center justify-between gap-2">
           <h2 className="font-semibold">{t.statement}</h2>
-          <div className="flex gap-2">
-            <Button size="sm" variant="outline" onClick={() => setCorrectionOpen(true)}>
+          <div className="grid w-full grid-cols-1 gap-2 sm:flex sm:w-auto sm:flex-wrap">
+            <Button
+              className="w-full sm:w-auto"
+              size="sm"
+              variant="outline"
+              onClick={() => setCorrectionOpen(true)}
+            >
               <SlidersHorizontal className="mr-1 h-4 w-4" />
               {language === "ur" ? "غلطی درست کریں" : "Fix a mistake"}
             </Button>
-            <Button size="sm" variant="outline" onClick={exportCsv}>
+            <Button className="w-full sm:w-auto" size="sm" variant="outline" onClick={exportCsv}>
               <Download className="mr-1 h-4 w-4" />
               {language === "ur" ? "CSV ایکسپورٹ" : "Export CSV"}
             </Button>
-            <Button size="sm" variant="outline" onClick={() => window.print()}>
+            <Button
+              className="w-full sm:w-auto"
+              size="sm"
+              variant="outline"
+              onClick={() => window.print()}
+            >
               <Printer className="mr-1 h-4 w-4" />
               {language === "ur" ? "PDF / پرنٹ" : "Print / PDF"}
             </Button>
           </div>
         </div>
-        <p className="mt-1 text-xs text-muted-foreground">
-          You never need to type a minus sign or manually set the balance to zero. Record real
-          payments here; use “Fix a mistake” only for corrections.
+        <p className="mt-1 text-xs leading-6 text-muted-foreground">
+          {language === "ur"
+            ? "بیلنس صفر کرنے کے لیے منفی رقم درج نہ کریں۔ اصل ادائیگی ریکارڈ کریں اور صرف غلط اندراج کی درستگی کے لیے اصلاح کا اختیار استعمال کریں۔"
+            : "You never need to type a minus sign or manually set the balance to zero. Record real payments here; use “Fix a mistake” only for corrections."}
         </p>
         {data.ledger.length ? (
           <div className="mt-3 divide-y divide-border">
             {data.ledger.map((e) => (
-              <div key={e.id} className="flex items-center justify-between gap-3 py-3">
-                <div>
-                  <p className="font-medium">{e.description}</p>
-                  <p className="text-xs text-muted-foreground">
+              <div
+                key={e.id}
+                className="flex min-w-0 flex-col gap-2 py-3 sm:flex-row sm:items-center sm:justify-between"
+              >
+                <div className="min-w-0">
+                  <p className="break-words font-medium">{e.description}</p>
+                  <p className="break-words text-xs text-muted-foreground">
                     {date(e.occurred_at)}
                     {e.payment_method ? ` · ${e.payment_method.replace("_", " ")}` : ""}
                     {e.reference ? ` · Ref ${e.reference.slice(0, 8)}` : ""}
                   </p>
                 </div>
-                <div className="flex items-center gap-2">
+                <div className="flex w-full min-w-0 flex-col gap-2 sm:w-auto sm:flex-row sm:flex-wrap sm:items-center sm:justify-end">
                   {e.entry_type === "payment" && (
-                    <Button size="sm" variant="ghost" onClick={() => printReceipt(e)}>
-                      <Printer className="mr-1 h-3.5 w-3.5" />
-                      Receipt
-                    </Button>
+                    <>
+                      <Button
+                        className="w-full sm:w-auto"
+                        size="sm"
+                        variant="ghost"
+                        onClick={() => printReceipt(e)}
+                      >
+                        <Printer className="mr-1 h-3.5 w-3.5" />
+                        Receipt
+                      </Button>
+                      <Button
+                        className="w-full sm:w-auto"
+                        size="sm"
+                        variant="outline"
+                        disabled={
+                          reversePayment.isPending ||
+                          data.ledger.some(
+                            (entry) => entry.reference === `payment-reversal:${e.id}`,
+                          )
+                        }
+                        onClick={() => {
+                          if (
+                            window.confirm(
+                              "Exclude this payment from totals? The original entry will remain in the audit history.",
+                            )
+                          ) {
+                            reversePayment.mutate(e);
+                          }
+                        }}
+                      >
+                        Exclude from totals
+                      </Button>
+                    </>
                   )}
                   <p
-                    className={`font-semibold tabular-nums ${e.amount < 0 ? "text-emerald-600" : "text-foreground"}`}
+                    className={`self-start font-semibold tabular-nums sm:self-auto ${e.amount < 0 ? "text-emerald-600" : "text-foreground"}`}
                   >
                     {e.amount < 0 ? "− " : "+ "}
                     {money(Math.abs(Number(e.amount)))}
@@ -1454,7 +1532,10 @@ function PersonalPatientDetailPage() {
         {data.audit.length ? (
           <div className="mt-3 divide-y divide-border">
             {data.audit.map((event) => (
-              <div key={event.id} className="flex items-start justify-between gap-3 py-2">
+              <div
+                key={event.id}
+                className="flex min-w-0 flex-col gap-2 py-2 sm:flex-row sm:items-start sm:justify-between"
+              >
                 <div>
                   <p className="text-sm font-medium">{event.action.replaceAll("_", " ")}</p>
                   <p className="text-xs text-muted-foreground">{event.entity_type}</p>
@@ -1637,7 +1718,7 @@ function PersonalPatientDetailPage() {
               <div className="space-y-3 rounded-lg border border-slate-200 bg-white p-4">
                 <Label>{language === "ur" ? "مریض کا لنک" : "Patient link"}</Label>
                 <Input readOnly value={portalUrl} />
-                <div className="grid grid-cols-2 gap-2">
+                <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
                   <Button
                     variant="outline"
                     size="sm"

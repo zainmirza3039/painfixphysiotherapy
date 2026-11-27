@@ -210,9 +210,16 @@ Deno.serve(async (req) => {
       const charges = entries
         .filter((entry) => entry.entry_type === "charge")
         .reduce((sum, entry) => sum + Number(entry.amount), 0);
-      const received = entries
+      const grossReceived = entries
         .filter((entry) => entry.entry_type === "payment")
         .reduce((sum, entry) => sum + Math.abs(Number(entry.amount)), 0);
+      const reversedPayments = entries
+        .filter(
+          (entry) =>
+            entry.entry_type === "adjustment" && entry.description.startsWith("Payment reversal:"),
+        )
+        .reduce((sum, entry) => sum + Number(entry.amount), 0);
+      const received = Math.max(0, grossReceived - reversedPayments);
       const balance = entries.reduce((sum, entry) => sum + Number(entry.amount), 0);
       const activePlan = (plans.data ?? []).find((plan) => plan.is_active) ?? null;
       const completed = (sessions.data ?? []).filter(
