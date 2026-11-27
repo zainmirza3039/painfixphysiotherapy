@@ -874,8 +874,8 @@ function PersonalPatientDetailPage() {
   if (query.isError || !data) return <AdminQueryError onRetry={() => void query.refetch()} />;
 
   return (
-    <div className="personal-patients-portal space-y-6" dir={language === "ur" ? "rtl" : "ltr"}>
-      <div className="flex justify-end">
+    <div className="personal-patients-portal min-w-0 w-full space-y-6 overflow-x-hidden" dir={language === "ur" ? "rtl" : "ltr"}>
+      <div className="flex flex-wrap justify-end gap-2">
         <Button
           variant="outline"
           size="sm"
@@ -1036,7 +1036,7 @@ function PersonalPatientDetailPage() {
       />
       <div className="grid items-start gap-4 xl:grid-cols-2">
         <section className="rounded-xl border border-border bg-card p-5 shadow-sm">
-          <div className="flex items-center justify-between gap-3">
+          <div className="flex flex-wrap items-center justify-between gap-3">
             <h2 className="font-semibold">{t.billing}</h2>
             <Badge variant={balance > 0 ? "destructive" : "secondary"}>
               {balance > 0 ? t.due : balance < 0 ? t.credit : t.settled}
@@ -1046,7 +1046,7 @@ function PersonalPatientDetailPage() {
           <p className="text-xs text-muted-foreground">
             {balance > 0 ? t.due : balance < 0 ? t.credit : t.settled}
           </p>
-          <div className="mt-4 grid grid-cols-2 gap-3 border-t border-border pt-3 text-sm">
+          <div className="mt-4 grid grid-cols-1 gap-3 border-t border-border pt-3 text-sm sm:grid-cols-2">
             <div>
               <p className="text-muted-foreground">{t.plan}</p>
               <p className="mt-1 font-medium">{activePlan?.title ?? t.noPlan}</p>
