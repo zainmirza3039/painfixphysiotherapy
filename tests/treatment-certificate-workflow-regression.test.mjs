@@ -15,7 +15,10 @@ test("admin certificate list is patient- and clinician-scoped and supports retry
 
 test("issued PDF embeds a QR verification URL and downloads a PDF blob", async () => {
   const source = await read("src/lib/treatment-certificate-pdf.ts");
-  assert.match(source, /QRCode\.toDataURL\(treatmentVerificationUrl\(snapshot\.verificationToken\)/);
+  assert.match(
+    source,
+    /QRCode\.toDataURL\(treatmentVerificationUrl\(snapshot\.verificationToken\)/,
+  );
   assert.match(source, /\/verify-certificate\?type=treatment&reference=/);
   assert.match(source, /application\/pdf/);
   assert.match(source, /anchor\.download = snapshot\.documentNumber \+ "\.pdf"/);
