@@ -313,12 +313,12 @@ function PersonalPatientDetailPage() {
     data?.ledger
       .filter((e) => e.entry_type === "charge")
       .reduce((n, e) => n + Number(e.amount), 0) ?? 0;
-  const received = Math.max(0, (data?.ledger
-    .filter((e) => e.entry_type === "payment")
-    .reduce((n, e) => n + Math.abs(Number(e.amount)), 0) ?? 0) - paymentReversals);
   const paymentReversals = data?.ledger
     .filter((e) => e.entry_type === "adjustment" && e.description.startsWith("Payment reversal:"))
     .reduce((n, e) => n + Number(e.amount), 0) ?? 0;
+  const received = Math.max(0, (data?.ledger
+    .filter((e) => e.entry_type === "payment")
+    .reduce((n, e) => n + Math.abs(Number(e.amount)), 0) ?? 0) - paymentReversals);
   const balance = data?.ledger.reduce((n, e) => n + Number(e.amount), 0) ?? 0;
   const refresh = () =>
     qc.invalidateQueries({ queryKey: ["admin", "personal-patient-detail", user?.id, patientId] });
