@@ -197,10 +197,13 @@ function PersonalPatientsPage() {
           .filter((e) => e.entry_type === "payment")
           .reduce((n, e) => n + Math.abs(Number(e.amount)), 0) -
           ledger
+            .filter((e) => e.entry_type === "refund")
+            .reduce((n, e) => n + Math.max(0, Number(e.amount)), 0) -
+          ledger
             .filter(
               (e) => e.entry_type === "adjustment" && e.description.startsWith("Payment reversal:"),
             )
-            .reduce((n, e) => n + Number(e.amount), 0),
+            .reduce((n, e) => n + Math.max(0, Number(e.amount)), 0),
       ),
       charges: ledger
         .filter((e) => e.entry_type === "charge")
