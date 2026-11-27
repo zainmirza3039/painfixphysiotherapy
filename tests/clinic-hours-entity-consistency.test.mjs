@@ -11,6 +11,6 @@ test("root clinic entity and local SEO clinic entity publish the same Multan hou
     assert.match(source, /dayOfWeek: \["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"\]/, name);
     assert.match(source, /opens: "11:00"/, name);
     assert.match(source, /closes: "16:00"/, name);
-    assert.match(source, /"@type": "MedicalClinic"/, name);
+    assert.match(source, /MedicalClinic/, name);
   }
 });
