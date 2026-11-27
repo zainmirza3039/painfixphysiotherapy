@@ -165,7 +165,7 @@ Deno.serve(async (req) => {
             entry.entry_type === "adjustment" &&
             entry.reference?.startsWith("payment-reversal:"),
         )
-        .map((entry) => entry.reference.slice("payment-reversal:".length)),
+        .map((entry) => entry.reference!.slice("payment-reversal:".length)),
     );
     const amountPaid = Math.max(0, totalPayments - refunds - paymentReversals);
     const balance = entries.reduce((sum, entry) => sum + Number(entry.amount), 0);
