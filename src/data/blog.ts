@@ -3494,7 +3494,7 @@ export const blogPosts: BlogPost[] = [
     slug: "first-physiotherapy-appointment-multan",
     title: "Your First Physiotherapy Appointment at PainFix Multan: What to Expect",
     seoTitle: "First Physiotherapy Appointment in Multan | PainFix",
-    metaDescription: "Know what happens at your first physiotherapy appointment at PainFix Multan: clinical assessment, movement tests, treatment options and a personalised recovery plan.",
+    metaDescription: "First physiotherapy visit at PainFix Multan: assessment, movement tests, treatment options and a personalised recovery plan.",
     category: "patient-education",
     tags: ["first physiotherapy appointment", "physiotherapy assessment", "PainFix Multan", "patient guide", "Multan"],
     excerpt: "A clear guide to the first physiotherapy visit: what to bring, how assessment works, when treatment starts and how progress is reviewed.",
