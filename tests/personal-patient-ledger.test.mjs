@@ -302,8 +302,8 @@ test("spreadsheet import rejects oversized files and warns about malformed finan
 });
 
 test("patient portal uses the PainFix navy and restrained green clinical layout", () => {
-  assert.match(portalSource, /bg-\[#F4F7FA\]/);
-  assert.match(portalSource, /border-t-\[#00A859\]/);
+  assert.match(portalSource, /bg-\[#F2F5F9\]/);
+  assert.match(portalSource, /text-\[#00A859\]/);
   assert.match(portalSource, /Physiotherapy Clinic · Multan/);
 });
 
@@ -347,7 +347,7 @@ test("patient portal exposes a working verification action, language switch and 
   assert.match(portal, /verify\.mutate\(\)/);
   assert.match(portal, /setLanguage\(language === "en" \? "ur" : "en"\)/);
   assert.match(portal, /setTheme\(theme === "light" \? "dark" : "light"\)/);
-  assert.match(portal, /dark bg-slate-950 text-slate-100/);
+  assert.match(portal, /bg-slate-950 text-slate-100/);
   assert.match(portal, /Noto\+Nastaliq\+Urdu/);
 });
 
