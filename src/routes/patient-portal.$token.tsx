@@ -136,11 +136,6 @@ function PatientPortalPage() {
         };
 
   useEffect(() => {
-    document.documentElement.classList.toggle("dark", theme === "dark");
-    return () => document.documentElement.classList.remove("dark");
-  }, [theme]);
-
-  useEffect(() => {
     if (language !== "ur" || document.getElementById("painfix-nastaliq-font")) return;
     const link = document.createElement("link");
     link.id = "painfix-nastaliq-font";
@@ -207,7 +202,7 @@ function PatientPortalPage() {
 
   return (
     <main
-      className={`personal-patients-portal min-h-screen px-4 py-6 transition-colors sm:py-10 ${theme === "dark" ? "bg-slate-950 text-slate-100" : "bg-[#F4F7FA] text-slate-900"}`}
+      className={`personal-patients-portal min-h-screen px-4 py-6 transition-colors sm:py-10 ${theme === "dark" ? "dark bg-slate-950 text-slate-100" : "bg-[#F4F7FA] text-slate-900"}`}
       dir={language === "ur" ? "rtl" : "ltr"}
     >
       <div className="mx-auto max-w-4xl">
