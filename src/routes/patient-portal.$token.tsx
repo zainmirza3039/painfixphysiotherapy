@@ -9,6 +9,8 @@ import {
   CircleDollarSign,
   LockKeyhole,
   ShieldCheck,
+  Sun,
+  Moon,
 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
@@ -72,6 +74,7 @@ const date = (v: string) =>
 function PatientPortalPage() {
   const { token } = Route.useParams();
   const [language, setLanguage] = useState<"en" | "ur">("en");
+  const [theme, setTheme] = useState<"light" | "dark">("light");
   const [pin, setPin] = useState("");
   const [sessionToken, setSessionToken] = useState<string | null>(null);
   const [expiresAt, setExpiresAt] = useState<string | null>(null);
@@ -81,7 +84,9 @@ function PatientPortalPage() {
           title: "مریض کا پورٹل",
           subtitle: "اپنے علاج کے سیشنز اور ادائیگیوں کی تازہ تفصیل دیکھیں۔",
           pin: "چھ ہندسوں کا پن کوڈ",
-          open: "پورٹل کھولیں",
+          open: "تصدیق کریں / ٹھیک ہے",
+          verifying: "تصدیق ہو رہی ہے…",
+          theme: "روشن موڈ",
           sessions: "مکمل سیشنز",
           upcoming: "آنے والے سیشنز",
           charges: "کل چارجز",
@@ -106,7 +111,9 @@ function PatientPortalPage() {
           title: "Patient Portal",
           subtitle: "View your latest treatment sessions and payment statement.",
           pin: "Six-digit PIN",
-          open: "Open portal",
+          open: "Verify / OK",
+          verifying: "Verifying…",
+          theme: "Dark mode",
           sessions: "Completed sessions",
           upcoming: "Upcoming sessions",
           charges: "Total charges",
@@ -127,6 +134,11 @@ function PatientPortalPage() {
           cancelled: "Cancelled",
           rescheduled: "Rescheduled",
         };
+
+  useEffect(() => {
+    document.documentElement.classList.toggle("dark", theme === "dark");
+    return () => document.documentElement.classList.remove("dark");
+  }, [theme]);
 
   useEffect(() => {
     if (language !== "ur" || document.getElementById("painfix-nastaliq-font")) return;
@@ -195,11 +207,11 @@ function PatientPortalPage() {
 
   return (
     <main
-      className="personal-patients-portal min-h-screen bg-[#F4F7FA] px-4 py-6 text-slate-900 sm:py-10"
+      className={`personal-patients-portal min-h-screen px-4 py-6 text-slate-900 transition-colors sm:py-10 ${theme === "dark" ? "bg-slate-950 text-slate-100" : "bg-[#F4F7FA]"}`}
       dir={language === "ur" ? "rtl" : "ltr"}
     >
       <div className="mx-auto max-w-4xl">
-        <div className="mb-5 flex items-center justify-between gap-3 border-b border-slate-200 pb-4">
+        <div className={`mb-5 flex flex-wrap items-center justify-between gap-3 border-b pb-4 ${theme === "dark" ? "border-slate-800" : "border-slate-200"}`}>
           <div className="flex items-center gap-2">
             <span className="grid h-10 w-10 place-items-center rounded-lg bg-[#032E61] text-white">
               <ShieldCheck className="h-5 w-5" />
@@ -211,15 +223,17 @@ function PatientPortalPage() {
               </span>
             </span>
           </div>
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => setLanguage(language === "en" ? "ur" : "en")}
-          >
-            {t.language}
-          </Button>
+          <div className="flex items-center gap-2">
+            <Button variant="outline" size="sm" onClick={() => setTheme(theme === "light" ? "dark" : "light")}>
+              {theme === "light" ? <Moon className="mr-1 h-4 w-4" /> : <Sun className="mr-1 h-4 w-4" />}
+              {t.theme}
+            </Button>
+            <Button variant="outline" size="sm" onClick={() => setLanguage(language === "en" ? "ur" : "en")}>
+              {t.language}
+            </Button>
+          </div>
         </div>
-        <section className="overflow-hidden rounded-xl border border-slate-200 border-t-4 border-t-[#00A859] bg-white p-5 shadow-sm sm:p-8">
+        <section className={`overflow-hidden rounded-xl border border-t-4 border-t-[#00A859] p-5 shadow-sm transition-colors sm:p-8 ${theme === "dark" ? "border-slate-800 bg-slate-900 text-slate-100" : "border-slate-200 bg-white"}`}>
           {!portal ? (
             <div className="mx-auto max-w-sm py-8">
               <span className="mx-auto grid h-12 w-12 place-items-center rounded-lg bg-[#EAF1F8] text-[#032E61]">
@@ -253,7 +267,7 @@ function PatientPortalPage() {
                   className="h-11 w-full bg-[#032E61] font-medium hover:bg-[#032E61]/90"
                   disabled={verify.isPending}
                 >
-                  {verify.isPending ? "…" : t.open}
+                  {verify.isPending ? t.verifying : t.open}
                 </Button>
               </form>
               <p className="mt-4 text-center text-xs text-slate-500">{t.security}</p>
@@ -299,16 +313,16 @@ function PatientPortalPage() {
                   { label: t.due, value: money(summary.outstandingDues) },
                   { label: t.credit, value: money(summary.advanceCredit) },
                 ].map((item) => (
-                  <div key={item.label} className="rounded-lg border border-slate-200 bg-white p-4">
+                  <div key={item.label} className={`rounded-lg border p-4 ${theme === "dark" ? "border-slate-700 bg-slate-800" : "border-slate-200 bg-white"}`}>
                     <p className="text-xs text-slate-500">{item.label}</p>
-                    <p className="mt-2 text-xl font-semibold tabular-nums text-[#032E61]">
+                    <p className={`mt-2 break-words text-xl font-semibold tabular-nums ${theme === "dark" ? "text-slate-100" : "text-[#032E61]"}`}>
                       {item.value}
                     </p>
                   </div>
                 ))}
               </div>
               <div className="mt-5 grid gap-3 sm:grid-cols-2">
-                <div className="rounded-lg border border-slate-200 bg-[#F8FAFC] p-4">
+                <div className={`rounded-lg border p-4 ${theme === "dark" ? "border-slate-700 bg-slate-800" : "border-slate-200 bg-[#F8FAFC]"}`}>
                   <p className="text-xs text-slate-500">{t.plan}</p>
                   <p className="mt-1 font-semibold">{portal.plan?.title ?? t.noPlan}</p>
                   <p className="mt-1 text-sm text-slate-600">
@@ -317,7 +331,7 @@ function PatientPortalPage() {
                       : `${t.remaining}: ${summary.packageSessionsRemaining}`}
                   </p>
                 </div>
-                <div className="rounded-xl bg-slate-50 p-4">
+                <div className={`rounded-xl p-4 ${theme === "dark" ? "bg-slate-800" : "bg-slate-50"}`}>
                   <p className="text-xs text-slate-500">{t.next}</p>
                   <p className="mt-1 font-semibold">
                     {summary.nextSession ? date(summary.nextSession.session_date) : "—"}
@@ -330,9 +344,9 @@ function PatientPortalPage() {
               <section className="mt-6">
                 <h2 className="font-semibold">{t.history}</h2>
                 {portal.sessions.length ? (
-                  <div className="mt-2 divide-y divide-slate-100">
+                  <div className={`mt-2 divide-y ${theme === "dark" ? "divide-slate-800" : "divide-slate-100"}`}>
                     {portal.sessions.map((s, i) => (
-                      <div key={i} className="flex items-center justify-between gap-3 py-3">
+                      <div key={i} className="flex flex-wrap items-center justify-between gap-3 py-3">
                         <div>
                           <p className="text-sm font-medium">
                             {s.session_label || "Physiotherapy session"}
