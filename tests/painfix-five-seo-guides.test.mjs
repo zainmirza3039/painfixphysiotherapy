@@ -16,7 +16,7 @@ test("five PainFix Multan guides are present with complete SEO metadata", () => 
     assert.ok(post, `Missing article: ${slug}`);
     assert.ok(post.title.length > 20);
     assert.ok(post.seoTitle.length > 15 && post.seoTitle.length <= 70);
-    assert.ok(post.metaDescription.length > 80 && post.metaDescription.length <= 170);
+    assert.ok(post.metaDescription.length > 80 && post.metaDescription.length <= 160);
     assert.ok(post.quickAnswer.length > 100);
     assert.ok(post.sections.length >= 6);
     assert.ok(post.faqs.length >= 3);
