@@ -1417,24 +1417,25 @@ function PersonalPatientDetailPage() {
       <section className="rounded-xl border border-border bg-card p-4">
         <div className="flex flex-wrap items-center justify-between gap-2">
           <h2 className="font-semibold">{t.statement}</h2>
-          <div className="flex gap-2">
-            <Button size="sm" variant="outline" onClick={() => setCorrectionOpen(true)}>
+          <div className="grid w-full grid-cols-1 gap-2 sm:flex sm:w-auto sm:flex-wrap">
+            <Button className="w-full sm:w-auto" size="sm" variant="outline" onClick={() => setCorrectionOpen(true)}>
               <SlidersHorizontal className="mr-1 h-4 w-4" />
               {language === "ur" ? "غلطی درست کریں" : "Fix a mistake"}
             </Button>
-            <Button size="sm" variant="outline" onClick={exportCsv}>
+            <Button className="w-full sm:w-auto" size="sm" variant="outline" onClick={exportCsv}>
               <Download className="mr-1 h-4 w-4" />
               {language === "ur" ? "CSV ایکسپورٹ" : "Export CSV"}
             </Button>
-            <Button size="sm" variant="outline" onClick={() => window.print()}>
+            <Button className="w-full sm:w-auto" size="sm" variant="outline" onClick={() => window.print()}>
               <Printer className="mr-1 h-4 w-4" />
               {language === "ur" ? "PDF / پرنٹ" : "Print / PDF"}
             </Button>
           </div>
         </div>
-        <p className="mt-1 text-xs text-muted-foreground">
-          You never need to type a minus sign or manually set the balance to zero. Record real
-          payments here; use “Fix a mistake” only for corrections.
+        <p className="mt-1 text-xs leading-6 text-muted-foreground">
+          {language === "ur"
+            ? "بیلنس صفر کرنے کے لیے منفی رقم درج نہ کریں۔ اصل ادائیگی ریکارڈ کریں اور صرف غلط اندراج کی درستگی کے لیے اصلاح کا اختیار استعمال کریں۔"
+            : "You never need to type a minus sign or manually set the balance to zero. Record real payments here; use “Fix a mistake” only for corrections."}
         </p>
         {data.ledger.length ? (
           <div className="mt-3 divide-y divide-border">
@@ -1448,14 +1449,15 @@ function PersonalPatientDetailPage() {
                     {e.reference ? ` · Ref ${e.reference.slice(0, 8)}` : ""}
                   </p>
                 </div>
-                <div className="flex flex-wrap items-center gap-2 sm:justify-end">
+                <div className="flex w-full min-w-0 flex-col gap-2 sm:w-auto sm:flex-row sm:flex-wrap sm:items-center sm:justify-end">
                   {e.entry_type === "payment" && (
                     <>
-                      <Button size="sm" variant="ghost" onClick={() => printReceipt(e)}>
+                      <Button className="w-full sm:w-auto" size="sm" variant="ghost" onClick={() => printReceipt(e)}>
                         <Printer className="mr-1 h-3.5 w-3.5" />
                         Receipt
                       </Button>
                       <Button
+                        className="w-full sm:w-auto"
                         size="sm"
                         variant="outline"
                         disabled={reversePayment.isPending || data.ledger.some((entry) => entry.reference === `payment-reversal:${e.id}`)}
@@ -1469,7 +1471,7 @@ function PersonalPatientDetailPage() {
                       </Button>
                     </>
                   )}
-                  <p className={`font-semibold tabular-nums ${e.amount < 0 ? "text-emerald-600" : "text-foreground"}`}>
+                  <p className={`self-start font-semibold tabular-nums sm:self-auto ${e.amount < 0 ? "text-emerald-600" : "text-foreground"}`}>
                     {e.amount < 0 ? "− " : "+ "}
                     {money(Math.abs(Number(e.amount)))}
                   </p>
