@@ -441,14 +441,17 @@ function PersonalPatientsPage() {
               const grossReceived = entries
                 .filter((entry) => entry.entry_type === "payment")
                 .reduce((total, entry) => total + Math.abs(Number(entry.amount)), 0);
+              const refunds = entries
+                .filter((entry) => entry.entry_type === "refund")
+                .reduce((total, entry) => total + Math.max(0, Number(entry.amount)), 0);
               const reversedPayments = entries
                 .filter(
                   (entry) =>
                     entry.entry_type === "adjustment" &&
                     entry.description.startsWith("Payment reversal:"),
                 )
-                .reduce((total, entry) => total + Number(entry.amount), 0);
-              const received = Math.max(0, grossReceived - reversedPayments);
+                .reduce((total, entry) => total + Math.max(0, Number(entry.amount)), 0);
+              const received = Math.max(0, grossReceived - refunds - reversedPayments);
               const balance = entries.reduce((total, entry) => total + Number(entry.amount), 0);
               return (
                 <article key={p.id} className="rounded-lg border border-border bg-background p-3">
