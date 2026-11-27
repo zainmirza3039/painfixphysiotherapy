@@ -37,7 +37,7 @@ type Patient = {
   created_at: string;
 };
 type Session = { patient_id: string; status: string };
-type Entry = { patient_id: string; entry_type: string; amount: number };
+type Entry = { patient_id: string; entry_type: string; amount: number; description: string; reference: string | null };
 const words = {
   en: {
     title: "Personal Patients",
@@ -183,9 +183,12 @@ function PersonalPatientsPage() {
     return {
       active: (query.data?.patients ?? []).filter((p) => p.status === "active").length,
       completed: sessions.filter((s) => s.status === "completed").length,
-      received: ledger
-        .filter((e) => e.entry_type === "payment")
-        .reduce((n, e) => n + Math.abs(Number(e.amount)), 0),
+      received: Math.max(
+        0,
+        ledger.filter((e) => e.entry_type === "payment").reduce((n, e) => n + Math.abs(Number(e.amount)), 0) -
+          ledger.filter((e) => e.entry_type === "adjustment" && e.description.startsWith("Payment reversal:"))
+            .reduce((n, e) => n + Number(e.amount), 0),
+      ),
       charges: ledger
         .filter((e) => e.entry_type === "charge")
         .reduce((n, e) => n + Number(e.amount), 0),
